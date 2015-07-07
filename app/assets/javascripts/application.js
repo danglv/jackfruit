@@ -11,7 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require hogan.js
-//= require_tree ./app
+//= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require hogan.js
+//= require_tree ./app
