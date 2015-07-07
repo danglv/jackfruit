@@ -27,7 +27,9 @@ gem 'materialize-sass'
 gem "haml-rails", "~> 0.9"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+# Hogan.js
+gem 'hogan_assets', group: :assets
+gem 'haml', group: :assets
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
