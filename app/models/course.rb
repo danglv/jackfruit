@@ -3,11 +3,13 @@ class Course
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :enabled, type: Boolean, default: true
+  field :enabled, type: Boolean, default: false
   field :price, type: Integer, default: 0
   field :likes, type: Integer, default: 0
   field :rates, type: Integer, default: 0
+  field :sttus, type: Integer, default: 0
 
+  belongs_to :user
   has_many :categories, class_name: "Category", inverse_of: nil
 
   index({name: 1, created_at: 1})

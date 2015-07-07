@@ -5,7 +5,7 @@ class User
   field :name, type: String, default: ""
   field :username, type: String, default: ""
   field :password, type: String, default: ""
-  embeds_many :courses
+  embeds_many :courses, class_name: "User::Course"
   accepts_nested_attributes_for :courses
 
   index({created_at: 1})
