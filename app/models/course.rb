@@ -16,8 +16,8 @@ class Course
   accepts_nested_attributes_for :curriculums
 
   belongs_to :user
-  has_many :categories, class_name: "Category", inverse_of: nil
-  has_many :labels, class_name: "Label", inverse_of: nil
+  has_many :categories, class_name: "Category"
+  has_many :labels, class_name: "Label"
 
   index({name: 1, created_at: 1})
   
