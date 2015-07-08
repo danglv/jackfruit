@@ -5,7 +5,6 @@ class Category
   has_many :child_categories, class_name: "Category"
 
   belongs_to :parent_category, class_name: "Category"
-  belongs_to :course, class_name: "Course"
 
   field :name, type: String, default: ""
   field :child_category_count, type: Integer, default: 0

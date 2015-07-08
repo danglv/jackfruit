@@ -9,15 +9,20 @@ class CoursesController < ApplicationController
     else
       @courses = Course.where(:category_ids.in => [category.id])
     end
-    
-    render json: @courses
   end
 
   def show
-    render json: {message: "Not Support Yet"}
+    category_name = params[:category]
+    @category = Category.where(name: category_name).first
   end
 
   def search
-    render json: {message: "Not Support Yet"}
+    keywords = params[:q]
+    pattern = /#{Regexp.escape(keywords)}/
+    @course = Course.where(name: pattern).limit(10)
+
+    if @course.count == 0
+      @course = Course.where(description: pattern).limit(10)
+    end
   end
 end
