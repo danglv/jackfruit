@@ -1,4 +1,4 @@
-class CoursesController < ActionController::Base
+class CoursesController < ApplicationController
 
   def index
     # render json: {message: "Not Support Yet"}
@@ -6,15 +6,11 @@ class CoursesController < ActionController::Base
     @a = 1;
   end
 
-  def list
+  def show
     render json: {message: "Not Support Yet"}
   end
 
-  def course_detail
-    render json: {message: "Not Support Yet"}
-  end
-
-  def owned_course
+  def search
     render json: {message: "Not Support Yet"}
   end
 end

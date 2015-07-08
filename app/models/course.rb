@@ -7,19 +7,21 @@ class Course
   field :price, type: Integer, default: 0
   field :likes, type: Integer, default: 0
   field :rates, type: Integer, default: 0
-  field :sttus, type: Integer, default: 0
+  field :status, type: Integer, default: 0
 
-  embeds_many :sections, class_name: "Course::Section"
-  embeds_many :lessons, class_name: "Course::Lesson"
+  field :lang, type: String, default: ""
 
-  accepts_nested_attributes_for :sections, :lessons
+  embeds_many :curriculums, class_name: "Course::Curriculum"
+
+  accepts_nested_attributes_for :curriculums
 
   belongs_to :user
   has_many :categories, class_name: "Category", inverse_of: nil
+  has_many :labels, class_name: "Label", inverse_of: nil
 
   index({name: 1, created_at: 1})
   
   validates_presence_of :name
   validates_numericality_of :price, :likes, :rates, only_integer: true, greater_than_or_equal: 0
-
+  validates_inclusion_of :lang, :in => Constants.CourseLangValues
 end
