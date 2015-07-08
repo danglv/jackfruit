@@ -1,4 +1,4 @@
-class CoursesController < ActionController::Base
+class CoursesController < ApplicationController
 
   def index
     # render json: {message: "Not Support Yet"}
