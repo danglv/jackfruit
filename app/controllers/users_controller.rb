@@ -1,4 +1,4 @@
-class UsersController < ActionController::Base
+class UsersController < ApplicationController
 
   def index
     render json: {message: "Not Support Yet"}
