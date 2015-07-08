@@ -1,0 +1,38 @@
+.header {
+	font-size: 24px;
+	height: 55px;
+	padding: 10px;
+	.header-container {
+		margin: 0;
+		height: 30px;
+		.menu {
+			display: inline-block;
+			float: left;
+			vertical-align: middle;
+			text-align: center;
+			.category {
+				margin: 6px 15px 0 0;
+			}
+			.search {
+				margin: 6px 50px 0 0;
+			}
+			.logo {
+       
+			}
+			.ava {
+				height: 40px;
+				border-radius: 50%;
+			}
+		}
+	}
+}
+.menu-list {
+	background-color: #009688;
+	padding: 0 10px 16px 10px;
+	margin-bottom: 16px;
+	height: 140px;
+}
+.course-list {
+	height: auto;
+	padding: 0 10px 0 10px;
+}
