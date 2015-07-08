@@ -9,10 +9,9 @@ class Course
   field :rates, type: Integer, default: 0
   field :sttus, type: Integer, default: 0
 
-  embeds_many :sections, class_name: "Course::Section"
-  embeds_many :lessons, class_name: "Course::Lesson"
+  embeds_many :curriculums, class_name: "Course::Curriculum"
 
-  accepts_nested_attributes_for :sections, :lessons
+  accepts_nested_attributes_for :curriculums
 
   belongs_to :user
   has_many :categories, class_name: "Category", inverse_of: nil
@@ -22,4 +21,7 @@ class Course
   validates_presence_of :name
   validates_numericality_of :price, :likes, :rates, only_integer: true, greater_than_or_equal: 0
 
+  # def lessons
+  #   self.sections.map { |section| section.lessons }
+  # end
 end
