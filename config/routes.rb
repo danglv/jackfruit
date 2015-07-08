@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :courses, only: %w[index] do
+  resources :courses do
     member do
       get :course_detail
     end
@@ -8,6 +8,12 @@ Rails.application.routes.draw do
     collection do
       get :list
     end
+  end
+
+  resources :demo ,only:%w[] do
+  	collection do
+  		get :test
+  	end
   end
 
 end

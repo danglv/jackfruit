@@ -1,7 +1,6 @@
-class DemoController
-	def hello
-		@test = "fuck world"
-	
+class DemoController < ActionController::Base
+	def test
+		@a = "this is controller";
 	end
 	
 end
