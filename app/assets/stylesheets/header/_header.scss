@@ -1,7 +1,9 @@
 .header {
 	font-size: 24px;
 	height: 55px;
-	padding: 10px;
+	padding: 7px 10px 8px 10px;
+	background-color: #ff5722;
+	margin-bottom: 20px;
 	.header-container {
 		margin: 0;
 		height: 30px;
@@ -10,6 +12,7 @@
 			float: left;
 			vertical-align: middle;
 			text-align: center;
+			color: #fff;
 			.category {
 				margin: 6px 15px 0 0;
 			}
@@ -17,7 +20,7 @@
 				margin: 6px 50px 0 0;
 			}
 			.logo {
-       
+        margin: 0 65px 0 0; 
 			}
 			.ava {
 				height: 40px;
@@ -31,8 +34,56 @@
 	padding: 0 10px 16px 10px;
 	margin-bottom: 16px;
 	height: 140px;
+	width: 100%;
 }
-.course-list {
+.label {
+  font-size: 24px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.courses {
 	height: auto;
 	padding: 0 10px 0 10px;
+	display: block;
+	float: left;
+	.left {
+		display: inline;
+		width: 100px;
+	}
+	.right {
+		display: inline;
+		width: 200px;
+		.title {
+			font-weight: bold;
+			font-size: 16px;
+			display: block;
+		}
+		.author {
+			font-size: 16px;
+			color: #727272;
+			display: block;
+		}
+		.rating {
+			display: block;
+			.star {
+        display: inline-block;
+			}
+			.number {
+				display: inline-block;
+			}
+		}
+		.price {
+			font-size: 14px;
+			font-weight: bold;
+			color: #44ba31;
+			display: block;
+			margin-bottom: 8px;
+		}
+		.clear {
+	  	border-bottom: 1px solid #333;
+	  	width: 300px;
+	    left: 10px;
+	    position: absolute;
+	  }
+	}
 }
