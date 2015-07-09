@@ -1,1 +1,0 @@
-//= require_tree ./app/bower_components/flight
