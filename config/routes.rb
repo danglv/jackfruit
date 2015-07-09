@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, :path => 'home/my-course', only: %w[index] do
+    member do
+      post :select_course
+    end
     collection do
       get :learning
       get :teaching
