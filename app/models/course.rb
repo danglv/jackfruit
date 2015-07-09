@@ -2,12 +2,13 @@ class Course
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :name, type: String
+  field :name, type: String, default: ""
   field :enabled, type: Boolean, default: false
   field :price, type: Integer, default: 0
   field :likes, type: Integer, default: 0
   field :rates, type: Integer, default: 0
   field :status, type: Integer, default: 0
+  field :description, type: String, default: ""
 
   field :lang, type: String, default: ""
 
@@ -16,8 +17,8 @@ class Course
   accepts_nested_attributes_for :curriculums
 
   belongs_to :user
-  has_many :categories, class_name: "Category", inverse_of: nil
-  has_many :labels, class_name: "Label", inverse_of: nil
+  has_and_belongs_to_many :categories, class_name: "Category"
+  has_and_belongs_to_many :labels, class_name: "Label"
 
   index({name: 1, created_at: 1})
   
