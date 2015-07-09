@@ -14,9 +14,9 @@ class CoursesController < ApplicationController
   end
 
   def show
-    category_name = params[:category]
-    @category = Category.where(name: category_name).first
-
+    course_id = params[:id]
+    @course = Course.where(id: course_id).first
+    
     head :ok
   end
 
