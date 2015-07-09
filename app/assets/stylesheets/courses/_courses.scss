@@ -72,3 +72,39 @@
     }
   }
 }
+.dropdown-profile-content {
+  min-width: 260px;
+  max-height: 375px;
+  background-color: #eee;
+  z-index: 999;
+  margin: 0;
+  overflow-y: auto;
+  position: absolute;
+  top: 60px !important;
+  left: 210px;
+  opacity: 1;
+  display: none;
+  overflow:hidden;
+  &:before{
+    content: '';
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    position: absolute;
+    background: #fff;
+    top: 0;
+    left: 10px;
+    box-shadow: -1px -1px rgba(0,0,0,.15);
+    z-index: -1;
+    margin-top: -4px;
+    left: auto;
+    right: 10px;
+  }
+  .user-info {
+    padding: 20px;
+    height: 120px;
+    .ava {
+      height: 80px;
+    }
+  }
+}

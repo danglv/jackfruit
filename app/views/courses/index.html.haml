@@ -1,28 +1,52 @@
-%section.header
-  %ul.header-container
-    %li.menu
-      %img{:class => "category center-align valign-wrapper",:src => "/assets/header/menu.png"}
-    %li.menu
-      %img{:class => "search center-align valign-wrapper",:src => "/assets/header/search.png"}
-    %li.menu
+/ %section.label
+/   %span
+/     Nổi bật
+/ %section.courses
+/   %div.left
+/     %img{:class => "course-img responsive-img", :src => "/assets/course/thumb.png"}
+/   %div.right
+/     %span.title
+/       The Best Software Testing Training You Will Ever Get
+/     %span.author
+/       By Killua Casillass
+/     %span.rating
+/       %img{:class => "star", :src => "/assets/rating-star-1.png"}
+/       %span.number
+/         (4511)
+/     %span.price
+/       220.000đ
+/     %div.clear
+%nav.header
+  %div.header-container
+    %ul.left
+      %li.menu
+        %a.category
+          %i.material-icons menu
+      %li.menu
+        %a.search{:href => "courses/search"}
+          %i.material-icons search
+        }
+    %a.brand-logo.center
       %img{:class => "logo center-align valign-wrapper",:src => "/assets/header/logo.png"}
-    %li.menu
-      %img{:class => "ava right-align valign-wrapper responsive-img",:src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p200x200/11215086_842526002451006_5806294280552896279_n.jpg?oh=ffd2abfbb6bcaee71a24d02c4c80dd1b&oe=561F1D0C&__gda__=1448746161_8f92027e8590a610531e08540410c054"}
-%section.label
-  %span
-    Nổi bật
-%section.courses
-  %div.left
-    %img{:class => "course-img responsive-img", :src => "/assets/course/thumb.png"}
-  %div.right
-    %span.title
-      The Best Software Testing Training You Will Ever Get
-    %span.author
-      By Killua Casillass
-    %span.rating
-      %img{:class => "star", :src => "/assets/rating-star-1.png"}
-      %span.number
-        (4511)
-    %span.price
-      220.000đ
-    %div.clear
+    %a.right.dropdown-button{"data-activates" => "dropdown-profile", :href => "#"}
+      %img{:class => "circle ava right-align valign-wrapper",:src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p200x200/11215086_842526002451006_5806294280552896279_n.jpg?oh=ffd2abfbb6bcaee71a24d02c4c80dd1b&oe=561F1D0C&__gda__=1448746161_8f92027e8590a610531e08540410c054"}
+%ul.courses
+  %li.course.row
+    %img.col.s4.left-panel{:alt => "", :src => "/assets/course/thumb.png"}
+    %div.col.s8.right-panel
+      %p.title The Best Software Testing Training You Will Ever Get
+      %p.author By Killua Casillass
+      %div.rating
+        %img{:class => "star", :src => "/assets/rating-star-1.png"}
+        %span.number
+          (4511)
+        %span.price
+          220.000đ
+%ul#dropdown-profile.dropdown-profile-content
+  %li.user-info
+    %div.row
+      %img.responsive-img.circle.ava{:src => "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/p200x200/11215086_842526002451006_5806294280552896279_n.jpg?oh=ffd2abfbb6bcaee71a24d02c4c80dd1b&oe=561F1D0C&__gda__=1448746161_8f92027e8590a610531e08540410c054"}
+  %li.divider  
+  %li 
+  %li.divider
+  %li.logout
