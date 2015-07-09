@@ -17,12 +17,12 @@ class CoursesController < ApplicationController
   end
 
   def search
-    keywords = params[:q]
-    pattern = /#{Regexp.escape(keywords)}/
-    @course = Course.where(name: pattern).limit(10)
+    # keywords = params[:q]
+    # pattern = /#{Regexp.escape(keywords)}/
+    # @course = Course.where(name: pattern).limit(10)
 
-    if @course.count == 0
-      @course = Course.where(description: pattern).limit(10)
-    end
+    # if @course.count == 0
+    #   @course = Course.where(description: pattern).limit(10)
+    # end
   end
 end
