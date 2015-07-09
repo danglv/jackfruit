@@ -9,11 +9,15 @@ class CoursesController < ApplicationController
     # else
     #   @courses = Course.where(:category_ids.in => [category.id])
     # end
+
+    # head :ok
   end
 
   def show
-    category_name = params[:category]
-    @category = Category.where(name: category_name).first
+    course_id = params[:id]
+    @course = Course.where(id: course_id).first
+    
+    head :ok
   end
 
   def search
@@ -24,5 +28,7 @@ class CoursesController < ApplicationController
     # if @course.count == 0
     #   @course = Course.where(description: pattern).limit(10)
     # end
+
+    # head :ok
   end
 end
