@@ -9,10 +9,23 @@ module Constants
     VI = "vi"
   end
 
+  module Labels
+    NEW    = "new"
+    STUDENT= "student"
+  end
+
   module OwnedCourseTypes
     LEARNING = "learning"
     TEACHING = "teaching"
     WISHLIST = "wishlist"
+  end
+
+  module SortTypes
+    DEFAULT   = 1
+    RATING    = 2
+    NEWEST    = 3
+    PRICE_ASC = 4
+    PRICE_DESC= 5
   end
 
   class << self

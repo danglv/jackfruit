@@ -2,15 +2,29 @@ class CoursesController < ApplicationController
 
   def index
     category_name = params[:category]
+    
     category = Category.where(name: category_name).first
 
     if category.blank?
-      @courses = Course.all
-    else
-      @courses = Course.where(:category_ids.in => [category.id])
-    end
+      labels = Constants.LabelsValues
 
-    head :ok
+      labels.each {|label|
+        @course[label.to_s] = Course.where(:label_ids.in => [label]).linit(12)
+      }
+    else
+      sort_by = params[:sort_by]
+      condition = params[:filter_by]
+      if condition[:price]
+        condition[:price.gt] = 0
+        condition.delete[:price]
+      end
+
+      condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
+      condition[:category_ids.in] = [category.id]
+
+      @courses_featured = Course.where(:label_ids.in => ["featured"]).first
+      @courses = Course.where(condition).sort(sort_by)
+    end
   end
 
   def show
