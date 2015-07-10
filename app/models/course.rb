@@ -9,7 +9,6 @@ class Course
   
   field :enabled, type: Boolean, default: false
   
-  field :likes, type: Integer, default: 0
   field :average_rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0
 
@@ -26,6 +25,27 @@ class Course
   index({name: 1, created_at: 1})
   
   validates_presence_of :name
-  validates_numericality_of :price, :likes, :num_rate, only_integer: true, greater_than_or_equal: 0
+  validates_numericality_of :price, :num_rate, only_integer: true, greater_than_or_equal: 0
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
+
+  before_save :process_rate
+
+  def process_rate
+    rates = self.reviews.map(&:rate)
+    self.num_rate = rates.count
+    
+    self.average_rating = if rates.count == 0 
+      0
+    else
+      rates.sum / rates.count
+    end
+  end
+
+  def num_discussion
+    self.discussions.count
+  end
+
+  def num_lecture
+    self.curriculums.where(type: "lecture").count
+  end
 end

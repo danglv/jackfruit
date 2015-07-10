@@ -3,7 +3,6 @@ class Category
   include Mongoid::Timestamps
 
   has_many :child_categories, class_name: "Category"
-
   belongs_to :parent_category, class_name: "Category"
 
   field :name, type: String, default: ""
