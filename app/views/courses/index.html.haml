@@ -1,10 +1,33 @@
-%ul#slide-out.side-nav.fixed
-  %div
-    %a.btn{:href => "#!"}
-      %i.mdi-navigation-menu
-      First Sidebar Link
+%ul#slide-out.side-nav.fixed.collapsible{"data-collapsible" => "accordion"}
   %li
-    %a{:href => "#!"} Second Sidebar Link
+    %div
+      %a.btn{:href => "#!"}
+        %i.mdi-navigation-menu
+        First Sidebar Link
+  %li
+    .collapsible-header
+      %p
+      First
+    .collapsible-body
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
+  %li
+    .collapsible-header
+      %p
+      Second
+    .collapsible-body
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
+  %li
+    .collapsible-header
+      %p
+      Third
+    .collapsible-body
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
+      %a{:href => "#"} Lorem ipsum
 
 %nav.nav-wrapper.header
   %div.logo.row.col.s12
@@ -22,6 +45,29 @@
         Login
       %a.btn{:href => "#"}
         Register
+      %a.dropdown-button{"data-activates" => "dropdown1", "data-beloworigin" => "true","data-constrainwidth" => "false", :href => "#"}
+        %img.circle.responsive-img{:alt => "", :src => "assets/notice.png"}
+        %div#dropdown1.dropdown-content
+          %div.btn-large.black-text
+            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
+            %p.white-text Lorem ipsum dolor sit amet.
+          %div.btn-large.black-text
+            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
+            %p.white-text Lorem ipsum dolor sit amet.
+          %div.btn-large.black-text
+            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
+            %p.white-text Lorem ipsum dolor sit amet.
+      %a.dropdown-button{"data-activates" => "dropdown2","data-beloworigin" => "true", "data-constrainwidth" => "false",:href => "#",:style => "display:none"}
+        %img.circle.responsive-img{:alt => "", :src => "assets/avatar.png"}
+        %div#dropdown2.dropdown-content
+          .dropdown-head
+            %img.circle.responsive-img.left{:alt => "", :src => "assets/dropdown-avatar.png"}
+            %p.black-text.tooltipped{"data-delay" => "5", "data-position" => "top", "data-tooltip" => "I am tooltip"} Hover me!
+            %i.material-icons.black-text mode_edit
+            %i.material-icons.black-text settings
+            %i.material-icons.black-text perm_identity
+            %i.material-icons.black-text power_settings_new
+
 
 .main
   .row.col.s12
@@ -44,6 +90,154 @@
           .card-content
             %span.card-title.activator.grey-text.text-darken-4
               itlemore_vert
-            %p
-              %a{:href => "#"} This is a link
-
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+  .row.col.s12
+    .title.col.s12
+      %h5.left
+        Được đánh giá cao
+      %a.btn.right
+        Xem thêm
+      %a
+        %i.material-icons.right chevron_right
+      %a
+        %i.material-icons.right chevron_left
+  .row
+    .col.s12
+      .row
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
+        .card.col.s3
+          .card-image.waves-effect.waves-block.waves-light
+            %img{:src => "assets/course-image.png"}
+          .card-content
+            %span.card-title.activator.grey-text.text-darken-4
+              itlemore_vert
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
+            %span.grey-text
+              %p Lorem ipsum
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %i.material-icons.left.yellow-text grade
+            %p.right (6969)
+          .card-content
+            %i.material-icons.left invert_colors
+            %p.left 69k
+            %p.green-text.right 696.969 đ
