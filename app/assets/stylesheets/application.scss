@@ -1,5 +1,12 @@
 @import "materialize/components/color";
 $primary-color: color("blue", "lighten-2") !default;
+@import "materialize/components/variables";
+$small-screen-up: 1281px !default;
+$medium-screen-up: 1281x !default;
+$large-screen-up: 1281px !default;
+$small-screen: 1280x !default;
+$medium-screen: 1280x !default;
+$large-screen: 1280x !default;
 @import "materialize";
 @import "courses/courses.scss";
 /*
