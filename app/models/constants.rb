@@ -20,6 +20,11 @@ module Constants
     WISHLIST = "wishlist"
   end
 
+  module ContentTypes
+    JSON = "json"
+    HTML = "html"
+  end
+
   module SortTypes
     DEFAULT   = 1
     RATING    = 2

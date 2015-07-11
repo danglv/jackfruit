@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
 
+  before_filter :validate_content_type_param
+
   def index
     category_name = params[:category]
     
@@ -7,9 +9,10 @@ class CoursesController < ApplicationController
 
     if category.blank?
       labels = Constants.LabelsValues
+      @courses = {}
 
       labels.each {|label|
-        @course[label.to_s] = Course.where(:label_ids.in => [label]).linit(12)
+        @course[label.to_s] = Course.where(:label_ids.in => [label]).limit(12)
       }
     else
       sort_by = params[:sort_by]
@@ -22,7 +25,8 @@ class CoursesController < ApplicationController
       condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
       condition[:category_ids.in] = [category.id]
 
-      @courses_featured = Course.where(:label_ids.in => ["featured"]).first
+      @courses = {}
+      @courses["featured"] = Course.where(:label_ids.in => ["featured"]).first
       @courses = Course.where(condition).sort(sort_by)
     end
   end

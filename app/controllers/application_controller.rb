@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     @current_user = User.where(auth_token: params[:auth_token]).first
   end
+
+  def validate_content_type_param
+    @content_type = params[:content_type]
+    @content_type = "html" if @content_type.blank?
+  end
 end
