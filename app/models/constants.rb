@@ -9,6 +9,11 @@ module Constants
     VI = "vi"
   end
 
+  module UserLang
+    EN = "en"
+    VI = "vi"
+  end
+
   module OwnedCourseTypes
     LEARNING = "learning"
     TEACHING = "teaching"
