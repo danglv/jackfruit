@@ -34,8 +34,6 @@ class CoursesController < ApplicationController
   def show
     course_id = params[:id]
     @course = Course.where(id: course_id).first
-    
-    head :ok
   end
 
   def search
@@ -46,7 +44,5 @@ class CoursesController < ApplicationController
     if @course.count == 0
       @course = Course.where(description: pattern).limit(10)
     end
-
-    head :ok
   end
 end
