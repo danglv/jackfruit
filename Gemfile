@@ -39,6 +39,15 @@ gem 'unicorn'
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
+# User Devise for manage user
+gem 'devise', '~> 3.4.1'
+
+# Image
+gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mini_magick', '~> 3.8.1'
+gem "ImageResize"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
