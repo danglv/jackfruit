@@ -1,0 +1,7 @@
+.btn-flat {
+  @extend .btn-flat;
+  box-shadow: none;
+  &:hover {
+    box-shadow: none;
+  }
+}
