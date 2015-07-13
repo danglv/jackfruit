@@ -1,243 +1,109 @@
-%ul#slide-out.side-nav.fixed.collapsible{"data-collapsible" => "accordion"}
-  %li
-    %div
-      %a.btn{:href => "#!"}
-        %i.mdi-navigation-menu
-        First Sidebar Link
-  %li
-    .collapsible-header
-      %p
-      First
-    .collapsible-body
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
-  %li
-    .collapsible-header
-      %p
-      Second
-    .collapsible-body
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
-  %li
-    .collapsible-header
-      %p
-      Third
-    .collapsible-body
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
-      %a{:href => "#"} Lorem ipsum
+= render :partial => 'layouts/header'
 
-%nav.nav-wrapper.header
-  %div.logo.row.col.s12
-    .col.s3
-      %a.brand-logo{:href => "#"}
-        %img{:src => "assets/header/logo.png"}
-    .col.s5.offset-s3
-      %form
-        %input#first_name.validate{:placeholder => "Tìm kiếm khóa học", :type => "search"}/
-    .col.s1
-      %a{:href => "sass.html"}
-      %i.material-icons search
-    .col.s3
-      %a.btn-flat{:href => "#"}
-        Login
-      %a.btn{:href => "#"}
-        Register
-      %a.dropdown-button{"data-activates" => "dropdown1", "data-beloworigin" => "true","data-constrainwidth" => "false", :href => "#"}
-        %img.circle.responsive-img{:alt => "", :src => "assets/notice.png"}
-        %div#dropdown1.dropdown-content
-          %div.btn-large.black-text
-            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
-            %p.white-text Lorem ipsum dolor sit amet.
-          %div.btn-large.black-text
-            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
-            %p.white-text Lorem ipsum dolor sit amet.
-          %div.btn-large.black-text
-            %img.circle.responsive-img.left{:alt => "", :src => "assets/avatar.png"}
-            %p.white-text Lorem ipsum dolor sit amet.
-      %a.dropdown-button{"data-activates" => "dropdown2","data-beloworigin" => "true", "data-constrainwidth" => "false",:href => "#",:style => "display:none"}
-        %img.circle.responsive-img{:alt => "", :src => "assets/avatar.png"}
-        %div#dropdown2.dropdown-content
-          .dropdown-head
-            %img.circle.responsive-img.left{:alt => "", :src => "assets/dropdown-avatar.png"}
-            %p.black-text.tooltipped{"data-delay" => "5", "data-position" => "top", "data-tooltip" => "I am tooltip"} Hover me!
-            %i.material-icons.black-text mode_edit
-            %i.material-icons.black-text settings
-            %i.material-icons.black-text perm_identity
-            %i.material-icons.black-text power_settings_new
-
-
-.main
-  .row.col.s12
-    %img{:src => "assets/Layer-10.png"}
-    .title.col.s12
-      %h5.left
-        Được đánh giá cao
-      %a.btn.right
-        Xem thêm
-      %a
-        %i.material-icons.right chevron_right
-      %a
-        %i.material-icons.right chevron_left
-  .row
+%main
+  .row.course-list.highest-rating
     .col.s12
-      .row
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-  .row.col.s12
-    .title.col.s12
-      %h5.left
-        Được đánh giá cao
-      %a.btn.right
-        Xem thêm
-      %a
-        %i.material-icons.right chevron_right
-      %a
-        %i.material-icons.right chevron_left
-  .row
-    .col.s12
-      .row
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
-        .card.col.s3
-          .card-image.waves-effect.waves-block.waves-light
-            %img{:src => "assets/course-image.png"}
-          .card-content
-            %span.card-title.activator.grey-text.text-darken-4
-              itlemore_vert
-            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, iste.
-            %span.grey-text
-              %p Lorem ipsum
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %i.material-icons.left.yellow-text grade
-            %p.right (6969)
-          .card-content
-            %i.material-icons.left invert_colors
-            %p.left 69k
-            %p.green-text.right 696.969 đ
+      .row.course-list-header
+        .col.s12
+          %h5.course-list-header-title Được đánh giá cao
+      .row.courses
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              %img{:src => 'assets/course-image.png'}
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                  220.000đ
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              %img{:src => 'assets/course-image.png'}
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                  220.000đ
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              %img{:src => 'assets/course-image.png'}
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                  Miễn phí
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              %img{:src => 'assets/course-image.png'}
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                  Miễn phí
