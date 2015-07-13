@@ -8,6 +8,7 @@ class Course
   field :price, type: Integer, default: 0
   
   field :enabled, type: Boolean, default: false
+  field :level, type: Integer, default: 0
   
   field :average_rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0
