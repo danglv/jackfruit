@@ -11,9 +11,9 @@ class CoursesController < ApplicationController
       labels = Constants.LabelsValues
       @courses = {}
 
-      labels.each {|label|
-        @course[label.to_s] = Course.where(:label_ids.in => [label]).limit(12)
-      }
+      # labels.each {|label|
+      #   @course[label.to_s] = Course.where(:label_ids.in => [label]).limit(12)
+      # }
     else
       sort_by = params[:sort_by]
       condition = params[:filter_by]
