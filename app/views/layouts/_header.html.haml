@@ -1,55 +1,19 @@
-%header
-  %nav.top-nav
-    .nav-wrapper
-      .row
-        .col.s2
-          %a.brand-logo{:href => '#', :style => 'position: inherit;'}
-            %img{:src => 'assets/header/logo.png'}
-        %form.col.s4
-          .row
-            .input-field.col.s12
-              %input#course-search{:type => 'text', :placeholder => 'Tìm kiếm khoá học'}
-              %label{:for => 'course-search'}
-                %i.material-icons search
-        .col.s4.right{:style => 'text-align: right;'}
-          .btn.btn-flat.btn-login Đăng nhập
-          .btn.deep-orange Đăng ký
-  %ul.side-nav.fixed
-    %li.side-nav-header
-      %a.waves-effect.waves-light.btn
-        %i.large.material-icons.left view_list
-        Danh sách khoá học
-    %li.bold
-      %a.waves-effect.waves-teal Khoá học của tôi
-    %li.no-padding.no-hover-effect
-      %ul.collapsible.collapsible-accordion
-        %li.bold
-          %a.collapsible-header.waves-effect.waves-teal Lập trình
-          .collapsible-body
-            %ul
-              %li
-                %a{:href => '#'} Phát triển web
-              %li
-                %a{:href => '#'} Ngôn ngữ lập trình
-              %li
-                %a{:href => '#'} Phát triển game
-        %li.bold
-          %a.collapsible-header.waves-effect.waves-teal Kinh doanh
-          .collapsible-body
-            %ul
-              %li
-                %a{:href => '#'} Phát triển web
-              %li
-                %a{:href => '#'} Ngôn ngữ lập trình
-              %li
-                %a{:href => '#'} Phát triển game
-        %li.bold
-          %a.collapsible-header.waves-effect.waves-teal Marketing
-          .collapsible-body
-            %ul
-              %li
-                %a{:href => '#'} Phát triển web
-              %li
-                %a{:href => '#'} Ngôn ngữ lập trình
-              %li
-                %a{:href => '#'} Phát triển game
+%nav.top-nav
+  .nav-wrapper
+    .row
+      .col{:style => 'width: 240px;'}
+        %a.btn-sidenav-activator{'data-activates' => 'side-nav'}
+          %i.material-icons.left menu
+          Danh sách khoá học
+      .col.s2
+        %a.brand-logo{:href => '#', :style => 'position: inherit;'}
+          = image_tag 'logo.png'
+      %form.col.s4
+        .row
+          .input-field.col.s12
+            %input#course-search{:type => 'text', :placeholder => 'Tìm kiếm khoá học'}
+            %label{:for => 'course-search'}
+              %i.material-icons search
+      .col.s3.right{:style => 'text-align: right;'}
+        .btn.btn-login Đăng nhập
+        .btn.deep-orange Đăng ký

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 
   def index
     binding.pry
@@ -71,10 +71,9 @@ class UsersController < ApplicationController
 
   def learning
     learning = Constants::OwnedCourseTypes::LEARNING
-    course_ids = @current_user.courses.where(type: learning).map(&:course_id)
-    @courses = Course.where(:id.in => course_ids)
+    # course_ids = @current_user.courses.where(type: learning).map(&:course_id)
+    # @courses = Course.where(:id.in => course_ids)
 
-    head :ok
   end
 
   def teaching
