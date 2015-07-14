@@ -5,3 +5,23 @@
     box-shadow: none;
   }
 }
+
+.btn-login {
+  @extend .btn-flat;
+  color: color('deep-orange', 'base');
+  &:hover {
+    background-color: none;
+  }
+}
+
+.btn-sidenav-activator {
+  @extend .btn-flat;
+  padding: 0 10px;
+  text-transform: none;
+  .material-icons {
+    color: color('deep-orange', 'base');
+    height: 36px;
+    line-height: 36px;
+    margin-right: 5px;
+  }
+}

@@ -30,11 +30,3 @@
 .bold {
   font-weight: 700;
 }
-
-.btn-login {
-  color: color('deep-orange', 'base');
-  &:hover {
-    background-color: color('deep-orange', 'base');
-    color: color('shades', 'white');
-  }
-}
