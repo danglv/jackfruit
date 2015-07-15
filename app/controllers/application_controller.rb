@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
     @content_type = params[:content_type]
     @content_type = "html" if @content_type.blank?
   end
+
+  # action index để điều hướng đến trang landing page
+  def index
+    
+  end
 end
