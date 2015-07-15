@@ -45,7 +45,6 @@ class User
   # Profile
   # Basic
   field :name, type: String
-  field :sign_up_by_platform, type: String, default: ""
   field :desination,type: String, default: ""
   field :first_name,type: String, default: ""
   field :last_name,type: String, default: ""
@@ -57,14 +56,14 @@ class User
   # Language
   field :lang,type: String, default: "vi"
   # Links 
-  field :links, type: Hash, default: {
-    website: "http://",
-    google_plus: "https://plus.google.com/",
-    twitter_profile: "http://twitter.com/",
-    facebook_profile: "http://www.facebook.com/",
-    linkedin_profile: "http://www.linkedin.com/",
-    youtube_profile: "http://www.youtube.com/"
-  }
+  # field :links, type: Hash, default: {
+  #   website: "http://",
+  #   google_plus: "https://plus.google.com/",
+  #   twitter_profile: "http://twitter.com/",
+  #   facebook_profile: "http://www.facebook.com/",
+  #   linkedin_profile: "http://www.linkedin.com/",
+  #   youtube_profile: "http://www.youtube.com/"
+  # }
   # Avatar
 
   #

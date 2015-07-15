@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user
-  # before_filter :authenticate_user!
+  before_action :set_user, :authenticate_user!
 
   def index
     learning
@@ -44,29 +43,29 @@ class UsersController < ApplicationController
     head :ok
   end
 
-  def login_with_email
+  # def login_with_email
 
-  end
+  # end
 
-  def login_with_facebook
+  # def login_with_facebook
     
-  end
+  # end
 
-  def login_with_google
+  # def login_with_google
     
-  end
+  # end
 
-  def logout
+  # def logout
 
-  end
+  # end
 
-  def edit_profile
+  # def edit_profile
     
-  end
+  # end
 
-  def upload_avatar
+  # def upload_avatar
     
-  end
+  # end
 
   def learning
     learning = Constants::OwnedCourseTypes::LEARNING
