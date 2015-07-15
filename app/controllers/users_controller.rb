@@ -123,7 +123,7 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     # authorize! :update, @user
-    head :ok
+    render json: @user
   end
 
   # PATCH/PUT /users/:id.:format
@@ -165,13 +165,11 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-    
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   private
-
+    def set_user
+      @user = User.find(params[:id])
+    end
     def user_params
       accessible = [ :name, :email ] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
