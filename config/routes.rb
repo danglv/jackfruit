@@ -6,10 +6,15 @@ Rails.application.routes.draw do
     member do
       get :lecture
     end
-
     collection do
       get :search
       get :test_course_detail_id
+      get :detail
+    end
+  end
+
+  resources :payment, :path => 'home/payment', only: %w[index] do
+    collection do
     end
   end
 

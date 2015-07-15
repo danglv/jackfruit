@@ -1,0 +1,124 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%main.payment
+  .row
+    .col.s12
+      .row.green
+        .col.s6
+          %h4.white-text
+            Xác nhận thanh toán
+          %p.white-text
+            Kỹ năng thuyết trình và nói trước công chúng
+        .col.s6
+          %h4.right.white-text
+            300.000d
+      .row
+        %p
+          1. Lựa chọn hình thức thanh toán
+      .row
+        .col.s3.center-align
+          .row
+            %a{:href => "#"}
+              %i.material-icons.large shopping_cart
+          .row
+            %a{:href => "#"}
+              Giao khóa học <br>
+              và thu tiền tận nơi
+        .col.s3.center-align
+          .row
+            %a{:href => "#"}
+              %i.material-icons.large credit_card
+          .row
+            %a{:href => "#"}
+              Thanh toán trực tuyến <br>
+              bằng thẻ ATM hoặc Visa/Master
+        .col.s3.center-align
+          .row
+            %a{:href => "#"}
+              %i.material-icons.large business
+          .row
+            %a{:href => "#"}
+              Chuyển khoản <br>
+              qua ngân hàng
+        .col.s3.center-align
+          .row
+            %a{:href => "#"}
+              %i.material-icons.large room
+          .row
+            %a{:href => "#"}
+              Thanh toán trực tiếp <br>
+
+
+
+              tại văn phòng Tudemy
+      .row
+        %p
+          2. Hoàn tất thanh toán
+        %p
+          Bạn chưa lựa chọn hình thức thanh toán nào
+      .row
+        %p
+          Điền thông tin đăng ký đặt mua khóa học
+        %form.col.s12{:action => "#"}
+          .row
+            .col.s4
+              .row
+                .input-field
+                  %input{:type => "text", :placeholder => "Tên đầy đủ"}/
+              .row
+                .input-field
+                  %input{:type => "text", :placeholder => "Số điện thoại"}/
+              .row
+                %select.browser-default{:disabled => ""}
+                  %option{:disabled => "", :selected => "", :value => ""} Choose your option
+                  %option{:value => "1"} Option 1
+                  %option{:value => "2"} Option 2
+                  %option{:value => "3"} Option 3
+              .row
+                %a.btn.orange{:href => "#"}
+                  Đặt mua khóa học
+            .col.s4.offset-s1{:action => "#"}
+              .row
+                .input-field
+                  %input{:type => "text", :placeholder => "Tên đầy đủ"}/
+              .row
+                .input-field
+                  %input{:type => "text", :placeholder => "Số điện thoại"}/
+              .row
+                %select.browser-default{:disabled => ""}
+                  %option{:disabled => "", :selected => "", :value => ""} Choose your option
+                  %option{:value => "1"} Option 1
+                  %option{:value => "2"} Option 2
+                  %option{:value => "3"} Option 3
+      .row
+        %p.red-text
+          Chuyển khoản ngân hàng
+        %p
+          Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+        %span
+          Số tài khoản: 0531 0024 67513 <br>
+          Chủ tài khoản: Nguyễn Thanh Minh <br>
+          Ngân hàng:  Ngân hàng Vietcombank, chi nhánh Bình Thạnh, TPHCM
+        %p
+          Ghi chú khi chuyển khoản: <br>
+          •Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký <br>
+          •Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
+        %p.red-text
+          Chuyển tiền qua Paypal
+        %span
+          Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).<br>
+          Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.
+        %p
+          Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+      .row
+        %p.red-text
+          Thanh toán tại văn phòng Tudemy
+        %p
+          Địa chỉ văn phòng <br>
+          Biệt thự 298/3 Điện Biên Phủ, phường 17, quận Bình Thạnh, TP Hồ Chí Minh <br>
+          (Thời gian làm việc: từ 8:30 - 17:30 , từ Thứ 2 đến Thứ 7 hàng tuần)
+        %span
+        = image_tag 'map.png'
+
