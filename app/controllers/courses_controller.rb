@@ -6,13 +6,13 @@ class CoursesController < ApplicationController
     category_name = params[:category]
     
     category = Category.where(name: category_name).first
-
+    
     if category.blank?
       labels = Constants.LabelsValues
       @courses = {}
 
       labels.each {|label|
-        @course[label.to_s] = Course.where(:label_ids.in => [label]).limit(12)
+        @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
       }
     else
       sort_by = params[:sort_by]
@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
         :price.gt => 0,
         :category_ids.in => [category.id]
       ).desc(:students).limit(12)
-      
+
       @courses["newest"] = Course.where(
         :category_ids.in => [category.id],
       ).desc(:created_at).limit(12)
