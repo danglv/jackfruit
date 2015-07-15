@@ -1,0 +1,30 @@
+.side-nav-header {
+  margin: 15px 0;
+  &:hover {
+    background-color: transparent !important;
+  }
+  a.btn {
+    @extend .btn;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 0 10px;
+  }
+}
+
+.side-nav {
+  .collapsible-header {
+    height: 64px;
+    line-height: 64px;
+  }
+
+  .collapsible-body {
+    font-weight: normal;
+  }
+
+  .no-hover-effect {
+    &:hover {
+      background: none;
+    }
+  }
+}

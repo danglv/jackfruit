@@ -12,3 +12,5 @@
 !/log/.keep
 /tmp
 mongoid.yml
+./idea
+.DS_Store

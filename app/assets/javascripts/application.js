@@ -14,5 +14,9 @@
 //= require materialize-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require_tree ./components
 //= require_tree ./app
-$(".button-collapse").sideNav();
+
+$('.btn-sidenav-activator').sideNav();
+$('.sorting .sorting-options').material_select();
+

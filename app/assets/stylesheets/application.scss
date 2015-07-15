@@ -1,15 +1,11 @@
 @import "materialize/components/color";
-$primary-color: color("blue", "lighten-2") !default;
 @import "materialize/components/variables";
-$small-screen-up: 1281px !default;
-$medium-screen-up: 1281x !default;
-$large-screen-up: 1281px !default;
-$small-screen: 1280x !default;
-$medium-screen: 1280x !default;
-$large-screen: 1280x !default;
+@import "settings";
 @import "materialize";
-@import "courses/courses.scss";
-/*
- *= require_tree .
- *= require_self
- */
+@import "courses/courses";
+// Custom components
+@import "components/side-nav";
+@import "components/top-nav";
+@import "components/button";
+@import "components/breadcum";
+@import "components/mics";
