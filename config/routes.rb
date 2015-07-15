@@ -3,8 +3,13 @@ Rails.application.routes.draw do
   root to: "application#index"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :courses, only: %w[index show] do
+    member do
+      get :lecture
+    end
+
     collection do
       get :search
+      get :test_course_detail_id
     end
   end
 

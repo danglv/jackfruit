@@ -182,8 +182,8 @@ class UsersController < ApplicationController
       course = Course.where(id:course_id).first
       course.curriculums.where(
         :type => Constants::CurriculumTypes::LECTURE
-      ).map{|lecture|
-        owned_course.lectures.create(:curriculum_id => lecture.id)
+      ).map{|curriculum|
+        owned_course.lectures.create(:lecture_index => curriculum.lecture_index)
       }
 
       course.set(:students => course.students + 1)
