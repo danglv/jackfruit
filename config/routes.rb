@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     collection do
       get :search
+      get :test_course_detail_id
     end
   end
 
