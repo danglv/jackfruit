@@ -123,6 +123,8 @@ class UsersController < ApplicationController
       ).map{|lecture|
         owned_course.lectures.create(:curriculum_id => lecture.id)
       }
+
+      course.set(:students => course.students + 1)
     end
 
     def check_valid_length(string, min_length, max_length)

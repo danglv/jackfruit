@@ -12,6 +12,7 @@ class Course
   
   field :average_rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0
+  field :students, type: Integer, default: 0
 
   embeds_many :curriculums, class_name: "Course::Curriculum"
   embeds_many :discussions, class_name: "Course::Discussion"

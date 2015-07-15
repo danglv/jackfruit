@@ -6,14 +6,14 @@ class CoursesController < ApplicationController
     category_name = params[:category]
     
     category = Category.where(name: category_name).first
-
+    
     if category.blank?
       labels = Constants.LabelsValues
       @courses = {}
 
-      # labels.each {|label|
-      #   @course[label.to_s] = Course.where(:label_ids.in => [label]).limit(12)
-      # }
+      labels.each {|label|
+        @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
+      }
     else
       sort_by = params[:sort_by]
       condition = params[:filter_by]
@@ -22,12 +22,29 @@ class CoursesController < ApplicationController
         condition.delete[:price]
       end
 
+      @courses = {}
       condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
       condition[:category_ids.in] = [category.id]
 
-      @courses = {}
-      @courses["featured"] = Course.where(:label_ids.in => ["featured"]).first
-      @courses = Course.where(condition).sort(sort_by)
+      @courses["featured"] = Course.where(
+        :label_ids.in => ["featured"],
+        :category_ids.in => [category.id]).first
+
+      @courses["top_free"] = Course.where(
+        :price => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["top_paid"] = Course.where(
+        :price.gt => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["newest"] = Course.where(
+        :category_ids.in => [category.id],
+      ).desc(:created_at).limit(12)
+
+      @courses["all"] = Course.where(condition).sort(sort_by)
     end
   end
 
