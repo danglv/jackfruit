@@ -1,0 +1,19 @@
+%nav.top-nav
+  .nav-wrapper
+    .row
+      .col{:style => 'width: 240px;'}
+        %a.btn-sidenav-activator{'data-activates' => 'side-nav'}
+          %i.material-icons.left menu
+          Danh sách khoá học
+      .col.s2
+        %a.brand-logo{:href => '#', :style => 'position: inherit;'}
+          = image_tag 'logo.png'
+      %form.col.s4
+        .row
+          .input-field.col.s12
+            %input#course-search{:type => 'text', :placeholder => 'Tìm kiếm khoá học'}
+            %label{:for => 'course-search'}
+              %i.material-icons search
+      .col.s3.right{:style => 'text-align: right;'}
+        .waves-effect.wave-grey.btn-login Đăng nhập
+        .btn.deep-orange Đăng ký
