@@ -40,6 +40,10 @@ class CoursesController < ApplicationController
         :category_ids.in => [category.id]
       ).desc(:students).limit(12)
       
+      @courses["newest"] = Course.where(
+        :category_ids.in => [category.id],
+      ).desc(:created_at).limit(12)
+
       @courses["all"] = Course.where(condition).sort(sort_by)
     end
   end
