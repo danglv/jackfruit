@@ -1,0 +1,100 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/fixed_side_nav'
+
+%main{:style => 'padding-left: 240px;'}
+  .row.course-list-header
+    .col.s12
+      %h5.course-list-header-title Các khoá học của tôi 
+  .row.sorting
+    .col.s12
+      %select.sorting-options.left
+        %option{:value => '', :disabled => '', :selected => ''} Tất cả 
+        %option{:value => '1'} Ưa thích
+        %option{:value => '2'} Chưa bắt đầu 
+        %option{:value => '3'} Đang học 
+        %option{:value => '4'} Đã hoàn thành 
+        %option{:value => '5'} Lưu trữ 
+  .row.course-list
+    .col.s12
+      .my-courses.card-style
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.progress.progress-background
+                .determinate.progress-background-completed{:style => "width: 100%"}
+              .row.course-footer
+                .col.s5.no-padding.left
+                  %span.progress-color-completed Hoàn thành
+                .col.s7.course-rating-point.no-padding.right
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.progress.progress-background
+                .determinate.progress-background-begin{:style => "width: 0%"}
+              .row.course-footer
+                .col.s5.no-padding.left
+                  %span.progress-color-begin Bắt đầu
+                .col.s7.course-rating-point.no-padding.right
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.progress.progress-background
+                .determinate.progress-background-learning{:style => "width: 50%"}
+              .row.course-footer
+                .col.s5.no-padding.left
+                  %span.progress-color-learning 50%
+                .col.s7.course-rating-point.no-padding.right
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.progress.progress-background
+                .determinate.progress-background-learning{:style => "width: 50%"}
+              .row.course-footer
+                .col.s5.no-padding.left
+                  %span.progress-color-learning 50%
+                .col.s7.course-rating-point.no-padding.right
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
