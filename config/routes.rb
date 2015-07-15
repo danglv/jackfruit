@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :payment, :path => 'home/payment', only: %w[index] do
+    collection do
+    end
+  end
+
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
       post :select_course
