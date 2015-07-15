@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   
   root to: "home#index"
   devise_for :users
-  resources :courses, only: %w[index show] do
+  resources :courses, only: %w[index show detail] do
     collection do
       get :search
+      get :detail
     end
   end
 
