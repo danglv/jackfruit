@@ -39,8 +39,12 @@ gem 'unicorn'
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
-# User Devise for manage user
+# User Devise for manage user some gem below for social login
 gem 'devise', '~> 3.4.1'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 # Image
 gem 'carrierwave', '~> 0.10.0'
