@@ -1,0 +1,39 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/fixed_side_nav'
+
+%main{:style => 'padding-left: 240px;'}
+  .row.course-detail.hint
+    .col.s12.no-padding
+      .row.course-detail-header
+        .course-detail-header.card-panel.black.valign-wrapper
+          .col.s9
+            %span.white-text.truncate How to Market Your Udemy Course: Instructors with Market Your Udemy Course: Instruct
+          .col.s3.valign-wrapper
+            %i.material-icons.teal-text group
+            %span.white-text 123 Sinh viên đã tham gia
+  .row.course-detail.content
+    .col.s12.no-padding
+      .exam
+        .col.s6
+          .row.valign-wrapper
+            .card-panel.black.col.s12
+              .col.s2.valign-wrapper
+                %a{:href => '!#'}
+                  %i.medium.material-icons play_circle_filled
+              .col.s10
+                .white-text Bài giảng 1: 
+                .white-text Starting Threads 
+                .white-text 09:58 phút 
+          .row.valign-wrapper
+            Bạn đã hoàn thành 4 trên 9 bài học
+          .row
+            .col.s11.no-padding
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1.right
+              .progress
+                .determinate{:style => "width: 0%"} 
+                
+
+
