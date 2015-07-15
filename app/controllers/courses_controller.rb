@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
 
   before_filter :validate_content_type_param
+  before_filter :authenticate_user, only: [:lecture]
 
   def index
     # category_name = params[:category]
@@ -51,6 +52,25 @@ class CoursesController < ApplicationController
   def show
     course_id = params[:id]
     @course = Course.where(id: course_id).first
+  end
+
+  def lecture
+    course_id = params[:id]
+    lecture_index = params[:lecture_index]
+    @course = Course.where(id: course_id).first
+
+    if @course.blank?
+      render json: {message: "khóa học không hợp lệ!"}
+    end
+
+    @lecture = @course.curriculums.where(:lecture_index => lecture_index).first
+    @owned_course = @current_user.courses.where(course_id: course_id).first
+
+    # set lecture ratio = 100(finish)
+    @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
+
+    @owned_lecture.set(lecture_ratio: 100, status: 2)
+    @current_user.save
   end
 
   def search
