@@ -7,6 +7,8 @@ class Course::Curriculum
   field :order, type: Integer, default: 0
   field :chapter_index, type: Integer, default: 0
   field :lecture_index, type: Integer, default: 0
+  field :object_index, type: Integer, default: 0
+  field :description, type: String, default: ""
 
   embedded_in :course
 
