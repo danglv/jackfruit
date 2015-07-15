@@ -37,7 +37,26 @@
 
   &.list-style {
     .course {
-      /*border-top: 1px solid #b6b6b6;*/
+      border-top: 1px solid #b6b6b6;
+      color: #444;
+      display: block;
+      padding-top: 15px;
+      &-image {
+        img {
+          width: 100%;
+        }
+      }
+      &-title {
+        font-size: 18px;
+      }
+      &-title, &-author, &-other-info {
+        margin: 0;
+      }
+      &-price, &-rating-people, &-other-info {
+        font-size: 14px;
+      }
+    }
+    .course-detail {
       color: #444;
       display: block;
       padding-top: 15px;
