@@ -1,4 +1,60 @@
-- if current_user
-  %strong= current_user.name
-- else
-  %strong This is landingpage
+.home.container-1140
+  %header
+    = render :partial => 'header'
+  .home-top.flex-box
+    .splash-box
+      %span.splash-box-title What course will your life take?
+      %span.splash-box-subtitle Own your future by learning new skills online
+      %form
+        .input-field
+          %input#course-search{:type => 'text', :placeholder => 'Tìm kiếm khoá học'}
+          %label{:for => 'course-search'}
+            %i.material-icons search
+      .row.hooks
+        .col.s4.hook
+          %i.material-icons.left group
+          %span.hook-text Hơn 200,000 học viên
+        .col.s4.hook
+          %i.material-icons.left book
+          %span.hook-text Trên 30.000 khóa học
+        .col.s4.hook
+          %i.material-icons.left smartphone
+          %span.hook-text Học mọi nơi trên mọi thiết bị
+  .home-main
+    .row
+      .col.s12
+        .home-headline Khám phá những chủ đề và khóa học phổ biến
+    .row.courses.card-style
+      - (1..8).each do |i|
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s7.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K tham gia
+                .col.s5.no-padding.course-price{:style => "text-align:right;"}
+                  220.000đ
+    .row
+      .col.s12
+        %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;'} Khám phá các khóa học khác
+    .row{:style => 'text-align: center; margin-bottom: 60px;'}
+      %p{:style => 'font-size: 48px; margin-bottom: 0;'} Ready to master some skills?
+      %p{:style => 'font-size: 32px; margin-top: 0;'} Take your career to the next level!
+      %a.btn.waves-effect.deep-orange{:style => 'height: 70px; line-height: 70px;'} Đăng ký ngay
