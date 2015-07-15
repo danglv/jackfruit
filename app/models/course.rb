@@ -3,9 +3,14 @@ class Course
   include Mongoid::Timestamps
 
   field :name, type: String, default: ""
-  field :description, type: String, default: ""
   field :lang, type: String, default: "vi"
   field :price, type: Integer, default: 0
+
+  field :sub_title, type: String, default: ""
+  field :description, type: String, default: ""
+  field :requirement, type: String, default: ""
+  field :benefit, type: String, default: ""
+  field :audience, type: String, default: ""
   
   field :enabled, type: Boolean, default: false
   field :level, type: Integer, default: 0
