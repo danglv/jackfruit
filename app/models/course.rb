@@ -4,7 +4,7 @@ class Course
 
   field :name, type: String, default: ""
   field :description, type: String, default: ""
-  field :lang, type: String, default: ""
+  field :lang, type: String, default: "vi"
   field :price, type: Integer, default: 0
   
   field :enabled, type: Boolean, default: false
