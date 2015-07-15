@@ -23,7 +23,7 @@
               %a{:href => '#featured-courses'} Nổi bật
             %li.tab
               %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-main
+  .row.category-main{:style => "display:none"}
     .col.sidebar
       %ul.course-filters
         %li.course-filter
@@ -137,3 +137,148 @@
             %li.waves-effect
               %a{:href => "#!"}
                 %i.material-icons chevron_right
+
+  .row.category-feature-main
+    .col.sidebar
+      %ul.other-categories
+        %li.other-categories-title Cách chủ đề khác
+        %li.other-category
+          %a{:href => '/courses/1'} Phát triển web
+        %li.other-category
+          %a{:href => '/courses/1'} Ngôn ngữ lập trình
+        %li.other-category
+          %a{:href => '/courses/1'} Phát triển game
+    .col.s12{:style => "padding-left:240px"}
+      .row.course-list.highest-rating
+        .col.s12
+          .row.course-list-header
+            .col.s12
+              %h5.course-list-header-title Được đánh giá cao
+          .row.courses.card-style
+            .col.s3
+              %a.course{:href => '!#'}
+                .card-image.course-image
+                  = image_tag 'course-image.png'
+                .card-content.course-content
+                  .row.course-title
+                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+                  .row.course-author
+                    .col.s12.no-padding By Vijay Shinde
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons star_rate
+                      %i.material-icons star_rate
+                      %i.material-icons star_rate
+                      %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding
+                      (4511)
+                  .row.course-footer
+                    .col.s6.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite favorite
+                      %span.left 18.5K
+                    .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                      220.000đ
+            .col.s3
+              %a.course{:href => '!#'}
+                .card-image.course-image
+                  = image_tag 'course-image.png'
+                .card-content.course-content
+                  .row.course-title
+                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+                  .row.course-author
+                    .col.s12.no-padding By Vijay Shinde
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons star_rate
+                      %i.material-icons star_rate
+                      %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding
+                      (4511)
+                  .row.course-footer
+                    .col.s6.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite favorite
+                      %span.left 18.5K
+                    .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                      220.000đ
+            .col.s3
+              %a.course{:href => '!#'}
+                .card-image.course-image
+                  = image_tag 'course-image.png'
+                .card-content.course-content
+                  .row.course-title
+                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+                  .row.course-author
+                    .col.s12.no-padding By Vijay Shinde
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding
+                      (4511)
+                  .row.course-footer
+                    .col.s6.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite favorite
+                      %span.left 18.5K
+                    .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                      Miễn phí
+            .col.s3
+              %a.course{:href => '!#'}
+                .card-image.course-image
+                  = image_tag 'course-image.png'
+                .card-content.course-content
+                  .row.course-title
+                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+                  .row.course-author
+                    .col.s12.no-padding By Vijay Shinde
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                      %i.material-icons.is-rated star_rate
+                    .col.s5.course-rating-people.no-padding
+                      (4511)
+                  .row.course-footer
+                    .col.s6.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite favorite
+                      %span.left 18.5K
+                    .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                      Miễn phí
+      .row
+        .col.s12
+          .row
+            .col.s12.related-category
+              %h5.course-list-header-title Chủ đề liên quan
+          .row
+            .col.s4.center-align
+              .row
+                %a.related-icon{:href => "#"}
+                  = image_tag 'design-icon.png'
+              .row
+                %a.related-text{:href => "#"}
+                  Thiết kế
+            .col.s4.center-align
+              .row
+                %a.related-icon{:href => "#"}
+                  = image_tag 'technical-icon.png'
+              .row
+                %a.related-text{:href => "#"}
+                  Công nghệ và phần mềm
+            .col.s4.center-align
+              .row
+                %a.related-icon{:href => "#"}
+                  = image_tag 'office-icon.png'
+              .row
+                %a.related-text{:href => "#"}
+                  Ứng dụng văn phòng
