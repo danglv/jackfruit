@@ -10,3 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require materialize-sprockets
+//= require jquery_ujs
+//= require turbolinks
+//= require_tree ./components
+//= require_tree ./app
+
+$('.btn-sidenav-activator').sideNav();
+$('.sorting .sorting-options').material_select();
