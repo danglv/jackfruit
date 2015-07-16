@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :payment, :path => 'home/payment', only: %w[index] do
     collection do
+      get :delivery
+      get :visa
+      get :bank
+      get :direct
     end
   end
 
