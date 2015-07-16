@@ -7,8 +7,8 @@ class User
          :validatable, :omniauthable,
          :confirmable,
          :omniauth_providers => [:google_oauth2, :facebook]
-  TEMP_EMAIL_PREFIX = 'change@me'
-  TEMP_EMAIL_REGEX = /\Achange@me/
+  TEMP_EMAIL_PREFIX = 'tudemy'
+  TEMP_EMAIL_REGEX = %r{^[0-9a-z][0-9a-z._+]+[0-9a-z]@[0-9a-z][0-9a-z.-]+[0-9a-z]$}xi
 
   ## Database authenticatable
   field :email, type: String, default: ""
@@ -134,6 +134,6 @@ class User
   end
 
   def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+    self.email && (self.email =~ TEMP_EMAIL_REGEX) == 0
   end
 end
