@@ -1,0 +1,157 @@
+,,Mô tả khóa học,Yêu cầu,Lợi ích từ khóa học,Đối tượng mục tiêu,Chương trình giảng dạy,,
+Học Lập Trình Game - Phát triển game bằng Unity 5 toàn tập,Phát triển và thiết kế dòng game đầy thú vị. Học lập trình C# sử dụng môi trường Unity 4.6 và Unity 5. 7 game 2D và 3D đầu tiên của bạn trên nền tảng web và các thiết bị di động.,"Unity 5 sẵn sàng: Chúng tôi sử dụng môi trường Unity 4.6 trong phần đầu của khóa học vì tính hoàn thiện và ổn định của nó. Nội dung về Unity 5 sẽ được thêm vào phiên bản mới của khóa học này ngay sau khi các lỗi lớn của môi trường Unity 5 được cải thiện.
+Đây là trường học phát triển trò chơi trực tuyến thành công vang dội trên Kickstarter.
+Tìm hiểu cách tạo ra các trò chơi điện tử sử dụng môi trường Unity 3D - một công cụ phát triển game hoàn toàn miễn phí. Bài giảng bắt đầu từ những phần cực kỳ đơn giản, vì vậy không cần bạn phải có kinh nghiệm trước đó. Với phần hướng dẫn trực tuyến của chúng tôi, bạn sẽ phải ngạc nhiên với những gì bạn có thể đạt được.
+Được hưởng những quyền lợi từ sự hỗ trợ toàn cầu của các học viên khác và trên diễn đàn từ Ben & Brice hàng ngày. Tiếp tục xây dựng một vài PONG game phiên bản 3D có tính năng đa người chơi cùng bảng xếp hạng điểm trực tuyến,...
+Bạn sẽ có quyền truy cập vào một diễn đàn trong khóa học để thảo luận về các chủ đề mở rộng ngoài khóa học, hoặc xem các video cá nhân. Diễn đàn thảo luận ngày càng phát triển mạnh mẽ của chúng tôi sẽ giúp bạn học và chia sẻ ý tưởng của mình với các học viên khác. Nếu các bạn xem các đánh giá về chúng tôi thì sẽ biết rằng mọi người yêu thích chức năng này như thế nào.
+Khóa học này là một dự án, do đó bạn sẽ không chỉ được học các khái niệm lập trình đơn thuần mà còn được áp dụng chúng ngay lập tức với các trò chơi thực. Bạn sẽ không bao giờ gặp khó khăn trong việc tìm kiếm tài liệu vì luôn có sẵn tất cả các tập tin dự án cùng những tài liệu tham khảo và nguồn lực bổ sung. Bạn sẽ có những video giới thiệu, sơ đồ dễ hiểu, bản quay màn hình chất lượng cao và hơn thế nữa.
+Hãy xem độ dài và các đánh giá.
+Với mỗi bản thử nghiệm game mà bạn tạo nên, bạn sẽ tuân theo quy trình này...
+Thử thách tự làm toàn bộ một trò chơi của riêng mình.
+Được chỉ dẫn từng bước cách để tạo nên nó
+Có những thử thách để vận dụng nhuần nhuyễn kiến thức của mình.
+Bạn sẽ được học trọn đời chỉ với một lần trả phí. Tác giả của khóa học này là những lập trình viên có kỹ năng và kinh nghiệm; hay những game thủ cuồng nhiệt, vì vậy, họ hoàn toàn có khả năng giải thích những khái niệm phức tạp một cách dễ hiểu cũng như giúp cho việc học trở nên thoải mái. Đa số các khóa học chỉ dạy sử dụng ngôn ngữ lập trình C#. Bạn sẽ được học về C#, bao gồm cả Test Driven Development, một kỹ năng cực kỳ đáng giá. Kết thúc khóa học bạn sẽ cực kỳ tự tin với những kiến thức cơ bản về viết code và phát triển game, và sẽ khao khát được học thêm nhiều hơn nữa.
+Khóa học này sẽ KHÔNG dạy điều gì?
+Bởi nội dung của khóa học đã khá lớn, chúng tôi không thể đề cập đến tất cả các vấn nội dung vào lúc này. Đây là một số điều chúng tôi sẽ không đề cập tới:
+Tính năng Unity Pro
+Tôi ưu hóa hiệu năng
+Các plugin chỉnh sửa và thay đổi
+Procedural generation*
+Thay đổi engine vật lý*
+* Đã có các khóa học nhỏ giới thiệu về những nội dung này
+Bất cứ ai muốn học để tạo ra các game: Unity 3D là một nền tảng tuyệt vời cho phép bạn tạo ra những trò chơi chất lượng. Hơn nữa, những trò chơi này có thể được tạo ra tương thích với các hệ điều hành Windows, MacOS, iOS (thậm chí cả trên iOS8), Android và Web với chỉ bằng một mã nguồn! Nếu bạn là một người mới hoàn toàn, chúng tôi sẽ chỉ cho bạn tất cả những lý thuyết lập trình và thiết kế game mà bạn cần. Nếu bạn là một nghệ sĩ, chúng tôi sẽ chỉ cho bạn cách để mang những tác phẩm của bạn vào cuộc sống. Nếu bạn mà một lập trình viên, chúng tôi sẽ hướng dẫn bạn về những quy tắc trong thiết kế game.
+Hãy tham gia ngay, chắc chắn bạn sẽ không thất vọng.","Có máy Mac hoặc PC chạy được phần mềm Unity 3D.
+Một bản sao miễn phí của Unity 4.6.3 cho phần đầu.
+Một bản sao miễn phí của Unity 5 cho phần sau.
+Một bản sao của Blender, phần mềm miễn phí từ www.Blender.org","Hơn 244 khóa học và 45 giờ nội dung!
+Tìm hiểu ngôn ngữ lập trình C #, một ngôn ngữ hiện đại mạnh mẽ.
+Rèn luyện thái độ tích cực khi giải quyết vấn đề.
+Có được kiến thức tổng quát về việc sáng tạo trò chơi.
+Được học cách lập trình định hướng đối tượng bằng thực hành.
+Chuyển giao kiến thức của bạn đển  .NET, các ngôn ngữ khác, và nhiều hơn nữa.","Thành thạo và tự tin sử dụng máy tính.
+Những nghệ sĩ muốn tìm hiểu để đưa các tác phẩm của mình vào các trò chơi.
+Những nhà phát triển muốn rèn luyện lại kỹ năng qua việc viết code
+Hữu ích hơn nếu có một số kinh nghiệm lập trình, không bắt buộc.
+Những người mới bắt đầu luôn sẵn sàng làm việc chăm chỉ.",Phần 1: Giới thiệu và cài đặt,,
+,,,,,,,Mở đầu khóa học,1:08
+,,,,,,,Ghi chú,14 trang 
+,,,,,,,Cách sử dụng các khóa học,5:11
+,,,,,,,Câu Hỏi Thường Gặp,11 trang 
+,,,,,,,Cài đặt phần mềm Unity 3D,6:38
+,,,,,,,Đôi nét về Unity & MonoDevelop,2:45
+,,,,,,,Giới thiệu trình biên soạn Unity (Editor),7:50
+,,,,,,,MonoDevelop 101,4:15
+,,,,,,,Lưu và đóng dự án của bạn,5:10
+,,,,,,,3 ngôn ngữ được so sánh,2:54
+,,,,,,,Cách để đưa ra những câu hỏi tốt,15:26
+,,,,,,,Các nguồn thông tin hữu ích,2 trang 
+,,,,,,,Trắc nghiệm tổng kết chương,câu hỏi 6
+,,,,,,Phần 2: Number Wizard: Bản phác cơ bản,,
+,,,,,,,Giới thiệu về Number Wizard,1:51
+,,,,,,,Ghi chú,2 trang 
+,,,,,,,In ra đoạn chữ trong bảng điều khiển (Console),7:31
+,,,,,,,Sử dụng các biến,4:23
+,,,,,,,Phản hồi khi ấn phím,8:09
+,,,,,,,Trắc nghiệm giữa chương,8 câu hỏi
+,,,,,,,Sử dụng câu lệnh lựa chọn IF,5:25
+,,,,,,,Phạm vi và bối cảnh của biến,9:20
+,,,,,,,Đơn giản hóa bằng cách tạo ra các Function (Hàm),4:05
+,,,,,,,Hoàn thành Number Wizard,5:48
+,,,,,,,Làm thế nào để gỡ rối (debug) chương trình,11:12
+,,,,,,,Tải xuống Unity project,văn bản
+,,,,,,,Trắc nghiệm kết thúc chương,4 câu hỏi
+,,,,,,,Tổng kết chương,2:15
+,,,,,,Phần 3: Text101 - Text Adventure,,
+,,,,,,,Giới thiệu về Text101,2:19
+,,,,,,,Tài liệu thiết kế game,4 trang 
+,,,,,,,Các sản phẩm Text 101 của bạn,1 trang
+,,,,,,,Ghi chú,11 trang 
+,,,,,,,Tạo Project mới,7:12
+,,,,,,,Tài liệu về giao diện người dùng 2D,15:06
+,,,,,,,Ngắt từ và Hợp chuỗi,9:07
+,,,,,,,Xây dựng Engine trò chơi của bạn,16:09
+,,,,,,,Đoạn mã TextController.cs của chúng tôi,2 trang 
+,,,,,,,Tái tổ chức lại mã nguồn của bạn,11:28
+,,,,,,,"Mở rộng về ""Câu chuyện nhà tù"" của chúng tôi",14:54
+,,,,,,,Đoạn mã về câu chuyện mở rộng của chúng tôi,4 trang 
+,,,,,,,Xây dựng Cho Web & Chia sẻ,8:17
+,,,,,,,Tải về Unity project,văn bản
+,,,,,,,Trắc nghiệm tổng kết chương,1 câu hỏi
+,,,,,,,Tổng kết chương,0:57
+,,,,,,Phần 4: Number Wizard UI,,
+,,,,,,,Giới thiệu về giao diện người dùng UI,2:01
+,,,,,,,Tài liệu thiết kế game,3 trang 
+,,,,,,,Ghi chú,9 trang 
+,,,,,,,Object và Class,2:41
+,,,,,,,Tạo và lưu Levels,4:22
+,,,,,,,Làm thế nào để chèn chữ vào màn hình ,13:36
+,,,,,,,Thêm một nút Start,5:49
+,,,,,,,Gọi script từ các nút,9:01
+,,,,,,,Trắc nghiệm giữa chương,5 câu hỏi
+,,,,,,,Làm thế nào để tải các màn hình và thoát,12:44
+,,,,,,,Sử dụng một tài liệu Thiết kế Trò chơi,10:38
+,,,,,,,Nhập script từ Number Wizard trước,18:33
+,,,,,,,Các mã nguồn Number Wizard cũ,1 trang
+,,,,,,,Kết thúc Number Wizard UI,5:36
+,,,,,,,Tải về Unity project,1 trang
+,,,,,,,Mục Trắc nghiệm tổng kết chương,3 câu hỏi
+,,,,,,,Tổng kết chương,3:06
+,,,,,,Phần 5: Block Breaker,,
+,,,,,,,Giới thiệu về Block Breaker,2:03
+,,,,,,,Tài liệu thiết kế trò chơi,3 trang 
+,,,,,,,Các Block Breaker của bạn,1 trang
+,,,,,,,Ghi chú,34 trang 
+,,,,,,,Gimp Image Editing 101,10:58
+,,,,,,,Tạo một Brick Sprite 2D ,9:20
+,,,,,,,Nhập hệ thống danh sách,9:36
+,,,,,,,Chơi Nhạc nền,9:38
+,,,,,,,Về Tĩnh học và Các thể đơn,3:32
+,,,,,,,Sử dụng biến tĩnh,7:57
+,,,,,,,Thứ tự thực hiện và Các thể đơn,9:45
+,,,,,,,Chiều Z trong các trò chơi 2D,2:50
+,,,,,,,Thiết lập không gian chơi (Play Space) của bạn,8:48
+,,,,,,,Bóng + Trọng lực + Va Chạm = Fun,8:07
+,,,,,,,"Va chạm, Nút bấm & Đâm va",9:41
+,,,,,,,Làm sạch Trước khi Di chuyển,8:35
+,,,,,,,Chọn kiểu Va chạm Trong Unity,8:25
+,,,,,,,Câu hỏi giữa chương,7 câu hỏi
+,,,,,,,Sử dụng Vật liệu vật lý,6:35
+,,,,,,,Di chuyển bằng chuột,13:11
+,,,,,,,Phát bóng bằng Click chuột,14:22
+,,,,,,,Va chạm vô hình & Tỷ lệ trọng lực,10:21
+,,,,,,,Tạo & sử dụng Unity Prefabs,13:05
+,,,,,,,Unity Editor tổng quan đến chi tiết,5:42
+,,,,,,,Tất cả mọi thứ làm cho A Prefab,9:42
+,,,,,,,GameObject.FindObjectOfType,8:55
+,,,,,,,Trình tự xây dựng cấp bậc,10:58
+,,,,,,,Phá hủy khi ra đòn,9:40
+,,,,,,,Nhập vào Sprite Sheets,15:41
+,,,,,,,Trao đổi Sprites Trong Script,11:57
+,,,,,,,Củng cố bộ đếm va chạm,12:48
+,,,,,,,Phương pháp tĩnh để phát hiện điều kiện chiến thắng,14:00
+,,,,,,,Phát hiệu ứng âm thanh,14:04
+,,,,,,,Sử dụng Random.Range(),8:35
+,,,,,,,Kiểm tra chức năng phát tự động ,14:05
+,,,,,,,Xây dựng & Chia sẻ trên Web,7:46
+,,,,,,,Sửa các lỗi người dùng báo,5:57
+,,,,,,,Những hình dạng phức tạp hơn,12:47
+,,,,,,,Làm mã nguồn có thể mở rộng,7:10
+,,,,,,,Sử dụng hệ thống tiền tố,11:09
+,,,,,,,DOWNLOAD Unity project,văn bản
+,,,,,,,Câu hỏi kết thúc chương,9 câu hỏi
+,,,,,,,Tổng kết,1:32
+,,,,,,Phần 6: Laser Defender,,
+,,,,,,,Giới thiệu về Laser Defender,1:33
+,,,,,,,Tài liệu thiết kế trò chơi,3 trang 
+,,,,,,,Laser Defender Assets,1 trang
+,,,,,,,Ghi chú,132 trang 
+,,,,,,,Nhập hệ thống danh sách,5:01
+,,,,,,,Câu hỏi giữa chương,10 câu hỏi
+,,,,,,,Câu hỏi giữa chương,9 câu hỏi
+,,,,,,,Câu hỏi cuối chương,12 câu hỏi
+,,,,,,Phần 7: Một số sự cố nhỏ: Bắt chước theo trò Plants vs. Zombies ,,
+,,,,,,,Câu hỏi giữa chương,7 câu hỏi
+,,,,,,,Câu hỏi giữa chương,7 câu hỏi 
+,,,,,,,Câu hỏi cuối chương,3 câu hỏi
+,,,,,,Phần 8: Phần cuối cùng,,
+,,,,,,,Câu hỏi đố vui cuối khóa học,62 câu hỏi

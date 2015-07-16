@@ -27,7 +27,7 @@ namespace :seeds do
         binding.pry if category.blank?
 
         sub_category = Category.find_or_initialize_by(
-          id: "#{@category_name}/#{@sub_category_name}",
+          id: "#{@category_name}_#{@sub_category_name}",
           name: row[5],
           parent_category_id: category.id.to_s
         )
@@ -62,57 +62,76 @@ namespace :seeds do
 
   desc "seeding course by course name"
   task seed_course_by_course_name: :environment do
-    csv_file_name = "db/seeding_data/course/"
-    csv_file_name += "1"
-    data = load_csv_file(csv_file_name) and true
 
-    @course_name = ""
-    @curriculums = []
-    @course = nil
-   
-    data.each_with_index{|row, index|
-      next if row[2] == "Mô tả khóa học"
-      
-      if !row[6].blank?
-        @curriculums << [row[6], "chapter"]
-      end
+    categorys = Category.where(:parent_category_id.in => [nil, '', []])
+    # File.exist?(file_path)
 
-      if !row[7].blank?
-        @curriculums << [row[7], "lecture"]
-      end
+    categorys.each {|category|
+      csv_file_name = "db/seeding_data/course/"
+      csv_file_name += "#{category.id}/"
 
-      if (!row[0].blank? || (index == data.count - 1))
-        if @course.blank?
-          @course_name = row[0]
-          @course = Course.where(name: @course_name).first
+      category.child_categories.each {|sub_category|
+        next if !File.exist?("#{csv_file_name}#{category.name} - #{sub_category.name}.csv")
+        puts "#{csv_file_name}#{category.name} - #{sub_category.name}"
 
-          binding.pry if @course.blank?
+        data = load_csv_file("#{csv_file_name}#{category.name} - #{sub_category.name}") and true
 
-          @course.sub_title   = row[1]
-          @course.description = row[2]
-          @course.requirement = row[3]
-          @course.benefit     = row[4]
-          @course.audience    = row[5]
-        else
-          chapter_index = 0
-          lecture_index = 0
+        @course_name = ""
+        @curriculums = []
+        @course = nil
+       
+        data.each_with_index{|row, index|
+          next if (row[0] == "" || row[0] == "name" || row[0] == "Name")
+          if index == 0
+            course = Course.where(name: row[0]).first
 
-          @curriculums.each_with_index {|curriculum, x|
-            @course.curriculums.create(
-              description: curriculum[0],
-              order: x,
-              chapter_index: chapter_index,
-              lecture_index: lecture_index,
-              type: curriculum[1]
-            )
+            next if course.blank?
+          end
 
-            chapter_index += 1 if curriculum[1] == "chapter"
-            lecture_index += 1 if curriculum[1] == "lecture"
-          }
-        end
-      end
-      @course
+          if !row[6].blank?
+            @curriculums << [row[6], "chapter"]
+          end
+
+          if !row[7].blank?
+            @curriculums << [row[7], "lecture"]
+          end
+
+          if (!row[0].blank? || (index == data.count - 1))
+            if @course.blank?
+              @course_name = row[0]
+              @course = Course.where(name: @course_name).first
+
+              binding.pry if @course.blank?
+
+              @course.sub_title   = row[1]
+              @course.description = row[2]
+              @course.requirement = row[3]
+              @course.benefit     = row[4]
+              @course.audience    = row[5]
+            else
+              chapter_index = 0
+              lecture_index = 0
+
+              @curriculums.each_with_index {|curriculum, x|
+                @course.curriculums.create(
+                  description: curriculum[0],
+                  order: x,
+                  chapter_index: chapter_index,
+                  lecture_index: lecture_index,
+                  type: curriculum[1]
+                )
+
+                chapter_index += 1 if curriculum[1] == "chapter"
+                lecture_index += 1 if curriculum[1] == "lecture"
+              }
+
+              @course.save
+            end
+          end
+        }
+      }
     }
+
   end
 end
 

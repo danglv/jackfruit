@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
       condition.delete[:price]
     end
 
-    category = Category.where(name: category_id).first
+    category = Category.where(id: category_id).first
     @courses = {}
 
     condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
