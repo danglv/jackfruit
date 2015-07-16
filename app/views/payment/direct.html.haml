@@ -21,7 +21,7 @@
         .col.s12
           .row.courses.card-style.center-align
             .col.s3
-              %a.payment-tab.course.active{:href => '/home/payment/delivery'}
+              %a.payment-tab.course{:href => '/home/payment/delivery'}
                 .card-image.course-image
                   %i.material-icons.large shopping_cart
                   %h6
@@ -47,7 +47,7 @@
                   %h6
                     qua ngân hàng
             .col.s3
-              %a.payment-tab.course{:href => '/home/payment/direct'}
+              %a.payment-tab.course.active{:href => '/home/payment/direct'}
                 .card-image.course-image
                   %i.material-icons.large room
                   %h6
@@ -59,36 +59,11 @@
           Bạn chưa lựa chọn hình thức thanh toán nào
       .col.s12.no-padding 
         .row{:style => "padding: 0 113px 0 113px"}
+          %p.red-text
+            Thanh toán tại văn phòng Tudemy
           %p
-            Điền thông tin đăng ký đặt mua khóa học
-          %form.col.s12{:action => "#"}
-            .row
-              .col.s4
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Tên đầy đủ"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Số điện thoại"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3
-                .row
-                  %a.btn.deep-orange{:href => "#"}
-                    Đặt mua khóa học
-              .col.s4.offset-s1{:action => "#"}
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Email"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Địa chỉ"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Quận / Huyện
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3     
+            Địa chỉ văn phòng 
+            Biệt thự 298/3 Điện Biên Phủ, phường 17, quận Bình Thạnh, TP Hồ Chí Minh <br>
+            (Thời gian làm việc: từ 8:30 - 17:30 , từ Thứ 2 đến Thứ 7 hàng tuần)
+          %span
+          = image_tag 'map.png'      

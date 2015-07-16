@@ -21,7 +21,7 @@
         .col.s12
           .row.courses.card-style.center-align
             .col.s3
-              %a.payment-tab.course.active{:href => '/home/payment/delivery'}
+              %a.payment-tab.course{:href => '/home/payment/delivery'}
                 .card-image.course-image
                   %i.material-icons.large shopping_cart
                   %h6
@@ -39,7 +39,7 @@
                   %h6
                     hoặc Visa/Master
             .col.s3
-              %a.payment-tab.course{:href => '/home/payment/bank'}
+              %a.payment-tab.course.active{:href => '/home/payment/bank'}
                 .card-image.course-image
                   %i.material-icons.large business
                   %h6
@@ -57,38 +57,3 @@
           2. Hoàn tất thanh toán
         %p
           Bạn chưa lựa chọn hình thức thanh toán nào
-      .col.s12.no-padding 
-        .row{:style => "padding: 0 113px 0 113px"}
-          %p
-            Điền thông tin đăng ký đặt mua khóa học
-          %form.col.s12{:action => "#"}
-            .row
-              .col.s4
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Tên đầy đủ"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Số điện thoại"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3
-                .row
-                  %a.btn.deep-orange{:href => "#"}
-                    Đặt mua khóa học
-              .col.s4.offset-s1{:action => "#"}
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Email"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Địa chỉ"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Quận / Huyện
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3     

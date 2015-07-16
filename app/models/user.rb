@@ -7,8 +7,8 @@ class User
          :validatable, :omniauthable,
          :confirmable,
          :omniauth_providers => [:google_oauth2, :facebook]
-  TEMP_EMAIL_PREFIX = 'change@me'
-  TEMP_EMAIL_REGEX = /\Achange@me/
+  TEMP_EMAIL_PREFIX = 'tudemy@me'
+  TEMP_EMAIL_REGEX = /\A[^@]+@[^@]+\z/
 
   ## Database authenticatable
   field :email, type: String, default: ""
@@ -97,7 +97,6 @@ class User
       email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email if email_is_verified
       user = User.where(:email => email).first if email
-
       # Create the user if it's a new registration
       if user.nil?
         user = User.new(

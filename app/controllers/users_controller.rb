@@ -166,7 +166,14 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params[:id])
+      if params[:id] != nil
+        @user = User.find(params[:id]) 
+      else
+        @user = @current_user
+      end
+
+      # Fix user đầu tiên để demo
+      @user = User.first if @user == nil
     end
     def user_params
       accessible = [ :name, :email ] # extend with your own params
