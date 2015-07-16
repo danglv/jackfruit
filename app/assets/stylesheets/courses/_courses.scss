@@ -338,15 +338,15 @@
   .header{
     background: #727272;
     height: 50px;
-
     &-container{
       width: 1110px;
-      margin: 0px auto;
+      margin: 50px auto;
 
       .title, .count{
         color: white;
         padding: 0px;
         margin: 0px;
+        line-height: 50px;
       }
     }
 
