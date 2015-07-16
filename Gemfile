@@ -34,7 +34,7 @@ gem 'haml', group: :assets
 gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+gem 'unicorn', :platforms => :ruby
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
@@ -65,3 +65,6 @@ end
 
 gem 'pry', '~> 0.10.1'
 gem 'pry-rails', '~> 0.3.4'
+gem 'will_paginate_mongoid', '~> 2.0.1'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin]

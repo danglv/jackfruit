@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   resources :courses, only: %w[index show] do
     member do
       get :lecture
+      get :learning
     end
     collection do
       get :search
       get :test_course_detail_id
       get :detail
+      get '/:category_id', to: 'courses#list_course'
     end
   end
 
