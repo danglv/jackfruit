@@ -5,6 +5,9 @@ Devise.setup do |config|
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   config.secret_key = '9b8a0df23af0a3bb2059c802adcc375a3b44dd4f632160624e7e04761ab1cba7da4e1b32ae85593a20c12bc4b4f575d02f91e15491defdc5144275beff7fdf9e'
+  config.omniauth :facebook, "1592966984299237", "17679cc1d07e5c2633cf8dc14153c290"
+  config.omniauth :twitter, "KEY", "SECRET"
+  config.omniauth :google_oauth2, "590436185497-pht12vaksov6c1fdl2cljamgq3od6gmm.apps.googleusercontent.com", "8lj_tq2XdSVsnmpaW0lF205l", { }
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
