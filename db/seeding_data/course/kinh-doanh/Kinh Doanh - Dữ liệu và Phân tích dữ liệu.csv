@@ -1,0 +1,71 @@
+,,,,,,,,
+SQL [Structured Query Language - Ngôn ngữ truy vấn có cấu trúc] cho người mới: Nhập môn Phân tích dữ liệu,"Dành cho những người không có chuyên môn và người làm marketing. Chủ yếu sử dụng MySQL nhưng vẫn chấp nhận PostgresSQL/ Postgres, SQL Servrer, v..v","Câu chuyện của bạn
+Bill mới tốt nghiệp cao đẳng và không có kỹ năng đàm phán thực sự (đặc biệt là ngành nhân lực) Nhưng vì anh ấy đã cố gắng cải thiện CV của mình để trông ấn tượng hơn, anh ấy đã ghi khả năng Microsoft Word và PowerPoint ở mục ""kỹ năng"". Tuyệt vời. Không phải vậy.
+Joe đang làm với vị trí marketing tại một công ty nhỏ. Anh ấy có hàng đống ý tưởng sáng tạo nhưng thỉnh thoảng lại cảm thấy như anh ấy đang đoán mò về những việc mà khách hàng đang làm. Giá mà anh ấy hiểu biết sâu về hành vi của người tiêu dùng thì anh ấy đã có thể trở thành một nhà marketing có nhiều dữ liệu khóa hơn. Nhưng phân tích dữ liệu có phải chỉ là dành cho những người có chuyên môn?
+Câu chuyện của chúng tôi:
+David và Peter đã gia nhập Udemy chỉ với một chút kinh nghiệm chuyên môn. Nhưng sau rất nhiều lần thử nghiệm và lỗi, những rắc rối và cả sự hỗ trợ từ bạn bè, cuối cùng họ cũng đủ khả năng để khám phá ra hiểu biết riêng biệt cho bản thân họ, cho đội cũng như công ty họ. Họ có khả năng tìm ra những điều thú vị về hành vi người tiêu dùng, tạo ra bảng đồng hồ để theo dõi và tính toán quá trình đạt mục tiêu cả nhóm, hay tìm kiếm dữ liệu từ các báo cáo cho đội, và nhận dữ liệu về những quyết định của họ.
+Điều bạn sẽ học được:
+Chúng tôi đã đúc kết được hiểu biết và kinh nghiệm qua việc sử dụng SQL trong một khóa học ngắn hạn và đến cuối cùng, bạn sẽ có những kỹ năng cơ bản để thực hiện một số việc phân tích dữ liệu thật sự cho công ty sử dụng SQL - một loại ngôn ngữ mà mọi công ty đều dùng. Thậm chí cả khi nếu bạn không có nền tảng chuyên môn thì cũng không phải lo lắng!
+Cách thức khóa học được tổ chức
+Trong khóa học này, chúng tôi sẽ đóng giả làm một doanh nghiệp thực sự (vd Blockbuster) nên những điều mà bạn học được sẽ dễ dàng được áp dụng vào vị trí/công ty của chính bạn. Sẽ không có thứ trừu tượng/giả thuyết nào hết.
+Chúng tôi sẽ chạy bảng hỏi như một doanh nghiệp thực thụ trong khi vẫn hướng dẫn bạn những kỹ năng cứng để củng cố những câu hỏi mà bạn có thể áp dụng cùng với những kỹ năng để tạo ra bảng hỏi cho khách hàng với mục tiêu chi tiết.
+Để tạo áp lực học tập, chúng tôi sẽ có các bài tập, bài thi xuyên suốt khóa học cho bạn thực hành
+Chúng tôi sẽ có một phần được thêm vào khi các bài học mới được thỉnh thoảng bổ sung (bao gồm những bài giảng được học viên yêu cầu, nhiều chủ để nâng cao
+Chúng tôi tham gia trực tiếp trên bảng thảo luận để trả lời bất cứ câu hỏi nào bạn có. Vì vậy đừng e ngại đặt câu hỏi
+Chú ý về sư phạm
+Chúng tôi biết cảm giác lúc mua một cuốn sách, như thể bạn cảm thấy rất tốt về bản thân, không khi nào kết thúc cảm giác đó và thấy chẳng có gì để thể hiện ra từ nó. Chúng tôi không muốn điều đó xảy ra trong khóa học này. Điều chúng tôi muốn trong khóa học này là bạn thực sự hoàn thành được nó. Chúng tôi tin rằng một nửa những gì học được là động lực và sự cam kết, vì vậy chúng tôi vẫn tiếp tục cố gắng hết sức để khiến khóa học thú vi, liên quan, có tính giải trí hơn - không màu mè, không lê thê, sẽ chỉ là những điều thực sự cần thiết. Trời ơi, bạn thậm chí vẫn có thể thấy bản thân bỏ qua một bữa tiệc để dành thời gian với những người bạn mới (chúng tôi chẳng hạn)!
+Câu hỏi thường gặp
+Tôi có cần trả tiền cho phần mềm nào để tham gia khóa học không? Câu trả lời là không. Mọi thứ chúng tôi dùng để phân tích dữ liệu với SQL là hoàn toàn miễn phí. Chúng tôi sẽ hưỡng dẫn bạn cài đặt và chạy bất kỳ phần mềm nào mà chúng tôi sử dụng.",Không có yêu cầu về Khối kiến thức chuyên môn,"Hơn 35 bài giảng và 3.5 giờ học nội dung.
+Phân tích được trạng thái của người tiêu dùng
+Hiểu được hành động của công ty/khách hàng
+Quyết định dữ liệu chủ đạo
+Tính toán và theo dõi hiệu quả marketing
+Khám phá ra số liệu hấp dẫn trong marketing","Những người làm marketing
+Người khởi nghiệp
+Người chưa có chuyên môn
+Nhà phân tích dữ liệu
+Sinh viên mới tốt nghiệp
+Người đang tìm việc",Phần 1: Chào mừng!,,
+,,,,,,,Xem tôi này!,2:59
+,,,,,,,Ghi chú từ người trưởng nhóm khiêm tốn của bạn,Văn bản
+,,,,,,,Bắt đầu (Tải về một Text Editor) - Tất cả hệ điều hành,2:20
+,,,,,,,Thiết lập (Cài đặt) - Phiên bản cho Mac,9:48
+,,,,,,,Thiết lập (Cài đặt) - Phiên bản cho Windows,13:14
+,,,,,,Phần 2: Giới thiệu về MySQL ,,
+,,,,,,,Mối quan hệ dữ liệu cơ sở là gì?,5:56
+,,,,,,,[Câu hỏi] Mối quan hệ dữ liệu cơ sở là gì?,1 câu hỏi 
+,,,,,,,Dữ liệu SQL cơ bản:Khung câu hỏi ,10:23
+,,,,,,,Khung câu hỏi SQL,3 câu hỏi
+,,,,,,,[Cân não] Xây dựng câu hỏi đầu tiên của bạn!,5:32
+,,,,,,Phần 3: Các truy vấn cơ bản,,
+,,,,,,,COUNT() và GROUP BY,6:23
+,,,,,,,[Cân não] Tweak,Text
+,,,,,,,COUNT() và GROUP BY,3 câu hỏi
+,,,,,,,[Cân não] Tổ chức phim bằng đánh giá,4:17
+,,,,,,,Kết nối các bảng với nhau,6:40
+,,,,,,,[Cân não]  Kết nối bảng (Khởi động),2 câu hỏi
+,,,,,,,[Cân não] Kết nối bảng,5:32
+,,,,,,,[Cân não] Tìm kiếm sản phẩm bán chạy nhất của bạn,5:23
+,,,,,,,"Gặp khó khăn trong việc định nghĩa ""Kết nối bảng""?",Văn bản
+,,,,,,,Số học và câu lệnh sắp xếp các hàng theo quy định cột [Order by],11:37
+,,,,,,,[Cân não] Tìm kiếm cửa hàng đứng đầu của bạn,4:14
+,,,,,,,"LEFT(), MIN() và MAX()",11:04
+,,,,,,,[Cân não] Tìm kiếm người dùng hiện tại - Thời điểm Khách hàng sử dụng lần cuối cùng,0:36
+,,,,,,,[Cân não] Tìm Tháng qua sự tăng lên của thu nhập tháng,4:53
+,,,,,,,DISTINCT,6:28
+,,,,,,,[Cân não] Tìm rạp chiếu bóng nhất định được thuê mỗi tháng,4:09
+,,,,,,,IN(),6:29
+,,,,,,,Toán tử so sánh và HAVING,5:26
+,,,,,,,[Cân não] Phá vỡ Thu nhập bằng Lưu giữ và Đánh giá,4:57
+,,,,,,Phần 4: Truy vấn nâng cao,,
+,,,,,,,Các bảng tạm ,9:12
+,,,,,,,Tìm kiếm thu nhập hàng năm qua Diễn viên/ Diễn viên nữa + Kết luận (và Mẹo cuối cùng)!,8:02
+,,,,,,Chương 5: Bài giảng tặng thêm,,
+,,,,,,,[Cân não] JOINs,19:19
+,,,,,,, [Cân não] Tặng thêm: JOINs,5:02
+,,,,,,,"Phân tích độ gia nhập của người dùng là gì và tại sao nó ""KEWL""?",6:49
+,,,,,,,Truy vấn Phân tích gia nhập - Thời điểm thú vị,19:18
+,,,,,,,Phản hồi ẩn danh!,IFrame
+,,,,,,,14 T5 - 15 T6 Kỳ thi kết thúc,Văn bản
+,,,,,,,Yêu cầu từ những nhóm trưởng,Văn bản
+,,,,,,,Thời khóa biểu thuyết trình mới,Văn bản

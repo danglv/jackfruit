@@ -1,0 +1,173 @@
+,,,,,,,,
+Ngôn ngữ truy vấn mang tính cấu trúc [Structured Query Language] (SQL) trong Oracle - Từng bước với SQL,Khám phá những kỹ năng SQL thiết yếu cần thiết để biến bạn thành nhà phát triển SQL mà bạn có thể kiếm được hơn 70k đô la trong ngành công nghiệp CNTT.,"Học để trở thành nhà phát triển SQL kiếm được tiền chỉ trong 7 tuần.
+Khóa học hiệu quả, dễ dàng và nhanh chóng này sẽ đưa bạn từ không có kinh nghiệm gì trong kỹ năng viết SQL có thể kiếm được tiền như một nhà phát triển SQL.
+Khóa học này sẽ dạy cho bạn tất cả mọi thứ bạn cần biết, từ việc học các khái niệm cơ sở dữ liệu  khác nhau đến việc viết SQL để tương tác với cơ sở dữ liệu.
+Trong suốt khóa học, tôi sẽ sử dụng các phương pháp dưới đây để giúp bạn tư duy và giúp đỡ bạn trong việc hình thành các câu lệnh SQL.
+Nhu cầu kinh doanh:
+Nhà quản lý yêu cầu bạn cung cấp cho bạn một báo cáo có chứa tổng khối lượng bán hàng cho tháng Một qua ngày và thành phố
+Các câu hỏi trong đầu của bạn để xây dựng truy vấn của bạn
+Câu hỏi      Câu trả lời
+Chọn?        SELECT
+Những cột gì?        DAY, CITY
+Tổng?        SUM (VOLUME)
+Giới từ?        FROM
+Bảng nào bao gồm dữ liệu các đơn đặt hàng bán hàng?        SALES
+Lọc?        WHERE SALES_DATE BETWEEN ’01-JAN-2015’ and ’31-JAN-2015’
+Gộp nhóm?        GROUP BY DAY, CITY
+Kết hợp các câu trả lời ở trên để tạo thành các SQL dưới đây
+SELECT day, city, SUM(volume) CHỌN ngày, thành phố, TỔNG (thể tích)
+TỪ việc kinh doanh
+NƠI kinh doanh_ngày GIỮA ’01-JAN-2015’ VÀ ’31-JAN-2015’
+NHÓM BỞI ngày, thành phố;
+Trong khóa học này người tham gia sẽ học
+Các khái niệm cơ sở dữ liệu quan hệ
+Lấy Dữ liệu từ Cơ sở dữ liệu
+Lọc Dữ liệu dựa trên những yêu cầu kinh doanh
+Tạo bảng và thay đổi cấu trúc của nó
+Gia nhập dữ liệu từ các bảng khác nhau
+Gộp nhóm Dữ liệu và tính toán tóm tắt
+Hạn chế bắt buộc trên Bảng
+Nâng cao thành tích sử dụng Index
+và nhiều điều thú vị hơn ..
+Các phần mềm được sử dụng
+Cơ sở dữ liệu Oracle 11g
+Nhà phát triển SQL",Bất kỳ sinh viên có kiến thức điều khiển máy tính thì đều đủ điều kiện để hiểu khóa học này,"Hơn 111 bài giảng và 5.5 giờ nội dung!
+Hiểu thuật ngữ Cơ sở dữ liệu
+Đọc dữ liệu từ cơ sở dữ liệu
+Tạo dữ liệu trong cơ sở dữ liệu
+Giải quyết các hạn chế về kiểu dữ liệu được lưu trữ
+Nâng cao thành tích sử dụng Index","Khoá học SQL này là có ý nghĩa là cho người mới, những người không quen thuộc với cú pháp SQL và / hoặc sinh viên đang tìm kiếm lớp học bồi dưỡng nhanh chóng về SQL và một số khái niệm cơ sở dữ liệu quan trọng. Kiến thức lập trình không yêu cầu phải có.",,Chào mừng!,5:45
+,,,,,,,Cách để tận dụng tốt nhất chương trình,1 trang
+,,,,,,Phần 1: Cài đặt phần mềm,,
+,,,,,,,Cài đặt Oracle,4:07
+,,,,,,,Cài đặt Java SDK,2:20
+,,,,,,,Cài đặt Nhà phát triển SQL,3:21
+,,,,,,,Chạy các tập lệnh cần thiết cho khóa học,2:12
+,,,,,,,Các tập lệnh cho Bài tập Lab của chúng ta,4 trang
+,,,,,,Phần 2: Các khái niệm Cơ sở dữ liệu,,
+,,,,,,,Một Tập tin là gì?,2:05
+,,,,,,,Một Bảng là gì?,2:23
+,,,,,,,Một Cơ sở dữ liệu là gì?,3:15
+,,,,,,,Một Cơ sở dữ liệu quan hệ (RDBMS) là gì?,1:47
+,,,,,,,Một Giao dịch là gì?,2:27
+,,,,,,,"Bốn thuộc tính Tính nguyên tố (Atomicity), Tính nhất quán (Consistency), Tính tách biệt (Isolation), Tính bền vững (Durability) (ACID) là gì ??",2:40
+,,,,,,,Các nhà cung cấp RDBMS,1:17
+,,,,,,,Các Quy tắc CODD,2 slides
+,,,,,,Phần 3: Cách truy cập Rồng (Cơ sở dữ liệu),,
+,,,,,,,Bạn nói như thế nào về một Cơ sở dữ liệu?,1:59
+,,,,,,,Các lệnh chung nhất là gì?,2:43
+,,,,,,,Chúng ta có thể lưu trữ loại Dữ liệu nào?,3:12
+,,,,,,,Mẫu Dữ liệu cho Khóa học của chúng ta,1:46
+,,,,,,Phần 4: Cho phép xem một Dữ liệu,,
+,,,,,,,Tôi có thể xem dữ liệu gì?,3:45
+,,,,,,,"Tôi xem dữ liệu như thế nào (CHỌN)
+Xem trước",2:51
+,,,,,,,Tôi xem một phần của dữ liệu như thế nào (CHỌN)?,2:57
+,,,,,,,Thực hành 1 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 5: Cho phép giới hạn dữ liệu chúng ta xem (Lọc),,
+,,,,,,,Lọc Dữ liệu (Lệnh WHERE),3:21
+,,,,,,,Toán tử So sánh,1:38
+,,,,,,,Lọc Dữ liệu (Nhiều ví dụ....),3:34
+,,,,,,,Bộ lọc trên các giá trị Đặc tính và Ngày...,4:39
+,,,,,,,Lọc dựa trên một cột trong một bảng ...,4:02
+,,,,,,,Thực hành 2 (bài tập với câu trả lời),2 trang
+,,,,,,Phần 6: Toán tử Logic,,
+,,,,,,,BETWEEN và NOT BETWEEN,2:32
+,,,,,,,IN và NOT IN,2:52
+,,,,,,,Toán tử LIKE,4:17
+,,,,,,,ALL và ANY,3:33
+,,,,,,,Cho phép học về NULL...,2:08
+,,,,,,,LÀ NULL và KHÔNG PHẢI LÀ NULL,3:18
+,,,,,,,AND và OR,5:27
+,,,,,,,Thực hành 3 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 7: Toán tử Số học,,
+,,,,,,,Chúng rất đơn giản!!! (10 + 20 = 30),2:42
+,,,,,,,Thực hành 4 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 8: Cho phép sắp xếp cơ sở chúng ta xem (Sorting),,
+,,,,,,,Mệnh đề ORDER BY ,4:04
+,,,,,,,Các giá trị NULL được xử lý như thế nào trong khi Sắp xếp Dữ liệu?,2:06
+,,,,,,,Thực hành 5 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 9: Chúng ta gộp dữ liệu từ 2 bảng như thế nào?,,
+,,,,,,,Toán tử SET,2:39
+,,,,,,,Toán tử UNION,4:22
+,,,,,,,"Toán tử UNION
+Xem trước",1:28
+,,,,,,,Toán tử INTERSECT,2:00
+,,,,,,,Toán tử MINUS,2:24
+,,,,,,,Thực hành 6 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 10: Cho phép gộp nhóm dữ liệu...,,
+,,,,,,,Chức năng Tóm tắt/ Gộp chung,5:28
+,,,,,,,Mệnh đề GROUP BY,4:08
+,,,,,,,GROUP BY với nhiều cột,5:00
+,,,,,,,GROUP BY với mệnh đề HAVING,3:21
+,,,,,,,Thực hành 7 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 11: Liên kết dữ liệu từ 2 hoặc nhiều bảng (NỐI),,
+,,,,,,,Tại sao Liên kết?,3:53
+,,,,,,,Liên kết Nội,5:08
+,,,,,,,Liên kết Ngoại bên Trái,2:43
+,,,,,,,Liên kết Ngoại bên Phải,2:35
+,,,,,,,Liên kết Ngoại Đủ,2:26
+,,,,,,,Liên Kết Chéo,2:58
+,,,,,,,Liên kết Tự nhiên,2:22
+,,,,,,,Chuẩn hóa Cơ sở dữ liệu,1 trang
+,,,,,,,Thực hành 8 (Bài tập với câu trả lời),2 trang
+,,,,,,Phần 12: Các hàm số có sẵn cho chúng ta sử dụng ...,,
+,,,,,,,DUAL (Đây là gì?),2:37
+,,,,,,,Tại sao chúng ta cần các hàm số mới?,1:28
+,,,,,,,Các hàm số liên quan đến NUMBER,3:47
+,,,,,,,Các hàm số liên quan đến CHARACTER,4:07
+,,,,,,,Các hàm số liên quan đến DATE,4:56
+,,,,,,,Thực hành 9 (Bài tập với đáp án),1 trang
+,,,,,,Phần 13: NHỮNG ĐIỀU thú vị !!!,,
+,,,,,,,IF THEN ELSE (câu lệnh CASE),3:19
+,,,,,,,Tên thay thế (tên ALIAS),4:03
+,,,,,,,Giá trị DISTINCT,3:18
+,,,,,,,Cột PSEUDO,3:26
+,,,,,,Phần 14: Ngôn ngữ Định nghĩa Dữ liệu,,
+,,,,,,,Hãy tạo ra một bảng (CREATE),2:57
+,,,,,,,Hãy thay đổi cấu trúc bảng (ALTER),4:50
+,,,,,,,Hãy xóa bảng (DROP),1:01
+,,,,,,,Thực hành 11 (Bài tập với đáp án),2 trang
+,,,,,,Phần 15: Ngôn ngữ Thao tác Dữ liệu ,,
+,,,,,,,CHUYỂN GIAO và HỦY GIAO DỊCH,1:28
+,,,,,,,Chèn dữ liệu vào một bảng (CHÈN),5:14
+,,,,,,,Xóa dữ liệu từ một bảng (XÓA),3:32
+,,,,,,,Sửa đổi dữ liệu hiện có trong một bảng (CẬP NHẬT),3:49
+,,,,,,,Xóa tất cả các dữ liệu từ một bảng (CẮT NGẮN),3:01
+,,,,,,,Thực hành 12 (bài tập với câu trả lời),2 trang
+,,,,,,Phần 16: Cho phép đặt một vài hạn chế trên một bảng (HẠN CHẾ),,
+,,,,,,,Tại sao Ràng buộc?,1:51
+,,,,,,,Dữ liệu trống không được phép (NOT FULL),3:35
+,,,,,,,Không Trùng lặp dữ liệu (UNIQUE),3:06
+,,,,,,,NOT NULL + UNIQUE = PRIMARY KEY là gì?,3:25
+,,,,,,,Chấp nhận chỉ số giá trị (CHECK),3:26
+,,,,,,,Kiểm tra dữ liệu trong bảng khác trước khi chèn/xóa (FOREIGN KEY),4:46
+,,,,,,,Hạn chế trên nhiều cột,3:13
+,,,,,,,Thêm ràng buộc vào một bảng hiện có,2:04
+,,,,,,,Nhiều hoạt động về Hạn chế ...,2:11
+,,,,,,,Thực hành 13 (bài tập với câu trả lời),2 trang
+,,,,,,Phần 17: Hiển thị,,
+,,,,,,,Tại sao Hiển thị?,6:25
+,,,,,,,Cho phép chỉnh sửa một hiển thị hiện tại,1:56
+,,,,,,,Cho phép cập nhật Dữ liệu Hiển thị,2:48
+,,,,,,,Tạo Hiển thị từ nhiều hơn một Bảng,6:06
+,,,,,,,Thực hành 14 (bài tập với câu trả lời),2 trang
+,,,,,,Mục 18: Các Đối tượng Cơ sở dữ liệu khác,,
+,,,,,,,Tên thay thế cho các đối tượng (ĐỒNG NGHĨA),2:56
+,,,,,,,Loạt các số (DÃY),3:34
+,,,,,,Mục 19: Đưa sự cho phép cho người dùng khác (GRANT),,
+,,,,,,,Tôi thích anh ấy (GRANT),4:33
+,,,,,,,Tôi không thích anh ấy (REVOKE),2:51
+,,,,,,,Danh sách GRANT's (đã cấp quyền),2 trang
+,,,,,,,Phần 20: Truy vấn SUB,
+,,,,,,,Truy vấn SUB là gì?,4:33
+,,,,,,,Tương quan truy vấn SUB,5:21
+,,,,,,Phần 21: Chủ đề nâng cao - Chỉ số (Index),,
+,,,,,,,Book Index??,2:25
+,,,,,,,Tạo một chỉ số (Index)..,3:44
+,,,,,,,Chỉ số UNIQUE ,2:42
+,,,,,,,Hàm dựa trên chỉ số (Index),3:40
+,,,,,,,Xóa và đổi tên một chỉ số (Index),1:48
+,,,,,,Phần 22: Kết thúc,,
+,,,,,,,Các khái niệm dữ liệu nâng cao cần nghiên cứu!!!,1 trang
+,,,,,,,Bài tập luyện tập,3 trang

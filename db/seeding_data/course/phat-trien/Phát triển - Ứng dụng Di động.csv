@@ -1,0 +1,65 @@
+,,Mô tả khóa học,Yêu cầu,Lợi ích từ khóa học,Đối tượng mục tiêu,Chương trình giảng dạy,,
+Học thiết kế ứng dụng di động từ con số không: Lý thuyết về thiết kế và Trải nghiệm người dùng,Hướng dẫn từng bước cách thiết kế ra một phần mềm điện thoại cực hay,"""Thiết kế không chỉ là việc tạo ra một sản phẩm trông thế nào và cảm thấy thế nào. Thiết kế còn là tạo ra sản phẩm hoạt động như thế nào
+
+Khóa học này không chỉ hướng dẫn bạn cách tạo ra một ứng dụng hay mà nó sẽ giúp bạn thiết kế một ứng dụng hoạt động hiệu quả và đẹp mắt. Chỉ cần dành ra ít nhất 30 phút mỗi ngày, bạn có thể hoàn thành khóa học này trong 2 tuần, bao gồm việc phát triển quy trình làm việc cần thiết để biến ý tưởng của bạn trở thành một sản phẩm được thiết kế hoàn thiện.
+Quy trình của khóa học thiết kế cho người mới bắt đầu để tạo ra những phần mềm hấp dẫn
+Nghiên cứu và thiết kế UX  (trải nghiệm người dùng)
+Phác thảo ý tưởng trực quan 
+Bản thiết kế ban đầu
+Hoàn thiện ứng dụng
+Làm hướng dẫn sử dụng
+Trải nghiệm người dùng và phát triển ứng dụng
+Vào năm 2008, các ứng dụng được thiết kế cho máy tính bảng và điện thoại thông minh đã bắt đầu xuất hiện trên các nền tảng phân phối ứng dụng, được điều hành bởi chủ sở hữu của các hệ thống hoạt động điện thoại di động. Điều này rất quan trọng đối với các nhà phát triển ứng dụng di động trong việc nghiên cứu kích thước màn hình và thông số kỹ thuật phần cứng khi tạo ra một ứng dụng điện thoại di động.  Thiết kế giao diện người dùng (UI) là phần thiết yếu trong việc tạo ra ứng dụng di động và sẽ mất một khoảng thời gian đáng kể để nghiên cứu tạo ra một trải nghiệm người dùng có giá trị (UX).
+Những ứng dụng đang có nhu cầu người dùng cao và các nhà phát triển ứng dụng sản xuất cho đa dịch vụ và các doanh nghiệp, bao gồm các dịch vụ định vị dựa vào GPS, ngân hàng, trò chơi, y tế và nhiều hơn nữa. Với số lượng lớn các ứng dụng có sẵn, người ta đã tạo ra các trang web đánh giá để người dùng dễ dàng hơn trong việc tiếp cận ứng dụng. Vì vậy, điều quan trọng là phải dành rất nhiều thời gian vào việc thiết kế UX của bạn.
+Nội dung tổng quát
+Với 30 bài giảng và thời lượng tài liệu chiếm hơn 7 giờ, bạn sẽ phát triển được một quy trình làm việc với ý tưởng ban đầu, tìm đúng cách để xây dựng ứng dụng của bạn và hiểu được cách sử dụng các nguyên tắc thiết kế.
+Khóa học bắt đầu bằng việc dạy cho bạn khái niệm UX và sự ảnh hưởng của nó đến việc thiết kế UI. Bạn sẽ làm ra được các mô hình và khái niệm trực quan cho ý tưởng của bạn. Tiếp theo, bạn sẽ bắt đầu thiết kế phiên bản đầu tiên của ứng dụng và học cách để thử nó trên một thiết bị. Sau khi tạo ra thiết kế ban đầu của ứng dụng, bạn sẽ thiết kế lại chức năng định vị, nội dung chính và máy ảnh. Khi hoàn thành việc thiết kế lại, bạn sẽ học cách thiết kế biểu tượng cho ứng dụng và tổ chức một buổi giới thiệu thiết kế ứng dụng hoàn thiện của mình.
+Sau khi hoàn thành khóa học này, bạn sẽ có thể tự tạo ra thiết kế hoàn thiện của một ứng dụng di động hấp dẫn. Khi học các nguyên tắc trong thiết kế UI bạn không cần phải có bất cứ kinh nghiệm gì trước đó. Khóa học này rất hữu ích cho các doanh nhân, các nhà phát triển, và các nhà thiết kế đang tìm đường gia nhập vào thị trường ứng dụng di động.
+Bạn cần có máy Mac để tham gia khóa học","Không yêu cầu có kỹ năng nào đặc biệt
+Cần có máy Mac","Hơn 30 giờ giảng và 7.5 giờ học liệu
+Cung cấp quy trình giúp bạn biến ý tưởng thành một sản phẩm được thiết kế hoàn thiện
+Khảo sát kỹ lưỡng ý tưởng của bạn để xây dựng ứng dụng
+Sử dụng thành thạo phần mềm thiết kế
+Hiểu rõ các quy tắc và cách sử dụng thiết kế","Doanh nhân
+Nhà phát triển
+Quản lý sản phẩm
+Nhà thiết kế
+Doanh nhân/ Nhà thiết kế mục tiêu
+Học sinh
+Những người muốn xây dựng hoặc cải thiện ứng dụng điện thoại",Phần 1: Chuẩn bị ,,
+,,,,,,,Điều kiện tiên quyết: Tải về các tập tin tài liệu và có máy Mac,Văn bản
+,,,,,,,Giới thiệu,2:15
+,,,,,,,Khóa học được hoạt động như thế nào?,3:24
+,,,,,,,UX và UI,2:54
+,,,,,,,Sketch so với Photoshop,6:48
+,,,,,,Phần 2: Nghiên cứu UX,,
+,,,,,,,Vấn đề bạn đang giải quyết là gì?,5:35
+,,,,,,,Người dùng của bạn là ai?,8:57
+,,,,,,,Tìm kiếm giải pháp đúng đắn,7:45
+,,,,,,,Thiết kế theo kiểu kể chuyện,13:47
+,,,,,,Phần 3: Mockups (Mô hình mẫu),,
+,,,,,,,Mockups phần 1/2,42:39:00
+,,,,,,,Mockups phần 2/2,24:37:00
+,,,,,,Phần 4: Ý tưởng trực quan ,,
+,,,,,,,Cảm hứng,8:51
+,,,,,,,Cách trình bày bản in,15:32
+,,,,,,,Chọn màu,11:29
+,,,,,,,Lý thuyết màu sắc 1/2: Ý nghĩa của màu sắc,15:55
+,,,,,,,Lý thuyết màu sắc 2/2: Sự đồng màu,13:08
+,,,,,,Phần 5: Thiết kế phiên bản đầu tiên của ứng dụng,,
+,,,,,,,Phác thảo,5:58
+,,,,,,,Thiết kế chức năng định vị,33:19:00
+,,,,,,,Xem thử trên thiết bị,3:13
+,,,,,,,Sử dụng icon có sẵn,9:43
+,,,,,,,Tạo icon riêng,23:23
+,,,,,,,Thiết kế nội dung trang chủ,25:57:00
+,,,,,,,Thiết kế camera,54:26:00
+,,,,,,Phần 6: Thiết kế lại ứng dụng,,
+,,,,,,,Thiết kế lại định vị,28:19:00
+,,,,,,,Thiết kế lại nội dung trang chủ,17:11
+,,,,,,,Thiết kế lại camera,7:38
+,,,,,,Phần 7: Hoàn thiện ứng dụng của bạn,,
+,,,,,,,Làm hướng dẫn sử dụng và hoàn thiện,16:34
+,,,,,,,Thiết kế icon của ứng dụng,33:27:00
+,,,,,,,Ra mắt thiết kế,6:48
+,,,,,,,Kết luận,0:49
