@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
 
   # action index để điều hướng đến trang landing page
   def index
-    
+    @course = Course.all.desc(:students).limit(8)
   end
 end
