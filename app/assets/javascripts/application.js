@@ -19,4 +19,3 @@
 
 $('.btn-sidenav-activator').sideNav();
 $('.sorting .sorting-options').material_select();
-
