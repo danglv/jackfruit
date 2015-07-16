@@ -1,3 +1,13 @@
+body {
+  position: static;
+}
+
+.container-1140 {
+  margin: 0 auto;
+  max-width: 1140px;
+  width: 1140px;
+}
+
 #course-search {
   border-bottom-color: color('grey', 'base');
   border-width: medium medium 1px;
@@ -27,33 +37,45 @@
   }
 }
 
+#modal-login, #modal-register {
+  width: 730px;
+  .modal-header {
+    @extend .modal-footer;
+    height: 25px;
+    .modal-close {
+      color: #444;
+    }
+  }
+  .modal-content {
+    padding: 0 24px;
+    .modal-close {
+      color: $secondary-color;
+    }
+  }
+  .modal-title {
+    font-size: 24px;
+    text-align: center;
+  }
+  .input-field {
+    margin-bottom: 10px;
+    input {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .bold {
   font-weight: 700;
 }
 
-.course-filters {
-  border-bottom: 1px solid #b6b6b6;
+.expanded {
+  width: 100%;
 }
 
-.course-filter {
-  padding-left: 30px;
-  .course-filter-title {
-    color: $secondary-color;
-    font-weight: bold;
-  }
-
-  .course-filter-item {
-    padding-left: 20px;
-    margin-bottom: 15px;
-    .filled-in[type='checkbox'] {
-      &+label {
-        color: #444;
-      }
-      &:not(:checked) + label::after {
-        background-color: color('shades', 'white');
-        border: 2px solid $secondary-color;  
-      }
-    }
+.flex-box {
+  display: flex;
+  &-items-centered {
+    align-items: center;
   }
 }
 
@@ -97,5 +119,50 @@
 
   .material-icons {
     vertical-align: middle;
+  }
+}
+
+.no-background {
+  background: transparent repeat scroll 0% 0%;
+  box-shadow: none;
+  border: medium none;
+}
+
+.splash-box {
+  @extend .card;
+  margin: auto;
+  padding: 30px 80px;
+  width: 730px;
+  text-align: center;
+  &-title {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &-subtitle {
+    display: block;
+    font-size: 24px;
+  }
+
+  label[for='course-search'] {
+    top: 50px;
+  }
+
+  .hooks {
+    margin-top: 30px;
+  }
+
+  .hook {
+    text-align: left;
+  }
+
+  .hook-text {
+    font-weight: 500;
+  }
+
+  .material-icons {
+    font-size: 32px;
+    color: color('deep-orange', 'base');
   }
 }

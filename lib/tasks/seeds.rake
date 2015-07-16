@@ -62,17 +62,17 @@ namespace :seeds do
 
   desc "seeding course by course name"
   task seed_course_by_course_name: :environment do
-    csv_file_name = "db/seeding_data/course"
+    csv_file_name = "db/seeding_data/course/"
     csv_file_name += "1"
     data = load_csv_file(csv_file_name) and true
 
     @course_name = ""
     @curriculums = []
     @course = nil
-
+   
     data.each_with_index{|row, index|
-      next if row[0] == "Name"
-
+      next if row[2] == "Mô tả khóa học"
+      
       if !row[6].blank?
         @curriculums << [row[6], "chapter"]
       end
@@ -81,7 +81,7 @@ namespace :seeds do
         @curriculums << [row[7], "lecture"]
       end
 
-      unless row[0].blank?
+      if (!row[0].blank? || (index == data.count - 1))
         if @course.blank?
           @course_name = row[0]
           @course = Course.where(name: @course_name).first
@@ -110,9 +110,8 @@ namespace :seeds do
             lecture_index += 1 if curriculum[1] == "lecture"
           }
         end
-      else
-
       end
+      @course
     }
   end
 end

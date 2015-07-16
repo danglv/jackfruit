@@ -34,13 +34,17 @@ gem 'haml', group: :assets
 gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+gem 'unicorn', :platforms => :ruby
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
-# User Devise for manage user
+# User Devise for manage user some gem below for social login
 gem 'devise', '~> 3.4.1'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 # Image
 gem 'carrierwave', '~> 0.10.0'
@@ -61,3 +65,6 @@ end
 
 gem 'pry', '~> 0.10.1'
 gem 'pry-rails', '~> 0.3.4'
+gem 'will_paginate_mongoid', '~> 2.0.1'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin]
