@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
 
   def list_course
     category_id = params[:category_id]
+
     sort_by     = params[:sort_by] || {:created_at => 1}
     condition   = params[:filter_by] || {}
     page        = params[:page] || 1
@@ -26,9 +27,9 @@ class CoursesController < ApplicationController
       condition.delete[:price]
     end
 
-    category = Category.where(name: category_id).first
+    category = Category.where(id: category_id).first
     @courses = {}
-
+    
     condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
 
     condition[:category_ids.in] = [category.id]
@@ -53,7 +54,7 @@ class CoursesController < ApplicationController
 
     @courses["all"] = Course.where(condition).order(sort_by).paginate(
       page: page,
-      per_page: NUMBER_USER_PER_PAGE
+      per_page: NUMBER_COURSE_PER_PAGE
     )
   end
 
@@ -99,11 +100,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  def test_course_detail_id
-
+  def detail
+    
   end
 
-  def detail
+  def all_courses
     
   end
 end

@@ -9,9 +9,9 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
-      get :test_course_detail_id
       get :detail
       get '/:category_id', to: 'courses#list_course'
+      get '/:category_id/all_courses', to: 'courses#all_courses'
     end
   end
 
