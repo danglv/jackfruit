@@ -18,103 +18,46 @@
         %p
           1. Lựa chọn hình thức thanh toán
       .row.payment-content
-        .col.s12.middle
-          %ul.tabs
-            %li#test.tab.col.s3.center-align
-              %a.payment-tab{:href => "#test1"}
-                .row
-                  %i.material-icons.medium shopping_cart
-                  %h6 
+        .col.s12
+          .row.courses.card-style.center-align
+            .col.s3
+              %a.payment-tab.course{:href => '/home/payment/delivery'}
+                .card-image.course-image
+                  %i.material-icons.large shopping_cart
+                  %h6
                     Giao khóa học
                   %h6
                     và thu tiền tận nơi
-            %li.tab.col.s3.center-align
-              %a.payment-tab{:href => "#test2"}
-                .row
-                  %i.material-icons.medium credit_card
+            .col.s3
+              %a.payment-tab.course{:href => '/home/payment/visa'}
+                .card-image.course-image
+                  %i.material-icons.large credit_card
                   %h6
-                    Thanh toán trực tuyến 
+                    Thanh toán trực tuyến
                   %h6
                     bằng thẻ ATM
-                  %h6 
-                    hoặc Visa/Master
-            %li.tab.col.s3.center-align
-              %a.payment-tab{:href => "#test3"}
-                .row
-                  %i.material-icons.medium business
                   %h6
-                    Chuyển khoản 
+                    hoặc Visa/Master
+            .col.s3
+              %a.payment-tab.course{:href => '/home/payment/bank'}
+                .card-image.course-image
+                  %i.material-icons.large business
+                  %h6
+                    Chuyển khoản
                   %h6
                     qua ngân hàng
-            %li.tab.col.s3.center-align 
-              %a.payment-tab.active{:href => "#test4"}
-                .row
-                  %i.material-icons.medium room
-                %h6
-                  Thanh toán trực tiếp              
+            .col.s3
+              %a.payment-tab.course.active{:href => '/home/payment/direct'}
+                .card-image.course-image
+                  %i.material-icons.large room
+                  %h6
+                    Thanh toán trực tiếp            
       .row.payment-content
         %p
           2. Hoàn tất thanh toán
         %p
           Bạn chưa lựa chọn hình thức thanh toán nào
-      #test1.col.s12.no-padding 
-        .row{:style => "padding: 0 113px 0 113px"}
-          %p
-            Điền thông tin đăng ký đặt mua khóa học
-          %form.col.s12{:action => "#"}
-            .row
-              .col.s4
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Tên đầy đủ"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Số điện thoại"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3
-                .row
-                  %a.btn.deep-orange{:href => "#"}
-                    Đặt mua khóa học
-              .col.s4.offset-s1{:action => "#"}
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Email"}/
-                .row
-                  .input-field
-                    %input{:type => "text", :placeholder => "Địa chỉ"}/
-                .row
-                  %select.browser-default
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Quận / Huyện
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3 
-      #test2.col.s12.no-padding 
-        .row{:style => "padding: 0 113px 0 113px"}
-          %p.red-text
-            Chuyển khoản ngân hàng
-          %p
-            Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
-          .info-payment{:style => "padding-left: 25px"}
-            %p Số tài khoản: 0531 0024 67513 
-            %p Chủ tài khoản: Nguyễn Thanh Minh 
-            %p Ngân hàng:  Ngân hàng Vietcombank, chi nhánh Bình Thạnh, TPHCM
-          .note-purchase
-            %u Ghi chú khi chuyển khoản: 
-            %p • Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký 
-            %p • Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
-          %p.red-text
-            Chuyển tiền qua Paypal
-          .address{:style => "padding-left: 25px"}
-            %p Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-            %p Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.
-          %p
-            Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
-      #test3.col.s12.no-padding 
-      #test4.col.s12.no-padding 
+      .col.s12.no-padding 
         .row{:style => "padding: 0 113px 0 113px"}
           %p.red-text
             Thanh toán tại văn phòng Tudemy

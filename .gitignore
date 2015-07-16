@@ -13,4 +13,5 @@
 /tmp
 mongoid.yml
 ./idea
+.idea/
 .DS_Store
