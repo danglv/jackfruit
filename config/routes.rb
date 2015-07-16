@@ -47,4 +47,5 @@ Rails.application.routes.draw do
   #     post :upload_avatar
   #   end    
   # end
+
 end
