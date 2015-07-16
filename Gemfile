@@ -65,3 +65,4 @@ end
 
 gem 'pry', '~> 0.10.1'
 gem 'pry-rails', '~> 0.3.4'
+gem 'will_paginate_mongoid', '~> 2.0.1'
