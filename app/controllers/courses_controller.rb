@@ -91,9 +91,9 @@ class CoursesController < ApplicationController
     pattern  = /#{Regexp.escape(keywords)}/
     @course  = Course.where(name: pattern).limit(10)
 
-    # if @course.count == 0
-    #   @course = Course.where(description: pattern).limit(10)
-    # end
+    if @course.count == 0
+      @course = Course.where(description: pattern).limit(10)
+    end
   end
 
   def test_course_detail_id
