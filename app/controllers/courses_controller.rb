@@ -22,10 +22,17 @@ class CoursesController < ApplicationController
 
   def list_course
     category_id = params[:category_id]
+
+    sort_by     = params[:sort_by] || {:created_at => 1}
+    condition   = params[:filter_by] || {}
     page        = params[:page] || 1
 
     category = Category.where(id: category_id).first
     @courses = {}
+    
+    condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
+
+    condition[:category_ids.in] = [category.id]
 
     @courses["featured"] = Course.where(
       :label_ids.in => ["featured"],
@@ -112,11 +119,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  def test_course_detail_id
-
+  def detail
+    
   end
 
-  def detail
+  def all_courses
     
   end
 end
