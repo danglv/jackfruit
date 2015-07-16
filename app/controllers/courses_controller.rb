@@ -72,7 +72,10 @@ class CoursesController < ApplicationController
     @owned_lecture.set(lecture_ratio: 100, status: 2)
     @current_user.save
   end
-
+  def lecture_exam
+  end
+  def lecture_detail
+  end
   def search
     keywords = params[:q]
     pattern = /#{Regexp.escape(keywords)}/

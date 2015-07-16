@@ -6,7 +6,12 @@ Rails.application.routes.draw do
     member do
       get :lecture
     end
-
+    collection do
+      get :lecture_exam
+    end
+     collection do
+      get :lecture_detail
+    end
     collection do
       get :search
 
