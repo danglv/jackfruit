@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   before_action :set_user, :authenticate_user!
 
   def index
@@ -68,7 +69,7 @@ class UsersController < ApplicationController
   # end
 
   def learning
-    learning = Constants::OwnedCourseTypes::LEARNING
+    # learning = Constants::OwnedCourseTypes::LEARNING
     # course_ids = @current_user.courses.where(type: learning).map(&:course_id)
     # @courses = Course.where(:id.in => course_ids)
 
@@ -83,11 +84,11 @@ class UsersController < ApplicationController
   end
 
   def wishlist
-    wishlist = Constants::OwnedCourseTypes::WISHLIST
-    course_ids = @current_user.courses.where(type: wishlist).map(&:course_id)
-    @courses = Course.where(:id.in => course_ids)
+    # wishlist = Constants::OwnedCourseTypes::WISHLIST
+    # course_ids = @current_user.courses.where(type: wishlist).map(&:course_id)
+    # @courses = Course.where(:id.in => course_ids)
 
-    head :ok
+    # head :ok
   end
 
   def search

@@ -67,7 +67,7 @@ class CoursesController < ApplicationController
     @course = Course.where(id: course_id).first
   end
 
-  def lecture
+  def lecture 
     course_id     = params[:id]
     lecture_index = params[:lecture_index]
     @course       = Course.where(id: course_id).first
@@ -81,11 +81,14 @@ class CoursesController < ApplicationController
 
     # set lecture ratio = 100(finish)
     @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
-
+    
     @owned_lecture.set(lecture_ratio: 100, status: 2)
     @current_user.save
   end
-
+  def lecture_exam
+  end
+  def lecture_detail
+  end
   def search
     keywords = params[:q]
     pattern  = /#{Regexp.escape(keywords)}/
