@@ -1,0 +1,241 @@
+%header
+ = render :partial => 'layouts/header'
+ = render :partial => 'components/side_nav'
+%main.lecture-detail{:style => "background: #e9e9e9"} 
+ .row.header.no-padding 
+  .row.header-container.no-padding
+   .col.s8
+    %span.title How to Market Your Udemy Course: Instructors with  Market Your Udemy Course: Instruct...
+   .col.s4
+    .col.s1.no-padding 
+     %i.small.material-icons.green-text.no-padding{:style => "margin-top:10px;"} group 
+    .col.s11
+     %span.count 123 Sinh viên đã tham gia
+ .row.lecture-content
+  .col.s6
+   .row.lecture-content-header
+    .col.s2
+     %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
+    .col.s10
+     .row.no-padding
+      %p Bài giảng 1
+      %p Starting Threads
+      %P 09:58 phút
+   .row.lecture-content-learing-progress-text Bạn đã hoàn thành 4 trên 9 bài giảng
+   .row.progress{:style => "height:5px;background:#b6b6b6"}
+    .determinate{:style => "width: 50%"}
+   .row
+    .col.s12.list-lecture.no-padding
+     .row.lecture-chap
+      .col.s12.lecture-chap-title Chương 1: My First Section
+      .col.s12.lecture-list-items.no-padding
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.completed
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 1: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-video-type.no-padding
+            %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+           .col.s9.no-padding 09:58
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.learning
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 2: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.locked
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 3: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+     .row.lecture-chap
+      .col.s12.lecture-chap-title Chương 2: My First Section
+      .col.s12.lecture-list-items.no-padding
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.completed
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 1: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-video-type.no-padding
+            %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+           .col.s9.no-padding 09:58
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.learning
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 2: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.locked
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 3: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+     .row.lecture-chap
+      .col.s12.lecture-chap-title Chương 3: My First Section
+      .col.s12.lecture-list-items.no-padding
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.completed
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 1: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-video-type.no-padding
+            %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+           .col.s9.no-padding 09:58
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.learning
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 2: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+       %a.item-container{:href => '#'}
+        .row
+         .col.s1
+          .row.icon.locked
+           %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
+         .col.s11.no-padding.item-data
+          %span.item-name Bài giảng 3: Introduction To The Course
+          .row.detail
+           .col.s3.offset-s6.icon-document-type.no-padding
+            %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+           .col.s9.no-padding Văn bản
+  .col.s6.lecture-comment
+   .row.lecture-comment-title 
+    %span Thảo luận
+   .row.lecture-comment-tool
+    %ul
+     %li
+      %input.search{:placeholder => "Tìm thảo luận", :type => "text"}
+     %li
+      %span.or hoặc
+     %li
+      %a.waves-effect.waves-light.btn.add_comment Thêm thảo luận
+   .row.lecture-comment-list
+    .col.s12.no-padding.cm-item
+     .row.cm-item-header
+      %ul
+       %li
+        %i.small.material-icons.no-padding face
+       %li
+        %p Eric Johnson đã đăng một thảo luận
+       %li
+        %p -
+       %li 
+        %p 1 tháng trước 
+     .row.cm-item-content
+      this is content
+     .row.cm-item-footer
+      %ul
+       %li
+        %p Hãy là người đầu tiên trả lời
+       %li
+        %p -
+       %li
+        %i.tiny.material-icons.no-padding.liked thumb_up
+       %li
+        %p Thích (2)
+       %li
+        %p - 
+       %li 
+        %p Theo dõi (1 người theo dõi)
+       %li
+        %P -
+       %li
+        %i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem
+    .col.s12.no-padding.cm-item
+     .row.cm-item-header
+      %ul
+       %li
+        %i.small.material-icons.no-padding face
+       %li
+        %p Eric Johnson đã đăng một thảo luận
+       %li
+        %p -
+       %li 
+        %p 1 tháng trước 
+     .row.cm-item-content
+      this is content
+     .row.cm-item-footer
+      %ul
+       %li
+        %p Hãy là người đầu tiên trả lời
+       %li
+        %p -
+       %li
+        %i.tiny.material-icons.no-padding.unliked thumb_up
+       %li
+        %p Thích (2)
+       %li
+        %p - 
+       %li 
+        %p Theo dõi (1 người theo dõi)
+       %li
+        %P -
+       %li
+        %i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem
+    .col.s12.no-padding.cm-item
+     .row.cm-item-header
+      %ul
+       %li
+        %i.small.material-icons.no-padding face
+       %li
+        %p Eric Johnson đã đăng một thảo luận
+       %li
+        %p -
+       %li 
+        %p 1 tháng trước 
+     .row.cm-item-content
+      this is content
+     .row.cm-item-footer
+      %ul
+       %li
+        %p Hãy là người đầu tiên trả lời
+       %li
+        %p -
+       %li
+        %i.tiny.material-icons.no-padding.unliked thumb_up
+       %li
+        %p Thích (2)
+       %li
+        %p - 
+       %li 
+        %p Theo dõi (1 người theo dõi)
+       %li
+        %P -
+       %li
+        %i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem

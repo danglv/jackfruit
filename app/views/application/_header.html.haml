@@ -4,5 +4,5 @@
       = image_tag 'logo.png'
     .row
       .col.s4.right.right-align
-        %a.waves-effect.wave-grey.btn-login{:style => 'color: #fff;'} Đăng nhập
-        %a.btn.deep-orange Đăng ký
+        %a.btn-login.waves-effect.wave-grey.modal-trigger{:href => '#modal-login', :style => 'color: #fff;'} Đăng nhập
+        %a.btn.modal-trigger.deep-orange{:href => '#modal-register'} Đăng ký

@@ -125,7 +125,473 @@
       &.free {
         color: #ff5050;
       }
-    }  
+    }
   }
-  
 }
+
+.course-filters {
+  border-bottom: 1px solid #b6b6b6;
+}
+
+.course-filter {
+  padding-left: 30px;
+  .course-filter-title {
+    color: $secondary-color;
+    font-weight: bold;
+  }
+
+  .course-filter-item {
+    padding-left: 20px;
+    margin-bottom: 15px;
+    .filled-in[type='checkbox'] {
+      &+label {
+        color: #444;
+      }
+      &:not(:checked) + label::after {
+        background-color: color('shades', 'white');
+        border: 2px solid $secondary-color;  
+      }
+    }
+  }
+
+ }
+  .my-courses
+  {
+   &.card-style {
+    .course {
+      @extend .card;
+      display: block;
+      text-decoration: none;
+      color: #444;
+      transition: all 0.2s ease-in-out 0;
+      &:hover {
+        box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+      }
+
+      &-footer {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &.list-style {
+    .course {
+      border-top: 1px solid #b6b6b6;
+      color: #444;
+      display: block;
+      padding-top: 15px;
+      &-image {
+        img {
+          width: 100%;
+        }
+      }
+      &-title {
+        font-size: 18px;
+      }
+      &-title, &-author, &-other-info {
+        margin: 0;
+      }
+      &-price, &-rating-people, &-other-info {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .course {
+    &-image {
+      height: auto;
+    }
+
+    &-content {
+      padding: 10px;
+      height: auto;
+    }
+
+    &-title {
+      margin-bottom: 10px;
+    }
+
+    &-author {
+      color: #989898;
+      font-size: 14px;
+    }
+
+    &-rating {
+      margin-bottom: 15px;
+      &-point {
+        .material-icons {
+          color: #727272;
+          font-size: 20px;
+          width: 20px;
+          &.is-rated {
+            color: #ffbb33;
+          }
+        }
+      }
+    }
+
+    &-favorite {
+      .material-icons {
+        color: #727272;
+        &.is-favorite {
+          color: #ff4444;
+        }
+      }
+    }
+
+    &-price {
+      color: #44ba31;
+      font-weight: 700;
+      &.free {
+        color: #ff5050;
+      }
+    }  
+    .progress-background{
+      background: #b6b6b6;
+    }
+    .progress-background-{
+      background:#b6b6b6;
+    }
+    .progress-background-completed{
+      background: #ff5722;
+    }
+    .progress-background-learning{
+      background: #009688;
+    }
+    .progress-color-begin{
+      color: #009688
+    }
+    .progress-color-completed{
+      color: #ff5722;
+    }
+    .progress-color-learning{
+      color: #009688;
+      font-size: 14px;
+    }
+  }
+}
+.leture{
+   &-header, &-footer{
+      background: #2c2f37;
+      height: 50px;
+    }
+   &-header-icon-back{
+    transform: rotate(180deg);
+   }
+   &-player{
+    height: 420px;
+    padding: 0px;
+    margin: 0px;
+   }
+   &-btn-back{
+    background: #2c2f37;
+   }
+   &-header ul, &-header ul li, &-footer ul, &-footer ul li{
+    float:left;
+    margin:0px;
+   }
+   .leture-header-back-course{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: 5px;
+    color: #999999;
+   }
+   .leture-header-back-leture{
+     background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: 5px;
+    color: #999999;
+   }
+   .leture-header-item{
+    float:left;
+    line-height: 50px;
+    color: #e9e9e9;
+   }
+   .item-container:hover{
+    background: #e9e9e9;
+   }
+   .item-data{
+      border-bottom:1px solid #b2b2b2;
+   }
+   .list-lecture{
+    padding-left: 10px;
+    height: 550px;
+    overflow-y: scroll;
+   }
+   .lecture-chap-title{
+    background: #009688;
+    color: white;
+    font-size: 14;
+    line-height: 40px;
+   }
+   .lecture-list-items{
+      margin-top: 10px;
+      border-left:1px solid #000000;
+      margin-left: 20px;
+    .completed{
+      background: #44ba31;
+    }
+    .learning{
+     background: #ffc043;
+    }
+    .locked{
+     background: white;
+     border:1px solid #b2b2b2;
+    }
+    .icon{
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      margin-left: -22px;
+    }
+    .icon-video-type{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #727272;
+      margin-left: -22px;
+    }
+    .icon-document-type{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-left: -22px;
+    }
+    .detail{
+      margin-left: 20px;
+    
+    } 
+    .detail{
+      margin-bottom: 15px;
+    }
+    .item-container{
+      margin-bottom: 0px;
+    }
+    .item-container{
+      float: left;
+      width: 100%;
+      color: #212121;
+    }
+    .item-container:hover{
+      background: #e9e9e9;
+    }
+
+   }
+}
+.lecture-detail{
+  .header{
+    background: #727272;
+    height: 50px;
+    &-container{
+      width: 1110px;
+      margin: 50px auto;
+      .title, .count{
+        color: white;
+        padding: 0px;
+        margin: 0px;
+        line-height: 50px;
+      }
+    }
+
+
+  }
+  .lecture-content{
+    width: 1110px;
+    padding-bottom: 20px;
+    &-header{
+      height: 80px;
+      background: #727272;
+      p{
+        margin: 0px;
+        line-height: 20px;
+        padding: 0px;
+        color: #cecece;
+        font-size: 18px;
+      }
+      p:first-child, p:last-child{
+         font-size: 14px;
+         line-height: 30px;
+      }
+
+    }
+    &-learing-progress{
+
+    }
+  }
+
+  .lecture-comment{
+
+    &-title{
+      border-bottom: 1px solid #999999;
+    }
+    .lecture-comment-title{
+      margin-bottom: 0px;
+    }
+    .lecture-comment-tool{
+      margin-bottom: 0px;
+      margin-top: 20px;
+      margin-left: 25px;
+       ul, ul li{
+        float: left;
+       }
+       .add_comment{
+        background: #338abc;
+        color: white;
+        width: 140px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0px;
+        text-transform: lowercase;
+      }
+      .add_comment:first-letter {
+       text-transform: uppercase;
+       }
+      .search{
+         padding: 0px;
+        width: 168px;
+        height: 28px;
+        margin:0px;
+        border: 1px solid #999999;
+        text-indent: 5px;
+        background: white;
+      }
+      .or{
+        line-height: 30px;
+        margin: 0px 10px;
+      }
+      }
+      .cm-item{
+        &-header{
+          ul, ul li{
+            float:left;
+          }
+          ul li p{
+            margin:0px;
+            line-height: 30px;
+            color:#333333;
+            font-size: 14px;
+          }
+        }
+        &-content, &-footer{
+          margin-left: 25px;
+          margin-bottom: 0px;
+        }
+        &-footer{
+          ul, ul li{
+            float:left;
+          }
+          ul li p{
+            margin:0px 5px;
+            line-height: 30px;
+            color:#747474;
+            font-size: 14px;
+          }
+          ul li i{
+            line-height: 30px;
+          }
+        }
+        .liked{
+          color:#009688;
+        }
+        .unliked{
+          color:white;
+        }
+      }
+    }
+  .leture-header-back-course{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: 5px;
+    color: #999999;
+   }
+   .leture-header-back-leture{
+     background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: 5px;
+    color: #999999;
+   }
+   .leture-header-item{
+    float:left;
+    line-height: 50px;
+    color: #e9e9e9;
+   }
+   .item-container:hover{
+    background: #e9e9e9;
+   }
+   .item-data{
+      border-bottom:1px solid #b2b2b2;
+   }
+   .list-lecture{
+    padding-left: 10px;
+   }
+   .lecture-chap{
+    background: white;
+   }
+   .lecture-chap-title{
+    background: #009688;
+    color: white;
+    font-size: 14;
+    line-height: 40px;
+   }
+   .lecture-list-items{
+      margin-top: 10px;
+      border-left:1px solid #000000;
+      margin-left: 20px;
+    .completed{
+      background: #44ba31;
+    }
+    .learning{
+     background: #ffc043;
+    }
+    .locked{
+     background: white;
+     border:1px solid #b2b2b2;
+    }
+    .icon{
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      margin-left: -22px;
+    }
+    .icon-video-type{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #727272;
+      margin-left: -22px;
+    }
+    .icon-document-type{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-left: -22px;
+    }
+    .detail{
+      margin-left: 20px;
+    
+    } 
+    .detail{
+      margin-bottom: 15px;
+    }
+    .item-container{
+      margin-bottom: 0px;
+    }
+    .item-container{
+      float: left;
+      width: 100%;
+      color: #212121;
+    }
+    .item-container:hover{
+      background: #e9e9e9;
+    }
+
+   }
+}
+.no-margin {
+  margin: 0;
+}
+
