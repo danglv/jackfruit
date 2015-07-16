@@ -125,9 +125,37 @@
       &.free {
         color: #ff5050;
       }
-    }  
+    }
   }
 }
-.no-margin {
-  margin: 0px;
+
+.course-filters {
+  border-bottom: 1px solid #b6b6b6;
 }
+
+.course-filter {
+  padding-left: 30px;
+  .course-filter-title {
+    color: $secondary-color;
+    font-weight: bold;
+  }
+
+  .course-filter-item {
+    padding-left: 20px;
+    margin-bottom: 15px;
+    .filled-in[type='checkbox'] {
+      &+label {
+        color: #444;
+      }
+      &:not(:checked) + label::after {
+        background-color: color('shades', 'white');
+        border: 2px solid $secondary-color;  
+      }
+    }
+  }
+}
+
+.no-margin {
+  margin: 0;
+}
+
