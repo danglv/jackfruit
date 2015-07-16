@@ -27,4 +27,16 @@ class ApplicationController < ActionController::Base
   def index
     @course = Course.all.desc(:students).limit(8)
   end
+
+  def list_category
+    @result = []
+    @categories_level_0 = Category.where(:parent_category_id.in => [nil, '', []])
+    
+    @categories_level_0.each {|category|
+      @result << [category.id, category.name, 0]
+      category.child_categories.each{|sub_category|
+        @result << [sub_category.id, sub_category.name, 1]
+      }
+    }
+  end
 end
