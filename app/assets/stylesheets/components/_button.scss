@@ -14,6 +14,22 @@
   }
 }
 
+.btn-social-login {
+  width: 280px;
+  text-transform: none;
+  .fa {
+    margin-right: 10px;
+  }
+}
+
+.btn-facebook, .btn-facebook:hover {
+  background-color: #3b5998;
+}
+
+.btn-google, .btn-google:hover {
+  background-color: #e04006;
+}
+
 .btn-sidenav-activator {
   @extend .btn-flat;
   padding: 0 10px;

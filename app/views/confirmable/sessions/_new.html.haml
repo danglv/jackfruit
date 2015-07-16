@@ -1,0 +1,38 @@
+#modal-login.modal
+  .modal-header
+    %a.modal-action.modal-close.waves-effect.right
+      %i.material-icons close
+  .modal-content
+    .row
+      .col.s12
+        .modal-title Đăng nhập
+    .row
+      .col.s6.no-padding
+        .row{:style => 'padding-top: 30px;'}
+          .col.s12.no-padding
+            %a.btn.btn-large.btn-social-login.btn-facebook.waves-effect
+              %i.left.fa.fa-facebook
+              %span.left Đăng nhập bằng Facebook
+        .row
+          .col.s12.no-padding
+            %a.btn.btn-large.btn-social-login.btn-google.waves-effect
+              %i.left.fa.fa-google-plus
+              %span.left Đăng nhập bằng Google+
+      %form.col.s6{:style => 'border-left: 1px solid #e6e6e6;'}
+        .row
+          .col.s12{:style => 'font-size: 18px;'} Đăng nhập bằng email
+        .row.input-field
+          .col.s12
+            %input#email{:type => 'email'}
+            %label{:for => 'email'} Email
+        .row.input-field
+          .col.s12
+            %input#password{:type => 'password'}
+            %label{:for => 'password'} Mật khẩu
+        .row{:style => 'margin: 20px 0 0'}
+          .col.s12
+            %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đăng nhập'}
+    .row
+      .col.s12{:style => 'text-align: center;'}
+        Chưa có tài khoản?
+        %a.modal-action.modal-close.modal-trigger{:href => '#modal-register'} Đăng ký
