@@ -30,7 +30,7 @@
           %a.course{:href => '!#'}
             .card-image.course-image
               = image_tag 'course-image.png'
-            .card-content.course-content
+            .card-content.course-content{:style => "height: 255px"}
               .row.course-title
                 .col.s12.no-padding= c.name 
               .row.course-author
@@ -48,7 +48,11 @@
                   %span.left
                     %i.material-icons.is-favorite favorite
                   %span.left=  c.students.to_s + ' tham gia'
-                .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price                  
+                - if c.price == 0
+                  .col.s5.no-padding.course-price.free{:style => "text-align:right;"}
+                    Miễn phí
+                - else
+                  .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price                  
     .row
       .col.s12
         %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;'} Khám phá các khóa học khác
