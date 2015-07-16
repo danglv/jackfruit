@@ -50,6 +50,7 @@ class User
   field :last_name,type: String, default: ""
   field :headline,type: String, default: ""
   field :profile_url, type: String, default: ""
+  field :avatar, type: String, default: ""
 
   # Biography
   field :biography,type: String, default: ""
@@ -81,7 +82,6 @@ class User
 
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
-
     # If a signed_in_resource is provided it always overrides the existing user
     # to prevent the identity being locked with accidentally created accounts.
     # Note that this may leave zombie accounts (with no associated identity) which
@@ -96,11 +96,13 @@ class User
       # user to verify it on the next step via UsersController.finish_signup
       email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email if email_is_verified
+
       user = User.where(:email => email).first if email
       # Create the user if it's a new registration
       if user.nil?
         user = User.new(
           name: auth.extra.raw_info.name,
+          avatar: "https://graph.facebook.com/#{auth.uid}/picture",
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]

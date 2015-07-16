@@ -14,6 +14,21 @@
             %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khoá học'}
             %label{:for => 'course-search'}
               %i.material-icons search
-      .col.s3.right{:style => 'text-align: right;'}
-        .waves-effect.wave-grey.btn-login.modal-trigger{:href => '#modal-login'} Đăng nhập
-        .btn.modal-trigger.deep-orange{:href => '#modal-register'} Đăng ký
+      - if !current_user
+        .col.s3.right{:style => 'text-align: right;'}
+          .waves-effect.wave-grey.btn-login.modal-trigger{:href => '#modal-login'} Đăng nhập
+          .btn.modal-trigger.deep-orange{:href => '#modal-register'} Đăng ký
+      - else
+        / Dropdown Trigger
+        %a.dropdown-button{"data-activates" => "dropdown1", :href => "#"}
+          %img{:src => current_user.avatar}
+        / Dropdown Structure
+        %ul#dropdown1.dropdown-content
+          %li
+            %a{:href => root_url + "home/my-course/learning"} Các khoá học của tôi
+          %li
+            %a{:href => "#!"} Hỗ trợ
+          %li.divider
+          %li
+            %a{:href => root_url + "users/sign_out", "data-method" => "delete", :rel => "nofollow"} Đăng xuất
+          
