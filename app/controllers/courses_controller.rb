@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
   def index
     labels   = Constants.LabelsValues
     @courses = {}
-
+    
     labels.each {|label|
       @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
     }
@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
 
     @courses["all"] = Course.where(condition).order(sort_by).paginate(
       page: page,
-      per_page: NUMBER_USER_PER_PAGE
+      per_page: NUMBER_COURSE_PER_PAGE
     )
   end
 
