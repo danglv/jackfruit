@@ -10,12 +10,12 @@
       .col.s6.no-padding
         .row{:style => 'padding-top: 30px;'}
           .col.s12.no-padding
-            %a.btn.btn-large.btn-social-login.btn-facebook.waves-effect{:href => root_url + '/users/auth/facebook'}
+            %a.btn.btn-large.btn-social-login.btn-facebook.waves-effect{:href => root_url + 'users/auth/facebook'}
               %i.left.fa.fa-facebook
               %span.left Đăng nhập bằng Facebook
         .row
           .col.s12.no-padding
-            %a.btn.btn-large.btn-social-login.btn-google.waves-effect{:href => root_url + '/users/auth/google_oauth2'}
+            %a.btn.btn-large.btn-social-login.btn-google.waves-effect{:href => root_url + 'users/auth/google_oauth2'}
               %i.left.fa.fa-google-plus
               %span.left Đăng nhập bằng Google+
       %form.col.s6{:style => 'border-left: 1px solid #e6e6e6;', :method => "post",:action => "/users/sign_in"}
