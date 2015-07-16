@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+  # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
 
   resources :users, :path => 'home/my-course', only: %w[] do
@@ -47,4 +47,5 @@ Rails.application.routes.draw do
   #     post :upload_avatar
   #   end    
   # end
+
 end
