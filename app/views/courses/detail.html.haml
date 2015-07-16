@@ -1,0 +1,381 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%main.detail
+  .row.detail-top
+    .col.s12
+      .row
+        %a{:href => "#"}
+          Create Your Website With WordPress
+      .row
+        %p
+          A step by step guide to creating and operating your WordPress website. Get your website & online business working today.
+      .row
+        %span.courses
+          %span.course-rating
+            %span.course-rating-point
+              %i.material-icons.is-rated star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+            %span 32 đánh giá, 6969 người tham gia
+      .row
+        %p.left.no-padding Hướng dẫn bởi
+        %a{:href => "#"}
+          Michal Shen
+      .row
+        .col.s7
+          %video.responsive-video{:controls => ""}
+            %source{:src => "movie.mp4", :type => "video/mp4"}
+        .col.s4
+          .row
+            %a.row.courses{:href => "#"}
+              %span.course-price 220.000đ
+          .row
+            %a.btn{:href => "#"}
+              Mua khóa học này
+            %a.btn.disabled{:href => "#"}
+              %i.material-icons.is-favorite favorite
+              %span Ưa thích
+          %a.row{:href => "#"}
+            Nhập mã khuyễn mãi
+          %a.row{:href => "#"}
+            Xem thử miễn phí
+          %a.row{:href => "#"}
+            Tùy chọn khác
+          .row
+            .divider
+          .col.s4.courses
+            .row
+              %p.course-author
+                Lý thuyết
+              %p.course-author
+                Video
+              %p.course-author
+                Trình độ
+              %p.course-author
+                Ngôn ngữ
+              %p.course-author
+                bao gồm
+          .col.s8
+            .row
+              %p.bold
+                49 bài
+              %p.bold
+                9 Tiếng
+              %p.bold
+                Cơ bản
+              %p.bold
+                Tiếng Việt
+              %p.bold
+                Lifetime access
+              %p.bold
+                30 day money back
+              %p.bold
+                Avariable on iOS and Android
+              %p.bold
+                Certificate of completion
+  .row.detail-main{:style => "background-color:#e1e1e1"}
+    .col.s7
+      .row
+        %h3
+          Mô tả về khóa học
+        %p
+          Work Alongside Me to Create & Operate Your Website Right Now.
+      .row
+        %p.bold
+          Never created a website before? Perfect.
+        %p
+          This course was created for you.
+      .row
+        %p
+          Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.
+        %a{:href => "#"}
+          Xem chi tiết
+      .row
+        %h3
+          Giáo trình
+        .divider
+        .collection
+          %a.collection-item.active{:href => "#!"} Chương 1: The Basics
+          %a.collection-item{:href => "#!"} 1. Introduction To The Course
+          %a.collection-item{:href => "#!"} 2. About Me
+          %a.collection-item{:href => "#!"} 3. Alternative Hosting Option - SiteGround (60% Off)
+          %a.collection-item{:href => "#!"}
+            %span 4. Season 1 Resources
+            %p.btn Xem thử
+          %a.collection-item.active{:href => "#!"} Chương 2: Getting Hosting and Installing WordPress
+          %a.collection-item{:href => "#!"} 1. Introduction To The Course
+          %a.collection-item{:href => "#!"} 2. About Me
+          %a.collection-item{:href => "#!"} 3. Alternative Hosting Option - SiteGround (60% Off)
+          %a.collection-item{:href => "#!"}
+            %span 4. Season 1 Resources
+            %p.btn Xem thử
+      .row
+        %h3
+          Tiểu sử tác giả
+        .row
+          .col.s2
+            = image_tag 'author-avatar.png'
+          .col.s10
+            %p Michael Shen, Entrepreneur 
+            = image_tag 'linkedin.png'
+            = image_tag 'facebook.png'
+        .row
+          %p
+            I'm an entrepreneur focused on the online education industry. Aside from teaching several courses myself, I also partner with top instructors to help them with their marketing and sales.
+          %a{:href => "#"}
+            Tiểu sử chi tiết
+        .row.courses
+          %h4
+            Đánh giá
+          %p 4.2
+          %span.course-rating
+            %span.course-rating-point
+              %i.material-icons.is-rated star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+          %span.course-rating-people.no-padding
+            (4511) đánh giá
+          %p
+            Chi tiết
+          .row
+            .col.s1
+              %span 5 sao
+            .col.s4
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1
+              %span 3174
+          .row
+            .col.s1
+              %span 4 sao
+            .col.s4
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1
+              %span 3174
+          .row
+            .col.s1
+              %span 3 sao
+            .col.s4
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1
+              %span 3174
+          .row
+            .col.s1
+              %span 2 sao
+            .col.s4
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1
+              %span 3174
+          .row
+            .col.s1
+              %span 1 sao
+            .col.s4
+              .progress
+                .determinate{:style => "width: 70%"}
+            .col.s1
+              %span 3174
+      .row
+        %ul.collection
+          %li.collection-item.avatar
+            %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
+            %span.title.bold Title
+            %p 2 ngày trước
+            %span.courses
+              %span.course-rating
+              %span.course-rating-point
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+            %p.bold
+              Lorem ipsum dolor sit amet.
+            %p
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi obcaecati, veniam accusamus harum aperiam rerum porro officiis, corporis provident cumque.
+          %li.collection-item.avatar
+            %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
+            %span.title.bold Title
+            %p 2 ngày trước
+            %span.courses
+              %span.course-rating
+              %span.course-rating-point
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+            %p.bold
+              Lorem ipsum dolor sit amet.
+            %p
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi obcaecati, veniam accusamus harum aperiam rerum porro officiis, corporis provident cumque.
+        %a{:href => "#"}
+          Xem thêm các bình luận khác
+    .col.s4
+      .row
+        .fb-share
+          = image_tag 'fb-share.png'
+      .row
+        %h5
+          Chủ đề liên quan
+      .row
+        %ul.collection
+          %li.collection-item.avatar
+            %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
+            %span.title.bold The Best Software Testing Training You Will Ever Get
+            %p by John Doe
+            %span.courses
+              %span.course-rating
+              %span.course-rating-point
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+              .row
+                .col.s6.no-padding.course-price
+                  220.000đ
+          %li.collection-item.avatar
+            %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
+            %span.title.bold The Best Software Testing Training You Will Ever Get
+            %p by John Doe
+            %span.courses
+              %span.course-rating
+              %span.course-rating-point
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+              .row
+                .col.s6.no-padding.course-price
+                  220.000đ
+          %li.collection-item.avatar
+            %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
+            %span.title.bold The Best Software Testing Training You Will Ever Get
+            %p by John Doe
+            %span.courses
+              %span.course-rating
+              %span.course-rating-point
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+              .row
+                .col.s6.no-padding.course-price
+                  220.000đ
+    .col.s12.course-list.highest-rating
+    .col.s12
+      .row.course-list-header
+        .col.s12
+          %h5.course-list-header-title Được đánh giá cao
+      .row.courses.card-style
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                  220.000đ
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price{:style => "text-align:right;"}
+                  220.000đ
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                  Miễn phí
+        .col.s3
+          %a.course{:href => '!#'}
+            .card-image.course-image
+              = image_tag 'course-image.png'
+            .card-content.course-content
+              .row.course-title
+                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+              .row.course-author
+                .col.s12.no-padding By Vijay Shinde
+              .row.course-rating
+                .col.s7.course-rating-point.no-padding
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                  %i.material-icons.is-rated star_rate
+                .col.s5.course-rating-people.no-padding
+                  (4511)
+              .row.course-footer
+                .col.s6.no-padding.course-favorite
+                  %span.left
+                    %i.material-icons.is-favorite favorite
+                  %span.left 18.5K
+                .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                  Miễn phí
