@@ -30,12 +30,23 @@ module Constants
     HTML = "html"
   end
 
-  module SortTypes
-    DEFAULT   = 1
-    RATING    = 2
-    NEWEST    = 3
-    PRICE_ASC = 4
-    PRICE_DESC= 5
+  module BudgetTypes
+    FREE = "free"
+    PAID = "paid"
+  end
+
+  module CourseLevel
+    All          = "all"
+    BEGINNER     = "beginner"
+    INTERMEDIATE = "intermediate"
+    EXPERT       = "expert"
+  end
+
+  module Ordering
+    RATING    = "ratings"
+    NEWEST    = "newest"
+    PRICE_ASC = "price-low-to-high"
+    PRICE_DESC= "price-high-to-low"
   end
 
   class << self

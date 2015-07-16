@@ -4,11 +4,17 @@ class CoursesController < ApplicationController
   before_filter :authenticate_user, only: [:lecture, :learning]
 
   NUMBER_COURSE_PER_PAGE = 10
+  ORDERING = {
+    "ratings" => {average_rating: -1},
+    "newest" => {created_at: -1},
+    "price-low-to-high" => {price: 1},
+    "price-high-to-low" => {price: -1}
+  }
 
   def index
     labels   = Constants.LabelsValues
     @courses = {}
-
+    
     labels.each {|label|
       @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
     }
@@ -20,12 +26,6 @@ class CoursesController < ApplicationController
     sort_by     = params[:sort_by] || {:created_at => 1}
     condition   = params[:filter_by] || {}
     page        = params[:page] || 1
-    condition   = {} if condition.blank?
-
-    if condition[:price]
-      condition[:price.gt] = 0
-      condition.delete[:price]
-    end
 
     category = Category.where(id: category_id).first
     @courses = {}
@@ -51,6 +51,25 @@ class CoursesController < ApplicationController
     @courses["newest"] = Course.where(
       :category_ids.in => [category.id],
     ).desc(:created_at).limit(12)
+
+    # filter sort paginate course
+
+    budget   = params[:budget]
+    lang     = params[:lang]
+    level    = params[:level]
+    ordering = params[:ordering]
+    condition = {}
+    condition[:category_ids.in] = [category.id]
+
+    if budget == Constants::BudgetTypes::FREE
+      condition[:price] = 0
+    else
+      condition[:price.gt] = 0
+    end
+
+    condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
+    condition[:level] = level if Constants.CourseLevelValues.include?(level)
+    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
     @courses["all"] = Course.where(condition).order(sort_by).paginate(
       page: page,

@@ -1,0 +1,63 @@
+,,,Yêu cầu của khóa học này là gì?,Tôi sẽ nhận được gì từ khóa học này?,Đối tượng của khóa học này là ai?,,,
+Salesforce: Đào tạo cơ bản cho quản lý và các nhà phát triển,Học cách sử dụng sức mạnh của công nghệ Salesforce và trở thành một tài nguyên kinh doanh không thể thiếu.,"Mô tả khóa học
+Điện toán đám mây là một trong những công nghệ mạnh mẽ đáng mong đợi nhất ngày nay.
+Dù bạn là một lập trình viên giàu kinh nghiệm hay người mới dùng máy tính và đang tìm kiếm khóa học từng bước một về Saleforce ở ngay trong nhà bạn thì khóa học này chính là dành cho bạn. Không quan trọng nền tảng kiến thức của bạn thế nào, khóa học này sẽ giúp bạn bộc lộ nguồn lực vô hạn của mình qua việc học về công nghệ mạnh mẽ dựa trên kỹ năng được mong đợi nhất hiện này -  Công nghệ Điện toán đám mây
+Khóa học này bao gồm các hướng dẫn từng bước về cả phần Quản trị và Phát triển Saleforce CRM, đề cập tới tất cả các chủ đề như App, Objects, Profiles, Security, Workflows, Visualforce page, Apex Controllers, Triggers và hơn thế nữa.
+SFDC có nhu cầu lớn về những chuyên gia đầy kỹ năng với cơ cấu lương đặc biệt. Khóa học này bao gồm những hướng dẫn hiệu quả với giải thích rõ ràng
+
+Khóa học này được cập nhật thường xuyên mỗi khi phiên bản mới nhất của Salefforce tung ra và nó cũng bao gồm những ví dụ để giúp bạn được chứng nhận.
+
+Một khi bạn đã đăng ký, bạn sẽ được tham gia khóa học trọn đời, không có bất kỳ giới hạn nào cả.","Salsforce là một nền tảng đám mây vì thế chỉ cần một chiếc máy tính có kết nối Internet là được.
+Bạn sẽ có một tài khoản miễn phí trọn đời để thực hành theo giống như những gì tôi sẽ trình bày video thứ 2.","Hơn 48 bài giảng và 6,5 giờ nội dung
+Kết thúc khóa học này, bạn sẽ có thể làm việc với Saleforce như một chuyên giaKhóa học này sẽ bao gồm cả hai phần Khai báo và Phát triển của Saleforce","Khóa học này dành cho bất cứ ai có thể là các nhà phát triển, quản lý, tư vấn viên hoặc người dùng.",Phần 1: Thực hành quản trị toàn bộ Saleforce từng bước một.,,
+,,,,,,,Làm quen,4:33
+,,,,,,,Nền tảng Đội ngũ bán hàng và Tổng quan Các tính năng,4:59
+,,,,,,,Tạo ra ứng dụng và đối tượng đầu tiên,6:44
+,,,,,,,Tạo các trường trên đối tượng đầu tiên của bạn,7:33
+,,,,,,,Tạo hóa đơn và các đối tượng con,13:48
+,,,,,,,Tạo các Trường trên Đối tượng,5:47
+,,,,,,,Hiểu và tạo sự liên kết giữa các đối tượng,10:56
+,,,,,,,Tạo liên kết giữa các đối tượng con và Trường Tổng kết Cuộn,7:57
+,,,,,,,Hiểu về quy trình làm việc và tạo một quy trình làm việc cho Trường Cập nhật giá,10:03
+,,,,,,,Tạo quy trình làm việc để khấu trừ hàng dự trữ trong kho,9:57
+,,,,,,,Quy luật giá trị để kiểm tra hàng sẵn có.,7:31
+,,,,,,,Quy luật giá trị để tạo một Trường Bắt buộc,5:40
+,,,,,,,Quy luật giá trị và Trường Phụ thuộc,9:24
+,,,,,,,Quy luật giá trị để khóa Hồ sơ con dựa trên hồ sơ mẹ,8:15
+,,,,,,,Làm thế nào để đổ màu cho các Trường bằng Danh sách chọn,11:16
+,,,,,,,Các loại hồ sơ và Bố cục trang,7:31
+,,,,,,,Quy trình CRM,8:50
+,,,,,,,Sản phẩm Cơ hội và Các sách Có giá,5:05
+,,,,,,,Quy trình Dẫn dắt và Quy trình Bán hàng,7:30
+,,,,,,,Thiết kế Web Mở (Open Web Design - OWD) và truy cập mạng,5:27
+,,,,,,,"Người dùng, Vai trò and Hồ sơ",8:21
+,,,,,,,"Thiết kế Web Mở (OWD), thực hành Vai trò và Hồ sơ",10:02
+,,,,,,,Tất cả các loại ID,3:29
+,,,,,,,Bộ nạp dữ liệu,10:22
+,,,,,,,Làm thế nào để cấp quyền truy cập để quản trị hệ thống,2:29
+,,,,,,Phần 2: Học lập trình Saleforce từng bước,,
+,,,,,,,Giới thiệu về lập trình Đội ngũ bán hàng và tạo ra trang Đội ngũ trực quan của bạn,9:19
+,,,,,,,Khóa trang và đặt nhãn cho các trường,6:24
+,,,,,,,Trang Đội ngũ trực quan để quan sát các đối tượng liên quan,5:47
+,,,,,,,Hiện chi tiết về các báo cáo động,9:38
+,,,,,,,Hỗ trợ hành động và Xử lý sự kiện,4:43
+,,,,,,,Kiểm soát danh sách tiêu chuẩn,6:28
+,,,,,,,Trang Đội ngũ trực quan với chức năng quản trị khách hàng (Apex Class),8:40
+,,,,,,,Quản trị khách hàng (Apex Class) để tạo và cập nhật Hồ sơ,3:35
+,,,,,,,Danh sách chọn và Tùy chọn,6:41
+,,,,,,,SOSL - Ngôn ngữ tìm kiếm đổi tượng ,8:43
+,,,,,,,Giới thiệu về Tri gơ Đội ngũ bán hàng,4:41
+,,,,,,,Thực hành với Tri gơ để tính các tác vụ mở cho Việc dẫn dắt,18:10
+,,,,,,,Cập nhật Tri gơ trong liên kết với Lookup,19:14
+,,,,,,,Thực hành: cập nhật trường Tri gơ Đội ngũ bán hàng trong Việc dẫn dắt dựa trên các thành viên của dự án,17:19
+,,,,,,Phần 3: Phân tich,,
+,,,,,,,Giới thiệu về Báo cáo,6:52
+,,,,,,,Báo cáo tổng kết,6:39
+,,,,,,,Trường Bộ chứa,3:07
+,,,,,,,Thêm biểu đồ vào báo cáo,4:12
+,,,,,,,Báo cáo ma trận,7:05
+,,,,,,Phần 4: Câu hỏi ôn tập để nhận chứng chỉ,,
+,,,,,,,201 Câu hỏi ôn tập ADM ,9 pages
+,,,,,,,201 Câu hỏi ôn tập ADM phần 2,11 pages
+,,,,,,,201 Câu hỏi ôn tập ADM phần 3,9 pages
+,,,,,,,401 Câu hỏi ôn tập Dev ,20 pages

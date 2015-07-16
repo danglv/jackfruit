@@ -13,7 +13,7 @@ class Course
   field :audience, type: String, default: ""
   
   field :enabled, type: Boolean, default: false
-  field :level, type: Integer, default: 0
+  field :level, type: String, default: "all"
   
   field :average_rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0

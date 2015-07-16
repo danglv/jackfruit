@@ -1,0 +1,99 @@
+,,Mô tả khóa học,Yêu cầu,Lợi ích từ khóa học,Đối tượng mục tiêu,Chương trình giảng dạy,,
+Khóa đào tạo ngôn ngữ lập trình Ruby cho người mới bắt đầu - Không cần kinh nghiệm,Video khóa đào tạo ngôn ngữ lập trình Ruby. Tìm hiểu kỹ thuật lập trình thực tiễn ngay tại nhà.,"Trong khóa đào tạo ngôn ngữ lập trình Ruby, Infinite Skills sẽ dạy cho bạn những nguyên tắc cơ bản của ngôn ngữ lập trình Ruby. Ruby được thiết kế mạnh mẽ hơn Perl, và nhiều đối tượng hướng tới hơn so với Python, và đã nổi tiếng do sức mạnh của nó và dễ sử dụng hơn. Mike sẽ chỉ rõ cho bạn những chức năng cơ bản và các tính năng của Ruby và làm thế nào để kết hợp chúng lại với nhau để tạo ra các chương trình mạnh mẽ.
+
+Bạn sẽ bắt đầu với những bài học dạy cách cài đặt Ruby trên Mac hoặc máy tính cá nhân của bạn, và cách chạy các chương trình đơn giản. Video đào tạo ngôn ngữ lập trình Ruby được thiết kế cho những người mới bắt đầu và không có kinh nghiệm lập trình. Một số chủ đề của khóa đào tạo trong video này là làm việc với các dữ liệu và biến, các toán tử và biểu thức, cách ra quyết định, các vòng lặp, phương pháp và chức năng và lập trình định hướng đối tượng. Bạn cũng sẽ tìm hiểu về cách xử lý tình huống, đọc và viết các tập tin, và làm việc với trình gỡ lỗi ngôn ngữ lập trình Ruby.
+
+Bằng việc hoàn thành khóa học ngôn ngữ lập trình vi tính Ruby, bạn sẽ có một nền tảng vững chắc cho phép bạn bắt đầu tạo ra các chương trình sử dụng Ruby. Từ điểm khởi đầu này, bạn có thể chuyển sang làm việc với Ruby on Rails, hoặc tiếp tục mã hóa chương trình Ruby của bạn. Tuy vậy chỉ bằng một trong hai cách, bạn sẽ có một sự hiểu biết mạnh mẽ về các nguyên tắc cơ bản của ngôn ngữ lập trình Ruby. Tập tin được dùng cho cả các khóa học, cho phép bạn làm theo cùng với các tác giả trong suốt bài học.",Chỉ cần sẵn sàng học hỏi,"Hơn 76 giờ học và thời lượng nội dung 5 giờ
+Tìm hiểu nguyên tắc cốt lõi của ngôn ngữ lập trình Ruby
+Xây dựng hiểu biết vững chắc về kỹ thuật lập trình ngôn ngữ Ruby
+Học cách lập trình ngôn ngữ Ruby ngay tại nhà của bạn",Các nhà lập trình và nhà phát triển ở mọi trình độ - Không cần kinh nghiệm,Phần 1: Giời thiệu,,
+,,,,,,,Cách lấy tập tin - Cần đọc ngay khi bắt đầu,Text
+,,,,,,,Ruby,3:27
+,,,,,,Phần 2: Bắt đầu với Ruby,,
+,,,,,,,Cài đặt Ruby cho Windows,3:05
+,,,,,,,Cài đặt Ruby cho Mac,1:48
+,,,,,,,sử dụng vỏ tương tác của Ruby,3:10
+,,,,,,,Chỉ dẫn sử dụng Ruby,3:21
+,,,,,,,Dữ liệu hiển thị,3:39
+,,,,,,,Lấy dữ liệu,3:40
+,,,,,,,Bài tập 1,4:05
+,,,,,,Phần 3: Dữ liệu và biến,,
+,,,,,,,Chuỗi,7:35
+,,,,,,,Số,3:47
+,,,,,,,Logic,2:29
+,,,,,,,Dãy,4:28
+,,,,,,,Hệ,3:34
+,,,,,,,Tập hợp,2:57
+,,,,,,,Tạo biến và hệ số,5:57
+,,,,,,,Bài tập 1,2:47
+,,,,,,,Bài tập 2,4:03
+,,,,,,Phần 4: Toán tử và biểu thức,,
+,,,,,,,Toán tử và biểu thức tính toán,4:24
+,,,,,,,Toán tử và biểu thức liên hệ,5:22
+,,,,,,,Toán tử và biểu thức logic,3:00
+,,,,,,,Biểu thức hỗ hợp,3:28
+,,,,,,,Bài tập 1,3:21
+,,,,,,Phần 5: Các quyết định,,
+,,,,,,,Câu lệnh IF đơn giản,3:12
+,,,,,,,Câu lệnh If Else,4:00
+,,,,,,,Câu lệnh If - Else If,4:03
+,,,,,,,Câu lệnh  Case,3:53
+,,,,,,,Bài tập 1,3:26
+,,,,,,,Bài tập 2,3:40
+,,,,,,Phần 6: Phép lặp,,
+,,,,,,,Vòng lặp WHILE,5:04
+,,,,,,,Chuỗi Until,4:15
+,,,,,,,Chuỗi Iterators,5:27
+,,,,,,,Chuỗi For in và Each,3:52
+,,,,,,,Kiểm soát vòng lặp thay thế,4:54
+,,,,,,,Bài tập 1,2:51
+,,,,,,,Bài tập 2,3:24
+,,,,,,Phần 7: Phương pháp,,
+,,,,,,,Định nghĩa phương pháp - Phần 1,5:03
+,,,,,,,Định nghĩa phương pháp - Phần 2,4:16
+,,,,,,,Định nghĩa phương pháp - Phần 3,4:39
+,,,,,,,Bài tập 1,3:30
+,,,,,,,Bài tập 2,4:16
+,,,,,,Phần 8: Các Lớp và Đối tượng,,
+,,,,,,,Định nghĩa lớp - Phần 1,6:06
+,,,,,,,Định nghĩa lớp - Phần 2,4:21
+,,,,,,,Định nghĩa lớp - Phần 3,3:20
+,,,,,,,Định nghĩa lớp - Phần 4,4:33
+,,,,,,,Biến lớp,5:00
+,,,,,,,Bài tập 1,3:42
+,,,,,,,Bài tập 2,3:49
+,,,,,,,Bài tập 3,3:17
+,,,,,,Phần 9: Kế thừa,,
+,,,,,,,Định nghĩa các lớp con - Phần 1,5:03
+,,,,,,,Định nghĩa các lớp con - Phần 2,4:35
+,,,,,,,Định nghĩa các lớp con - Phần 3,4:01
+,,,,,,,Bài tập 1,4:43
+,,,,,,Phần 10: Các đơn vị,,
+,,,,,,,Định nghĩa đơn vị - Phần 1,4:46
+,,,,,,,Định nghĩa đơn vị - Phần 2,3:40
+,,,,,,,Sử dụng Mixins,3:01
+,,,,,,,Bài tập 1,3:08
+,,,,,,Phần 11: Giải quyết các ngoại lệ,,
+,,,,,,,Giới thiệu,3:30
+,,,,,,,Giải quyết các ngoại lệ - Phần 1,3:32
+,,,,,,,Giải quyết các ngoại lệ - Phần 2,4:26
+,,,,,,,Nâng cao ngoại lệ,3:28
+,,,,,,,Làm việc với lệnh Catch and Throw,3:38
+,,,,,,,Bài tập 1,3:56
+,,,,,,Phần 12: Đầu vào và đầu ra,,
+,,,,,,,Làm việc với tập tin - Đọc tập tin,3:43
+,,,,,,,Làm việc với tập tin - Viết tập tin,5:03
+,,,,,,,Lập trinh mạng,4:19
+,,,,,,,Bài tập 1,4:38
+,,,,,,Phần 13: Gỡ Ruby,,
+,,,,,,,Chương trình gỡ Ruby - Phần 1,4:24
+,,,,,,,Chương trình gỡ Ruby - Phần 2,4:30
+,,,,,,,Chương trình gỡ Ruby - Phần 3,3:59
+,,,,,,,Bài tập 1,4:34
+,,,,,,Phần 14: Lập trình GUI trên Ruby,,
+,,,,,,,Giới thiệu TK,3:12
+,,,,,,,Khám phá Widget,4:27
+,,,,,,,Sử dụng Widget thông dụng,4:11
+,,,,,,,Bài tập 1,4:59
+,,,,,,Phần 15; Tổng kết,,
+,,,,,,,Cảm nghĩ cuối cùng,1:49

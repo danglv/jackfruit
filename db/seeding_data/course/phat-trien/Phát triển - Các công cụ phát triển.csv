@@ -1,0 +1,63 @@
+,,,,,,,,
+Git Going Fast: Khóa học cấp tốc trong 1 giờ,"Tìm hiểu các khái niệm và quy trình làm việc cơ bản cho Git và GitHub với điều này dễ làm theo, đánh giá hàng đầu, tất nhiên khởi động trại phong cách!","Git Going Fast: Khóa học cấp tốc trong 1 giờ
+Khóa học này được thiết kế với mục đích giảm nội dung lí thuyết, chỉ tập trung vào những khái niệm quan trọng và những nội dung cơ bản trong Git để đạt hiệu quả nhanh chóng. Học sinh có thể học được những kiến thức cơ bản, cần thiết để bắt đầu sử dụng Git trong vòng chưa đầy một giờ.
+Tóm tắt khóa học
+Giới thiệu tổng quan khóa học nhằm đưa ra chỉ dẫn cho khóa học này và hệ thống vận hành Git. Nghiên cứu, thảo luận các khái niệm và cách thức hoạt động cơ bản.
+Cài đặt và cấu hình cung cấp các bước hướng dẫn cài đặt Git cho Windows và Mac OS X, cách sử dụng lệnh trợ giúp Git, và các thiết lập các yêu cầu tối thiểu của cấu hình để có thể sử dụng Git.
+Trong Làm việc với Git Tại địa phương, chúng tôi đi bộ qua tất cả các lệnh cần thiết để bắt đầu một dự án mới bằng Git quản lý (hoặc kích hoạt Git cho một dự án hiện có) tất cả các cách thức thông qua thực hiện các cam kết, bao gồm cả các hoạt động tập tin phổ biến như di chuyển và xóa các tập tin. Chúng tôi cũng đưa ra các cách để loại trừ các tập tin sai vô tình được cam kết và làm thế nào để xem lại lịch sử của kho lưu trữ của bạn.
+Bìa xuất bản từ xa tại địa phương (phần trước) trên GitHub. Khởi động bằng cách thiết lập chứng thực SSH, tạo ra các phiên bản từ xa của kho lưu trữ của chúng tôi, liên kết các kho địa phương với các phiên bản từ xa trên GitHub, và cuối cùng chuyển những thay đổi của chúng tôi lên đến kho lưu trữ từ xa.
+Đặc điểm khóa học
+Thuyết trình đào tạo cung cấp âm thanh / video của ý tưởng khái niệm. Từ vài như thuyết trình slide-ware, slide-thuyết trình được giữ ở mức tối thiểu.
+Screencasts cung cấp video của hệ thống máy tính của người hướng dẫn với bất kỳ hành động, các lệnh, hoặc màn hình hiển thị và thuật lại. Có tổng cộng 56 phút của video dựa đào tạo trong khóa học này (Presentation + Screencasts, trừ Promo Video).
+Sau mỗi bài giảng hay một nhóm các bài giảng liên quan trong các phần demo của khóa học là các bài giảng về lệnh liệt kê làm tài liệu tham khảo và nhắc nhở các lệnh được đã sử dụng trong các bài giảng trước. Mỗi Lệnh liệt kê bao gồm các danh sách chính xác được sử dụng trong các bài giảng trước và hướng dẫn tham khảo cho các lệnh mới. Tất cả các lệnh được sử dụng trong khóa học này đểu có thông qua các bài giảng về danh sách các lệnh.
+Bốn bài thi nhằm củng cố các khái niệm quan trọng bằng cách kiểm tra kiến ​​thức vừa được học trong suốt khóa học.
+Một số file đính kèm trong suốt khóa học cung cấp thông tin bổ sung, minh họa, hoặc các tài liệu tham khảo khác.
+Tăng tốc
+Học sinh có thể kiểm tra bài giảng cuối cùng của tôi về nguồn Git liên quan khác. Người hướng dẫn luôn sẵn sàng giải đáp các câu hỏi đơn giản bằng email và có thể hướng dẫn thanh toán theo yêu cầu qua trang web http://git.training/.","Kĩ năng máy tính cơ bản
+Kĩ năng cài đặt phần mềm trên máy tính
+Máy tính có thể yêu cầu quyền quản trị để cài đặt phần mềm","Hơn 31 bài giảng và 1 giờ hướng dẫn nội dung!
+Tìm hiểu các khái niệm then chốt của hệ thống kiểm soát nguồn Git
+Trải qua toàn bộ quy trình làm việc cơ bản của Git
+Xác thực cấu hình SSH
+Tạo và sử dụng một kho lưu trữ từ xa trên GitHub","Bất cứ ai quan tâm đến việc sử dụng điều khiển nguồn đặc biệt là công cụ Git
+Các kỹ sư phần mềm, nhà phát triển, và lập trình còn mới mẻ với Git",Phần 1: Giới thiệu khóa học và tổng quan,,
+,,,,,,,Video mẫu xem trước,0:58
+,,,,,,,Giới thiệu,3:38
+,,,,,,,Nội dung chính,1:44
+,,,,,,,Quy trình học,1:45
+,,,,,,,Giới thiệu và Các khái niệm quan trọng,6 câu hỏi
+,,,,,,Phần 2: Thiết lập và Cấu hình,,
+,,,,,,,Tổng quan quá trình cài đặt,1:41
+,,,,,,,Cài đặt mẫu Git cho hệ điều hành Windows,2:18
+,,,,,,,Cài đặt Git cho Mac thông qua Xcode,1:38
+,,,,,,,Hỗ trợ Gitting,1:24
+,,,,,,,Lệnh giúp đỡ,Văn bản
+,,,,,,,Cấu hình Git,2:41
+,,,,,,,Các lệnh cấu hình,Văn bản
+,,,,,,,Cài đặt và cấu hình,2 câu hỏi
+,,,,,,Phần 3: Làm việc với Git,,
+,,,,,,,Khởi động mới,2:21
+,,,,,,,Khởi động với chương trình có sẵn,1:31
+,,,,,,,Khởi động các lệnh,Text
+,,,,,,,"Lệnh cam kết đầu tiên
+Xem trước",4:48
+,,,,,,,Lệnh cam kết đầu tiên,Văn bản
+,,,,,,,"Làm việc địa phương, phần 1",3:29
+,,,,,,,"Làm việc địa phương, phần 2",6:33
+,,,,,,,Các lệnh làm việc địa phương,Văn bản
+,,,,,,,Lịch sử Gitting,1:48
+,,,,,,,Loại bỏ tập tin,4:45
+,,,,,,,Di chuyển tập tin,2:18
+,,,,,,,Bỏ qua tập tin,2:39
+,,,,,,,Lịch sử và các lệnh quản lí tập tin,Văn bản
+,,,,,,,Làm việc với Git tại địa phương,8 câu hỏi
+,,,,,,Phần 4: Từ xa,,
+,,,,,,,Thiết lập SSH xác thực,4:39
+,,,,,,,Các lệnh xác thực SSH,Văn bản
+,,,,,,,Phối hợp với Git Remotes và GitHub,5:47
+,,,,,,,Các lệnh từ xa Git,Văn bản
+,,,,,,,Từ xa,6 câu hỏi
+,,,,,,Phần 5: Kết luận,,
+,,,,,,,Lời kết,0:38
+,,,,,,,Nguồn bổ sung,Văn bản
+,,,,,,,Quà tặng: Quà tặng đặc biệt 2015,Văn bản

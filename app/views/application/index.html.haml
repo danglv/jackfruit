@@ -5,9 +5,9 @@
     .splash-box
       %span.splash-box-title What course will your life take?
       %span.splash-box-subtitle Own your future by learning new skills online
-      %form
+      %form{:action => '/courses/search', :method => 'GET', :id => 'search-form'}
         .input-field
-          %input#course-search{:type => 'text', :placeholder => 'Tìm kiếm khoá học'}
+          %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khoá học'}
           %label{:for => 'course-search'}
             %i.material-icons search
       .row.hooks

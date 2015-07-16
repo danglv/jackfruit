@@ -1,0 +1,110 @@
+,,,,,,,,
+Chứng chỉ Amazon Web Services (AWS) Certified Solutions Architect - Architect 2015,Bạn muốn vượt qua kỳ thi lấy chứng chỉ Kiến trúc sư Giải pháp AWS - Kỳ thi Hội viên ? Muốn trở thành nhà cung cấp dịch vụ Web cho người lập trình truy cập tới hạ tầng kiến trúc Amazon? Hãy tham gia khóa học này!,"Chứng nhận Dịch vụ Web Amazon (AWS) đang nhanh chóng trở thành chứng chỉ cần phải có đối với bất kỳ chuyên gia CNTT nào đang làm việc cùng với AWS. Khóa học này được thiết kế để giúp bạn vượt qua các kỳ thi lấy chứng chỉ Kiến trúc sư giải pháp (CSA) của AWS. Ngay cả khi bạn chưa bao giờ đăng nhập vào  hệ thống AWS trước đó, vào cuối đào tạo AWS của chúng tôi bạn sẽ có thể tham dự kỳ thi CSA. Không yêu cầu kiến ​​thức lập trình và cũng đòi hỏi kinh nghiệm về AWS. Với chứng chỉ AWS này trên hành trang của bạn (và sau khi hoàn thành khóa học Nhà phát triển Công chứng AWS 2015 của chúng tôi  - cũng có sẵn trên Udemy), bạn sẽ được ưa chuộng bởi nhiều nhà tuyển dụng và bạn có thể yêu cầu một mức lương cao.
+Trong khóa học này, chúng ta sẽ bắt đầu với một cái nhìn tổng quan về nền tảng của AWS và sau đó đi sâu vào các yếu tố riêng của AWS. Bạn sẽ khám phá Route53, EC2, S3, , Autoscaling, Load Balancing, RDS, RedShift, DynamoDB, EMR, VPC vv
+Khi mua khóa học này, bạn sẽ nhận được một mã mua hàng để tham gia vào khóa học Deverlopers trị giá $ 19USD và một phiếu giảm giá học khóa Quản trị  SysOps có giá $ 24 USD.
+Hãy đọc những nhận xét tuyệt vời về khóa học của chúng tôi!
+Alex miêu tả về khóa học này như là ""khóa học tốt nhất hiện có""
+Steve cho rằng khóa học này là ""của trời cho""
+Còn Adam nhận xét rằng "" Nếu bạn đang luyện thi thì bạn nhất định phải tham gia vào khóa học này""
+AWS liên tục phát triển nền tảng của các khóa học, trong năm 2014 đã có hơn 500 sản phẩm phát hành. Bởi vì trong tiến trình năm 2015 chúng tôi sẽ liên tục cập nhật các khóa học này với nội dung mới, do vậy bạn sẽ không phải lo lắng lỡ hay trượt bài kiểm tra chứng nhận AWS vì nội dung mới.
+Hầu hết các bài giảng kéo dài từ 5 đến 12 phút, hầu như không bài giảng nào dài quá 20 phút. Tôi là một nhà Quản trị các hệ thống, nhà Phát triển, và người nhận được chứng chỉ AWS Certified Solutions Architect sống ở Luân Đôn với hơn 17 năm kinh nghiệm trong lĩnh vực CNTT. Khóa học này rẻ hơn so với các khóa học khác bởi vì tôi không có ý định làm công việc này như một công việc toàn thời gian, mà còn hơn thế, bởi vì tôi yêu thích việc dạy về Điện toán đám mây. Vì vậy, tham gia cùng với tôi để trở thành Bậc thầy về đám mây điện toán ngay hôm nay và nhận chứng chỉ AWS Certified Solutions Architect Associate qua việc hoàn thành khóa học trực tuyến trên AWS của chúng tôi ngay hôm nay! ","Bạn sẽ cần phải thiết lập một tài khoản trên AWS (bạn có thể được quyền sử dụng các lớp miễn phí của khóa học này)
+Tên miền riêng của bạn (không bắt buộc, nhưng được khuyến khích)
+A Windows, Linux or Mac PC/Laptop","Hơn 68 bài giảng và 10 giờ nội dung!
+Vượt qua các kỳ thi lấy chứng chỉ AWS Certified Solutions Architect - Associate
+Thiết kế các Websites nổi trội và khả năng nâng cấp cao trên AWS
+Trở nên thành thạo về hệ AWS
+Trở thành thành viên Amazon được công nhận
+Trở thành một Bậc thầy về Cloud","AWS hoàn toàn dành cho những người mới bắt đầu. Không yêu cầu kinh nghiệm về AWS.
+Các kiến trúc giải pháp được tạo sẵn
+Các lập trình viên quan tâm đến Các ứng dụng khai triển trên AWS
+Những người quan tâm đến khả năng mở rộng lưu trữ cao, các ứng dụng chịu lỗi (như Wordpress và Joomla) trên đám mây AWS",Phần 1: Giới thiệu về khóa học,,
+,,,,,,,Giới thiệu và khái quát,10:36
+,,,,,,,Một diễn đàn trò chuyện trên AWS của các bậc thầy về Điện toán đám mây,2:45
+,,,,,,,Kiểm tra bản thiết kế chi tiết,9:44
+,,,,,,,Bắt đầu khóa học - Những thứ bạn sẽ cần,5:18
+,,,,,,,Các ứng dụng Android/iPhone tùy chọn,2:23
+,,,,,,Phần 2: Cái nhìn khái quát chung nhất về AWS,,
+,,,,,,,Lịch sử cho đến nay,5:02
+,,,,,,,Các khái niệm và những bộ phận cấu thành - Phần 1,10:05
+,,,,,,,Các khái niệm và những bộ phận cấu thành - Phần 2,14:34
+,,,,,,,Tinh thần quá tải? Đừng căng thẳng!,2:17
+,,,,,,,Các câu hỏi kiểm tra chung nhất,10 câu hỏi
+,,,,,,Phần 3: Quản lý Truy cập Danh tính (IAM),,
+,,,,,,,Các khái niệm IAM ,3:12
+,,,,,,,Cấu hình IAM cho tài khoản của bạn,16:37
+,,,,,,,Tích hợp thư mục hoạt động,3:15
+,,,,,,,IAM - Tóm tắt,1:18
+,,,,,,,IAM - Câu hỏi trắc nghiệm,7 câu hỏi
+,,,,,,"Phần 4: Hệ thống lưu trữ đối tượng AWS và CDN - S3,  Glacier and CloudFront",,
+,,,,,,,Phần mềm S3 Essentials,12:12
+,,,,,,,Tạo ra một thùng chứa S3,4:23
+,,,,,,,Kiểm soát phiên bản S3,6:06
+,,,,,,,Quản lý Cycle Life S3 và Glacier ,7:12
+,,,,,,,Tổng quan về Cloud Front,4:46
+,,,,,,,Tạo ra một hệ thống máy chủ [Content Delivery Network],9:42
+,,,,,,,S3 - Tóm tắt,2:35
+,,,,,,,S3 - Câu hỏi kiểm tra,11 câu hỏi
+,,,,,,"Phần 5: Dịch vụ điện toán đám mây của Amazon, Amazon Elastic Computer [EC2] - Thư viện Javascript của AWS",,
+,,,,,,,Giới thiệu và khái quát,12:19
+,,,,,,,Chúng ta hãy cùng tham gia nào! Khởi động phiên bản EC2,19:31
+,,,,,,,Cơ bản Thông tin bảo mật Nhóm,7:59
+,,,,,,,Âm lượng và thiết bị chụp nhanh,14:06
+,,,,,,,Tạo một phiên bản EC2 Windows và Nhóm RAID,11:22
+,,,,,,,Tạo một Amazon Machine Image [AMI],7:46
+,,,,,,,Cân bằng tải và Kiểm tra tình trạng máy chủ,9:23
+,,,,,,,Cloud Watch EC2,8:18
+,,,,,,,Dòng lệnh AWS và EC2,12:25
+,,,,,,,Sử dụng các vai trò của IAM cùng với EC2,9:46
+,,,,,,,Sử dụng các tập lệnh tự khởi động,6:14
+,,,,,,,Phiên bản siêu dữ liệu EC2,2:18
+,,,,,,,Khởi động các nhóm Config,3:54
+,,,,,,,Tự động cân bằng 101,13:27
+,,,,,,,Việc gộp nhóm hợp lý của các phiên bản EC2 - Một bài kiểm tra cần phải biết!,3:16
+,,,,,,,Lambda - Các khái niệm,8:17
+,,,,,,,Tóm tắt về EC2,3:40
+,,,,,,,Câu hỏi kiểm tra về EC2,9 câu hỏi
+,,,,,,Phần 6: Route53,,
+,,,,,,,Giới thiệu và khái quát về Route53,19:43
+,,,,,,,Câu hỏi kiểm tra về Route53,5 câu hỏi
+,,,,,,Phần 7: Các cơ sở dữ liệu trên AWS,,
+,,,,,,,Giới thiệu và khái quát,12:22
+,,,,,,,Khởi động phiên bản Cơ sở dữ liệu quan hệ [RDS],12:06
+,,,,,,,Kết nối Dịch vụ Cơ sở dữ liệu quan hệ [RDS] bằng việc sử dụng các nhóm bảo mật,18:26
+,,,,,,,DynamoDB,12:45
+,,,,,,,RedShift,9:30
+,,,,,,,Elasticache,2:25
+,,,,,,,Aurora,2:51
+,,,,,,,Tóm tắt về Cơ sở dữ liệu,5:34
+,,,,,,,Câu hỏi kiểm tra về Cơ sở dữ liệu,10 câu hỏi
+,,,,,,Phần 8: Virtual Private Cloud [VPC],,
+,,,,,,,Giới thiệu và khái quát,9:28
+,,,,,,,Xây dựng VPC tùy chỉnh riêng của bạn,19:40
+,,,,,,,Quá trình chuyển đổi địa chỉ mạng [NAT],10:29
+,,,,,,,Các danh sách quản lý truy cập ,7:11
+,,,,,,,Tóm tắt,4:45
+,,,,,,,Câu hỏi kiểm tra về VPC,5 câu hỏi
+,,,,,,Phần 9: Các dịch vụ ứng dụng,,
+,,,,,,,Dịch vụ gửi thông điệp đơn giản [Simple Queue Service],13:03
+,,,,,,,Định dang Web Nhỏ [Small Web Format],4:39
+,,,,,,,Dịch vụ để cập nhật các mạng xã hội [Social Network Sevice],6:49
+,,,,,,,Tóm tắt về các Dịch vụ ứng dụng,6:10
+,,,,,,,Câu hỏi kiểm tra về các Dịch vụ ứng dụng,10 câu hỏi
+,,,,,,Phần 10: Thế giới thực - Tạo vị trí WordPress chịu lỗi của ứng dụng,,
+,,,,,,,Chuẩn bị,17:05
+,,,,,,,EC2 và cài đặt Wordpress,19:51
+,,,,,,,Tạo AMI của riêng bạn - Phần 1,19:36
+,,,,,,,Tạo AMI của riêng bạn - Phần 2,11:12
+,,,,,,,Tự động cân bằng và Kiểm thử,12:00
+,,,,,,Phần 11: Chuẩn bị cho kỳ thi - Xem lại giấy trắng,,
+,,,,,,,Khái quát về các dịch vụ Web của Amazon,5:56
+,,,,,,,Khái quát về quá trình bảo mật - Phần 1,13:44
+,,,,,,,Khái quát về quá trình bảo mật - Phần 2,7:33
+,,,,,,,Các rủi ro và việc tuân thủ AWS,5:20
+,,,,,,,Hệ thống lưu trữ tùy chọn trong Điện toán đám mây,7:36
+,,,,,,,Việc kiến trúc cho Điện toán đám mây trên AWS: Các bài thực hành tốt nhất,11:51
+,,,,,,,Các bài thi thiết thực,2:42
+,,,,,,,Câu hỏi trắc nghiệm tổng quát 1,54 câu hỏi
+,,,,,,"Phần 2: Cảm ơn, Chúc may mắn và Hẹn gặp lại!",,
+,,,,,,,Cảm ơn bạn cùng với tất các học viên của tôi.,3:48
+,,,,,,,Câu hỏi kiểm tra tổng quát 2 -  Các câu hỏi khó.,22 câu hỏi
+,,,,,,,Các câu hỏi dựa trên tình huống (và cũng là các câu hỏi khó),20 câu hỏi
