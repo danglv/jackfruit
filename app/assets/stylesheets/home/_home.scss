@@ -1,0 +1,24 @@
+.home {
+  background-color: #f8f8f8;
+  &-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 620px;
+    background: image-url('header-background-landingpage.png') no-repeat 50% 0%;
+    background-size: cover;
+  }
+
+  &-main {
+    position: absolute;
+    top: 620px;
+    width: 1140px;
+  }
+
+  &-headline {
+    font-size: 30px;
+    text-align: center;
+    margin: 50px 0;
+  }
+}

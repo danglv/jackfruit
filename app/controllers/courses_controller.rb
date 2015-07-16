@@ -82,4 +82,12 @@ class CoursesController < ApplicationController
       @course = Course.where(description: pattern).limit(10)
     end
   end
+
+  def test_course_detail_id
+
+  end
+
+  def detail
+    
+  end
 end

@@ -2,9 +2,12 @@
 @import "materialize/components/variables";
 @import "settings";
 @import "materialize";
+@import "home/home";
 @import "courses/courses";
 // Custom components
 @import "components/side-nav";
 @import "components/top-nav";
+@import "components/header";
 @import "components/button";
+@import "components/breadcum";
 @import "components/mics";

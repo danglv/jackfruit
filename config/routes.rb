@@ -1,16 +1,20 @@
 Rails.application.routes.draw do
   
   root to: "application#index"
-  devise_for :users
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :courses, only: %w[index show] do
     member do
       get :lecture
     end
-
     collection do
       get :search
+      get :test_course_detail_id
+      get :detail
     end
   end
+
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+  get "/users/:id/show" => "users#show", as: :user
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do

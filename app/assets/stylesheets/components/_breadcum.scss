@@ -1,0 +1,11 @@
+.breadcum {
+  margin: 0;
+}
+
+.breadcum-divider, .breadcum-item {
+  display: inline-block;
+}
+
+.breadcum-item a {
+  color: color('shades', 'white');
+}

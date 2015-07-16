@@ -2,17 +2,17 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/fixed_side_nav'
 
-%main
+%main{:style => 'padding-left: 240px;'}
   .row.course-list.highest-rating
     .col.s12
       .row.course-list-header
         .col.s12
           %h5.course-list-header-title Được đánh giá cao
-      .row.courses
+      .row.courses.card-style
         .col.s3
           %a.course{:href => '!#'}
             .card-image.course-image
-              %img{:src => 'assets/course-image.png'}
+              = image_tag 'course-image.png'
             .card-content.course-content
               .row.course-title
                 .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
@@ -37,7 +37,7 @@
         .col.s3
           %a.course{:href => '!#'}
             .card-image.course-image
-              %img{:src => 'assets/course-image.png'}
+              = image_tag 'course-image.png'
             .card-content.course-content
               .row.course-title
                 .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
@@ -62,7 +62,7 @@
         .col.s3
           %a.course{:href => '!#'}
             .card-image.course-image
-              %img{:src => 'assets/course-image.png'}
+              = image_tag 'course-image.png'
             .card-content.course-content
               .row.course-title
                 .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
@@ -87,7 +87,7 @@
         .col.s3
           %a.course{:href => '!#'}
             .card-image.course-image
-              %img{:src => 'assets/course-image.png'}
+              = image_tag 'course-image.png'
             .card-content.course-content
               .row.course-title
                 .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.

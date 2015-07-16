@@ -3,10 +3,15 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, 
+         :validatable, :omniauthable,
+         :confirmable,
+         :omniauth_providers => [:google_oauth2, :facebook]
+  TEMP_EMAIL_PREFIX = 'change@me'
+  TEMP_EMAIL_REGEX = /\Achange@me/
 
   ## Database authenticatable
-  field :email,              type: String, default: ""
+  field :email, type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
   # Authentication tokens
@@ -27,10 +32,10 @@ class User
   field :last_sign_in_ip,    type: String
 
   ## Confirmable
-  # field :confirmation_token,   type: String
-  # field :confirmed_at,         type: Time
-  # field :confirmation_sent_at, type: Time
-  # field :unconfirmed_email,    type: String # Only if using reconfirmable
+  field :confirmation_token,   type: String
+  field :confirmed_at,         type: Time
+  field :confirmation_sent_at, type: Time
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
@@ -39,7 +44,7 @@ class User
   
   # Profile
   # Basic
-  field :sign_up_by_platform, type: String, default: ""
+  field :name, type: String
   field :desination,type: String, default: ""
   field :first_name,type: String, default: ""
   field :last_name,type: String, default: ""
@@ -51,14 +56,14 @@ class User
   # Language
   field :lang,type: String, default: "vi"
   # Links 
-  field :links, type: Hash, default: {
-    website: "http://",
-    google_plus: "https://plus.google.com/",
-    twitter_profile: "http://twitter.com/",
-    facebook_profile: "http://www.facebook.com/",
-    linkedin_profile: "http://www.linkedin.com/",
-    youtube_profile: "http://www.youtube.com/"
-  }
+  # field :links, type: Hash, default: {
+  #   website: "http://",
+  #   google_plus: "https://plus.google.com/",
+  #   twitter_profile: "http://twitter.com/",
+  #   facebook_profile: "http://www.facebook.com/",
+  #   linkedin_profile: "http://www.linkedin.com/",
+  #   youtube_profile: "http://www.youtube.com/"
+  # }
   # Avatar
 
   #
@@ -71,4 +76,64 @@ class User
   accepts_nested_attributes_for :courses
 
   index({created_at: 1})
+
+  def self.find_for_oauth(auth, signed_in_resource = nil)
+
+    # Get the identity and user if they exist
+    identity = Identity.find_for_oauth(auth)
+
+    # If a signed_in_resource is provided it always overrides the existing user
+    # to prevent the identity being locked with accidentally created accounts.
+    # Note that this may leave zombie accounts (with no associated identity) which
+    # can be cleaned up at a later date.
+    user = signed_in_resource ? signed_in_resource : identity.user
+
+    # Create the user if needed
+    if user.nil?
+
+      # Get the existing user by email if the provider gives us a verified email.
+      # If no verified email was provided we assign a temporary email and ask the
+      # user to verify it on the next step via UsersController.finish_signup
+      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
+      email = auth.info.email if email_is_verified
+      user = User.where(:email => email).first if email
+
+      # Create the user if it's a new registration
+      if user.nil?
+        user = User.new(
+          name: auth.extra.raw_info.name,
+          #username: auth.info.nickname || auth.uid,
+          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          password: Devise.friendly_token[0,20]
+        )
+        user.skip_confirmation!
+        user.save!
+      end
+    end
+
+    # Associate the identity with the user if needed
+    if identity.user != user
+      identity.user = user
+      identity.save!
+    end
+    user
+  end
+
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
+
+    # Uncomment the section below if you want users to be created if they don't exist
+    unless user
+      user = User.create(name: data["name"],
+         email: data["email"],
+         password: Devise.friendly_token[0,20]
+      )
+    end
+    user
+  end
+
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
 end
