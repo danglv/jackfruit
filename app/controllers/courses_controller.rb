@@ -41,6 +41,11 @@ class CoursesController < ApplicationController
     @courses["newest"] = Course.where(
       :category_ids.in => [category.id],
     ).desc(:created_at).limit(12)
+
+    @other_category = Category.where(
+      :parent_category_id => category.parent_category_id,
+      :id.ne => category_id
+      )
   end
 
   def list_course_all
@@ -76,6 +81,11 @@ class CoursesController < ApplicationController
       page: page,
       per_page: NUMBER_COURSE_PER_PAGE
     )
+
+    @other_category = Category.where(
+      :parent_category_id => category.parent_category_id,
+      :id.ne => category_id
+      )
   end
 
   def detail
