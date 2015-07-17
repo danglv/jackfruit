@@ -100,12 +100,13 @@
               - if(curi.type == 'chapter')
                 %a.collection-item.active{:href => "#!"} #{curi.description}
               - else
-                %a.collection-item{:href => "#!"}
+              - @course.curriculums.where(chapter_index: curi.chapter_index + 1, type: "lecture").each do |lecture|
+                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
                   .row.no-margin
                     .col.s11.left
-                      %span.grey-text.left #{curi.lecture_index}.
+                      %span.grey-text.left #{lecture.lecture_index}.
                       %i.material-icons.grey-text.left play_circle_filled
-                      %span #{curi.description}
+                      %span #{lecture.description}
                     .col.s1
                       %span.right 07:07
         .row
