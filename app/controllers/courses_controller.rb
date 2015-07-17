@@ -115,13 +115,13 @@ class CoursesController < ApplicationController
   end
 
   def search
-    keywords = params[:q]
+    @keywords = params[:q]
     page     = params[:page] || 1
     budget   = params[:budget]
     lang     = params[:lang]
     level    = params[:level]
     ordering = params[:ordering]
-    pattern  = /#{Regexp.escape(keywords)}/
+    pattern  = /#{Regexp.escape(@keywords)}/
 
     condition = {}
 
