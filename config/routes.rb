@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get '/lecture/:lecture_index', to: 'courses#lecture'
       get :learning
       get :detail
+      get '/select', to: 'courses#select'
     end
     collection do
       get :search
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
-      post :select_course
+      get :select_course
     end
     collection do      
       get :learning

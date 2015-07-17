@@ -167,4 +167,8 @@ class CoursesController < ApplicationController
   def test_course_detail_id
 
   end
+
+  def select
+    
+  end
 end
