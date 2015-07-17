@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     collection do
       get :search
       get :test_course_detail_id
-      get '/:category_id', to: 'courses#list_course'
+      get '/:category_id', to: 'courses#list_course_featured'
+      get '/:category_id/all_courses', to: 'courses#list_course_all'
     end
   end
 
