@@ -38,6 +38,8 @@ gem 'unicorn', :platforms => :ruby
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
+gem 'capistrano-rvm', group: :development
+gem 'capistrano3-unicorn', group: :development
 
 # User Devise for manage user some gem below for social login
 gem 'devise', '~> 3.4.1'

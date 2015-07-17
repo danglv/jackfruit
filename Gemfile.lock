@@ -57,6 +57,11 @@ GEM
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano3-unicorn (0.2.1)
+      capistrano (~> 3.1, >= 3.1.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -289,6 +294,8 @@ DEPENDENCIES
   bson_ext
   byebug
   capistrano-rails
+  capistrano-rvm
+  capistrano3-unicorn
   carrierwave (~> 0.10.0)
   carrierwave-mongoid
   coffee-rails (~> 4.1.0)
