@@ -1,10 +1,10 @@
 %header
   = render :partial => 'layouts/header'
-  = render :partial => 'components/fixed_side_nav'
-%main{:style => 'padding-left: 240px;'}
+  = render :partial => 'components/side_nav'
+%main
   .row.courses.list-style.grey.lighten-2
     .col.s12
-      .row.course-detail
+      .row.course-detail.container-1140
         .col.s3.valign-wrapper
           %a.course.no-padding{:href => '!#'}
             .card-image.course-image
@@ -18,7 +18,7 @@
             được hướng dẫn bởi Eduonix Learning Solutions
           %a.btn{:href => '!#'}
             Tiếp tục khóa học
-  .row.course-list.highest-rating
+  .row.course-list.highest-rating.container-1140
     .col.s12
       .row.course-list-header
         .col.s12
@@ -124,7 +124,7 @@
                   %span.left 18.5K
                 .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                   Miễn phí
-  .row.course-list.top-paid
+  .row.course-list.top-paid.container-1140
     .col.s12
       .row.course-list-header
         .col.s12
