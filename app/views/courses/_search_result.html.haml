@@ -1,0 +1,77 @@
+%main.search
+  .row.search-header
+    .col.s12
+      %h4 Kết quả tìm kiếm cho từ khóa "#{@keywords}"
+  .row.search-main
+    .col.sidebar
+      %ul.course-filters
+        %li.course-filter
+          %p.course-filter-title Chi phí
+          %ul.course-filter-content
+            %li.course-filter-item
+              %input#price-free-filter.filled-in{:type => 'checkbox'}
+              %label{:for => 'price-free-filter'} Miễn phí (23)
+            %li.course-filter-item
+              %input#price-nonfree-filter.filled-in{:type => 'checkbox'}
+              %label{:for => 'price-nonfree-filter'} Trả phí (233)
+        %li.course-filter
+          %p.course-filter-title Trình độ
+          %ul.course-filter-content
+            %li.course-filter-item
+              %input#level-all-filter.filled-in{:type => 'checkbox'}
+              %label{:for => 'level-all-filter'} Mọi trình độ (23)
+            %li.course-filter-item
+              %input#level-basic-filter.filled-in{:type => 'checkbox'}
+              %label{:for => 'level-basic-filter'} Cơ bản (233)
+            %li.course-filter-item
+              %input#level-advanced-filter.filled-in{:type => 'checkbox'}
+              %label{:for => 'level-advanced-filter'} Nâng cao (233)
+    .col.s9
+      .row.sorting
+        .input-field.col.s4
+          %select.sorting-options
+            %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
+            %option{:value => '1'} Đánh giá cao
+            %option{:value => '2'} Mới nhất
+            %option{:value => '3'} Miễn phí
+            %option{:value => '4'} Giá thấp đến cao
+            %option{:value => '5'} Giá cao đến thấp
+      .row.courses.list-style
+        .col.s12
+        - @course.each do |c|
+          %a.row.course{:href => '/courses/1'}
+            .col.s3.course-image
+              = image_tag 'course-image.png'
+            .col.s9
+              %p.course-title= c.name
+              %p.course-author= "By " + c.user.name.to_s
+              %p{:style => 'margin: 5px 0;'}
+                %span.course-price= c.price.to_s + ' vnd'
+                %span.course-rating
+                  %span.course-rating-point
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                  %span.course-rating-people= '(' + c.students.to_s + ')'
+              %p.course-other-info= c.curriculums.where(type: "lecture").count.to_s + " Bài học"
+      .row
+        %div.center-pagination
+          %ul.pagination
+            %li.disabled
+              %a{:href => "#!"}
+                %i.material-icons chevron_left
+            %li.active
+              %a{:href => "#!"} 1
+            %li.waves-effect
+              %a{:href => "#!"} 2
+            %li.waves-effect
+              %a{:href => "#!"} 3
+            %li.waves-effect
+              %a{:href => "#!"} 4
+            %li.waves-effect
+              %a{:href => "#!"} 5
+            %li.waves-effect
+              %a{:href => "#!"}
+                %i.material-icons chevron_right

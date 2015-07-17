@@ -129,6 +129,31 @@
   }
 }
 
+.search{
+  &>.search-header{
+    background: #009688;
+    padding-left: 240px;
+    .col.s12{
+      margin-bottom: 20px;
+      h4{
+        color: white;
+        font-size: 24px;
+        height: 71px;
+        line-height: 71px;
+      }  
+    }
+  }  
+  &>.search-main{
+    &>.sidebar{
+      width: 240px;
+      &>.course-filters{
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+
 .course-filters {
   border-bottom: 1px solid #b6b6b6;
 }
