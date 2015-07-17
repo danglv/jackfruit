@@ -98,11 +98,14 @@ class User
       email = auth.info.email if email_is_verified
 
       user = User.where(:email => email).first if email
+      avatar = ""
+      avatar = "https://graph.facebook.com/#{auth.uid}/picture" if auth.provider == "facebook"
+      avatar = auth.extra.raw_info.picture if auth.provider == "google_oauth2"
       # Create the user if it's a new registration
       if user.nil?
         user = User.new(
           name: auth.extra.raw_info.name,
-          avatar: "https://graph.facebook.com/#{auth.uid}/picture",
+          avatar: avatar,
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
