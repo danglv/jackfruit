@@ -33,7 +33,7 @@
         .col.s12.lecture-chap-title= curriculum.description
         .col.s12.lecture-list-items
          - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-          %a.item-container{:href => '/courses/'+lecture._id+'/lecture/'+lecture.lecture_index.to_s}
+          %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
            .row.no-margin
             .col.s1
              -if lecture.status == 0
