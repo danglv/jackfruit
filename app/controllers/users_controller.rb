@@ -68,14 +68,14 @@ class UsersController < ApplicationController
 
   def learning
     # learning = Constants::OwnedCourseTypes::LEARNING
-    # course_ids = @current_user.courses.where(type: learning).map(&:course_id)
+    # course_ids = current_user.courses.where(type: learning).map(&:course_id)
     # @courses = Course.where(:id.in => course_ids)
 
   end
 
   def teaching
     teaching = Constants::OwnedCourseTypes::TEACHING
-    course_ids = @current_user.courses.where(type: teaching).map(&:course_id)
+    course_ids = current_user.courses.where(type: teaching).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
 
     head :ok
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
   def wishlist
     # wishlist = Constants::OwnedCourseTypes::WISHLIST
-    # course_ids = @current_user.courses.where(type: wishlist).map(&:course_id)
+    # course_ids = current_user.courses.where(type: wishlist).map(&:course_id)
     # @courses = Course.where(:id.in => course_ids)
 
     # head :ok
@@ -93,7 +93,7 @@ class UsersController < ApplicationController
     keywords = params[:q]
     pattern = /#{Regexp.escape(keywords)}/
     @courses = []
-    @current_user.courses.map{|owned_course|
+    current_user.courses.map{|owned_course|
       @courses << owned_course.course if (owned_course.course.name =~ pattern) == 0
     }
 
@@ -102,12 +102,13 @@ class UsersController < ApplicationController
 
   def select_course
     course_id = params[:course_id]
-    owned_course = @current_user.courses.create(
-      type: Constants::OwnedCourseTypes::LEARNING,
+    owned_course = current_user.courses.find_or_initialize_by(
       course_id: course_id
     )
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+
     init_lectures_for_owned_course(owned_course, course_id)
-    @current_user.save
+    current_user.save
 
     head :ok
   end
@@ -169,7 +170,7 @@ class UsersController < ApplicationController
       if params[:id] != nil
         @user = User.find(params[:id]) 
       else
-        @user = @current_user
+        @user = current_user
       end
 
       # Fix user đầu tiên để demo
@@ -186,7 +187,7 @@ class UsersController < ApplicationController
       course.curriculums.where(
         :type => Constants::CurriculumTypes::LECTURE
       ).map{|curriculum|
-        owned_course.lectures.create(:lecture_index => curriculum.lecture_index)
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
       }
 
       course.set(:students => course.students + 1)
