@@ -39,7 +39,7 @@ role :db,  %w{rails@sgserv1.tudemy.vn:22}
 set :rails_env, 'production'
 set :user, 'rails'
 set :deploy_to, '/home/rails/tudemy'
-set :branch, 'dev'
+set :branch, 'master'
 
 
 # Custom SSH Options
