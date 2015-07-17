@@ -19,16 +19,17 @@
           .waves-effect.wave-grey.btn-login.modal-trigger{:href => '#modal-login'} Đăng nhập
           .btn.modal-trigger.deep-orange{:href => '#modal-register'} Đăng ký
       - else
-        / Dropdown Trigger
-        %a.dropdown-button{"data-activates" => "dropdown1", :href => "#", :style => 'color: blue;'}
-          %img{:src => current_user.avatar}= current_user.name
-        / Dropdown Structure
-        %ul#dropdown1.dropdown-content
-          %li
-            %a{:href => root_url + "home/my-course/learning"} Các khoá học của tôi
-          %li
-            %a{:href => "#!"} Hỗ trợ
-          %li.divider
-          %li
-            %a{:href => root_url + "users/sign_out", "data-method" => "delete", :rel => "nofollow"} Đăng xuất
+        .col.s3.right{:style => 'text-align: right;'}
+          / Dropdown Trigger
+          %a.dropdown-button{"data-activates" => "user-info-dropdown", :style => 'display: inline-block;'}
+            %img{:src => current_user.avatar}
+          / Dropdown Structure
+          %ul#user-info-dropdown.dropdown-content
+            %li
+              %a{:href => root_url + "home/my-course/learning"} Các khoá học của tôi
+            %li
+              %a{:href => "#!"} Hỗ trợ
+            %li.divider
+            %li
+              %a{:href => root_url + "users/sign_out", "data-method" => "delete", :rel => "nofollow"} Đăng xuất
           

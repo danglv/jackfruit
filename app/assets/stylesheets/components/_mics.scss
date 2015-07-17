@@ -64,6 +64,19 @@ body {
   }
 }
 
+#user-info-dropdown {
+  width: 380px !important;
+  top: 64px !important;
+}
+
+a[data-activates='user-info-dropdown'] {
+  display: inline-block;
+  img {
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+}
+
 .bold {
   font-weight: 700;
 }
