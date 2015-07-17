@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
+  # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
