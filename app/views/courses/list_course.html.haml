@@ -23,30 +23,43 @@
               %a{:href => '#featured-courses'} Nổi bật
             %li.tab
               %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-main{:style => "display:none"}
+  .row.category-main#all-courses
     .col.sidebar
-      %ul.course-filters
-        %li.course-filter
-          %p.course-filter-title Chi phí
-          %ul.course-filter-content
-            %li.course-filter-item
-              %input#price-free-filter.filled-in{:type => 'checkbox'}
-              %label{:for => 'price-free-filter'} Miễn phí (23)
-            %li.course-filter-item
-              %input#price-nonfree-filter.filled-in{:type => 'checkbox'}
-              %label{:for => 'price-nonfree-filter'} Trả phí (233)
-        %li.course-filter
-          %p.course-filter-title Trình độ
-          %ul.course-filter-content
-            %li.course-filter-item
-              %input#level-all-filter.filled-in{:type => 'checkbox'}
-              %label{:for => 'level-all-filter'} Mọi trình độ (23)
-            %li.course-filter-item
-              %input#level-basic-filter.filled-in{:type => 'checkbox'}
-              %label{:for => 'level-basic-filter'} Cơ bản (233)
-            %li.course-filter-item
-              %input#level-advanced-filter.filled-in{:type => 'checkbox'}
-              %label{:for => 'level-advanced-filter'} Nâng cao (233)
+      %form#test-form{:action => '', :method => 'GET'}
+        %ul.course-filters
+          %li.course-filter
+            %p.course-filter-title Chi phí
+            %ul.course-filter-content
+              %li.course-filter-item
+                %input#price-free-filter.filled-in{:type => 'checkbox', :name => 'price', :value => 'free'}
+                %label{:for => 'price-free-filter'} Miễn phí (23)
+              %li.course-filter-item
+                %input#price-nonfree-filter.filled-in{:type => 'checkbox', :name => 'price', :value => 'paid'}
+                %label{:for => 'price-nonfree-filter'} Trả phí (233)
+          %li.course-filter
+            %p.course-filter-title Ngôn ngữ
+            %ul.course-filter-content
+              %li.course-filter-item
+                %input#language-en-filter.filled-in{:type => 'checkbox', :name => 'language', :value => 'en'}
+                %label{:for => 'language-en-filter'} Tiếng Anh (23)
+              %li.course-filter-item
+                %input#language-vi-filter.filled-in{:type => 'checkbox', :name => 'language', :value => 'vi'}
+                %label{:for => 'language-vi-filter'} Tiếng Việt (233)
+          %li.course-filter
+            %p.course-filter-title Trình độ
+            %ul.course-filter-content
+              %li.course-filter-item
+                %input#level-all-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'all'}
+                %label{:for => 'level-all-filter'} Mọi trình độ (23)
+              %li.course-filter-item
+                %input#level-beginner-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'beginner'}
+                %label{:for => 'level-beginner-filter'} Cơ bản (23)
+              %li.course-filter-item
+                %input#level-basic-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'intermediate'}
+                %label{:for => 'level-basic-filter'} Trung cấp (233)
+              %li.course-filter-item
+                %input#level-advanced-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'expert'}
+                %label{:for => 'level-advanced-filter'} Nâng cao (233)
       %ul.other-categories
         %li.other-categories-title Cách chủ đề khác
         %li.other-category 
@@ -138,7 +151,7 @@
               %a{:href => "#!"}
                 %i.material-icons chevron_right
 
-  .row.category-feature-main
+  .row.category-feature-main#featured-courses
     .col.sidebar
       %ul.other-categories
         %li.other-categories-title Cách chủ đề khác
