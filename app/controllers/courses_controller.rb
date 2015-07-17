@@ -1,8 +1,7 @@
 class CoursesController < ApplicationController
 
-  before_filter :validate_content_type_param
+  before_filter :validate_content_type_param, :list_category
   before_filter :authenticate_user, only: [:lecture, :learning]
-  before_filter :list_category
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -21,13 +20,11 @@ class CoursesController < ApplicationController
     }
   end
 
-  def list_course
+  def list_course_featured
     category_id = params[:category_id]
-    page        = params[:page] || 1
-
     category = Category.where(id: category_id).first
-    @courses = {}
 
+    @courses = {}
     @courses["featured"] = Course.where(
       :label_ids.in => ["featured"],
       :category_ids.in => [category.id]).first
@@ -45,7 +42,13 @@ class CoursesController < ApplicationController
     @courses["newest"] = Course.where(
       :category_ids.in => [category.id],
     ).desc(:created_at).limit(12)
+  end
 
+  def list_course_all
+    category_id = params[:category_id]
+    page        = params[:page] || 1
+
+    category = Category.where(id: category_id).first
     # filter sort paginate course
 
     budget   = params[:budget]
@@ -67,7 +70,10 @@ class CoursesController < ApplicationController
     sort_by = ORDERING.first.last
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
-    @courses["all"] = Course.where(condition).order(sort_by).paginate(
+    @courses = Course.where(condition).order(sort_by)
+
+    @total_page = (@courses.count / NUMBER_COURSE_PER_PAGE.to_f).ceil
+    @courses = @courses.paginate(
       page: page,
       per_page: NUMBER_COURSE_PER_PAGE
     )
