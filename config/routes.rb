@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get :visa
       get :bank
       get :direct
+      get :success
     end
   end
 
