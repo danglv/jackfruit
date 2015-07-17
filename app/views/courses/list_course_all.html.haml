@@ -108,7 +108,7 @@
               %li.disabled
                 %a{:href => "#!"}
                   %i.material-icons chevron_left
-              - (1..@courses.count/10 + 1).each do |page|
+              - (1..@total_page).each do |page|
                 %li{:style => 'cursor:pointer'}= page
               %li.waves-effect
                 %a{:href => "#!"}
