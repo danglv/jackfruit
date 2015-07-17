@@ -1,7 +1,6 @@
 class CoursesController < ApplicationController
 
   before_filter :validate_content_type_param, :list_category
-  before_filter :authenticate_user, only: [:lecture, :learning]
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -99,13 +98,13 @@ class CoursesController < ApplicationController
     end
 
     @lecture = @course.curriculums.where(:lecture_index => lecture_index).first
-    @owned_course = @current_user.courses.where(course_id: course_id).first
+    @owned_course = current_user.courses.where(course_id: course_id).first
 
     # set lecture ratio = 100(finish)
     @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
     
     @owned_lecture.set(lecture_ratio: 100, status: 2)
-    @current_user.save
+    current_user.save
   end
 
   def lecture_exam
