@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   
   root to: "application#index"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
-  resources :courses, only: %w[index show] do
+  resources :courses, only: %w[index] do
     member do
-      get :lecture
+      get '/lecture/:lecture_index', to: 'courses#lecture'
       get :learning
+      get :detail
     end
     collection do
       get :search
@@ -18,9 +19,11 @@ Rails.application.routes.draw do
   resources :payment, :path => 'home/payment', only: %w[index] do
     collection do
       get :delivery
+      post :delivery
       get :visa
       get :bank
       get :direct
+      get :success
     end
   end
 
