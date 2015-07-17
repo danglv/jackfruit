@@ -150,22 +150,17 @@ class CoursesController < ApplicationController
     if @course.count == 0
       @courses = {}
       @courses["featured"] = Course.where(
-        :label_ids.in => ["featured"],
-        :category_ids.in => [category.id]).first
+        :label_ids.in => ["featured"]).first
 
       @courses["top_free"] = Course.where(
-        :price => 0,
-        :category_ids.in => [category.id]
+        :price => 0
       ).desc(:students).limit(12)
 
       @courses["top_paid"] = Course.where(
-        :price.gt => 0,
-        :category_ids.in => [category.id]
+        :price.gt => 0
       ).desc(:students).limit(12)
 
-      @courses["newest"] = Course.where(
-        :category_ids.in => [category.id],
-      ).desc(:created_at).limit(12)
+      @courses["newest"] = Course.all.desc(:created_at).limit(12)
     end
   end
 
