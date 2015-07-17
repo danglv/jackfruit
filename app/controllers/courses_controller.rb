@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
 
   before_filter :validate_content_type_param
   before_filter :authenticate_user, only: [:lecture, :learning]
+  before_filter :list_category
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
