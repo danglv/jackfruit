@@ -187,6 +187,6 @@ class CoursesController < ApplicationController
     
     labels.each {|label|
       @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
-    }    
+    }
   end
 end
