@@ -147,6 +147,27 @@ class CoursesController < ApplicationController
     end
 
     @course = @course.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
+
+    if @course.count == 0
+      @courses = {}
+      @courses["featured"] = Course.where(
+        :label_ids.in => ["featured"],
+        :category_ids.in => [category.id]).first
+
+      @courses["top_free"] = Course.where(
+        :price => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["top_paid"] = Course.where(
+        :price.gt => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["newest"] = Course.where(
+        :category_ids.in => [category.id],
+      ).desc(:created_at).limit(12)
+    end
   end
 
   def test_course_detail_id
