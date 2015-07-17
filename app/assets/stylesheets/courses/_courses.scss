@@ -311,7 +311,6 @@
 
     }
   }
-
   .lecture-comment{
 
     &-title{
@@ -391,7 +390,7 @@
         }
       }
     }
-  .leture-header-back-course{
+ .leture-header-back-course{
     background: transparent;
     border: none;
     box-shadow: none;
@@ -413,14 +412,10 @@
    .item-container:hover{
     background: #e9e9e9;
    }
-   .item-data{
-      border-bottom:1px solid #b2b2b2;
-   }
    .list-lecture{
-    padding-left: 10px;
-   }
-   .lecture-chap{
+    padding: 0px;
     background: white;
+
    }
    .lecture-chap-title{
     background: #009688;
@@ -430,7 +425,7 @@
    }
    .lecture-list-items{
       margin-top: 10px;
-      border-left:1px solid #000000;
+      padding: 0px 0px  0px 15px;
       margin-left: 20px;
     .completed{
       background: #44ba31;
@@ -447,6 +442,10 @@
       height: 20px;
       border-radius: 20px;
       margin-left: -24px;
+       margin-top: 8px;
+    }
+    .item-data{
+      margin-top: 8px;
     }
     .icon-video-type{
       width: 20px;
@@ -463,21 +462,22 @@
     }
     .detail{
       margin-left: 20px;
-    
+     margin-bottom: 15px;
     } 
-    .detail{
-      margin-bottom: 15px;
-    }
     .item-container{
       margin-bottom: 0px;
-    }
-    .item-container{
       float: left;
       width: 100%;
       color: #212121;
+      border-left:1px solid #000000;
+      border-bottom:1px solid #b6b6b6
     }
     .item-container:hover{
       background: #e9e9e9;
+    }
+    .lecture_actived
+    {
+      background:  #e9e9e9
     }
 
    }
@@ -497,6 +497,7 @@
     height: 420px;
     padding: 0px;
     margin: 0px;
+
    }
    &-btn-back{
     background: #2c2f37;
@@ -504,6 +505,14 @@
    &-header ul, &-header ul li, &-footer ul, &-footer ul li{
     float:left;
     margin:0px;
+   }
+   // document + type - media -> hidden
+  // media + type - document -> hidden
+   .media.type-document{
+    display: none;
+   }
+   .document.type-media{
+    display: none;
    }
    .leture-header-back-course{
     background: transparent;
@@ -585,12 +594,15 @@
       width: 100%;
       color: #212121;
       border-left:1px solid #000000;
-      border-bottom:1px solid #b2b2b2
+      border-bottom:1px solid #b6b6b6
     }
     .item-container:hover{
       background: #e9e9e9;
     }
-
+    .lecture_actived
+    {
+      background:  #e9e9e9
+    }
    }
 }
 
