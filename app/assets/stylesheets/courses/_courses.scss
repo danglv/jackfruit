@@ -493,7 +493,7 @@
    &-header-icon-back{
     transform: rotate(180deg);
    }
-   &-player{
+   &-player, .media, .document{
     height: 420px;
     padding: 0px;
     margin: 0px;
@@ -510,9 +510,11 @@
   // media + type - document -> hidden
    .media.type-document{
     display: none;
+  
    }
    .document.type-media{
     display: none;
+
    }
    .leture-header-back-course{
     background: transparent;

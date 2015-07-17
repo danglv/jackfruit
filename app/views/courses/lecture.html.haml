@@ -4,33 +4,31 @@
    .row.leture-header
     %ul
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => "#"}
+      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning'}
        %i.material-icons.left.white-text{:style => "transform: rotate(180deg);"} play_circle_filled
        Trở lại khóa học
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => "#"}
+     - if @lecture.lecture_index > 0
+      %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index-1).to_s}
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
        Bài giảng trước 
-    / .video-container
-    /  %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed/JjwimKb42Ao?rel=0", :width => "853"}
    .row
     .col.s10.offset-s1.leture-player
-     .row.media.type-document
-      %iframe{:width => "100%", :height => "100%", :src => "https://www.youtube.com/embed/C51t7p2gc1c"} 
-     .row.document.type-document
-      =@data
+     .row.media.type-media
+      %iframe{:width => "100%", :height => "100%", :src => @lecture.url.gsub!('youtube.com/watch?v=', 'youtube.com/embed/')} 
+     .row.document.type-media
       this is document
    .row.leture-footer   
     %ul
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course
+      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index+1).to_s}
        Bài tiếp theo
        %i.material-icons.left.white-text play_circle_filled
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course
        %i.material-icons.left.white-text replay
        %span Auto Play
-       %span.bold.green-text No
+       %span.bold.red-text No
   .col.s3.list-lecture
    - @course.curriculums.each do |curriculum|
     - if curriculum.type == 'chapter'
@@ -38,23 +36,45 @@
       .col.s12.lecture-chap-title= curriculum.description
       .col.s12.lecture-list-items
        - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
-         .row.no-margin
-          .col.s1
-           -if lecture.status == 0
-            .row.icon.locked
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-           -else
-            -if lecture.status == 1
-             .row.icon.learning
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+        - if lecture.lecture_index == @lecture.lecture_index
+         %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          .row.no-margin
+           .col.s1
+            -if lecture.status == 0
+             .row.icon.locked
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
             -else
-             -if lecture.status == 2
-              .row.icon.completed
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-          .col.s10.no-padding.item-data
-           %span.item-name= lecture.description
-           .row.detail
-            .col.s3.offset-s6.icon-video-type.no-padding
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding Video
+             -if lecture.status == 1
+              .row.icon.learning
+               %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+             -else
+              -if lecture.status == 2
+               .row.icon.completed
+                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+           .col.s10.no-padding.item-data
+            %span.item-name= lecture.description
+            .row.detail
+             .col.s3.offset-s6.icon-video-type.no-padding
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+             .col.s9.no-padding Video
+        - else 
+         %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          .row.no-margin
+           .col.s1
+            -if lecture.status == 0
+             .row.icon.locked
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+            -else
+             -if lecture.status == 1
+              .row.icon.learning
+               %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+             -else
+              -if lecture.status == 2
+               .row.icon.completed
+                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+           .col.s10.no-padding.item-data
+            %span.item-name= lecture.description
+            .row.detail
+             .col.s3.offset-s6.icon-video-type.no-padding
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+             .col.s9.no-padding Video
