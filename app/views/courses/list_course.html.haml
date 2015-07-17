@@ -23,9 +23,10 @@
               %a{:href => '#featured-courses'} Nổi bật
             %li.tab
               %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-main#all-courses
-    .col.sidebar
-      %form#test-form{:action => '', :method => 'GET'}
+  .row.category-main
+    %form#test-form{:action => '', :method => 'GET'}
+      %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
+      .col.sidebar
         %ul.course-filters
           %li.course-filter
             %p.course-filter-title Chi phí
@@ -60,98 +61,60 @@
               %li.course-filter-item
                 %input#level-advanced-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'expert'}
                 %label{:for => 'level-advanced-filter'} Nâng cao (233)
-      %ul.other-categories
-        %li.other-categories-title Cách chủ đề khác
-        %li.other-category 
-          %a{:href => '/courses/1'} Phát triển web
-        %li.other-category
-          %a{:href => '/courses/1'} Ngôn ngữ lập trình
-        %li.other-category
-          %a{:href => '/courses/1'} Phát triển game
-    .col.s9
-      .row.sorting
-        .input-field.col.s4
-          %select.sorting-options
-            %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
-            %option{:value => '1'} Đánh giá cao
-            %option{:value => '2'} Mới nhất
-            %option{:value => '3'} Miễn phí
-            %option{:value => '4'} Giá thấp đến cao
-            %option{:value => '5'} Giá cao đến thấp
-      .row.courses.list-style
-        .col.s12
-          %a.row.course{:href => '/courses/1'}
-            .col.s3.course-image
-              = image_tag 'course-image.png'
-            .col.s9
-              %p.course-title The best Software Testing you will ever get. The best Software Testing you will ever get.
-              %p.course-author By Vijay Shinde
-              %p{:style => 'margin: 5px 0;'}
-                %span.course-price 220.000đ
-                %span.course-rating
-                  %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                  %span.course-rating-people (42222)
-              %p.course-other-info 48 bài lý thuyết, 9 tiếng video
-          %a.row.course{:href => '/courses/1'}
-            .col.s3.course-image
-              = image_tag 'course-image.png'
-            .col.s9
-              %p.course-title The best Software Testing you will ever get. The best Software Testing you will ever get.
-              %p.course-author By Vijay Shinde
-              %p{:style => 'margin: 5px 0;'}
-                %span.course-price 220.000đ
-                %span.course-rating
-                  %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                  %span.course-rating-people (42222)
-              %p.course-other-info 48 bài lý thuyết, 9 tiếng video
-          %a.row.course{:href => '/courses/1'}
-            .col.s3.course-image
-              = image_tag 'course-image.png'
-            .col.s9
-              %p.course-title The best Software Testing you will ever get. The best Software Testing you will ever get.
-              %p.course-author By Vijay Shinde
-              %p{:style => 'margin: 5px 0;'}
-                %span.course-price 220.000đ
-                %span.course-rating
-                  %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                  %span.course-rating-people (42222)
-              %p.course-other-info 48 bài lý thuyết, 9 tiếng video
-      .row
-        %div.center-pagination
-          %ul.pagination
-            %li.disabled
-              %a{:href => "#!"}
-                %i.material-icons chevron_left
-            %li.active
-              %a{:href => "#!"} 1
-            %li.waves-effect
-              %a{:href => "#!"} 2
-            %li.waves-effect
-              %a{:href => "#!"} 3
-            %li.waves-effect
-              %a{:href => "#!"} 4
-            %li.waves-effect
-              %a{:href => "#!"} 5
-            %li.waves-effect
-              %a{:href => "#!"}
-                %i.material-icons chevron_right
+        %ul.other-categories
+          %li.other-categories-title Cách chủ đề khác
+          %li.other-category
+            %a{:href => '/courses/1'} Phát triển web
+          %li.other-category
+            %a{:href => '/courses/1'} Ngôn ngữ lập trình
+          %li.other-category
+            %a{:href => '/courses/1'} Phát triển game
+      .col.s9
+        .row.sorting
+          .input-field.col.s4
+            %select.sorting-options#sorting-options{:name => 'sort'}
+              %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
+              %option{:value => 'ratings'} Đánh giá cao
+              %option{:value => 'newest'} Mới nhất
+              %option{:value => 'price-low-to-high'} Giá thấp đến cao
+              %option{:value => 'price-high-to-low'} Giá cao đến thấp
+        .row.courses.list-style
+          - @courses["all"].each do |ac|
+            .col.s12
+              %a.row.course{:href => '/courses/1'}
+                .col.s3.course-image
+                  = image_tag 'course-image.png'
+                .col.s9
+                  %p.course-title= ac.name
+                  %p.course-author By Vijay Shinde
+                  %p{:style => 'margin: 5px 0;'}
+                  - if ac.price == 0
+                    %span.course-price.red-text
+                      Miễn phí
+                  - else
+                    %span.course-price= ac.price
+                    %span.course-rating
+                      %span.course-rating-point
+                        %i.material-icons.is-rated star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                      %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
+                  %p.course-other-info= ac.benefit
+        .row
+          %div.center-pagination
+            %ul.pagination
+              %li.disabled
+                %a{:href => "#!"}
+                  %i.material-icons chevron_left
+              - (1..@courses["all"].count/10 + 1).each do |page|
+                %li{:style => 'cursor:pointer'}= page
+              %li.waves-effect
+                %a{:href => "#!"}
+                  %i.material-icons chevron_right
 
-  .row.category-feature-main#featured-courses
+  .row.category-feature-main{:style => 'display:none'}
     .col.sidebar
       %ul.other-categories
         %li.other-categories-title Cách chủ đề khác

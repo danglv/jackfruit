@@ -79,7 +79,7 @@ class CoursesController < ApplicationController
     )
   end
 
-  def show
+  def list_course_feature
     course_id = params[:id]
     @course = Course.where(id: course_id).first
   end
