@@ -2,22 +2,24 @@ Rails.application.routes.draw do
   
   root to: "application#index"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
-  resources :courses, only: %w[index show] do
+  resources :courses, only: %w[index] do
     member do
-      get :lecture
+      get '/lecture/:lecture_index', to: 'courses#lecture'
       get :learning
+      get :detail
     end
     collection do
       get :search
-      get :detail
-      get '/:category_id', to: 'courses#list_course'
-      get '/:category_id/all_courses', to: 'courses#all_courses'
+      get :test_course_detail_id
+      get '/:category_id', to: 'courses#list_course_featured'
+      get '/:category_id/all_courses', to: 'courses#list_course_all'
     end
   end
 
   resources :payment, :path => 'home/payment', only: %w[index] do
     collection do
       get :delivery
+      post :delivery
       get :visa
       get :bank
       get :direct

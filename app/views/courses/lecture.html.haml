@@ -15,8 +15,12 @@
     /  %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed/JjwimKb42Ao?rel=0", :width => "853"}
    .row
     .col.s10.offset-s1.leture-player
-     %iframe{:width => "100%", :height => "100%", :src => "https://www.youtube.com/embed/JjwimKb42Ao"} 
-   .row.leture-footer 
+     .row.media.type-document
+      %iframe{:width => "100%", :height => "100%", :src => "https://www.youtube.com/embed/C51t7p2gc1c"} 
+     .row.document.type-document
+      =@data
+      this is document
+   .row.leture-footer   
     %ul
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course
@@ -30,109 +34,106 @@
   .col.s3.list-lecture
    .row.lecture-chap
     .col.s12.lecture-chap-title Chương 1: My First Section
-    .col.s12.lecture-list-items.no-padding
-     %a.item-container{:href => '#'}
-      .row
+    .col.s12.lecture-list-items
+     %a.item-container.lecture_actived{:href => '#'}
+      .row.no-margin
        .col.s1
         .row.icon.completed
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
-       .col.s11.no-padding.item-data
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+       .col.s10.no-padding.item-data
         %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
          .col.s3.offset-s6.icon-video-type.no-padding
-          %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
          .col.s9.no-padding 09:58
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
         .row.icon.learning
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 2: Introduction To The Course
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
+        .row.detail
+         .col.s3.offset-s6.icon-video-type.no-padding
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+         .col.s9.no-padding 09:58
+     %a.item-container{:href => '#'}
+      .row.no-margin
+       .col.s1
+        .row.icon.learning
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
          .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+          %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
          .col.s9.no-padding Văn bản
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
-        .row.icon.locked
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 3: Introduction To The Course
+        .row.icon.completed
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
-         .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
-         .col.s9.no-padding Văn bản
+         .col.s3.offset-s6.icon-video-type.no-padding
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+         .col.s9.no-padding 09:58
    .row.lecture-chap
     .col.s12.lecture-chap-title Chương 2: My First Section
-    .col.s12.lecture-list-items.no-padding
+    .col.s12.lecture-list-items
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
         .row.icon.completed
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
-       .col.s11.no-padding.item-data
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+       .col.s10.no-padding.item-data
         %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
          .col.s3.offset-s6.icon-video-type.no-padding
-          %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
          .col.s9.no-padding 09:58
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
         .row.icon.learning
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 2: Introduction To The Course
-        .row.detail
-         .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
-         .col.s9.no-padding Văn bản
-     %a.item-container{:href => '#'}
-      .row
-       .col.s1
-        .row.icon.locked
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 3: Introduction To The Course
-        .row.detail
-         .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
-         .col.s9.no-padding Văn bản
-   .row.lecture-chap
-    .col.s12.lecture-chap-title Chương 3: My First Section
-    .col.s12.lecture-list-items.no-padding
-     %a.item-container{:href => '#'}
-      .row
-       .col.s1
-        .row.icon.completed
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} done
-       .col.s11.no-padding.item-data
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+       .col.s10.no-padding.item-data
         %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
          .col.s3.offset-s6.icon-video-type.no-padding
-          %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} play_arrow
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
          .col.s9.no-padding 09:58
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
         .row.icon.learning
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} edit
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 2: Introduction To The Course
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
          .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
+          %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
          .col.s9.no-padding Văn bản
      %a.item-container{:href => '#'}
-      .row
+      .row.no-margin
        .col.s1
         .row.icon.locked
-         %i.tiny.material-icons.white-text{:style => "margin-left:2px;"} 
-       .col.s11.no-padding.item-data
-        %span.item-name Bài giảng 3: Introduction To The Course
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
         .row.detail
-         .col.s3.offset-s6.icon-document-type.no-padding
-          %i.tiny.material-icons{:style => "margin-left:2px;"} insert_drive_file
-         .col.s9.no-padding Văn bản
+         .col.s3.offset-s6.icon-video-type.no-padding
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+         .col.s9.no-padding 09:58
+     %a.item-container{:href => '#'}
+      .row.no-margin
+       .col.s1
+        .row.icon.completed
+         %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+       .col.s10.no-padding.item-data
+        %span.item-name Bài giảng 1: Introduction To The Course
+        .row.detail
+         .col.s3.offset-s6.icon-video-type.no-padding
+          %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+         .col.s9.no-padding 09:58

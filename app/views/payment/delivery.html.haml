@@ -61,34 +61,33 @@
         .row{:style => "padding: 0 113px 0 113px"}
           %p
             Điền thông tin đăng ký đặt mua khóa học
-          %form.col.s12{:action => "#"}
+          %form.col.s12{:method => "post",:action => "/home/payment/delivery"}
             .row
               .col.s4
                 .row
                   .input-field
-                    %input{:type => "text", :placeholder => "Tên đầy đủ"}/
+                    %input{:type => "text", :name => "name", :placeholder => "Tên đầy đủ"}/
                 .row
                   .input-field
-                    %input{:type => "text", :placeholder => "Số điện thoại"}/
+                    %input{:type => "text", :name => "mobile", :placeholder => "Số điện thoại"}/
                 .row
-                  %select.browser-default
+                  %select.browser-default{:name => "city"}
                     %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3
+                    %option{:value => "Hà Nội"} Hà Nội
+                    %option{:value => "tp Hồ Chí Minh"} tp Hồ Chí Minh
+                    %option{:value => "Đà Nẵng"} Đà Nẵng
                 .row
-                  %a.btn.deep-orange{:href => "#"}
-                    Đặt mua khóa học
+                  %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đặt mua khóa học'}
               .col.s4.offset-s1{:action => "#"}
                 .row
                   .input-field
-                    %input{:type => "text", :placeholder => "Email"}/
+                    %input{:type => "text", :name => "email", :placeholder => "Email"}/
                 .row
                   .input-field
-                    %input{:type => "text", :placeholder => "Địa chỉ"}/
+                    %input{:type => "text", :name => "address", :placeholder => "Địa chỉ"}/
                 .row
-                  %select.browser-default
+                  %select.browser-default{:name => "district"}
                     %option{:disabled => "", :selected => "", :value => ""} Chọn Quận / Huyện
-                    %option{:value => "1"} Option 1
-                    %option{:value => "2"} Option 2
-                    %option{:value => "3"} Option 3     
+                    %option{:value => "Quận 1"} Quận 1
+                    %option{:value => "Quận 2"} Quận 2
+                    %option{:value => "Quận 3"} Quận 3     

@@ -27,10 +27,10 @@ $(document).ready(function(){
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
     // checked for input of page
-    var price = getParameterByName('price');
-    var language = getParameterByName('language')
+    var price = getParameterByName('budget');
+    var language = getParameterByName('lang')
     var level = getParameterByName('level');
-    var sort = getParameterByName('sort');
+    var sort = getParameterByName('ordering');
     var page = getParameterByName('page')
     $("input[type=checkbox]" ).each(function( ) {
         var value = $(this).attr('value');

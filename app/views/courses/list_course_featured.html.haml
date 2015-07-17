@@ -34,6 +34,7 @@
         %li.other-category
           %a{:href => '/courses/1'} Phát triển game
     .col.s9
+      -# highest-rating
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
@@ -44,19 +45,19 @@
               %a.course{:href => '!#'}
                 .card-image.course-image
                   = image_tag 'course-image.png'
-                .card-content.course-content
+                .card-content.course-content{:style => "height: 300px"}
                   .row.course-title
                     .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
                   .row.course-author
                     .col.s12.no-padding By Vijay Shinde
                   .row.course-rating
-                    .col.s7.course-rating-point.no-padding
+                    .col.s9.course-rating-point.no-padding
                       %i.material-icons.is-rated star_rate
                       %i.material-icons star_rate
                       %i.material-icons star_rate
                       %i.material-icons star_rate
                       %i.material-icons star_rate
-                    .col.s5.course-rating-people.no-padding
+                    .col.s3.course-rating-people.no-padding
                       (4511)
                   .row.course-footer
                     .col.s6.no-padding.course-favorite
@@ -140,6 +141,111 @@
                       %span.left 18.5K
                     .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                       Miễn phí
+      -# top-free
+      .row.course-list.highest-rating
+        .col.s12
+          .row.course-list-header
+            .col.s12
+              %h5.course-list-header-title Top Free
+          .row.courses.card-style
+            - @courses["top_free"].each do |tf|
+              .col.s3
+                %a.course{:href => '!#'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 300px"}
+                    .row.course-title
+                      .col.s12.no-padding= tf.name
+                    .row.course-author
+                      .col.s12.no-padding By Vijay Shinde
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        %i.material-icons.is-rated star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left= tf.students.to_s
+                      - if tf.price == 0
+                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                          Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price
+      -# top_paid
+      .row.course-list.highest-rating
+        .col.s12
+          .row.course-list-header
+            .col.s12
+              %h5.course-list-header-title Top Paid
+          .row.courses.card-style
+            - @courses["top_paid"].each do |tp|
+              .col.s3
+                %a.course{:href => '!#'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 300px"}
+                    .row.course-title
+                      .col.s12.no-padding= tp.name
+                    .row.course-author
+                      .col.s12.no-padding By Vijay Shinde
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        %i.material-icons.is-rated star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + tp.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left= tp.students.to_s
+                      - if tp.price == 0
+                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                          Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= tp.price
+      -# newest
+      .row.course-list.highest-rating
+        .col.s12
+          .row.course-list-header
+            .col.s12
+              %h5.course-list-header-title Newest
+          .row.courses.card-style
+            - @courses["newest"].each do |ne|
+              .col.s3
+                %a.course{:href => '!#'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 300px"}
+                    .row.course-title
+                      .col.s12.no-padding= ne.name
+                    .row.course-author
+                      .col.s12.no-padding By Vijay Shinde
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        %i.material-icons.is-rated star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + ne.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left= ne.students.to_s
+                      - if ne.price == 0
+                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                          Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price
       .row
         .col.s12
           .row
@@ -174,3 +280,4 @@
               .row
                 %a.related-text{:href => "#"}
                   Marketing
+
