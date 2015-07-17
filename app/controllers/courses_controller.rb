@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
 
   before_filter :validate_content_type_param
   before_filter :authenticate_user, only: [:lecture, :learning]
+  before_filter :list_category
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -62,6 +63,8 @@ class CoursesController < ApplicationController
 
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
+
+    sort_by = ORDERING.first.last
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
     @courses["all"] = Course.where(condition).order(sort_by).paginate(
@@ -104,12 +107,37 @@ class CoursesController < ApplicationController
   end
   def search
     keywords = params[:q]
+    page     = params[:page] || 1
+    budget   = params[:budget]
+    lang     = params[:lang]
+    level    = params[:level]
+    ordering = params[:ordering]
     pattern  = /#{Regexp.escape(keywords)}/
-    @course  = Course.where(name: pattern).limit(10)
 
-    if @course.count == 0
-      @course = Course.where(description: pattern).limit(10)
+    condition = {}
+
+    if budget == Constants::BudgetTypes::FREE
+      condition[:price] = 0
+    elsif budget == Constants::BudgetTypes::PAID
+      condition[:price.gt] = 0
     end
+
+    condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
+    condition[:level] = level if Constants.CourseLevelValues.include?(level)
+    condition[:name] = pattern
+
+    sort_by = ORDERING.first.last    
+    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
+
+    @course  = Course.where(condition).order(sort_by)
+    
+    if @course.count == 0
+      condition.delete(:name)
+      condition[:description] = pattern  
+      @course  = Course.where(condition).order(sort_by)
+    end
+
+    @course = @course.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
   end
 
   def test_course_detail_id
