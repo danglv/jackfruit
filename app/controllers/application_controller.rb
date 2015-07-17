@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_user
-    @current_user = User.where(auth_token: params[:auth_token]).first
-  end
+  # def authenticate_user
+  #   current_user = User.where(auth_token: params[:auth_token]).first
+  # end
 
   def validate_content_type_param
     @content_type = params[:content_type]
