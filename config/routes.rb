@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get '/lecture/:lecture_index', to: 'courses#lecture'
       get :learning
       get :detail
+      get '/select', to: 'courses#select'
     end
     collection do
       get :search
@@ -28,10 +29,11 @@ Rails.application.routes.draw do
 
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
+  # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
-      post :select_course
+      get :select_course
     end
     collection do      
       get :learning

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, :authenticate_user
+  before_action :set_user#, :authenticate_user
   def index
     learning
   end
@@ -102,15 +102,21 @@ class UsersController < ApplicationController
 
   def select_course
     course_id = params[:course_id]
-    owned_course = current_user.courses.find_or_initialize_by(
-      course_id: course_id
-    )
-    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    course = Course.where(id:course_id).first
 
-    init_lectures_for_owned_course(owned_course, course_id)
-    current_user.save
+    if course.price == 0
+      owned_course = current_user.courses.find_or_initialize_by(
+        course_id: course_id
+      )
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
 
-    head :ok
+      init_lectures_for_owned_course(owned_course, course)
+      current_user.save
+
+      redirect_to root_url + "courses/#{course_id}/select"
+    else
+      
+    end
   end
 
     # GET /users/:id.:format
@@ -182,8 +188,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(accessible)
     end
 
-    def init_lectures_for_owned_course(owned_course, course_id)
-      course = Course.where(id:course_id).first
+    def init_lectures_for_owned_course(owned_course, course)
       course.curriculums.where(
         :type => Constants::CurriculumTypes::LECTURE
       ).map{|curriculum|
