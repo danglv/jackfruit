@@ -43,6 +43,14 @@ set :keep_releases, 3
 
 namespace :deploy do
 
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), :in => :sequence, wait: 5 do
+      execute :service, 'unicorn upgrade'
+    end
+  end
+
+  after :publishing, :restart
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:

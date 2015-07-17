@@ -179,6 +179,14 @@ class CoursesController < ApplicationController
   end
 
   def select
+    course_id = params[:id]
+    @course   = Course.where(id: course_id).first
     
+    labels    = Constants.LabelsValues
+    @courses  = {}
+    
+    labels.each {|label|
+      @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
+    }    
   end
 end
