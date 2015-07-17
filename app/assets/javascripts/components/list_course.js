@@ -31,7 +31,9 @@ $(document).ready(function(){
     var language = getParameterByName('lang')
     var level = getParameterByName('level');
     var sort = getParameterByName('ordering');
-    var page = getParameterByName('page')
+    var page = getParameterByName('page');
+    var q = getParameterByName('q');
+    $('#page-search').val(q)
     $("input[type=checkbox]" ).each(function( ) {
         var value = $(this).attr('value');
         if(value == price || value == language || value == level){
