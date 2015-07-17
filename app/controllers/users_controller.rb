@@ -115,7 +115,7 @@ class UsersController < ApplicationController
 
       redirect_to root_url + "courses/#{course_id}/select"
     else
-      
+      redirect_to root_url + "/home/payment", course_id: course_id
     end
   end
 
