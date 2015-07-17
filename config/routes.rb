@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :courses, only: %w[index] do
     member do
-      get :lecture
+      get '/lecture/:lecture_index', to: 'courses#lecture'
       get :learning
       get :detail
     end
