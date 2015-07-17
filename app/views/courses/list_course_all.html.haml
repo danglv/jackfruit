@@ -63,12 +63,9 @@
                 %label{:for => 'level-advanced-filter'} Nâng cao
         %ul.other-categories
           %li.other-categories-title Cách chủ đề khác
-          %li.other-category
-            %a{:href => '/courses/1'} Phát triển web
-          %li.other-category
-            %a{:href => '/courses/1'} Ngôn ngữ lập trình
-          %li.other-category
-            %a{:href => '/courses/1'} Phát triển game
+          - @other_category.each do |cate|
+            %li.other-category
+              %a{:href => "/courses/#{cate.id}/all_courses"}= cate.name
       .col.s9
         .row.sorting
           .input-field.col.s4
