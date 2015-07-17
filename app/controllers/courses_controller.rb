@@ -1,8 +1,7 @@
 class CoursesController < ApplicationController
 
-  before_filter :validate_content_type_param
+  before_filter :validate_content_type_param, :list_category
   before_filter :authenticate_user, only: [:lecture, :learning]
-  before_filter :list_category
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -21,20 +20,11 @@ class CoursesController < ApplicationController
     }
   end
 
-  def list_course
+  def list_course_featured
     category_id = params[:category_id]
-
-    sort_by     = params[:sort_by] || {:created_at => 1}
-    condition   = params[:filter_by] || {}
-    page        = params[:page] || 1
-
     category = Category.where(id: category_id).first
+
     @courses = {}
-    
-    condition.each{|fil| condition.delete(fil[0].to_sym) if fil[1] == nil}
-
-    condition[:category_ids.in] = [category.id]
-
     @courses["featured"] = Course.where(
       :label_ids.in => ["featured"],
       :category_ids.in => [category.id]).first
@@ -52,7 +42,13 @@ class CoursesController < ApplicationController
     @courses["newest"] = Course.where(
       :category_ids.in => [category.id],
     ).desc(:created_at).limit(12)
+  end
 
+  def list_course_all
+    category_id = params[:category_id]
+    page        = params[:page] || 1
+
+    category = Category.where(id: category_id).first
     # filter sort paginate course
 
     budget   = params[:budget]
@@ -70,15 +66,20 @@ class CoursesController < ApplicationController
 
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
+
+    sort_by = ORDERING.first.last
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
-    @courses["all"] = Course.where(condition).order(sort_by).paginate(
+    @courses = Course.where(condition).order(sort_by)
+
+    @total_page = (@courses.count / NUMBER_COURSE_PER_PAGE.to_f).ceil
+    @courses = @courses.paginate(
       page: page,
       per_page: NUMBER_COURSE_PER_PAGE
     )
   end
 
-  def show
+  def detail
     course_id = params[:id]
     @course = Course.where(id: course_id).first
   end
@@ -106,25 +107,70 @@ class CoursesController < ApplicationController
     @owned_lecture.set(lecture_ratio: 100, status: 2)
     @current_user.save
   end
+
   def lecture_exam
   end
+
   def lecture_detail
   end
+
   def search
-    keywords = params[:q]
-    pattern  = /#{Regexp.escape(keywords)}/
-    @course  = Course.where(name: pattern).limit(10)
+    @keywords = params[:q]
+    page     = params[:page] || 1
+    budget   = params[:budget]
+    lang     = params[:lang]
+    level    = params[:level]
+    ordering = params[:ordering]
+    pattern  = /#{Regexp.escape(@keywords)}/
+
+    condition = {}
+
+    if budget == Constants::BudgetTypes::FREE
+      condition[:price] = 0
+    elsif budget == Constants::BudgetTypes::PAID
+      condition[:price.gt] = 0
+    end
+
+    condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
+    condition[:level] = level if Constants.CourseLevelValues.include?(level)
+    condition[:name] = pattern
+
+    sort_by = ORDERING.first.last    
+    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
+
+    @course  = Course.where(condition).order(sort_by)
+    
+    if @course.count == 0
+      condition.delete(:name)
+      condition[:description] = pattern  
+      @course  = Course.where(condition).order(sort_by)
+    end
+
+    @course = @course.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @course.count == 0
-      @course = Course.where(description: pattern).limit(10)
+      @courses = {}
+      @courses["featured"] = Course.where(
+        :label_ids.in => ["featured"],
+        :category_ids.in => [category.id]).first
+
+      @courses["top_free"] = Course.where(
+        :price => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["top_paid"] = Course.where(
+        :price.gt => 0,
+        :category_ids.in => [category.id]
+      ).desc(:students).limit(12)
+
+      @courses["newest"] = Course.where(
+        :category_ids.in => [category.id],
+      ).desc(:created_at).limit(12)
     end
   end
 
-  def detail
-    
-  end
+  def test_course_detail_id
 
-  def all_courses
-    
   end
 end
