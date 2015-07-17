@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
     )
   end
 
-  def show
+  def detail
     course_id = params[:id]
     @course = Course.where(id: course_id).first
   end
@@ -101,10 +101,13 @@ class CoursesController < ApplicationController
     @owned_lecture.set(lecture_ratio: 100, status: 2)
     @current_user.save
   end
+
   def lecture_exam
   end
+
   def lecture_detail
   end
+
   def search
     keywords = params[:q]
     page     = params[:page] || 1
@@ -142,9 +145,5 @@ class CoursesController < ApplicationController
 
   def test_course_detail_id
 
-  end
-
-  def detail
-    
   end
 end
