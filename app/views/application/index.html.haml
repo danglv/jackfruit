@@ -27,21 +27,21 @@
     .row.courses.card-style
       - @course.each do |c|
         .col.s3
-          %a.course{:href => '!#'}
+          %a.course{:href => '/courses/'+c._id+'/detail'}
             .card-image.course-image
               = image_tag 'course-image.png'
             .card-content.course-content{:style => "height: 255px"}
               .row.course-title
                 .col.s12.no-padding= c.name 
               .row.course-author
-                .col.s12.no-padding By Vijay Shinde
+                .col.s12.no-padding= "By " + c.user.name
               .row.course-rating
                 .col.s7.course-rating-point.no-padding
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
+                  - (1..5).each do |i|
+                    - if i <= c.average_rating
+                      %i.material-icons.is-rated star_rate
+                    - else
+                      %i.material-icons star_rate
                 .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
               .row.course-footer
                 .col.s7.no-padding.course-favorite
