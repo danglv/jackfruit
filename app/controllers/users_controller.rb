@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user#, :authenticate_user
+  before_action :set_user
+  before_filter :authenticate_user!
   def index
     learning
   end
