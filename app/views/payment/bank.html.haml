@@ -2,58 +2,39 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
 
-%main.payment.container-1140
+%main.payment
   .row
     .col.s12.no-padding
       .row.green.payment-header
         .col.s6
-          %h4.white-text
-            Xác nhận thanh toán
-          %p.white-text
-            Kỹ năng thuyết trình và nói trước công chúng
+          %h4.white-text Xác nhận thanh toán
+          %p.white-text Kỹ năng thuyết trình và nói trước công chúng
         .col.s6
-          %h4.right.white-text
-            300.000d
-      .row.payment-content
-        %p
-          1. Lựa chọn hình thức thanh toán
-      .row.payment-content
-        .col.s12
-          .row.courses.card-style.center-align
-            .col.s3
-              %a.payment-tab.course{:href => '/home/payment/delivery'}
-                .card-image.course-image
-                  %i.material-icons.large shopping_cart
-                  %h6
-                    Giao khóa học
-                  %h6
-                    và thu tiền tận nơi
-            .col.s3
-              %a.payment-tab.course{:href => '/home/payment/visa'}
-                .card-image.course-image
-                  %i.material-icons.large credit_card
-                  %h6
-                    Thanh toán trực tuyến
-                  %h6
-                    bằng thẻ ATM
-                  %h6
-                    hoặc Visa/Master
-            .col.s3
-              %a.payment-tab.course.active{:href => '/home/payment/bank'}
-                .card-image.course-image
-                  %i.material-icons.large business
-                  %h6
-                    Chuyển khoản
-                  %h6
-                    qua ngân hàng
-            .col.s3
-              %a.payment-tab.course{:href => '/home/payment/direct'}
-                .card-image.course-image
-                  %i.material-icons.large room
-                  %h6
-                    Thanh toán trực tiếp            
-      .row.payment-content
-        %p
-          2. Hoàn tất thanh toán
-        %p
-          Bạn chưa lựa chọn hình thức thanh toán nào
+          %h4.right.white-text 300.000d
+      .container-1140
+        = render 'payment_method', method: 'bank'
+        .row.payment-content
+          %h4 2. Hoàn tất thanh toán
+        .col.s12.no-padding 
+          .row{:style => "padding: 0 113px 0 113px"}
+            %p.red-text Chuyển khoản ngân hàng
+            %p Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+            .info-payment{:style => "padding-left: 25px"}
+              %p
+                Số tài khoản:
+                %span.bold 67664288
+              %p
+                Chủ tài khoản:
+                %span.bold Lê Đức Bình
+              %p
+                Ngân hàng:
+                %span.bold Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
+            .note-purchase
+              %u Ghi chú khi chuyển khoản:
+              %p
+                • Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ:
+                %span.bold Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+              %p
+                • Ví dụ:
+                %span.bold 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress
+            

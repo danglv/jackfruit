@@ -1,7 +1,8 @@
 class PaymentController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :list_category
+  
   def index
-    
+    render 'delivery'
   end
 
   def delivery
@@ -21,6 +22,7 @@ class PaymentController < ApplicationController
       :district => district
     )
 
+    redirect_to root_url + "/home/payment/success"
   end
 
   def visa

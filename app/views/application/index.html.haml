@@ -3,8 +3,8 @@
     = render :partial => 'header'
   .home-top.flex-box
     .splash-box
-      %span.splash-box-title What course will your life take?
-      %span.splash-box-subtitle Own your future by learning new skills online
+      %span.splash-box-title Khóa học nào sẽ thay đổi cuộc đời bạn?
+      %span.splash-box-subtitle Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
       %form{:action => '/courses/search', :method => 'GET', :id => 'search-form'}
         .input-field
           %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khoá học'}
@@ -13,7 +13,7 @@
       .row.hooks
         .col.s4.hook
           %i.material-icons.left group
-          %span.hook-text Hơn 200,000 học viên
+          %span.hook-text Hơn 7 triệu học viên
         .col.s4.hook
           %i.material-icons.left book
           %span.hook-text Trên 30.000 khóa học
@@ -34,7 +34,7 @@
               .row.course-title
                 .col.s12.no-padding= c.name 
               .row.course-author
-                .col.s12.no-padding= "By " + c.user.name
+                .col.s12.no-padding= c.user.name
               .row.course-rating
                 .col.s7.course-rating-point.no-padding
                   - (1..5).each do |i|
@@ -49,15 +49,14 @@
                     %i.material-icons.is-favorite favorite
                   %span.left=  c.students.to_s + ' tham gia'
                 - if c.price == 0
-                  .col.s5.no-padding.course-price.free{:style => "text-align:right;"}
-                    Miễn phí
+                  .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                 - else
-                  .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price                  
+                  .col.s5.no-padding.course-price{:style => "text-align:right;"}
+                    = c.price                  
     .row
       .col.s12
         %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;', :href => '/courses'} Khám phá các khóa học khác
     .row{:style => 'text-align: center; margin-bottom: 60px;'}
-      %p{:style => 'font-size: 48px; margin-bottom: 0;'} Ready to master some skills?
-      %p{:style => 'font-size: 32px; margin-top: 0;'} Take your career to the next level!
-      %a.btn.modal-trigger.waves-effect.deep-orange{:style => 'height: 70px; line-height: 70px;', :href => '#modal-register'} Đăng ký ngay
-      
+      %p{:style => 'font-size: 48px; margin-bottom: 0;'} Sẵn sàng để làm chủ những kỹ năng mới?
+      %p{:style => 'font-size: 32px; margin-top: 0;'} Đưa sự nghiệp của bạn lên tầm cao mới!
+      %a.btn.modal-trigger.waves-effect.deep-orange{:style => 'height: 70px; line-height: 70px;', :href => '#modal-register'} Đăng ký ngay     
