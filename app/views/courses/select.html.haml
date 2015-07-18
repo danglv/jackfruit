@@ -13,7 +13,7 @@
             %p.course-title= @course.name
             %p.course-author= @course.sub_title
             %p= 'được hướng dẫn bởi ' + @course.user.name.to_s
-            %a.btn-large.blue.darken-1 Tiếp tục khóa học
+            %a.btn-large.blue.darken-1{:href => "/home/payment"} Tiếp tục khóa học
   .row.course-list.highest-rating
     - @courses.each do |course_h|
       .col.s12
