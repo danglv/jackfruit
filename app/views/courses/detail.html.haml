@@ -60,8 +60,8 @@
                 Trình độ
               %p.course-author
                 Ngôn ngữ
-              %p.course-author
-                bao gồm
+              / %p.course-author
+              /   bao gồm
           .col.s8
             .row
               %p.bold
@@ -70,10 +70,15 @@
                 1h
                 -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
               %p.bold
-                = @course.level
+                - if @course.level.to_s == "0"
+                  Cơ bản 
+                - elsif @course.level.to_s == "1"
+                  Trung cấp
+                - elsif @course.level.to_s == "2"
+                  Nâng cao
               %p.bold
                 - if @course.lang == "en"
-                  Tiếng 
+                  Tiếng Anh
                 - elsif
                   Tiếng việt
               / %p.bold
@@ -117,76 +122,75 @@
             Tiểu sử tác giả
           .row
             .col.s2.no-padding
-              = image_tag 'author-avatar.png'
+              = image_tag @course.user.avatar
             .col.s10
               .row
                 %a{:href => "#!"}
-                  Michael Shen
-                %span , Entrepreneur
+                  = @course.user.name
               %a{:href => "#!"}
                 = image_tag 'linkedin.png'
-              %a{:href => "#!"}
+              %a{:href => "https://www.facebook.com/tudemy"}
                 = image_tag 'facebook.png'
           .row
             %p
-              I'm an entrepreneur focused on the online education industry. Aside from teaching several courses myself, I also partner with top instructors to help them with their marketing and sales.
-            %a{:href => "#"}
-              Tiểu sử chi tiết
-          .row.courses
-            %h4
-              Đánh giá
-            %h1.pink-text #{@course.average_rating}
-            %span.course-rating
-              %span.course-rating-point
-                %i.material-icons.is-rated star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
-            %span.course-rating-people.no-padding
-              #{@course.num_rate} đánh giá
-            %p
-              Chi tiết
-            .row
-              .col.s1.no-padding
-                %span 5 sao
-              .col.s4.no-padding
-                .progress.grey.lighten-1
-                  .determinate.yellow.darken-2{:style => "width: 90%"}
-              .col.s1
-                %span 3174
-            .row
-              .col.s1.no-padding
-                %span 4 sao
-              .col.s4.no-padding
-                .progress.grey.lighten-1
-                  .determinate.yellow.darken-2{:style => "width: 40%"}
-              .col.s1
-                %span 3174
-            .row
-              .col.s1.no-padding
-                %span 3 sao
-              .col.s4.no-padding
-                .progress.grey.lighten-1
-                  .determinate.yellow.darken-2{:style => "width: 60%"}
-              .col.s1
-                %span 3174
-            .row
-              .col.s1.no-padding
-                %span 2 sao
-              .col.s4.no-padding
-                .progress.grey.lighten-1
-                  .determinate.yellow.darken-2{:style => "width: 20%"}
-              .col.s1
-                %span 3174
-            .row
-              .col.s1.no-padding
-                %span 1 sao
-              .col.s4.no-padding
-                .progress.grey.lighten-1
-                  .determinate.yellow.darken-2{:style => "width: 5%"}
-              .col.s1
-                %span 3174
+              = @course.user.biography
+            %a{:href => "/users/" + @course.user._id + "/show"}
+          /     Tiểu sử chi tiết
+          / .row.courses
+          /   %h4
+          /     Đánh giá
+          /   %h1.pink-text #{@course.average_rating}
+          /   %span.course-rating
+          /     %span.course-rating-point
+          /       %i.material-icons.is-rated star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /   %span.course-rating-people.no-padding
+          /     #{@course.num_rate} đánh giá
+          /   %p
+          /     Chi tiết
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 5 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 90%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 4 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 40%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 3 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 60%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 2 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 20%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 1 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 5%"}
+          /     .col.s1
+          /       %span 3174
         .row
         - @course.reviews.each do |rv|
           %ul.collection
@@ -285,103 +289,31 @@
           .col.s12
             %h5.course-list-header-title Được đánh giá cao
         .row.courses.card-style
+         - @courses['featured'].each do |c|
           .col.s3
-            %a.course{:href => '!#'}
+            %a.course{:href => '/courses/'+c._id+'/detail'}
               .card-image.course-image
                 = image_tag 'course-image.png'
-              .card-content.course-content
+              .card-content.course-content{:style => "height: 255px"}
                 .row.course-title
-                  .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
+                  .col.s12.no-padding= c.name 
                 .row.course-author
-                  .col.s12.no-padding By Vijay Shinde
+                  .col.s12.no-padding= "By " + c.user.name
                 .row.course-rating
                   .col.s7.course-rating-point.no-padding
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                  .col.s5.course-rating-people.no-padding
-                    (4511)
+                    - (1..5).each do |i|
+                      - if i <= c.average_rating
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
+                  .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
                 .row.course-footer
-                  .col.s6.no-padding.course-favorite
+                  .col.s7.no-padding.course-favorite
                     %span.left
                       %i.material-icons.is-favorite favorite
-                    %span.left 18.5K
-                  .col.s6.no-padding.course-price{:style => "text-align:right;"}
-                    220.000đ
-          .col.s3
-            %a.course{:href => '!#'}
-              .card-image.course-image
-                = image_tag 'course-image.png'
-              .card-content.course-content
-                .row.course-title
-                  .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                .row.course-author
-                  .col.s12.no-padding By Vijay Shinde
-                .row.course-rating
-                  .col.s7.course-rating-point.no-padding
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                  .col.s5.course-rating-people.no-padding
-                    (4511)
-                .row.course-footer
-                  .col.s6.no-padding.course-favorite
-                    %span.left
-                      %i.material-icons.is-favorite favorite
-                    %span.left 18.5K
-                  .col.s6.no-padding.course-price{:style => "text-align:right;"}
-                    220.000đ
-          .col.s3
-            %a.course{:href => '!#'}
-              .card-image.course-image
-                = image_tag 'course-image.png'
-              .card-content.course-content
-                .row.course-title
-                  .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                .row.course-author
-                  .col.s12.no-padding By Vijay Shinde
-                .row.course-rating
-                  .col.s7.course-rating-point.no-padding
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                  .col.s5.course-rating-people.no-padding
-                    (4511)
-                .row.course-footer
-                  .col.s6.no-padding.course-favorite
-                    %span.left
-                      %i.material-icons.is-favorite favorite
-                    %span.left 18.5K
-                  .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                    Miễn phí
-          .col.s3
-            %a.course{:href => '!#'}
-              .card-image.course-image
-                = image_tag 'course-image.png'
-              .card-content.course-content
-                .row.course-title
-                  .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                .row.course-author
-                  .col.s12.no-padding By Vijay Shinde
-                .row.course-rating
-                  .col.s7.course-rating-point.no-padding
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                  .col.s5.course-rating-people.no-padding
-                    (4511)
-                .row.course-footer
-                  .col.s6.no-padding.course-favorite
-                    %span.left
-                      %i.material-icons.is-favorite favorite
-                    %span.left 18.5K
-                  .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                    Miễn phí
+                    %span.left=  c.students.to_s + ' tham gia'
+                  - if c.price == 0
+                    .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                  - else
+                    .col.s5.no-padding.course-price{:style => "text-align:right;"}
+                      = c.price                  
