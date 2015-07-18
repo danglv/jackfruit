@@ -3,6 +3,7 @@ class Payment
   include Mongoid::Timestamps
 
   belongs_to :user, class_name: "User"
+  belongs_to :course, class_name: "Course"
 
   field :name, type: String, default: ""
   field :email, type: String, default: ""
