@@ -16,14 +16,24 @@
    .row.lecture-content-header
     - @index = current_user.courses.where(:course_id => @course.id.to_s).first.lectures.where(lecture_ratio: 100).count
     - @count = @course.curriculums.where(type: "lecture").count
-    %a{:href => '/courses/'+@course._id+'/lecture/' + (@index - 1).to_s}
-     .col.s2
-      %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
-     .col.s10
-      .row.no-padding
-       %p= @course.curriculums[@index].description
-       %p Starting Threads
-       %P 09:58 phút
+    - if @index > 0
+     %a{:href => '/courses/'+@course._id+'/lecture/' + (@index - 1).to_s}
+      .col.s2
+       %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
+      .col.s10
+       .row.no-padding
+        %p= @course.curriculums[@index].description
+        %p Starting Threads
+        %P 09:58 phút    
+    - else
+     %a{:href => '/courses/'+@course._id+'/lecture/' + @index.to_s}
+      .col.s2
+       %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
+      .col.s10
+       .row.no-padding
+        %p= @course.curriculums[@index].description
+        %p Starting Threads
+        %P 09:58 phút
    .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
    .row.progress{:style => "height:5px;background:#b6b6b6"}
     .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
@@ -52,9 +62,14 @@
             .col.s10.no-padding.item-data
              %span.item-name= lecture.description
              .row.detail
+             - if lecture.asset_type == "media"
               .col.s3.offset-s6.icon-video-type.no-padding
                %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
               .col.s9.no-padding Video
+             - else
+              .col.s3.offset-s6.icon-document-type.no-padding
+               %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+              .col.s9.no-padding Văn bản
   .col.s6.lecture-comment
    .row.lecture-comment-title 
     %span Thảo luận

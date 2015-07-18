@@ -147,17 +147,17 @@ class CoursesController < ApplicationController
     sort_by = ORDERING.first.last    
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
-    @course  = Course.where(condition).order(sort_by)
+    @courses  = Course.where(condition).order(sort_by)
     
-    if @course.count == 0
+    if @courses.count == 0
       condition.delete(:name)
       condition[:description] = pattern  
-      @course  = Course.where(condition).order(sort_by)
+      @courses  = Course.where(condition).order(sort_by)
     end
 
-    @course = @course.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
+    @courses = @courses.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
 
-    if @course.count == 0
+    if @courses.count == 0
       @courses = {}
       @courses["featured"] = Course.where(
         :label_ids.in => ["featured"]).first
