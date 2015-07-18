@@ -2,9 +2,9 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
 
-%main.category.container-1140
+%main.category
   .row.category-header
-    .col.s12
+    .row.container-1140{:style => "padding-left: 240px;"}
       .row
         .col.s12
           %ul.breadcum
@@ -17,13 +17,10 @@
         .col.s12
           %h4.category-title Lập trình
       .row{:style => 'margin-bottom: 0;'}
-        .col.s4
-          %ul.tabs.row
-            %li.tab
-              %a{:href => '#featured-courses'} Nổi bật
-            %li.tab
-              %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-main
+        .col.s12
+          %a.btn.white.black-text.bold{:href => "/courses/#{@category_id}"} Nổi bật
+          %a.btn.white-text.bold.disabled{:href => '#all-courses'} Tất cả các khoá học
+  .row.container-1140
     %form#test-form{:action => '', :method => 'GET'}
       %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
       .col.sidebar
@@ -78,12 +75,12 @@
         .row.courses.list-style
           - @courses.each do |ac|
             .col.s12
-              %a.row.course{:href => '/courses/1'}
+              %a.row.course{:href => "/courses/#{ac.id}/detail"}
                 .col.s3.course-image
                   = image_tag 'course-image.png'
                 .col.s9
                   %p.course-title= ac.name
-                  %p.course-author By Vijay Shinde
+                  %p.course-author #{ac.user.name}
                   %p{:style => 'margin: 5px 0;'}
                   - if ac.price == 0
                     %span.course-price.red-text
