@@ -67,9 +67,9 @@ class UsersController < ApplicationController
   # end
 
   def learning
-    # learning = Constants::OwnedCourseTypes::LEARNING
-    # course_ids = current_user.courses.where(type: learning).map(&:course_id)
-    # @courses = Course.where(:id.in => course_ids)
+    learning = Constants::OwnedCourseTypes::LEARNING
+    course_ids = current_user.courses.where(type: learning).map(&:course_id)
+    @courses = Course.where(:id.in => course_ids)
 
   end
 
@@ -115,7 +115,7 @@ class UsersController < ApplicationController
 
       redirect_to root_url + "courses/#{course_id}/select"
     else
-      
+      redirect_to root_url + "/home/payment", course_id: course_id
     end
   end
 

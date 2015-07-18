@@ -43,12 +43,20 @@ set :keep_releases, 3
 
 namespace :deploy do
 
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), :in => :sequence, wait: 3 do
+      execute :service, 'unicorn upgrade'
+    end
+  end
+
+  after :publishing, :restart
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+      within release_path do
+        execute :rake, 'tmp:cache:clear'
+      end
     end
   end
 

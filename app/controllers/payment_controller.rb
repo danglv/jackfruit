@@ -33,4 +33,8 @@ class PaymentController < ApplicationController
   def direct
     
   end
+
+  def success
+    
+  end
 end

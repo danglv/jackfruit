@@ -24,11 +24,9 @@
         .row.input-field
           .col.s12
             %input#email{:type => 'email', :name => "user[email]", :autofocus => "autofocus", :required => '', :placeholder => 'Email'}
-            %label{:for => 'email'} Email
         .row.input-field
           .col.s12
             %input#password{:type => 'password', :name => "user[password]", :required => '', :placeholder => 'Mật khẩu'}
-            %label{:for => 'password'} Mật khẩu
         .row{:style => 'margin: 20px 0 0'}
           .col.s12
             %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đăng nhập'}

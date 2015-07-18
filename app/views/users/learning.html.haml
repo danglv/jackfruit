@@ -1,11 +1,11 @@
 %header
   = render :partial => 'layouts/header'
-  = render :partial => 'components/fixed_side_nav'
+  = render :partial => 'components/side_nav'
 
 %main.container-1140
   .row.course-list-header
     .col.s12
-      %h5.course-list-header-title Các khoá học của tôi 
+      %h5.course-list-header-title Các khoá học của tôi
   .row.sorting
     .col.s12
       %select.sorting-options.left
@@ -18,83 +18,32 @@
   .row.course-list
     .col.s12
       .my-courses.card-style
-        .col.s3
-          %a.course{:href => '#'}
-            .card-image.course-image
-              = image_tag 'course-image.png'
-            .card-content.course-content
-              .row.course-title
-                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-              .row.course-author
-                .col.s12.no-padding By Vijay Shinde
-              .row.progress.progress-background
-                .determinate.progress-background-completed{:style => "width: 100%"}
-              .row.course-footer
-                .col.s5.no-padding.left
-                  %span.progress-color-completed Hoàn thành
-                .col.s7.course-rating-point.no-padding.right
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-        .col.s3
-          %a.course{:href => '#'}
-            .card-image.course-image
-              = image_tag 'course-image.png'
-            .card-content.course-content
-              .row.course-title
-                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-              .row.course-author
-                .col.s12.no-padding By Vijay Shinde
-              .row.progress.progress-background
-                .determinate.progress-background-begin{:style => "width: 0%"}
-              .row.course-footer
-                .col.s5.no-padding.left
-                  %span.progress-color-begin Bắt đầu
-                .col.s7.course-rating-point.no-padding.right
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-        .col.s3
-          %a.course{:href => '#'}
-            .card-image.course-image
-              = image_tag 'course-image.png'
-            .card-content.course-content
-              .row.course-title
-                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-              .row.course-author
-                .col.s12.no-padding By Vijay Shinde
-              .row.progress.progress-background
-                .determinate.progress-background-learning{:style => "width: 50%"}
-              .row.course-footer
-                .col.s5.no-padding.left
-                  %span.progress-color-learning 50%
-                .col.s7.course-rating-point.no-padding.right
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-        .col.s3
-          %a.course{:href => '#'}
-            .card-image.course-image
-              = image_tag 'course-image.png'
-            .card-content.course-content
-              .row.course-title
-                .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-              .row.course-author
-                .col.s12.no-padding By Vijay Shinde
-              .row.progress.progress-background
-                .determinate.progress-background-learning{:style => "width: 50%"}
-              .row.course-footer
-                .col.s5.no-padding.left
-                  %span.progress-color-learning 50%
-                .col.s7.course-rating-point.no-padding.right
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons.is-rated star_rate
+        - @courses.each do |course|
+        - index = current_user.courses.where(:course_id => course.id.to_s).first.lectures.where(lecture_ratio: 100).count
+        - count = course.curriculums.where(type: "lecture").count
+          .col.s3
+            %a.course{:href => '/courses/'+course._id+'/learning'}
+              .card-image.course-image
+                = image_tag 'course-image.png'
+              .card-content.course-content
+                .row.course-title
+                  .col.s12.no-padding= course.name
+                .row.course-author
+                  .col.s12.no-padding= "By " + course.user.name.to_s
+                .row.progress.progress-background
+                  .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
+                .row.course-footer
+                  .col.s5.no-padding.left
+                  - if index == 0 
+                    %span.progress-color-begin Bắt đầu
+                  - elsif index != count
+                    %span.progress-color-learning= ((index.to_f / count.to_f)*100).ceil.to_s+"%"
+                  - else
+                    %span.progress-color-completed Hoàn thành
+                  .col.s7.course-rating-point.no-padding.right
+                    - (1..5).each do |i|
+                      - if i <= course.average_rating
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
+       

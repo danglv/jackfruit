@@ -135,7 +135,7 @@
                     .row.course-title
                       .col.s12.no-padding= tf.name
                     .row.course-author
-                      .col.s12.no-padding By Vijay Shinde
+                      .col.s12.no-padding= 'By ' + tf.user.name.to_s
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
                         %i.material-icons.is-rated star_rate

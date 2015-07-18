@@ -1,1 +1,51 @@
-trang đệm khi chọn course free
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%main.container-1140
+  .row.course-list.grey
+    .col.s12
+      .row.courses.list-style
+        .col.s12
+          .col.s3.course-image
+            = image_tag 'course-image.png'
+          .col.s9
+            %p.course-title= @course.name
+            %p.course-author= @course.sub_title
+            %p= 'được hướng dẫn bởi ' + @course.user.name.to_s
+            %a.btn-large.blue.darken-1 Tiếp tục khóa học
+  .row.course-list.highest-rating
+    - @courses.each do |course_h|
+      .col.s12
+        .row.course-list-header
+          .col.s12
+            %h5.course-list-header-title= course_h.first
+      .row.courses.card-style
+        - course_h.last.each do |course|
+          .col.s3
+            %a.course{:href => '!#'}
+              .card-image.course-image
+                = image_tag 'course-image.png'
+              .card-content.course-content
+                .row.course-title
+                  .col.s12.no-padding= course.name
+                .row.course-author
+                  .col.s12.no-padding= course.user.name
+                .row.course-rating
+                  .col.s7.course-rating-point.no-padding
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                    %i.material-icons star_rate
+                  .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
+                .row.course-footer
+                  .col.s6.no-padding.course-favorite
+                    %span.left
+                      %i.material-icons.is-favorite favorite
+                    %span.left 18.5K
+                  -if course.price == 0
+                    .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
+                      Miễn phí
+                  - else
+                    .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'

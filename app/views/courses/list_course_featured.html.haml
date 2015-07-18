@@ -2,7 +2,7 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
 
-%main.category.container-1140
+%main.category
   .row.category-header
     .col.s12
       .row
@@ -23,30 +23,27 @@
               %a{:href => '#featured-courses'} Nổi bật
             %li.tab
               %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-feature-main
-    .col.sidebar
+  .row.category-feature-main.container-1140
+    .left.sidebar
       %ul.other-categories
         %li.other-categories-title Cách chủ đề khác
-        %li.other-category
-          %a{:href => '/courses/1'} Phát triển web
-        %li.other-category
-          %a{:href => '/courses/1'} Ngôn ngữ lập trình
-        %li.other-category
-          %a{:href => '/courses/1'} Phát triển game
-    .col.s9
+        - @other_category.each do |cate|
+          %li.other-category
+            %a{:href => "/courses/#{cate.id}"}= cate.name
+    .col.s9.no-padding
       -# top-free
       .row.course-list.highest-rating
-        .col.s12
+        .col.s12.no-padding
           .row.course-list-header
             .col.s12
               %h5.course-list-header-title Top Free
           .row.courses.card-style
             - @courses["top_free"].each do |tf|
-              .col.s3
+              .col.s4
                 %a.course{:href => '!#'}
                   .card-image.course-image
                     = image_tag 'course-image.png'
-                  .card-content.course-content{:style => "height: 250px"}
+                  .card-content.course-content{:style => "height: 400px"}
                     .row.course-title
                       .col.s12.no-padding= tf.name
                     .row.course-author
@@ -71,13 +68,13 @@
                         .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price
       -# top_paid
       .row.course-list.highest-rating
-        .col.s12
+        .col.s12.no-padding
           .row.course-list-header
             .col.s12
               %h5.course-list-header-title Top Paid
           .row.courses.card-style
             - @courses["top_paid"].each do |tp|
-              .col.s3
+              .col.s4
                 %a.course{:href => '!#'}
                   .card-image.course-image
                     = image_tag 'course-image.png'
@@ -106,13 +103,13 @@
                         .col.s6.no-padding.course-price{:style => "text-align:right;"}= tp.price
       -# newest
       .row.course-list.highest-rating
-        .col.s12
+        .col.s12.no-padding
           .row.course-list-header
             .col.s12
               %h5.course-list-header-title Newest
           .row.courses.card-style
             - @courses["newest"].each do |ne|
-              .col.s3
+              .col.s4
                 %a.course{:href => '!#'}
                   .card-image.course-image
                     = image_tag 'course-image.png'
@@ -140,7 +137,7 @@
                       - else
                         .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price
       .row
-        .col.s12
+        .col.s12.no-padding
           .row
             .col.s12.related-category
               %h5.course-list-header-title Chủ đề liên quan

@@ -1,0 +1,38 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%main.payment.container-1140
+  .row.courses.card-style
+    .offset-s2.col.s8    
+      .row.courses.card-style.center-align
+        .course
+          .card-image.course-image
+            .row
+              .col.s12.no-padding
+                .payment-success-header.green.valign-wrapper
+                  .offset-2.col.s12
+                    %b.white-text{:style => "font-size: 24px"} Chúc mừng bạn đã đăng ký thành công
+            .row
+              .offset-s1.col.s2.left-align
+                %span Khóa học
+              .offset-s1.col.s6.right-align
+                %span.black-text Kỹ năng thuyết trình và nói trước công chúng
+            .row{:style => "border-bottom: 1px solid #333"}
+              .offset-s1.col.s2.left-align
+                %span Chi phí
+              .offset-s1.col.s6.right-align
+                %span.green-text 300.000đ
+            .row.valign-wrapper
+              .offset-s1.col.s1
+                %i.material-icons.blue-text.darken-1 phone
+              .col.s9.left-align
+                %span Hotline: 0123456789
+            .row.valign-wrapper
+              .offset-s3.col.s12.left-align
+                %a.btn-large.blue.darken-1{:href => "/home"}
+                  Khám phá các khóa học khác       
+
+
+
+        
