@@ -1,5 +1,6 @@
 class PaymentController < ApplicationController
-  before_filter :list_category
+  before_filter :authenticate_user!, :list_category
+  
   def index
     
   end
