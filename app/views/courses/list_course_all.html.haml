@@ -2,7 +2,7 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
 
-%main.category.container-1140
+%main.category
   .row.category-header
     .col.s12
       .row
@@ -23,7 +23,7 @@
               %a{:href => '#featured-courses'} Nổi bật
             %li.tab
               %a{:href => '#all-courses'} Tất cả các khoá học
-  .row.category-main
+  .row.category-main.container-1140
     %form#test-form{:action => '', :method => 'GET'}
       %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
       .col.sidebar
@@ -93,7 +93,7 @@
                     %span.course-rating
                       %span.course-rating-point
                         - (1..5).each do |i|
-                          - if i <= course.average_rating
+                          - if i <= ac.average_rating
                             %i.material-icons.is-rated star_rate
                           - else
                             %i.material-icons star_rate
