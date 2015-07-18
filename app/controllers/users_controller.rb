@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
 
