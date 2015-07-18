@@ -33,8 +33,12 @@
             .card-content.course-content{:style => "height: 255px"}
               .row.course-title
                 .col.s12.no-padding= c.name 
+
               .row.course-author
+              - if c.user
                 .col.s12.no-padding= c.user.name
+              - else
+                .col.s12.no-padding Tudemy
               .row.course-rating
                 .col.s7.course-rating-point.no-padding
                   - (1..5).each do |i|
