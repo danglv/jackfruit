@@ -16,6 +16,7 @@ $(document).ready(function(){
 
     // listen sort event
     $('#sorting-options').on('change', function(){
+        $('#sorting').val($(this).val());
         $('#test-form').submit();
     });
 
@@ -33,8 +34,8 @@ $(document).ready(function(){
     var sort = getParameterByName('ordering');
     var page = getParameterByName('page');
     var q = getParameterByName('q');
-    $('#page-search').val(q)
-    $("input[type=checkbox]" ).each(function( ) {
+    $('#page-search').val(q);
+    $("input[type=checkbox]").each(function( ) {
         var value = $(this).attr('value');
         if(value == price || value == language || value == level){
             $(this).attr("checked", "checked");

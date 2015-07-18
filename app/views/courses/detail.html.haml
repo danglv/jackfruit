@@ -24,8 +24,10 @@
               = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper
         %span.left
-        %a{:href => "#"}
-          = @course.user.name
+      - if @course.user
+        %a{:href => "#"}= @course.user.name
+      - else
+        %a{:href => "#"} Tudemy
       .row
         .col.s7
           .video-container.no-controls
@@ -122,19 +124,27 @@
             Tiểu sử tác giả
           .row
             .col.s2.no-padding
+            - if @course.user
               = image_tag @course.user.avatar
             .col.s10
               .row
-                %a{:href => "#!"}
-                  = @course.user.name
+              - if @course.user
+                %a{:href => "#!"}= @course.user.name
+              - else 
+                %a{:href => "#!"} Tudemy
               %a{:href => "#!"}
                 = image_tag 'linkedin.png'
               %a{:href => "https://www.facebook.com/tudemy"}
                 = image_tag 'facebook.png'
           .row
-            %p
-              = @course.user.biography
+            - if @course.user
+              %p= @course.user.biography
+            - else
+              %p Tudemy is the BEST
+          - if @course.user
             %a{:href => "/users/" + @course.user._id + "/show"}
+          - else
+            %a{:href => "#"}
           /     Tiểu sử chi tiết
           / .row.courses
           /   %h4
@@ -238,36 +248,8 @@
             Chủ đề liên quan
         .row
           %ul.collection
-            %li.collection-item.avatar
-              %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
-              %span.title.bold The Best Software Testing Training You Will Ever Get
-              %p by John Doe
-              %span.courses
-                %span.course-rating
-                %span.course-rating-point
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                .row
-                  .col.s6.no-padding.course-price
-                    220.000đ
-            %li.collection-item.avatar
-              %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
-              %span.title.bold The Best Software Testing Training You Will Ever Get
-              %p by John Doe
-              %span.courses
-                %span.course-rating
-                %span.course-rating-point
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                .row
-                  .col.s6.no-padding.course-price
-                    220.000đ
+        - if @courses['releated']
+          - @courses['releated'].each do |relate|
             %li.collection-item.avatar
               %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
               %span.title.bold The Best Software Testing Training You Will Ever Get
@@ -289,7 +271,7 @@
           .col.s12
             %h5.course-list-header-title Được đánh giá cao
         .row.courses.card-style
-         - @courses['featured'].each do |c|
+        - @courses['featured'].each do |c|
           .col.s3
             %a.course{:href => '/courses/'+c._id+'/detail'}
               .card-image.course-image
@@ -298,6 +280,7 @@
                 .row.course-title
                   .col.s12.no-padding= c.name 
                 .row.course-author
+                - if c.user
                   .col.s12.no-padding= "By " + c.user.name
                 .row.course-rating
                   .col.s7.course-rating-point.no-padding

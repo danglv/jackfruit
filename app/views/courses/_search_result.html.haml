@@ -72,14 +72,14 @@
                     %span.course-price.red-text
                       Miễn phí
                   - else
-                    %span.course-price= course.price
+                    %span.course-price= course.price.to_s + 'đ'
                     %span.course-rating
                       %span.course-rating-point
-                        %i.material-icons.is-rated star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
+                        - (1..5).each do |i|
+                          - if i <= course.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
                       %span.course-rating-people= '(' + course.num_rate.to_s + ')'
                   %p.course-other-info= course.benefit
         .row
