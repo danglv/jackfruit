@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_filter :validate_content_type_param, :list_category
+  before_filter :validate_content_type_param
   before_filter :authenticate_user!, only: [:learning, :lecture, :select]
 
   NUMBER_COURSE_PER_PAGE = 10
@@ -90,6 +90,12 @@ class CoursesController < ApplicationController
   def detail
     course_id = params[:id]
     @course = Course.where(id: course_id).first
+
+    label   = Constants.LabelsValues.first
+    @courses = {}
+    
+    @courses[label.to_s] = Course.where(:label_ids.in => [label]).limit(4)
+    @courses['related'] = Course.where(:category_ids.in => @course.category_ids).limit(3)
   end
 
   def learning
