@@ -15,6 +15,7 @@
     .col.s9
       -# highest-rating
       .row.course-list.highest-rating
+      - if (!@courses['featured'].blank?)
         .col.s12
           .row.course-list-header
             .col.s12
@@ -128,7 +129,7 @@
           .row.courses.card-style
             - @courses["top_free"].each do |tf|
               .col.s3
-                %a.course{:href => '!#'}
+                %a.course{:href => '/courses/' + tf.id.to_s + '/detail'}
                   .card-image.course-image
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
@@ -154,3 +155,37 @@
                           Miễn phí
                       - else
                         .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price 
+      .row.course-list.highest-rating
+        .col.s12
+          .row.course-list-header
+            .col.s12
+              %h5.course-list-header-title Top Paid
+          .row.courses.card-style
+            - @courses["top_paid"].each do |course|
+              .col.s3
+                %a.course{:href => '/courses/' + course.id.to_s + '/detail'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 300px"}
+                    .row.course-title
+                      .col.s12.no-padding= course.name
+                    .row.course-author
+                      .col.s12.no-padding= 'By ' + course.user.name.to_s
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        %i.material-icons.is-rated star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                        %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left= course.students.to_s
+                      - if course.price == 0
+                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                          Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price 
