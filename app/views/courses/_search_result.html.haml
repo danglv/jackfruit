@@ -59,36 +59,36 @@
               %option{:value => 'price-low-to-high'} Giá thấp đến cao
               %option{:value => 'price-high-to-low'} Giá cao đến thấp
         .row.courses.list-style
-          - @course.each do |ac|
+          - @courses.each do |course|
             .col.s12
-              %a.row.course{:href => '/courses/1'}
+              %a.row.course{:href => '/courses/' + course.id + '/detail'}
                 .col.s3.course-image
                   = image_tag 'course-image.png'
                 .col.s9
-                  %p.course-title= ac.name
-                  %p.course-author= 'By ' + ac.user.name.to_s
+                  %p.course-title= course.name
+                  %p.course-author= 'By ' + course.user.name.to_s
                   %p{:style => 'margin: 5px 0;'}
-                  - if ac.price == 0
+                  - if course.price == 0
                     %span.course-price.red-text
                       Miễn phí
                   - else
-                    %span.course-price= ac.price.to_s + 'đ'
+                    %span.course-price= course.price.to_s + 'đ'
                     %span.course-rating
                       %span.course-rating-point
                         - (1..5).each do |i|
-                          - if i <= ac.average_rating
+                          - if i <= course.average_rating
                             %i.material-icons.is-rated star_rate
                           - else
                             %i.material-icons star_rate
-                      %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
-                  %p.course-other-info= ac.benefit
+                      %span.course-rating-people= '(' + course.num_rate.to_s + ')'
+                  %p.course-other-info= course.benefit
         .row
           %div.center-pagination
             %ul.pagination
               %li.disabled
                 %a{:href => "#!"}
                   %i.material-icons chevron_left
-              - (1..@course.count/10 + 1).each do |page|
+              - (1..@courses.count/10 + 1).each do |page|
                 %li{:style => 'cursor:pointer'}= page
               %li.waves-effect
                 %a{:href => "#!"}

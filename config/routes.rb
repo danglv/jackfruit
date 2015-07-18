@@ -34,9 +34,9 @@ Rails.application.routes.draw do
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
-      get :select_course
     end
     collection do      
+      get :select_course
       get :learning
       get :teaching
       get :wishlist
