@@ -72,7 +72,7 @@
           .row.courses.card-style
             - @courses["top_paid"].each do |tp|
               .col.s4
-                %a.course{:href => "/courses/#{tf.id}/detail"}
+                %a.course{:href => "/courses/#{tp.id}/detail"}
                   .card-image.course-image
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
