@@ -20,8 +20,8 @@ class CoursesController < ApplicationController
   end
 
   def list_course_featured
-    category_id = params[:category_id]
-    category = Category.where(id: category_id).first
+    @category_id = params[:category_id]
+    category = Category.where(id: @category_id).first
 
     @courses = {}
     @courses["featured"] = Course.where(
@@ -44,15 +44,15 @@ class CoursesController < ApplicationController
 
     @other_category = Category.where(
       :parent_category_id => category.parent_category_id,
-      :id.ne => category_id
+      :id.ne => @category_id
       )
   end
 
   def list_course_all
-    category_id = params[:category_id]
+    @category_id = params[:category_id]
     page        = params[:page] || 1
 
-    category = Category.where(id: category_id).first
+    category = Category.where(id: @category_id).first
     # filter sort paginate course
 
     budget   = params[:budget]
@@ -75,7 +75,6 @@ class CoursesController < ApplicationController
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
     @courses = Course.where(condition).order(sort_by)
-
     @total_page = (@courses.count / NUMBER_COURSE_PER_PAGE.to_f).ceil
     @courses = @courses.paginate(
       page: page,
@@ -84,7 +83,7 @@ class CoursesController < ApplicationController
 
     @other_category = Category.where(
       :parent_category_id => category.parent_category_id,
-      :id.ne => category_id
+      :id.ne => @category_id
       )
   end
 
