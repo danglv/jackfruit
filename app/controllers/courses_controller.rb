@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
-
   before_filter :validate_content_type_param, :list_category
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select]
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -64,7 +64,7 @@ class CoursesController < ApplicationController
 
     if budget == Constants::BudgetTypes::FREE
       condition[:price] = 0
-    else
+    elsif budget == Constants::BudgetTypes::PAID
       condition[:price.gt] = 0
     end
 
