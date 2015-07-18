@@ -47,11 +47,11 @@
                       .col.s12.no-padding #{tf.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
-                        %i.material-icons.is-rated star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
+                        - (1..5).each do |i|
+                          - if i <= tf.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
                       .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
                     .row.course-footer
                       .col.s6.no-padding.course-favorite
@@ -82,11 +82,11 @@
                       .col.s12.no-padding #{tp.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
-                        %i.material-icons.is-rated star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
+                        - (1..5).each do |i|
+                          - if i <= tp.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
                       .col.s5.course-rating-people.no-padding= '(' + tp.num_rate.to_s + ')'
                     .row.course-footer
                       .col.s6.no-padding.course-favorite
@@ -117,11 +117,11 @@
                       .col.s12.no-padding #{ne.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
-                        %i.material-icons.is-rated star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
-                        %i.material-icons star_rate
+                        - (1..5).each do |i|
+                          - if i <= ne.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
                       .col.s5.course-rating-people.no-padding= '(' + ne.num_rate.to_s + ')'
                     .row.course-footer
                       .col.s6.no-padding.course-favorite
