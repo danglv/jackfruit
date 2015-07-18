@@ -29,7 +29,7 @@
                 .row.course-title
                   .col.s12.no-padding= course.name
                 .row.course-author
-                  .col.s12.no-padding= "By " + course.user.name.to_s
+                  .col.s12.no-padding= course.user.name
                 .row.progress.progress-background
                   .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
                 .row.course-footer
