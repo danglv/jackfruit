@@ -7,23 +7,23 @@
     .col.s12
       .row.no-margin
         %h4.course-title
-          Create Your Website With WordPress
+          = @course.name
       .row.no-margin
         %p
-          A step by step guide to creating and operating your WordPress website. Get your website & online business working today.
+          = @course.sub_title
       .row.no-margin
         %span.courses
           .course-rating.col.s7.valign-wrapper.no-padding
             .col.s3.course-rating-point.no-padding
-              %i.material-icons.is-rated star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
+              - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.material-icons.is-rated star_rate
+                - else
+                  %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
               = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper
-        %span.left Tác giả
+        %span.left
         %a{:href => "#"}
           = @course.user.name
       .row
@@ -39,9 +39,9 @@
               %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
                 Mua khóa học
             .col.s6.no-padding
-              %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
-                %i.material-icons.is-favorite favorite
-                Ưa thích
+              / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
+              /   %i.material-icons.is-favorite favorite
+              /   Ưa thích
           %a.row{:href => "#"}
             Nhập mã khuyễn mãi
           %a.row{:href => "#"}
@@ -72,15 +72,18 @@
               %p.bold
                 = @course.level
               %p.bold
-                = @course.lang
-              %p.bold
-                Lifetime access
-              %p.bold
-                30 day money back
-              %p.bold
-                Avariable on iOS and Android
-              %p.bold
-                Certificate of completion
+                - if @course.lang == "en"
+                  Tiếng 
+                - elsif
+                  Tiếng việt
+              / %p.bold
+              /   Lifetime access
+              / %p.bold
+              /   30 day money back
+              / %p.bold
+              /   Avariable on iOS and Android
+              / %p.bold
+              /   Certificate of completion
   .row{:style => "background-color:#e1e1e1"}
     .row.detail-main{:style => "padding: 0px auto; width:85%"}
       .col.s7
