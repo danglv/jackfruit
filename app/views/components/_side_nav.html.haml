@@ -1,39 +1,19 @@
 %ul#side-nav.side-nav
   %li.side-nav-header
-    %a.waves-effect.waves-light.btn
+    %a.waves-effect.waves-light.btn{:href => '/courses'}
       %i.large.material-icons.left menu
       Danh sách khoá học
   %li.bold
     %a.waves-effect.waves-teal{:href => '/home/my-course/learning'} Khoá học của tôi
   %li.no-padding.no-hover-effect
     %ul.collapsible.collapsible-accordion
-      %li.bold
-        %a.collapsible-header.waves-effect.waves-teal Lập trình
-        .collapsible-body
-          %ul
-            %li
-              %a{:href => '#'} Phát triển web
-            %li
-              %a{:href => '#'} Ngôn ngữ lập trình
-            %li
-              %a{:href => '#'} Phát triển game
-      %li.bold
-        %a.collapsible-header.waves-effect.waves-teal Kinh doanh
-        .collapsible-body
-          %ul
-            %li
-              %a{:href => '#'} Phát triển web
-            %li
-              %a{:href => '#'} Ngôn ngữ lập trình
-            %li
-              %a{:href => '#'} Phát triển game
-      %li.bold
-        %a.collapsible-header.waves-effect.waves-teal Marketing
-        .collapsible-body
-          %ul
-            %li
-              %a{:href => '#'} Phát triển web
-            %li
-              %a{:href => '#'} Ngôn ngữ lập trình
-            %li
-              %a{:href => '#'} Phát triển game
+      - @all_categories.each do |category|
+        %li.bold
+          %a.collapsible-header.waves-effect.waves-teal{:href => '/courses/' + category[0]}
+            = category[1]
+          .collapsible-body
+            %ul
+              - category[2].each do |sub_category|
+                %li
+                  %a{:href => '/courses/' + sub_category[0]}
+                    = sub_category[1]

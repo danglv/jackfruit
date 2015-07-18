@@ -17,7 +17,7 @@
 //= require_tree ./components
 
 $('.btn-sidenav-activator').sideNav();
-$('.sorting .sorting-options').material_select();
+// $('.sorting .sorting-options').material_select();
 $('.modal-trigger').leanModal();
 $('.dropdown-button').dropdown({
   inDuration: 300,
