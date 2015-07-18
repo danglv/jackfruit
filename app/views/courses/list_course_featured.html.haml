@@ -4,25 +4,22 @@
 
 %main.category
   .row.category-header
-    .col.s12
+    .row.container-1140{:style => "padding-left: 240px;"}
       .row
         .col.s12
           %ul.breadcum
             %li.breadcum-item
               %a{:href => '/courses'} Trang chủ
-            %li.breadcum-divider /
+            %li.breadcum-divider
             %li.breadcum-item
               %a{:href => '/courses/1'} Lập trình
       .row
         .col.s12
           %h4.category-title Lập trình
       .row{:style => 'margin-bottom: 0;'}
-        .col.s4
-          %ul.tabs.row
-            %li.tab
-              %a{:href => '#featured-courses'} Nổi bật
-            %li.tab
-              %a{:href => '#all-courses'} Tất cả các khoá học
+        .col.s12
+          %a.btn.white.black-text.bold.disabled{:href => '#featured-courses'} Nổi bật
+          %a.btn.white.black-text.bold{:href => "#{@category_id}/all_courses"} Tất cả các khoá học
   .row.category-feature-main.container-1140
     .left.sidebar
       %ul.other-categories
@@ -40,14 +37,14 @@
           .row.courses.card-style
             - @courses["top_free"].each do |tf|
               .col.s4
-                %a.course{:href => '!#'}
+                %a.course{:href => "/courses/#{tf.id}/detail"}
                   .card-image.course-image
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 400px"}
                     .row.course-title
                       .col.s12.no-padding= tf.name
                     .row.course-author
-                      .col.s12.no-padding By Vijay Shinde
+                      .col.s12.no-padding #{tf.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
                         - (1..5).each do |i|
@@ -75,14 +72,14 @@
           .row.courses.card-style
             - @courses["top_paid"].each do |tp|
               .col.s4
-                %a.course{:href => '!#'}
+                %a.course{:href => "/courses/#{tp.id}/detail"}
                   .card-image.course-image
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
                     .row.course-title
                       .col.s12.no-padding= tp.name
                     .row.course-author
-                      .col.s12.no-padding By Vijay Shinde
+                      .col.s12.no-padding #{tp.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
                         - (1..5).each do |i|
@@ -110,14 +107,14 @@
           .row.courses.card-style
             - @courses["newest"].each do |ne|
               .col.s4
-                %a.course{:href => '!#'}
+                %a.course{:href => "/courses/#{ne.id}/detail"}
                   .card-image.course-image
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
                     .row.course-title
                       .col.s12.no-padding= ne.name
                     .row.course-author
-                      .col.s12.no-padding By Vijay Shinde
+                      .col.s12.no-padding #{ne.user.name}
                     .row.course-rating
                       .col.s7.course-rating-point.no-padding
                         - (1..5).each do |i|
