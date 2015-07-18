@@ -180,9 +180,8 @@ class UsersController < ApplicationController
       else
         @user = current_user
       end
-
       # Fix user đầu tiên để demo
-      @user = User.first if @user == nil
+      # @user = User.first if @user == nil
     end
     def user_params
       accessible = [ :name, :email ] # extend with your own params
