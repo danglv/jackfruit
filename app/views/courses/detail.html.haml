@@ -36,10 +36,10 @@
               %h5.course-price{:style => 'margin: 0'} #{@course.price} đ
           .row
             .col.s6.no-padding
-              %a.btn{:href => "/home/my-course/#{current_user.id.to_s}/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+              %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
                 Mua khóa học
             .col.s6.no-padding
-              %a.valign-wrapper.btn.disabled{:href => "/home/my-course/#{current_user.id.to_s}/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
+              %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
                 %i.material-icons.is-favorite favorite
                 Ưa thích
           %a.row{:href => "#"}
