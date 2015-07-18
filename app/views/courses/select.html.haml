@@ -11,7 +11,7 @@
             = image_tag 'course-image.png'
           .col.s9
             %p.course-title= @course.name
-            %p.course-author= @course.sub_title
+            %p= @course.sub_title
             %p= 'được hướng dẫn bởi ' + @course.user.name.to_s
             %a.btn-large.blue.darken-1 Tiếp tục khóa học
   .row.course-list.highest-rating.container-1140
