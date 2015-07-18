@@ -68,9 +68,9 @@ class UsersController < ApplicationController
   # end
 
   def learning
-    # learning = Constants::OwnedCourseTypes::LEARNING
-    # course_ids = current_user.courses.where(type: learning).map(&:course_id)
-    # @courses = Course.where(:id.in => course_ids)
+    learning = Constants::OwnedCourseTypes::LEARNING
+    course_ids = current_user.courses.where(type: learning).map(&:course_id)
+    @courses = Course.where(:id.in => course_ids)
 
   end
 

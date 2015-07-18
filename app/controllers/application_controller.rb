@@ -33,38 +33,42 @@ class ApplicationController < ActionController::Base
 
   end
 
-  # def list_category
-  #   @result = []
-  #   @categories_level_0 = Category.where(:parent_category_id.in => [nil, '', []])
-    
-  #   @categories_level_0.each {|category|
-  #     @result << [category.id, category.name, 0]
-  #     category.child_categories.each{|sub_category|
-  #       @result << [sub_category.id, sub_category.name, 1]
-  #     }
-  #   }
-  # end
-
   def list_category
-    @result = []
+    @all_categories = []
     @parent_category_id = nil
     @level = 0
 
-    @list_categories = Category.only(:id, :name, :parent_category_id).all.as_json
-    recursive_category(@result, @parent_category_id, @level, @list_categories)
+    categories_level_0 = Category.where(:parent_category_id => nil)
+
+    categories_level_0.each {|category|
+      sub_categories = Category.where(:parent_category_id => category.id)
+      parent_cate = [category.id, category.name, []]
+      sub_categories.each {|sub_cate|
+        parent_cate[2] << [sub_cate.id, sub_cate.name]
+      }
+      @all_categories << parent_cate
+    }
   end
+  # def list_category
+  #   @all_categories = []
+  #   @parent_category_id = nil
+  #   @level = 0
+
+  #   @list_categories = Category.only(:id, :name, :parent_category_id).all.as_json
+  #   recursive_category(@all_categories, @parent_category_id, @level, @list_categories)
+  # end
   
-  private
-    def recursive_category(result, parent_category_id, level, list_categories)
-      categories = @list_categories.select{|c| c["parent_category_id"] == parent_category_id}
-      if categories.count == 0
-        level -= 1
-      else
-        categories.each {|category|
-          result << [category["_id"], category["name"], level]
-          parent_category_id = category["_id"]
-          recursive_category(result, parent_category_id, level + 1, list_categories)
-        }
-      end
-    end
+  # private
+  #   def recursive_category(all_categories, parent_category_id, level, list_categories)
+  #     categories = @list_categories.select{|c| c["parent_category_id"] == parent_category_id}
+  #     if categories.count == 0
+  #       level -= 1
+  #     else
+  #       categories.each {|category|
+  #         all_categories << [category["_id"], category["name"], level]
+  #         parent_category_id = category["_id"]
+  #         recursive_category(all_categories, parent_category_id, level + 1, list_categories)
+  #       }
+  #     end
+  #   end
 end
