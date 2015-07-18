@@ -64,7 +64,7 @@ class CoursesController < ApplicationController
 
     if budget == Constants::BudgetTypes::FREE
       condition[:price] = 0
-    else
+    elsif budget == Constants::BudgetTypes::PAID
       condition[:price.gt] = 0
     end
 
