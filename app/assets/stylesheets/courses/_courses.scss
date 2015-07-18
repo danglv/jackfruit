@@ -421,6 +421,7 @@
     box-shadow: none;
     margin-top: 5px;
     color: #999999;
+
    }
    .leture-header-back-leture{
      background: transparent;
@@ -541,19 +542,17 @@
     display: none;
 
    }
-   .leture-header-back-course{
+   .leture-header-back-course, .leture-header-back-leture{
     background: transparent;
     border: none;
     box-shadow: none;
     margin-top: 5px;
     color: #999999;
+    text-transform: lowercase;
+    font-size: 16px;
    }
-   .leture-header-back-leture{
-     background: transparent;
-    border: none;
-    box-shadow: none;
-    margin-top: 5px;
-    color: #999999;
+   .leture-header-back-leture:first-letter, .leture-header-back-course:first-letter{
+    text-transform: uppercase;
    }
    .leture-header-item{
     float:left;

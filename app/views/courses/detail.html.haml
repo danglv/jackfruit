@@ -21,11 +21,11 @@
               %i.material-icons star_rate
               %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              32 đánh giá, 6969 người tham gia
+              = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper
-        %span.left Hướng dẫn bởi
+        %span.left Tác giả
         %a{:href => "#"}
-          Michal Shen
+          = @course.user.name
       .row
         .col.s7
           .video-container.no-controls
@@ -33,13 +33,13 @@
         .col.s5
           .row
             %a.row.courses{:href => "#"}
-              %h5.course-price{:style => 'margin: 0'} 220.000đ
+              %h5.course-price{:style => 'margin: 0'} #{@course.price} đ
           .row
             .col.s6.no-padding
-              %a.btn{:href => "#"}
-                Mua khóa học này
+              %a.btn{:href => "/home/my-course/#{current_user.id.to_s}/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                Mua khóa học
             .col.s6.no-padding
-              %a.valign-wrapper.btn.disabled{:href => "#"}
+              %a.valign-wrapper.btn.disabled{:href => "/home/my-course/#{current_user.id.to_s}/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
                 %i.material-icons.is-favorite favorite
                 Ưa thích
           %a.row{:href => "#"}
@@ -65,13 +65,14 @@
           .col.s8
             .row
               %p.bold
-                49 bài
+                = @course.curriculums.where(:type => 'lecture').count
               %p.bold
-                9 Tiếng
+                1h
+                -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
               %p.bold
-                Cơ bản
+                = @course.level
               %p.bold
-                Tiếng Việt
+                = @course.lang
               %p.bold
                 Lifetime access
               %p.bold
@@ -87,15 +88,7 @@
           %h3
             Mô tả về khóa học
           %p
-            Work Alongside Me to Create & Operate Your Website Right Now.
-        .row
-          %p.bold
-            Never created a website before? Perfect.
-          %p
-            This course was created for you.
-        .row
-          %p
-            Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.
+            = @course.description
           %a{:href => "#"}
             Xem chi tiết
         .row
@@ -103,77 +96,19 @@
             Giáo trình
           .divider
           .collection.courses
-            %a.collection-item.active{:href => "#!"} Chuương 1 The Basic
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 1.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Introduction To The Course
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 2.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span About Me
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 3.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Alternative Hosting Option - SiteGround (60% Off)
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s7.left
-                  %span.grey-text.left 4.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Season 1 Resources
-                .col.s4
-                  %p.btn{:style => 'margin: 0'} Xem thử
-                .col.s1
-                  %span.right 07:07
-          .collection.courses
-            %a.collection-item.active{:href => "#!"} Chuương 1 The Basic
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 1.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Introduction To The Course
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 2.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span About Me
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s11.left
-                  %span.grey-text.left 3.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Alternative Hosting Option - SiteGround (60% Off)
-                .col.s1
-                  %span.right 07:07
-            %a.collection-item{:href => "#!"}
-              .row.no-margin
-                .col.s7.left
-                  %span.grey-text.left 4.
-                  %i.material-icons.grey-text.left play_circle_filled
-                  %span Season 1 Resources
-                .col.s4
-                  %p.btn{:style => 'margin: 0'} Xem thử
-                .col.s1
-                  %span.right 07:07
+            - @course.curriculums.each do |curi|
+              - if(curi.type == 'chapter')
+                %a.collection-item.active{:href => "#!"} #{curi.description}
+              - else
+              - @course.curriculums.where(chapter_index: curi.chapter_index + 1, type: "lecture").each do |lecture|
+                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+                  .row.no-margin
+                    .col.s11.left
+                      %span.grey-text.left #{lecture.lecture_index}.
+                      %i.material-icons.grey-text.left play_circle_filled
+                      %span #{lecture.description}
+                    .col.s1
+                      %span.right 07:07
         .row
           %h5
             Tiểu sử tác giả
@@ -197,7 +132,7 @@
           .row.courses
             %h4
               Đánh giá
-            %h1.pink-text 4.2
+            %h1.pink-text #{@course.average_rating}
             %span.course-rating
               %span.course-rating-point
                 %i.material-icons.is-rated star_rate
@@ -206,7 +141,7 @@
                 %i.material-icons star_rate
                 %i.material-icons star_rate
             %span.course-rating-people.no-padding
-              4511 đánh giá
+              #{@course.num_rate} đánh giá
             %p
               Chi tiết
             .row
@@ -250,6 +185,7 @@
               .col.s1
                 %span 3174
         .row
+        - @course.reviews.each do |rv|
           %ul.collection
             %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
               %img.circle{:alt => "", :src => "/assets/avatar.png"}
