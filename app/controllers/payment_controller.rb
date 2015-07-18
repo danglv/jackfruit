@@ -22,6 +22,7 @@ class PaymentController < ApplicationController
       :district => district
     )
 
+    redirect_to root_url + "/home/payment/success"
   end
 
   def visa

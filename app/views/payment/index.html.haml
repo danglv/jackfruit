@@ -74,9 +74,9 @@
                   .row
                     %select.browser-default
                       %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                      %option{:value => "1"} Option 1
-                      %option{:value => "2"} Option 2
-                      %option{:value => "3"} Option 3
+                      %option{:value => "Hà Nội"} Hà Nội
+                      %option{:value => "Đà Nẵng"} Đà Nẵng
+                      %option{:value => "tp Hồ Chí Minh"} tp Hồ Chí Minh
                   .row
                     %a.btn.deep-orange{:href => "#"}
                       Đặt mua khóa học
@@ -88,8 +88,5 @@
                     .input-field
                       %input{:type => "text", :placeholder => "Địa chỉ"}/
                   .row
-                    %select.browser-default
-                      %option{:disabled => "", :selected => "", :value => ""} Chọn Quận / Huyện
-                      %option{:value => "1"} Option 1
-                      %option{:value => "2"} Option 2
-                      %option{:value => "3"} Option 3     
+                    .input-field
+                      %input{:type => "text", :name => "district", :placeholder => "Quận/huyện"}/
