@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   # action index để điều hướng đến trang landing page
   def index
-    @course = Course.all.desc(:students).limit(8)
+    @courses = Course.all.desc(:students).limit(8)
 
     if current_user
       redirect_to root_url + "courses"
