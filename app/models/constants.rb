@@ -50,6 +50,7 @@ module Constants
   end
 
   module CurriculumAssetTypes
+    VIDEO = "Video"
     MEDIA = "media"
     TEXT  = "text"
     SLIDE = "slide"
