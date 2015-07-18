@@ -15,11 +15,11 @@
         %span.courses
           .course-rating.col.s7.valign-wrapper.no-padding
             .col.s3.course-rating-point.no-padding
-              %i.material-icons.is-rated star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
-              %i.material-icons star_rate
+              - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.material-icons.is-rated star_rate
+                - else
+                  %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
               = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper
@@ -135,11 +135,11 @@
             %h1.pink-text #{@course.average_rating}
             %span.course-rating
               %span.course-rating-point
-                %i.material-icons.is-rated star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
-                %i.material-icons star_rate
+                - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.material-icons.is-rated star_rate
+                - else
+                  %i.material-icons star_rate
             %span.course-rating-people.no-padding
               #{@course.num_rate} đánh giá
             %p
@@ -194,11 +194,11 @@
                 %span.courses
                   %span.course-rating
                   %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
+                    - (1..5).each do |i|
+                      - if i <= rv.average_rating
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
                 %p.bold
                   Just what I need.
                 %p

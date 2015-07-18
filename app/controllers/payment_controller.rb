@@ -1,4 +1,5 @@
 class PaymentController < ApplicationController
+  before_filter :list_category
   def index
     
   end
