@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   before_filter :authenticate_user!, :list_category
   
   def index
-    
+    render 'delivery'
   end
 
   def delivery
