@@ -21,9 +21,10 @@
           %a.btn.white.black-text.bold{:href => "/courses/#{@category_id}"} Nổi bật
           %a.btn.white-text.bold.disabled{:href => '#all-courses'} Tất cả các khoá học
   .row.container-1140
-    %form#test-form{:action => '', :method => 'GET'}
-      %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
-      .col.sidebar
+    .col.sidebar
+      %form#test-form{:action => '', :method => 'GET'}
+        %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
+        %input#sorting{:type => 'hidden', :name => 'ordering', :value => ''}
         %ul.course-filters
           %li.course-filter
             %p.course-filter-title Chi phí

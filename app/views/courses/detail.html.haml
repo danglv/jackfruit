@@ -15,11 +15,11 @@
         %span.courses
           .course-rating.col.s7.valign-wrapper.no-padding
             .col.s3.course-rating-point.no-padding
-              - (1..5).each do |i|
-                - if i <= @course.average_rating
-                  %i.material-icons.is-rated star_rate
-                - else
-                  %i.material-icons star_rate
+              %i.material-icons.is-rated star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
+              %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
               = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper
@@ -38,6 +38,10 @@
             .col.s6.no-padding
               %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
                 Mua khóa học
+            .col.s6.no-padding
+              %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
+                %i.material-icons.is-favorite favorite
+                Ưa thích
           %a.row{:href => "#"}
             Nhập mã khuyễn mãi
           %a.row{:href => "#"}
@@ -131,11 +135,11 @@
             %h1.pink-text #{@course.average_rating}
             %span.course-rating
               %span.course-rating-point
-                - (1..5).each do |i|
-                - if i <= @course.average_rating
-                  %i.material-icons.is-rated star_rate
-                - else
-                  %i.material-icons star_rate
+                %i.material-icons.is-rated star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
+                %i.material-icons star_rate
             %span.course-rating-people.no-padding
               #{@course.num_rate} đánh giá
             %p
@@ -190,11 +194,11 @@
                 %span.courses
                   %span.course-rating
                   %span.course-rating-point
-                    - (1..5).each do |i|
-                      - if i <= rv.average_rating
-                        %i.material-icons.is-rated star_rate
-                      - else
-                        %i.material-icons star_rate
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons.is-rated star_rate
+                    %i.material-icons.is-rated star_rate
                 %p.bold
                   Just what I need.
                 %p
