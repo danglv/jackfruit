@@ -96,6 +96,7 @@ class CoursesController < ApplicationController
     
     @courses[label.to_s] = Course.where(:label_ids.in => [label]).limit(4)
     @courses['related'] = Course.where(:category_ids.in => @course.category_ids).limit(3)
+    @courses['featured'] = Course.where(:category_ids.in => @course.category_ids).limit(3)
   end
 
   def learning

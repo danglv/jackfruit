@@ -20,6 +20,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_in_path_for(resource)
+    binding.pry
     if request.env['omniauth.origin'] == request.base_url + "/"
       request.base_url + "/courses"
     else

@@ -271,6 +271,7 @@
           .col.s12
             %h5.course-list-header-title Được đánh giá cao
         .row.courses.card-style
+      - if @courses['featured']
         - @courses['featured'].each do |c|
           .col.s3
             %a.course{:href => '/courses/'+c._id+'/detail'}
