@@ -14,9 +14,19 @@
        Bài giảng trước 
    .row
     .col.s10.offset-s1.leture-player
-     - if @lecture.asset_type == "media"
-      .row.media
-       %iframe{:width => "100%",:style => "border : 0px", :height => "100%", :src => @lecture.url.gsub!('youtube.com/watch?v=', 'youtube.com/embed/')+"?modestbranding=1&amp", :allowfullscreen => "true"} 
+   
+     
+     - if @lecture.asset_type == "Video"
+      - @indexStart = @lecture.url.index('v=') + 2
+      - if @lecture.url['&']
+       - @indexEnd = @lecture.url.index('&')-1
+       - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+      - else
+       - @indexEnd = @lecture.url.length
+       - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
+      - if @youtube_id
+       .row.media
+        %iframe{:width => '100%',:style => 'border : 0px', :height => '100%', :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=1&amp', :allowfullscreen => 'true'} 
      - else
       .row.document
        this is document
