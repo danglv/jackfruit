@@ -29,110 +29,113 @@
             %a{:href => "/courses/#{cate.id}"}= cate.name
     .col.s9.no-padding
       -# top-free
-      .row.course-list.highest-rating
-        .col.s12.no-padding
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title Top Free
-          .row.courses.card-style
-            - @courses["top_free"].each do |tf|
-              .col.s4
-                %a.course{:href => "/courses/#{tf.id}/detail"}
-                  .card-image.course-image
-                    = image_tag 'course-image.png'
-                  .card-content.course-content{:style => "height: 400px"}
-                    .row.course-title
-                      .col.s12.no-padding= tf.name
-                    .row.course-author
-                      .col.s12.no-padding #{tf.user.name}
-                    .row.course-rating
-                      .col.s7.course-rating-point.no-padding
-                        - (1..5).each do |i|
-                          - if i <= tf.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
-                    .row.course-footer
-                      .col.s6.no-padding.course-favorite
-                        %span.left
-                          %i.material-icons.is-favorite favorite
-                        %span.left= tf.students.to_s
-                      - if tf.price == 0
-                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                          Miễn phí
-                      - else
-                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price
+      - if @courses["top_free"].last.count > 0
+        .row.course-list.highest-rating
+          .col.s12.no-padding
+            .row.course-list-header
+              .col.s12
+                %h5.course-list-header-title= @courses["top_free"].first
+            .row.courses.card-style
+              - @courses["top_free"].last.each do |tf|
+                .col.s4
+                  %a.course{:href => "/courses/#{tf.id}/detail"}
+                    .card-image.course-image
+                      = image_tag 'course-image.png'
+                    .card-content.course-content{:style => "height: 400px"}
+                      .row.course-title
+                        .col.s12.no-padding= tf.name
+                      .row.course-author
+                        .col.s12.no-padding #{tf.user.name}
+                      .row.course-rating
+                        .col.s7.course-rating-point.no-padding
+                          - (1..5).each do |i|
+                            - if i <= tf.average_rating
+                              %i.material-icons.is-rated star_rate
+                            - else
+                              %i.material-icons star_rate
+                        .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
+                      .row.course-footer
+                        .col.s6.no-padding.course-favorite
+                          %span.left
+                            %i.material-icons.is-favorite favorite
+                          %span.left= tf.students.to_s
+                        - if tf.price == 0
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                            Miễn phí
+                        - else
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + "đ"
       -# top_paid
       .row.course-list.highest-rating
         .col.s12.no-padding
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title Top Paid
-          .row.courses.card-style
-            - @courses["top_paid"].each do |tp|
-              .col.s4
-                %a.course{:href => "/courses/#{tp.id}/detail"}
-                  .card-image.course-image
-                    = image_tag 'course-image.png'
-                  .card-content.course-content{:style => "height: 300px"}
-                    .row.course-title
-                      .col.s12.no-padding= tp.name
-                    .row.course-author
-                      .col.s12.no-padding #{tp.user.name}
-                    .row.course-rating
-                      .col.s7.course-rating-point.no-padding
-                        - (1..5).each do |i|
-                          - if i <= tp.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      .col.s5.course-rating-people.no-padding= '(' + tp.num_rate.to_s + ')'
-                    .row.course-footer
-                      .col.s6.no-padding.course-favorite
-                        %span.left
-                          %i.material-icons.is-favorite favorite
-                        %span.left= tp.students.to_s
-                      - if tp.price == 0
-                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                          Miễn phí
-                      - else
-                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= tp.price
+          - if @courses["top_paid"].last.count > 0
+            .row.course-list-header
+              .col.s12
+                %h5.course-list-header-title= @courses["top_paid"].first
+            .row.courses.card-style
+              - @courses["top_paid"].last.each do |tp|
+                .col.s4
+                  %a.course{:href => "/courses/#{tp.id}/detail"}
+                    .card-image.course-image
+                      = image_tag 'course-image.png'
+                    .card-content.course-content{:style => "height: 300px"}
+                      .row.course-title
+                        .col.s12.no-padding= tp.name
+                      .row.course-author
+                        .col.s12.no-padding #{tp.user.name}
+                      .row.course-rating
+                        .col.s7.course-rating-point.no-padding
+                          - (1..5).each do |i|
+                            - if i <= tp.average_rating
+                              %i.material-icons.is-rated star_rate
+                            - else
+                              %i.material-icons star_rate
+                        .col.s5.course-rating-people.no-padding= '(' + tp.num_rate.to_s + ')'
+                      .row.course-footer
+                        .col.s6.no-padding.course-favorite
+                          %span.left
+                            %i.material-icons.is-favorite favorite
+                          %span.left= tp.students.to_s
+                        - if tp.price == 0
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                            Miễn phí
+                        - else
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tp.price.to_s + "đ"
       -# newest
       .row.course-list.highest-rating
         .col.s12.no-padding
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title Newest
-          .row.courses.card-style
-            - @courses["newest"].each do |ne|
-              .col.s4
-                %a.course{:href => "/courses/#{ne.id}/detail"}
-                  .card-image.course-image
-                    = image_tag 'course-image.png'
-                  .card-content.course-content{:style => "height: 300px"}
-                    .row.course-title
-                      .col.s12.no-padding= ne.name
-                    .row.course-author
-                      .col.s12.no-padding #{ne.user.name}
-                    .row.course-rating
-                      .col.s7.course-rating-point.no-padding
-                        - (1..5).each do |i|
-                          - if i <= ne.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      .col.s5.course-rating-people.no-padding= '(' + ne.num_rate.to_s + ')'
-                    .row.course-footer
-                      .col.s6.no-padding.course-favorite
-                        %span.left
-                          %i.material-icons.is-favorite favorite
-                        %span.left= ne.students.to_s
-                      - if ne.price == 0
-                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                          Miễn phí
-                      - else
-                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price
+          - if @courses["newest"].last.count > 0
+            .row.course-list-header
+              .col.s12
+                %h5.course-list-header-title= @courses["newest"].first
+            .row.courses.card-style
+              - @courses["newest"].last.each do |ne|
+                .col.s4
+                  %a.course{:href => "/courses/#{ne.id}/detail"}
+                    .card-image.course-image
+                      = image_tag 'course-image.png'
+                    .card-content.course-content{:style => "height: 300px"}
+                      .row.course-title
+                        .col.s12.no-padding= ne.name
+                      .row.course-author
+                        .col.s12.no-padding #{ne.user.name}
+                      .row.course-rating
+                        .col.s7.course-rating-point.no-padding
+                          - (1..5).each do |i|
+                            - if i <= ne.average_rating
+                              %i.material-icons.is-rated star_rate
+                            - else
+                              %i.material-icons star_rate
+                        .col.s5.course-rating-people.no-padding= '(' + ne.num_rate.to_s + ')'
+                      .row.course-footer
+                        .col.s6.no-padding.course-favorite
+                          %span.left
+                            %i.material-icons.is-favorite favorite
+                          %span.left= ne.students.to_s
+                        - if ne.price == 0
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                            Miễn phí
+                        - else
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price + "đ"
       .row
         .col.s12.no-padding
           .row

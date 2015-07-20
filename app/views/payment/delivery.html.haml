@@ -10,7 +10,7 @@
           %h4.white-text Xác nhận thanh toán
           %p.white-text= @course.name
         .col.s6
-          %h4.right.white-text= @course.price
+          %h4.right.white-text= @course.price.to_s + 'đ'
       .container-1140
         = render 'payment_method', method: 'delivery'
         .row.payment-content
