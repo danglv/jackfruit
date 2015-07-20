@@ -40,36 +40,64 @@
    .row
     .col.s12.list-lecture.no-padding
      - @course.curriculums.each do |curriculum|
+      - have_chapter = @course.curriculums.where(type: "chapter").count == 0
+       - if have_chapter
+        - @course.curriculums.where(type: "lecture").each do |lecture|
+        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+         .row.no-margin
+          .col.s1
+           -if lecture.status == 0
+            .row.icon.locked
+             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+           -else
+            -if lecture.status == 1
+             .row.icon.learning
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+            -else
+             -if lecture.status == 2
+              .row.icon.completed
+               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+          .col.s10.no-padding.item-data
+           %span.item-name= lecture.title
+           .row.detail
+           - if lecture.asset_type == "media"
+            .col.s3.offset-s6.icon-video-type.no-padding
+             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+            .col.s9.no-padding Video
+           - else
+            .col.s3.offset-s6.icon-document-type.no-padding
+             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+            .col.s9.no-padding Văn bản
       - if curriculum.type == 'chapter'
        .row.lecture-chap
         .col.s12.lecture-chap-title= curriculum.description
         .col.s12.lecture-list-items
-         - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-          %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
-           .row.no-margin
-            .col.s1
-             -if lecture.status == 0
-              .row.icon.locked
+       - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
+        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+         .row.no-margin
+          .col.s1
+           -if lecture.status == 0
+            .row.icon.locked
+             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+           -else
+            -if lecture.status == 1
+             .row.icon.learning
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+            -else
+             -if lecture.status == 2
+              .row.icon.completed
                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-             -else
-              -if lecture.status == 1
-               .row.icon.learning
-                %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-              -else
-               -if lecture.status == 2
-                .row.icon.completed
-                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-            .col.s10.no-padding.item-data
-             %span.item-name= lecture.description
-             .row.detail
-             - if lecture.asset_type == "media"
-              .col.s3.offset-s6.icon-video-type.no-padding
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-              .col.s9.no-padding Video
-             - else
-              .col.s3.offset-s6.icon-document-type.no-padding
-               %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-              .col.s9.no-padding Văn bản
+          .col.s10.no-padding.item-data
+           %span.item-name= lecture.description
+           .row.detail
+           - if lecture.asset_type == "media"
+            .col.s3.offset-s6.icon-video-type.no-padding
+             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+            .col.s9.no-padding Video
+           - else
+            .col.s3.offset-s6.icon-document-type.no-padding
+             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+            .col.s9.no-padding Văn bản
   .col.s6.lecture-comment
    .row.lecture-comment-title 
     %span Thảo luận
