@@ -25,7 +25,7 @@
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
-        %a{:href => "#"}= "Tác giả: "+@course.user.name
+        %a{:href => "#",:style => "line-height:50px;"}= "Tác giả: "+@course.user.name
       - else
         %a{:href => "#"} Tudemy
       .row
