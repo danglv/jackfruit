@@ -22,17 +22,19 @@
        %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
       .col.s10
        .row.no-padding
+
         %p= @course.curriculums[@index].description
         %p Starting Threads
-        %P 09:58 phút    
+        / %P 09:58 phút    
     - else
      %a{:href => '/courses/'+@course._id+'/lecture/' + @index.to_s}
       .col.s2
        %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
       .col.s10
        .row.no-padding
-        %p= @course.curriculums[@index].description
-        %p Starting Threads
+        - if @course.curriculums[@index]
+         %p= @course.curriculums[@index].description
+         %p Starting Threads
         / %P 09:58 phút
    .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
    .row.progress{:style => "height:5px;background:#b6b6b6"}
