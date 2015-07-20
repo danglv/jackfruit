@@ -37,6 +37,7 @@
                       %option{:value => "Tp Hồ Chí Minh"} tp Hồ Chí Minh
                       %option{:value => "Đà Nẵng"} Đà Nẵng
                   .row
+                    = hidden_field_tag :authenticity_token, form_authenticity_token
                     %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đặt mua khóa học'}
                 .col.s4.offset-s1{:action => "#"}
                   .row
