@@ -60,7 +60,7 @@
                   = image_tag 'course-image.png'
                 .col.s9
                   %p.course-title= course.name
-                  -# %p.course-author= 'By ' + course.user.name.to_s
+                  %p.course-author= 'By ' + course.user.name.to_s
                   %p{:style => 'margin: 5px 0;'}
                   - if course.price == 0
                     %span.course-price.red-text
