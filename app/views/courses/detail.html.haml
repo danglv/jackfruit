@@ -21,8 +21,8 @@
                 - else
                   %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
-      .row.valign-wrapper
+              = @course.reviews.count
+      .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
         %a{:href => "#"}= "Tác giả: "+@course.user.name
@@ -37,7 +37,7 @@
             %a.row.courses{:href => "#"}
               - if @course.price.to_s == "0"
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
-              - else @course.price.to_s 
+              - else
                 %h5.course-price{:style => 'margin: 0'}= @course.price.to_s + " đ"
           .row
             .col.s6.no-padding
@@ -103,6 +103,7 @@
             Giáo trình
           .divider
           .collection.courses
+            - binding.pry
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
                 %a.collection-item.active{:href => "#!"} #{curi.title}
@@ -123,7 +124,7 @@
             .col.s2.no-padding
               - if @course.user
                 = image_tag @course.user.avatar
-            .col.s10
+            .col.s10.no-padding
               .row
               - if @course.user
                 %a{:href => "#!"}= @course.user.name
@@ -248,9 +249,11 @@
               - @courses['related'].last.each do |relate|
                 %a.black-text{:href => "/courses/"+relate._id+"/learning"}
                   %li.collection-item.avatar
-                    %img.circle{:alt => "", :src => relate.user.avatar}
+                    - if relate.user
+                      %img.circle{:alt => "", :src => relate.user.avatar}
                     %span.title.bold= relate.name
-                    %p= relate.user.name
+                    - if relate.user
+                      %p= relate.user.name
                     %span.courses
                       %span.course-rating
                       %span.course-rating-point
