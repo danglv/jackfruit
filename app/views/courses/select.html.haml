@@ -44,7 +44,7 @@
                     %span.left
                       %i.material-icons.is-favorite favorite
                     %span.left 18.5K
-                  -if course.price == 0
+                  -if course.price.to_s == "0"
                     .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
                       Miễn phí
                   - else

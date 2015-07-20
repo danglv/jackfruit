@@ -29,13 +29,16 @@
       - else
         %a{:href => "#"} Tudemy
       .row
-        .col.s7
+        .col.s7.no-padding
           .video-container.no-controls
             %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed//09R8_2nJtjg?rel=0", :width => "853"}
         .col.s5
           .row
             %a.row.courses{:href => "#"}
-              %h5.course-price{:style => 'margin: 0'} #{@course.price} đ
+              - if @course.price.to_s == "0"
+                %h5.course-price{:style => 'margin: 0'} Miễn phí
+              - else @course.price.to_s 
+                %h5.course-price{:style => 'margin: 0'}= @course.price + " đ"
           .row
             .col.s6.no-padding
               %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
@@ -44,12 +47,12 @@
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
               /   %i.material-icons.is-favorite favorite
               /   Ưa thích
-          %a.row{:href => "#"}
-            Nhập mã khuyễn mãi
-          %a.row{:href => "#"}
-            Xem thử miễn phí
-          %a.row{:href => "#"}
-            Tùy chọn khác
+          / %a.row{:href => "#"}
+          /   Nhập mã khuyễn mãi
+          / %a.row{:href => "#"}
+          /   Xem thử miễn phí
+          / %a.row{:href => "#"}
+          /   Tùy chọn khác
           .row
             .divider
           .col.s4.courses
@@ -102,17 +105,17 @@
           .collection.courses
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
-                %a.collection-item.active{:href => "#!"} #{curi.description}
+                %a.collection-item.active{:href => "#!"} #{curi.title}
               - else
-              - @course.curriculums.where(chapter_index: curi.chapter_index + 1, type: "lecture").each do |lecture|
-                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+                / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
+                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+curi.lecture_index.to_s}
                   .row.no-margin
                     .col.s11.left
-                      %span.grey-text.left #{lecture.lecture_index}.
+                      %span.grey-text.left= (curi.lecture_index + 1 ).to_s+"."
                       %i.material-icons.grey-text.left play_circle_filled
-                      %span #{lecture.description}
+                      %span #{curi.title}
                     .col.s1
-                      %span.right 07:07
+                      / %span.right 07:07
         .row
           %h5
             Tiểu sử tác giả
@@ -258,7 +261,10 @@
                           - else
                             %i.material-icons star_rate
                       .row
-                        .col.s6.no-padding.course-price= relate.price
+                        - if relate.price == 0
+                          .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                        - else
+                          .col.s5.no-padding.course-price{:style => "text-align:right;"}= relate.price.to_s + " đ"                
       .col.s12.course-list.highest-rating
       .col.s12
         .row.course-list-header
@@ -289,9 +295,8 @@
                       .col.s7.no-padding.course-favorite
                         %span.left
                           %i.material-icons.is-favorite favorite
-                        %span.left=  c.students.to_s + ' tham gia'
+                        %span.left=  c.students.to_s
                       - if c.price == 0
                         .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                       - else
-                        .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                          = c.price                  
+                        .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price.to_s + " đ"                 

@@ -39,7 +39,6 @@
     .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
    .row
     .col.s12.list-lecture.no-padding
-     - binding.pry
      - @course.curriculums.each do |curriculum|
       - have_chapter = @course.curriculums.where(type: "chapter").count == 0
        - if have_chapter
