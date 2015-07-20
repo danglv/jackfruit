@@ -15,7 +15,13 @@ class CoursesController < ApplicationController
     @courses = {}
     
     labels.each {|label|
-      @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
+      title = if Course::Localization::TITLES[label.to_sym].blank?
+        label
+      else
+        Course::Localization::TITLES[label.to_sym][I18n.default_locale]
+      end
+
+      @courses[label.to_sym] = [title, Course.where(:label_ids.in => [label]).limit(12)]
     }
   end
 
@@ -24,23 +30,23 @@ class CoursesController < ApplicationController
     category = Category.where(id: @category_id).first
 
     @courses = {}
-    @courses["featured"] = Course.where(
+    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
       :label_ids.in => ["featured"],
-      :category_ids.in => [category.id]).first
+      :category_ids.in => [category.id]).first]
 
-    @courses["top_free"] = Course.where(
+    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
       :price => 0,
       :category_ids.in => [category.id]
-    ).desc(:students).limit(12)
+    ).desc(:students).limit(12)]
 
-    @courses["top_paid"] = Course.where(
+    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(
       :price.gt => 0,
       :category_ids.in => [category.id]
-    ).desc(:students).limit(12)
+    ).desc(:students).limit(12)]
 
-    @courses["newest"] = Course.where(
+    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(
       :category_ids.in => [category.id],
-    ).desc(:created_at).limit(12)
+    ).desc(:created_at).limit(12)]
 
     @other_category = Category.where(
       :parent_category_id => category.parent_category_id,
@@ -83,7 +89,8 @@ class CoursesController < ApplicationController
 
     @other_category = Category.where(
       :parent_category_id => category.parent_category_id,
-      :id.ne => @category_id
+      :id.ne => @category_id,
+      :enabled => true
       )
   end
 
@@ -91,12 +98,10 @@ class CoursesController < ApplicationController
     course_id = params[:id]
     @course = Course.where(id: course_id).first
 
-    label   = Constants.LabelsValues.first
     @courses = {}
     
-    @courses[label.to_s] = Course.where(:label_ids.in => [label]).limit(4)
-    @courses['related'] = Course.where(:category_ids.in => @course.category_ids).limit(3)
-    @courses['featured'] = Course.where(:category_ids.in => @course.category_ids).limit(3)
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(:category_ids.in => @course.category_ids).limit(3)]
+    @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(:category_ids.in => @course.category_ids).limit(3)]
   end
 
   def learning
@@ -165,18 +170,18 @@ class CoursesController < ApplicationController
 
     if @courses.count == 0
       @courses = {}
-      @courses["featured"] = Course.where(
-        :label_ids.in => ["featured"]).first
+      
+      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
+      :label_ids.in => ["featured"]).first]
 
-      @courses["top_free"] = Course.where(
-        :price => 0
-      ).desc(:students).limit(12)
+      @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
+        :price => 0).desc(:students).limit(12)]
 
-      @courses["top_paid"] = Course.where(
+      @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(
         :price.gt => 0
-      ).desc(:students).limit(12)
+      ).desc(:students).limit(12)]
 
-      @courses["newest"] = Course.all.desc(:created_at).limit(12)
+      @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.all.desc(:created_at).limit(12)]
     end
   end
 
