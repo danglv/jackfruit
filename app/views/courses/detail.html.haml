@@ -71,13 +71,7 @@
               %p.bold
                 1h
                 -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
-              %p.bold
-                - if @course.level.to_s == "0"
-                  Cơ bản 
-                - elsif @course.level.to_s == "1"
-                  Trung cấp
-                - elsif @course.level.to_s == "2"
-                  Nâng cao
+              %p.bold= @course.level
               %p.bold
                 - if @course.lang == "en"
                   Tiếng Anh
@@ -124,8 +118,8 @@
             Tiểu sử tác giả
           .row
             .col.s2.no-padding
-            - if @course.user
-              = image_tag @course.user.avatar
+              - if @course.user
+                = image_tag @course.user.avatar
             .col.s10
               .row
               - if @course.user
@@ -248,56 +242,56 @@
             Chủ đề liên quan
         .row
           %ul.collection
-        - if @courses['releated']
-          - @courses['releated'].each do |relate|
-            %li.collection-item.avatar
-              %img.circle{:alt => "", :src => "/assets/author-avatar.png"}
-              %span.title.bold The Best Software Testing Training You Will Ever Get
-              %p by John Doe
-              %span.courses
-                %span.course-rating
-                %span.course-rating-point
-                  %i.material-icons.is-rated star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                  %i.material-icons star_rate
-                .row
-                  .col.s6.no-padding.course-price
-                    220.000đ
+            - if @courses['related']
+              - @courses['related'].each do |relate|
+                %a.black-text{:href => "/courses/"+@course._id+"/learning"}
+                  %li.collection-item.avatar
+                    %img.circle{:alt => "", :src => relate.user.avatar}
+                    %span.title.bold= relate.name
+                    %p= relate.user.name
+                    %span.courses
+                      %span.course-rating
+                      %span.course-rating-point
+                        - (1..5).each do |i|
+                          - if i <= relate.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
+                      .row
+                        .col.s6.no-padding.course-price= relate.price
       .col.s12.course-list.highest-rating
       .col.s12
         .row.course-list-header
           .col.s12
             %h5.course-list-header-title Được đánh giá cao
         .row.courses.card-style
-      - if @courses['featured']
-        - @courses['featured'].each do |c|
-          .col.s3
-            %a.course{:href => '/courses/'+c._id+'/detail'}
-              .card-image.course-image
-                = image_tag 'course-image.png'
-              .card-content.course-content{:style => "height: 255px"}
-                .row.course-title
-                  .col.s12.no-padding= c.name 
-                .row.course-author
-                - if c.user
-                  .col.s12.no-padding= "By " + c.user.name
-                .row.course-rating
-                  .col.s7.course-rating-point.no-padding
-                    - (1..5).each do |i|
-                      - if i <= c.average_rating
-                        %i.material-icons.is-rated star_rate
+          - if @courses['featured']
+            - @courses['featured'].each do |c|
+              .col.s3
+                %a.course{:href => '/courses/'+c._id+'/detail'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 255px"}
+                    .row.course-title
+                      .col.s12.no-padding= c.name 
+                    .row.course-author
+                    - if c.user
+                      .col.s12.no-padding= "By " + c.user.name
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        - (1..5).each do |i|
+                          - if i <= c.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s7.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left=  c.students.to_s + ' tham gia'
+                      - if c.price == 0
+                        .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                       - else
-                        %i.material-icons star_rate
-                  .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
-                .row.course-footer
-                  .col.s7.no-padding.course-favorite
-                    %span.left
-                      %i.material-icons.is-favorite favorite
-                    %span.left=  c.students.to_s + ' tham gia'
-                  - if c.price == 0
-                    .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                  - else
-                    .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                      = c.price                  
+                        .col.s5.no-padding.course-price{:style => "text-align:right;"}
+                          = c.price                  
