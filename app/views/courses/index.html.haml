@@ -18,7 +18,7 @@
                   = image_tag 'course-image.png'
                 .card-content.course-content
                   .row.course-title 
-                    .col.s12.no-padding= course.name
+                    .col.s12.no-padding.fix-height= course.name
                   .row.course-author 
                     - if course.user
                       .col.s12.no-padding= course.user.name
@@ -39,4 +39,4 @@
                       .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
                         Miễn phí
                     - else
-                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'
+                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'            
