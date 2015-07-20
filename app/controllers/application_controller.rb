@@ -55,10 +55,10 @@ class ApplicationController < ActionController::Base
     @parent_category_id = nil
     @level = 0
 
-    categories_level_0 = Category.where(:parent_category_id => nil)
+    categories_level_0 = Category.where(:parent_category_id => nil, enabled: true).asc(:order)
 
     categories_level_0.each {|category|
-      sub_categories = Category.where(:parent_category_id => category.id)
+      sub_categories = Category.where(:parent_category_id => category.id, enabled: true).asc(:order)
       parent_cate = [category.id, category.name, []]
       sub_categories.each {|sub_cate|
         parent_cate[2] << [sub_cate.id, sub_cate.name]
