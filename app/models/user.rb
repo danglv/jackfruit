@@ -5,7 +5,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, 
          :validatable, :omniauthable,
-         :confirmable,
+         # :confirmable,
          :omniauth_providers => [:google_oauth2, :facebook]
   TEMP_EMAIL_PREFIX = 'tudemy@me'
   TEMP_EMAIL_REGEX = /\A[^@]+@[^@]+\z/
@@ -32,10 +32,10 @@ class User
   field :last_sign_in_ip,    type: String
 
   ## Confirmable
-  field :confirmation_token,   type: String
-  field :confirmed_at,         type: Time
-  field :confirmation_sent_at, type: Time
-  field :unconfirmed_email,    type: String # Only if using reconfirmable
+  # field :confirmation_token,   type: String
+  # field :confirmed_at,         type: Time
+  # field :confirmation_sent_at, type: Time
+  # field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
@@ -68,7 +68,6 @@ class User
   # Avatar
 
   #
-
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
 
@@ -110,8 +109,7 @@ class User
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
-        user.skip_confirmation!
-        user.save!
+        user.save
       end
     end
 
