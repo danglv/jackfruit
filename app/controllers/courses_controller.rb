@@ -171,8 +171,8 @@ class CoursesController < ApplicationController
     if @courses.count == 0
       @courses = {}
       
-      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
-      :label_ids.in => ["featured"]).first]
+      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], [Course.where(
+      :label_ids.in => ["featured"]).first]]
 
       @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
         :price => 0).desc(:students).limit(12)]
@@ -195,9 +195,15 @@ class CoursesController < ApplicationController
     
     labels    = Constants.LabelsValues
     @courses  = {}
-    
+  
     labels.each {|label|
-      @courses[label.to_sym] = Course.where(:label_ids.in => [label]).limit(12)
-    }
+    title = if Course::Localization::TITLES[label.to_sym].blank?
+      label
+    else
+      Course::Localization::TITLES[label.to_sym][I18n.default_locale]
+    end
+
+    @courses[label.to_sym] = [title, Course.where(:label_ids.in => [label]).limit(12)]
+   }
   end
 end
