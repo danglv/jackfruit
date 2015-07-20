@@ -10,7 +10,7 @@
     .col.s5.no-padding 
      %i.small.material-icons.green-text.no-padding{:style => "margin-top:10px;"} group 
     .col.s5
-     %span.count= " "+@course.students.to_s
+     %span.count= " " + @course.students.to_s
  .row.lecture-content
   .col.s6
    .row.lecture-content-header
@@ -23,8 +23,8 @@
       .col.s10
        .row.no-padding
 
-        %p= @course.curriculums[@index].description
-        %p Starting Threads
+        %p= @course.curriculums[@index].title
+        / %p Starting Threads
         / %P 09:58 phút    
     - else
      %a{:href => '/courses/'+@course._id+'/lecture/' + @index.to_s}
@@ -33,18 +33,18 @@
       .col.s10
        .row.no-padding
         - if @course.curriculums[@index]
-         %p= @course.curriculums[@index].description
-         %p Starting Threads
+         %p= @course.curriculums[@index].title
+         / %p Starting Threads
         / %P 09:58 phút
    .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
    .row.progress{:style => "height:5px;background:#b6b6b6"}
     .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
    .row
     .col.s12.list-lecture.no-padding
-     - @course.curriculums.each do |curriculum|
-      - have_chapter = @course.curriculums.where(type: "chapter").count == 0
-       - if have_chapter
-        - @course.curriculums.where(type: "lecture").each do |lecture|
+     - have_chapter = @course.curriculums.where(type: "chapter").count == 0
+     - if have_chapter
+      - @course.curriculums.where(type: "lecture").each do |lecture|
+       .col.s12.lecture-list-items
         %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
          .row.no-margin
           .col.s1
@@ -62,44 +62,46 @@
           .col.s10.no-padding.item-data
            %span.item-name= lecture.title
            .row.detail
-           - if lecture.asset_type == "media"
-            .col.s3.offset-s6.icon-video-type.no-padding
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding Video
-           - else
-            .col.s3.offset-s6.icon-document-type.no-padding
-             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-            .col.s9.no-padding Văn bản
-      - if curriculum.type == 'chapter'
-       .row.lecture-chap
-        .col.s12.lecture-chap-title= curriculum.description
-        .col.s12.lecture-list-items
-       - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
-         .row.no-margin
-          .col.s1
-           -if lecture.status == 0
-            .row.icon.locked
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-           -else
-            -if lecture.status == 1
-             .row.icon.learning
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-            -else
-             -if lecture.status == 2
-              .row.icon.completed
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-          .col.s10.no-padding.item-data
-           %span.item-name= lecture.description
-           .row.detail
-           - if lecture.asset_type == "media"
-            .col.s3.offset-s6.icon-video-type.no-padding
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding Video
-           - else
-            .col.s3.offset-s6.icon-document-type.no-padding
-             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-            .col.s9.no-padding Văn bản
+            - if lecture.asset_type == "Video"
+             .col.s3.offset-s6.icon-video-type.no-padding
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+             .col.s9.no-padding Video
+            - else
+             .col.s3.offset-s6.icon-document-type.no-padding
+              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+             .col.s9.no-padding Văn bản
+     - else
+      - @course.curriculums.each do |curriculum|
+       - if curriculum.type == 'chapter'
+        .row.lecture-chap
+         .col.s12.lecture-chap-title= curriculum.title
+         .col.s12.lecture-list-items
+          - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
+           %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+            .row.no-margin
+             .col.s1
+              -if lecture.status == 0
+               .row.icon.locked
+                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+              -else
+               -if lecture.status == 1
+                .row.icon.learning
+                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+               -else
+                -if lecture.status == 2
+                 .row.icon.completed
+                  %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+             .col.s10.no-padding.item-data
+              %span.item-name= lecture.title
+              .row.detail
+               - if lecture.asset_type == "Video"
+                .col.s3.offset-s6.icon-video-type.no-padding
+                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+                .col.s9.no-padding Video
+               - else
+                .col.s3.offset-s6.icon-document-type.no-padding
+                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+                .col.s9.no-padding Văn bản
   .col.s6.lecture-comment
    .row.lecture-comment-title 
     %span Thảo luận
