@@ -13,7 +13,8 @@
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
        Bài giảng trước 
    .row
-    .col.s10.offset-s1.leture-player
+    .col.s10.offset-s1.leture-player 
+     
      - if @lecture.asset_type == "Video"
       - @indexStart = @lecture.url.index('v=') + 2
       - if @lecture.url['&']
@@ -67,6 +68,7 @@
          .col.s10.no-padding.item-data
           %span.item-name= lecture.title
           .row.detail
+           
            - if lecture.asset_type == "Video"
             .col.s3.offset-s6.icon-video-type.no-padding
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
@@ -93,6 +95,7 @@
          .col.s10.no-padding.item-data
           %span.item-name= lecture.title
           .row.detail
+           
            - if lecture.asset_type == "Video"
             .col.s3.offset-s6.icon-video-type.no-padding
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
@@ -124,6 +127,7 @@
             .col.s10.no-padding.item-data
              %span.item-name= lecture.title
              .row.detail
+               
               - if lecture.asset_type == "Video"
                .col.s3.offset-s6.icon-video-type.no-padding
                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
@@ -148,6 +152,7 @@
             .col.s10.no-padding.item-data
              %span.item-name= lecture.title
              .row.detail
+              
               - if lecture.asset_type == "Video"
                .col.s3.offset-s6.icon-video-type.no-padding
                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
