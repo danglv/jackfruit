@@ -83,7 +83,7 @@
                 %p.course-title= ac.name
                 %p.course-author #{ac.user.name}
                 %p{:style => 'margin: 5px 0;'}
-                - if ac.price == 0
+                - if ac.price.to_s == '0'
                   %span.course-price.red-text
                     Miễn phí
                 - else
