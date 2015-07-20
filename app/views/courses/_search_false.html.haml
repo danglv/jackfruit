@@ -20,7 +20,7 @@
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
                     .row.course-title
-                      .col.s12.no-padding= tf.name
+                      .col.s12.no-padding.fix-height= tf.name
                     .row.course-author
                       .col.s12.no-padding= 'By ' + tf.user.name.to_s
                     .row.course-rating
@@ -54,7 +54,7 @@
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
                     .row.course-title
-                      .col.s12.no-padding= tf.name
+                      .col.s12.no-padding.fix-height= tf.name
                     .row.course-author
                       .col.s12.no-padding= 'By ' + tf.user.name.to_s
                     .row.course-rating
@@ -88,7 +88,7 @@
                     = image_tag 'course-image.png'
                   .card-content.course-content{:style => "height: 300px"}
                     .row.course-title
-                      .col.s12.no-padding= course.name
+                      .col.s12.no-padding.fix-height= course.name
                     .row.course-author
                       .col.s12.no-padding= 'By ' + course.user.name.to_s
                     .row.course-rating
