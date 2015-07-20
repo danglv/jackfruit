@@ -15,8 +15,9 @@ module Constants
   end
 
   module Labels
-    NEW    = "new"
-    STUDENT= "student"
+    FEATURED = "featured"
+    TOP_FREE = "top_free"
+    TOP_PAID = "top_paid"
   end
 
   module OwnedCourseTypes
