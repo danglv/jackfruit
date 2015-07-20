@@ -47,6 +47,7 @@
       }
       &-title {
         font-size: 18px;
+
       }
       &-title, &-author, &-other-info {
         margin: 0;
@@ -88,6 +89,7 @@
 
     &-title {
       margin-bottom: 10px;
+      line-height: 30px;
     }
 
     &-author {
@@ -96,7 +98,6 @@
     }
 
     &-rating {
-      margin-bottom: 15px;
       &-point {
         .material-icons {
           color: #727272;
@@ -129,19 +130,17 @@
 }
 
 .search{
-  &>.search-header{
-    background: #009688;
-    padding-left: 240px;
-    .col.s12{
+  .search-header {
+    background-color: #009688;
+    .search-false-title {
+      padding-left: 30px;
       margin-bottom: 20px;
-      h4{
-        color: white;
-        font-size: 24px;
-        height: 71px;
-        line-height: 71px;
-      }  
     }
-  }  
+    .search-result-title {
+      padding-left: 220px;
+      margin-bottom: 20px;
+    }
+  }
   &>.search-main{
     &>.sidebar{
       width: 240px;

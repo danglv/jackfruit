@@ -21,11 +21,11 @@
                 - else
                   %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              = @course.reviews.count.to_s + ' đánh giá ' + @course.students.to_s + ' người tham gia'
-      .row.valign-wrapper
+              = @course.reviews.count
+      .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
-        %a{:href => "#"}= "Tác giả: "+@course.user.name
+        %a{:href => "#",:style => "line-height:50px;"}= "Tác giả: "+@course.user.name
       - else
         %a{:href => "#"} Tudemy
       .row
@@ -37,12 +37,16 @@
             %a.row.courses{:href => "#"}
               - if @course.price.to_s == "0"
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
-              - else @course.price.to_s 
+              - else
                 %h5.course-price{:style => 'margin: 0'}= @course.price.to_s + " đ"
           .row
             .col.s6.no-padding
-              %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
-                Mua khóa học
+              - if @course.price.to_s == "0"
+                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                  Bắt đầu học ngay
+              - else 
+                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                  Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
               /   %i.material-icons.is-favorite favorite
@@ -105,10 +109,10 @@
           .collection.courses
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
-                %a.collection-item.active{:href => "#!"} #{curi.title}
+                %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
               - else
                 / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
-                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+curi.lecture_index.to_s}
+                %a.collection-item{:href =>  '#', :style => "pointer-events: none"}
                   .row.no-margin
                     .col.s11.left
                       %span.grey-text.left= (curi.lecture_index + 1 ).to_s+"."
@@ -123,7 +127,7 @@
             .col.s2.no-padding
               - if @course.user
                 = image_tag @course.user.avatar
-            .col.s10
+            .col.s10.no-padding
               .row
               - if @course.user
                 %a{:href => "#!"}= @course.user.name
@@ -246,11 +250,13 @@
           .row
             %ul.collection
               - @courses['related'].last.each do |relate|
-                %a.black-text{:href => "/courses/"+relate._id+"/learning"}
+                %a.black-text{:href => "/courses/"+relate._id+"/detail"}
                   %li.collection-item.avatar
-                    %img.circle{:alt => "", :src => relate.user.avatar}
+                    - if relate.user
+                      %img.circle{:alt => "", :src => relate.user.avatar}
                     %span.title.bold= relate.name
-                    %p= relate.user.name
+                    - if relate.user
+                      %p= relate.user.name
                     %span.courses
                       %span.course-rating
                       %span.course-rating-point

@@ -135,7 +135,7 @@
                           .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                             Miễn phí
                         - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price + "đ"
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price.to_s + "đ"
       .row
         .col.s12.no-padding
           .row
