@@ -64,47 +64,47 @@
           - @other_category.each do |cate|
             %li.other-category
               %a{:href => "/courses/#{cate.id}/all_courses"}= cate.name
-      .col.s9
-        .row.sorting
-          .input-field.col.s4
-            %select.sorting-options#sorting-options{:name => 'ordering'}
-              %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
-              %option{:value => 'ratings'} Đánh giá cao
-              %option{:value => 'newest'} Mới nhất
-              %option{:value => 'price-low-to-high'} Giá thấp đến cao
-              %option{:value => 'price-high-to-low'} Giá cao đến thấp
-        .row.courses.list-style
-          - @courses.each do |ac|
-            .col.s12
-              %a.row.course{:href => "/courses/#{ac.id}/detail"}
-                .col.s3.course-image
-                  = image_tag 'course-image.png'
-                .col.s9
-                  %p.course-title= ac.name
-                  %p.course-author #{ac.user.name}
-                  %p{:style => 'margin: 5px 0;'}
-                  - if ac.price == 0
-                    %span.course-price.red-text
-                      Miễn phí
-                  - else
-                    %span.course-price= ac.price
-                    %span.course-rating
-                      %span.course-rating-point
-                        - (1..5).each do |i|
-                          - if i <= ac.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
-                  %p.course-other-info= ac.benefit
-        .row
-          %div.center-pagination
-            %ul.pagination
-              %li.disabled
-                %a{:href => "#!"}
-                  %i.material-icons chevron_left
-              - (1..@total_page).each do |page|
-                %li{:style => 'cursor:pointer'}= page
-              %li.waves-effect
-                %a{:href => "#!"}
-                  %i.material-icons chevron_right
+    .col.s9
+      .row.sorting
+        .input-field.col.s4
+          %select.sorting-options#sorting-options{:name => 'ordering'}
+            %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
+            %option{:value => 'ratings'} Đánh giá cao
+            %option{:value => 'newest'} Mới nhất
+            %option{:value => 'price-low-to-high'} Giá thấp đến cao
+            %option{:value => 'price-high-to-low'} Giá cao đến thấp
+      .row.courses.list-style
+        - @courses.each do |ac|
+          .col.s12
+            %a.row.course{:href => "/courses/#{ac.id}/detail"}
+              .col.s3.course-image
+                = image_tag 'course-image.png'
+              .col.s9
+                %p.course-title= ac.name
+                %p.course-author #{ac.user.name}
+                %p{:style => 'margin: 5px 0;'}
+                - if ac.price == 0
+                  %span.course-price.red-text
+                    Miễn phí
+                - else
+                  %span.course-price= ac.price
+                  %span.course-rating
+                    %span.course-rating-point
+                      - (1..5).each do |i|
+                        - if i <= ac.average_rating
+                          %i.material-icons.is-rated star_rate
+                        - else
+                          %i.material-icons star_rate
+                    %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
+                %p.course-other-info= ac.benefit
+      .row
+        %div.center-pagination
+          %ul.pagination
+            %li.disabled
+              %a{:href => "#!"}
+                %i.material-icons chevron_left
+            - (1..@total_page).each do |page|
+              %li{:style => 'cursor:pointer'}= page
+            %li.waves-effect
+              %a{:href => "#!"}
+                %i.material-icons chevron_right
