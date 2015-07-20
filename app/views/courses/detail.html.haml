@@ -37,14 +37,14 @@
             %a.row.courses{:href => "#"}
               - if @course.price.to_s == "0"
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
-              - else @course.price.to_s 
+              - else
                 %h5.course-price{:style => 'margin: 0'}= @course.price.to_s + " đ"
           .row
             .col.s6.no-padding
               - if @course.price.to_s == "0"
                 %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
                   Bắt đầu học ngay
-              - else @course.price.to_s
+              - else 
                 %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
                   Mua khóa học
             .col.s6.no-padding
