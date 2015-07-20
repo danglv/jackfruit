@@ -13,5 +13,6 @@
       = f.check_box :remember_me
       = f.label :remember_me
   .actions
+    = hidden_field_tag :authenticity_token, form_authenticity_token
     = f.submit "Log in"
 = render "confirmable/shared/links"

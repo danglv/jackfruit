@@ -1,18 +1,10 @@
 %main.search
   .row.search-header
-    .col.s12
-      %h4 Không có kết quả cho từ khóa "#{@keywords}"
+    .row.container-1140.search-false-title
+      .col.s12
+        %h4 Không có kết quả cho từ khóa "#{@keywords}"
   .row.category-feature-main.container-1140
-    .col.sidebar
-      %ul.other-categories
-        %li.other-categories-title Cách chủ đề khác
-        %li.other-category
-          %a{:href => '/courses/1'} Phát triển web
-        %li.other-category
-          %a{:href => '/courses/1'} Ngôn ngữ lập trình
-        %li.other-category
-          %a{:href => '/courses/1'} Phát triển game
-    .col.s9
+    .col.s12
       -# highest-rating
       .row.course-list.highest-rating
       - if (!@courses['featured'].blank?)
