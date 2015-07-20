@@ -25,7 +25,7 @@
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
-        %a{:href => "#"}= "Tác giả: "+@course.user.name
+        %a{:href => "#",:style => "line-height:50px;"}= "Tác giả: "+@course.user.name
       - else
         %a{:href => "#"} Tudemy
       .row
@@ -109,10 +109,10 @@
           .collection.courses
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
-                %a.collection-item.active{:href => "#!"} #{curi.title}
+                %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
               - else
                 / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
-                %a.collection-item{:href =>  '/courses/'+@course._id+'/lecture/'+curi.lecture_index.to_s}
+                %a.collection-item{:href =>  '#', :style => "pointer-events: none"}
                   .row.no-margin
                     .col.s11.left
                       %span.grey-text.left= (curi.lecture_index + 1 ).to_s+"."
@@ -133,8 +133,6 @@
                 %a{:href => "#!"}= @course.user.name
               - else 
                 %a{:href => "#!"} Tudemy
-              %a{:href => "#!"}
-                = image_tag 'linkedin.png'
               %a{:href => "https://www.facebook.com/tudemy"}
                 = image_tag 'facebook.png'
           .row
