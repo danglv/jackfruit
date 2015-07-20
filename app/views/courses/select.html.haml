@@ -12,19 +12,19 @@
           .col.s9
             %p.course-title= @course.name
             %p= @course.sub_title
-            %p= @course.user.name.to_s
+            %p= "Tác giả: " + @course.user.name.to_s
             %a.btn-large.blue.darken-1{:href => "/courses/"+@course._id+"/learning"} Tiếp tục khóa học
   .row.course-list.highest-rating.container-1140
-    - @courses.each do |course_h|
-      - if course_h.last.count >0
+    - @courses.to_a.each do |course_h|
+      - if course_h.last.last.count >0
         .col.s12
           .row.course-list-header
             .col.s12
-              %h5.course-list-header-title= course_h.first
+              %h5.course-list-header-title= course_h.last.first
         .row.courses.card-style
-          - course_h.last.each do |course|
+          - course_h.last.last.each do |course|
             .col.s3
-              %a.course{:href => "/courses/"+course._id+"/learning"}
+              %a.course{:href => '/courses/'+course._id+'/detail'}
                 .card-image.course-image
                   = image_tag 'course-image.png'
                 .card-content.course-content

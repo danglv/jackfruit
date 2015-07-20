@@ -21,115 +21,43 @@
         .col.s12
           .row.course-list-header
             .col.s12
-              %h5.course-list-header-title Được đánh giá cao
+              %h5.course-list-header-title= @courses['featured'].first
           .row.courses.card-style
-            .col.s3
-              %a.course{:href => '!#'}
-                .card-image.course-image
-                  = image_tag 'course-image.png'
-                .card-content.course-content{:style => "height: 300px"}
-                  .row.course-title
-                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                  .row.course-author
-                    .col.s12.no-padding By Vijay Shinde
-                  .row.course-rating
-                    .col.s9.course-rating-point.no-padding
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons star_rate
-                      %i.material-icons star_rate
-                      %i.material-icons star_rate
-                      %i.material-icons star_rate
-                    .col.s3.course-rating-people.no-padding
-                      (4511)
-                  .row.course-footer
-                    .col.s6.no-padding.course-favorite
-                      %span.left
-                        %i.material-icons.is-favorite favorite
-                      %span.left 18.5K
-                    .col.s6.no-padding.course-price{:style => "text-align:right;"}
-                      220.000đ
-            .col.s3
-              %a.course{:href => '!#'}
-                .card-image.course-image
-                  = image_tag 'course-image.png'
-                .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                  .row.course-author
-                    .col.s12.no-padding By Vijay Shinde
-                  .row.course-rating
-                    .col.s7.course-rating-point.no-padding
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons star_rate
-                      %i.material-icons star_rate
-                      %i.material-icons star_rate
-                    .col.s5.course-rating-people.no-padding
-                      (4511)
-                  .row.course-footer
-                    .col.s6.no-padding.course-favorite
-                      %span.left
-                        %i.material-icons.is-favorite favorite
-                      %span.left 18.5K
-                    .col.s6.no-padding.course-price{:style => "text-align:right;"}
-                      220.000đ
-            .col.s3
-              %a.course{:href => '!#'}
-                .card-image.course-image
-                  = image_tag 'course-image.png'
-                .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                  .row.course-author
-                    .col.s12.no-padding By Vijay Shinde
-                  .row.course-rating
-                    .col.s7.course-rating-point.no-padding
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons star_rate
-                    .col.s5.course-rating-people.no-padding
-                      (4511)
-                  .row.course-footer
-                    .col.s6.no-padding.course-favorite
-                      %span.left
-                        %i.material-icons.is-favorite favorite
-                      %span.left 18.5K
-                    .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                      Miễn phí
-            .col.s3
-              %a.course{:href => '!#'}
-                .card-image.course-image
-                  = image_tag 'course-image.png'
-                .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding The best Software Testing you will ever get. The best Software Testing you will ever get.
-                  .row.course-author
-                    .col.s12.no-padding By Vijay Shinde
-                  .row.course-rating
-                    .col.s7.course-rating-point.no-padding
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                      %i.material-icons.is-rated star_rate
-                    .col.s5.course-rating-people.no-padding
-                      (4511)
-                  .row.course-footer
-                    .col.s6.no-padding.course-favorite
-                      %span.left
-                        %i.material-icons.is-favorite favorite
-                      %span.left 18.5K
-                    .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
-                      Miễn phí
+            - @courses["featured"].last.each do |tf|
+              .col.s3
+                %a.course{:href => '/courses/' + tf.id.to_s + '/detail'}
+                  .card-image.course-image
+                    = image_tag 'course-image.png'
+                  .card-content.course-content{:style => "height: 300px"}
+                    .row.course-title
+                      .col.s12.no-padding= tf.name
+                    .row.course-author
+                      .col.s12.no-padding= 'By ' + tf.user.name.to_s
+                    .row.course-rating
+                      .col.s7.course-rating-point.no-padding
+                        - (1..5).each do |i|
+                          - if i <= tf.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
+                    .row.course-footer
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite favorite
+                        %span.left= tf.students.to_s
+                      - if tf.price == 0
+                        .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
+                          Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s +'đ' 
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
             .col.s12
-              %h5.course-list-header-title Top Free
+              %h5.course-list-header-title= @courses["top_free"].first
           .row.courses.card-style
-            - @courses["top_free"].each do |tf|
+            - @courses["top_free"].last.each do |tf|
               .col.s3
                 %a.course{:href => '/courses/' + tf.id.to_s + '/detail'}
                   .card-image.course-image
@@ -161,9 +89,9 @@
         .col.s12
           .row.course-list-header
             .col.s12
-              %h5.course-list-header-title Top Paid
+              %h5.course-list-header-title= @courses["top_paid"].first
           .row.courses.card-style
-            - @courses["top_paid"].each do |course|
+            - @courses["top_paid"].last.each do |course|
               .col.s3
                 %a.course{:href => '/courses/' + course.id.to_s + '/detail'}
                   .card-image.course-image

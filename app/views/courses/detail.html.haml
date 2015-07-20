@@ -25,7 +25,7 @@
       .row.valign-wrapper
         %span.left
       - if @course.user
-        %a{:href => "#"}= @course.user.name
+        %a{:href => "#"}= "Tác giả: "+@course.user.name
       - else
         %a{:href => "#"} Tudemy
       .row
@@ -240,14 +240,13 @@
         .row
           .fb-share{:style => 'margin-top: 20px'}
             = image_tag 'fb-share.png'
-        .row
-          %h5
-            Chủ đề liên quan
-        .row
-          %ul.collection
-            - if @courses['related']
-              - @courses['related'].each do |relate|
-                %a.black-text{:href => "/courses/"+@course._id+"/learning"}
+        - if @courses['related'].last.count > 0    
+          .row
+            %h5= @courses['related'].first
+          .row
+            %ul.collection
+              - @courses['related'].last.each do |relate|
+                %a.black-text{:href => "/courses/"+relate._id+"/learning"}
                   %li.collection-item.avatar
                     %img.circle{:alt => "", :src => relate.user.avatar}
                     %span.title.bold= relate.name
@@ -266,37 +265,37 @@
                         - else
                           .col.s5.no-padding.course-price= relate.price.to_s + " đ"                
       .col.s12.course-list.highest-rating
+    - if @courses['featured']
       .col.s12
         .row.course-list-header
           .col.s12
             %h5.course-list-header-title Được đánh giá cao
         .row.courses.card-style
-          - if @courses['featured']
-            - @courses['featured'].each do |c|
-              .col.s3
-                %a.course{:href => '/courses/'+c._id+'/detail'}
-                  .card-image.course-image
-                    = image_tag 'course-image.png'
-                  .card-content.course-content{:style => "height: 255px"}
-                    .row.course-title
-                      .col.s12.no-padding= c.name 
-                    .row.course-author
-                    - if c.user
-                      .col.s12.no-padding= "By " + c.user.name
-                    .row.course-rating
-                      .col.s7.course-rating-point.no-padding
-                        - (1..5).each do |i|
-                          - if i <= c.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
-                    .row.course-footer
-                      .col.s7.no-padding.course-favorite
-                        %span.left
-                          %i.material-icons.is-favorite favorite
-                        %span.left=  c.students.to_s
-                      - if c.price == 0
-                        .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                      - else
-                        .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price.to_s + " đ"                 
+          - @courses['featured'].each do |c|
+            .col.s3
+              %a.course{:href => '/courses/'+c._id+'/detail'}
+                .card-image.course-image
+                  = image_tag 'course-image.png'
+                .card-content.course-content{:style => "height: 255px"}
+                  .row.course-title
+                    .col.s12.no-padding= c.name 
+                  .row.course-author
+                  - if c.user
+                    .col.s12.no-padding= "By " + c.user.name
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      - (1..5).each do |i|
+                        - if i <= c.average_rating
+                          %i.material-icons.is-rated star_rate
+                        - else
+                          %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
+                  .row.course-footer
+                    .col.s7.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite favorite
+                      %span.left=  c.students.to_s
+                    - if c.price == 0
+                      .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                    - else
+                      .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price.to_s + " đ"                 
