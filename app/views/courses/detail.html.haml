@@ -109,10 +109,10 @@
           .collection.courses
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
-                %a.collection-item.active{:href => "#"} #{curi.title}
+                %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
               - else
                 / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
-                %a.collection-item{:href =>  '#'}
+                %a.collection-item{:href =>  '#', :style => "pointer-events: none"}
                   .row.no-margin
                     .col.s11.left
                       %span.grey-text.left= (curi.lecture_index + 1 ).to_s+"."
