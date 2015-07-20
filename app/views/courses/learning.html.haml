@@ -74,7 +74,7 @@
       - @course.curriculums.each do |curriculum|
        - if curriculum.type == 'chapter'
         .row.lecture-chap
-         .col.s12.lecture-chap-title= curriculum.description
+         .col.s12.lecture-chap-title= curriculum.title
          .col.s12.lecture-list-items
           - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
            %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
@@ -92,7 +92,7 @@
                  .row.icon.completed
                   %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
              .col.s10.no-padding.item-data
-              %span.item-name= lecture.description
+              %span.item-name= lecture.title
               .row.detail
                - if lecture.asset_type == "Video"
                 .col.s3.offset-s6.icon-video-type.no-padding
