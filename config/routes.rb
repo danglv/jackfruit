@@ -55,7 +55,11 @@ Rails.application.routes.draw do
       get :alias
     end
   end
-
+  resources :support, only: %w[] do
+    collection do
+      post :index
+    end
+  end
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'  
