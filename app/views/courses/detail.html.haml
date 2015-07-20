@@ -38,7 +38,7 @@
               - if @course.price.to_s == "0"
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
               - else @course.price.to_s 
-                %h5.course-price{:style => 'margin: 0'}= @course.price + " đ"
+                %h5.course-price{:style => 'margin: 0'}= @course.price.to_s + " đ"
           .row
             .col.s6.no-padding
               %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
