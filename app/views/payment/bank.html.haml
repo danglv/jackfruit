@@ -8,9 +8,9 @@
       .row.green.payment-header
         .col.s6
           %h4.white-text Xác nhận thanh toán
-          %p.white-text Kỹ năng thuyết trình và nói trước công chúng
+          %p.white-text= @course.name 
         .col.s6
-          %h4.right.white-text 300.000d
+          %h4.right.white-text= @course.price.to_s + "đ"
       .container-1140
         = render 'payment_method', method: 'bank'
         .row.payment-content
