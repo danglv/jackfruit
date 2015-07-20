@@ -1,8 +1,8 @@
-%main.search.container-1140
+%main.search
   .row.search-header
     .col.s12
       %h4 Kết quả tìm kiếm cho từ khóa "#{@keywords}"
-  .row.category-main
+  .row.category-main.container-1140
     %form#test-form{:action => '', :method => 'GET'}
       %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
       %input#page-search{:type => 'hidden', :name => 'q', :value => ''}
