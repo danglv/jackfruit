@@ -12,7 +12,7 @@
           .col.s9
             %p.course-title= @course.name
             %p= @course.sub_title
-            %p= 'được hướng dẫn bởi ' + @course.user.name.to_s
+            %p= @course.user.name.to_s
             %a.btn-large.blue.darken-1{:href => "/courses/"+@course._id+"/learning"} Tiếp tục khóa học
   .row.course-list.highest-rating.container-1140
     - @courses.each do |course_h|
@@ -23,7 +23,7 @@
       .row.courses.card-style
         - course_h.last.each do |course|
           .col.s3
-            %a.course{:href => '!#'}
+            %a.course{:href => "/courses/"+course._id+"/learning"}
               .card-image.course-image
                 = image_tag 'course-image.png'
               .card-content.course-content
@@ -44,7 +44,7 @@
                     %span.left
                       %i.material-icons.is-favorite favorite
                     %span.left 18.5K
-                  -if course.price == 0
+                  -if course.price.to_s == "0"
                     .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
                       Miễn phí
                   - else
