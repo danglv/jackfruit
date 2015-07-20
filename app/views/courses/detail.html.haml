@@ -250,7 +250,7 @@
           .row
             %ul.collection
               - @courses['related'].last.each do |relate|
-                %a.black-text{:href => "/courses/"+relate._id+"/learning"}
+                %a.black-text{:href => "/courses/"+relate._id+"/detail"}
                   %li.collection-item.avatar
                     - if relate.user
                       %img.circle{:alt => "", :src => relate.user.avatar}
