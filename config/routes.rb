@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   
   root to: "application#index"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+
+  get '/home', to: redirect('/')
+  
   resources :courses, only: %w[index] do
     member do
       get '/lecture/:lecture_index', to: 'courses#lecture'
