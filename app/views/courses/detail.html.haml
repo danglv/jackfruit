@@ -262,9 +262,9 @@
                             %i.material-icons star_rate
                       .row
                         - if relate.price == 0
-                          .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                          .col.s5.no-padding.course-price.free Miễn phí
                         - else
-                          .col.s5.no-padding.course-price{:style => "text-align:right;"}= relate.price.to_s + " đ"                
+                          .col.s5.no-padding.course-price= relate.price.to_s + " đ"                
       .col.s12.course-list.highest-rating
       .col.s12
         .row.course-list-header
