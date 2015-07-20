@@ -107,7 +107,6 @@
             Giáo trình
           .divider
           .collection.courses
-            - binding.pry
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
                 %a.collection-item.active{:href => "#!"} #{curi.title}

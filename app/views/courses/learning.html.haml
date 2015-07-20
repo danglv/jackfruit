@@ -23,8 +23,8 @@
       .col.s10
        .row.no-padding
 
-        %p= @course.curriculums[@index].description
-        %p Starting Threads
+        %p= @course.curriculums[@index].title
+        / %p Starting Threads
         / %P 09:58 phút    
     - else
      %a{:href => '/courses/'+@course._id+'/lecture/' + @index.to_s}
@@ -33,15 +33,14 @@
       .col.s10
        .row.no-padding
         - if @course.curriculums[@index]
-         %p= @course.curriculums[@index].description
-         %p Starting Threads
+         %p= @course.curriculums[@index].title
+         / %p Starting Threads
         / %P 09:58 phút
    .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
    .row.progress{:style => "height:5px;background:#b6b6b6"}
     .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
    .row
-    .col.s12.list-lecture.no-paddingpry
-     - binding.pry
+    .col.s12.list-lecture.no-padding
      - have_chapter = @course.curriculums.where(type: "chapter").count == 0
      - if have_chapter
       - @course.curriculums.where(type: "lecture").each do |lecture|
