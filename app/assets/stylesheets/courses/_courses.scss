@@ -40,6 +40,11 @@
       color: #444;
       display: block;
       padding-top: 15px;
+      .fix-height{
+        line-height: 30px;
+        min-height: 90px;
+        overflow: hidden;
+      }
       &-image {
         img {
           width: 100%;
@@ -47,7 +52,6 @@
       }
       &-title {
         font-size: 18px;
-
       }
       &-title, &-author, &-other-info {
         margin: 0;
@@ -60,6 +64,11 @@
       color: #444;
       display: block;
       padding-top: 15px;
+      .fix-height{
+        line-height: 30px;
+        min-height: 90px;
+        overflow: hidden;
+      }
       &-image {
         img {
           width: 100%;
@@ -78,18 +87,24 @@
   }
 
   .course {
+    height: 380px;
+    .fix-height{
+      line-height: 30px;
+      min-height: 90px;
+      overflow: hidden;
+    }
     &-image {
-      height: auto;
+      height: 150px;
     }
 
     &-content {
       padding: 10px;
       height: auto;
+      height: 210px;
     }
 
     &-title {
       margin-bottom: 10px;
-      line-height: 30px;
     }
 
     &-author {
