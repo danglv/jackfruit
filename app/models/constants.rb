@@ -20,6 +20,12 @@ module Constants
     TOP_PAID = "top_paid"
   end
 
+  module OwnedCourseStatus
+    FREE = "free"
+    PENDING = "pending"
+    CONFIRMED = "confirmed"
+  end
+
   module OwnedCourseTypes
     LEARNING = "learning"
     TEACHING = "teaching"
