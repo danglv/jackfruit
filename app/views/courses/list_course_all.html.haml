@@ -12,10 +12,10 @@
               %a{:href => '/courses'} Trang chủ
             %li.breadcum-divider /
             %li.breadcum-item
-              %a{:href => '/courses/1'} Lập trình
+              %a{:href => '/courses/' + @category_id}= @category_name
       .row
         .col.s12
-          %h4.category-title Lập trình
+          %h4.category-title= @category_name
       .row{:style => 'margin-bottom: 0;'}
         .col.s12
           %ul.tab-category.no-margin
