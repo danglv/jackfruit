@@ -107,6 +107,12 @@ class CoursesController < ApplicationController
   def learning
     course_id = params[:id]
     @course = Course.where(id: course_id).first
+    @owned_course = current_user.courses.where(course_id: course_id).first
+    
+    if @owned_course.blank?
+      redirect_to root_url + "courses/#{course_id}/detail"
+      return
+    end
   end
 
   def lecture 
