@@ -18,7 +18,7 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      payment = Payment.create(
+      Payment.create(
         :name => name,
         :email => email,
         :mobile => mobile,
@@ -28,6 +28,12 @@ class PaymentController < ApplicationController
         :course_id => course_id,
         :user_id => current_user.id
       )
+      owned_course = current_user.courses.find_or_initialize_by(
+        course_id: course_id
+      )
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.status = Constants::Status::CONFIRMED
+      current_user.save
 
       redirect_to root_url + "/home/payment/success?course_id="+course_id
     end
