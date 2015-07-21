@@ -31,10 +31,9 @@
             %a.course{:href => '/courses/'+c._id+'/detail'}
               .card-image.course-image
                 = image_tag 'course-image.png'
-              .card-content.course-content{:style => "height: 255px"}
+              .card-content.course-content
                 .row.course-title
-                  .col.s12.no-padding= c.name 
-
+                  .col.s12.no-padding.fix-height= c.name 
                 .row.course-author
                 - if c.user
                   .col.s12.no-padding= c.user.name
