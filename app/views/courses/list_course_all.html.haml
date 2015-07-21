@@ -83,7 +83,7 @@
               .col.s3.course-image
                 = image_tag ac.image
               .col.s9
-                %p.course-title.fix-height= ac.name
+                %p.course-title= ac.name
                 %p.course-author #{ac.user.name}
                 %p{:style => 'margin: 5px 0;'}
                 - if ac.price.to_s == '0'
