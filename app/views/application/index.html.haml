@@ -30,7 +30,7 @@
           .col.s3
             %a.course{:href => '/courses/'+c._id+'/detail'}
               .card-image.course-image
-                = image_tag 'course-image.png'
+                = image_tag c.image
               .card-content.course-content
                 .row.course-title
                   .col.s12.no-padding.fix-height= c.name 
