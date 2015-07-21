@@ -1,0 +1,20 @@
+- @data = {}
+- @data['description'] = ['Mô tả', ['Mô tả 1','Mô tả 2']]
+- @data['requirement'] = ['Yêu cầu', ['yêu cầu 1', 'yêu cầu 2', 'yêu cầu 3']]
+- @data['audience'] = ['What is the target audience', ['audience 1', 'audience 2', 'audience 3']]
+/ description
+%h5= @data['description'].first
+- @data['description'].last.each do |item|
+	%p= item
+/requirement
+%h5= @data['requirement'].first
+%ul
+- @data['requirement'].last.each do |item|
+	%li
+		%p= item
+/audience
+%h5= @data['audience'].first
+%ul
+- @data['audience'].last.each do |item|
+	%li
+		%p= item

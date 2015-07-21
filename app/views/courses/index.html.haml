@@ -15,12 +15,13 @@
             .col.s3
               %a.course{:href => '/courses/'+course._id+'/detail'}
                 .card-image.course-image
-                  = image_tag 'course-image.png'
+                  = image_tag course.image
                 .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding= course.name
-                  .row.course-author
-                    .col.s12.no-padding= course.user.name
+                  .row.course-title 
+                    .col.s12.no-padding.fix-height= course.name
+                  .row.course-author 
+                    - if course.user
+                      .col.s12.no-padding= course.user.name
                   .row.course-rating
                     .col.s7.course-rating-point.no-padding
                       - (1..5).each do |i|
@@ -38,4 +39,4 @@
                       .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
                         Miễn phí
                     - else
-                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'
+                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'            

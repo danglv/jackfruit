@@ -1,5 +1,7 @@
 %header
   = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+  
 .row.sign-up
   .col.s2 &nbsp;
   .col.s8
@@ -39,5 +41,6 @@
       .row
         .col.s12{:style => 'text-align: center;'}
           Đã có tài khoản?
+          = hidden_field_tag :authenticity_token, form_authenticity_token
           %a.modal-action.modal-close.modal-trigger{:href => '#modal-login'} Đăng nhập
   .col.s2

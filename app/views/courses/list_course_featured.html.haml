@@ -18,8 +18,11 @@
           %h4.category-title Lập trình
       .row{:style => 'margin-bottom: 0;'}
         .col.s12
-          %a.btn.white.black-text.bold.disabled{:href => '#featured-courses'} Nổi bật
-          %a.btn.white.black-text.bold{:href => "#{@category_id}/all_courses"} Tất cả các khoá học
+          %ul.tab-category.no-margin
+            %li.active
+              %a{:href => "/courses/#{@category_id}"} Nổi bật
+            %li
+              %a{:href => '#all-courses'} Tất cả các khoá học
   .row.category-feature-main.container-1140
     .left.sidebar
       %ul.other-categories
@@ -40,10 +43,10 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tf.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 400px"}
+                      = image_tag tf.image
+                    .card-content.course-content
                       .row.course-title
-                        .col.s12.no-padding= tf.name
+                        .col.s12.no-padding.fix-height= tf.name
                       .row.course-author
                         .col.s12.no-padding #{tf.user.name}
                       .row.course-rating
@@ -76,10 +79,10 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tp.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 300px"}
+                      = image_tag tp.image
+                    .card-content.course-content
                       .row.course-title
-                        .col.s12.no-padding= tp.name
+                        .col.s12.no-padding.fix-height= tp.name
                       .row.course-author
                         .col.s12.no-padding #{tp.user.name}
                       .row.course-rating
@@ -112,10 +115,10 @@
                 .col.s4
                   %a.course{:href => "/courses/#{ne.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 300px"}
+                      = image_tag ne.image
+                    .card-content.course-content
                       .row.course-title
-                        .col.s12.no-padding= ne.name
+                        .col.s12.no-padding.fix-height= ne.name
                       .row.course-author
                         .col.s12.no-padding #{ne.user.name}
                       .row.course-rating
@@ -135,7 +138,7 @@
                           .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                             Miễn phí
                         - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price + "đ"
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price.to_s + "đ"
       .row
         .col.s12.no-padding
           .row
