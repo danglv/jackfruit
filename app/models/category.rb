@@ -17,6 +17,12 @@ class Category
 
   before_save :calculate_child_categories, :order
 
+  @@cache_categories = nil
+  
+  def self.get_categories
+    @@cache_categories = @@cache_categories || Category.where(:parent_category_id => nil, enabled: true).asc(:order).to_a
+  end
+
   def calculate_child_categories
     self.child_category_count = self.child_categories.count
   end
