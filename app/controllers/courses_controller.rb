@@ -28,6 +28,7 @@ class CoursesController < ApplicationController
   def list_course_featured
     @category_id = params[:category_id]
     category = Category.where(id: @category_id).first
+    @category_name = category.name;
 
     @courses = {}
     @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
@@ -59,6 +60,7 @@ class CoursesController < ApplicationController
     page        = params[:page] || 1
 
     category = Category.where(id: @category_id).first
+    @category_name = category.name;
     # filter sort paginate course
 
     budget   = params[:budget]
