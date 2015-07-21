@@ -115,27 +115,26 @@
                       %span #{curi.title}
                     .col.s1
                       / %span.right 07:07
-        - if 1==2
-          .row
-            %h5
-              Tiểu sử tác giả
-            .row
-              .col.s2.no-padding
-                - if @course.user.avatar != ''
-                  = image_tag @course.user.avatar
-                - else
-                  = image_tag 'avatar.png', :style => "width:40px; height:40px; margin-bottom: 4px"
-              .col.s10.no-padding
-                .row
-                - if @course.user
-                  %a{:href => "#!"}= @course.user.name
-                - else 
-                  %a{:href => "#!"} Tudemy
-                %a{:href => "https://www.facebook.com/tudemy"}
-                  = image_tag 'facebook.png'
-            .row
-              %p= @course.user.biography
-            %a{:href => "/users/" + @course.user._id + "/show"}
+          / .row
+          /   %h5
+          /     Tiểu sử tác giả
+          /   .row
+          /     .col.s2.no-padding
+          /       - if @course.user
+          /         = image_tag @course.user.avatar
+          /       - else
+          /         = image_tag 'avatar.png', :style => "width:40px; height:40px; margin-bottom: 4px"
+          /     .col.s10.no-padding
+          /       .row
+          /       - if @course.user
+          /         %a{:href => "#!"}= @course.user.name
+          /       - else 
+          /         %a{:href => "#!"} Tudemy
+          /       %a{:href => "https://www.facebook.com/tudemy"}
+          /         = image_tag 'facebook.png'
+          /   .row
+          /     %p= @course.user.biography
+          / %a{:href => "/users/" + @course.user._id + "/show"}
           /     Tiểu sử chi tiết
           / .row.courses
           /   %h4
