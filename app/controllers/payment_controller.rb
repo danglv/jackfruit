@@ -49,6 +49,7 @@ class PaymentController < ApplicationController
   end
 
   def success
-    
+    course_id = params[:course_id]
+    @course = Course.where(:id => course_id).first
   end
 end

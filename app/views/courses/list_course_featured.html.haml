@@ -18,8 +18,11 @@
           %h4.category-title Lập trình
       .row{:style => 'margin-bottom: 0;'}
         .col.s12
-          %a.btn.white.black-text.bold.disabled{:href => '#featured-courses'} Nổi bật
-          %a.btn.white.black-text.bold{:href => "#{@category_id}/all_courses"} Tất cả các khoá học
+          %ul.tab-category.no-margin
+            %li.active
+              %a{:href => '#'} Nổi bật
+            %li
+              %a{:href => '/courses/' + @category_id + '/all_courses'} Tất cả các khoá học
   .row.category-feature-main.container-1140
     .left.sidebar
       %ul.other-categories
@@ -40,7 +43,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tf.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag tf.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
@@ -76,7 +79,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tp.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag tp.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tp.name
@@ -112,7 +115,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{ne.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag ne.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= ne.name

@@ -17,7 +17,7 @@
               .col.s3
                 %a.course{:href => '/courses/' + tf.id.to_s + '/detail'}
                   .card-image.course-image
-                    = image_tag 'course-image.png'
+                    = image_tag tf.image
                   .card-content.course-content
                     .row.course-title
                       .col.s12.no-padding.fix-height= tf.name
@@ -51,7 +51,7 @@
               .col.s3
                 %a.course{:href => '/courses/' + tf.id.to_s + '/detail'}
                   .card-image.course-image
-                    = image_tag 'course-image.png'
+                    = image_tag tf.image
                   .card-content.course-content
                     .row.course-title
                       .col.s12.no-padding.fix-height= tf.name
@@ -85,7 +85,7 @@
               .col.s3
                 %a.course{:href => '/courses/' + course.id.to_s + '/detail'}
                   .card-image.course-image
-                    = image_tag 'course-image.png'
+                    = image_tag course.image
                   .card-content.course-content
                     .row.course-title
                       .col.s12.no-padding.fix-height= course.name
