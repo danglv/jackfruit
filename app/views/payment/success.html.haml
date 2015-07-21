@@ -17,12 +17,12 @@
               .offset-s1.col.s2.left-align
                 %span Khóa học
               .offset-s1.col.s6.right-align
-                %span.black-text Kỹ năng thuyết trình và nói trước công chúng
+                %span.black-text= @course.name
             .row{:style => "border-bottom: 1px solid #333"}
               .offset-s1.col.s2.left-align
                 %span Chi phí
               .offset-s1.col.s6.right-align
-                %span.green-text 300.000đ
+                %span.green-text= @course.price
             .row.valign-wrapper
               .offset-s1.col.s1
                 %i.material-icons.blue-text.darken-1 phone
