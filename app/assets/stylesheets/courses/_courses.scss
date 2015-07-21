@@ -40,6 +40,18 @@
       color: #444;
       display: block;
       padding-top: 15px;
+      .fix-height{
+        line-height: 24px;
+        min-height: 72px;
+        max-height: 72px;
+        overflow: hidden;
+      }
+      .fix-height-info{
+        line-height: 24px;
+        min-height: 48px;
+        max-height: 48px;
+        overflow: hidden;
+      }
       &-image {
         img {
           width: 100%;
@@ -59,6 +71,18 @@
       color: #444;
       display: block;
       padding-top: 15px;
+      .fix-height{
+        line-height: 24px;
+        min-height: 72px;
+        max-height: 72px;
+        overflow: hidden;
+      }
+      .fix-height-info{
+        line-height: 24px;
+        min-height: 48px;
+        max-height: 48px;
+        overflow: hidden;
+      }
       &-image {
         img {
           width: 100%;
@@ -225,6 +249,18 @@
 
   &.list-style {
     .course {
+      .fix-height{
+        line-height: 24px;
+        min-height: 72px;
+        max-height: 72px;
+        overflow: hidden;
+      }
+      .fix-height-info{
+        line-height: 24px;
+        min-height: 48px;
+        max-height: 48px;
+        overflow: hidden;
+      }
       border-top: 1px solid #b6b6b6;
       color: #444;
       display: block;
