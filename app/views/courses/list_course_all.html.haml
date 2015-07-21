@@ -18,8 +18,11 @@
           %h4.category-title Lập trình
       .row{:style => 'margin-bottom: 0;'}
         .col.s12
-          %a.btn.white.black-text.bold{:href => "/courses/#{@category_id}"} Nổi bật
-          %a.btn.white-text.bold.disabled{:href => '#all-courses'} Tất cả các khoá học
+          %ul.tab-category.no-margin
+            %li
+              %a{:href => "/courses/#{@category_id}"} Nổi bật
+            %li.active
+              %a{:href => '#all-courses'} Tất cả các khoá học
   .row.container-1140
     .col.sidebar
       %form#test-form{:action => '', :method => 'GET'}
