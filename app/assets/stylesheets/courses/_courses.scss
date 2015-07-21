@@ -41,8 +41,15 @@
       display: block;
       padding-top: 15px;
       .fix-height{
-        line-height: 30px;
-        min-height: 90px;
+        line-height: 24px;
+        min-height: 72px;
+        max-height: 72px;
+        overflow: hidden;
+      }
+      .fix-height-info{
+        line-height: 24px;
+        min-height: 48px;
+        max-height: 48px;
         overflow: hidden;
       }
       &-image {
@@ -65,8 +72,15 @@
       display: block;
       padding-top: 15px;
       .fix-height{
-        line-height: 30px;
-        min-height: 90px;
+        line-height: 24px;
+        min-height: 72px;
+        max-height: 72px;
+        overflow: hidden;
+      }
+      .fix-height-info{
+        line-height: 24px;
+        min-height: 48px;
+        max-height: 48px;
         overflow: hidden;
       }
       &-image {
@@ -89,8 +103,15 @@
   .course {
     height: auto;
     .fix-height{
-      line-height: 30px;
-      min-height: 90px;
+      line-height: 24px;
+      min-height: 72px;
+      max-height: 72px;
+      overflow: hidden;
+    }
+    .fix-height-info{
+      line-height: 24px;
+      min-height: 48px;
+      max-height: 48px;
       overflow: hidden;
     }
     &-image {
@@ -126,8 +147,10 @@
     }
 
     &-favorite {
+      margin-bottom: 20px;
       .material-icons {
         color: #727272;
+        margin-right: 10px;
         &.is-favorite {
           color: #ff4444;
         }
@@ -269,8 +292,10 @@
     }
 
     &-favorite {
+      margin-bottom: 20px;
       .material-icons {
         color: #727272;
+        margin-right: 10px;
         &.is-favorite {
           color: #ff4444;
         }
