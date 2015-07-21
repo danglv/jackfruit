@@ -28,10 +28,10 @@
       = csrf_meta_tags
       %body
         = yield
+        = javascript_include_tag 'application'
         = render :partial => 'confirmable/sessions/new'
         = render :partial => 'confirmable/registrations/new'
         = render :partial => 'confirmable/support/new'
-        = javascript_include_tag 'application'
 
         - if Rails.env == 'production'
           :javascript
