@@ -31,7 +31,7 @@
       .row
         .col.s7.no-padding
           .video-container.no-controls
-            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed//09R8_2nJtjg?rel=0", :width => "853"}
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed/09R8_2nJtjg?rel=0", :width => "853"}
         .col.s5
           .row
             %a.row.courses{:href => "#"}
@@ -96,12 +96,7 @@
     .row.detail-main{:style => "padding: 0px auto; width:85%"}
       .col.s7
         .row
-          %h3
-            Mô tả về khóa học
-          %p
-            = @course.description
-          %a{:href => "#"}
-            Xem chi tiết
+          = render 'detail_description', method: 'detail'
         .row
           %h4{:style => 'border-bottom: 1px solid #999'}
             Giáo trình
@@ -240,8 +235,8 @@
             Xem thêm các bình luận khác
       .col.s4
         .row
-          .fb-share{:style => 'margin-top: 20px'}
-            = image_tag 'fb-share.png'
+          #fb-root
+          .fb-share-button{:"data-href" => "#{request.url}", :"data-layout" => "button"}
         - if @courses['related'].last.count > 0    
           .row
             %h5= @courses['related'].first
@@ -279,7 +274,7 @@
             .col.s3
               %a.course{:href => '/courses/'+c._id+'/detail'}
                 .card-image.course-image
-                  = image_tag 'course-image.png'
+                  = image_tag c.image
                 .card-content.course-content
                   .row.course-title
                     .col.s12.no-padding= c.name 
