@@ -128,7 +128,9 @@ class CoursesController < ApplicationController
     # set lecture ratio = 100(finish)
     @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
     
-    @owned_lecture.set(lecture_ratio: 100, status: 2)
+    @owned_lecture.lecture_ratio = 100
+    @owned_lecture.status = 2
+    @owned_course.save
     current_user.save
   end
 
