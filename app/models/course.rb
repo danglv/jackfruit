@@ -19,7 +19,7 @@ class Course
   field :num_rate, type: Integer, default: 0
   field :students, type: Integer, default: 0
 
-  field :image, type: String, default: "avatar.png"
+  field :image, type: String, default: "course-image.png"
   field :intro_link, type: String, default: ""
   field :intro_image, type: String, default: ""
 
