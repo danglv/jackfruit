@@ -1,6 +1,7 @@
 .category {
   background-color: #f1f1f1;
   .category-header {
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
     background-color: $secondary-color;
     color: color('shades', 'white');
     margin-bottom: 0;
@@ -13,6 +14,20 @@
   .sidebar {
     padding-top: 24px;
     width: 240px;
+  }
+  .tab-category{
+    &>li.active{
+      border-bottom: 5px solid #80cbc4;
+    }
+    &>li{
+      display: inline-block;
+      margin-right: 15px;
+      line-height: 34px;
+      &>a{
+        color: white;
+        font-size: 16px;
+      }
+    }
   }
 }
 
@@ -87,7 +102,7 @@
   }
 
   .course {
-    height: 380px;
+    height: auto;
     .fix-height{
       line-height: 30px;
       min-height: 90px;
@@ -377,7 +392,7 @@
        text-transform: uppercase;
        }
       .search{
-         padding: 0px;
+        padding: 0px;
         width: 168px;
         height: 28px;
         margin:0px;
@@ -481,7 +496,7 @@
       height: 20px;
       border-radius: 20px;
       margin-left: -24px;
-       margin-top: 8px;
+      margin-top: 8px;
     }
     .item-data{
       margin-top: 8px;
@@ -501,7 +516,7 @@
     }
     .detail{
       margin-left: 20px;
-     margin-bottom: 15px;
+      margin-bottom: 15px;
     } 
     .item-container{
       margin-bottom: 0px;
@@ -605,7 +620,7 @@
       height: 20px;
       border-radius: 20px;
       margin-left: -24px;
-       margin-top: 8px;
+      margin-top: 8px;
     }
     .item-data{
       margin-top: 8px;
