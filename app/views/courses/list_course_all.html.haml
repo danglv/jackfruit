@@ -81,7 +81,7 @@
           .col.s12
             %a.row.course{:href => "/courses/#{ac.id}/detail"}
               .col.s3.course-image
-                = image_tag 'course-image.png'
+                = image_tag ac.image
               .col.s9
                 %p.course-title.fix-height= ac.name
                 %p.course-author #{ac.user.name}

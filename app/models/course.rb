@@ -19,6 +19,8 @@ class Course
   field :num_rate, type: Integer, default: 0
   field :students, type: Integer, default: 0
 
+  field :image, type: String, default: "avatar.png"
+
   embeds_many :curriculums, class_name: "Course::Curriculum"
   embeds_many :discussions, class_name: "Course::Discussion"
   embeds_many :reviews, class_name: "Course::Review"
