@@ -22,7 +22,10 @@
         .col.s3.right{:style => 'text-align: right;'}
           / Dropdown Trigger
           %a.dropdown-button{"data-activates" => "user-info-dropdown", :style => 'display: inline-block;'}
-            %img{:src => current_user.avatar}
+            - if current_user.avatar && current_user.avatar != ''
+              %img{:src => current_user.avatar, :style => "width:40px; height:40px"}
+            - else 
+              = image_tag 'avatar.png', :style => "width:40px; height:40px"
           / Dropdown Structure
           %ul#user-info-dropdown.dropdown-content
             %li
