@@ -3,7 +3,7 @@
     .row.container-1140.search-result-title
       .row
         .col.s12.no-padding
-          %h4.white-text Kết quả tìm kiếm cho từ khóa "#{@keywords}"
+          %h4 Kết quả tìm kiếm cho từ khóa "#{@keywords}"
   .row.category-main.container-1140
     %form#test-form{:action => '', :method => 'GET'}
       %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
@@ -75,7 +75,6 @@
                           - else
                             %i.material-icons star_rate
                       %span.course-rating-people= '(' + course.num_rate.to_s + ')'
-                  %p.course-other-info= course.benefit
         .row
           %div.center-pagination
             %ul.pagination
