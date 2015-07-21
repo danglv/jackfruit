@@ -40,7 +40,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tf.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag tf.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
@@ -76,7 +76,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{tp.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag tp.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tp.name
@@ -112,7 +112,7 @@
                 .col.s4
                   %a.course{:href => "/courses/#{ne.id}/detail"}
                     .card-image.course-image
-                      = image_tag 'course-image.png'
+                      = image_tag ne.image
                     .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= ne.name
