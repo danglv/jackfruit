@@ -235,8 +235,8 @@
             Xem thêm các bình luận khác
       .col.s4
         .row
-          .fb-share{:style => 'margin-top: 20px'}
-            = image_tag 'fb-share.png'
+          #fb-root
+          .fb-share-button{:"data-href" => "#{request.url}", :"data-layout" => "button"}
         - if @courses['related'].last.count > 0    
           .row
             %h5= @courses['related'].first
