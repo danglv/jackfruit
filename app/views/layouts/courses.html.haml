@@ -2,6 +2,10 @@
 %html
   %head
     - if params[:action] == "detail"
+      - if @course.image.blank?
+        - image = "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11754761_1425168711147041_1552365735035263083_o.jpg"
+      - else
+        - image = @course.image
       %meta{:property => "og:title", :content => "#{@course.name}"}/
       %meta{:property => "og:site_name", :content => "Khoá học của Tudemy"}/
       %meta{:property => "og:url", :content => "#{request.url}"}/
@@ -9,7 +13,8 @@
       %meta{:property => "fb:app_id", :content => "1592966984299237"}/
       %meta{:content => "en_US", :property => "og:locale"}/
       %meta{:content => "https://www.facebook.com/fuu.ng.5", :property => "article:author"}/
-      %meta{:content => "https://www.facebook.com/pages/Tudemy/1460650207589951", :property => "article:publisher"}/
+      %meta{:content => "https://www.facebook.com/profile.php?id=100009617780315", :property => "article:publisher"}/
+      %meta{:property => "og:image", :content => "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11754761_1425168711147041_1552365735035263083_o.jpg"}/
 
       %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
       %meta{:name => "viewport", :content => "width=device-width"}/
