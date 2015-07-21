@@ -31,7 +31,7 @@
       .row
         .col.s7.no-padding
           .video-container.no-controls
-            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed//09R8_2nJtjg?rel=0", :width => "853"}
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => "//www.youtube.com/embed/09R8_2nJtjg?rel=0", :width => "853"}
         .col.s5
           .row
             %a.row.courses{:href => "#"}
@@ -96,12 +96,7 @@
     .row.detail-main{:style => "padding: 0px auto; width:85%"}
       .col.s7
         .row
-          %h3
-            Mô tả về khóa học
-          %p
-            = @course.description
-          %a{:href => "#"}
-            Xem chi tiết
+          = render 'detail_description', method: 'detail'
         .row
           %h4{:style => 'border-bottom: 1px solid #999'}
             Giáo trình
