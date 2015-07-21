@@ -41,7 +41,7 @@
                   %a.course{:href => "/courses/#{tf.id}/detail"}
                     .card-image.course-image
                       = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 400px"}
+                    .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
                       .row.course-author
@@ -77,7 +77,7 @@
                   %a.course{:href => "/courses/#{tp.id}/detail"}
                     .card-image.course-image
                       = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 300px"}
+                    .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= tp.name
                       .row.course-author
@@ -113,7 +113,7 @@
                   %a.course{:href => "/courses/#{ne.id}/detail"}
                     .card-image.course-image
                       = image_tag 'course-image.png'
-                    .card-content.course-content{:style => "height: 300px"}
+                    .card-content.course-content
                       .row.course-title
                         .col.s12.no-padding.fix-height= ne.name
                       .row.course-author
