@@ -144,6 +144,48 @@ namespace :seeds do
     }
     puts "so luong : #{@count}"
   end
+
+  desc "rename images for courses"
+  task rename_images_for_course: :environment do
+    images = Dir["db/seeding_data/images/*"]
+    file_name = "db/seeding_data/course_name/course name map"
+    data = load_csv_file(file_name) and true
+
+    # chuẩn hóa tên file & ten course
+    images_name = []
+    images.each{|image|
+      image.gsub!("db/seeding_data/images/", "")
+      image.gsub!("x-.", "")
+      image.gsub!("x-", "")
+      image.gsub!("\u0096", "")
+      image.gsub!("---", "-")
+      image.gsub!("--", "-")
+      image.gsub!(" .", ".")
+      image.gsub!("..", ".")
+      image.gsub!(".png", "")
+      images_name << nomalize_string(image)
+    }
+
+    results = []
+    data.each{|row|
+      if (!row[2].blank? && !row[7].blank?)
+        row[2].gsub!("x-.", "")
+        row[2].gsub!("x-", "")
+        row[2].gsub!("\u0096", "")
+        row[2].gsub!("---", "-")
+        row[2].gsub!("--", "-")
+        row[2].gsub!("\"", "")
+        row[2] = nomalize_string(row[2])
+        results << [row[2], row[7]] 
+      end
+    }
+
+    CSV.open("db/seeding_data/export.csv", "w") do |csv|
+      results.each{|result|
+        csv << [result[0], nomalize_string(result[1])]
+      }
+    end
+  end
 end
 
 def load_csv_file(file_name)
@@ -169,9 +211,13 @@ def nomalize_string(unicode_string)
     "ŕŗř" => 'r',
     "śŝşšſ" => 's',
     "ţťŧ" => 't',
-    "ûüūŭůűųùúủũụưừứủữựÙÚỦŨỤƯỪỨỬỮỰ" => 'u',
+    "ửûüūŭůűųùúủũụưừứủữựÙÚỦŨỤƯỪỨỬỮỰ" => 'u',
     "ỳýỷỹỵỲÝỶỸỴ" => 'y',
-    " " => '-'
+    " " => '-',
+    "/" => "-",
+    "----" => "-",
+    "---" => "-",
+    "--" => "-"
   }.each {|pattern, replacement|
     ascii_string.gsub!(/[#{pattern}]/, replacement)
   }
