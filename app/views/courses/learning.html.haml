@@ -22,8 +22,10 @@
        %i.medium.material-icons.white-text{:style => "margin-top:10px;"} play_circle_filled
       .col.s10
        .row.no-padding
-
-        %p= @course.curriculums[@index].title
+        - if @course.curriculums[@index]
+         %p= @course.curriculums[@index].title
+        - else
+         %p= @course.curriculums[@index - 1].title
         / %p Starting Threads
         / %P 09:58 phút    
     - else
@@ -44,19 +46,20 @@
      - have_chapter = @course.curriculums.where(type: "chapter").count == 0
      - if have_chapter
       - @course.curriculums.where(type: "lecture").each do |lecture|
+       - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
        .col.s12.lecture-list-items
         %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
          .row.no-margin
           .col.s1
-           -if lecture.status == 0
+           -if owned_lecture.status == 0
             .row.icon.locked
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
            -else
-            -if lecture.status == 1
+            -if owned_lecture.status == 1
              .row.icon.learning
               %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
             -else
-             -if lecture.status == 2
+             -if owned_lecture.status == 2
               .row.icon.completed
                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
           .col.s10.no-padding.item-data
@@ -77,18 +80,19 @@
          .col.s12.lecture-chap-title= curriculum.title
          .col.s12.lecture-list-items
           - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
+           - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
            %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
             .row.no-margin
              .col.s1
-              -if lecture.status == 0
+              -if owned_lecture.status == 0
                .row.icon.locked
                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
               -else
-               -if lecture.status == 1
+               -if owned_lecture.status == 1
                 .row.icon.learning
                  %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
                -else
-                -if lecture.status == 2
+                -if owned_lecture.status == 2
                  .row.icon.completed
                   %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
              .col.s10.no-padding.item-data
