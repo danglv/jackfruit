@@ -49,20 +49,21 @@
    - have_chapter = @course.curriculums.where(type: "chapter").count == 0
    - if have_chapter
     - @course.curriculums.where(type: "lecture").each do |lecture|
+     - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
      .col.s12.lecture-list-items
       - if @lecture.lecture_index == lecture.lecture_index
        %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
-          -if lecture.status == 0
+          -if owned_lecture.status == 0
            .row.icon.locked
             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
           -else
-           -if lecture.status == 1
+           -if owned_lecture.status == 1
             .row.icon.learning
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
            -else
-            -if lecture.status == 2
+            -if owned_lecture.status == 2
              .row.icon.completed
               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
          .col.s10.no-padding.item-data
@@ -81,15 +82,15 @@
        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
-          -if lecture.status == 0
+          -if owned_lecture.status == 0
            .row.icon.locked
             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
           -else
-           -if lecture.status == 1
+           -if owned_lecture.status == 1
             .row.icon.learning
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
            -else
-            -if lecture.status == 2
+            -if owned_lecture.status == 2
              .row.icon.completed
               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
          .col.s10.no-padding.item-data
