@@ -9,7 +9,7 @@
         .col.s12
           .row.course-list-header
             .col.s12
-              %h5.course-list-header-title= course_h.last.first
+              %h5.course-list-header-title.fix-height= course_h.last.first
         .row.courses.card-style
           - course_h.last.last.each do |course|
             .col.s3
