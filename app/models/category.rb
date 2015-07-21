@@ -16,6 +16,7 @@ class Category
   validates_numericality_of :child_category_count, only_integer: true, greater_than_or_equal: 0
 
   before_save :calculate_child_categories, :order
+  after_save :update_cache
 
   @@cache_categories = nil
   
@@ -30,5 +31,9 @@ class Category
   def order
     order = Category.where(:order.ne => nil).count - 1
     self.order = order  if self.order == nil
+  end
+
+  def update_cache
+    @@cache_categories = Category.where(:parent_category_id => nil, enabled: true).asc(:order).to_a
   end
 end
