@@ -50,7 +50,7 @@
               - if @course.price.to_s == "0"
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
               - else
-                %h5.course-price{:style => 'margin: 0'}= @course.price.to_s + " đ"
+                %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row
             .col.s6.no-padding
               - if @course.price.to_s == "0"
@@ -270,7 +270,7 @@
                         - if relate.price == 0
                           .col.s5.no-padding.course-price.free Miễn phí
                         - else
-                          .col.s5.no-padding.course-price= relate.price.to_s + " đ"                
+                          .col.s5.no-padding.course-price= number_to_currency(relate.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       .col.s12.course-list.highest-rating
     - if @courses['featured']
       .col.s12
@@ -305,4 +305,4 @@
                     - if c.price == 0
                       .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                     - else
-                      .col.s5.no-padding.course-price{:style => "text-align:right;"}= c.price.to_s + " đ"                 
+                      .col.s5.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(c.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")

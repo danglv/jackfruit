@@ -66,7 +66,7 @@
                           .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                             Miễn phí
                         - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + "đ"
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(tf.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       -# top_paid
       .row.course-list.highest-rating
         .col.s12.no-padding
@@ -102,7 +102,7 @@
                           .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                             Miễn phí
                         - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tp.price.to_s + "đ"
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(tp.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       -# newest
       .row.course-list.highest-rating
         .col.s12.no-padding
@@ -138,7 +138,7 @@
                           .col.s6.no-padding.course-price.free{:style => "text-align:right;"}
                             Miễn phí
                         - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= ne.price.to_s + "đ"
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(ne.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       .row
         .col.s12.no-padding
           .row
