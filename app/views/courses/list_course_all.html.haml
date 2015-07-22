@@ -90,7 +90,7 @@
                   %span.course-price.red-text
                     Miễn phí
                 - else
-                  %span.course-price= ac.price.to_s + 'đ'
+                  %span.course-price= number_to_currency(ac.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.course-rating
                     %span.course-rating-point
                       - (1..5).each do |i|

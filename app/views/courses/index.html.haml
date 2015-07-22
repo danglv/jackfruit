@@ -39,4 +39,4 @@
                       .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
                         Miễn phí
                     - else
-                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ'            
+                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
