@@ -101,7 +101,7 @@
                 .col.s9.no-padding Văn bản
   .col.s6.lecture-comment
    .row.lecture-comment-title 
-    %span Thảo luận
+    %span.bold Thảo luận
    .row.lecture-comment-tool
     %ul
      %li
@@ -109,7 +109,7 @@
      %li
       %span.or hoặc
      %li
-      %a.waves-effect.waves-light.btn.add_comment Đăng thảo luận
+      %a.waves-effect.waves-light.btn.add_comment Thêm thảo luận
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user

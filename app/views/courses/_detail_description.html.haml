@@ -6,21 +6,21 @@
 /requirement
 - if @course['requirement'].count > 2
 	%h5= @course['requirement'].first
-	%ul
-	- (1..@course['requirement'].count-1).each do |i|
-		%li
-			%p= @course['requirement'][i]
+	%ul{:style => "list-style: none"}
+		- (1..@course['requirement'].count-1).each do |i|
+			%li
+				%p= @course['requirement'][i]
 /benefit
 - if @course['benefit'].count > 2
 	%h5= @course['benefit'].first
-	%ul
-	- (1..@course['benefit'].count-1).each do |i|
-		%li
-			%p= @course['benefit'][i]
+	%ul{:style => "list-style: none"}
+		- (1..@course['benefit'].count-1).each do |i|
+			%li
+				%p= @course['benefit'][i]
 /audience
 - if @course['audience'].count > 2
 	%h5= @course['audience'].first
-	%ul
-	- (1..@course['audience'].count-1).each do |i|
-		%li
-			%p= @course['audience'][i]
+	%ul{:style => "list-style: none"}
+		- (1..@course['audience'].count-1).each do |i|
+			%li
+				%p= @course['audience'][i]
