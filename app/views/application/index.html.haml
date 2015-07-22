@@ -28,35 +28,37 @@
       - if @courses
         - @courses.each do |c|
           .col.s3
-            %a.course{:href => '/courses/'+c._id+'/detail'}
+            %a.course{:href => '/courses/'+c._id+'/detail', :style => "height: 360px"}
               .card-image.course-image
                 = image_tag c.image
               .card-content.course-content
-                .row.course-title
-                  .col.s12.no-padding.fix-height= c.name 
-                .row.course-author
-                - if c.user
-                  .col.s12.no-padding= c.user.name
-                - else
-                  .col.s12.no-padding Tudemy
-                .row.course-rating
-                  .col.s7.course-rating-point.no-padding
-                    - (1..5).each do |i|
-                      - if i <= c.average_rating
-                        %i.material-icons.is-rated star_rate
-                      - else
-                        %i.material-icons star_rate
-                  .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
-                .row.course-footer
-                  .col.s7.no-padding.course-favorite
-                    %span.left
-                      %i.material-icons.is-favorite favorite
-                    %span.left=  c.students.to_s + ' tham gia'
-                  - if c.price == 0
-                    .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                  - else
-                    .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                      = number_to_currency(c.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")                  
+                .col.s12.no-padding{:style => "height: 122px"}
+                  .row.course-title
+                    .col.s12.no-padding.fix-height= c.name 
+                  .row.course-author
+                    - if c.user
+                      .col.s12.no-padding= c.user.name
+                    - else
+                      .col.s12.no-padding Tudemy
+                .col.s12.no-padding
+                  .row.course-rating.no-margin
+                    .col.s7.course-rating-point.no-padding
+                      - (1..5).each do |i|
+                        - if i <= c.average_rating
+                          %i.material-icons.is-rated star_rate
+                        - else
+                          %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
+                  .row
+                    .col.s7.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite group
+                      %span.left=  c.students.to_s + ' tham gia'
+                    - if c.price == 0
+                      .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                    - else
+                      .col.s5.no-padding.course-price{:style => "text-align:right;"}
+                        = number_to_currency(c.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")                 
     .row
       .col.s12
         %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;', :href => '/courses'} Khám phá các khóa học khác
