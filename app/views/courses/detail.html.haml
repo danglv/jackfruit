@@ -32,6 +32,7 @@
         .col.s7.no-padding
           .video-container.no-controls
             - if @course.intro_link && @course.intro_link != ''
+              - binding.pry
               - if @course.intro_link.index('v=')
                 - @indexStart = @course.intro_link.index('v=') + 2
                 - if @course.intro_link['&']
@@ -42,9 +43,9 @@
                   - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
                 %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=1&amp', :width => "853"}
             - elsif @course.intro_image && @course.intro_image != ''
-              = image_tag @course.intro_image
+              = image_tag @course.intro_image, :style => 'width: 100%'
             - else
-              = image_tag 'course-image-intro.png'
+              = image_tag 'course-image-intro.png', :style => 'width: 100%'
         .col.s5
           .row
             %a.row.courses{:href => "#"}
@@ -124,13 +125,16 @@
                   .row.no-margin{:style => "margin: 10px 0px"}
                     .col.s9.left
                       %span.grey-text.left{:style => 'width: 20px'}= (curi.lecture_index + 1 ).to_s
-                      %i.material-icons.grey-text.left play_circle_filled
-                      %span #{curi.title}
-                    .col.s3{:style => 'text-align:right'}
                       - if curi.asset_type == "Video"
-                        %span= curi.description
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} play_circle_filled
+                      - else 
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} insert_drive_file
+                      %span{:style => "color: #338abc"} #{curi.title}
+                    .col.s3.no-padding{:style => 'text-align:right'}
+                      - if curi.asset_type == "Video"
+                        %span.black-text= curi.description
                       - else
-                        %span Văn bản
+                        %span.black-text Văn bản
           / .row
           /   %h5
           /     Tiểu sử tác giả
