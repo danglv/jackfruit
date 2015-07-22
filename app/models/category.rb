@@ -9,13 +9,14 @@ class Category
   field :child_category_count, type: Integer, default: 0
   field :enabled, type: Boolean, default: true
   field :order, type: Integer
+  field :alias_name, type: String, default: ""
 
   index({name: 1, created_at: 1, parent_category: 1})
   
   validates_presence_of :name
   validates_numericality_of :child_category_count, only_integer: true, greater_than_or_equal: 0
 
-  before_save :calculate_child_categories, :order
+  before_save :calculate_child_categories, :update_order
   after_save :update_cache
 
   @@cache_categories = nil
@@ -28,7 +29,7 @@ class Category
     self.child_category_count = self.child_categories.count
   end
 
-  def order
+  def update_order
     order = Category.where(:order.ne => nil).count - 1
     self.order = order  if self.order == nil
   end

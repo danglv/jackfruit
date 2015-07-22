@@ -1,0 +1,127 @@
+Alias,Title,Subtitle,Description,Requirement,Benefit,Audience,Section,Lecture,Duration / format,Type,Link
+khoa-dao-tao-ngon-ngu-lap-trinh-ruby-cho-nguoi-moi-bat-dau,Khóa đào tạo ngôn ngữ lập trình Ruby cho người mới bắt đầu,Video khóa đào tạo ngôn ngữ lập trình Ruby. Tìm hiểu kỹ thuật lập trình thực tiễn ngay tại nhà.,Mô tả về khóa học,Yêu cầu của khóa học,Lợi ích từ khóa học,Đối tượng mục tiêu,Phần 1: Giời thiệu,,,,
+,,,"Trong khóa học này, Infinite Skills sẽ dạy cho bạn những nguyên lý cơ bản của ngôn ngữ lập trình Ruby. Ruby được thiết kế để trở thành một ngôn ngữ mạnh mẽ hơn Perl, hướng đối tượng hơn Python. Sức mạnh xử lý và khả năng dễ tiếp cận đã khiến nó trở thành một trong những ngôn ngữ lập trình phổ biến. Mike sẽ chỉ rõ cho bạn những chức năng & tính năng cơ bản của Ruby và làm thế nào để kết hợp chúng lại với nhau để tạo ra các phần mềm tuyệt vời.",Chỉ cần sẵn sàng học hỏi.,- Hơn 76 bài học với thời lượng nội dung 5 giờ.,Các lập trình viên ở mọi trình độ - Không cần kinh nghiệm.,,Cách lấy mã nguồn của khóa học - Quan trọng cần đọc trước,Text,Text,
+,,,"Bạn sẽ bắt đầu với những bài học về cách cài đặt Ruby trên Mac hoặc PC cùng cách chạy các chương trình đơn giản. Khóa học này được thiết kế dành cho những người mới bắt đầu, kể cả những ai chưa từng lập trình từ trước. Chủ đề của khóa học này xoay quanh cách làm việc với kiểu dữ liệu và biến, các toán tử và biểu thức, lệnh rẽ nhánh (cú pháp if & case), các vòng lặp, phương thức, hàm & lập trình hướng đối tượng. Bạn cũng sẽ tìm hiểu về exception handling, đọc & ghi với tập tin, làm việc với trình gỡ lỗi (Ruby debugger).",,- Hiểu được các nguyên lý cơ bản của ngôn ngữ Ruby.,,,Giới thiệu về Ruby,3:27,Video,
+,,,"Bằng việc hoàn thành khóa học này, bạn sẽ có một nền tảng vững chắc để bắt đầu lập trình với Ruby. Từ đó, bạn có thể chuyển sang làm việc với framework Ruby on Rails, hoặc tiếp tục với phần mềm thuần Ruby của bạn. Dù bằng cách nào, bạn sẽ có một kiến thức vững vàng về ngôn ngữ Ruby. Tất cả các khóa học này đều bao gồm mã nguồn chuẩn để bạn có thể dễ dàng học theo.",,- Đạt được những hiểu biết vững chắc về kỹ thuật lập trình Ruby.,,Phần 2: Bắt đầu với Ruby,,,,
+,,,,,- Học lập trình bằng Ruby ngay tại nhà của bạn.,,,Cài đặt Ruby trên Windows,3:05,Video,
+,,,,,,,,Cài đặt Ruby trên Mac,1:48,Video,
+,,,,,,,,Sử dụng giao diện dòng lệnh Ruby,3:10,Video,
+,,,,,,,,Mã nguồn Ruby,3:21,Video,
+,,,,,,,,Hiển thị dữ liệu,3:39,Video,
+,,,,,,,,Nhập dữ liệu từ dòng lệnh,3:40,Video,
+,,,,,,,,Bài tập 1,4:05,Video,
+,,,,,,,Phần 3: Dữ liệu và biến,,,,
+,,,,,,,,Chuỗi (String),7:35,Video,
+,,,,,,,,Số,3:47,Video,
+,,,,,,,,Logic Bool,2:29,Video,
+,,,,,,,,Khoảng dữ liệu (Range),4:28,Video,
+,,,,,,,,Mảng (Array),3:34,Video,
+,,,,,,,,Hash,2:57,Video,
+,,,,,,,,Khai báo biến & hằng,5:57,Video,
+,,,,,,,,Bài tập 1,2:47,Video,
+,,,,,,,,Bài tập 2,4:03,Video,
+,,,,,,,Phần 4: Toán tử và biểu thức,,,,
+,,,,,,,,Toán tử và biểu thức tính toán,4:24,Video,
+,,,,,,,,Toán tử và biểu thức so sánh,5:22,Video,
+,,,,,,,,Toán tử và biểu thức logic,3:00,Video,
+,,,,,,,,Biểu thức hỗn hợp,3:28,Video,
+,,,,,,,,Bài tập 1,3:21,Video,
+,,,,,,,Phần 5: Rẽ nhánh,,,,
+,,,,,,,,Câu lệnh If đơn giản,3:12,Video,
+,,,,,,,,Câu lệnh If Else,4:00,Video,
+,,,,,,,,Câu lệnh If - Else If,4:03,Video,
+,,,,,,,,Câu lệnh Case,3:53,Video,
+,,,,,,,,Bài tập 1,3:26,Video,
+,,,,,,,,Bài tập 2,3:40,Video,
+,,,,,,,Phần 6: Vòng lặp,,,,
+,,,,,,,,Vòng lặp WHILE,5:04,Video,
+,,,,,,,,Vòng lặp Until,4:15,Video,
+,,,,,,,,Vòng lặp Iterators,5:27,Video,
+,,,,,,,,Vòng lặp For in và Each,3:52,Video,
+,,,,,,,,Thay đổi điều kiện giữa vòng lặp,4:54,Video,
+,,,,,,,,Bài tập 1,2:51,Video,
+,,,,,,,,Bài tập 2,3:24,Video,
+,,,,,,,Phần 7: Phương thức,,,,
+,,,,,,,,Khai báo phương thức - Phần 1,5:03,Video,
+,,,,,,,,Khai báo phương thức - Phần 2,4:16,Video,
+,,,,,,,,Khai báo phương thức - Phần 3,4:39,Video,
+,,,,,,,,Bài tập 1,3:30,Video,
+,,,,,,,,Bài tập 2,4:16,Video,
+,,,,,,,Phần 8: Lớp và Đối tượng,,,,
+,,,,,,,,Định nghĩa lớp - Phần 1,6:06,Video,
+,,,,,,,,Định nghĩa lớp - Phần 2,4:21,Video,
+,,,,,,,,Định nghĩa lớp - Phần 3,3:20,Video,
+,,,,,,,,Định nghĩa lớp - Phần 4,4:33,Video,
+,,,,,,,,Biến kiểu lớp,5:00,Video,
+,,,,,,,,Bài tập 1,3:42,Video,
+,,,,,,,,Bài tập 2,3:49,Video,
+,,,,,,,,Bài tập 3,3:17,Video,
+,,,,,,,Phần 9: Kế thừa,,,,
+,,,,,,,,Định nghĩa các lớp con - Phần 1,5:03,Video,
+,,,,,,,,Định nghĩa các lớp con - Phần 2,4:35,Video,
+,,,,,,,,Định nghĩa các lớp con - Phần 3,4:01,Video,
+,,,,,,,,Bài tập 1,4:43,Video,
+,,,,,,,Phần 10: Module,,,,
+,,,,,,,,Định nghĩa Module - Phần 1,4:46,Video,
+,,,,,,,,Định nghĩa Module - Phần 2,3:40,Video,
+,,,,,,,,Sử dụng kiểu Mixins,3:01,Video,
+,,,,,,,,Bài tập 1,3:08,Video,
+,,,,,,,Phần 11: Xử lý Exception,,,,
+,,,,,,,,Giới thiệu về Exception,3:30,Video,
+,,,,,,,,Xử lý exception - Phần 1,3:32,Video,
+,,,,,,,,Xử lý exception - Phần 2,4:26,Video,
+,,,,,,,,Thông báo exception,3:28,Video,
+,,,,,,,,Làm việc với lệnh Catch and Throw,3:38,Video,
+,,,,,,,,Bài tập 1,3:56,Video,
+,,,,,,,Phần 12: Đầu vào và đầu ra,,,,
+,,,,,,,,Làm việc với tập tin - Đọc tập tin,3:43,Video,
+,,,,,,,,Làm việc với tập tin - Ghi tập tin,5:03,Video,
+,,,,,,,,Lập trình mạng,4:19,Video,
+,,,,,,,,Bài tập 1,4:38,Video,
+,,,,,,,Phần 13: Trình gỡ lỗi,,,,
+,,,,,,,,Trình gỡ lỗi - Phần 1,4:24,Video,
+,,,,,,,,Trình gỡ lỗi - Phần 2,4:30,Video,
+,,,,,,,,Trình gỡ lỗi - Phần 3,3:59,Video,
+,,,,,,,,Bài tập 1,4:34,Video,
+,,,,,,,Phần 14: Lập trình GUI bằng Ruby,,,,
+,,,,,,,,Giới thiệu về Tk,3:12,Video,
+,,,,,,,,Khám phá Widget,4:27,Video,
+,,,,,,,,Sử dụng các Widget thông dụng,4:11,Video,
+,,,,,,,,Bài tập 1,4:59,Video,
+,,,,,,,Phần 15: Tổng kết,,,,
+,,,,,,,,Lời kết,1:49,Video,
+lap-trinh-visual-c#-2010-can-ban,Lập trình Visual C# 2010 căn bản,Nói đến lập trình thì chúng ta không thể nào không nhắc đến C#. Có thể nói đây là ngôn ngữ vô cùng mạnh mẽ và thông dụng.,Mô tả về khóa học,Yêu cầu của khóa học,Lợi ích từ khóa học,Đối tượng mục tiêu,Chương 1 : Làm quen với Visual Studio 2010,,,,
+,,,"Nếu như nói đến lập trình thì chúng ta không thể nào không nhắc đến C#. Có thể nói đây là ngôn ngữ vô cùng mạnh mẽ và thông dụng nhất hiện nay. C# thông dụng ở chỗ nó rất dễ học, dễ nắm bắt và với một trình soạn thảo trực quan nó cho phép chúng ta dễ dàng thiết kế giao diện người dùng, kiểm tra lỗi….. Nói tới C# thì chúng ta lại liên tưởng tới Asp.Net, Windows Phone, Window Form…những nền tảng mà một IT nào cũng biết và nghe nhắc tới.",Chỉ cần sẵn sàng học hỏi,"Với 17 bài học trong thời gian ngắn, bạn sẽ:",Các lập trình viên ở mọi trình độ - Không cần kinh nghiệm.,,Bài 1.1. Giới thiệu khóa học,6:00,Video,https://www.youtube.com/watch?v=CLSDcyLizd0&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=3
+,,,C# là một trong rất nhiều ngôn ngữ lập trình được hỗ trợ bởi .NET Framework. Có thể hiểu đơn giản đây là một trung tâm biên dịch trong đó tất cả các ngôn ngữ được hỗ trợ bởi .NET Framework sẽ được chuyển đổi ra MSIL (một dạng mã trung gian) rồi từ đấy mới được biên dịch tức thời (Just in time Compiler – JIT Compiler) thành các file thực thi như exe.,,- Hiểu được các nguyên lý cơ bản của ngôn ngữ C#,,,Bài 1.2. Giới thiệu Visual C# 2010 và tạo chương trình Winform đầu tiên,14:00,Video,https://www.youtube.com/watch?v=A6cZgLY6YCY&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=4
+,,,"Một thành tố quan trong nữa trong kiến trúc .NET Framework chính là CLR (.Common Language Runtime), khối chức năng cung cấp tất cả các dịch vụ mà chương trình cần giao tiếp với phần cứng, với hệ điều hành.",,- Đạt được những hiểu biết vững chắc về kỹ thuật lập trình C#,,,Bài 1.3. Thuộc tính của Form và một số control cơ bản,11:00,Video,https://www.youtube.com/watch?v=EuEXXikxfGU&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=5
+,,,"Nếu bạn đã làm quen với Java thì không thể không biết đến máy ảo Java (JVM) nổi tiếng. Nhưng .Net Framework không phải là một máy ảo, bởi thực tế bộ khung này không cài đặt các kỹ thuật máy ảo. Ứng dụng viết bằng java sẽ chạy trên JVM. Ứng dụng trên nền .NET thực sự được biên dich và chạy ở mức mã máy, tương tự những ứng dụng quen thuộc viết bằng C, hay VB.",,- Học lập trình bằng C# ngay tại nhà của bạn,,,Bài 1.4. Sự kiện trên Button & hiển thị thông báo với MessageBox,7:00,Video,https://www.youtube.com/watch?v=xaBFF1uCJrU&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=6
+,,,"Để có thể giúp các bạn làm quen với ngôn ngữ C# , ngày hôm nay chúng tôi xin gữi đến các bạn khóa học Lập Trình C# Căn Bản. Mục đích của khóa học giúp cho các bạn làm quen với môi trường C# và làm sao để có thể tạo ra một ứng dụng với C#.",,,,Chương 2 : Kiểu dữ liệu và biến,,,,
+,,,,,,,,Bài 2.1. Kiểu dữ liệu đã tích hợp sẵn (built-in) trong C#,8:00,Video,https://www.youtube.com/watch?v=zc68lfG4M5A&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=7
+,,,,,,,,Bài 2.2. Biến (Variable) trong C#,9:00,Video,https://www.youtube.com/watch?v=q69QFSsA0do&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=8
+,,,,,,,,Bài 2.3. Các Toán tử (Operator) phổ biến trong C#,11:00,Video,https://www.youtube.com/watch?v=xjFTgYqLzjg&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=9
+,,,,,,,,Bài 2.4. Chú thích (Comment) trong C#,4:00,Video,https://www.youtube.com/watch?v=TknuIxTIcas&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=10
+,,,,,,,Chương 3: Các câu lệnh điều kiện,,,,
+,,,,,,,,Bài 3.1. Câu lệnh điều kiện If,10:00,Video,https://www.youtube.com/watch?v=2rXkI06wAZo&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=11
+,,,,,,,,Bài 3.2. Câu lệnh điều kiện If – ELSE,6:00,Video,https://www.youtube.com/watch?v=IUzKSO957bY&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=12
+,,,,,,,,Bài 3.3. Câu lệnh điều kiện If – ELSE IF,12:00,Video,https://www.youtube.com/watch?v=yj-0qC5bCXs&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=13
+,,,,,,,,Bài 3.4. Câu lệnh điều kiện Switch,9:00,Video,https://www.youtube.com/watch?v=V32dfbr_yMw&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=14
+,,,,,,,Chương 4: Vòng lặp,,,,
+,,,,,,,,Bài 4.1. Vòng lặp While,7:00,Video,https://www.youtube.com/watch?v=wjzIn7MGcu8&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=15
+,,,,,,,,Bài 4.2. Vòng lặp Do-While,4:00,Video,https://www.youtube.com/watch?v=s1gohwB8CAQ&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=16
+,,,,,,,,Bài 4.3. Vòng lặp For,5:00,Video,https://www.youtube.com/watch?v=TXMDqOybNgI&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=17
+,,,,,,,,"Bài 4.4. Cách sử dụng các từ khóa Try, Catch và Finally",6:00,Video,https://www.youtube.com/watch?v=05QNdAji3WY&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=18
+,,,,,,,,Bài 4.5. Cách sử dụng các từ khóa Continue và Break,8:00,Video,https://www.youtube.com/watch?v=ifMZLjw94uA&list=PL-xa1TEVfkudQLh7haSoJyKr2O3x9Fis2&index=19
+lap-trinh-java-can-ban,Lập trình JAVA căn bản,Khóa học lập trình Java cho người mới,Mô tả về khóa học,Yêu cầu của khóa học,Lợi ích từ khóa học,Đối tượng mục tiêu,Chương 1: Giới thiệu và cài đặt,,,,
+,,,"Java không còn là một ngôn ngữ xa lạ với cộng đồng lập trình. Với việc có lợi thế khi được sinh ra với tiêu chí “Write Once, Run Anywhere” (WORA) – tức là “Viết một lần, thực thi khắp nơi”, cùng với việc liên tiếp cải tiến tốc độ biên dịch chương trình, để từng bước thu hẹp khoảng cách về thời gian biên dịch với các ngôn ngữ C, C++, … Java đã thực sự thể hiện vai trò quan trọng của mình trong giới chuyên môn.",Chỉ cần sẵn sàng học hỏi,"Với 17 bài học trong thời gian ngắn, bạn sẽ:",Các lập trình viên ở mọi trình độ - Không cần kinh nghiệm,,Cài đặt chương trình và Tạo ứng dụng “Helloworld” đầu tiên,5:00,Video,https://www.youtube.com/watch?v=d8J8vhF5Vl0&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA
+,,,"Nếu như nói đến lập trình thì chúng ta không thể nào không nhắc đến C#. Có thể nói đây là ngôn ngữ vô cùng mạnh mẽ và thông dụng nhất hiện nay. C# thông dụng ở chỗ nó rất dễ học, dễ nắm bắt và với một trình soạn thảo trực quan nó cho phép chúng ta dễ dàng thiết kế giao diện người dùng, kiểm tra lỗi….. Nói tới C# thì chúng ta lại liên tưởng tới Asp.Net, Windows Phone, Window Form…những nền tảng mà một IT nào cũng biết và nghe nhắc tới.",,- Hiểu được các nguyên lý cơ bản của ngôn ngữ C#,,Chương 2 : Làm quen với Java,,,,
+,,,C# là một trong rất nhiều ngôn ngữ lập trình được hỗ trợ bởi .NET Framework. Có thể hiểu đơn giản đây là một trung tâm biên dịch trong đó tất cả các ngôn ngữ được hỗ trợ bởi .NET Framework sẽ được chuyển đổi ra MSIL (một dạng mã trung gian) rồi từ đấy mới được biên dịch tức thời (Just in time Compiler – JIT Compiler) thành các file thực thi như exe.,,- Đạt được những hiểu biết vững chắc về kỹ thuật lập trình C#,,,Bài 1 : Biến và kiểu dữ liệu,6:00,Video,https://www.youtube.com/watch?v=Ysl3mpOQag0&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=4
+,,,"Một thành tố quan trong nữa trong kiến trúc .NET Framework chính là CLR (.Common Language Runtime), khối chức năng cung cấp tất cả các dịch vụ mà chương trình cần giao tiếp với phần cứng, với hệ điều hành.",,- Học lập trình bằng C# ngay tại nhà của bạn,,,Bài 2 : Toán tử toán học trong Java,9:00,Video,https://www.youtube.com/watch?v=tA0NZgF8SNo&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=5
+,,,"Nếu bạn đã làm quen với Java thì không thể không biết đến máy ảo Java (JVM) nổi tiếng. Nhưng .Net Framework không phải là một máy ảo, bởi thực tế bộ khung này không cài đặt các kỹ thuật máy ảo. Ứng dụng viết bằng java sẽ chạy trên JVM. Ứng dụng trên nền .NET thực sự được biên dich và chạy ở mức mã máy, tương tự những ứng dụng quen thuộc viết bằng C, hay VB.",,,,,Bài 3 : Thực hành toán tử điều kiện IF,7:00,Video,https://www.youtube.com/watch?v=p8VnzSse008&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=6
+,,,"Để có thể giúp các bạn làm quen với ngôn ngữ C# , ngày hôm nay myclass xin gữi đến các bạn khóa học Lập Trình C# Căn Bản. Mục đích của khóa học giúp cho các bạn làm quen với môi trường C# và làm sao để có thể tạo ra một ứng dụng với C#.",,,,,Bài 4 : Nhập liệu từ người dùng Scanner,5:00,Video,https://www.youtube.com/watch?v=FvPYKEKb4vo&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=7
+,,,,,,,,Bài 5 : Thực hành toán tử điều kiện SWITCH,5:00,Video,https://www.youtube.com/watch?v=JlAws2TjjRo&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=8
+,,,,,,,,Bài 6 : Thực hành vòng lặp FOR,2:00,Video,https://www.youtube.com/watch?v=DxSbR9mM5sE&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=9
+,,,,,,,,Bài 7 : Thực hành vòng lặp WHILE,4:00,Video,https://www.youtube.com/watch?v=yhMiBtlg0_o&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=10
+,,,,,,,,Bài 8 : Thực hành vòng lặp DO…WHILE,3:00,Video,https://www.youtube.com/watch?v=dyQVrepZ8uU&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=11
+,,,,,,,,Bài 9: Thực hành Mảng,5:00,Video,https://www.youtube.com/watch?v=x0eoZb2ZKC8&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=12
+,,,,,,,,Bài 10 : Thực hành Mảng Chuỗi,5:00,Video,https://www.youtube.com/watch?v=uxzGPDFJJog&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=13
+,,,,,,,,Bài 11 : Mảng đa chiều – Multi- Dimensional Arrays,7:00,Video,https://www.youtube.com/watch?v=H82qafczSuw&list=PL-xa1TEVfkueWipDlrTfD6eJwJVtbPygA&index=14
