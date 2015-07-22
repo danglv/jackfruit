@@ -1,58 +1,63 @@
 namespace :seeds do
   desc "seeding category and course name premium"
   task seed_category_and_course_name_paid: :environment do
-    csv_file_name = "db/seeding_data/"
-    csv_file_name += "Tên category và sub-category chuẩn - premium"
+    csv_file_name = "db/seeding_data/version1.0.2/category/"
+    csv_file_name += "Alias - Premium"
     data = load_csv_file(csv_file_name) and true
 
     @category_name = @sub_category_name = ""
 
     data.each_with_index{|row, index|
-      next if row[0] == 'Category'
+      next if ( row[0] == 'Category' || row[0] == 'category')
 
       if !row[0].blank?
-        @category_name = nomalize_string(row[0])
+        @category_name = row[1] #nomalize_string(row[0])
         category = Category.find_or_initialize_by(
           id: @category_name,
         )
         category.name =  row[0]
+        category.alias_name = row[1]
 
         if category.save
           puts "Create category #{row[0]}"
         else
           binding.pry
         end
-      elsif !row[1].blank?
-        @sub_category_name = nomalize_string(row[1])
-        category = Category.where(id: @category_name).first
-        binding.pry if category.blank?
+      elsif !row[4].blank?
+        if !row[2].blank?
+          @sub_category_name = row[3] #nomalize_string(row[1])
+          category = Category.where(id: @category_name).first
+          binding.pry if category.blank?
 
-        sub_category = Category.find_or_initialize_by(
-          id: "#{@category_name}_#{@sub_category_name}",
-        )
-        sub_category.name = row[1]
-        sub_category.parent_category_id = category.id.to_s
+          sub_category = Category.find_or_initialize_by(
+            id: "#{@category_name}_#{@sub_category_name}",
+          )
+          sub_category.name = row[2]
+          sub_category.alias_name = row[3]
+          sub_category.parent_category_id = category.id.to_s
 
-        if sub_category.save
-          puts "Create sub-category #{row[0]} of category #{@category_name}"
-        else
-          binding.pry
+          if sub_category.save
+            puts "Create sub-category #{row[2]} of category #{@category_name}"
+          else
+            binding.pry
+          end
+
+          category.child_categories << sub_category
+          category.save
         end
 
-        category.child_categories << sub_category
-        category.save
-
-        if !row[2].blank?
+        if !row[4].blank?
           course = Course.find_or_initialize_by(
-            name: row[2],
+            name: row[4],
+            alias_name: row[5],
             lang: "vi"
           )
 
           course.categories << category
           course.categories << sub_category
-          course.price = 1990000
+          course.price = 990000
           if course.save
-            puts "Create Course #{row[2]}"
+            puts "Create Course #{row[4]}"
           else
             binding.pry
           end
@@ -63,57 +68,61 @@ namespace :seeds do
   
   desc "seeding category and course name free"
   task seed_category_and_course_name_free: :environment do
-    csv_file_name = "db/seeding_data/"
-    csv_file_name += "Tên category và sub-category chuẩn - Free"
+    csv_file_name = "db/seeding_data/version1.0.2/category/"
+    csv_file_name += "Alias - Free"
     data = load_csv_file(csv_file_name) and true
 
     @category_name = @sub_category_name = ""
 
     data.each_with_index{|row, index|
-      next if row[0] == 'Category'
+      next if ( row[0] == 'Category' || row[0] == 'category')
 
       if !row[0].blank?
-        @category_name = nomalize_string(row[0])
+        @category_name = row[1] #nomalize_string(row[0])
         category = Category.find_or_initialize_by(
           id: @category_name,
         )
         category.name =  row[0]
+        category.alias_name = row[1]
 
         if category.save
           puts "Create category #{row[0]}"
         else
           binding.pry
         end
-      elsif !row[1].blank?
-        @sub_category_name = nomalize_string(row[1])
-        category = Category.where(id: @category_name).first
-        binding.pry if category.blank?
-
-        sub_category = Category.find_or_initialize_by(
-          id: "#{@category_name}_#{@sub_category_name}",
-        )
-        sub_category.name = row[1]
-        sub_category.parent_category_id = category.id.to_s
-
-        if sub_category.save
-          puts "Create sub-category #{row[0]} of category #{@category_name}"
-        else
-          binding.pry
-        end
-
-        category.child_categories << sub_category
-        category.save
-
+      elsif !row[4].blank?
         if !row[2].blank?
+          @sub_category_name = row[3] #nomalize_string(row[1])
+          category = Category.where(id: @category_name).first
+          binding.pry if category.blank?
+
+          sub_category = Category.find_or_initialize_by(
+            id: "#{@category_name}_#{@sub_category_name}",
+          )
+          sub_category.name = row[2]
+          sub_category.alias_name = row[3]
+          sub_category.parent_category_id = category.id.to_s
+
+          if sub_category.save
+            puts "Create sub-category #{row[2]} of category #{@category_name}"
+          else
+            binding.pry
+          end
+
+          category.child_categories << sub_category
+          category.save
+        end
+        if !row[4].blank?
           course = Course.find_or_initialize_by(
-            name: row[2],
+            name: row[4],
+            alias_name: row[5],
             lang: "vi"
           )
 
           course.categories << category
           course.categories << sub_category
           if course.save
-            puts "Create Course #{row[2]}"
+            puts "Create Course #{row[4]}"
           else
             binding.pry
           end
@@ -129,75 +138,103 @@ namespace :seeds do
     # File.exist?(file_path)
     @count = 0
     categories.each {|category|
-      csv_file_name = "db/seeding_data/course/paid/"
-      csv_file_name += "#{category.id}/"
+      csv_file_name = "db/seeding_data/version1.0.2/paid/"
+      csv_file_name += "#{category.id}"
       @category_count = 0
 
       category.child_categories.each {|sub_category|
-        if !File.exist?("#{csv_file_name}#{category.name} - #{sub_category.name}.csv")
-          # puts "#{csv_file_name}#{category.name} - #{sub_category.name}.csv"
+        if !File.exist?("#{csv_file_name} - #{sub_category.alias_name}.csv")
+          # puts "#{csv_file_name} - #{sub_category_alias}.csv"
           next
         else
           @category_count += 1
           @count += 1
-          puts "---#{category.name} - #{sub_category.name}.csv"
-          data = load_csv_file("#{csv_file_name}#{category.name} - #{sub_category.name}") and true
+          puts "---#{csv_file_name} - #{sub_category.alias_name}.csv"
+          data = load_csv_file("#{csv_file_name} - #{sub_category.alias_name}") and true
 
           @course_name = ""
           @curriculums = []
+          @description = []
+          @requirement = []
+          @benefit = []
+          @audience = []
           @course = nil
          
           data.each_with_index{|row, index|
-            next if (row[0] == "" || row[0] == "name" || row[0] == "Name")
             if index == 0
-              course = Course.where(name: row[0]).first
+              next if (row[0] == "" || row[0] == "alias" || row[0] == "Alias")
+              course = Course.where(alias_name: row[0]).first
 
               next if course.blank?
             end
 
-            if !row[6].blank?
-              @curriculums << [row[6], "chapter", row[9], row[8], row[10]]
+            if !row[7].blank?
+              @curriculums << [row[7], "chapter", row[9], row[10], row[11]]
+            end
+        
+            if !row[8].blank?
+              @curriculums << [row[8], "lecture", row[9], row[10], row[11]]
+            end
+        
+            if !row[3].blank?
+              @description << row[3]
             end
 
-            if !row[7].blank?
-              @curriculums << [row[7], "lecture", row[9], row[8], row[10]]
+            if !row[4].blank?
+              @requirement << row[4]
+            end
+
+            if !row[5].blank?
+              @benefit << row[5]
+            end
+
+            if !row[6].blank?
+              @audience << row[6]
             end
 
             if (!row[0].blank? || (index == data.count - 1))
               if @course.blank?
                 @course_name = row[0]
-                @course = Course.where(name: @course_name).first
-
+                @course = Course.where(alias_name: @course_name).first
                 binding.pry if @course.blank?
-
-                @course.sub_title   = row[1]
-                @course.description = row[2]
-                @course.requirement = row[3]
-                @course.benefit     = row[4]
-                @course.audience    = row[5]
+                @course.sub_title   = row[2]
               else
                 chapter_index = 0
                 lecture_index = 0
-
+            
                 @curriculums.each_with_index {|curriculum, x|
                   course_curriculum = @course.curriculums.find_or_initialize_by(
                     title: curriculum[0],
-                    description: curriculum[3],
+                    description: curriculum[2],
                     order: x,
                     chapter_index: chapter_index,
                     lecture_index: lecture_index,
                     type: curriculum[1],
-                    asset_type: curriculum[2],
+                    asset_type: curriculum[3],
                     url: curriculum[4]
                   )
-                  course_curriculum.asset_type = "text" if !Constants.CurriculumAssetTypesValues.include?(course_curriculum.asset_type)
+                  course_curriculum.asset_type = "text" if !Constants.CurriculumAssetTypesValues.include?(curriculum[3])
                   chapter_index += 1 if curriculum[1] == "chapter"
                   lecture_index += 1 if curriculum[1] == "lecture"
                 }
+
+                
+                @course.description = @description
+                @course.requirement = @requirement
+                @course.benefit     = @benefit
+                @course.audience    = @audience
                 
                 @course.save
+                @course = nil
+
+                @curriculums = []
+                @description = []
+                @requirement = []
+                @benefit = []
+                @audience = []
               end
             end
+        
           }
         end
       }
@@ -213,75 +250,105 @@ namespace :seeds do
     # File.exist?(file_path)
     @count = 0
     categories.each {|category|
-      csv_file_name = "db/seeding_data/course/free/"
-      csv_file_name += "#{category.id}/"
+      csv_file_name = "db/seeding_data/version1.0.2/free/"
+      csv_file_name += "#{category.id}"
       @category_count = 0
 
       category.child_categories.each {|sub_category|
-        if !File.exist?("#{csv_file_name}#{category.name} - #{sub_category.name}.csv")
-          # puts "#{csv_file_name}#{category.name} - #{sub_category.name}.csv"
+        if !File.exist?("#{csv_file_name} - #{sub_category.alias_name}.csv")
+          # puts "#{csv_file_name} - #{sub_category_alias}.csv"
           next
         else
           @category_count += 1
           @count += 1
-          puts "---#{category.name} - #{sub_category.name}.csv"
-          data = load_csv_file("#{csv_file_name}#{category.name} - #{sub_category.name}") and true
+          puts "---#{csv_file_name} - #{sub_category.alias_name}.csv"
+          data = load_csv_file("#{csv_file_name} - #{sub_category.alias_name}") and true
 
           @course_name = ""
           @curriculums = []
+          @description = []
+          @requirement = []
+          @benefit = []
+          @audience = []
           @course = nil
          
           data.each_with_index{|row, index|
-            next if (row[0] == "" || row[0] == "name" || row[0] == "Name")
             if index == 0
-              course = Course.where(name: row[0]).first
+              next if (row[0] == "" || row[0] == "alias" || row[0] == "Alias")
+              course = Course.where(alias_name: row[0]).first
 
               next if course.blank?
             end
 
+            if !row[7].blank?
+              @curriculums << [row[7], "chapter", row[10], row[11], row[12]]
+            end
+        
+            if !row[9].blank?
+              @curriculums << [row[9], "lecture", row[10], row[11], row[12]]
+            end
+        
+            if !row[4].blank?
+              @description << row[4]
+            end
+
+            if !row[5].blank?
+              @requirement << row[5]
+            end
+
             if !row[6].blank?
-              @curriculums << [row[6], "chapter", row[9], row[8], row[10]]
+              @benefit << row[6]
             end
 
             if !row[7].blank?
-              @curriculums << [row[7], "lecture", row[9], row[8], row[10]]
+              @audience << row[7]
             end
 
+            # binding.pry if ((index == data.count - 1) && (sub_category.alias_name == "ngon-ngu-lap-trinh"))
             if (!row[0].blank? || (index == data.count - 1))
-              if @course.blank?
-                @course_name = row[0]
-                @course = Course.where(name: @course_name).first
-
-                binding.pry if @course.blank?
-
-                @course.sub_title   = row[1]
-                @course.description = row[2]
-                @course.requirement = row[3]
-                @course.benefit     = row[4]
-                @course.audience    = row[5]
-              else
+              if !@course.blank?
                 chapter_index = 0
                 lecture_index = 0
-
+            
                 @curriculums.each_with_index {|curriculum, x|
                   course_curriculum = @course.curriculums.find_or_initialize_by(
                     title: curriculum[0],
-                    description: curriculum[3],
+                    description: curriculum[2],
                     order: x,
                     chapter_index: chapter_index,
                     lecture_index: lecture_index,
                     type: curriculum[1],
-                    asset_type: curriculum[2],
+                    asset_type: curriculum[3],
                     url: curriculum[4]
                   )
-                  course_curriculum.asset_type = "text" if !Constants.CurriculumAssetTypesValues.include?(course_curriculum.asset_type)
+                  course_curriculum.asset_type = "text" if !Constants.CurriculumAssetTypesValues.include?(curriculum[3])
                   chapter_index += 1 if curriculum[1] == "chapter"
                   lecture_index += 1 if curriculum[1] == "lecture"
                 }
                 
+                @course.description = @description
+                @course.requirement = @requirement
+                @course.benefit     = @benefit
+                @course.audience    = @audience
+
                 @course.save
+                
+                @course = nil
+                @curriculums = []
+                @description = []
+                @requirement = []
+                @benefit = []
+                @audience = []
               end
+
+              break if (index == data.count - 1)
+              @course_name = row[0]
+              @course = Course.where(alias_name: @course_name).first
+
+              binding.pry if @course.blank?
+              @course.sub_title   = row[2]
             end
+        
           }
         end
       }

@@ -6,11 +6,12 @@ class Course
   field :lang, type: String, default: "vi"
   field :price, type: Integer, default: 0
 
+  field :alias_name, type: String, default: ""
   field :sub_title, type: String, default: ""
-  field :description, type: String, default: ""
-  field :requirement, type: String, default: ""
-  field :benefit, type: String, default: ""
-  field :audience, type: String, default: ""
+  field :description, type: Array, default: []
+  field :requirement, type: Array, default: []
+  field :benefit, type: Array, default: []
+  field :audience, type: Array, default: []
   
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"
