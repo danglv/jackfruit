@@ -79,7 +79,7 @@
               .col.s12
                 %h5.course-list-header-title= @courses["top_paid"].first
             .row.courses.card-style
-              - @courses["top_free"].last.each do |tp|
+              - @courses["top_paid"].last.each do |tp|
                 .col.s4
                   %a.course{:href => "/courses/#{tp.id}/detail", :style => "height: 360px"}
                     .card-image.course-image
@@ -119,7 +119,7 @@
               .col.s12
                 %h5.course-list-header-title= @courses["newest"].first
             .row.courses.card-style
-              - @courses["top_free"].last.each do |ne|
+              - @courses["newest"].last.each do |ne|
                 .col.s4
                   %a.course{:href => "/courses/#{ne.id}/detail", :style => "height: 360px"}
                     .card-image.course-image
