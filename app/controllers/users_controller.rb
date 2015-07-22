@@ -111,9 +111,9 @@ class UsersController < ApplicationController
         course_id: course_id
       )
       if course.price != 0
-        status = Constants::Status::PENDING
+        status = Constants::OwnedCourseStatus::PENDING
       else
-        status = Constants::Status::FREE
+        status = Constants::OwnedCourseStatus::FREE
       end
 
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
