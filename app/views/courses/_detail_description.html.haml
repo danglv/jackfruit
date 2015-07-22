@@ -1,20 +1,26 @@
-- @data = {}
-- @data['description'] = ['Mô tả', ['Mô tả 1','Mô tả 2']]
-- @data['requirement'] = ['Yêu cầu', ['yêu cầu 1', 'yêu cầu 2', 'yêu cầu 3']]
-- @data['audience'] = ['What is the target audience', ['audience 1', 'audience 2', 'audience 3']]
 / description
-%h5= @data['description'].first
-- @data['description'].last.each do |item|
-	%p= item
+- if @course['description'].count > 2
+	%h5= @course['description'].first
+	- (1..@course['description'].count-1).each do |i|
+		%p= @course['description'][i]
 /requirement
-%h5= @data['requirement'].first
-%ul
-- @data['requirement'].last.each do |item|
-	%li
-		%p= item
+- if @course['requirement'].count > 2
+	%h5= @course['requirement'].first
+	%ul
+	- (1..@course['requirement'].count-1).each do |i|
+		%li
+			%p= @course['requirement'][i]
+/benefit
+- if @course['benefit'].count > 2
+	%h5= @course['benefit'].first
+	%ul
+	- (1..@course['benefit'].count-1).each do |i|
+		%li
+			%p= @course['benefit'][i]
 /audience
-%h5= @data['audience'].first
-%ul
-- @data['audience'].last.each do |item|
-	%li
-		%p= item
+- if @course['audience'].count > 2
+	%h5= @course['audience'].first
+	%ul
+	- (1..@course['audience'].count-1).each do |i|
+		%li
+			%p= @course['audience'][i]
