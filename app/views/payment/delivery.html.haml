@@ -26,12 +26,12 @@
                     %input{:type => "hidden", :name => "course_id", :placeholder => "Tên đầy đủ", :value => @course._id}
                     %input{:type => "hidden", :name => "is_submitted", :placeholder => "Tên đầy đủ", :value => "true"}
                     .input-field
-                      %input{:type => "text", :name => "name", :placeholder => "Tên đầy đủ"}/
+                      %input{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
                   .row
                     .input-field
-                      %input{:type => "text", :name => "mobile", :placeholder => "Số điện thoại"}/
+                      %input{:type => "number", :name => "mobile", :placeholder => "Số điện thoại", :required => "required"}/
                   .row
-                    %select.browser-default{:name => "city"}
+                    %select.browser-default{:name => "city", :required => "required"}
                       %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
                       %option{:value => "Hà Nội"} Hà Nội
                       %option{:value => "Tp Hồ Chí Minh"} tp Hồ Chí Minh
@@ -42,10 +42,10 @@
                 .col.s4.offset-s1{:action => "#"}
                   .row
                     .input-field
-                      %input{:type => "text", :name => "email", :placeholder => "Email"}/
+                      %input{:type => "email", :name => "email", :placeholder => "Email", :required => "required"}/
                   .row
                     .input-field
-                      %input{:type => "text", :name => "address", :placeholder => "Địa chỉ"}/
+                      %input{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}/
                   .row
                     .input-field
-                      %input{:type => "text", :name => "district", :placeholder => "Quận/huyện"}/
+                      %input{:type => "text", :name => "district", :placeholder => "Quận/huyện", :required => "required"}/
