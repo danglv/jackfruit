@@ -56,7 +56,7 @@
                     .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                   - else
                     .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                      = c.price                  
+                      = number_to_currency(c.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")                  
     .row
       .col.s12
         %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;', :href => '/courses'} Khám phá các khóa học khác
