@@ -37,15 +37,14 @@
                               %i.material-icons star_rate
                         .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
                       .row
-                        .col.s7.no-padding.course-favorite
+                        .col.s6.no-padding.course-favorite
                           %span.left
                             %i.material-icons.is-favorite group
                           %span.left= tf.students.to_s
                         - if tf.price == 0
-                          .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                         - else
-                          .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                            .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + 'đ' 
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + 'đ' 
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
@@ -58,6 +57,7 @@
                   .card-image.course-image
                     = image_tag tf.image
                   .card-content.course-content
+<<<<<<< HEAD
                     .col.s12.no-padding{:style => "height: 122px"}
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
@@ -76,15 +76,14 @@
                               %i.material-icons star_rate
                         .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
                       .row
-                        .col.s7.no-padding.course-favorite
+                        .col.s6.no-padding.course-favorite
                           %span.left
                             %i.material-icons.is-favorite group
                           %span.left= tf.students.to_s
                         - if tf.price == 0
-                          .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                         - else
-                          .col.s5.no-padding.course-price{:style => "text-align:right;"}
-                            .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + 'đ' 
+                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= tf.price.to_s + 'đ' 
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
@@ -115,12 +114,11 @@
                               %i.material-icons star_rate
                         .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
                       .row
-                        .col.s7.no-padding.course-favorite
+                        .col.s6.no-padding.course-favorite
                           %span.left
                             %i.material-icons.is-favorite group
                           %span.left= course.students.to_s
                         - if course.price == 0
-                          .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                         - else
-                          .col.s5.no-padding.course-price{:style => "text-align:right;"}
                             .col.s6.no-padding.course-price{:style => "text-align:right;"}= course.price.to_s + 'đ' 

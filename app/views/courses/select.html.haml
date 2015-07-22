@@ -46,11 +46,11 @@
                               %i.material-icons star_rate
                         .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
                       .row
-                        .col.s7.no-padding.course-favorite
+                        .col.s6.no-padding.course-favorite
                           %span.left
                             %i.material-icons.is-favorite group
-                          %span.left= course.students.to_s
-                        - if course.price == 0
+                          %span.left= course.students
+                        - if course.price.to_s == "0"
                           .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"} Miễn phí
                         - else
                           .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
