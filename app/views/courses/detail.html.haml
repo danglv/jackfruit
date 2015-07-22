@@ -61,7 +61,7 @@
                   Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
-              /   %i.material-icons.is-favorite favorite
+              /   %i.material-icons.is-favorite group
               /   Ưa thích
           / %a.row{:href => "#"}
           /   Nhập mã khuyễn mãi
@@ -300,7 +300,7 @@
                   .row.course-footer
                     .col.s7.no-padding.course-favorite
                       %span.left
-                        %i.material-icons.is-favorite favorite
+                        %i.material-icons.is-favorite group
                       %span.left=  c.students.to_s
                     - if c.price == 0
                       .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
