@@ -110,7 +110,14 @@ class UsersController < ApplicationController
       owned_course = current_user.courses.find_or_initialize_by(
         course_id: course_id
       )
+      if course.price != 0
+        status = Constants::OwnedCourseStatus::PENDING
+      else
+        status = Constants::OwnedCourseStatus::FREE
+      end
+
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.status = status
 
       init_lectures_for_owned_course(owned_course, course)
       current_user.save
