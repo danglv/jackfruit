@@ -346,7 +346,8 @@ namespace :seeds do
               @course = Course.where(alias_name: @course_name).first
 
               binding.pry if @course.blank?
-              @course.sub_title   = row[2]
+              @course.sub_title  = row[2]
+              @course.intro_link = row[3]
             end
         
           }
@@ -359,44 +360,81 @@ namespace :seeds do
 
   desc "rename images for courses"
   task rename_images_for_course: :environment do
-    images = Dir["db/seeding_data/images/*"]
-    file_name = "db/seeding_data/course_name/course name map"
+    images = Dir["db/seeding_data/version1.0.2/mapping_image_course/images_detail/*"]
+    file_name =  "db/seeding_data/version1.0.2/mapping_image_course/name_mapping"
     data = load_csv_file(file_name) and true
 
     # chuẩn hóa tên file & ten course
     images_name = []
+    
     images.each{|image|
-      image.gsub!("db/seeding_data/images/", "")
-      image.gsub!("x-.", "")
-      image.gsub!("x-", "")
+      old_name = image.gsub("db/seeding_data/version1.0.2/mapping_image_course/images_detail/", "")
+      image.gsub!("db/seeding_data/version1.0.2/mapping_image_course/images_detail/", "")
+      # image.gsub!("x-.", "")
+      # image.gsub!("x-", "")
+      image.gsub!("_", "-")
       image.gsub!("\u0096", "")
+      image.gsub!("----", "-")
       image.gsub!("---", "-")
       image.gsub!("--", "-")
       image.gsub!(" .", ".")
       image.gsub!("..", ".")
       image.gsub!(".png", "")
-      images_name << nomalize_string(image)
+      images_name << [nomalize_string(image), old_name]
+    }
+
+    images_name.each {|image_name|
+      image_name[0].gsub!("----", "-")
+      image_name[0].gsub!("---", "-")
+      image_name[0].gsub!("--", "-")
+      image_name[0].gsub!(" .", ".")
+      image_name[0].gsub!("..", ".")
     }
 
     results = []
     data.each{|row|
-      if (!row[2].blank? && !row[7].blank?)
-        row[2].gsub!("x-.", "")
-        row[2].gsub!("x-", "")
-        row[2].gsub!("\u0096", "")
-        row[2].gsub!("---", "-")
-        row[2].gsub!("--", "-")
-        row[2].gsub!("\"", "")
-        row[2] = nomalize_string(row[2])
-        results << [row[2], row[7]] 
+      if (!row[0].blank? && !row[1].blank?)
+        row[0].gsub!(":", "")
+        row[0].gsub!("\"", "")
+        row[0] = nomalize_string(row[0])
+        row[0].gsub!("---", "-")
+        row[0].gsub!("--", "-")
+        row[0].gsub!(" .", ".")
+        results << [row[0], row[1]] 
       end
     }
 
-    CSV.open("db/seeding_data/export.csv", "w") do |csv|
-      results.each{|result|
-        csv << [result[0], nomalize_string(result[1])]
-      }
-    end
+    course_name = results.map(&:first)
+    all_course = []
+    images_name.each {|image_name|
+      if course_name.include?(image_name[0])
+
+        results.select {|k|
+          all_course << [image_name[1], k[1]] if k[0] == image_name[0]
+        }
+      end
+    }
+    # results.each {|result|
+    #   result[0] = 
+    # }
+  end
+
+  desc "seeding images_url for course"
+  task seed_images_url_course: :environment do
+    url = '/uploads/images/'
+    Course.all.each {|c|
+      c.image = url + "#{c.alias_name}.png"
+      c.save
+    }
+  end
+
+  desc "seeding images_url for course"
+  task seed_images_detail_url_course: :environment do
+    url = '/uploads/images/detail/'
+    Course.where(:price.gt => 0).each {|c|
+      c.intro_image = url + "#{c.alias_name}.png"
+      c.save
+    }
   end
 end
 
