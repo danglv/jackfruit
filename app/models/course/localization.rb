@@ -1,7 +1,7 @@
 module Course::Localization
   TITLES = {
     :featured => {
-      :vi => "Khóa học nổi bật",
+      :vi => "Nổi bật",
       :en => "FEATURED",
     },
     :top_free => {
@@ -9,7 +9,7 @@ module Course::Localization
       :en => "Top Free",
     },
     :top_paid => {
-      :vi => "Trả tiền hàng đầu",
+      :vi => "Trả phí hàng đầu",
       :en => "Top Paid",
     },
     :newest => {

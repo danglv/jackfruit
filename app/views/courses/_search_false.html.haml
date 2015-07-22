@@ -23,10 +23,7 @@
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
                       .row.course-author
-                        - if tf.user
-                          .col.s12.no-padding= tf.user.name
-                        - else
-                          .col.s12.no-padding Tudemy
+                        .col.s12.no-padding= 'Bởi ' + tf.user.name.to_s
                     .col.s12.no-padding
                       .row.course-rating.no-margin
                         .col.s7.course-rating-point.no-padding
@@ -57,7 +54,6 @@
                   .card-image.course-image
                     = image_tag tf.image
                   .card-content.course-content
-<<<<<<< HEAD
                     .col.s12.no-padding{:style => "height: 122px"}
                       .row.course-title
                         .col.s12.no-padding.fix-height= tf.name
@@ -99,11 +95,7 @@
                     .col.s12.no-padding{:style => "height: 122px"}
                       .row.course-title
                         .col.s12.no-padding.fix-height= course.name
-                      .row.course-author
-                        - if course.user
-                          .col.s12.no-padding= course.user.name
-                        - else
-                          .col.s12.no-padding Tudemy
+                      .row.course-author= 'bởi ' + course.user.name.to_s
                     .col.s12.no-padding
                       .row.course-rating.no-margin
                         .col.s7.course-rating-point.no-padding
