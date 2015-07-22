@@ -25,7 +25,8 @@
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
-        %a{:href => "#",:style => "line-height:50px;"}= "Tác giả: "+@course.user.name
+        Giảng dạy bởi 
+        %a{:href => "#",:style => "line-height:50px;"}= @course.user.name
       - else
         %a{:href => "#"} Tudemy
       .row
@@ -75,31 +76,31 @@
           /   Tùy chọn khác
           .row
             .divider
-          .col.s4.courses
+          .col.s5.courses
             .row
               %p.course-author
-                Lý thuyết
+                Số lượng bài giảng
               %p.course-author
-                Video
+                Thời lượng video
               %p.course-author
                 Trình độ
               %p.course-author
                 Ngôn ngữ
               / %p.course-author
               /   bao gồm
-          .col.s8
+          .col.s7
             .row
               %p.bold
                 = @course.curriculums.where(:type => 'lecture').count
               %p.bold
                 1h
                 -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
-              %p.bold= @course.level
+              %p.bold{:style => 'text-transform: capitalize'}= @course.level
               %p.bold
                 - if @course.lang == "en"
                   Tiếng Anh
-                - elsif
-                  Tiếng việt
+                - else
+                  Tiếng Việt
               / %p.bold
               /   Lifetime access
               / %p.bold
@@ -298,7 +299,7 @@
                     .col.s12.no-padding= c.name 
                   .row.course-author
                   - if c.user
-                    .col.s12.no-padding= "By " + c.user.name
+                    .col.s12.no-padding= "Bởi " + c.user.name
                   .row.course-rating
                     .col.s7.course-rating-point.no-padding
                       - (1..5).each do |i|
