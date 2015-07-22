@@ -280,8 +280,8 @@ namespace :seeds do
               next if course.blank?
             end
 
-            if !row[7].blank?
-              @curriculums << [row[7], "chapter", row[10], row[11], row[12]]
+            if !row[8].blank?
+              @curriculums << [row[8], "chapter", row[10], row[11], row[12]]
             end
         
             if !row[9].blank?

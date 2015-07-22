@@ -1,7 +1,7 @@
 %main
- .row.leture
+ .row.leture.no-margin
   .col.s9.no-padding.fixed
-   .row.leture-header
+   .row.leture-header.no-margin
     %ul
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning'}
@@ -12,8 +12,8 @@
       %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index-1).to_s}
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
        Bài giảng trước 
-   .row
-    .col.s10.offset-s1.leture-player 
+   .row.no-margin{:style => "background-color: #1B1B1B"}
+    .col.s10.offset-s1.leture-player
      
      - if @lecture.asset_type == "Video"
       - @indexStart = @lecture.url.index('v=') + 2
@@ -30,7 +30,7 @@
       .row.document
        - if @lecture.description
         = @lecture.description
-   .row.leture-footer   
+   .row.leture-footer.no-margin 
     %ul
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning',:style => "visibility:hidden;"} 
@@ -39,16 +39,18 @@
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index+1).to_s}
        Bài tiếp theo
-       %i.material-icons.left.white-text play_circle_filled
+       %i.material-icons.left.white-text{:style => "transform: rotate(90deg);"} play_circle_filled
      %li
       / %a.waves-effect.waves-light.btn.leture-header-back-course
       /  %i.material-icons.left.white-text replay
       /  %span Auto Play
       /  %span.bold.green-text{:style => "text-transform : uppercase"} ON
   .col.s3.list-lecture
+   - @indexLecture = 0
    - have_chapter = @course.curriculums.where(type: "chapter").count == 0
    - if have_chapter
     - @course.curriculums.where(type: "lecture").each do |lecture|
+     - @indexLecture += 1
      - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
      .col.s12.lecture-list-items
       - if @lecture.lecture_index == lecture.lecture_index
@@ -67,13 +69,13 @@
              .row.icon.completed
               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
          .col.s10.no-padding.item-data
-          %span.item-name= lecture.title
+          %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
           .row.detail
            
            - if lecture.asset_type == "Video"
             .col.s3.offset-s6.icon-video-type.no-padding
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding Video
+            .col.s9.no-padding= lecture.description
            - else
             .col.s3.offset-s6.icon-document-type.no-padding
              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
@@ -94,13 +96,13 @@
              .row.icon.completed
               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
          .col.s10.no-padding.item-data
-          %span.item-name= lecture.title
+          %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
           .row.detail
            
            - if lecture.asset_type == "Video"
             .col.s3.offset-s6.icon-video-type.no-padding
              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding Video
+            .col.s9.no-padding= lecture.description
            - else
             .col.s3.offset-s6.icon-document-type.no-padding
              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
@@ -108,10 +110,11 @@
    - else
     - @course.curriculums.each do |curriculum|
      - if curriculum.type == 'chapter'
-      .row.lecture-chap
+      .row.lecture-chap.no-margin
        .col.s12.lecture-chap-title= curriculum.title
        .col.s12.lecture-list-items
         - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
+         - @indexLecture += 1
          - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
          - if @lecture.lecture_index == lecture.lecture_index
           %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
@@ -127,13 +130,13 @@
               .row.icon.completed
                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
             .col.s10.no-padding.item-data
-             %span.item-name= lecture.title
+             %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
              .row.detail
                
               - if lecture.asset_type == "Video"
                .col.s3.offset-s6.icon-video-type.no-padding
                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-               .col.s9.no-padding Video
+               .col.s9.no-padding= lecture.description
               - else
                .col.s3.offset-s6.icon-document-type.no-padding
                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
@@ -152,13 +155,13 @@
               .row.icon.completed
                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
             .col.s10.no-padding.item-data
-             %span.item-name= lecture.title
+             %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
              .row.detail
               
               - if lecture.asset_type == "Video"
                .col.s3.offset-s6.icon-video-type.no-padding
                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-               .col.s9.no-padding Video
+               .col.s9.no-padding= lecture.description
               - else
                .col.s3.offset-s6.icon-document-type.no-padding
                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file

@@ -90,7 +90,7 @@
                   %span.course-price.red-text
                     Miễn phí
                 - else
-                  %span.course-price= ac.price
+                  %span.course-price= number_to_currency(ac.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.course-rating
                     %span.course-rating-point
                       - (1..5).each do |i|
@@ -99,7 +99,7 @@
                         - else
                           %i.material-icons star_rate
                     %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
-                %p.course-other-info.fix-height-info= ac.benefit
+                %p.course-other-info.fix-height-info= ac.sub_title
                 %span.blue-text Xem thêm
       .row
         %div.center-pagination
