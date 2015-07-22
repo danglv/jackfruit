@@ -7,6 +7,22 @@
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
     %title Tudemy
     = stylesheet_link_tag    'application', media: 'all'
+    :javascript
+      if (window.location.hash && window.location.hash == '#_=_') {
+          if (window.history && history.pushState) {
+              window.history.pushState("", document.title, window.location.pathname);
+          } else {
+              // Prevent scrolling by storing the page's current scroll offset
+              var scroll = {
+                  top: document.body.scrollTop,
+                  left: document.body.scrollLeft
+              };
+              window.location.hash = '';
+              // Restore the scroll offset, should be flicker free
+              document.body.scrollTop = scroll.top;
+              document.body.scrollLeft = scroll.left;
+          }
+      }
     = csrf_meta_tags
   %body
     = yield

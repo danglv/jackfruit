@@ -1,7 +1,7 @@
 %main
  .row.leture
   .col.s9.no-padding.fixed
-   .row.leture-header
+   .row.leture-header.no-margin
     %ul
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning'}
@@ -12,8 +12,8 @@
       %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index-1).to_s}
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
        Bài giảng trước 
-   .row
-    .col.s10.offset-s1.leture-player 
+   .row.no-margin{:style => "background-color: #1B1B1B"}
+    .col.s10.offset-s1.leture-player
      
      - if @lecture.asset_type == "Video"
       - @indexStart = @lecture.url.index('v=') + 2
@@ -30,7 +30,7 @@
       .row.document
        - if @lecture.description
         = @lecture.description
-   .row.leture-footer   
+   .row.leture-footer.no-margin 
     %ul
      %li
       %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning',:style => "visibility:hidden;"} 
@@ -110,7 +110,7 @@
    - else
     - @course.curriculums.each do |curriculum|
      - if curriculum.type == 'chapter'
-      .row.lecture-chap
+      .row.lecture-chap.no-margin
        .col.s12.lecture-chap-title= curriculum.title
        .col.s12.lecture-list-items
         - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|

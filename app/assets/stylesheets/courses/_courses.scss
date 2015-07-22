@@ -594,6 +594,7 @@
   margin: 0;
 }
 .leture{
+
    &-header, &-footer{
       background: #2c2f37;
       height: 50px;
@@ -602,7 +603,7 @@
     transform: rotate(180deg);
    }
    &-player, .media, .document{
-    height: 420px;
+    height: 450px;
     padding: 0px;
     margin: 0px;
 
@@ -653,10 +654,9 @@
     background: #009688;
     color: white;
     font-size: 14;
-    line-height: 40px;
+    line-height: 25px;
    }
    .lecture-list-items{
-      margin-top: 10px;
       padding: 0px 0px  0px 15px;
       margin-left: 20px;
     .completed{
@@ -683,8 +683,9 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: #727272;
+      background: #999999;
       margin-left: -22px;
+      margin-right: 10px;
     }
     .icon-document-type{
       width: 20px;
@@ -701,8 +702,8 @@
       float: left;
       width: 100%;
       color: #212121;
-      border-left:1px solid #000000;
-      border-bottom:1px solid #b6b6b6
+      border-left:1px solid #999999;
+      border-bottom:1px solid #999999
     }
     .item-container:hover{
       background: #e9e9e9;
