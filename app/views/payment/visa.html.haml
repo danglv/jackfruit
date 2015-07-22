@@ -8,9 +8,9 @@
       .row.green.payment-header
         .col.s6
           %h4.white-text Xác nhận thanh toán
-          %p.white-text Kỹ năng thuyết trình và nói trước công chúng
+          %p.white-text= @course.name
         .col.s6
-          %h4.right.white-text 300.000d
+          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       .container-1140
         = render :partial => 'payment_method'
         .row.payment-content

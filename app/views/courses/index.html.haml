@@ -4,6 +4,7 @@
 
 %main.container-1140
   .row.course-list.highest-rating
+    - binding.pry
     - @courses.to_a.each do |course_h|
       - if course_h.last.last.count >0
         .col.s12
@@ -33,7 +34,7 @@
                   .row.course-footer
                     .col.s6.no-padding.course-favorite
                       %span.left
-                        %i.material-icons.is-favorite favorite
+                        %i.material-icons.is-favorite group
                       %span.left= course.students
                     -if course.price.to_s == "0"
                       .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}

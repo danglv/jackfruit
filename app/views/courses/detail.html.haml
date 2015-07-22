@@ -32,18 +32,22 @@
         .col.s7.no-padding
           .video-container.no-controls
             - if @course.intro_link && @course.intro_link != ''
-              - @indexStart = @course.intro_link.index('v=') + 2
-              - if @course.intro_link['&']
-                - @indexEnd = @course.intro_link.index('&')-1
-                - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
-              - else
-                - @indexEnd = @course.intro_link.length
-                - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
+              - if @course.intro_link['v=']
+                - @indexStart = @course.intro_link.index('v=') + 2
+                - if @course.intro_link['&']
+                  - @indexEnd = @course.intro_link.index('&')-1
+                  - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
+                - else
+                  - @indexEnd = @course.intro_link.length
+                  - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
+              - elsif @course.intro_link['youtu.be']
+                - pattern = /youtu.be\/(.*)\?/
+                - @youtube_id = pattern.match(@course.intro_link)[1]
               %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=1&amp', :width => "853"}
             - elsif @course.intro_image && @course.intro_image != ''
-              = image_tag @course.intro_image
+              = image_tag @course.intro_image, :style => 'width: 100%'
             - else
-              = image_tag 'course-image-intro.png'
+              = image_tag 'course-image-intro.png', :style => 'width: 100%'
         .col.s5
           .row
             %a.row.courses{:href => "#"}
@@ -61,7 +65,7 @@
                   Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
-              /   %i.material-icons.is-favorite favorite
+              /   %i.material-icons.is-favorite group
               /   Ưa thích
           / %a.row{:href => "#"}
           /   Nhập mã khuyễn mãi
@@ -119,14 +123,20 @@
                 %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
               - else
                 / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
-                %a.collection-item{:href =>  '#', :style => "pointer-events: none; background: #e9e9e9; border-bottom: 1px solid #b6b6b6"}
-                  .row.no-margin
-                    .col.s11.left
-                      %span.grey-text.left= (curi.lecture_index + 1 ).to_s+"."
-                      %i.material-icons.grey-text.left play_circle_filled
-                      %span #{curi.title}
-                    .col.s1
-                      / %span.right 07:07
+                %a.collection-item.no-padding{:href =>  '#', :style => "pointer-events: none; background: #e9e9e9; border-bottom: 1px solid #b6b6b6"}
+                  .row.no-margin{:style => "margin: 10px 0px"}
+                    .col.s9.left
+                      %span.grey-text.left{:style => 'width: 20px'}= (curi.lecture_index + 1 ).to_s
+                      - if curi.asset_type == "Video"
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} play_circle_filled
+                      - else 
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} insert_drive_file
+                      %span{:style => "color: #338abc"} #{curi.title}
+                    .col.s3.no-padding{:style => 'text-align:right'}
+                      - if curi.asset_type == "Video"
+                        %span.black-text= curi.description
+                      - else
+                        %span.black-text Văn bản
           / .row
           /   %h5
           /     Tiểu sử tác giả
@@ -300,7 +310,7 @@
                   .row.course-footer
                     .col.s7.no-padding.course-favorite
                       %span.left
-                        %i.material-icons.is-favorite favorite
+                        %i.material-icons.is-favorite group
                       %span.left=  c.students.to_s
                     - if c.price == 0
                       .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
