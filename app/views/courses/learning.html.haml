@@ -117,6 +117,11 @@
       %span.or hoặc
      %li
       %a.waves-effect.waves-light.btn.add_comment Đăng thảo luận
+      / Dropdown Trigger
+      %a.dropdown-button.btn{"data-activates" => "dropdown1", :href => "#"} Drop Me!
+      / Dropdown Structure
+      %ul#dropdown1.dropdown-content
+        
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user
