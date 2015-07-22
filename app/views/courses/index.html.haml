@@ -4,6 +4,7 @@
 
 %main.container-1140
   .row.course-list.highest-rating
+    - binding.pry
     - @courses.to_a.each do |course_h|
       - if course_h.last.last.count >0
         .col.s12
