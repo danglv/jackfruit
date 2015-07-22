@@ -12,7 +12,7 @@
           .col.s9
             %p.course-title= @course.name
             %p= @course.sub_title
-            %p= "Tác giả: " + @course.user.name.to_s
+            %p= "Giảng dạy bởi " + @course.user.name.to_s
             %a.btn-large.blue.darken-1{:href => "/courses/"+@course._id+"/learning"} Tiếp tục khóa học
   .row.course-list.highest-rating.container-1140
     - @courses.to_a.each do |course_h|

@@ -30,7 +30,7 @@
         %input#sorting{:type => 'hidden', :name => 'ordering', :value => ''}
         %ul.course-filters
           %li.course-filter
-            %p.course-filter-title Chi phí
+            %p.course-filter-title Mức phí
             %ul.course-filter-content
               %li.course-filter-item
                 %input#price-free-filter.filled-in{:type => 'checkbox', :name => 'budget', :value => 'free'}
@@ -52,18 +52,18 @@
             %ul.course-filter-content
               %li.course-filter-item
                 %input#level-all-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'all'}
-                %label{:for => 'level-all-filter'} Mọi trình độ
+                %label{:for => 'level-all-filter'} Tất cả
               %li.course-filter-item
                 %input#level-beginner-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'beginner'}
                 %label{:for => 'level-beginner-filter'} Cơ bản
-              %li.course-filter-item
-                %input#level-basic-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'intermediate'}
-                %label{:for => 'level-basic-filter'} Trung cấp
+              / %li.course-filter-item
+              /   %input#level-basic-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'intermediate'}
+              /   %label{:for => 'level-basic-filter'} Trung cấp
               %li.course-filter-item
                 %input#level-advanced-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'expert'}
                 %label{:for => 'level-advanced-filter'} Nâng cao
         %ul.other-categories
-          %li.other-categories-title Cách chủ đề khác
+          %li.other-categories-title Các chủ đề khác
           - @other_category.each do |cate|
             %li.other-category
               %a{:href => "/courses/#{cate.id}/all_courses"}= cate.name
