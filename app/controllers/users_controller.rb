@@ -103,12 +103,11 @@ class UsersController < ApplicationController
   end
 
   def select_course
-    course_id = params[:course_id]
-    course = Course.where(id:course_id).first
-
+    course_alias_name = params[:alias_name]
+    course = Course.where(alias_name:course_alias_name).first
     if course.price == 0
       owned_course = current_user.courses.find_or_initialize_by(
-        course_id: course_id
+        course_id: course.id
       )
       if course.price != 0
         status = Constants::OwnedCourseStatus::PENDING
@@ -121,10 +120,9 @@ class UsersController < ApplicationController
 
       init_lectures_for_owned_course(owned_course, course)
       current_user.save
-
-      redirect_to root_url + "courses/#{course_id}/select"
+      redirect_to root_url + "courses/#{course_alias_name}/select"
     else
-      redirect_to root_url + "home/payment?course_id="+course_id
+      redirect_to root_url + "home/payment?course_id=" + course._id
     end
   end
 
