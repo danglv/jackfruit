@@ -11,10 +11,10 @@ Rails.application.routes.draw do
       get :learning
       get :detail
       get '/select', to: 'courses#select'
+      post :add_discussion
     end
     collection do
       get :search
-      get :test_course_detail_id
       get '/:category_id', to: 'courses#list_course_featured'
       get '/:category_id/all_courses', to: 'courses#list_course_all'
     end
