@@ -55,7 +55,7 @@
         .row.courses.list-style
           - @courses.each do |course|
             .col.s12
-              %a.row.course{:href => '/courses/' + course.id + '/detail'}
+              %a.row.course{:href => '/courses/' + course.alias_name + '/detail'}
                 .col.s3.course-image
                   = image_tag course.image
                 .col.s9

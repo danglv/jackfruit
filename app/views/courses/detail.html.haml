@@ -21,7 +21,7 @@
                 - else
                   %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              = @course.reviews.count
+              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
@@ -45,8 +45,8 @@
                 - pattern = /youtu.be\/(.*)\?/
                 - @youtube_id = pattern.match(@course.intro_link)[1]
               %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=1&amp', :width => "853"}
-            - elsif @course.intro_image && @course.intro_image != ''
-              = image_tag @course.intro_image, :style => 'width: 100%'
+            - elsif @course.image && @course.image != ''
+              = image_tag @course.image, :style => 'width: 100%'
             - else
               = image_tag 'course-image-intro.png', :style => 'width: 100%'
         .col.s5
@@ -59,10 +59,10 @@
           .row
             .col.s6.no-padding
               - if @course.price.to_s == "0"
-                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                   Bắt đầu học ngay
               - else 
-                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                   Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
@@ -262,7 +262,7 @@
           .row
             %ul.collection
               - @courses['related'].last.each do |relate|
-                %a.black-text{:href => "/courses/"+relate._id+"/detail"}
+                %a.black-text{:href => "/courses/"+relate.alias_name+"/detail"}
                   %li.collection-item.avatar
                     - if relate.user
                       = image_tag relate.image, :class => 'circle'

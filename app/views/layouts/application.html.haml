@@ -6,7 +6,7 @@
     %link{:href => "//fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
     = favicon_link_tag 'favicon.png'
-    %title Tudemy
+    %title= help_get_title
     = stylesheet_link_tag    'application', media: 'all'
     :javascript
       if (window.location.hash && window.location.hash == '#_=_') {

@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :validate_content_type_param
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -97,8 +97,8 @@ class CoursesController < ApplicationController
   end
 
   def detail
-    course_id = params[:id]
-    @course = Course.where(id: course_id).first
+    course_alias_name = params[:alias_name]
+    @course = Course.where(alias_name: course_alias_name).first
 
     @courses = {}
     
@@ -107,27 +107,26 @@ class CoursesController < ApplicationController
   end
 
   def learning
-    course_id = params[:id]
-    @course = Course.where(id: course_id).first
-    @owned_course = current_user.courses.where(course_id: course_id).first
-    
+    course_alias_name = params[:alias_name]
+    @course = Course.where(alias_name: course_alias_name).first
+    @owned_course = current_user.courses.where(course_id: @course._id).first
     if @owned_course.blank?
-      redirect_to root_url + "courses/#{course_id}/detail"
+      redirect_to root_url + "courses/#{course_alias_name}/detail"
       return
     end
   end
 
   def lecture 
-    course_id     = params[:id]
+    course_alias_name     = params[:alias_name]
     lecture_index = params[:lecture_index]
-    @course       = Course.where(id: course_id).first
+    @course       = Course.where(alias_name: course_alias_name).first
 
     if @course.blank?
       render json: {message: "khóa học không hợp lệ!"}
     end
 
     @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
-    @owned_course = current_user.courses.where(course_id: course_id).first
+    @owned_course = current_user.courses.where(course_id: @course._id).first
     
     if @owned_course.blank?
       redirect_to root_url + "courses/#{course_id}/detail"
@@ -149,7 +148,7 @@ class CoursesController < ApplicationController
     lang     = params[:lang]
     level    = params[:level]
     ordering = params[:ordering]
-    pattern  = /#{Regexp.escape(@keywords)}/
+    pattern  = /#{Regexp.escape(@keywords)}/i
 
     condition = {}
 
@@ -194,9 +193,9 @@ class CoursesController < ApplicationController
   end
 
   def select
-    course_id = params[:id]
-    @course   = Course.where(id: course_id).first
-    
+    course_alias_name = params[:alias_name]
+    @course   = Course.where(alias_name: course_alias_name).first
+
     labels    = Constants.LabelsValues
     @courses  = {}
   
