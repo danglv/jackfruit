@@ -109,7 +109,23 @@
      %li
       %span.or hoặc
      %li
-      %a.waves-effect.waves-light.btn.add_comment Thêm thảo luận
+      %a.waves-effect.waves-light.add_comment.dropdown-button.btn{"data-activates" => "comment-dropdown", :href => "#"} Thêm thảo luận
+      %ul#comment-dropdown.dropdown-content
+       .row.header.valign-wrapper{:style => "height: 40px; font-size: 18px;background-color: #eee;margin: 0"}
+        .col.s12
+         %span{:style => "color: #333"} Thêm thảo luận mới
+       .row{:style => "margin: 0"}
+        .input-field.col.s12
+         %input#comment-title.validate{:type => "text", :style => "margin-bottom: 10px"}
+          %label.active{:for => "comment-title"} Tên chủ đề
+       .row
+        .input-field.col.s12
+         %textarea#comment-content.materialize-textarea{:type => "text"}
+         %label{:for => "comment-content"} Nội dung
+       .row.footer{:style => "height: 30px"}
+        .col.s12
+         %a.btn-flat.left Thoát
+         %a.btn.right Đăng
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user
