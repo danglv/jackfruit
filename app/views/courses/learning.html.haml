@@ -125,7 +125,7 @@
          %label{:for => "comment-content"} Nội dung
        .row.footer{:style => "height: 30px"}
         .col.s12
-         %a.btn-flat.left Thoát
+         %a#close-send-comment.btn-flat.left Thoát
          %a#send-comment.btn.right Đăng
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
@@ -135,15 +135,19 @@
         %ul.no-margin
          %li
           %i.small.material-icons.no-padding face
-         %li
-          %p= discussion.user.name.to_s + " đã đăng một thảo luận"
+         %li{:style => 'margin-left: 5px'}
+          - if discussion.user.name
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.name 
+          - else 
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.email
+          %p.left{:style => 'font-weight: 500; color: #335d82; font-size: 12px; margin-left: 5px'}= " đã đăng một thảo luận"
          %li
          // %p -
          %li 
           //%p 1 tháng trước 
        .row.cm-item-content
-        %p.no-margin{:style => 'font-weight: 500'}= discussion.title
-        %p= discussion.description
+        %p.no-margin{:style => 'font-size: 18px; font-weight: 500; color: #59657D'}= discussion.title
+        %p{:style => 'margin: 0px 0px 0px 0px'}= discussion.description
        / .row.cm-item-footer.no-margin
        /  %ul
        /   %li
