@@ -215,43 +215,22 @@
           /     .col.s1
           /       %span 3174
         .row
-        - @course.reviews.each do |rv|
+        - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           %ul.collection
             %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
               %img.circle{:alt => "", :src => "/assets/avatar.png"}
-                %span.title.bold Jasmine Maddox
-                %p 2 ngày trước
+                .title.bold= rv.user.name
+                / %p 2 ngày trước
                 %span.courses
                   %span.course-rating
                   %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                %p.bold
-                  Just what I need.
-                %p
-                  I loved how tthe course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-          %ul.collection
-            %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
-              %img.circle{:alt => "", :src => "/assets/avatar.png"}
-                %span.title.bold Giovanni Barbieri
-                %p 12 ngày trước
-                %span.courses
-                  %span.course-rating
-                  %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                %p.bold
-                  Poor content
-                %p
-                  Very general overview of wordpress. You can learn the content of this course just playing with wp by yourself for 20 min.
-          %a{:href => "#"}
-            Xem thêm các bình luận khác
+                    - (1..5).each do |i|
+                      - if i <= rv.rate
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
+                %p.bold= rv.title
+                %p= rv.description
       .col.s4
         .row
           #fb-root
