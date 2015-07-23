@@ -95,12 +95,13 @@
               %p.bold
                 1h
                 -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
-              %p.bold{:style => 'text-transform: capitalize'}= @course.level
-              %p.bold
-                - if @course.lang == "en"
-                  Tiếng Anh
-                - else
-                  Tiếng Việt
+              %p.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][:vi]
+              %p.bold 
+                = Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
+                / - if @course.lang == "en"
+                /   Tiếng Anh
+                / - else
+                /   Tiếng Việt
               / %p.bold
               /   Lifetime access
               / %p.bold
