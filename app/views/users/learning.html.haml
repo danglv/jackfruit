@@ -22,7 +22,7 @@
         - index = current_user.courses.where(:course_id => course.id.to_s).first.lectures.where(lecture_ratio: 100).count
         - count = course.curriculums.where(type: "lecture").count
           .col.s3
-            %a.course{:href => '/courses/'+course._id+'/learning'}
+            %a.course{:href => '/courses/'+course.alias_name+'/learning'}
               .card-image.course-image
                 = image_tag course.image
               .card-content.course-content

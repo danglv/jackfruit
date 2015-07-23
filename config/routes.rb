@@ -7,16 +7,20 @@ Rails.application.routes.draw do
   
   resources :courses, only: %w[index] do
     member do
-      get '/lecture/:lecture_index', to: 'courses#lecture'
-      get :learning
-      get :detail
-      get '/select', to: 'courses#select'
+      # get '/lecture/:lecture_index', to: 'courses#lecture'
+      # get :learning
+      # get :detail
+      # get '/select', to: 'courses#select'
       post :add_discussion
     end
     collection do
       get :search
       get '/:category_id', to: 'courses#list_course_featured'
       get '/:category_id/all_courses', to: 'courses#list_course_all'
+      get '/:alias_name/detail', to: 'courses#detail'
+      get '/:alias_name/learning', to: 'courses#learning'
+      get '/:alias_name/select', to: 'courses#select'
+      get '/:alias_name/lecture/:lecture_index', to: 'courses#lecture'
     end
   end
 

@@ -17,7 +17,7 @@
     - @indexLecture = 0
     - @index = current_user.courses.where(:course_id => @course.id.to_s).first.lectures.where(lecture_ratio: 100).count
     - @count = @course.curriculums.where(type: "lecture").count
-    %a{:href => '/courses/'+@course._id+'/lecture/0'}
+    %a{:href => '/courses/'+@course.alias_name+'/lecture/0'}
      .col.s2
       %i.medium.material-icons.white-text{:style => "margin-top:10px; width:42px; height:42px"} play_circle_filled
      .col.s10
@@ -40,7 +40,7 @@
        - @indexLecture += 1
        - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
        .col.s12.lecture-list-items
-        %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+        %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
          .row.no-margin
           .col.s1
            -if owned_lecture.status == 0
@@ -74,7 +74,7 @@
           - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
            - @indexLecture += 1
            - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
-           %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+           %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
             .row.no-margin
              .col.s1
               -if owned_lecture.status == 0

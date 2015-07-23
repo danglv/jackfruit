@@ -15,7 +15,7 @@
           .row.courses.card-style
             - @courses["featured"].last.each do |tf|
               .col.s3
-                %a.course{:href => '/courses/' + tf.id.to_s + '/detail', :style => "height: 360px"}
+                %a.course{:href => '/courses/' + tf.alias_name.to_s + '/detail', :style => "height: 360px"}
                   .card-image.course-image
                     = image_tag tf.image
                   .card-content.course-content
@@ -50,7 +50,7 @@
           .row.courses.card-style
             - @courses["top_free"].last.each do |tf|
               .col.s3
-                %a.course{:href => '/courses/' + tf.id.to_s + '/detail', :style => "height: 360px"}
+                %a.course{:href => '/courses/' + tf.alias_name.to_s + '/detail', :style => "height: 360px"}
                   .card-image.course-image
                     = image_tag tf.image
                   .card-content.course-content
@@ -88,7 +88,7 @@
           .row.courses.card-style
             - @courses["top_paid"].last.each do |course|
               .col.s3
-                %a.course{:href => '/courses/' + course.id.to_s + '/detail', :style => "height: 360px"}
+                %a.course{:href => '/courses/' + course.alias_name.to_s + '/detail', :style => "height: 360px"}
                   .card-image.course-image
                     = image_tag course.image
                   .card-content.course-content
