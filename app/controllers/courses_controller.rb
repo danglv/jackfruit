@@ -142,12 +142,6 @@ class CoursesController < ApplicationController
     current_user.save
   end
 
-  def lecture_exam
-  end
-
-  def lecture_detail
-  end
-
   def search
     @keywords = params[:q]
     page     = params[:page] || 1
@@ -199,10 +193,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def test_course_detail_id
-
-  end
-
   def select
     course_id = params[:id]
     @course   = Course.where(id: course_id).first
@@ -219,5 +209,29 @@ class CoursesController < ApplicationController
 
     @courses[label.to_sym] = [title, Course.where(:label_ids.in => [label]).limit(12)]
    }
+  end
+
+  def add_discussion
+    course_id     = params[:id]
+    curriculum_id = params[:curriculum_id]
+    title         = params[:title]
+    description   = params[:description]
+    @course       = Course.where(id: course_id).first
+    curriculum    = @course.curriculums.where(id:curriculum_id).first
+
+    if @course.blank?
+      render json: {message: "khóa học không hợp lệ!"}, status: :unprocessable_entity
+    end
+
+    discussion = @course.discussions.create(
+      title: title,
+      description: description,
+    )
+    discussion.user = current_user
+    discussion.curriculum = curriculum if !curriculum.blank?
+
+    if @course.save
+      render json: {message: "Thêm discussion thành công"}
+    end
   end
 end
