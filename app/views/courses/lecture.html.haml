@@ -54,7 +54,7 @@
      - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
      .col.s12.lecture-list-items
       - if @lecture.lecture_index == lecture.lecture_index
-       %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+       %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
           -if owned_lecture.status == 0
@@ -81,7 +81,7 @@
              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
             .col.s9.no-padding Văn bản
       - else
-       %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+       %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
           -if owned_lecture.status == 0
@@ -117,7 +117,7 @@
          - @indexLecture += 1
          - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
          - if @lecture.lecture_index == lecture.lecture_index
-          %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
            .row.no-margin
             .col.s1
              - if owned_lecture.status == 0
@@ -142,7 +142,7 @@
                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
                .col.s9.no-padding Văn bản
          - else
-          %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
            .row.no-margin
             .col.s1
              - if owned_lecture.status == 0
