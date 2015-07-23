@@ -3,8 +3,9 @@
     %a.waves-effect.waves-light.btn{:href => '/courses'}
       %i.large.material-icons.left menu
       Danh sách khoá học
-  %li.bold
-    %a.waves-effect.waves-teal{:href => '/home/my-course/learning'} Khoá học của tôi
+  - if current_user
+    %li.bold
+      %a.waves-effect.waves-teal{:href => '/home/my-course/learning'} Khoá học của tôi
   %li.no-padding.no-hover-effect
     %ul.collapsible.collapsible-accordion
       - @all_categories.each do |category|
