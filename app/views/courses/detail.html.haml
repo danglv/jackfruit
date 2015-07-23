@@ -224,11 +224,11 @@
                 %span.courses
                   %span.course-rating
                   %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
+                    - (1..5).each do |i|
+                      - if i <= rv.rate
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
                 %p.bold= rv.title
                 %p= rv.description
       .col.s4
