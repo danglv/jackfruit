@@ -148,7 +148,7 @@ class CoursesController < ApplicationController
     lang     = params[:lang]
     level    = params[:level]
     ordering = params[:ordering]
-    pattern  = /#{Regexp.escape(@keywords)}/
+    pattern  = /#{Regexp.escape(@keywords)}/i
 
     condition = {}
 
