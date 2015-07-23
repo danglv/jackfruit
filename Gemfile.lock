@@ -321,6 +321,3 @@ DEPENDENCIES
   unicorn
   web-console (~> 2.0)
   will_paginate_mongoid (~> 2.0.1)
-
-BUNDLED WITH
-   1.10.5

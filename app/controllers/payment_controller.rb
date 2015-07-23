@@ -31,6 +31,14 @@ class PaymentController < ApplicationController
       owned_course = current_user.courses.find_or_initialize_by(
         course_id: course_id
       )
+
+      @course.curriculums.where(
+        :type => Constants::CurriculumTypes::LECTURE
+      ).map{|curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
+
+      @course.set(:students => course.students + 1)
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save

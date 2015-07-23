@@ -5,10 +5,10 @@
  .row.header.no-padding
   .row.header-container.container-1140.no-padding
    .col.s11
-    %span.title.bold.fix-height= @course.name
+    %span.title.fix-height{:style => 'font-weight: 500; font-size: 24px'}= @course.name
    .col.s1
     .col.s5.no-padding 
-     %i.small.material-icons.green-text.no-padding{:style => "margin-top:10px;"} group 
+     %i.small.material-icons.white-text.no-padding{:style => "margin-top:10px;"} group 
     .col.s5
      %span.count= " " + @course.students.to_s
  .row.lecture-content
@@ -24,7 +24,7 @@
       .row.no-padding
        %p{:style => "font-size: 12px"} Bài giảng 1:
        - if @course.curriculums[0].type == 'chapter'
-        %p{:style => "font-size: 16px"}= @course.curriculums[1].title
+        %p{:style => "font-size: 16px; font-weight: 500"}= @course.curriculums[1].title
         %p{:style => "font-size: 12px"}= @course.curriculums[1].description   
        - else
         %p{:style => "font-size: 16px"}= @course.curriculums[0].title
@@ -101,7 +101,7 @@
                 .col.s9.no-padding Văn bản
   .col.s6.lecture-comment
    .row.lecture-comment-title 
-    %span.bold Thảo luận
+    %span.bold{:style => 'font-weight: 500; font-size: 18px'} Thảo luận
    .row.lecture-comment-tool
     %ul
      %li
@@ -109,7 +109,23 @@
      %li
       %span.or hoặc
      %li
-      %a.waves-effect.waves-light.btn.add_comment Thêm thảo luận
+      %a.waves-effect.waves-light.add_comment.dropdown-button.btn{"data-activates" => "comment-dropdown", :href => "#"} Thêm thảo luận
+      %ul#comment-dropdown.dropdown-content
+       .row.header.valign-wrapper{:style => "height: 40px; font-size: 18px;background-color: #eee;margin: 0"}
+        .col.s12
+         %span{:style => "color: #333"} Thêm thảo luận mới
+       .row{:style => "margin: 0"}
+        .input-field.col.s12
+         %input#comment-title.validate{:type => "text", :style => "margin-bottom: 10px"}
+          %label.active{:for => "comment-title"} Tên chủ đề
+       .row
+        .input-field.col.s12
+         %textarea#comment-content.materialize-textarea{:type => "text"}
+         %label{:for => "comment-content"} Nội dung
+       .row.footer{:style => "height: 30px"}
+        .col.s12
+         %a.btn-flat.left Thoát
+         %a.btn.right Đăng
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user
