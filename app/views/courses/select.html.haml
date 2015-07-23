@@ -12,7 +12,7 @@
           .col.s9
             %p.course-title= @course.name
             %p= @course.sub_title
-            %p= "Tác giả: " + @course.user.name.to_s
+            %p= "Giảng dạy bởi " + @course.user.name.to_s
             %a.btn-large.blue.darken-1{:href => "/courses/"+@course._id+"/learning"} Tiếp tục khóa học
   .row.course-list.highest-rating.container-1140
     - @courses.to_a.each do |course_h|
@@ -24,29 +24,33 @@
         .row.courses.card-style
           - course_h.last.last.each do |course|
             .col.s3
-              %a.course{:href => '/courses/'+course._id+'/detail'}
+              %a.course{:href => '/courses/'+course._id+'/detail', :style => "height: 360px"}
                 .card-image.course-image
                   = image_tag course.image
                 .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding.fix-height= course.name
-                  .row.course-author
-                    .col.s12.no-padding= course.user.name
-                  .row.course-rating
-                    .col.s7.course-rating-point.no-padding
-                      - (1..5).each do |i|
-                        - if i <= course.average_rating
-                          %i.material-icons.is-rated star_rate
-                        - else
-                          %i.material-icons star_rate
-                    .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
-                  .row.course-footer
-                    .col.s6.no-padding.course-favorite
-                      %span.left
-                        %i.material-icons.is-favorite group
-                      %span.left= course.students
-                    -if course.price.to_s == "0"
-                      .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"}
-                        Miễn phí
-                    - else
-                      .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  .col.s12.no-padding{:style => "height: 122px"}
+                    .row.course-title
+                      .col.s12.no-padding.fix-height= course.name
+                    .row.course-author
+                      - if course.user
+                        .col.s12.no-padding= course.user.name
+                      - else
+                        .col.s12.no-padding Tudemy
+                  .col.s12.no-padding
+                    .row.course-rating.no-margin
+                      .col.s7.course-rating-point.no-padding
+                        - (1..5).each do |i|
+                          - if i <= course.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
+                      .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
+                    .row
+                      .col.s6.no-padding.course-favorite
+                        %span.left
+                          %i.material-icons.is-favorite group
+                        %span.left= course.students
+                      - if course.price.to_s == "0"
+                        .col.s6.no-padding.course-price.red-text{:style => "text-align:right;"} Miễn phí
+                      - else
+                        .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
