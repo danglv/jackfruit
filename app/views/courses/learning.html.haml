@@ -109,7 +109,22 @@
      %li
       %span.or hoặc
      %li
-      %a.waves-effect.waves-light.btn.add_comment Thêm thảo luận
+      %a.waves-effect.waves-light.add_comment.dropdown-button.btn{"data-activates" => "comment-dropdown", :href => "#"} Thêm thảo luận
+      %ul#comment-dropdown.dropdown-content
+       .row.header.valign-wrapper{:style => "height: 40px; font-size: 18px;background-color: #eee"}
+        .col.s12
+         %span{:style => "color: #333"} Thêm thảo luận mới
+       .row.title{:style => "height: 48px"}
+        %form.col.s12
+         .row
+          %input#first_name.validate{:placeholder => "Hãy bắt đầu với tiêu đề thảo luận", :type => "text"}
+       .row.content{:style => "height: 67px"}
+        %form.col.s12
+         .row
+          %input#first_name.validate{:placeholder => "Thảo luận về khóa học và chủ đề liên quan", :type => "text"}
+       .row.footer{:style => "height: 30px"}
+        .col.s12
+         %a.btn.right Đăng
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user
@@ -143,3 +158,4 @@
           //%P -
          %li
           //%i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem
+/ Dropdown Trigger
