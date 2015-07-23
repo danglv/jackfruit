@@ -21,7 +21,7 @@
                 - else
                   %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              = @course.reviews.count
+              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
