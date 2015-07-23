@@ -47,7 +47,7 @@ $(document).ready(function (){
 		else{
 			var list_comment = $('.cm-item');
 			list_comment.each(function (){
-				$(this).attr("style", "display: none");
+				$(this).attr("style", "display: block");
 			});
 		}
 		
