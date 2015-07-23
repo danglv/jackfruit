@@ -4,12 +4,12 @@
    .row.leture-header.no-margin
     %ul
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning'}
+      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course.alias_name+'/learning'}
        %i.material-icons.left.white-text{:style => "transform: rotate(180deg);"} play_circle_filled
        Trở lại khóa học
      %li
      - if @lecture.lecture_index > 0
-      %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index-1).to_s}
+      %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course.alias_name+'/lecture/'+(@lecture.lecture_index-1).to_s}
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
        Bài giảng trước 
    .row.no-margin{:style => "background-color: #1B1B1B"}
@@ -33,11 +33,11 @@
    .row.leture-footer.no-margin 
     %ul
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/learning',:style => "visibility:hidden;"} 
+      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course.alias_name+'/learning',:style => "visibility:hidden;"} 
        %i.material-icons.left.white-text{:style => "transform: rotate(180deg);"} play_circle_filled
        Trở lại khóa học    
      %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course._id+'/lecture/'+(@lecture.lecture_index+1).to_s}
+      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course.alias_name+'/lecture/'+(@lecture.lecture_index+1).to_s}
        Bài giảng tiếp
        %i.material-icons.left.white-text{:style => "transform: rotate(90deg);"} play_circle_filled
      %li
@@ -54,7 +54,7 @@
      - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
      .col.s12.lecture-list-items
       - if @lecture.lecture_index == lecture.lecture_index
-       %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+       %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
           -if owned_lecture.status == 0
@@ -81,7 +81,7 @@
              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
             .col.s9.no-padding Văn bản
       - else
-       %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+       %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
         .row.no-margin
          .col.s1
           -if owned_lecture.status == 0
@@ -117,7 +117,7 @@
          - @indexLecture += 1
          - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
          - if @lecture.lecture_index == lecture.lecture_index
-          %a.item-container.lecture_actived{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
            .row.no-margin
             .col.s1
              - if owned_lecture.status == 0
@@ -142,7 +142,7 @@
                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
                .col.s9.no-padding Văn bản
          - else
-          %a.item-container{:href => '/courses/'+@course._id+'/lecture/'+lecture.lecture_index.to_s}
+          %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
            .row.no-margin
             .col.s1
              - if owned_lecture.status == 0

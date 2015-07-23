@@ -1,7 +1,7 @@
 class User::Course
   include Mongoid::Document
 
-  field :status, type: Integer, default: 0
+  field :status, type: String, default: ""
   field :type, type: String, default: ""
 
   embedded_in :user

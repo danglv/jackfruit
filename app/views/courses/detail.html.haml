@@ -59,10 +59,10 @@
           .row
             .col.s6.no-padding
               - if @course.price.to_s == "0"
-                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                   Bắt đầu học ngay
               - else 
-                %a.btn{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=learnning"}
+                %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                   Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
@@ -262,7 +262,7 @@
           .row
             %ul.collection
               - @courses['related'].last.each do |relate|
-                %a.black-text{:href => "/courses/"+relate._id+"/detail"}
+                %a.black-text{:href => "/courses/"+relate.alias_name+"/detail"}
                   %li.collection-item.avatar
                     - if relate.user
                       = image_tag relate.image, :class => 'circle'
