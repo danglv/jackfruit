@@ -2,6 +2,11 @@ $(document).ready(function (){
 	$('#comment-dropdown').click(function (e){
 	  	e.stopPropagation(); 
 		});
+	// close popup
+	$('#close-send-comment').click(function (){
+    $('#comment-dropdown').fadeOut(225);
+		$('#comment-dropdown').removeClass('active');
+	})
 	// send request to add comment 
 	$('#send-comment').click(function (){
 			var course_id = $("#course-id").val();
@@ -18,8 +23,10 @@ $(document).ready(function (){
 		    data: params,
 		    success: function(msg){
 		      var respon =$.parseJSON(JSON.stringify(msg));
-		      var comment_item = '<div class="col s12 no-padding cm-item"> <div class="row cm-item-header no-margin"> <ul class="no-margin"> <li> <i class="small material-icons no-padding">face</i> </li> <li> <p>' + respon.email + ' đã đăng một thảo luận</p> </li> <li></li> <!-- / %p - --> <li> <!-- /%p 1 tháng trước --> </li> </ul> </div> <div class="row cm-item-content"> <p class="no-margin" style="font-weight: 500">' + respon.title + '</p> <p>' + respon.description +'</p> </div> </div>'
+		      var comment_item = '<div class="col s12 no-padding cm-item"> <div class="row cm-item-header no-margin"> <ul class="no-margin"> <li> <i class="small material-icons no-padding">face</i> </li> <li> <p class="left" style="font-weight: 500; color: #353535">' + respon.email + '</p> <p class="left" style="font-weight: 500; color: #335d82; font-size: 12px; margin-left: 5px"> đã đăng một thảo luận</p> </li> <li></li> </li> </ul> </div> <div class="row cm-item-content"> <p class="no-margin" style="font-size: 18px; font-weight: 500; color: #59657D">' +respon.title+ '</p> <p style="margin: 0px 0px 0px 0px">' + respon.description + '</p> </div> </div>'
 		      $('.lecture-comment-list').prepend(comment_item);
+		        $('#comment-dropdown').fadeOut(225);
+     			  $('#comment-dropdown').removeClass('active');
 		    }
 			});
 		})
