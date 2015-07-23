@@ -38,7 +38,7 @@ class PaymentController < ApplicationController
         owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
       }
 
-      @course.set(:students => course.students + 1)
+      @course.set(:students => @course.students + 1)
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
