@@ -93,8 +93,11 @@
               %p.bold
                 = @course.curriculums.where(:type => 'lecture').count
               %p.bold
-                1h
-                -#= @course.curriculums.where(:type => 'lecture').map(&:length).sum
+                - time = 0
+                - @course.curriculums.each do |curi|
+                  - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                    - time += curi.description.to_i
+                = time.to_s + 'h'
               %p.bold{:style => 'text-transform: capitalize'}= @course.level
               %p.bold
                 - if @course.lang == "en"
