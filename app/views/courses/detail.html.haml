@@ -98,12 +98,9 @@
                   - if curi.type == 'lecture' && curi.asset_type == 'Video'
                     - time += curi.description.to_i
                 = time.to_s + 'h'
-              %p.bold{:style => 'text-transform: capitalize'}= @course.level
-              %p.bold
-                - if @course.lang == "en"
-                  Tiếng Anh
-                - else
-                  Tiếng Việt
+              %p.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+              %p.bold 
+                = Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
               / %p.bold
               /   Lifetime access
               / %p.bold
