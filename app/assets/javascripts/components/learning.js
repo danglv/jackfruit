@@ -32,7 +32,7 @@ $(document).ready(function (){
 				var item_comment = $(this);
 				var isFind = false;
 				item_comment.find(".cm-item-content").each(function (){
-					if( $(this).text().indexOf(key_words) > 0 ){
+					if( $(this).text().toLowerCase().indexOf(key_words.toLowerCase()) > 0 ){
 						isFind = true;
 					}
 				})
