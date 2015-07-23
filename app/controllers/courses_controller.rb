@@ -229,9 +229,12 @@ class CoursesController < ApplicationController
     )
     discussion.user = current_user
     discussion.curriculum = curriculum if !curriculum.blank?
-
     if @course.save
-      render json: {message: "Thêm discussion thành công"}
+      render json: {title: title, description: description, email: current_user.email}
+      return
+    else
+      render json: {message: "Có lỗi xảy ra"}
+      return
     end
   end
 end
