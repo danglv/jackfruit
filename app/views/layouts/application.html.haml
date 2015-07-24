@@ -41,7 +41,7 @@
 
     - if current_user && current_user.id
       :javascript
-        ga('create', 'UA-65260176-1', {'userId': #{current_user.id}});
+        ga('create', 'UA-65260176-1', {'userId': "#{current_user.id}"});
         ga('send', 'pageview');
     - else
       :javascript
