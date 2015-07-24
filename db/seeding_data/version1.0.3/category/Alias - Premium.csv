@@ -1,0 +1,113 @@
+Category,Alias,Sub-Category,Alias,Course,Alias
+Phát triển ứng dụng,phat-trien-ung-dung,,,,
+,,Phát triển Web,phat-trien-web,Học và tìm hiểu về AngularJS,hoc-va-tim-hieu-ve-angularjs
+,,Ứng dụng di động,ung-dung-di-dong,Thiết kế ứng dụng di động từ con số 0: Nguyên tắc thiết kế và trải nghiệm người dùng (UX),thiet-ke-ung-dung-di-dong-tu-con-so-0-nguyen-tac-thiet-ke-va-trai-nghiem-nguoi-dung-ux
+,,Ngôn ngữ lập trình,ngon-ngu-lap-trinh,Khóa đào tạo ngôn ngữ lập trình Ruby cho người mới bắt đầu,khoa-dao-tao-ngon-ngu-lap-trinh-ruby-cho-nguoi-moi-bat-dau
+,,Phát triển Game,phat-trien-game,Học lập trình game - Phát triển game bằng Unity 5,hoc-lap-trinh-game-phat-trien-game-bang-unity-5
+,,Cơ sở dữ liệu,co-so-du-lieu,Chứng chỉ Hadoop Developer cho người mới bắt đầu,chuong-chi-hadoop-developer-cho-nguoi-moi-bat-dau
+,,Kiểm thử phần mềm,kiem-thu-phan-mem,Khóa học kiểm thử phần mềm tốt nhất dành cho bạn!,khoa-hoc-kiem-thu-phan-mem-tot-nhat-danh-cho-ban
+,,Công nghệ phần mềm,cong-nghe-phan-mem,Đào tạo quy trình Agile Scrum và chứng chỉ Scrum,dao-tao-quy-trinh-agile-scrum-va-chung-chi-scrum
+,,Công cụ phát triển,cong-cu-phat-trien,Khóa học Git cấp tốc trong 1 giờ,khoa-hoc-git-cap-toc-trong-1-gio
+,,Thương mại điện tử,thuong-mai-dien-tu,Xây dựng trang web thương mại điện tử với Wordpress,xay-dung-trang-web-thuong-mai-dien-tu-voi-wordpress
+Kinh Doanh,kinh-doanh,,,,
+,,Tài chính,tai-chinh,Gọi vốn cộng đồng thành công cho các chiến dịch trị giá 100.000 USD,goi-von-cong-dong-thanh-cong-cho-cac-chien-dich-tri-gia-100000-usd
+,,Khởi nghiệp,khoi-nghiep,Khóa học Freelancer,khoa-hoc-freelancer
+,,Truyền thông,truyen-thong,Bí quyết để trở thành một nhà văn,bi-quyet-de-tro-thanh-mot-nha-van
+,,Quản lý,quan-ly,Thiết kế Gamification Level 1 (cơ bản) + Chứng nhận,thiet-ke-gamification-level-1-co-ban-chung-nhan
+,,Bán hàng,ban-hang,Phát triển kinh doanh dành cho các công ty khởi nghiệp và công ty công nghệ cao,phat-trien-kinh-doanh-danh-cho-cac-cong-ty-khoi-nghiep-va-cong-ty-cong-nghe-cao
+,,Chiến lược,chien-luoc,Làm thế nào để phác thảo một kế hoạch kinh doanh?,lam-the-nao-de-phac-thao-mot-ke-hoach-kinh-doanh
+,,Vận hành,van-hanh,Hệ thống quản lý chất lượng: Quản lý và kiểm soát chất lượng,he-thong-quan-ly-chat-luong-quan-ly-va-kiem-soat-chat-luong
+,,Quản lý dự án,quan-ly-du-an,Khóa học về quản lý dự án chuyên nghiệp (PMP),khoa-hoc-ve-quan-ly-du-an-chuyen-nghiep-pmp
+,,Luật doanh nghiệp,luat-doanh-nghiep,Những điều cơ bản về quyền tác giả: Bảo vệ các tác phẩm khỏi vi phạm bản quyền,nhung-dieu-co-ban-ve-quyen-tac-gia-bao-ve-cac-tac-pham-khoi-vi-pham-ban-quyen
+,,Phân tích dữ liệu,phan-tich-du-lieu,SQL (Structured Query Language - Ngôn ngữ truy vấn có cấu trúc) cho người mới: Nhập môn Phân tích dữ liệu,sql-cho-nguoi-moi-nhap-mon-phan-tich-du-lieu
+,,Kinh doanh tại gia,kinh-doanh-tai-gia,Làm thế nào để kiếm tiền trên youtube mà không cần quay clip,lam-the-nao-de-kiem-tien-tren-youtube-ma-khong-can-quay-clip
+,,Nguồn nhân lực,nguon-nhan-luc,Cách đưa ra lời phê bình chốn công sở,cach-dua-ra-loi-phe-binh-chon-cong-so
+,,Công nghiệp,cong-nghiep,Tiêu chuẩn quốc tế (Draft international stardard)  - ISO/DIS 9001:2015,tieu-chuan-quoc-te-isodis-90012015
+,,Phương tiện truyền thông,phuong-tien-truyen-thong,Cách tôi kiếm tiền mỗi ngày từ các khoá học của Tudemy ,cach-toi-kiem-tien-moi-ngay-tu-cac-khóa-hoc-của-tudemy
+,,Bất động sản,bat-dong-san,Đầu tư bất động sản một cách sáng tạo,dau-tu-bat-dong-san-mot-cach-sang-tao
+,,Khác,khac,Viết thư xin tài trợ: Chìa khóa cho một lời đề nghị thành công,viet-thu-xin-tai-tro-chia-khoa-cho-mot-loi-de-nghi-thanh-cong
+CNTT và Phần mềm,cntt-va-phan-mem,,,,
+,,Chứng chỉ CNTT,chung-chi-cntt,Chứng chỉ Amazon Web Services (AWS),chung-chi-amazon-web-services
+,,Mạng và Bảo mật,mang-va-bao-mat,Khóa học toàn diện về Hacking từ cơ bản đến nâng cao!,khoa-hoc-toan-dien-ve-hacking-tu-co-ban-den-nang-cao
+,,Phần cứng,phan-cung,Hướng dẫn toàn tập về Arduino,huong-dan-toan-tap-ve-arduino
+,,Hệ điều hành,he-dieu-hanh,Thành thạo Linux chỉ trong 5 ngày - Nâng sự nghiệp của bạn lên tầm cao mới,thanh-thao-linux-chi-trong-5-ngay-nang-su-nghiep-cua-ban-len-tam-cao-moi
+,,Khác,khac,Oracle SQL (Ngôn ngữ truy vấn có cấu trúc - Structured Query Language),oracle-sql
+Hiệu suất văn phòng,hieu-suat-van-phong,,,,
+,,Microsoft,microsoft,Microsoft Excel 2010: Khóa đào tạo cho trình độ sơ cấp và trung cấp,microsoft-excel-2010-khoa-dao-tao-cho-trinh-do-so-cap-va-trung-cap
+,,Apple,apple,Tăng năng suất làm việc cho người dùng máy Mac lên 10 lần,tang-nang-suat-lam-viec-cho-nguoi-dung-may-mac-len-10-lan
+,,Google,google,Toàn tập về hệ thống tiện ích Gmail giúp tăng năng suất làm việc cho doanh nghiệp,toan-tap-ve-he-thong-tien-ich-gmail-giup-tang-nang-suat-lam-viec-cho-doanh-nghiep
+,,SAP,sap,Lập trình SAP ABAP cho người mới bắt đầu - 2014 - Đào tạo trực tuyến,lap-trinh-sap-abap-cho-nguoi-moi-bat-dau-2014-dao-tao-truc-tuyen
+,,Intuit,intuit,Học QuickBooks Pro 2014 một cách đơn giản,hoc-quickbooks-pro-2014-mot-cach-don-gian
+,,Oracle,oracle,Giới thiệu về Oracle SQL,gioi-thieu-ve-oracle-sql
+,,Khác,khac,Scrivener Simplified: làm thế nào để tạo ra ebook của riêng bạn chỉ trong 60 phút,scrivener-simplified-lam-the-nao-de-tao-ra-ebook-cua-rieng-ban-chi-trong-60-phut
+,,Salesforce,salesforce,Salesforce: Đào tạo cơ bản cho quản lý và các nhà phát triển,salesforce-dao-tao-co-ban-cho-quan-ly-va-cac-nha-phat-trien
+Phát triển cá nhân,phat-trien-ca-nhan,,,,
+,,Thay đổi bản thân,thay-doi-ban-than,Bí quyết từng bước thiết lập mục tiêu,bi-quyet-tung-buoc-thiet-lap-muc-tieu
+,,Hiệu suất làm việc,hieu-suat-lam-viec,Nâng cao năng suất làm việc của bạn và hoàn thành những công việc quan trọng,nang-cao-nang-suat-lam-viec-cua-ban-va-hoan-thanh-nhung-cong-viec-quan-trong
+,,Lãnh đạo,lanh-dao,Toát ra sự tự tin: Cách để tỏa sáng,toat-ra-su-tu-tin-cach-de-toa-sang
+,,Tài chính cá nhân,tai-chinh-ca-nhan,Giá trị của đầu tư Bootcamp - Tìm hiểu để đầu tư tiền của bạn một cách khôn ngoan,gia-tri-cua-dau-tu-bootcamp-tim-hieu-de-dau-tu-tien-cua-ban-mot-cach-khon-ngoan
+,,Phát triển sự nghiệp,phat-trien-su-nghiep,Bí quyết để tăng số lượng các cuộc phỏng vấn xin việc của bạn,bi-quyet-de-tang-so-luong-cac-cuoc-phong-van-xin-viec-cua-ban
+,,Nuôi dưỡng con cái và các mối quan hệ,nuoi-duong-con-cai-va-cac-moi-quan-he,Ngôn ngữ cơ thể của tình yêu và hò hẹn,ngon-ngu-co-the-cua-tinh-yeu-va-ho-hen
+,,Hạnh phúc,hanh-phuc,Khám phá hạnh phúc cùng tiến sĩ Elisha Goldstein,kham-pha-hanh-phuc-cung-tien-si-elisha-goldstein
+,,Tôn giáo và tín ngưỡng,ton-giao-va-tin-nguong,Kết nối với hướng đạo sinh của bạn,ket-noi-voi-huong-dao-sinh-cua-ban
+,,Xây dựng thương hiệu cá nhân,xay-dung-thuong-hieu-ca-nhan,Khóa học dạy tạo thương hiệu cho bản thân,khoa-hoc-day-tao-thuong-hieu-cho-ban-than
+,,Sáng tạo,sang-tao,Kịch bản phim trị giá hàng triệu đô! Hãy viết lên bộ phim của chính bạn ngay hôm nay!,kich-ban-phim-tri-gia-hang-trieu-do-hay-viet-len-bo-phim-cua-chinh-ban-ngay-hom-nay
+,,Sự ảnh hưởng,su-anh-huong,Sức mạnh của sự yếu đuối,suc-manh-cua-su-yeu-duoi
+,,Lòng tự trọng,long-tu-trong,Từng bước thúc đẩy sự tự tin và lòng tự trọng trong con người bạn,tung-buoc-thuc-day-su-tu-tin-va-long-tu-trong-trong-con-nguoi-ban
+,,Kiểm soát sự căng thẳng,kiem-soat-su-cang-thang,Tâm thể đồng nhất - Thích Nhất Hạnh,tam-the-dong-nhat-thich-nhat-hanh
+,,Kỹ năng ghi nhớ và học tập,ky-nang-ghi-nho-va-hoc-tap,Trở thành một cao thủ đọc nhanh và ghi nhớ tốt,tro-thanh-mot-cao-thu-doc-nhanh-va-ghi-nho-tot
+,,Tạo động lực,tao-dong-luc,Chỉ 20 phút để tìm ra động lực cho mục tiêu của bạn,chi-20-phut-de-tim-ra-dong-luc-cho-muc-tieu-cua-ban
+,,Khác,khac,Xem tướng,xem-tuong
+Thiết kế,thiet-ke,,,,
+,,Thiết kế web,thiet-ke-web,Nắm vững về thiết kế Web trong Photoshop,nam-vung-ve-thiet-ke-web-trong-photoshop
+,,Thiết kế đồ họa,thiet-ke-do-hoa,Làm thế nào để thiết kế Logo - khóa học cho người mới bắt đầu?,lam-the-nao-de-thiet-ke-logo-khoa-hoc-cho-nguoi-moi-bat-dau
+,,Công cụ thiết kế,cong-cu-thiet-ke,Thiết kế ứng dụng điện thoại trong Sketch 3: thiết kế UX và UI từ bước đầu tiên,thiet-ke-ung-dung-dien-thoai-trong-sketch-3-thiet-ke-ux-va-ui-tu-buoc-dau-tien
+,,Trải nghiệm người dùng,trai-nghiem-nguoi-dung,Nguyên tắc cơ bản về thiết kế UX,nguyen-tac-co-ban-ve-thiet-ke-ux
+,,Thiết kế Game,thiet-ke-game,Pixel Art dành cho trò chơi điện tử,pixel-art-danh-cho-tro-choi-dien-tu
+,,Tư duy thiết kế,tu-duy-thiet-ke,Học cách thiết kế sản phẩm để thu hút người dùng,hoc-cach-thiet-ke-san-pham-de-thu-hut-nguoi-dung
+,,Hoạt hình và 3D,hoat-hinh-va-3d,Chuyên sâu về After Effect: Xây dựng hoạt cảnh phẳng,chuyen-sau-ve-after-effect-xay-dung-hoat-canh-phang
+,,Thời trang,thoi-trang,Phong cách thời trang cho nam giới,phong-cach-thoi-trang-cho-nam-gioi
+,,Thiết kế kiến trúc,thiet-ke-kien-truc,Kiến thức về bê tông cốt thép dự ứng lực cho các nhà quản lý xây dựng,kien-thuc-ve-be-tong-cot-thep-du-ung-luc-cho-cac-nha-quan-ly-xay-dung
+,,Thiết kế nội thất,thiet-ke-noi-that,"Mối liên hệ mật thiết giữa tình yêu,tình dục và phong thủy",moi-lien-he-mat-thiet-giua-tinh-yeutinh-duc-va-phong-thuy
+,,Khác,khac,Trọn bộ các hướng dẫn cực kì hữu ích để trở thành một nhà thiết kế!,tron-bo-cac-huong-dan-cuc-ki-huu-ich-de-tro-thanh-mot-nha-thiet-ke
+Marketing,marketing,,,,
+,,Marketing kỹ thuật số,marketing-ky-thuat-so,Những bí mật về CPA (định giá quảng cáo dựa trên hành động): Làm thế nào để kiếm được 6000 USD/tháng?,nhung-bi-mat-ve-cpa-dinh-gia-quang-cao-dua-tren-hanh-dong-lam-the-nao-de-kiem-duoc-6000-usd-thang
+,,Tối ưu hóa công cụ tìm kiếm - SEO,seo,Toàn tập về chiến lược đào tạo SEO,toan-tap-ve-chien-luoc-dao-tao-seo
+,,Social Media Marketing (Marketing truyền thông xã hội),social-media-marketing,Kinh doanh trên Youtube - con đường nào dẫn đến thành công?,kinh-doanh-tren-youtube-con-duong-nao-dan-den-thanh-cong
+,,Xây dựng thương hiệu,xay-dung-thuong-hieu,65 chiến lược thương hiệu khả thi giúp lợi nhuận tăng gấp 3 lần,65-chien-luoc-thuong-hieu-kha-thi-giup-loi-nhuan-tang-gap-3-lan
+,,Marketing căn bản,marketing-can-ban,Marketing: Làm thế nào để tiếp thị bản thân như một chuyên gia?,marketing-lam-the-nao-de-tiep-thi-ban-than-nhu-mot-chuyen-gia
+,,Phân tích và Tự động hóa,phan-tich-va-tu-dong-hoa,Google Analytics cho người mới sử dụng,google-analytics-cho-nguoi-moi-su-dung
+,,Quan hệ công chúng,quan-he-cong-chung,Thông cáo báo chí không bao giờ thất bại,thong-cao-bao-chi-khong-bao-gio-that-bai
+,,Quảng cáo,quang-cao,PPC (Pay-Per-Click) với Google Adwords + Quảng cáo Facebook + Quảng cáo YouTube,ppc-pay-per-click-voi-google-adwords-quang-cao-facebook-quang-cao-youtube
+,,Video & Marketing di động,video-marketing-di-dong,Sử dụng Youtube để Xếp hạng 1 trên Google chỉ trong chốc lát: Youtube cho Doanh nghiệp,su-dung-youtube-de-xep-hang-1-tren-google-chi-trong-choc-lat-youtube-cho-doanh-nghiep
+,,Marketing nội dung,marketing-noi-dung,Bí mật về Copywriting,bi-mat-ve-copywriting
+,,Marketing truyền thống,marketing-truyen-thong,Cách đưa ra thông điệp hiệu quả nhất để giới thiệu ý tưởng/doanh nghiệp của bạn! (Elevator Pitch),cach-dua-ra-thong-diep-hieu-qua-nhat-de-gioi-thieu-y-tuong-doanh-nghiep-cua-ban-elevator-pitch
+,,Growth hacker,growth-hacker,Chuyên gia phát triển Marketing: Trở thành cao thủ marketing kỹ thuật số,chuyen-gia-phat-trien-marketing-tro-thanh-cao-thu-marketing-ky-thuat-so
+,,Affiliate Marketing (Marketing liên tiếp),affiliate-marketing,Kiếm tiền với Clickbank - Không cần trang web,kiem-tien-voi-clickbank-khong-can-trang-web
+,,Marketing sản phẩm,marketing-san-pham,Kế hoạch ra mắt Kindle: $1400 trong 30 ngày và Amazon Bestseller,ke-hoach-ra-mat-kindle-1400-trong-30-ngay-va-amazon-bestseller
+,,Khác,khac,Quản lý Solo Ads - Kiếm tiền với Solo Ads không cần vốn đầu tư,quan-ly-solo-ads-kiem-tien-voi-solo-ads-khong-can-von-dau-tu
+Sức Khỏe,suc-khoe,,,,
+,,Thể chất,the-chat,Giảm cân để sống khỏe,giam-can-de-song-khoe
+,,Sức khỏe chung,suc-khoe-chung,Các phương pháp tối ưu giấc ngủ để có một cuộc sống khỏe mạnh,cac-phuong-phap-toi-uu-giac-ngu-de-co-mot-cuoc-song-khoe-manh
+,,Thể thao,the-thao,Học các thủ thuật boxing để có thể tự phòng vệ trên đường phố,hoc-cac-thu-thuat-boxing-de-co-the-tu-phong-ve-tren-pho
+,,Dinh dưỡng,dinh-duong,Ăn uống thế nào để có đủ năng lượng cho cơ thể?,an-uong-the-nao-de-co-du-nang-luong-cho-co-the
+,,Sức khỏe tinh thần,suc-khoe-tinh-than,Kiểm soát chứng tăng động giảm chú ý (ADHD) trên não bộ,kiem-soat-chung-tang-dong-giam-chu-y-tren-nao-bo
+,,Ăn kiêng,an-kieng,Giảm cân không cần đổ mồ hôi,giam-can-khong-can-do-mo-hoi
+,,Tự vệ,tu-ve,Kỹ thuật cận chiến: Đối kháng kiểu quân đội,ky-thuat-can-chien-doi-khang-kieu-quan-doi
+,,Sơ cứu an toàn,so-cuu-an-toan,Cấp cứu bằng bấm huyệt: Tự chữa nhanh trong các trường hợp khẩn cẩp,cap-cuu-bang-bam-huyet-tu-chua-nhanh-trong-cac-truong-hop-khan-cap
+,,Nhảy,nhay,Dạy nhảy Hip Hop cho người mới học,day-nhay-hip-hop-cho-nguoi-moi-hoc
+,,Thiền,thien,Các bài tập thiền để chữa bệnh,cac-bai-tap-thien-de-chua-benh
+,,Khác,khac,Mát xa mặt,mat-xa-mat
+Ngôn ngữ,ngon-ngu,,,,
+,,Tiếng Anh,tieng-anh,Tiếng Anh: Học dấu câu chẳng khó chút nào!,tieng-anh-hoc-dau-cau-chang-kho-chut-nao
+,,Tiếng Tây Ban Nha,tieng-tay-ban-nha,Tiếng Tây Ban Nha đàm thoại: Trình độ sơ cấp,tieng-tay-ban-nha-dam-thoai-trinh-do-so-cap
+,,Tiếng Đức,tieng-duc,Tiếng Đức sơ cấp: Tất cả những gì bạn muốn biết về tiếng Đức,tieng-duc-so-cap-tat-ca-nhung-gi-ban-muon-biet-ve-tieng-duc
+,,Tiếng Pháp,tieng-phap,Học nói tiếng Pháp,hoc-noi-tieng-phap
+,,Tiếng Nhật,tieng-nhat,Tiếng Nhật theo ngữ cảnh: Khóa học tiếng Nhật cơ bản,tieng-nhat-theo-ngu-canh-khoa-hoc-tieng-nhat-co-ban
+,,Tiếng Bồ Đào Nha,tieng-bo-dao-nha,Những điều thú vị về tiếng Bồ Đào Nha của người Brazil,nhung-dieu-thu-vi-ve-tieng-bo-dao-nha-cua-nguoi-brazil
+,,Tiếng Trung,tieng-trung,Tiếng Trung sơ cấp: Hiểu 65% tiếng Trung trong 10 giờ,tieng-trung-so-cap-hieu-65%-tieng-trung-trong-10-gio
+,,Tiếng Nga,tieng-nga,Ngôn ngữ và văn học Nga,ngon-ngu-va-van-hoc-nga
+,,Tiếng Latin,tieng-latin,Các bài giảng trong sách dạy tiếng Latin của trường Wheelock: Chương 1-15,cac-bai-giang-trong-sach-day-tieng-latin-cua-truong-wheelock-chuong-1-15
+,,Tiếng Ả rập,tieng-a-rap,Học đọc viết tiếng Ả Rập: Từ cơ bản đến nâng cao,hoc-doc-viet-tieng-a-rap-tu-co-ban-den-nang-cao
+,,Tiếng Ý,tieng-y,Sống sót ở Ý mà không cần quá giỏi tiếng Ý!,song-sot-o-y-ma-khong-can-qua-gioi-tieng-y
+,,Khác,khac,Cách nhanh nhất để học và nhớ từ vựng của một ngôn ngữ bất kỳ,cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky
