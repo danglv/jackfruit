@@ -64,15 +64,14 @@ $(document).ready(function () {
       });
     });
 
-    $('#btn-buy').click(function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var link = $('#btn-buy').attr('href');
-      ga('send', 'event', 'course', 'buy', 'Buy a course', {
-        hitCallback: function () {
-          window.location = link;
-        }
-      });
-    });
+    // $('#btn-buy').click(function (e) {
+    //   var link = $('#btn-buy').attr('href');
+    //   ga('send', 'event', 'register-modal', 'register', 'Email register', {
+    //     hitCallback: function () {
+    //       console.log('hit');
+    //     }
+    //   });
+    //   e.preventDefault();
+    // });
   }
 });
