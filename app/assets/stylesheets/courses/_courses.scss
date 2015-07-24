@@ -17,6 +17,15 @@
   }
 }
 
+.sorting-options{
+  ul{
+    li.disabled.active{
+      background: #dddddd;
+      font-weight: 500;
+    }
+  }
+}
+
 .tab-category{
   &>li.active{
     border-bottom: 5px solid #80cbc4;

@@ -9,13 +9,22 @@ $(document).ready(function (){
 	})
 	// send request to add comment 
 	$('#send-comment').click(function (){
-			var course_id = $("#course-id").val();
-	  	var _title = $("#comment-title").val();
-	  	var _description = $("#comment-content").val();
-	  	var params = {
-	  		'title' : _title,
-	  		'description' : _description
-	  	}
+
+		var course_id = $("#course-id").val();
+  	var _title = $("#comment-title").val();
+  	var _description = $("#comment-content").val();
+  	if(_title.trim() == ''){
+  		$("#comment-title").focus();
+  		return;
+  	}
+  	if(_description == ''){
+  		$("#comment-content").focus();
+  		return;
+  	}
+  	var params = {
+  		'title' : _title,
+  		'description' : _description
+  	}
 		var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_discussion';
 		$.ajax({
 		    type: 'POST',
@@ -29,6 +38,7 @@ $(document).ready(function (){
      			  $('#comment-dropdown').removeClass('active');
 		    }
 			});
+
 		})
 	// search comment when typing
 	$('#search-comment').on('input', function (){
