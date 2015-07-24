@@ -2,7 +2,7 @@
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
 
-%main.detail.container-1140
+%main.detail
   .row.detail-top{:style => "padding: 0px auto; width:85%"}
     .col.s12
       .row.no-margin
@@ -21,7 +21,7 @@
                 - else
                   %i.material-icons star_rate
             .col.s6.course-rating-people.no-padding 
-              = @course.reviews.count
+              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
       .row.valign-wrapper.no-margin
         %span.left
       - if @course.user
@@ -45,8 +45,8 @@
                 - pattern = /youtu.be\/(.*)\?/
                 - @youtube_id = pattern.match(@course.intro_link)[1]
               %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=1&amp', :width => "853"}
-            - elsif @course.intro_image && @course.intro_image != ''
-              = image_tag @course.intro_image, :style => 'width: 100%'
+            - elsif @course.image && @course.image != ''
+              = image_tag @course.image, :style => 'width: 100%'
             - else
               = image_tag 'course-image-intro.png', :style => 'width: 100%'
         .col.s5
@@ -215,43 +215,22 @@
           /     .col.s1
           /       %span 3174
         .row
-        - @course.reviews.each do |rv|
+        - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           %ul.collection
             %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
               %img.circle{:alt => "", :src => "/assets/avatar.png"}
-                %span.title.bold Jasmine Maddox
-                %p 2 ngày trước
+                .title.bold= rv.user.name
+                / %p 2 ngày trước
                 %span.courses
                   %span.course-rating
                   %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons.is-rated star_rate
-                %p.bold
-                  Just what I need.
-                %p
-                  I loved how tthe course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-          %ul.collection
-            %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
-              %img.circle{:alt => "", :src => "/assets/avatar.png"}
-                %span.title.bold Giovanni Barbieri
-                %p 12 ngày trước
-                %span.courses
-                  %span.course-rating
-                  %span.course-rating-point
-                    %i.material-icons.is-rated star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                    %i.material-icons star_rate
-                %p.bold
-                  Poor content
-                %p
-                  Very general overview of wordpress. You can learn the content of this course just playing with wp by yourself for 20 min.
-          %a{:href => "#"}
-            Xem thêm các bình luận khác
+                    - (1..5).each do |i|
+                      - if i <= rv.rate
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
+                %p.bold= rv.title
+                %p= rv.description
       .col.s4
         .row
           #fb-root

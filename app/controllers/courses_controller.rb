@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :validate_content_type_param
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -148,7 +148,7 @@ class CoursesController < ApplicationController
     lang     = params[:lang]
     level    = params[:level]
     ordering = params[:ordering]
-    pattern  = /#{Regexp.escape(@keywords)}/
+    pattern  = /#{Regexp.escape(@keywords)}/i
 
     condition = {}
 
@@ -228,9 +228,12 @@ class CoursesController < ApplicationController
     )
     discussion.user = current_user
     discussion.curriculum = curriculum if !curriculum.blank?
-
     if @course.save
-      render json: {message: "Thêm discussion thành công"}
+      render json: {title: title, description: description, email: current_user.email}
+      return
+    else
+      render json: {message: "Có lỗi xảy ra"}
+      return
     end
   end
 end

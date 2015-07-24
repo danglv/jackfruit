@@ -105,7 +105,7 @@
    .row.lecture-comment-tool
     %ul
      %li
-      %input.search{:placeholder => "Tìm thảo luận", :type => "text"}
+      %input.search#search-comment{:placeholder => "Tìm thảo luận", :type => "text"}
      %li
       %span.or hoặc
      %li
@@ -115,6 +115,7 @@
         .col.s12
          %span{:style => "color: #333"} Thêm thảo luận mới
        .row{:style => "margin: 0"}
+        %input#course-id{:type => "hidden", :value => @course._id}
         .input-field.col.s12
          %input#comment-title.validate{:type => "text", :style => "margin-bottom: 10px"}
           %label.active{:for => "comment-title"} Tên chủ đề
@@ -124,38 +125,44 @@
          %label{:for => "comment-content"} Nội dung
        .row.footer{:style => "height: 30px"}
         .col.s12
-         %a.btn-flat.left Thoát
-         %a.btn.right Đăng
+         %a#close-send-comment.btn-flat.left Thoát
+         %a#send-comment.btn.right Đăng
    .row.lecture-comment-list
     - @course.discussions.each do |discussion|
      - if discussion.user
       .col.s12.no-padding.cm-item
-       .row.cm-item-header
-        %ul
+       .row.cm-item-header.no-margin
+        %ul.no-margin
          %li
           %i.small.material-icons.no-padding face
-         %li
-          %p= discussion.user.name.to_s + " đã đăng một thảo luận"
+         %li{:style => 'margin-left: 5px'}
+          - if discussion.user.name
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.name 
+          - else 
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.email
+          %p.left{:style => 'font-weight: 500; color: #335d82; font-size: 12px; margin-left: 5px'}= " đã đăng một thảo luận"
          %li
          // %p -
          %li 
           //%p 1 tháng trước 
-       .row.cm-item-content= discussion.description
-       .row.cm-item-footer
-        %ul
-         %li
-          //%p Hãy là người đầu tiên trả lời
-         %li
-          //%p -
-         %li
-          //%i.tiny.material-icons.no-padding.unliked thumb_up
-         %li
-         // %p= "Thích ("+discussion.status.to_s+")"
-         %li
-          //%p - 
-         %li 
-          //%p Theo dõi (1 người theo dõi)
-         %li
-          //%P -
-         %li
-          //%i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem
+       .row.cm-item-content
+        %p.no-margin{:style => 'font-size: 18px; font-weight: 500; color: #59657D'}= discussion.title
+        %p{:style => 'margin: 0px 0px 0px 0px'}= discussion.description
+       / .row.cm-item-footer.no-margin
+       /  %ul
+       /   %li
+       /    //%p Hãy là người đầu tiên trả lời
+       /   %li
+       /    //%p -
+       /   %li
+       /    //%i.tiny.material-icons.no-padding.unliked thumb_up
+       /   %li
+       /   // %p= "Thích ("+discussion.status.to_s+")"
+       /   %li
+       /    //%p - 
+       /   %li 
+       /    //%p Theo dõi (1 người theo dõi)
+       /   %li
+       /    //%P -
+       /   %li
+       /    //%i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem

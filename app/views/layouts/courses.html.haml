@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    %title= help_get_title
     = favicon_link_tag 'favicon.png'
     - if params[:action] == "detail"
       - if @course.image.blank?
@@ -24,7 +25,6 @@
       %meta{:name => "viewport", :content => "width=device-width"}/
       %link{:href => "//fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
       %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
-      %title= @course.name
       = stylesheet_link_tag    'application', media: 'all'
       :javascript
         if (window.location.hash && window.location.hash == '#_=_') {
@@ -64,7 +64,6 @@
       %meta{:name => "viewport", :content => "width=device-width"}/
       %link{:href => "//fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
       %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
-      %title Course
       = stylesheet_link_tag    'application', media: 'all'
       :javascript
         if (window.location.hash && window.location.hash == '#_=_') {

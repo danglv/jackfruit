@@ -28,7 +28,7 @@
       - if @courses
         - @courses.each do |c|
           .col.s3
-            %a.course{:href => '/courses/'+c._id+'/detail', :style => "height: 360px"}
+            %a.course{:href => '/courses/'+c.alias_name+'/detail', :style => "height: 360px"}
               .card-image.course-image
                 = image_tag c.image
               .card-content.course-content
