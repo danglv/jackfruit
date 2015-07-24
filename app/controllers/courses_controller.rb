@@ -143,7 +143,7 @@ class CoursesController < ApplicationController
 
   def search
     @keywords = params[:q]
-    page     = params[:page] || 1
+    @page     = params[:page] || 1
     budget   = params[:budget]
     lang     = params[:lang]
     level    = params[:level]
@@ -166,6 +166,7 @@ class CoursesController < ApplicationController
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
     @courses  = Course.where(condition).order(sort_by)
+    @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
     
     if @courses.count == 0
       condition.delete(:name)
@@ -173,7 +174,7 @@ class CoursesController < ApplicationController
       @courses  = Course.where(condition).order(sort_by)
     end
 
-    @courses = @courses.paginate(page: page, per_page: NUMBER_COURSE_PER_PAGE)
+    @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @courses.count == 0
       @courses = {}

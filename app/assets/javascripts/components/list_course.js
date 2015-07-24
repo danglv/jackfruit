@@ -48,11 +48,13 @@ $(document).ready(function () {
       $('select').material_select();
     }
   });
-
   // set pageginate
   if (page == '') {
-    page = 1;
+    page = '1';
   }
+
+  //preview click
+
   $("#page-index").val(page);
   $('.pagination li').each(function () {
     if ($(this).text() == page) {
@@ -62,10 +64,19 @@ $(document).ready(function () {
     }
   });
   //listen click into page
-  $('.pagination li').click(function () {
+  $('.page').click(function (e) {
     $("#page-index").val($(this).text());
-    $('#test-form').submit();
-
+    $('#test-form').submit();  
   });
 
+  $('#pre_page').click(function(event) {
+    $("#page-index").val(parseInt(page)-1);
+    $('#test-form').submit();
+  });
+
+  $('#next_page').click(function(event) {
+    $("#page-index").val(parseInt(page) + 1);
+    $('#test-form').submit();
+  });
+  
 })
