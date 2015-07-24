@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
 
   def list_course_all
     @category_id = params[:category_id]
-    page        = params[:page] || 1
+    @page        = params[:page] || 1
 
     category = Category.where(id: @category_id).first
     @category_name = category.name;
@@ -85,7 +85,7 @@ class CoursesController < ApplicationController
     @courses = Course.where(condition).order(sort_by)
     @total_page = (@courses.count / NUMBER_COURSE_PER_PAGE.to_f).ceil
     @courses = @courses.paginate(
-      page: page,
+      page: @page,
       per_page: NUMBER_COURSE_PER_PAGE
     )
 

@@ -17,6 +17,14 @@
   }
 }
 
+#pre_page,#next_page{
+  &>a{
+    &>i{
+      color: #26a69a;
+    }
+  }
+}
+
 .sorting-options{
   ul{
     li.disabled.active{
