@@ -64,6 +64,69 @@ $(document).ready(function () {
       });
     });
 
+    // Login page tracking
+    $('.sign-in .btn-facebook').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'login-page', 'login', 'Facebook login', {
+        hitCallback: function () {
+          window.location = '/users/auth/facebook';
+        }
+      });
+    });
+
+    $('.sign-in .btn-google').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'login-page', 'login', 'Google login', {
+        hitCallback: function () {
+          window.location = '/users/auth/google_oauth2';
+        }
+      });
+    });
+
+    $('.sign-in input[type="submit"]').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'login-page', 'login', 'Email login', {
+        hitCallback: function () {
+          $('.sign-in form').submit();
+        }
+      });
+    });
+
+    // Register page tracking
+    $('.sign-up .btn-facebook').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'register-page', 'register', 'Facebook register', {
+        hitCallback: function () {
+          window.location = '/users/auth/facebook';
+        }
+      });
+    });
+
+    $('.sign-up .btn-google').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'register-page', 'register', 'Google register', {
+        hitCallback: function () {
+          window.location = '/users/auth/google_oauth2';
+        }
+      });
+    });
+
+    $('.sign-up input[type="submit"]').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      ga('send', 'event', 'register-page', 'register', 'Email register', {
+        hitCallback: function () {
+          $('.sign-up form').submit();
+        }
+      });
+    });
+
+    // Tracking buy button
     $('#btn-buy').click(function (e) {
       e.preventDefault();
 
