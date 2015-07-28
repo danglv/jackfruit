@@ -1,0 +1,102 @@
+STT,Tên Thầy,tên alias,"tên ảnh
+= tên alias của thầy + .jpg",học hàm,chuyên ngành,chức vụ,đơn vị công tác,Course = tên alias của course
+1,Nguyễn Phan Hải,nguyen-phan-hai,nguyen-phan-hai.jpg,,,,,hoc-va-tim-hieu-ve-angularjs
+,,,,,,,,chuong-chi-hadoop-developer-cho-nguoi-moi-bat-dau
+,,,,,,,,chung-chi-amazon-web-services
+,,,,,,,,tang-nang-suat-lam-viec-cho-nguoi-dung-may-mac-len-10-lan
+2,Chử Đức Hoàng,chu-duc-hoang,chu-duc-hoang.jpg,Thạc sỹ,,Giảng viên,Đại Học Bách Khoa Hà Nội,thiet-ke-ung-dung-di-dong-tu-con-so-0-nguyen-tac-thiet-ke-va-trai-nghiem-nguoi-dung-ux
+3,Nguyễn Xuân Thành,nguyen-xuan-thanh,nguyen-xuan-thanh.jpg,,,,,hoc-lap-trinh-game-phat-trien-game-bang-unity-5
+,,,,,,,,cap-cuu-bang-bam-huyet-tu-chua-nhanh-trong-cac-truong-hop-khan-cap
+,,,,,,,,khoa-hoc-git-cap-toc-trong-1-gio
+4,Nguyễn Tiến Tấn,nguyen-tien-tan,nguyen-tien-tan.jpg,,,,,hoc-lap-trinh-game-phat-trien-game-bang-unity-5
+,,,,,,,,hoc-cac-thu-thuat-boxing-de-co-the-tu-phong-ve-tren-pho
+5,Trần Đức Hòa,tran-duc-hoa,tran-duc-hoa.jpg,,,,,khoa-hoc-kiem-thu-phan-mem-tot-nhat-danh-cho-ban
+,,,,,,,,ky-thuat-can-chien-doi-khang-kieu-quan-doi
+6,Lê Mạnh Tuấn,le-manh-tuan,le-manh-tuan.jpg,Thạc sỹ,CNTT,Giám đốc,Cty CP Phát triển và Đầu tư Công nghệ Toàn Cầu,dao-tao-quy-trinh-agile-scrum-va-chung-chi-scrum
+,,,,,,,,khoa-hoc-toan-dien-ve-hacking-tu-co-ban-den-nang-cao
+7,Trần Ngọc Thăng,tran-ngoc-thang,tran-ngoc-thang.jpg,Thạc sỹ,Toán - Tin,Giảng viên,Đại Học Bách Khoa Hà Nội,xay-dung-trang-web-thuong-mai-dien-tu-voi-wordpress
+8,Hoàng Thị Hải Anh,hoang-thi-hai-anh,hoang-thi-hai-anh.jpg,,,,,goi-von-cong-dong-thanh-cong-cho-cac-chien-dich-tri-gia-100000-usd
+,,,,,,,,quan-ly-solo-ads-kiem-tien-voi-solo-ads-khong-can-von-dau-tu
+,,,,,,,,cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky
+9,Lê Đức Bình,le-duc-binh,le-duc-binh.jpg,,,,,khoa-hoc-freelancer
+,,,,,,,,cach-toi-kiem-tien-moi-ngay-tu-cac-khóa-hoc-của-tudemy
+,,,,,,,,cac-bai-giang-trong-sach-day-tieng-latin-cua-truong-wheelock-chuong-1-15
+,,,,,,,,phong-cach-thoi-trang-cho-nam-gioi
+10,Lê Ngọc Diệp,le-ngoc-diep,le-ngoc-diep.jpg,,,,,bi-quyet-de-tro-thanh-mot-nha-van
+,,,,,,,,cac-phuong-phap-toi-uu-giac-ngu-de-co-mot-cuoc-song-khoe-manh
+,,,,,,,,nhung-dieu-thu-vi-ve-tieng-bo-dao-nha-cua-nguoi-brazil
+11,Nguyễn Mạnh Chiến,nguyen-manh-chien,nguyen-manh-chien.jpg,,,,,thiet-ke-gamification-level-1-co-ban-chung-nhan
+,,,,,,,,khoa-hoc-ve-quan-ly-du-an-chuyen-nghiep-pmp
+,,,,,,,,toat-ra-su-tu-tin-cach-de-toa-sang
+,,,,,,,,tung-buoc-thuc-day-su-tu-tin-va-long-tu-trong-trong-con-nguoi-ban
+12,Phan Thế Công,phan-the-cong,phan-the-cong.jpg,Tiến sỹ,Kinh tế học ứng dụng,Giảng viên,ĐH Thương Mại HN,phat-trien-kinh-doanh-danh-cho-cac-cong-ty-khoi-nghiep-va-cong-ty-cong-nghe-cao
+13,Phùng Bá Ngọc,phung-ba-ngoc,phung-ba-ngoc.jpg,,,,,lam-the-nao-de-phac-thao-mot-ke-hoach-kinh-doanh
+,,,,,,,,lam-the-nao-de-phac-thao-mot-ke-hoach-kinh-doanh
+,,,,,,,,chuyen-sau-ve-after-effect-xay-dung-hoat-canh-phang
+14,Nguyễn Tuấn Khanh,nguyen-tuan-khanh,nguyen-tuan-khanh.jpg,,,,,nhung-dieu-co-ban-ve-quyen-tac-gia-bao-ve-cac-tac-pham-khoi-vi-pham-ban-quyen
+,,,,,,,,google-analytics-cho-nguoi-moi-su-dung
+,,,,,,,,hoc-cach-thiet-ke-san-pham-de-thu-hut-nguoi-dung
+15,Nguyễn Khắc Quang,nguyen-khac-quang,nguyen-khac-quang.jpg,,,,,sql-cho-nguoi-moi-nhap-mon-phan-tich-du-lieu
+,,,,,,,,ke-hoach-ra-mat-kindle-1400-trong-30-ngay-va-amazon-bestseller
+,,,,,,,,gioi-thieu-ve-oracle-sql
+16,Hoàng Anh Tuấn,hoang-anh-tuan,hoang-anh-tuan.jpg,Thạc sỹ,"Kinh doanh, Quản lý",Trưởng phòng tài chính kế toán,Đại học Kinh tế TP. Hồ Chí Minh,lam-the-nao-de-kiem-tien-tren-youtube-ma-khong-can-quay-clip
+,,,,,,,,kinh-doanh-tren-youtube-con-duong-nao-dan-den-thanh-cong
+17,Nguyễn Hải Đăng,nguyen-hai-dang,nguyen-hai-dang.jpg,,,,,cach-dua-ra-loi-phe-binh-chon-cong-so
+,,,,,,,,kiem-tien-voi-clickbank-khong-can-trang-web
+18,Nguyễn Tuấn Khanh,nguyen-tuan-khanh,nguyen-tuan-khanh.jpg,,,,,tieu-chuan-quoc-te-isodis-90012015
+19,Đào Thành Luân,dao-thanh-luan,dao-thanh-luan.jpg,,,,,dau-tu-bat-dong-san-mot-cach-sang-tao
+,,,,,,,,kien-thuc-ve-be-tong-cot-thep-du-ung-luc-cho-cac-nha-quan-ly-xay-dung
+,,,,,,,,lap-trinh-sap-abap-cho-nguoi-moi-bat-dau-2014-dao-tao-truc-tuyen
+20,Phạm Hải Hà,pham-hai-ha,pham-hai-ha.jpg,,,,,viet-thu-xin-tai-tro-chia-khoa-cho-mot-loi-de-nghi-thanh-cong
+,,,,,,,,cach-dua-ra-thong-diep-hieu-qua-nhat-de-gioi-thieu-y-tuong-doanh-nghiep-cua-ban-elevator-pitch
+,,,,,,,,song-sot-o-y-ma-khong-can-qua-gioi-tieng-y
+,,,,,,,,day-nhay-hip-hop-cho-nguoi-moi-hoc
+21,Trần Quang Hợp,tran-quang-hop,tran-quang-hop.jpg,,,,,huong-dan-toan-tap-ve-arduino
+,,,,,,,,chuyen-gia-phat-trien-marketing-tro-thanh-cao-thu-marketing-ky-thuat-so
+22,La Văn Đăng,la-van-dang,la-van-dang.jpg,,,,,thanh-thao-linux-chi-trong-5-ngay-nang-su-nghiep-cua-ban-len-tam-cao-moi
+,,,,,,,,su-dung-youtube-de-xep-hang-1-tren-google-chi-trong-choc-lat-youtube-cho-doanh-nghiep
+,,,,,,,,hoc-noi-tieng-phap
+23,Trần Ngọc Thăng,trang-ngoc-thang,trang-ngoc-thang.jpg,,,,,oracle-sql
+24,Trần Thế Nữ,tran-the-nu,tran-the-nu.jpg,Tiến sỹ,Kế toán tài chính,Phó khoa Tài chính Kế toán,ĐH Kinh tế - ĐHQGHN,microsoft-excel-2010-khoa-dao-tao-cho-trinh-do-so-cap-va-trung-cap
+25,Nguyễn Văn Thanh,nguyen-van-thanh,nguyen-van-thanh.jpg,,,,,toan-tap-ve-he-thong-tien-ich-gmail-giup-tang-nang-suat-lam-viec-cho-doanh-nghiep
+,,,,,,,,tieng-duc-so-cap-tat-ca-nhung-gi-ban-muon-biet-ve-tieng-duc
+26,Trần Hải Giang,tran-hai-giang,tran-hai-giang.jpg,,,,,hoc-quickbooks-pro-2014-mot-cach-don-gian
+,,,,,,,,cac-bai-tap-thien-de-chua-benh
+27,Lê Tuấn Linh,le-tuan-linh,le-tuan-linh.jpg,,,,,scrivener-simplified-lam-the-nao-de-tao-ra-ebook-cua-rieng-ban-chi-trong-60-phut
+,,,,,,,,nang-cao-nang-suat-lam-viec-cua-ban-va-hoan-thanh-nhung-cong-viec-quan-trong
+,,,,,,,,lam-the-nao-de-thiet-ke-logo-khoa-hoc-cho-nguoi-moi-bat-dau
+,,,,,,,,nguyen-tac-co-ban-ve-thiet-ke-ux
+28,Hà Anh Tuấn,ha-anh-tuan,ha-anh-tuan.jpg,Thạc sỹ,Quản trị kinh doanh,Giám đốc điều hành,Sensini Việt Nam,salesforce-dao-tao-co-ban-cho-quan-ly-va-cac-nha-phat-trien
+29,Nguyễn Duy Dương,nguyen-duy-duong,,,,,,bi-quyet-tung-buoc-thiet-lap-muc-tieu
+30,Nguyễn Kim Cúc,nguyen-kim-cuc,,,,,,toat-ra-su-tu-tin-cach-de-toa-sang
+31,Nguyễn Thành Chung,nguyen-thanh-chung,,Thạc sỹ,,Phó giám đốc,Công ty dược C,ngon-ngu-co-the-cua-tinh-yeu-va-ho-hen
+32,Nguyễn Thị Hương Giang,nguyen-thi-huong-giang,,,,,,kham-pha-hanh-phuc-cung-tien-si-elisha-goldstein
+33,Trương Ngọc Ánh,truong-ngoc-anh,,,,,,ket-noi-voi-huong-dao-sinh-cua-ban
+34,Trần Hà Anh,tran-ha-anh,tran-ha-anh.jpg,,,,,khoa-hoc-day-tao-thuong-hieu-cho-ban-than
+,,,,,,,,hoc-doc-viet-tieng-a-rap-tu-co-ban-den-nang-cao
+35,Phí Phương Anh,phi-phuong-anh,,,,,,kich-ban-phim-tri-gia-hang-trieu-do-hay-viet-len-bo-phim-cua-chinh-ban-ngay-hom-nay
+,,,,,,,,ngon-ngu-va-van-hoc-nga
+36,Lê Ngọc Hải,le-ngoc-hai,,,,,,suc-manh-cua-su-yeu-duoi
+37,Thích Nhất Hạnh,thich-nhat-hanh,thich-nhat-hanh.jpg,,,,,tam-the-dong-nhat-thich-nhat-hanh
+38,Nguyễn Thảo My,nguyen-thao-my,nguyen-thao-my.jpg,,,,,tro-thanh-mot-cao-thu-doc-nhanh-va-ghi-nho-tot
+,,,,,,,,mat-xa-mat
+39,Nguyễn Thị Hải Ngà,nguyen-thi-hai-nga,nguyen-thi-hai-nga.jpg,,,,,chi-20-phut-de-tim-ra-dong-luc-cho-muc-tieu-cua-ban
+,,,,,,,,ppc-pay-per-click-voi-google-adwords-quang-cao-facebook-quang-cao-youtube
+40,Phạm Đức Khào,pham-duc-khao,pham-duc-khao.jpg,Chuyên gia,Nhân tướng học,,,xem-tuong
+41,Kiều Mạnh Toàn,kieu-manh-toan,kieu-manh-toan.jpg,Thạc sỹ,Quản trị kinh doanh,Giám đốc phát triển kinh doanh,Cty TNHH Microsoft Việt Nam,bi-mat-ve-copywriting
+,,,,,,,,toan-tap-ve-chien-luoc-dao-tao-seo
+42,Đào Thị Như Quỳnh,dao-thi-nhu-quynh,dao-thi-nhu-quynh.jpg,,,,,giam-can-khong-can-do-mo-hoi
+,,,,,,,,an-uong-the-nao-de-co-du-nang-luong-cho-co-the
+43,Mikako Nakamura,mikako-nakamura,mikako-nakamura.jpg,Tiến sỹ,Ngôn ngữ học,Giảng viên tiếng Nhật,,tieng-nhat-theo-ngu-canh-khoa-hoc-tieng-nhat-co-ban
+44,Egbert Veltman,egbert-veltman,egbert-veltman.jpg,Thạc sỹ,Ngôn ngữ học,Giảng viên tiếng Anh,,tieng-anh-hoc-dau-cau-chang-kho-chut-nao
+45,Đinh Thị Thùy Dung,dinh-thi-thuy-dung,dinh-thi-thuy-dung.jpg,,,,,giam-can-de-song-khoe
+,,,,,,,,thong-cao-bao-chi-khong-bao-gio-that-bai
+,,,,,,,,tron-bo-cac-huong-dan-cuc-ki-huu-ich-de-tro-thanh-mot-nha-thiet-ke
+,,,,,,,,thong-cao-bao-chi-khong-bao-gio-that-bai
+46,Tạ Đình Minh,ta-dinh-minh,ta-dinh-minh.jpg,,,,,marketing-lam-the-nao-de-tiep-thi-ban-than-nhu-mot-chuyen-gia
+,,,,,,,,nhung-bi-mat-ve-cpa-dinh-gia-quang-cao-dua-tren-hanh-dong-lam-the-nao-de-kiem-duoc-6000-usd-thang
+,,,,,,,,pixel-art-danh-cho-tro-choi-dien-tu
+47,Lại Văn Thăng,lai-van-thang,lai-van-thang.jpg,Thạc sỹ,,Thành viên HĐQT kiêm Giám đốc Nhân sự,Công ty CP Thương hiệu và Đầu tư liên minh thiết kế Châu Á,nam-vung-ve-thiet-ke-web-trong-photoshop
+,,,,,,,,65-chien-luoc-thuong-hieu-kha-thi-giup-loi-nhuan-tang-gap-3-lan
+48,Phạm Gia Huy,pham-gia-huy,pham-gia-huy.jpg,Tiến sỹ,Tâm lý học,,,moi-lien-he-mat-thiet-giua-tinh-yeutinh-duc-va-phong-thuy
+49,Nguyễn Thị Hà,nguyen-thi-ha,nguyen-thi-ha.jpg,,,Giảng viên,Đại học Ngoại Ngữ - ĐHQGHN,tieng-tay-ban-nha-dam-thoai-trinh-do-so-cap
