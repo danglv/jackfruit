@@ -146,10 +146,10 @@
                 Tiểu sử tác giả
               .row
                 .col.s2.no-padding
-                  - if @course.user
-                    = image_tag @course.user.avatar
+                  - if !@course.user.avatar.blank?
+                    = image_tag @course.user.avatar, :style => "width:110px"
                   - else
-                    = image_tag 'avatar.png', :style => "width:40px; height:40px; margin-bottom: 4px"
+                    = image_tag 'default-avatar.png', :style => "width:110px"
                 .col.s10.no-padding
                   .row.instructor{:style => "font-size: 16px;font-weight: 500;margin: 0"}
                     .col.s12
@@ -161,11 +161,11 @@
                         %a{:href => "#!"} Tudemy
                   .row.function{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
                     .col.s12
-                      - if @course.user.instructor_profile
+                      - if !@course.user.instructor_profile.function.blank?
                         %span= 'Nghề nghiệp: ' + @course.user.instructor_profile.function
                   .row.work{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
                     .col.s12
-                      - if @course.user.instructor_profile
+                      - if !@course.user.instructor_profile.work_unit.blank?
                         %span= 'Đơn vị công tác: ' + @course.user.instructor_profile.work_unit
           /       %a{:href => "https://www.facebook.com/tudemy"}
           /         = image_tag 'facebook.png'
