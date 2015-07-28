@@ -98,7 +98,8 @@
                           %i.material-icons.is-rated star_rate
                         - else
                           %i.material-icons star_rate
-                    %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
+                  %span.course-rating-people= '(' + ac.num_rate.to_s + ')'
+                %div{:style => "clear:both"}
                 %p.course-other-info.fix-height-info= ac.sub_title
                 %span.blue-text Xem thêm
       .row
