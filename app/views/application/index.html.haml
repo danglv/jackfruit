@@ -53,7 +53,10 @@
                     .col.s7.no-padding.course-favorite
                       %span.left
                         %i.material-icons.is-favorite group
-                      %span.left=  c.students.to_s + ' tham gia'
+                      - if c.students < 1000
+                        %span.left{:style => "font-size: 13px;color: #999;line-height: 24px"}= c.students.to_s + 'tham gia'
+                      - else
+                        %span.left{:style => "font-size: 13px;color: #999;line-height: 24px"}=  (c.students.to_f/1000).round(1).to_s + 'K tham gia'
                     - if c.price == 0
                       .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
                     - else
