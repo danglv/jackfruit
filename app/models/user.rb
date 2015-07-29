@@ -71,10 +71,13 @@ class User
   #
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
+
   embeds_one :instructor_profile, class_name: "User::InstructorProfile"
   embeds_one :profile, class_name: "User::Profile"
   embeds_many :courses, class_name: "User::Course"
   accepts_nested_attributes_for :courses
+
+  has_and_belongs_to_many :labels, class_name: "Label"
 
   index({created_at: 1})
 
