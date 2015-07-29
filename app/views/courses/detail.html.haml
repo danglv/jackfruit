@@ -141,21 +141,32 @@
                         %span.black-text= curi.description
                       - else
                         %span.black-text Văn bản
-          / .row
-          /   %h5
-          /     Tiểu sử tác giả
-          /   .row
-          /     .col.s2.no-padding
-          /       - if @course.user
-          /         = image_tag @course.user.avatar
-          /       - else
-          /         = image_tag 'avatar.png', :style => "width:40px; height:40px; margin-bottom: 4px"
-          /     .col.s10.no-padding
-          /       .row
-          /       - if @course.user
-          /         %a{:href => "#!"}= @course.user.name
-          /       - else 
-          /         %a{:href => "#!"} Tudemy
+            .row
+              %h5
+                Tiểu sử tác giả
+              .row
+                .col.s2.no-padding
+                  - if !@course.user.avatar.blank?
+                    = image_tag @course.user.avatar, :style => "width:110px"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width:110px"
+                .col.s10.no-padding
+                  .row.instructor{:style => "font-size: 16px;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if @course.user
+                        - if @course.user.instructor_profile
+                          %span= @course.user.instructor_profile.academic_rank
+                        %a{:href => "#!"}= @course.user.name
+                      - else 
+                        %a{:href => "#!"} Tudemy
+                  .row.function{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if !@course.user.instructor_profile.function.blank?
+                        %span= 'Nghề nghiệp: ' + @course.user.instructor_profile.function
+                  .row.work{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if !@course.user.instructor_profile.work_unit.blank?
+                        %span= 'Đơn vị công tác: ' + @course.user.instructor_profile.work_unit
           /       %a{:href => "https://www.facebook.com/tudemy"}
           /         = image_tag 'facebook.png'
           /   .row

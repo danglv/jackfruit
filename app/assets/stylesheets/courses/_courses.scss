@@ -6,7 +6,13 @@
     margin-bottom: 0;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
   }
-
+  span.course-price, span.course-rating,span.course-rating-people{
+      float: left;
+      margin-right: 10px;
+  }
+  span.course-price{
+    line-height: 24px;
+  }
   .category-main {
     margin: 0;
   }
