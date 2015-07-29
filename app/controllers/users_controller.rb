@@ -72,7 +72,6 @@ class UsersController < ApplicationController
     learning = Constants::OwnedCourseTypes::LEARNING
     course_ids = current_user.courses.where(
       :type => learning,
-      # :status.ne => Constants::OwnedCourseStatus::PENDING
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
 
