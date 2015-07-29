@@ -1,10 +1,16 @@
 class ApplicationController < ActionController::Base
-  before_filter :list_category
+  before_filter :list_category, :store_location, :set_current_user
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
-  before_filter :store_location
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+  
+  def set_current_user
+    User.current = current_user
+  end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
