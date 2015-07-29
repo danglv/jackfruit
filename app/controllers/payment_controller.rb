@@ -4,7 +4,7 @@ class PaymentController < ApplicationController
   def index
     course_id = params[:course_id]
     @course = Course.where(:id => course_id).first
-    render 'delivery'
+    render 'payment'
   end
 
   def delivery
@@ -43,7 +43,7 @@ class PaymentController < ApplicationController
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
 
-      redirect_to root_url + "/home/payment/success?course_id="+course_id
+      redirect_to root_url + "home/payment/pending?course_id="+course_id
     end
   end
 
@@ -63,6 +63,11 @@ class PaymentController < ApplicationController
   end
 
   def success
+    course_id = params[:course_id]
+    @course = Course.where(:id => course_id).first
+  end
+
+  def pending
     course_id = params[:course_id]
     @course = Course.where(:id => course_id).first
   end

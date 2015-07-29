@@ -1,20 +1,51 @@
+.pending{
+  font-size: 18px;
+  .pending-price{
+    color: #009688;
+  }
+  .pending-status{
+    color: #ffbb33;
+  }
+  .pending-phone{
+    i{
+      font-size: 30px;
+      color: #338abc;
+      display: block;
+      float: left;
+      margin-right: 10px;
+    }
+    margin-bottom: 40px;
+  }
+  .pedding-btn{
+    margin-bottom: 40px;
+  }
+  .pending-history{
+    a{
+      text-decoration: underline;
+    }
+  }
+}
 .indicator {
   display: none;
 }
 .payment-tab.course.active {
   background-color: #009688;
   color: #fff !important;
-}.payment {
-  .payment-header {
-    padding: 0 113px 0 113px;
-  }
+}
+.payment {
   .payment-success-header {
     height: 50px;
   }
   .payment-content {
-    padding: 0 113px 0 113px;
     .middle {
       height: 250px;
+    }
+    h4{
+      font-size: 18px;
+    }
+    div.col.s12{
+      color: #727272;
+      font-size: 18px;
     }
     .payment-tab {
       min-height: 250px;
@@ -24,6 +55,13 @@
         background-color: #009688;
         color: #fff;
       }
+    }
+  }
+  .payment-content.active{
+    h4{
+      color: #009688;
+      font-size: 24px;
+      font-weight: bold;
     }
   }
 }

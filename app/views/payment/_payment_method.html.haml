@@ -1,29 +1,29 @@
-.row.payment-content
+.row.payment-content{:class => [('active' if method == '')]}
   %h4 1. Lựa chọn hình thức thanh toán
 .row.payment-content
   .col.s12
     .row.courses.card-style.center-align
-      .col.s3.offset-s3
+      .col.s3
         %a.payment-tab.course{:href => '/home/payment/delivery?course_id='+@course._id, :class => [('active' if method == 'delivery')]}
           .card-image.course-image
             %i.material-icons.large shopping_cart
             %h6 Giao khóa học
             %h6 và thu tiền tận nơi
-      / .col.s3
-      /   %a.payment-tab.course{:href => '/home/payment/visa'}
-      /     .card-image.course-image
-      /       %i.material-icons.large credit_card
-      /       %h6 Thanh toán trực tuyến
-      /       %h6 bằng thẻ ATM
-      /       %h6 hoặc Visa/Master
+      .col.s3
+        %a.payment-tab.course{:href => '/home/payment/visa?course_id='+@course._id, :class => [('active' if method == 'visa')]}
+          .card-image.course-image
+            %i.material-icons.large credit_card
+            %h6 Thanh toán trực tuyến
+            %h6 bằng thẻ ATM
+            %h6 hoặc Visa/Master
       .col.s3
         %a.payment-tab.course{:href => '/home/payment/bank?course_id='+@course._id, :class => [('active' if method == 'bank')]}
           .card-image.course-image
             %i.material-icons.large business
             %h6 Chuyển khoản
             %h6 qua ngân hàng
-      / .col.s3
-      /   %a.payment-tab.course{:href => '/home/payment/direct'}
-      /     .card-image.course-image
-      /       %i.material-icons.large room
-      /       %h6 Thanh toán trực tiếp
+      .col.s3
+        %a.payment-tab.course{:href => '/home/payment/direct?course_id='+@course._id, :class => [('active' if method == 'direct')]}
+          .card-image.course-image
+            %i.material-icons.large room
+            %h6 Thanh toán trực tiếp

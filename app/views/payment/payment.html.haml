@@ -12,7 +12,7 @@
         .col.s6
           %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
       .container-1140
-        = render 'payment_method', method: 'direct'
-        .row.payment-content.active
+        = render 'payment_method', method: ''
+        .row.payment-content
           %h4 2. Hoàn tất thanh toán
-        
+          .col.s12 Bạn chưa lựa chọn hình thức thanh toán nào

@@ -10,31 +10,9 @@
           %h4.white-text Xác nhận thanh toán
           %p.white-text= @course.name
         .col.s6
-          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
       .container-1140
-        = render :partial => 'payment_method'
+        = render 'payment_method', method: 'visa'
         .row.payment-content
           %h4 2. Hoàn tất thanh toán
-        .col.s12.no-padding 
-          .row{:style => "padding: 0 113px 0 113px"}
-            %p.red-text Chuyển khoản ngân hàng
-            %p Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
-            .info-payment{:style => "padding-left: 25px"}
-              %p
-                Số tài khoản:
-                %span.bold 67664288
-              %p
-                Chủ tài khoản:
-                %span.bold Lê Đức Bình
-              %p
-                Ngân hàng:
-                %span.bold Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
-            .note-purchase
-              %u Ghi chú khi chuyển khoản:
-              %p
-                • Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ:
-                %span.bold Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-              %p
-                • Ví dụ:
-                %span.bold 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress
-            
+          %p Thanh toán qua ngân lượng
