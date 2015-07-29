@@ -57,13 +57,26 @@
               - else
                 %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row
-            .col.s6.no-padding
-              - if @course.price.to_s == "0"
-                %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                  Bắt đầu học ngay
-              - else 
-                %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                  Mua khóa học
+            - if !current_user.blank?
+              .col.s6.no-padding
+                - if !current_user.courses.where(:course_id => @course.id.to_s).first.blank?
+                  - if current_user.courses.where(:course_id => @course.id.to_s).first.status == 'pending'
+                    %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
+                      Đang chờ xử lý
+                  - elsif @course.price.to_s == "0"
+                    %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      Bắt đầu học ngay
+                - else 
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Mua khóa học
+            - else
+              .col.s6.no-padding
+                - if @course.price.to_s == "0"
+                  %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Bắt đầu học ngay
+                - else 
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Mua khóa học
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
               /   %i.material-icons.is-favorite group
