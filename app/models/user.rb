@@ -45,6 +45,7 @@ class User
   
   # Profile
   # Basic
+  field :role, type: String, default: "user"
   field :name, type: String
   field :desination,type: String, default: ""
   field :first_name,type: String, default: ""
@@ -138,5 +139,13 @@ class User
 
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def self.current
+    Thread.current[:user]
+  end      
+
+  def self.current=(user)
+    Thread.current[:user] = user
   end
 end
