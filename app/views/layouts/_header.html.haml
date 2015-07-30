@@ -5,11 +5,11 @@
         %a.btn-sidenav-activator{'data-activates' => 'side-nav'}
           %i.material-icons.left menu
           Danh sách khóa học
-      .col.s2{:style => 'height:64px'}
+      .col.s2
         %a.brand-logo{:href => '/', :style => 'position: inherit;'}
           = image_tag 'logo.png', :style => 'vertical-align: middle; padding-bottom: 10px;'
       %form.col.s4{:action => '/courses/search', :method => 'GET', :id => 'search-form'}
-        .row.no-margin
+        .row
           .input-field.col.s12
             %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khoá học'}
             %label{:for => 'course-search'}

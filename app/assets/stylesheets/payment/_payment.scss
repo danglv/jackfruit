@@ -1,30 +1,3 @@
-.pending{
-  font-size: 18px;
-  .pending-price{
-    color: #009688;
-  }
-  .pending-status{
-    color: #ffbb33;
-  }
-  .pending-phone{
-    i{
-      font-size: 30px;
-      color: #338abc;
-      display: block;
-      float: left;
-      margin-right: 10px;
-    }
-    margin-bottom: 40px;
-  }
-  .pedding-btn{
-    margin-bottom: 40px;
-  }
-  .pending-history{
-    a{
-      text-decoration: underline;
-    }
-  }
-}
 .indicator {
   display: none;
 }
@@ -33,8 +6,31 @@
   color: #fff !important;
 }
 .payment {
+  font-size: 18px;
   .payment-success-header {
     height: 50px;
+  }
+  .col.s12.text-indent-bank{
+    margin-bottom: 30px;
+    &>div{
+      text-indent: 40px;
+    }
+  }
+  .col.s12.button-bank{
+    margin-top: 30px;
+    &>a{
+      background: #ff5722;
+    }
+  }
+  .col.s12.text-underline{
+    text-decoration: underline;
+  }
+  ul.col.s12.no-margin.bank-list-style > *{
+    list-style-type: disc;
+    margin-top: 0;
+  }
+  .row.green.payment-header{
+    margin-top: -21px;
   }
   .payment-content {
     .middle {
@@ -62,6 +58,33 @@
       color: #009688;
       font-size: 24px;
       font-weight: bold;
+    }
+  }
+}
+.pending{
+  font-size: 18px;
+  .pending-price{
+    color: #009688;
+  }
+  .pending-status{
+    color: #ffbb33;
+  }
+  .pending-phone{
+    i{
+      font-size: 30px;
+      color: #338abc;
+      display: block;
+      float: left;
+      margin-right: 10px;
+    }
+    margin-bottom: 40px;
+  }
+  .pedding-btn{
+    margin-bottom: 40px;
+  }
+  .pending-history{
+    a{
+      text-decoration: underline;
     }
   }
 }

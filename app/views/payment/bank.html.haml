@@ -5,12 +5,7 @@
 %main.payment
   .row
     .col.s12.no-padding
-      .row.green.payment-header
-        .col.s6
-          %h4.white-text Xác nhận thanh toán
-          %p.white-text= @course.name 
-        .col.s6
-          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+      = render :partial => 'payment/header_payment'
       .container-1140
         = render 'payment_method', method: 'bank'
         .row.payment-content.active
@@ -18,7 +13,7 @@
             %h4 2. Hoàn tất thanh toán
         .row
           .col.s12
-            %h6.red-text Chuyển khoản ngân hàng
+            .red-text Chuyển khoản ngân hàng
           .col.s12 Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
           .col.s12.text-indent-bank
             %div
@@ -30,4 +25,18 @@
             %div
               Ngân hàng: 
               %b Ngân hàng Vietcombank, chi nhánh Bình Thạnh, TPHCM
-
+          .col.s12.text-underline Ghi chú khi chuyển khoản
+          .col.s12
+            %ul.col.s12.no-margin.bank-list-style
+              %li Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+              %li Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
+        .row
+          .row
+            .col.s12
+              .red-text.no-margin Chuyển tiền qua Paypal
+          .col.s12.text-indent-bank
+            %div Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
+            %div Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.
+          .col.s12 Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+          .col.s12.button-bank
+            %a.btn-large{:href => "pending?course_id=" + @course.id} Hoàn tất thanh toán

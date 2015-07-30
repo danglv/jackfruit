@@ -5,12 +5,7 @@
 %main.payment
   .row
     .col.s12.no-padding
-      .row.green.payment-header
-        .col.s6
-          %h4.white-text Xác nhận thanh toán
-          %p.white-text= @course.name
-        .col.s6
-          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+      = render :partial => 'payment/header_payment'
       .container-1140
         = render 'payment_method', method: ''
         .row.payment-content
