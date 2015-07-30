@@ -3,13 +3,9 @@ class PaymentController < ApplicationController
   before_filter :validate_course
 
   def index
-<<<<<<< HEAD
     course_id = params[:course_id]
     @course = Course.where(:id => course_id).first
     render 'payment'
-=======
-    render 'delivery'
->>>>>>> 6f83f646f68181ef078fe3fdde3b76fe306d7b64
   end
 
   def delivery

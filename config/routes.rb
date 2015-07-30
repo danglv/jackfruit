@@ -28,19 +28,10 @@ Rails.application.routes.draw do
     collection do
       get '/:alias_name', to: 'payment#index'
       get '/:alias_name', to: 'payment#delivery'
-      post :delivery
-<<<<<<< HEAD
-      get :visa
-      get :bank
-      get :direct
-      get :success
-      get :pending
-=======
       get '/:alias_name', to: 'payment#visa'
       get '/:alias_name', to: 'payment#bank'
       get '/:alias_name', to: 'payment#direct'
       get '/:alias_name', to: 'payment#success'
->>>>>>> 6f83f646f68181ef078fe3fdde3b76fe306d7b64
     end
   end
 
