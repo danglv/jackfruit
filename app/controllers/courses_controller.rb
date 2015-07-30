@@ -28,6 +28,12 @@ class CoursesController < ApplicationController
   def list_course_featured
     @category_id = params[:category_id]
     category = Category.where(id: @category_id).first
+
+    if category.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
     @category_name = category.name;
 
     @courses = {}
@@ -60,6 +66,12 @@ class CoursesController < ApplicationController
     @page        = params[:page] || 1
 
     category = Category.where(id: @category_id).first
+
+    if category.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
     @category_name = category.name;
     # filter sort paginate course
 
@@ -100,6 +112,18 @@ class CoursesController < ApplicationController
     course_alias_name = params[:alias_name]
     @course = Course.where(alias_name: course_alias_name).first
 
+    if @course.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
+    if current_user
+      if !current_user.courses.where(:course_id => @course.id.to_s).first.blank?
+        redirect_to root_url + "courses/#{course_alias_name}/learning"
+        return
+      end
+    end
+
     @courses = {}
     
     @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(:category_ids.in => @course.category_ids).limit(3)]
@@ -109,6 +133,12 @@ class CoursesController < ApplicationController
   def learning
     course_alias_name = params[:alias_name]
     @course = Course.where(alias_name: course_alias_name).first
+
+    if @course.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
     @owned_course = current_user.courses.where(course_id: @course._id).first
     if @owned_course.blank?
       redirect_to root_url + "courses/#{course_alias_name}/detail"
@@ -122,7 +152,8 @@ class CoursesController < ApplicationController
     @course       = Course.where(alias_name: course_alias_name).first
 
     if @course.blank?
-      render json: {message: "khóa học không hợp lệ!"}
+      redirect_to root_url + "courses"
+      return
     end
 
     @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
@@ -197,6 +228,11 @@ class CoursesController < ApplicationController
     course_alias_name = params[:alias_name]
     @course   = Course.where(alias_name: course_alias_name).first
 
+    if @course.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
     labels    = Constants.LabelsValues
     @courses  = {}
   
@@ -217,11 +253,13 @@ class CoursesController < ApplicationController
     title         = params[:title]
     description   = params[:description]
     @course       = Course.where(id: course_id).first
-    curriculum    = @course.curriculums.where(id:curriculum_id).first
 
     if @course.blank?
-      render json: {message: "khóa học không hợp lệ!"}, status: :unprocessable_entity
+      render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
+      return
     end
+
+    curriculum    = @course.curriculums.where(id:curriculum_id).first
 
     discussion = @course.discussions.create(
       title: title,
