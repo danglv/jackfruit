@@ -60,4 +60,8 @@ class PaymentController < ApplicationController
   def success
 
   end
+
+  def pending
+    
+  end
 end
