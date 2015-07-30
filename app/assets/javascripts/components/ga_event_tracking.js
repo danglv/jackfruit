@@ -1,6 +1,7 @@
 'use strict';
 
 $(document).ready(function () {
+  var ga = window.ga;
   if (ga) {
     // Popup login tracking
     $('#modal-login .btn-facebook').click(function (e) {
