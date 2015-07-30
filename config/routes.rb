@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get '/bank/:alias_name', to: 'payment#bank'
       get '/direct/:alias_name', to: 'payment#direct'
       get '/success/:alias_name', to: 'payment#success'
+      get '/pending/:alias_name', to: 'payment#pending'
     end
   end
 
