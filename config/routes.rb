@@ -27,12 +27,12 @@ Rails.application.routes.draw do
   resources :payment, :path => 'home/payment', only: %w[] do
     collection do
       get '/:alias_name', to: 'payment#index'
-      get '/:alias_name', to: 'payment#delivery'
+      get '/delivery/:alias_name', to: 'payment#delivery'
       post :delivery
-      get '/:alias_name', to: 'payment#visa'
-      get '/:alias_name', to: 'payment#bank'
-      get '/:alias_name', to: 'payment#direct'
-      get '/:alias_name', to: 'payment#success'
+      get '/visa/:alias_name', to: 'payment#visa'
+      get '/bank/:alias_name', to: 'payment#bank'
+      get '/direct/:alias_name', to: 'payment#direct'
+      get '/success/:alias_name', to: 'payment#success'
     end
   end
 
