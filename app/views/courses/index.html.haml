@@ -1,8 +1,7 @@
 %header
   = render :partial => 'layouts/header'
   = render :partial => 'components/side_nav'
-%banner
-  = render :partial => 'components/banner', :locals => {:image => "001-home.png", :link => "http://tudemy.vn"}
+
 %main.container-1140
   .row.course-list.highest-rating
     - @courses.to_a.each do |course_h|
