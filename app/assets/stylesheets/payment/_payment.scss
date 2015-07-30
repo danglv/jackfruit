@@ -1,17 +1,17 @@
 .indicator {
   display: none;
 }
-.text-indent-bank{
-  text-indent: 40px;
-}
-.list-style-type-bank{
-  list-style-type: disc;
-}
 .payment-tab.course.active {
   background-color: #009688;
   color: #fff !important;
 }
 .payment {
+  .text-indent-payment{
+    text-indent: 40px;
+  }
+  .list-style-type-payment{
+    list-style-type: disc;
+  }
   font-size: 18px;
   .payment-success-header {
     height: 50px;
