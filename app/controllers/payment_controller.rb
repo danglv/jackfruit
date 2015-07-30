@@ -22,12 +22,12 @@ class PaymentController < ApplicationController
         :address => address,
         :city => city,
         :district => district,
-        :course_id => course_id,
+        :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::DELIVERY
       )
       owned_course = current_user.courses.find_or_initialize_by(
-        course_id: course_id
+        course_id: @course.id
       )
 
       @course.curriculums.where(
@@ -41,7 +41,7 @@ class PaymentController < ApplicationController
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
 
-      redirect_to root_url + "/home/payment/success?course_id="+course_id
+      redirect_to root_url + "/home/payment/pending/#{@course.alias_name}"
     end
   end
 
