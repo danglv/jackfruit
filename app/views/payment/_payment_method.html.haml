@@ -4,7 +4,7 @@
 .row.payment-content
   .row.courses.card-style.center-align
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/delivery?course_id='+@course._id, :class => [('active' if method == 'delivery')]}
+      %a.payment-tab.course{:href => '/home/payment/delivery?alias_name='+@course.alias_name, :class => [('active' if method == 'delivery')]}
         .card-image.course-image
           %i.material-icons.large shopping_cart
           %h6 Giao khóa học
