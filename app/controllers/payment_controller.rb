@@ -1,4 +1,5 @@
 class PaymentController < ApplicationController
+  include PaymentServices
   before_filter :authenticate_user!
   before_filter :validate_course
 
@@ -48,7 +49,25 @@ class PaymentController < ApplicationController
   end
 
   def visa
+    baokim = BaoKimPayment.new
+    course_id = params[:course_id]
+    @course = Course.where(:id => course_id).first
 
+    # payment = Payment.create(:course_id => course_id, :user_id => current_user.id)
+
+    redirect_url = baokim.create_request_url({
+      'order_id' =>  1,
+      'business' =>  'ngoc.phungba@gmail.com',
+      'total_amount' =>  @course.price,
+      'shipping_fee' =>  0,
+      'tax_fee' =>  0,
+      'order_description' =>  'Mua ' + @course.name,
+      'url_success' =>  request.protocol + request.host_with_port + '/home/payment/success?course_id=' + course_id,
+      'url_cancel' =>  request.protocol + request.host_with_port + '/home/payment/cancel',
+      'url_detail' =>  request.protocol + request.host_with_port + '/courses/' + @course.alias_name + '/detail'
+    })
+
+    redirect_to redirect_url
   end
 
   def bank
