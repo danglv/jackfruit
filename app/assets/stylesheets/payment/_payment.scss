@@ -1,6 +1,12 @@
 .indicator {
   display: none;
 }
+.text-indent-bank{
+  text-indent: 40px;
+}
+.list-style-type-bank{
+  list-style-type: disc;
+}
 .payment-tab.course.active {
   background-color: #009688;
   color: #fff !important;
@@ -10,27 +16,11 @@
   .payment-success-header {
     height: 50px;
   }
-  .col.s12.text-indent-bank{
-    margin-bottom: 30px;
-    &>div{
-      text-indent: 40px;
-    }
-  }
-  .col.s12.button-bank{
-    margin-top: 30px;
-    &>a{
-      background: #ff5722;
-    }
-  }
-  .col.s12.text-underline{
-    text-decoration: underline;
-  }
-  ul.col.s12.no-margin.bank-list-style > *{
-    list-style-type: disc;
-    margin-top: 0;
-  }
   .row.green.payment-header{
     margin-top: -21px;
+  }
+  .btn-success-pay{
+    background: #ff5722;
   }
   .payment-content {
     .middle {

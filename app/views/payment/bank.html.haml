@@ -9,34 +9,39 @@
       .container-1140
         = render 'payment_method', method: 'bank'
         .row.payment-content.active
-          .col.s12 
+          .col.s12
             %h4 2. Hoàn tất thanh toán
         .row
           .col.s12
             .red-text Chuyển khoản ngân hàng
-          .col.s12 Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
-          .col.s12.text-indent-bank
-            %div
-              Số tài khoản: 
-              %b 0531 0024 67513
-            %div
-              Chủ tài khoản: 
-              %b Nguyễn Thanh Minh
-            %div
-              Ngân hàng: 
-              %b Ngân hàng Vietcombank, chi nhánh Bình Thạnh, TPHCM
-          .col.s12.text-underline Ghi chú khi chuyển khoản
-          .col.s12
-            %ul.col.s12.no-margin.bank-list-style
-              %li Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-              %li Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
         .row
+          .col.s12 Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
           .row
             .col.s12
-              .red-text.no-margin Chuyển tiền qua Paypal
-          .col.s12.text-indent-bank
-            %div Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-            %div Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.
+              %div.text-indent-bank
+                Số tài khoản: 
+                %b 0531 0024 67513
+              %div.text-indent-bank
+                Chủ tài khoản: 
+                %b Nguyễn Thanh Minh
+              %div.text-indent-bank
+                Ngân hàng: 
+                %b Ngân hàng Vietcombank, chi nhánh Bình Thạnh, TPHCM
+        .row
+          .col.s12 Ghi chú khi chuyển khoản
+          .col.s12
+            %ul.col.s12.no-margin
+              %li.list-style-type-bank Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+              %li.list-style-type-bank Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
+        .row
+          .col.s12
+            .red-text.no-margin Chuyển tiền qua Paypal
+        .row
+          .col.s12
+            %div.text-indent-bank Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
+            %div.text-indent-bank Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.
+        .row
           .col.s12 Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
-          .col.s12.button-bank
-            %a.btn-large{:href => "pending?course_id=" + @course.id} Hoàn tất thanh toán
+        .row
+          .col.s12
+            %a.btn-large.btn-success-pay{:href => "pending?course_id=" + @course.id} Hoàn tất thanh toán
