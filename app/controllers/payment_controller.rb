@@ -42,7 +42,7 @@ class PaymentController < ApplicationController
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
-      
+
       redirect_to root_url + "/home/payment/pending/#{@course.alias_name}"
     end
   end

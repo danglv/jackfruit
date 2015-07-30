@@ -44,4 +44,4 @@
           .col.s12 Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
         .row
           .col.s12
-            %a.btn-large.btn-success-pay{:href => "pending?course_id=" + @course.id} Hoàn tất thanh toán
+            %a.btn-large.btn-success-pay{:href => "/home/payment/pending/" + @course.alias_name} Hoàn tất thanh toán
