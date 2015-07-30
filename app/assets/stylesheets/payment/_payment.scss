@@ -60,7 +60,7 @@
     color: #ffbb33;
   }
   .pending-phone{
-    i{
+    .pending-phone-icon{
       font-size: 30px;
       color: #338abc;
       display: block;
@@ -69,11 +69,11 @@
     }
     margin-bottom: 40px;
   }
-  .pedding-btn{
+  .pending-btn-other-course{
     margin-bottom: 40px;
   }
-  .pending-history{
-    a{
+  .pending-title{
+    .pending-title-link{
       text-decoration: underline;
     }
   }
