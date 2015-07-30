@@ -94,4 +94,24 @@ class ApplicationController < ActionController::Base
   #       }
   #     end
   #   end
+
+  def validate_category
+    @category_id = params[:category_id]
+    @category = Category.where(id: @category_id).first
+
+    if @category.blank?
+      render 'page_not_found'
+      return
+    end
+  end
+
+  def validate_course
+    course_alias_name = params[:alias_name]
+    @course = Course.where(alias_name: course_alias_name).first
+
+    if @course.blank?
+      render 'page_not_found'
+      return
+    end
+  end
 end

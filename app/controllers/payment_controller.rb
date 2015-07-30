@@ -1,15 +1,12 @@
 class PaymentController < ApplicationController
   before_filter :authenticate_user!
-  
+  before_filter :validate_course
+
   def index
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
     render 'delivery'
   end
 
   def delivery
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
     if params[:is_submitted]
       name = params[:name]
       email = params[:email]
@@ -49,22 +46,18 @@ class PaymentController < ApplicationController
   end
 
   def visa
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def bank
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def direct
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def success
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 end

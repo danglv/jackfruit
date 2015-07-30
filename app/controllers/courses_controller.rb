@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
   before_filter :validate_content_type_param
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
+  before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
+  before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -26,53 +28,36 @@ class CoursesController < ApplicationController
   end
 
   def list_course_featured
-    @category_id = params[:category_id]
-    category = Category.where(id: @category_id).first
-
-    if category.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
-    @category_name = category.name;
-
+    @category_name = @category.name;
     @courses = {}
+
     @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
       :label_ids.in => ["featured"],
-      :category_ids.in => [category.id]).first]
+      :category_ids.in => [@category.id]).first]
 
     @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
       :price => 0,
-      :category_ids.in => [category.id]
+      :category_ids.in => [@category.id]
     ).desc(:students).limit(12)]
 
     @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(
       :price.gt => 0,
-      :category_ids.in => [category.id]
+      :category_ids.in => [@category.id]
     ).desc(:students).limit(12)]
 
     @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(
-      :category_ids.in => [category.id],
+      :category_ids.in => [@category.id],
     ).desc(:created_at).limit(12)]
 
     @other_category = Category.where(
-      :parent_category_id => category.parent_category_id,
+      :parent_category_id => @category.parent_category_id,
       :id.ne => @category_id
       )
   end
 
   def list_course_all
-    @category_id = params[:category_id]
     @page        = params[:page] || 1
-
-    category = Category.where(id: @category_id).first
-
-    if category.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
-    @category_name = category.name;
+    @category_name = @category.name;
     # filter sort paginate course
 
     budget   = params[:budget]
@@ -80,7 +65,7 @@ class CoursesController < ApplicationController
     level    = params[:level]
     ordering = params[:ordering]
     condition = {}
-    condition[:category_ids.in] = [category.id]
+    condition[:category_ids.in] = [@category.id]
 
     if budget == Constants::BudgetTypes::FREE
       condition[:price] = 0
@@ -102,24 +87,16 @@ class CoursesController < ApplicationController
     )
 
     @other_category = Category.where(
-      :parent_category_id => category.parent_category_id,
+      :parent_category_id => @category.parent_category_id,
       :id.ne => @category_id,
       :enabled => true
       )
   end
 
   def detail
-    course_alias_name = params[:alias_name]
-    @course = Course.where(alias_name: course_alias_name).first
-
-    if @course.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
     if current_user
       if !current_user.courses.where(:course_id => @course.id.to_s).first.blank?
-        redirect_to root_url + "courses/#{course_alias_name}/learning"
+        redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
       end
     end
@@ -131,38 +108,23 @@ class CoursesController < ApplicationController
   end
 
   def learning
-    course_alias_name = params[:alias_name]
-    @course = Course.where(alias_name: course_alias_name).first
-
-    if @course.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
     @owned_course = current_user.courses.where(course_id: @course._id).first
     if @owned_course.blank?
-      redirect_to root_url + "courses/#{course_alias_name}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
   end
 
   def lecture 
-    course_alias_name     = params[:alias_name]
     lecture_index = params[:lecture_index]
-    @course       = Course.where(alias_name: course_alias_name).first
-
-    if @course.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
     @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
     @owned_course = current_user.courses.where(course_id: @course._id).first
     
     if @owned_course.blank?
-      redirect_to root_url + "courses/#{course_id}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
+    
     # set lecture ratio = 100(finish)
     @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
     
@@ -225,14 +187,6 @@ class CoursesController < ApplicationController
   end
 
   def select
-    course_alias_name = params[:alias_name]
-    @course   = Course.where(alias_name: course_alias_name).first
-
-    if @course.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
     labels    = Constants.LabelsValues
     @courses  = {}
   
