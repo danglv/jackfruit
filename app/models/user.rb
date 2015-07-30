@@ -45,6 +45,7 @@ class User
   
   # Profile
   # Basic
+  field :role, type: String, default: "user"
   field :name, type: String
   field :desination,type: String, default: ""
   field :first_name,type: String, default: ""
@@ -73,10 +74,11 @@ class User
   validates_inclusion_of :lang, :in => Constants.UserLangValues
 
   embeds_one :instructor_profile, class_name: "User::InstructorProfile"
-  embeds_one :profile, class_name: "User::Profile"
+  # embeds_one :profile, class_name: "User::Profile"
   embeds_many :courses, class_name: "User::Course"
   accepts_nested_attributes_for :courses
-
+  accepts_nested_attributes_for :instructor_profile
+  
   has_and_belongs_to_many :labels, class_name: "Label"
 
   index({created_at: 1})
@@ -139,7 +141,19 @@ class User
     user
   end
 
+  def role_enum
+    %w[admin user]
+  end
+
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def self.current
+    Thread.current[:user]
+  end      
+
+  def self.current=(user)
+    Thread.current[:user] = user
   end
 end

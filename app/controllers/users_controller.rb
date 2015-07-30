@@ -72,7 +72,6 @@ class UsersController < ApplicationController
     learning = Constants::OwnedCourseTypes::LEARNING
     course_ids = current_user.courses.where(
       :type => learning,
-      :status.ne => Constants::OwnedCourseStatus::PENDING
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
 
@@ -108,6 +107,12 @@ class UsersController < ApplicationController
   def select_course
     course_alias_name = params[:alias_name]
     course = Course.where(alias_name:course_alias_name).first
+
+    if course.blank?
+      redirect_to root_url + "courses"
+      return
+    end
+
     if course.price == 0
       owned_course = current_user.courses.find_or_initialize_by(
         course_id: course.id
@@ -122,8 +127,14 @@ class UsersController < ApplicationController
       owned_course.status = status
 
       init_lectures_for_owned_course(owned_course, course)
-      current_user.save
-      redirect_to root_url + "courses/#{course_alias_name}/select"
+
+      if current_user.save
+        redirect_to root_url + "courses/#{course_alias_name}/select"
+        return
+      else
+        redirect_to root_url + "courses"
+        return
+      end
     else
       redirect_to root_url + "home/payment?course_id=" + course._id
     end

@@ -26,7 +26,8 @@ class PaymentController < ApplicationController
         :city => city,
         :district => district,
         :course_id => course_id,
-        :user_id => current_user.id
+        :user_id => current_user.id,
+        :method => Constants::PaymentMethod::DELIVERY
       )
       owned_course = current_user.courses.find_or_initialize_by(
         course_id: course_id

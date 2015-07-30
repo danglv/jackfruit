@@ -65,6 +65,30 @@ module Constants
     AUDIO    = "Audio"
   end
 
+  module UserLevel
+    U1  = "u1"
+    U2  = "u2"
+    U5A = "u5a"
+    U5B = "u5b"
+    U6A = "u6a"
+    U6B = "u6b"
+    U7A = "u7a"
+    U7B = "u7b"
+    U8  = "u8"
+    U9  = "u9"
+  end
+
+  module LabelTypes
+    CATEGORY = "category"
+    COURSE   = "course"
+    USER     = "user"
+  end
+  
+  module PaymentMethod
+    DELIVERY = "delivery"
+    BANK = "bank"
+  end
+
   class << self
     Constants.constants.each {|module_name|
       sub_module = Constants.const_get(module_name)

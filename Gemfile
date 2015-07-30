@@ -54,6 +54,12 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick', '~> 3.8.1'
 gem "ImageResize"
 
+# Rails Admin
+gem 'rails_admin', '~> 0.6.8'
+gem 'devise-i18n'
+# Add permission
+gem "cancan"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
