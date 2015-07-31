@@ -85,8 +85,8 @@ module Constants
   end
   
   module BannerTargetTypes
-    BLANK = "blank"
-    SELF  = "self"
+    BLANK = "_blank"
+    SELF  = "_self"
   end
 
   module BannerTypes
