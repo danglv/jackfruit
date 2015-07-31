@@ -3,7 +3,9 @@ class PaymentController < ApplicationController
   before_filter :validate_course
 
   def index
-    render 'delivery'
+    course_alias_name = params[:alias_name]
+    @course = Course.where(:alias_name => course_alias_name).first
+    render 'payment'
   end
 
   def delivery
@@ -62,6 +64,7 @@ class PaymentController < ApplicationController
   end
 
   def pending
-    
+    course_alias_name = params[:alias_name]
+    @course = Course.where(:alias_name => course_alias_name).first
   end
 end
