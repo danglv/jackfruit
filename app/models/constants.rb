@@ -94,6 +94,10 @@ module Constants
     POPUP = "popup"
   end
 
+  module BannerLocation
+    HEADER = "header"
+  end
+
   module PaymentMethod
     DELIVERY = "delivery"
     BANK = "bank"
