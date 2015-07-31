@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :list_category, :store_location, :set_current_user
+  before_filter :list_category, :store_location, :set_current_user, :get_banner
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -72,28 +72,6 @@ class ApplicationController < ActionController::Base
       @all_categories << parent_cate
     }
   end
-  # def list_category
-  #   @all_categories = []
-  #   @parent_category_id = nil
-  #   @level = 0
-
-  #   @list_categories = Category.only(:id, :name, :parent_category_id).all.as_json
-  #   recursive_category(@all_categories, @parent_category_id, @level, @list_categories)
-  # end
-  
-  # private
-  #   def recursive_category(all_categories, parent_category_id, level, list_categories)
-  #     categories = @list_categories.select{|c| c["parent_category_id"] == parent_category_id}
-  #     if categories.count == 0
-  #       level -= 1
-  #     else
-  #       categories.each {|category|
-  #         all_categories << [category["_id"], category["name"], level]
-  #         parent_category_id = category["_id"]
-  #         recursive_category(all_categories, parent_category_id, level + 1, list_categories)
-  #       }
-  #     end
-  #   end
 
   def validate_category
     @category_id = params[:category_id]
@@ -113,5 +91,10 @@ class ApplicationController < ActionController::Base
       render 'page_not_found'
       return
     end
+  end
+
+  def get_banner
+    layout = "#{params[:controller]}_#{params[:action]}"
+    @banner = Banner.where(layout: layout, enabled: true).first
   end
 end
