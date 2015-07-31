@@ -1,0 +1,13 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%main.payment
+  .row
+    .col.s12.no-padding
+      = render :partial => 'payment/header_payment'
+      .container-1140
+        = render 'payment_method', method: ''
+        .row.payment-content
+          %h4 2. Hoàn tất thanh toán
+          .col.s12 Bạn chưa lựa chọn hình thức thanh toán nào
