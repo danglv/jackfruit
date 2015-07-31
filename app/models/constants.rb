@@ -84,6 +84,20 @@ module Constants
     USER     = "user"
   end
   
+  module BannerTargetTypes
+    BLANK = "blank"
+    SELF  = "self"
+  end
+
+  module BannerTypes
+    IMAGE = "image"
+    POPUP = "popup"
+  end
+
+  module BannerLocation
+    HEADER = "header"
+  end
+
   module PaymentMethod
     DELIVERY = "delivery"
     BANK = "bank"

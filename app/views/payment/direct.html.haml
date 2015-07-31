@@ -5,64 +5,21 @@
 %main.payment
   .row
     .col.s12.no-padding
-      .row.green.payment-header
-        .col.s6
-          %h4.white-text
-            Xác nhận thanh toán
-          %p.white-text= @course.name
-        .col.s6
-          %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      = render :partial => 'payment/header_payment'
       .container-1140
-        .row.payment-content
-          %p
-            1. Lựa chọn hình thức thanh toán
-        .row.payment-content
+        = render 'payment_method', method: 'direct'
+        .row.payment-content.active
           .col.s12
-            .row.courses.card-style.center-align
-              .col.s3
-                %a.payment-tab.course{:href => '/home/payment/delivery'}
-                  .card-image.course-image
-                    %i.material-icons.large shopping_cart
-                    %h6
-                      Giao khóa học
-                    %h6
-                      và thu tiền tận nơi
-              .col.s3
-                %a.payment-tab.course{:href => '/home/payment/visa'}
-                  .card-image.course-image
-                    %i.material-icons.large credit_card
-                    %h6
-                      Thanh toán trực tuyến
-                    %h6
-                      bằng thẻ ATM
-                    %h6
-                      hoặc Visa/Master
-              .col.s3
-                %a.payment-tab.course{:href => '/home/payment/bank'}
-                  .card-image.course-image
-                    %i.material-icons.large business
-                    %h6
-                      Chuyển khoản
-                    %h6
-                      qua ngân hàng
-              .col.s3
-                %a.payment-tab.course.active{:href => '/home/payment/direct'}
-                  .card-image.course-image
-                    %i.material-icons.large room
-                    %h6
-                      Thanh toán trực tiếp            
-        .row.payment-content
-          %p
-            2. Hoàn tất thanh toán
-          %p
-            Bạn chưa lựa chọn hình thức thanh toán nào
-        .col.s12.no-padding 
-          .row{:style => "padding: 0 113px 0 113px"}
-            %p.red-text
-              Thanh toán tại văn phòng Tudemy
-            %p
-              Địa chỉ văn phòng 
-              Biệt thự 298/3 Điện Biên Phủ, phường 17, quận Bình Thạnh, TP Hồ Chí Minh <br>
-              (Thời gian làm việc: từ 8:30 - 17:30 , từ Thứ 2 đến Thứ 7 hàng tuần)
-            %span
-            = image_tag 'map.png'      
+            %h4 2. Hoàn tất thanh toán
+        .row
+          .col.s12
+            %div.deep-orange-text Thanh toán tại văn phòng Tudemy
+        .row
+          .col.s12
+            %div Địa chỉ văn phòng
+          .col.s12
+            %div Tầng 3, Số 75 Phương Mai, Phường Phương Mai, Quận Đống Đa, Hà Nội
+          .col.s12
+            %div (Thời gian làm việc: từ 8:30 - 17:30 , từ Thứ 2 đến Thứ 7 hàng tuần)
+          .col.s6.no-padding
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "450", :src => "https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d4429.491449071485!2d105.84016233705643!3d21.00291737346027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d21.003376!2d105.8362837!5e0!3m2!1sen!2s!4v1438241096665", :style => "border:0", :width => "600"}

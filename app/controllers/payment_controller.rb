@@ -1,15 +1,14 @@
 class PaymentController < ApplicationController
   before_filter :authenticate_user!
-  
+  before_filter :validate_course
+
   def index
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
-    render 'delivery'
+    course_alias_name = params[:alias_name]
+    @course = Course.where(:alias_name => course_alias_name).first
+    render 'payment'
   end
 
   def delivery
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
     if params[:is_submitted]
       name = params[:name]
       email = params[:email]
@@ -25,12 +24,12 @@ class PaymentController < ApplicationController
         :address => address,
         :city => city,
         :district => district,
-        :course_id => course_id,
+        :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::DELIVERY
       )
       owned_course = current_user.courses.find_or_initialize_by(
-        course_id: course_id
+        course_id: @course.id
       )
 
       @course.curriculums.where(
@@ -44,27 +43,28 @@ class PaymentController < ApplicationController
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
 
-      redirect_to root_url + "/home/payment/success?course_id="+course_id
+      redirect_to root_url + "/home/payment/pending/#{@course.alias_name}"
     end
   end
 
   def visa
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def bank
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def direct
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
   end
 
   def success
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+
+  end
+
+  def pending
+    course_alias_name = params[:alias_name]
+    @course = Course.where(:alias_name => course_alias_name).first
   end
 end

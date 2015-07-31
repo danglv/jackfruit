@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
+  before_filter :validate_course, only: [:select_course]
 
   def index
     learning
@@ -105,19 +106,11 @@ class UsersController < ApplicationController
   end
 
   def select_course
-    course_alias_name = params[:alias_name]
-    course = Course.where(alias_name:course_alias_name).first
-
-    if course.blank?
-      redirect_to root_url + "courses"
-      return
-    end
-
-    if course.price == 0
+    if @course.price == 0
       owned_course = current_user.courses.find_or_initialize_by(
-        course_id: course.id
+        course_id: @course.id
       )
-      if course.price != 0
+      if @course.price != 0
         status = Constants::OwnedCourseStatus::PENDING
       else
         status = Constants::OwnedCourseStatus::FREE
@@ -126,17 +119,17 @@ class UsersController < ApplicationController
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
       owned_course.status = status
 
-      init_lectures_for_owned_course(owned_course, course)
+      init_lectures_for_owned_course(owned_course, @course)
 
       if current_user.save
-        redirect_to root_url + "courses/#{course_alias_name}/select"
+        redirect_to root_url + "courses/#{@course.alias_name}/select"
         return
       else
         redirect_to root_url + "courses"
         return
       end
     else
-      redirect_to root_url + "home/payment?course_id=" + course._id
+      redirect_to root_url + "home/payment/#{@course.alias_name}"
     end
   end
 
