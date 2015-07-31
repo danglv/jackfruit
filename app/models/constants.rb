@@ -89,6 +89,11 @@ module Constants
     SELF  = "self"
   end
 
+  module BannerTypes
+    IMAGE = "image"
+    POPUP = "popup"
+  end
+
   module PaymentMethod
     DELIVERY = "delivery"
     BANK = "bank"
