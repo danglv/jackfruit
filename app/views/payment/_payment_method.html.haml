@@ -23,7 +23,7 @@
           %h6 Chuyển khoản
           %h6 qua ngân hàng
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/direct/' + @course.alias_name, :class => [('active' if method == 'direct')]}
+      %a.disable.payment-tab.course{:href => '#', :class => [('active' if method == 'direct')]}
         .card-image.course-image
           %i.material-icons.large room
           %h6 Thanh toán trực tiếp
