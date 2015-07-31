@@ -11,6 +11,7 @@ $(document).ready(function () {
         $(this).removeAttr('checked');
       }
     });
+    $('#page-index').val(1);
     $('#test-form').submit();
   });
 
