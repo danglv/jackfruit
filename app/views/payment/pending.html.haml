@@ -28,7 +28,7 @@
               .offset-s1.col.s2.left-align
                 %span Chi phí
               .col.s8.right-align.pending-price
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+                %b.teal= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
             .row
               .offset-s1.col.s2.left-align
                 %span Trạng thái

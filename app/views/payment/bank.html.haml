@@ -13,7 +13,7 @@
             %h4 2. Hoàn tất thanh toán
         .row
           .col.s12
-            .red-text Chuyển khoản ngân hàng
+            .deep-orange-text Chuyển khoản ngân hàng
         .row
           .col.s12 Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
           .row
@@ -35,7 +35,7 @@
               %li.list-style-type-payment Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen0803@gmail.com - Ky nang quan ly cam xuc
         .row
           .col.s12
-            .red-text.no-margin Chuyển tiền qua Paypal
+            .deep-orange-text.no-margin Chuyển tiền qua Paypal
         .row
           .col.s12
             %div.text-indent-payment Địa chỉ email nhận tiền: minh@deltaviet.com. Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
@@ -44,4 +44,4 @@
           .col.s12 Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. DeltaViet sẽ email báo cho bạn biết khi giao dịch hoàn tất.
         .row
           .col.s12
-            %a.btn-large.btn-success-pay{:href => "/home/payment/pending/" + @course.alias_name} Hoàn tất thanh toán
+            %a.btn-large.deep-orange{:href => "#" + @course.alias_name} Hoàn tất thanh toán

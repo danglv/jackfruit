@@ -6,6 +6,7 @@
   color: #fff !important;
 }
 .payment {
+  color: #121212;
   .text-indent-payment{
     text-indent: 40px;
   }
@@ -19,18 +20,11 @@
   .row.green.payment-header{
     margin-top: -21px;
   }
-  .btn-success-pay{
-    background: #ff5722;
-  }
   .payment-content {
     .middle {
       height: 250px;
     }
     h4{
-      font-size: 18px;
-    }
-    div.col.s12{
-      color: #727272;
       font-size: 18px;
     }
     .payment-tab {
@@ -53,9 +47,6 @@
 }
 .pending{
   font-size: 18px;
-  .pending-price{
-    color: #009688;
-  }
   .pending-status{
     color: #ffbb33;
   }
