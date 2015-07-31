@@ -7,7 +7,7 @@
     .offset-s2.col.s8    
       .row.courses.card-style.center-align
         .course
-          .card-image.course-image
+          .card-image
             .row
               .col.s12.no-padding
                 .payment-success-header.green.valign-wrapper
@@ -16,13 +16,18 @@
             .row
               .offset-s1.col.s2.left-align
                 %span Khóa học
-              .offset-s1.col.s6.right-align
-                %span.black-text= @course.name
-            .row{:style => "border-bottom: 1px solid #333"}
+              .offset-s1.col.s7.right-align
+                %span.black-text.bold= @course.name
+            .row
               .offset-s1.col.s2.left-align
                 %span Chi phí
-              .offset-s1.col.s6.right-align
-                %span.green-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              .offset-s1.col.s7.right-align
+                %span.teal-text.bold= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .row{:style => "border-bottom: 1px solid #333"}
+              .offset-s1.col.s2.left-align
+                %span Trạng thái
+              .offset-s1.col.s7.right-align
+                %span.green-text.bold Thành công
             .row.valign-wrapper
               .offset-s1.col.s1
                 %i.material-icons.blue-text.darken-1 phone
