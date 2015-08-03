@@ -4,26 +4,26 @@
 .row.payment-content
   .row.courses.card-style.center-align
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/delivery/' + @course.alias_name, :class => [('active' if method == 'delivery')]}
+      %a.payment-tab.course{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
         .card-image.course-image
           %i.material-icons.large shopping_cart
           %h6 Giao khóa học
           %h6 và thu tiền tận nơi
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/visa/' + @course.alias_name, :class => [('active' if method == 'visa')]}
+      %a.payment-tab.course{:href => '/home/payment/online_payment/' + @course.alias_name, :class => [('active' if method == 'online_payment')]}
         .card-image.course-image
           %i.material-icons.large credit_card
           %h6 Thanh toán trực tuyến
           %h6 bằng thẻ ATM
           %h6 hoặc Visa/Master
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/bank/' + @course.alias_name, :class => [('active' if method == 'bank')]}
+      %a.payment-tab.course{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
         .card-image.course-image
           %i.material-icons.large business
           %h6 Chuyển khoản
           %h6 qua ngân hàng
     .col.s3
-      %a.disable.payment-tab.course{:href => '#', :class => [('active' if method == 'direct')]}
+      %a.disable.payment-tab.course{:href => '#', :class => [('active' if method == 'cih')]}
         .card-image.course-image
           %i.material-icons.large room
           %h6 Thanh toán trực tiếp

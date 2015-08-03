@@ -7,18 +7,16 @@
     .offset-s2.col.s8    
       .row.courses.card-style.center-align
         .course
-          .card-image.course-image.pending
+          .card-image.fail
             .row
               .col.s12.no-padding
-                .payment-pending-header.green.valign-wrapper
-                  .col.s12{:style => "text-align:center;background:#ffbb33;padding:15px"}
-                    %b.white-text{:style => "font-size: 24px"} Giao dịch của bạn đang được xử lý
+                .payment-fail-header.valign-wrapper
+                  .col.s12
+                    %b.white-text{:style => "font-size: 24px"} Rất tiếc! Giao dịch của bạn chưa thành công
             .row
-              .offset-s1.col.s10.left-align.no-padding.pending-title
+              .offset-s1.col.s10.left-align.no-padding.fail-title
                 %span
-                  Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
-                  %a.pending-title-link{:href => "/home/my-course/learning"} Khóa học của bạn
-                  thường xuyên
+                  Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng
             .row.no-margin
               .offset-s1.col.s2.left-align
                 %span Khóa học
@@ -27,23 +25,24 @@
             .row.no-margin
               .offset-s1.col.s2.left-align
                 %span Chi phí
-              .col.s8.right-align.pending-price
+              .col.s8.right-align.fail-price
                 %b.teal-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
             .row
               .offset-s1.col.s2.left-align
                 %span Trạng thái
-              .col.s8.right-align.pending-status
-                %b Đang chờ xử lý
+              .col.s8.right-align.fail-status
+                %b Thất bại
             .row
               .offset-s1.col.s10.no-padding
                 %hr/
             .row
               .offset-s1.col.s11.left-align
-                %div.pending-phone
-                  %i.material-icons.pending-phone-icon phone
+                %div.fail-phone
+                  %i.material-icons.fail-phone-icon phone
                   %span Hotline:
                   %b 0123456789
             .row
-              .col.s12
-                %div.pending-btn-other-course
-                  %a.btn-large.text-white.bold{:href => "/courses/"} KHÁM PHÁ CÁC KHÓA HỌC KHÁC
+              .offset-s1.col.s6.no-padding.left-align
+                %a.teal-text.bold{:href => "#"} Khám phá các khóa học khác
+              .col.s4.no-padding.righ-align
+                %a.btn-large.teal.bold.expanded{:href => "#"} Thử lại
