@@ -99,8 +99,9 @@ module Constants
   end
 
   module PaymentMethod
-    DELIVERY = "delivery"
-    BANK = "bank"
+    COD = "cod"
+    TRANSER = "transfer"
+    ONLINE_PAYMENT = "online_payment"
   end
 
   class << self

@@ -74,3 +74,26 @@
     }
   }
 }
+.fail{
+    font-size: 18px;
+    .payment-fail-header{
+    background: #ff4444;
+    padding: 15px;
+  }  
+  .fail-title{
+    color: #ff4444;
+  }
+  .fail-status{
+    color: #ff4444;
+  }
+  .fail-phone{
+    .fail-phone-icon{
+      font-size: 30px;
+      color: #338abc;
+      display: block;
+      float: left;
+      margin-right: 10px;
+    }
+    margin-bottom: 40px;
+  }
+}

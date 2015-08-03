@@ -88,13 +88,26 @@ class ApplicationController < ActionController::Base
     @course = Course.where(alias_name: course_alias_name).first
 
     if @course.blank?
-      render 'page_not_found'
+      render 'page_not_found', status: 404
       return
     end
   end
 
   def get_banner
     layout = "#{params[:controller]}_#{params[:action]}"
-    @banner = Banner.where(layout: layout, enabled: true).first
+    condition = {:layout => "#{layout}", :enabled => true}
+
+    if current_user
+      condition[:open_one_time_for_user] = true
+      condition[:opened_user_ids.nin] = [current_user.id]
+      @banner = Banner.where(condition).first
+
+      if @banner
+        @banner.opened_users << current_user
+        @banner.save
+      end
+    else
+      @banner = Banner.where(condition).first
+    end
   end
 end
