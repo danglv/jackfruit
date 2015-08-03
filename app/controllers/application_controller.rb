@@ -95,6 +95,16 @@ class ApplicationController < ActionController::Base
 
   def get_banner
     layout = "#{params[:controller]}_#{params[:action]}"
-    @banner = Banner.where(layout: layout, enabled: true).first
+    condition = {:layout => "#{layout}", :enabled => true}
+
+    if current_user
+      condition[:open_one_time_for_user] = true
+      condition[:opened_user_ids.nin] = [current_user.id]
+      @banner = Banner.where(condition).first
+      @banner.opened_users << current_user
+      @banner.save
+    else
+      @banner = Banner.where(condition).first
+    end
   end
 end

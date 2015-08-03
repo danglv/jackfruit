@@ -8,6 +8,8 @@ class Banner
   field :target, type: String, default: Constants::BannerTargetTypes::SELF
   field :layout, type: String, default: "application_index"
   field :type , type: String, default: Constants::BannerTypes::IMAGE
+  field :open_one_time_for_user, type: Boolean, default: false
+  has_and_belongs_to_many :opened_users, class_name: "User", inverse_of: nil
 
   mount_uploader :banner_image, BannerImageUploader
 
