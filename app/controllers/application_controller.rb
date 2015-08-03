@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
     @course = Course.where(alias_name: course_alias_name).first
 
     if @course.blank?
-      render 'page_not_found'
+      render 'page_not_found', status: 404
       return
     end
   end
