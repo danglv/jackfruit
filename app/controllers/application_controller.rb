@@ -105,6 +105,8 @@ class ApplicationController < ActionController::Base
       if @banner
         @banner.opened_users << current_user
         @banner.save
+      else
+        @banner = Banner.where(:layout => layout, :enabled => true, :open_one_time_for_user => false).first
       end
     else
       @banner = Banner.where(condition).first
