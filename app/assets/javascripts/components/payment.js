@@ -1,5 +1,10 @@
+'use strict';
+
 $(document).ready(function () {
-  $('html, body').animate({
-    scrollTop: $(".row.payment-content.active").offset().top
-  }, 1000);
+  var element = $('.row.payment-content.active');
+  if (element.length > 0) {
+    $('html, body').animate({
+      scrollTop: element.offset().top
+    }, 1000);
+  }
 });
