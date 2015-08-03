@@ -63,6 +63,10 @@ class PaymentController < ApplicationController
 
   end
 
+  def fail
+    
+  end
+
   def pending
     course_alias_name = params[:alias_name]
     @course = Course.where(:alias_name => course_alias_name).first
