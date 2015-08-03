@@ -18,7 +18,7 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      Payment.create(
+      payment = Payment.create(
         :name => name,
         :email => email,
         :mobile => mobile,
@@ -44,7 +44,7 @@ class PaymentController < ApplicationController
       owned_course.status = Constants::OwnedCourseStatus::PENDING
       current_user.save
 
-      redirect_to root_url + "/home/payment/pending/#{@course.alias_name}"
+      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
     end
   end
 
