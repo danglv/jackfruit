@@ -1,6 +1,5 @@
-#popup-banner-modal.modal
-  .popup-banner-modal-content
-    %h4 Modal Header
-    %p A bunch of text
-  .modal-footer
-    %a.modal-action.modal-close.waves-effect.waves-green.btn-flat{:href => "#!"} Agree
+#popup-banner-modal.modal{:style => "width: 560px; height: 380px;overflow: hidden"}
+  .row
+    .col.s12.no-padding
+      %img.responsive-img{:src => image, :style => "z-index: 1"}
+      %a.btn-large.modal-close.deep-orange{:style => "z-index: 9999; position: absolute; top: 310px; left: 150px;"} Tôi đã biết thông tin này
