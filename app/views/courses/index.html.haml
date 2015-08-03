@@ -10,7 +10,7 @@
           - if @banner.type == 'image'
             = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
           - if @banner.type == 'popup'
-            = render :partial => 'components/banner/banner_popup'
+            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
 
 %main.container-1140
   .row.course-list.highest-rating
