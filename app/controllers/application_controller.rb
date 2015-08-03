@@ -101,8 +101,11 @@ class ApplicationController < ActionController::Base
       condition[:open_one_time_for_user] = true
       condition[:opened_user_ids.nin] = [current_user.id]
       @banner = Banner.where(condition).first
-      @banner.opened_users << current_user
-      @banner.save
+
+      if @banner
+        @banner.opened_users << current_user
+        @banner.save
+      end
     else
       @banner = Banner.where(condition).first
     end
