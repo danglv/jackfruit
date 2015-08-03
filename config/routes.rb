@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get '/direct/:alias_name', to: 'payment#direct'
       get '/success/:alias_name', to: 'payment#success'
       get '/pending/:alias_name', to: 'payment#pending'
+      get '/fail/:alias_name', to: 'payment#fail'
     end
   end
 
