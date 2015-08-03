@@ -27,14 +27,16 @@ Rails.application.routes.draw do
   resources :payment, :path => 'home/payment', only: %w[] do
     collection do
       get '/:alias_name', to: 'payment#index'
-      get '/delivery/:alias_name', to: 'payment#delivery'
-      post :delivery
-      get '/visa/:alias_name', to: 'payment#visa'
-      get '/bank/:alias_name', to: 'payment#bank'
-      get '/direct/:alias_name', to: 'payment#direct'
-      get '/success/:alias_name', to: 'payment#success'
-      get '/pending/:alias_name', to: 'payment#pending'
-      get '/fail/:alias_name', to: 'payment#fail'
+      get '/cod/:alias_name', to: 'payment#cod'
+      post :cod
+      get '/online_payment/:alias_name', to: 'payment#online_payment'
+      get '/transfer/:alias_name', to: 'payment#transfer'
+      get '/cih/:alias_name', to: 'payment#cih'
+      get '/:id/status', to: 'payment#status'
+      get '/:id/success', to: 'payment#success'
+      get '/:id/pending', to: 'payment#pending'
+      get '/:id/cancel', to: 'payment#cancel'
+      # get '/:id/update', to: 'payment#update'
     end
   end
 
