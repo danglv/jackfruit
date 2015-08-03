@@ -1,3 +1,5 @@
-$('html, body').animate({
-  scrollTop: $(".row.payment-content.active").offset().top
-}, 1000);
+$(document).ready(function () {
+  $('html, body').animate({
+    scrollTop: $(".row.payment-content.active").offset().top
+  }, 1000);
+});
