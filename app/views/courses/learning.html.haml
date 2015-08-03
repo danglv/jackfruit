@@ -1,6 +1,17 @@
 %header
  = render :partial => 'layouts/header'
  = render :partial => 'components/side_nav'
+
+%banner
+ .row
+  .col.s12
+   - if !@banner.blank?
+    - if @banner.location == 'header'
+      - if @banner.type == 'image'
+       = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+      - if @banner.type == 'popup'
+       = render :partial => 'components/banner/banner_popup'
+
 %main.lecture-detail{:style => "background: #e9e9e9"}
  .row.header.no-padding
   .row.header-container.container-1140.no-padding
