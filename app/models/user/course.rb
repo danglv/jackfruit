@@ -1,7 +1,7 @@
 class User::Course
   include Mongoid::Document
 
-  field :status, type: String, default: ""
+  field :payment_status, type: String, default: ""
   field :type, type: String, default: ""
 
   embedded_in :user
@@ -10,4 +10,5 @@ class User::Course
   accepts_nested_attributes_for :lectures
 
   validates_inclusion_of :type, :in => Constants.OwnedCourseTypesValues
+  validates_inclusion_of :payment_status, :in => Constants.PaymentStatusValues
 end

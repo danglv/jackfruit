@@ -20,10 +20,10 @@ module Constants
     TOP_PAID = "top_paid"
   end
 
-  module OwnedCourseStatus
-    FREE = "free"
+  module PaymentStatus
+    SUCCESS = "success"
     PENDING = "pending"
-    CONFIRMED = "confirmed"
+    CANCEL = "cancel"
   end
 
   module OwnedCourseTypes

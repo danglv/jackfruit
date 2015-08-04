@@ -18,10 +18,11 @@
     .col.s12
       .my-courses.card-style
         - @courses.each do |course|
-        - index = current_user.courses.where(:course_id => course.id.to_s).first.lectures.where(lecture_ratio: 100).count
+        - owned_course = current_user.courses.where(:course_id => course.id.to_s).first
+        - index = owned_course.lectures.where(lecture_ratio: 100).count
         - count = course.curriculums.where(type: "lecture").count
           .col.s3
-            - if current_user.courses.where(:course_id => course.id.to_s).first.status == 'pending'
+            - if owned_course.payment_status == 'pending'
               %a.course{:href => '/courses/'+course.alias_name+'/detail'}
                 .card-image.course-image
                   = image_tag course.image
@@ -48,9 +49,7 @@
                     .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
                   .row.course-footer
                     .col.s5.no-padding.left
-                    - if current_user.courses.where(:course_id => course.id.to_s).first.status == 'pending'
-                      %span.progress-color-pending Đang chờ xử lý
-                    - elsif index == 0 
+                    - if index == 0 
                       %span.progress-color-begin Bắt đầu
                     - elsif index != count
                       %span.progress-color-learning= ((index.to_f / count.to_f)*100).ceil.to_s+"%"

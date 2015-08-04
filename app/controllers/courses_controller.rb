@@ -95,9 +95,10 @@ class CoursesController < ApplicationController
 
   def detail
     if current_user
+      @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       if !current_user.courses.where(
             :course_id => @course._id,
-            :status.ne => Constants::OwnedCourseStatus::PENDING
+            :payment_status => Constants::PaymentStatus::SUCCESS
           ).first.blank?
         redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
@@ -113,7 +114,7 @@ class CoursesController < ApplicationController
   def learning
     @owned_course = current_user.courses.where(
       :course_id => @course._id,
-      :status.ne => Constants::OwnedCourseStatus::PENDING
+      :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
@@ -126,7 +127,7 @@ class CoursesController < ApplicationController
     @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
     @owned_course = current_user.courses.where(
       :course_id => @course._id,
-      :status.ne => Constants::OwnedCourseStatus::PENDING
+      :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
     
     if @owned_course.blank?
