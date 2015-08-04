@@ -64,7 +64,7 @@ class PaymentControllerTest < ActionController::TestCase
     assert_not owned_course.blank?
     assert_equal 1, owned_course.lectures.size
     assert_equal Constants::OwnedCourseTypes::LEARNING, owned_course.type
-    assert_equal Constants::OwnedCourseStatus::PENDING, owned_course.status
+    assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
 
     assert_equal 1, course.students
 

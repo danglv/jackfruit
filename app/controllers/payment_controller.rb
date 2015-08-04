@@ -7,7 +7,7 @@ class PaymentController < ApplicationController
   def index
   end
 
-  # GET
+  # GET, POST
   # Cash-on-delivery
   def cod
     if params[:is_submitted]
@@ -29,32 +29,33 @@ class PaymentController < ApplicationController
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD
       )
-      owned_course = current_user.courses.find_or_initialize_by(
-        course_id: @course.id
-      )
 
-      @course.curriculums.where(
-        :type => Constants::CurriculumTypes::LECTURE
-      ).map{|curriculum|
-        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-      }
+      owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
 
-      @course.set(:students => @course.students + 1)
+      @course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+
+      @course.students += 1
+      @course.save
+
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
       owned_course.payment_status = Constants::PaymentStatus::PENDING
-      current_user.save
 
-      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+      current_user.save
+      redirect_to root_url + "/home/payment/#{payment.id.to_s}/status?alias_name=#{@course.alias_name}"
     end
   end
 
   def online_payment
     baokim = BaoKimPayment.new
-    course_id = params[:course_id]
-    @course = Course.where(:id => course_id).first
+    alias_name = params[:alias_name]
+    @course = Course.where(:alias_name => alias_name).first
 
     payment = Payment.create(
-      :course_id => course_id,
+      :course_id => alias_name,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::ONLINE_PAYMENT
     )
