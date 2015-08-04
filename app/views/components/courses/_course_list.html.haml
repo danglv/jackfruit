@@ -1,0 +1,23 @@
+%a.row.course{:href => "/courses/#{course.alias_name}/detail"}
+  .col.s3.course-image
+    = image_tag course.image
+  .col.s9
+    %p.course-title= course.name
+    %p.course-author #{course.user.name}
+    %p{:style => 'margin: 5px 0;'}
+    - if course.price.to_s == '0'
+      %span.course-price.red-text
+        Miễn phí
+    - else
+      %span.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      %span.course-rating
+        %span.course-rating-point
+          - (1..5).each do |i|
+            - if i <= course.average_rating
+              %i.material-icons.is-rated star_rate
+            - else
+              %i.material-icons star_rate
+      %span.course-rating-people= '(' + course.num_rate.to_s + ')'
+    %div{:style => "clear:both"}
+    %p.course-other-info.fix-height-info= course.sub_title
+    %span.blue-text Xem thêm

@@ -15,33 +15,7 @@
           .row.courses.card-style
             - @courses["featured"].last.each do |tf|
               .col.s3
-                %a.course{:href => '/courses/' + tf.alias_name.to_s + '/detail', :style => "height: 360px"}
-                  .card-image.course-image
-                    = image_tag tf.image
-                  .card-content.course-content
-                    .col.s12.no-padding{:style => "height: 122px"}
-                      .row.course-title
-                        .col.s12.no-padding.fix-height= tf.name
-                      .row.course-author
-                        .col.s12.no-padding= 'Bởi ' + tf.user.name.to_s
-                    .col.s12.no-padding
-                      .row.course-rating.no-margin
-                        .col.s7.course-rating-point.no-padding
-                          - (1..5).each do |i|
-                            - if i <= tf.average_rating
-                              %i.material-icons.is-rated star_rate
-                            - else
-                              %i.material-icons star_rate
-                        .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
-                      .row
-                        .col.s6.no-padding.course-favorite
-                          %span.left
-                            %i.material-icons.is-favorite group
-                          %span.left= tf.students.to_s
-                        - if tf.price == 0
-                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                        - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(tf.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+                = render :partial => 'components/courses/course_card', :locals => {:course => tf}
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
@@ -50,36 +24,7 @@
           .row.courses.card-style
             - @courses["top_free"].last.each do |tf|
               .col.s3
-                %a.course{:href => '/courses/' + tf.alias_name.to_s + '/detail', :style => "height: 360px"}
-                  .card-image.course-image
-                    = image_tag tf.image
-                  .card-content.course-content
-                    .col.s12.no-padding{:style => "height: 122px"}
-                      .row.course-title
-                        .col.s12.no-padding.fix-height= tf.name
-                      .row.course-author
-                        - if tf.user
-                          .col.s12.no-padding= tf.user.name
-                        - else
-                          .col.s12.no-padding Tudemy
-                    .col.s12.no-padding
-                      .row.course-rating.no-margin
-                        .col.s7.course-rating-point.no-padding
-                          - (1..5).each do |i|
-                            - if i <= tf.average_rating
-                              %i.material-icons.is-rated star_rate
-                            - else
-                              %i.material-icons star_rate
-                        .col.s5.course-rating-people.no-padding= '(' + tf.num_rate.to_s + ')'
-                      .row
-                        .col.s6.no-padding.course-favorite
-                          %span.left
-                            %i.material-icons.is-favorite group
-                          %span.left= tf.students.to_s
-                        - if tf.price == 0
-                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                        - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(tf.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                = render :partial => 'components/courses/course_card', :locals => {:course => tf}
       .row.course-list.highest-rating
         .col.s12
           .row.course-list-header
@@ -88,29 +33,4 @@
           .row.courses.card-style
             - @courses["top_paid"].last.each do |course|
               .col.s3
-                %a.course{:href => '/courses/' + course.alias_name.to_s + '/detail', :style => "height: 360px"}
-                  .card-image.course-image
-                    = image_tag course.image
-                  .card-content.course-content
-                    .col.s12.no-padding{:style => "height: 122px"}
-                      .row.course-title
-                        .col.s12.no-padding.fix-height= course.name
-                      .row.course-author= 'bởi ' + course.user.name.to_s
-                    .col.s12.no-padding
-                      .row.course-rating.no-margin
-                        .col.s7.course-rating-point.no-padding
-                          - (1..5).each do |i|
-                            - if i <= course.average_rating
-                              %i.material-icons.is-rated star_rate
-                            - else
-                              %i.material-icons star_rate
-                        .col.s5.course-rating-people.no-padding= '(' + course.num_rate.to_s + ')'
-                      .row
-                        .col.s6.no-padding.course-favorite
-                          %span.left
-                            %i.material-icons.is-favorite group
-                          %span.left= course.students.to_s
-                        - if course.price == 0
-                          .col.s6.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
-                        - else
-                          .col.s6.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                = render :partial => 'components/courses/course_card', :locals => {:course => course}
