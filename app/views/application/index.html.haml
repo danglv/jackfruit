@@ -23,6 +23,14 @@
   .home-main.container-1140
     .row
       .col.s12
+        - if !@banner.blank?
+          - if @banner.location == 'header'
+            - if @banner.type == 'image'
+              = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+            - if @banner.type == 'popup'
+              = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+    .row
+      .col.s12
         .home-headline Khám phá những chủ đề và khóa học phổ biến
     .row.courses.card-style
       - if @courses
