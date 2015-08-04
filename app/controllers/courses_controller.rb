@@ -95,6 +95,7 @@ class CoursesController < ApplicationController
 
   def detail
     if current_user
+      @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       if !current_user.courses.where(
             :course_id => @course._id,
             :payment_status => Constants::PaymentStatus::SUCCESS

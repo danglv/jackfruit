@@ -69,11 +69,11 @@
           .row
             - if !current_user.blank?
               .col.s6.no-padding
-                - if !current_user.courses.where(:course_id => @course.id.to_s).first.blank?
-                  - if current_user.courses.where(:course_id => @course.id.to_s).first.status == 'pending'
+                - if !@owned_course.blank?
+                  - if @owned_course.payment_status == 'pending'
                     %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
                       Đang chờ xử lý
-                  - elsif @course.price.to_s == "0"
+                  - else
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
                 - else 

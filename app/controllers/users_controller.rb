@@ -117,7 +117,7 @@ class UsersController < ApplicationController
       end
 
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
-      owned_course.status = status
+      owned_course.payment_status = status
 
       init_lectures_for_owned_course(owned_course, @course)
 
