@@ -25,11 +25,12 @@
                 %span.green-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             .row
               .offset-s1.col.s10{:style => 'border-bottom:1px solid #333'}
-            / .row.valign-wrapper
-            /   .offset-s1.col.s1
-            /     %i.material-icons.blue-text.darken-1 phone
-            /   .col.s9.left-align
-            /     %span Hotline: 0123456789
+            .row.valign-wrapper
+              .offset-s1.col.s1
+                %i.material-icons.blue-text.darken-1 phone
+              .col.s9.left-align
+                %span Hotline: 
+                %b 01638533244
             .row.valign-wrapper
               .offset-s3.col.s12.left-align
                 %a.btn-large.blue.darken-1{:href => "/home"}
