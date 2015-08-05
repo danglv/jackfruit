@@ -23,6 +23,8 @@ class Course
   field :image, type: String, default: "course-image.png"
   field :intro_link, type: String, default: ""
   field :intro_image, type: String, default: "course-image-intro.png"
+  # role for course
+  field :version, type: String, default: "test"
 
   embeds_many :curriculums, class_name: "Course::Curriculum"
   embeds_many :discussions, class_name: "Course::Discussion"
@@ -39,6 +41,7 @@ class Course
   validates_presence_of :name
   validates_numericality_of :price, :num_rate, only_integer: true, greater_than_or_equal: 0
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
+  validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 
   before_save :process_rate
 
