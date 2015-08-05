@@ -23,7 +23,17 @@ class CoursesController < ApplicationController
         Course::Localization::TITLES[label.to_sym][I18n.default_locale]
       end
 
-      @courses[label.to_sym] = [title, Course.where(:label_ids.in => [label]).limit(12)]
+      condition = {}
+      condition[:enabled] = true
+      condition[:label_ids.in] = [label]
+
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
+
+      @courses[label.to_sym] = [title, Course.where(condition).limit(12)]
     }
   end
 
@@ -31,23 +41,39 @@ class CoursesController < ApplicationController
     @category_name = @category.name;
     @courses = {}
 
-    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(
-      :label_ids.in => ["featured"],
-      :category_ids.in => [@category.id]).first]
+    condition = {:enabled => true, :label_ids.in => ["featured"], :category_ids.in => [@category.id]}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
 
-    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
-      :price => 0,
-      :category_ids.in => [@category.id]
-    ).desc(:students).limit(12)]
+    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).first]
 
-    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(
-      :price.gt => 0,
-      :category_ids.in => [@category.id]
-    ).desc(:students).limit(12)]
+    condition = {:price => 0,:category_ids.in => [@category.id], :enabled => true}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
 
-    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(
-      :category_ids.in => [@category.id],
-    ).desc(:created_at).limit(12)]
+    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+
+    condition = {:price.gt => 0,:category_ids.in => [@category.id], :enabled => true}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+
+    condition = {:category_ids.in => [@category.id], :enabled => true}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(12)]
 
     @other_category = Category.where(
       :parent_category_id => @category.parent_category_id,
@@ -65,7 +91,14 @@ class CoursesController < ApplicationController
     level    = params[:level]
     ordering = params[:ordering]
     condition = {}
+    condition[:enabled] = true
     condition[:category_ids.in] = [@category.id]
+
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
 
     if budget == Constants::BudgetTypes::FREE
       condition[:price] = 0
@@ -106,9 +139,21 @@ class CoursesController < ApplicationController
     end
 
     @courses = {}
-    
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(:category_ids.in => @course.category_ids).limit(3)]
-    @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(:category_ids.in => @course.category_ids).limit(3)]
+    condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    condition = {:enabled => true, :label_ids.in => ["top_paid"]}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+    @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
   end
 
   def learning
@@ -161,9 +206,16 @@ class CoursesController < ApplicationController
       condition[:price.gt] = 0
     end
 
+    condition[:enabled] = true
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
     condition[:name] = pattern
+
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
 
     sort_by = ORDERING.first.last    
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
@@ -182,17 +234,38 @@ class CoursesController < ApplicationController
     if @courses.count == 0
       @courses = {}
       
-      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], [Course.where(
-      :label_ids.in => ["featured"]).first]]
+      condition = {:enabled => true,:label_ids.in => ["featured"]}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
 
-      @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(
-        :price => 0).desc(:students).limit(12)]
+      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], [Course.where(condition).first]]
+      condition = {:enabled => true, :price => 0}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
 
-      @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(
-        :price.gt => 0
-      ).desc(:students).limit(12)]
+      @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+      condition = {:enabled => true, :price.gt => 0}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
 
-      @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.all.desc(:created_at).limit(12)]
+      @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+      condition = {:enabled => true}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
+
+      @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(12)]
     end
   end
 
@@ -207,7 +280,13 @@ class CoursesController < ApplicationController
       Course::Localization::TITLES[label.to_sym][I18n.default_locale]
     end
 
-    @courses[label.to_sym] = [title, Course.where(:label_ids.in => [label]).limit(12)]
+    condition = {:enabled => true, :label_ids.in => [label]}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+    @courses[label.to_sym] = [title, Course.where(condition).limit(12)]
    }
   end
 

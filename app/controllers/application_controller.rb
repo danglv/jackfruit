@@ -48,7 +48,15 @@ class ApplicationController < ActionController::Base
 
   # action index để điều hướng đến trang landing page
   def index
-    @courses = Course.all.desc(:students).limit(8)
+    condition = {:enabled => true}
+
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+
+    @courses = Course.where(condition).desc(:students).limit(8)
 
     if current_user
       redirect_to root_url + "courses"
@@ -85,7 +93,15 @@ class ApplicationController < ActionController::Base
 
   def validate_course
     course_alias_name = params[:alias_name]
-    @course = Course.where(alias_name: course_alias_name).first
+    condition = {:enabled => true, :alias_name => course_alias_name}
+
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+
+    @course = Course.where(condition).first
 
     if @course.blank?
       render 'page_not_found', status: 404

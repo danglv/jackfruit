@@ -7,7 +7,7 @@
     /   - image = "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11754761_1425168711147041_1552365735035263083_o.jpg"
     / - else
     /   - image = @course.image
-    - if params[:action] == "detail"
+    - if params[:action] == "detail" && !@course.blank?
       %meta{:property => "og:title", :content => "#{@course.name}"}/
       %meta{:property => "og:site_name", :content => "Khoá học của Tudemy"}/
       %meta{:property => "og:url", :content => "#{request.url}"}/

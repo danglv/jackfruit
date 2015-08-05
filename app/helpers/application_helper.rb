@@ -20,7 +20,11 @@ module ApplicationHelper
 
 	def help_get_courses_title(action)
 		if (["select", "lecture", "learning", "detail"].include? action)
-				title= @course.name
+				title= if @course.blank?
+					"Tudemy"
+				else
+					@course.name
+				end
 		elsif ["list_course_featured", "list_course_all"].include? action
 			title= @category_name
 		else
