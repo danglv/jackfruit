@@ -47,7 +47,7 @@ class PaymentControllerTest < ActionController::TestCase
   test 'in payment/cod, submission with valid info will be redirected to payment/status page' do
     sign_in :user, @user
     data = {
-      :alias_name => 'test-course-1'
+      :alias_name => 'test-course-1',
       :name => @user.name,
       :email => @user.email,
       :mobile => '123456',
