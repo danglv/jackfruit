@@ -2,6 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
   before_filter :authenticate_user!
   before_filter :validate_course
+  before_filter :validate_payment, :only => [:status, :update, :cancel, :pending]
 
   # GET
   def index
@@ -50,29 +51,49 @@ class PaymentController < ApplicationController
   end
 
   def online_payment
-    baokim = BaoKimPayment.new
+    payment_service_provider = params[:p]
     alias_name = params[:alias_name]
     @course = Course.where(:alias_name => alias_name).first
 
     payment = Payment.create(
-      :course_id => alias_name,
+      :course_id => @course.id,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::ONLINE_PAYMENT
     )
 
-    redirect_url = baokim.create_request_url({
-      'order_id' =>  1,
-      'business' =>  'ngoc.phungba@gmail.com',
-      'total_amount' =>  @course.price,
-      'shipping_fee' =>  0,
-      'tax_fee' =>  0,
-      'order_description' =>  'Mua ' + @course.name,
-      'url_success' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/success?p=baokim&course_id=' + course_id,
-      'url_cancel' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/cancel?p=baokim&course_id=' + course_id,
-      'url_detail' =>  request.protocol + request.host_with_port + '/courses/' + @course.alias_name + '/detail'
-    })
+    owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
 
-    redirect_to redirect_url
+    @course.curriculums
+      .where(:type => Constants::CurriculumTypes::LECTURE)
+      .map{ |curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
+
+    @course.students += 1
+    @course.save
+
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::PENDING
+
+    current_user.save
+
+    if payment_service_provider == 'baokim'
+      baokim = BaoKimPayment.new
+
+      redirect_url = baokim.create_request_url({
+        'order_id' =>  payment.id,
+        'business' =>  'ngoc.phungba@gmail.com',
+        'total_amount' =>  @course.price,
+        'shipping_fee' =>  0,
+        'tax_fee' =>  0,
+        'order_description' =>  @course.name,
+        'url_success' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/success?p=baokim',
+        'url_cancel' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/cancel?p=baokim',
+        'url_detail' =>  request.protocol + request.host_with_port + '/courses/' + @course.alias_name + '/detail'
+      })
+
+      redirect_to redirect_url
+    end
   end
 
   # GET
@@ -85,13 +106,6 @@ class PaymentController < ApplicationController
 
   # GET
   def status
-    payment_id = params[:id]
-    @payment = Payment.where(:id => payment_id).first
-
-    if @payment.blank?
-      render 'page_not_found'
-      return
-    end
   end
 
   # GET
@@ -107,4 +121,15 @@ class PaymentController < ApplicationController
     course_alias_name = params[:alias_name]
     @course = Course.where(:alias_name => course_alias_name).first
   end
+
+  private
+    def validate_payment
+      payment_id = params[:id]
+      @payment = Payment.where(:id => payment_id).first
+
+      if @payment.blank?
+        render 'page_not_found'
+        return
+      end
+    end
 end
