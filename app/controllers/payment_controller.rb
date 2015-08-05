@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
   before_filter :authenticate_user!
   before_filter :validate_course
-  before_filter :validate_payment, :only => [:status, :update, :cancel, :pending]
+  before_filter :validate_payment, :only => [:status, :success, :cancel, :pending]
 
   # GET
   def index
@@ -11,7 +11,7 @@ class PaymentController < ApplicationController
   # GET, POST
   # Cash-on-delivery
   def cod
-    if params[:is_submitted]
+    if request.method == 'POST'
       name = params[:name]
       email = params[:email]
       mobile = params[:mobile]
