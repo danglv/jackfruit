@@ -71,4 +71,32 @@ class PaymentControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_match /status/, @response.redirect_url
   end
+
+  test 'in payment/online_payment, authenticated user will be redirected to baokim services' do
+    sign_in :user, @user
+    get 'online_payment', {alias_name: 'test-course-1', p: 'baokim'}
+
+    course = Course.where(:id => @course.id).first
+    owned_course = User.where(:id => @user.id).first.courses.where(course_id: @course.id).first
+
+    assert_not owned_course.blank?
+    assert_equal 1, owned_course.lectures.size
+    assert_equal Constants::OwnedCourseTypes::LEARNING, owned_course.type
+    assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
+
+    assert_equal 1, course.students
+
+    assert_response :redirect
+    assert_match /merchant_id/, @response.redirect_url
+    assert_match /order_id/, @response.redirect_url
+    assert_match /business/, @response.redirect_url
+    assert_match /total_amount/, @response.redirect_url
+    assert_match /shipping_fee/, @response.redirect_url
+    assert_match /tax_fee/, @response.redirect_url
+    assert_match /order_description/, @response.redirect_url
+    assert_match /url_success/, @response.redirect_url
+    assert_match /url_cancel/, @response.redirect_url
+    assert_match /url_detail/, @response.redirect_url
+    assert_match /checksum/, @response.redirect_url
+  end
 end
