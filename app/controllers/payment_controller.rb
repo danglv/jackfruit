@@ -31,22 +31,9 @@ class PaymentController < ApplicationController
         :method => Constants::PaymentMethod::COD
       )
 
-      owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
+      create_course_for_user()
 
-      @course.curriculums
-        .where(:type => Constants::CurriculumTypes::LECTURE)
-        .map{ |curriculum|
-          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-        }
-
-      @course.students += 1
-      @course.save
-
-      owned_course.type = Constants::OwnedCourseTypes::LEARNING
-      owned_course.payment_status = Constants::PaymentStatus::PENDING
-
-      current_user.save
-      redirect_to root_url + "/home/payment/#{payment.id.to_s}/status?alias_name=#{@course.alias_name}"
+      redirect_to root_url + "/home/payment/#{payment.id.to_s}/status"
     end
   end
 
@@ -61,21 +48,7 @@ class PaymentController < ApplicationController
       :method => Constants::PaymentMethod::ONLINE_PAYMENT
     )
 
-    owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
-
-    @course.curriculums
-      .where(:type => Constants::CurriculumTypes::LECTURE)
-      .map{ |curriculum|
-        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-      }
-
-    @course.students += 1
-    @course.save
-
-    owned_course.type = Constants::OwnedCourseTypes::LEARNING
-    owned_course.payment_status = Constants::PaymentStatus::PENDING
-
-    current_user.save
+    create_course_for_user()
 
     if payment_service_provider == 'baokim'
       baokim = BaoKimPayment.new
@@ -131,5 +104,23 @@ class PaymentController < ApplicationController
         render 'page_not_found'
         return
       end
+    end
+
+    def create_course_for_user
+      owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
+
+      @course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+
+      @course.students += 1
+      @course.save
+
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.payment_status = Constants::PaymentStatus::PENDING
+
+      current_user.save
     end
 end
