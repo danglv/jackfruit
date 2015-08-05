@@ -1,7 +1,7 @@
 class PaymentController < ApplicationController
   include PaymentServices
   before_filter :authenticate_user!
-  before_filter :validate_course
+  before_filter :validate_course, :except => [:status, :success, :cancel, :pending]
   before_filter :validate_payment, :only => [:status, :success, :cancel, :pending]
 
   # GET
@@ -91,8 +91,6 @@ class PaymentController < ApplicationController
 
   # GET
   def pending
-    course_alias_name = params[:alias_name]
-    @course = Course.where(:alias_name => course_alias_name).first
   end
 
   private
