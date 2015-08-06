@@ -21,7 +21,6 @@
               .col.s4
                 .row
                   %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
-                  %input{:type => "hidden", :name => "is_submitted", :placeholder => "Tên đầy đủ", :value => "true"}
                   .input-field
                     %input{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
                 .row
