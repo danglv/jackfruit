@@ -10,7 +10,7 @@
           %h6 Giao khóa học
           %h6 và thu tiền tận nơi
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/online_payment/' + @course.alias_name, :class => [('active' if method == 'online_payment')]}
+      %a.payment-tab.course{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
         .card-image.course-image
           %i.material-icons.large credit_card
           %h6 Thanh toán trực tuyến

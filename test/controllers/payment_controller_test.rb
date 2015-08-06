@@ -11,6 +11,8 @@ class PaymentControllerTest < ActionController::TestCase
       Course::Curriculum.new(type: Constants::CurriculumTypes::LECTURE, asset_type: Constants::CurriculumAssetTypes::SLIDE, title: 'test-course-1-lecture-1')
     ]
     @course.curriculums = curriculums
+    @course.enabled = true
+    @course.version = Constants::CourseVersions::PUBLIC
     @course.save
   end
 
@@ -76,7 +78,8 @@ class PaymentControllerTest < ActionController::TestCase
     get 'online_payment', {alias_name: 'test-course-1', p: 'baokim'}
 
     course = Course.where(:id => @course.id).first
-    owned_course = User.where(:id => @user.id).first.courses.where(course_id: @course.id).first
+    current_user = User.where(:id => @user.id).first
+    owned_course = current_user.courses.where(course_id: @course.id).first
 
     assert_not owned_course.blank?
     assert_equal 1, owned_course.lectures.size
@@ -84,6 +87,7 @@ class PaymentControllerTest < ActionController::TestCase
     assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
 
     assert_equal 1, course.students
+    assert_equal 1, current_user.courses.size
 
     assert_response :redirect
     assert_match /merchant_id/, @response.redirect_url
