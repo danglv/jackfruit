@@ -141,4 +141,47 @@ class PaymentControllerTest < ActionController::TestCase
     assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
     assert_response :missing
   end
+
+  test 'in payment/cancel, request from baokim with valid checksum will update a payment as cancelled' do
+    sign_in :user, @user
+    get 'online_payment', {alias_name: 'test-course-1', p: 'baokim'}
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    redirect_url = @response.redirect_url
+
+    params = CGI::parse(URI::parse(@response.redirect_url).query)
+    params.map { |k, v| params[k] = v[0]  }
+    params['id'] = payment.id.to_s
+    params['p'] = 'baokim'
+
+    get 'cancel', params
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    owned_course = User.where(:id => @user.id).first.courses.where(course_id: @course.id).first
+
+    assert_equal Constants::PaymentStatus::CANCEL, owned_course.payment_status
+    assert_response :success
+  end
+
+  test 'in payment/cancel, request from baokim with invalid checksum will get error response' do
+    sign_in :user, @user
+    get 'online_payment', {alias_name: 'test-course-1', p: 'baokim'}
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    redirect_url = @response.redirect_url
+
+    params = CGI::parse(URI::parse(@response.redirect_url).query)
+    params.map { |k, v| params[k] = v[0]  }
+    params['id'] = payment.id.to_s
+    params['p'] = 'baokim'
+    params['checksum'] = 'invalid'
+
+    get 'cancel', params
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    owned_course = User.where(:id => @user.id).first.courses.where(course_id: @course.id).first
+
+    assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
+    assert_response :missing
+  end
 end
