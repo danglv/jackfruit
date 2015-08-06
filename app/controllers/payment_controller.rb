@@ -105,6 +105,24 @@ class PaymentController < ApplicationController
 
   # GET
   def cancel
+    payment_service_provider = params[:p]
+    if payment_service_provider == 'baokim'
+      params.delete('p')
+      params.delete('action')
+      params.delete('id')
+      params.delete('controller')
+      
+      baokim = BaoKimPayment.new
+      # @course = Course.where(id: @payment.course_id).first
+      
+      if baokim.verify_response_url(params)
+        owned_course = current_user.courses.where(course_id: @course.id).first
+        owned_course.payment_status = Constants::PaymentStatus::CANCEL
+        owned_course.save
+      else
+        render 'page_not_found', status: 404
+      end
+    end
   end
 
   # GET
