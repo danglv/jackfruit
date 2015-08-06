@@ -98,4 +98,25 @@ class PaymentControllerTest < ActionController::TestCase
     assert_match /url_detail/, @response.redirect_url
     assert_match /checksum/, @response.redirect_url
   end
+
+  test 'in payment/success, request from baokim with valid checksum will update a payment as success' do
+    sign_in :user, @user
+    get 'online_payment', {alias_name: 'test-course-1', p: 'baokim'}
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    redirect_url = @response.redirect_url
+
+    params = CGI::parse(URI::parse(@response.redirect_url).query)
+    params.map { |k, v| params[k] = v[0]  }
+    params['id'] = payment.id.to_s
+    params['p'] = 'baokim'
+
+    get 'success', params
+
+    payment = Payment.where(:user_id => @user.id, :course_id => @course.id).first
+    owned_course = User.where(:id => @user.id).first.courses.where(course_id: @course.id).first
+
+    assert_equal Constants::PaymentStatus::SUCCESS, owned_course.payment_status
+    assert_response :success
+  end
 end
