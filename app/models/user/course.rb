@@ -1,6 +1,7 @@
 class User::Course
   include Mongoid::Document
-
+  include Mongoid::Timestamps
+  
   field :payment_status, type: String, default: ""
   field :type, type: String, default: ""
 

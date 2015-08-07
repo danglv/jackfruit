@@ -141,7 +141,8 @@ class PaymentController < ApplicationController
     end
 
     def create_course_for_user
-      owned_course = current_user.courses.find_or_initialize_by(course_id: @course.id)
+      owned_course = current_user.courses.where(course_id: @course.id).first
+      owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now()) if owned_course.blank?
 
       @course.curriculums
         .where(:type => Constants::CurriculumTypes::LECTURE)

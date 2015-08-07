@@ -142,7 +142,7 @@ class User
   end
 
   def role_enum
-    %w[admin user]
+    %w[admin user test]
   end
 
   def email_verified?
