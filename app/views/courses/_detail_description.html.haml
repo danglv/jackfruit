@@ -1,24 +1,24 @@
 / description
-- if @course['description'].count > 2
+- if @course['description'].count > 1
 	%h5= @course['description'].first
 	- (1..@course['description'].count-1).each do |i|
 		%p= @course['description'][i]
 /requirement
-- if @course['requirement'].count > 2
+- if @course['requirement'].count > 1
 	%h5= @course['requirement'].first
 	%ul{:style => "list-style: none"}
 		- (1..@course['requirement'].count-1).each do |i|
 			%li
 				%p= @course['requirement'][i]
 /benefit
-- if @course['benefit'].count > 2
+- if @course['benefit'].count > 1
 	%h5= @course['benefit'].first
 	%ul{:style => "list-style: none"}
 		- (1..@course['benefit'].count-1).each do |i|
 			%li
 				%p= @course['benefit'][i]
 /audience
-- if @course['audience'].count > 2
+- if @course['audience'].count > 1
 	%h5= @course['audience'].first
 	%ul{:style => "list-style: none"}
 		- (1..@course['audience'].count-1).each do |i|
