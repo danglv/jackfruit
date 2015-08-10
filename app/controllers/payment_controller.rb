@@ -1,7 +1,7 @@
 class PaymentController < ApplicationController
   include PaymentServices
   before_filter :authenticate_user!
-  before_action :validate_course, :except => [:status, :success, :cancel, :pending]
+  before_action :validate_course, :except => [:status, :success, :cancel]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending]
 
   # GET
@@ -33,7 +33,7 @@ class PaymentController < ApplicationController
 
       create_course_for_user()
 
-      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending"
+      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
     end
   end
 
