@@ -145,6 +145,10 @@ class User
     %w[admin user test]
   end
 
+  def lang_enum
+    Constants.CourseLangValues
+  end
+
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
   end
