@@ -63,4 +63,16 @@ class Course
   def num_lecture
     self.curriculums.where(type: "lecture").count
   end
+
+  def lang_enum
+    Constants.CourseLangValues
+  end
+
+  def level_enum
+    Constants.CourseLevelValues
+  end
+
+  def version_enum
+    Constants.CourseVersionsValues
+  end
 end

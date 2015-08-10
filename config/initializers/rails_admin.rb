@@ -31,4 +31,131 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'Payment' do
+    list do
+      field :created_at
+      field :updated_at
+      field :user
+      field :course
+      field :status
+    end
+
+    show do
+      field :status
+      field :user
+      field :course
+      field :email
+      field :mobile
+      field :method
+    end
+
+    edit do
+      field :status
+      field :user
+      field :course
+      field :email
+      field :mobile
+      field :method
+    end
+  end
+
+  config.model 'User' do
+    list do
+      field :created_at
+      field :updated_at
+      field :name
+      field :email
+      field :role
+    end
+
+    show do
+      field :created_at
+      field :updated_at
+      field :name
+      field :email
+      field :role
+
+      field :avatar do
+        pretty_value do
+          unless bindings[:object].avatar.blank?
+            html = bindings[:view].tag(:img, { :src => bindings[:object].avatar }).html_safe
+            bindings[:view].content_tag(:a, html, href: bindings[:object].avatar)
+          else
+            bindings[:view].content_tag(:span, "-")
+          end
+        end
+      end
+    end
+
+    edit do
+      field :name
+      field :email
+      field :role
+      field :lang
+      field :labels
+      field :instructor_profile
+      field :courses
+    end
+  end
+
+  config.model 'UserGetCourseLog' do
+    list do
+      field :created_at
+      field :user
+      field :course
+    end
+  end
+
+  config.model 'LevelLog' do
+    list do
+      field :created_at
+      field :user
+      field :level_before_up
+      field :level_after_up
+    end
+  end
+
+  config.model 'Feedback' do
+    list do
+      field :created_at
+      field :name
+      field :email
+      field :content
+    end
+  end
+
+  config.model 'Course' do
+    list do
+      field :created_at
+      field :alias_name
+      field :name
+      field :lang
+      field :price
+      field :user
+    end
+  end
+
+  config.model 'Banner' do
+    show do
+      field :location
+      field :target
+      field :layout
+      field :type
+      field :opened_users
+      field :banner_image do
+        pretty_value do
+          unless bindings[:object].banner_image.blank?
+            html = bindings[:view].tag(:img, { :src => bindings[:object].banner_image }).html_safe
+            bindings[:view].content_tag(:a, html, href: bindings[:object].banner_image)
+          else
+            bindings[:view].content_tag(:span, "-")
+          end
+        end
+      end
+    end
+
+    edit do
+    end
+  end
 end

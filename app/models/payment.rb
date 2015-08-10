@@ -15,12 +15,17 @@ class Payment
   field :status, type: String, default: Constants::PaymentStatus::PENDING
 
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues
+  validates_uniqueness_of :course_id, scope: :user_id
 
   before_save :update_status
   before_destroy :check_owned_course
 
   def status_enum
     Constants.PaymentStatusValues
+  end
+
+  def method_enum
+    Constants.PaymentMethodValues
   end
 
   def update_status

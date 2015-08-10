@@ -6,4 +6,8 @@ class Label
   field :type, type: String, default: Constants.LabelTypesValues.first
 
   validates_inclusion_of :type, :in => Constants.LabelTypesValues
+
+  def type_enum
+  	Constants.LabelTypesValues
+  end
 end
