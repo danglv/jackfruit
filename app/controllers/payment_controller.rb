@@ -33,7 +33,7 @@ class PaymentController < ApplicationController
 
       create_course_for_user()
 
-      redirect_to root_url + "/home/payment/#{payment.id.to_s}/status"
+      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending"
     end
   end
 
