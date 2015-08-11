@@ -31,16 +31,21 @@ class Payment
   def update_status
     current_user = self.user
 
-    if self.status == Constants::PaymentStatus::CANCEL
-      current_user.courses.where(course_id: self.course_id).destroy
-    else
-      owned_course = current_user.courses.where(course_id: self.course_id).first
-      owned_course.set(payment_status: self.status) unless owned_course.blank?
+    if current_user != nil
+      if self.status == Constants::PaymentStatus::CANCEL
+        current_user.courses.where(course_id: self.course_id).destroy
+      else
+        owned_course = current_user.courses.where(course_id: self.course_id).first
+        owned_course.set(payment_status: self.status) unless owned_course.blank?
+      end
     end
+
   end
 
   def check_owned_course
     current_user = self.user
-    current_user.courses.where(course_id: self.course_id).destroy
+    if current_user != nil
+      current_user.courses.where(course_id: self.course_id).destroy
+    end
   end
 end

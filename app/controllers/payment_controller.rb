@@ -135,7 +135,7 @@ class PaymentController < ApplicationController
       @payment = Payment.where(:id => payment_id).first
 
       if @payment.blank?
-        render 'page_not_found'
+        render 'page_not_found', status: 404
         return
       end
     end
