@@ -46,7 +46,7 @@ class PaymentControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  test 'in payment/cod, submission with valid info will be redirected to payment/status page' do
+  test 'in payment/cod, submission with valid info will be redirected to payment/pending page' do
     sign_in :user, @user
     data = {
       :alias_name => 'test-course-1',
@@ -70,7 +70,7 @@ class PaymentControllerTest < ActionController::TestCase
     assert_equal 1, course.students
 
     assert_response :redirect
-    assert_match /status/, @response.redirect_url
+    assert_match /pending/, @response.redirect_url
   end
 
   test 'in payment/online_payment, authenticated user will be redirected to baokim services' do
