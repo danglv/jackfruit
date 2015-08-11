@@ -1,4 +1,4 @@
-Jackfruit
+Jackfruit [![build status](http://ci.memo.edu.vn/projects/1/status.png?ref=master)](http://ci.memo.edu.vn/projects/1?ref=master)
 ==========
 
 # Requirements
