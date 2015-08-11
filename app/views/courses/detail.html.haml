@@ -62,7 +62,7 @@
         .col.s5
           .row
             %a.row.courses{:href => "#"}
-              - if @course.price.to_s == "0"
+              - if @course.price == 0
                 %h5.course-price{:style => 'margin: 0'} Miễn phí
               - else
                 %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
@@ -76,12 +76,9 @@
                   - else
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
-                - else 
-                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                    Mua khóa học
             - else
               .col.s6.no-padding
-                - if @course.price.to_s == "0"
+                - if @course.price == 0
                   %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                     Bắt đầu học ngay
                 - else 
