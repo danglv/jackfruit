@@ -16,7 +16,7 @@ class User
   field :encrypted_password, type: String, default: ""
 
   # Authentication tokens
-    field :auth_token, type: String, default: ""
+  field :auth_token, type: String, default: ""
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -85,6 +85,8 @@ class User
   has_and_belongs_to_many :labels, class_name: "Label"
 
   index({created_at: 1})
+
+  before_save :must_name
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist
