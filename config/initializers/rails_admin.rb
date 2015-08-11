@@ -1,3 +1,21 @@
+module RailsAdmin
+  module Config
+    module Fields
+      module Types
+        class Datetime < RailsAdmin::Config::Fields::Base
+          def value
+            @format = :short
+            value_in_default_time_zone = bindings[:object].send(name)
+            return nil if value_in_default_time_zone.nil?
+            pacific_time_zone = ActiveSupport::TimeZone.new('Hanoi')
+            value_in_default_time_zone.in_time_zone(pacific_time_zone)
+          end
+        end
+      end
+    end
+  end
+end
+
 RailsAdmin.config do |config|
   config.main_app_name = ["TUDEMY", "Tudemy"]
   ### Popular gems integration
@@ -34,7 +52,7 @@ RailsAdmin.config do |config|
 
   config.model 'Payment' do
     list do
-      field :created_at
+      field :created_at, :datetime
       field :updated_at
       field :user
       field :course
@@ -62,8 +80,6 @@ RailsAdmin.config do |config|
 
   config.model 'User' do
     list do
-      field :created_at
-      field :updated_at
       field :name
       field :email
       field :role
@@ -71,11 +87,9 @@ RailsAdmin.config do |config|
 
     show do
       field :created_at
-      field :updated_at
       field :name
       field :email
       field :role
-
       field :avatar do
         pretty_value do
           unless bindings[:object].avatar.blank?
@@ -137,6 +151,13 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Banner' do
+    list do
+      field :created_at
+      field :enabled
+      field :location
+      field :url
+    end
+
     show do
       field :location
       field :target
