@@ -484,6 +484,23 @@ namespace :seeds do
       c.save
     }
   end
+
+  desc "refine data user::course"
+  task refine_data_user_course: :environment do
+    User.all.each {|u|
+      if u.courses.count > 0
+        u.courses.each {|c|
+          binding.pry if c.course.blank?
+          if c.course.price == 0
+            c.payment_status = Constants::PaymentStatus::SUCCESS
+          else
+            c.payment_status = Constants::PaymentStatus::PENDING
+          end
+        }
+        binding if u.save
+      end
+    }
+  end
 end
 
 def load_csv_file(file_name)
