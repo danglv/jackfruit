@@ -32,6 +32,9 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  ## Social
+  field :meta_data, type: Hash, default: {}
+
   ## Confirmable
   # field :confirmation_token,   type: String
   # field :confirmed_at,         type: Time
@@ -95,6 +98,7 @@ class User
     # Edit user email facebook(Đăng LV: fix changelog fb api v2.4)
     if user
       user.email = auth.info.email
+      user.meta_data = auth.extra.raw_info
       user.save
     end
 
@@ -119,6 +123,7 @@ class User
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
+        user.meta_data = auth.extra.raw_info
         user.save
       end
     end
