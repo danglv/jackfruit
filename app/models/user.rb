@@ -171,4 +171,8 @@ class User
   def self.current=(user)
     Thread.current[:user] = user
   end
+
+  def must_name
+    self.name = self.email.split('@').first if self.name.blank?
+  end
 end
