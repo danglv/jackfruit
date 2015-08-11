@@ -87,6 +87,15 @@ class User
   index({created_at: 1})
 
   before_save :must_name
+  before_destroy :destroy_all_related_data
+
+  def destroy_all_related_data
+    UserGetCourseLog.where(user_id: self.id).destroy_all
+    
+    Payment.where(user_id: self.id).destroy_all
+    
+    LevelLog.where(user_id: self.id).destroy_all
+  end
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist
