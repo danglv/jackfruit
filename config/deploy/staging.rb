@@ -7,6 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
+server 'sgstaging1.tudemy.vn', user: 'rails', roles: %w{web app db}, port: 22
 
 
 # role-based syntax
@@ -21,6 +22,10 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
+role :app, %w{rails@sgstaging1.tudemy.vn:22}
+role :web, %w{rails@sgstaging1.tudemy.vn:22}
+role :db,  %w{rails@sgstaging1.tudemy.vn:22}
+
 
 
 # Configuration
@@ -31,6 +36,10 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+set :rails_env, 'staging'
+set :user, 'rails'
+set :deploy_to, '/home/rails/tudemy'
+set :branch, 'master'
 
 
 # Custom SSH Options
