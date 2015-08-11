@@ -84,7 +84,6 @@ class User
   index({created_at: 1})
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
-
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
     # If a signed_in_resource is provided it always overrides the existing user
@@ -92,6 +91,12 @@ class User
     # Note that this may leave zombie accounts (with no associated identity) which
     # can be cleaned up at a later date.
     user = signed_in_resource ? signed_in_resource : identity.user
+
+    # Edit user email facebook(Đăng LV: fix changelog fb api v2.4)
+    if user
+      user.email = auth.info.email
+      user.save
+    end
 
     # Create the user if needed
     if user.nil?
@@ -101,7 +106,6 @@ class User
       # user to verify it on the next step via UsersController.finish_signup
       email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email if email_is_verified
-
       user = User.where(:email => email).first if email
       avatar = ""
       avatar = "https://graph.facebook.com/#{auth.uid}/picture" if auth.provider == "facebook"
