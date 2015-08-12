@@ -73,9 +73,9 @@
                   - if @owned_course.payment_status == 'pending'
                     %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
                       Đang chờ xử lý
-                  - else
-                    %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                      Bắt đầu học ngay
+                - else
+                  %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Bắt đầu học ngay
             - else
               .col.s6.no-padding
                 - if @course.price == 0
