@@ -196,6 +196,8 @@ class CoursesController < ApplicationController
     lang     = params[:lang]
     level    = params[:level]
     ordering = params[:ordering]
+
+    @keywords = Utils.nomalize_string(@keywords)
     pattern  = /#{Regexp.escape(@keywords)}/i
 
     condition = {}
@@ -209,7 +211,7 @@ class CoursesController < ApplicationController
     condition[:enabled] = true
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
-    condition[:name] = pattern
+    condition[:alias_name] = pattern
 
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"

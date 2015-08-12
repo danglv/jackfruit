@@ -96,10 +96,11 @@ class UsersController < ApplicationController
 
   def search
     keywords = params[:q]
+    keywords = Utils.nomalize_string(keywords)
     pattern = /#{Regexp.escape(keywords)}/
     @courses = []
     current_user.courses.map{|owned_course|
-      @courses << owned_course.course if (owned_course.course.name =~ pattern) == 0
+      @courses << owned_course.course if (owned_course.course.alias_name =~ pattern) == 0
     }
 
     head :ok
