@@ -32,10 +32,12 @@ Rails.application.routes.draw do
       get '/online_payment/:alias_name', to: 'payment#online_payment'
       get '/transfer/:alias_name', to: 'payment#transfer'
       get '/cih/:alias_name', to: 'payment#cih'
+      get '/card/:alias_name', to: 'payment#card'
       get '/:id/status', to: 'payment#status'
       get '/:id/success', to: 'payment#success'
       get '/:id/pending', to: 'payment#pending'
       get '/:id/cancel', to: 'payment#cancel'
+      get '/:id/error', to: 'payment#error'
       # get '/:id/update', to: 'payment#update'
     end
   end

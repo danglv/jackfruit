@@ -39,8 +39,6 @@ class PaymentController < ApplicationController
 
   def online_payment
     payment_service_provider = params[:p]
-    alias_name = params[:alias_name]
-    @course = Course.where(:alias_name => alias_name).first
 
     payment = Payment.create(
       :course_id => @course.id,
@@ -69,6 +67,46 @@ class PaymentController < ApplicationController
     end
   end
 
+  def card
+    if request.method == 'POST'
+      payment_service_provider = params[:p]
+      card_id = params[:card_id]
+      pin_field = params[:pin_field]
+      seri_field = params[:seri_field]
+      time_payment = Time.now()
+
+      payment = Payment.create(
+        :course_id => @course.id,
+        :user_id => current_user.id,
+        :method => Constants::PaymentMethod::CARD,
+        :created_at => time_payment
+      )
+
+      create_course_for_user()
+
+      if payment_service_provider == 'baokim_card'
+        baokim = BaoKimPaymentCard.new
+
+        request = baokim.create_request_url({
+          'transaction_id' => time_payment,
+          'card_id' => card_id,
+          'pin_field' => pin_field,
+          'seri_field' => seri_field
+        })
+
+        redirect_url = request.protocol + request.host_with_port + '/home/payment/' + payment.id
+        
+        if request.code == 200
+          redirect_url += '/success?p=baokim_card'
+        else
+          redirect_url += '/error?p=baokim_card'
+        end
+
+        redirect_to redirect_url
+      end
+    end
+  end
+
   # GET
   def transfer
   end
@@ -94,6 +132,17 @@ class PaymentController < ApplicationController
       @course = Course.where(id: @payment.course_id).first
       
       if baokim.verify_response_url(params)
+        owned_course = current_user.courses.where(course_id: @course.id).first
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+        owned_course.save
+      else
+        render 'page_not_found', status: 404
+      end
+    elsif payment_service_provider == 'baokim_card'
+      baokim = BaoKimPaymentCard.new
+      @course = Course.where(id: @payment.course_id).first
+
+      if baokim.verify_response_url(params, @payment)
         owned_course = current_user.courses.where(course_id: @course.id).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
