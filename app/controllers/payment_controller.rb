@@ -67,8 +67,9 @@ class PaymentController < ApplicationController
     end
   end
 
+  # GET, POST
   def card
-    if request.method == 'POST'
+    # if request.method == 'POST'
       payment_service_provider = params[:p]
       card_id = params[:card_id]
       pin_field = params[:pin_field]
@@ -87,16 +88,16 @@ class PaymentController < ApplicationController
       if payment_service_provider == 'baokim_card'
         baokim = BaoKimPaymentCard.new
 
-        request = baokim.create_request_url({
+        revice_data = baokim.create_request_url({
           'transaction_id' => time_payment,
           'card_id' => card_id,
           'pin_field' => pin_field,
           'seri_field' => seri_field
         })
 
-        redirect_url = request.protocol + request.host_with_port + '/home/payment/' + payment.id
-        
-        if request.code == 200
+        redirect_url = "#{request.protocol}#{request.host_with_port}/home/payment/#{payment.id}"
+       
+        if revice_data.code == 200
           redirect_url += '/success?p=baokim_card'
         else
           redirect_url += '/error?p=baokim_card'
@@ -104,7 +105,7 @@ class PaymentController < ApplicationController
 
         redirect_to redirect_url
       end
-    end
+    # end
   end
 
   # GET
@@ -176,6 +177,10 @@ class PaymentController < ApplicationController
 
   # GET
   def pending
+  end
+
+  # GET
+  def error
   end
 
   private
