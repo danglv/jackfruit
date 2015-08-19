@@ -39,16 +39,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.2)
-    autoprefixer-rails (5.2.1.2)
-      execjs
-      json
     bcrypt (3.1.10)
     bcrypt (3.1.10-x86-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
     bson (3.1.2)
     bson_ext (1.5.1)
     builder (3.2.2)
@@ -329,7 +323,6 @@ PLATFORMS
 DEPENDENCIES
   ImageResize
   bcrypt (~> 3.1.7)
-  bootstrap-sass (~> 3.3.5.1)
   bson_ext
   byebug
   cancan
@@ -366,3 +359,6 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock
   will_paginate_mongoid (~> 2.0.1)
+
+BUNDLED WITH
+   1.10.6
