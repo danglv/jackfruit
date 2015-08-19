@@ -13,22 +13,11 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
-//= require_tree ./components
+//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
+//= require bootstrap-material-design/dist/js/material
+//= require bootstrap-material-design/dist/js/ripples
 
-$(document).ready(function () {
-  $('.btn-sidenav-activator').sideNav();
-  // $('.sorting .sorting-options').material_select();
-  $('.modal-trigger').leanModal();
-  $('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrain_width: true, // Does not change width of dropdown to that of the activator
-    hover: false, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: true // Displays dropdown below the button
-  });
-});
+$.material.init();
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
