@@ -1,5 +1,6 @@
 @charset "UTF-8";
-
-/*"bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"*/
-@import "bootstrap-sprockets";
-@import "bootstrap";
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
+@import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
+@import "bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap-material-design/sass/material-wfont.scss";
+@import "bootstrap-material-design/sass/ripples.scss";
