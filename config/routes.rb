@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get '/cod/:alias_name', to: 'payment#cod'
       post :cod
       get '/online_payment/:alias_name', to: 'payment#online_payment'
+      post '/online_payment', to: 'payment#online_payment'
       get '/transfer/:alias_name', to: 'payment#transfer'
       get '/cih/:alias_name', to: 'payment#cih'
       get '/:id/status', to: 'payment#status'
