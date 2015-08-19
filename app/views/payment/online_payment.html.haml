@@ -11,5 +11,45 @@
         .row.payment-content.active
           .col.s12
             %h4 2. Hoàn tất thanh toán
+        %form{:method => "post",:action => "/home/payment/online_payment"}
+          .row
             .col.s12
-              %p Thanh toán qua Bảo Kim
+              %h6{:style => 'font-weight: bold;'} Thanh toán bằng thẻ ATM nội địa
+          .row
+            - @local_card_banks.each do |card|
+              .col.s2
+                .bank-image
+                  %input{:name => "bank_payment_method_id", :type => "radio", :id => card['id'], :value => card['id']}
+                  %label{:for => card['id']}
+                    = image_tag card['logo_url']
+          .row
+            .col.s12
+              %h6{:style => 'font-weight: bold;'} Thanh toán bằng thẻ quốc tế
+          .row
+            - @credit_cards.each do |card|
+              .col.s2
+                .bank-image
+                  %input{:name => "bank_payment_method_id", :type => "radio", :id => card['id'], :value => card['id']}
+                  %label{:for => card['id']}
+                    = image_tag card['logo_url']
+          .row
+            .col.s6.offset-s3
+              .row
+                %h5{:style => 'font-weight: bold;'} Thông tin thanh toán
+              .row
+                %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
+                %input{:type => "hidden", :name => "p", :value => 'baokim'}
+                .input-field
+                  %input{:type => "text", :name => "payer_name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
+              .row
+                .input-field
+                  %input{:type => "text", :name => "payer_email", :placeholder => "Email", :required => "required"}/
+              .row
+                .input-field
+                  %input{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}/
+              .row
+                .input-field
+                  %input{:type => "text", :name => "payer_phone_no", :placeholder => "Số điện thoại", :required => "required"}/
+              .row
+                = hidden_field_tag :authenticity_token, form_authenticity_token
+                %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đặt mua khóa học'}
