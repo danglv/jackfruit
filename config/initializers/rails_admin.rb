@@ -56,11 +56,13 @@ RailsAdmin.config do |config|
       field :updated_at
       field :user
       field :course
+      field :method
       field :status
     end
 
     show do
       field :status
+      field :cod_code
       field :user
       field :course
       field :email
@@ -70,6 +72,11 @@ RailsAdmin.config do |config|
 
     edit do
       field :status
+      field :cod_code do
+        visible do
+          bindings[:object].status == Constants::PaymentMethod::COD
+        end
+      end
       field :user
       field :course
       field :email

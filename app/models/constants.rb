@@ -22,6 +22,7 @@ module Constants
 
   module PaymentStatus
     SUCCESS = "success"
+    PROCESS = "process"
     PENDING = "pending"
     CANCEL = "cancel"
   end
