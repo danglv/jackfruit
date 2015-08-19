@@ -41,34 +41,45 @@ class PaymentController < ApplicationController
   end
 
   def online_payment
+    baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
     alias_name = params[:alias_name]
     @course = Course.where(:alias_name => alias_name).first
 
-    payment = Payment.create(
-      :course_id => @course.id,
-      :user_id => current_user.id,
-      :method => Constants::PaymentMethod::ONLINE_PAYMENT
-    )
+    if request.method == 'GET'
+      banks = baokim.get_seller_info()
+      @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
+      @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
+    elsif request.method == 'POST'
+      payment = Payment.create(
+        :course_id => @course.id,
+        :user_id => current_user.id,
+        :method => Constants::PaymentMethod::ONLINE_PAYMENT
+      )
 
-    create_course_for_user()
+      create_course_for_user()
 
-    if payment_service_provider == 'baokim'
-      baokim = BaoKimPayment.new
-
-      redirect_url = baokim.create_request_url({
-        'order_id' =>  payment.id,
-        'business' =>  'ngoc.phungba@gmail.com',
-        'total_amount' =>  @course.price,
-        'shipping_fee' =>  0,
-        'tax_fee' =>  0,
-        'order_description' =>  @course.name,
-        'url_success' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/success?p=baokim',
-        'url_cancel' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/cancel?p=baokim',
-        'url_detail' =>  request.protocol + request.host_with_port + '/courses/' + @course.alias_name + '/detail'
-      })
-
-      redirect_to redirect_url
+      if payment_service_provider == 'baokim'
+        result = baokim.pay_by_card({
+          'order_id' =>  payment.id.to_s,
+          'bank_payment_method_id' => params['bank_payment_method_id'].to_i,
+          'currency_code' => 'VND',
+          'transaction_mode_id' => '1',
+          'escrow_timeout' => 3,
+          'total_amount' =>  @course.price,
+          'shipping_fee' =>  0,
+          'tax_fee' =>  0,
+          'order_description' =>  @course.name,
+          'url_success' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/success?p=baokim',
+          'url_cancel' =>  request.protocol + request.host_with_port + '/home/payment/' + payment.id + '/cancel?p=baokim',
+          'url_detail' =>  request.protocol + request.host_with_port + '/courses/' + @course.alias_name + '/detail',
+          'payer_name' => params['payer_name'],
+          'payer_email' => params['payer_email'],
+          'payer_phone_no' => params['payer_phone_no'],
+          'payer_address' => params['address']
+        })
+        redirect_to result['redirect_url'] if result['error'].blank?
+      end
     end
   end
 
