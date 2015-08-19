@@ -187,6 +187,13 @@
                     .col.s12
                       - if !@course.user.instructor_profile.work_unit.blank?
                         %span= 'Đơn vị công tác: ' + @course.user.instructor_profile.work_unit
+              .row
+                /description
+                - if @course.user.instructor_profile.description.count > 0
+                  %ul{:style => " list-style: none;"}
+                    - @course.user.instructor_profile.description.each do |i|
+                      %li
+                        %p= i
           /       %a{:href => "https://www.facebook.com/tudemy"}
           /         = image_tag 'facebook.png'
           /   .row
