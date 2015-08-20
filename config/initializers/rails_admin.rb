@@ -13,6 +13,30 @@ module RailsAdmin
         end
       end
     end
+
+    module Actions
+      class Delete < RailsAdmin::Config::Actions::Base
+        register_instance_option :visible? do
+          if bindings[:object].class.to_s != 'Payment'
+            true
+          else
+            false
+          end
+        end
+      end
+
+      class Edit < RailsAdmin::Config::Actions::Base
+        register_instance_option :visible? do
+          if bindings[:object].class.to_s != 'Payment'
+            true
+          elsif bindings[:object].status == 'pending'
+            true
+          else
+            false
+          end
+        end
+      end
+    end
   end
 end
 
@@ -43,7 +67,7 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    show_in_app
+    # show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
@@ -147,6 +171,10 @@ RailsAdmin.config do |config|
       field :lang
       field :price
       field :user
+    end
+
+    edit do
+      exclude_fields :reviews
     end
   end
 
