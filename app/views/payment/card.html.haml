@@ -17,6 +17,10 @@
               .col.s12
                 %span Điền thông tin đăng ký đặt mua khóa học
           .row
+            .col.s12
+              .col.s12
+                %span= "Bạn còn thiếu " + (@course.price - current_user.money).to_s + " VND"
+          .row
             %form{:method => "post",:action => "/home/payment/card"}
               .col.s4
                 %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}

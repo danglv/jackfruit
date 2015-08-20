@@ -1,7 +1,7 @@
 class PaymentController < ApplicationController
   include PaymentServices
-  before_filter :authenticate_user!
-  before_action :validate_course, :except => [:status, :success, :cancel]
+  before_filter :authenticate_user!, :except => [:error]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
 
   # GET
@@ -83,7 +83,30 @@ class PaymentController < ApplicationController
 
   # GET, POST
   def card
-    # if request.method == 'POST'
+    if request.method == 'GET'
+      if current_user.money > @course.price
+        current_user.money -= @course.price
+
+        payment = Payment.new(
+          :course_id => @course.id,
+          :user_id => current_user.id,
+          :method => Constants::PaymentMethod::CARD,
+          :created_at => Time.now(),
+          :status => Constants::PaymentStatus::SUCCESS
+        )
+
+        owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+        if (owned_course.save && payment.save && current_user.save)
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/success"
+          return
+        else
+          render 'page_not_found', status: 404
+          return
+        end
+      end
+    elsif request.method == 'POST'
       payment_service_provider = params[:p]
       card_id = params[:card_id]
       pin_field = params[:pin_field]
@@ -119,7 +142,7 @@ class PaymentController < ApplicationController
 
         redirect_to redirect_url
       end
-    # end
+    end
   end
 
   # GET
@@ -196,7 +219,7 @@ class PaymentController < ApplicationController
   # GET
   def error
   end
-  
+
   # POST
   def import_code
     cod_code = params[:cod_code]
