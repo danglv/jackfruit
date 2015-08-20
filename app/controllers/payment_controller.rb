@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
   before_filter :authenticate_user!
   before_action :validate_course, :except => [:status, :success, :cancel]
-  before_action :validate_payment, :only => [:status, :success, :cancel, :pending]
+  before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
 
   # GET
   def index
@@ -30,6 +30,9 @@ class PaymentController < ApplicationController
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD
       )
+
+      #generated cod code for user
+      payment.generate_cod_code
 
       create_course_for_user()
 
@@ -138,6 +141,27 @@ class PaymentController < ApplicationController
 
   # GET
   def pending
+  end
+
+  # POST
+  def import_code
+    cod_code = params[:cod_code]
+
+    if @payment.cod_code == cod_code
+      owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).first
+      owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+      if owned_course.save
+        render json: {message: "Thành công!"}
+        return
+      else
+        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing
+        return
+      end
+    else
+      render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
+      return
+    end    
   end
 
   private
