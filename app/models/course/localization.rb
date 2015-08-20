@@ -2,53 +2,53 @@ module Course::Localization
   TITLES = {
     :featured => {
       :vi => "Nổi bật",
-      :en => "FEATURED",
+      :en => "Nổi bật",
     },
     :top_free => {
       :vi => "Miễn phí hàng đầu",
-      :en => "Top Free",
+      :en => "Miễn phí hàng đầu",
     },
     :top_paid => {
       :vi => "Trả phí hàng đầu",
-      :en => "Top Paid",
+      :en => "Trả phí hàng đầu",
     },
     :newest => {
       :vi => "Mới nhất",
-      :en => "Newest",
+      :en => "Mới nhất",
     },
     :related => {
       :vi => "Khóa học liên quan",
-      :en => "Related Course",
+      :en => "Khóa học liên quan",
     }
   }
 
   LEVELS = {
     :all => {
       :vi => "Tất cả",
-      :en => "All"
+      :en => "Tất cả"
     },
     :beginner => {
       :vi => "Sơ cấp",
-      :en => "Beginner"
+      :en => "Sơ cấp"
     },
     :intermediate => {
       :vi => "Trung cấp",
-      :en => "Intermediate"
+      :en => "Trung cấp"
     },
     :expert => {
       :vi => "Cao cấp",
-      :en => "Expert"
+      :en => "Cao cấp"
     }
   }
 
   LANGUAGE = {
     :en => {
       :vi => "Vietnamese",
-      :en => "English"
+      :en => "Vietnamese"
     },
     :vi => {
       :vi => "Tiếng Việt",
-      :en => "Tiếng Anh"
+      :en => "Tiếng Việt"
     }
   }
 end
