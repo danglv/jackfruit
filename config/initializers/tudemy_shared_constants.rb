@@ -1,0 +1,2 @@
+# Payment COD METHOD
+COD_CODE_LENGTH = 5
