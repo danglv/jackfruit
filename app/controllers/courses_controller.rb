@@ -293,7 +293,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses[label.to_sym] = [title, Course.where(condition).limit(12)]
+    @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12)]
    }
   end
 
