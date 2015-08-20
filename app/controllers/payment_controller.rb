@@ -84,30 +84,9 @@ class PaymentController < ApplicationController
   # GET, POST
   def card
     if request.method == 'GET'
-      if current_user.money > @course.price
-        current_user.money -= @course.price
-
-        payment = Payment.new(
-          :course_id => @course.id,
-          :user_id => current_user.id,
-          :method => Constants::PaymentMethod::CARD,
-          :created_at => Time.now(),
-          :status => Constants::PaymentStatus::SUCCESS
-        )
-
-        owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
-        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-
-        if (owned_course.save && payment.save && current_user.save)
-          redirect_to root_url + "home/payment/#{payment.id.to_s}/success"
-          return
-        else
-          render 'page_not_found', status: 404
-          return
-        end
-      end
+      process_card_payment(current_user, @course)
     elsif request.method == 'POST'
-      payment_service_provider = params[:p]
+      # payment_service_provider = params[:p]
       card_id = params[:card_id]
       pin_field = params[:pin_field]
       seri_field = params[:seri_field]
@@ -122,26 +101,35 @@ class PaymentController < ApplicationController
 
       create_course_for_user()
 
-      if payment_service_provider == 'baokim_card'
-        baokim = BaoKimPaymentCard.new
+      # if payment_service_provider == 'baokim_card'
+      baokim = BaoKimPaymentCard.new
 
-        revice_data = baokim.create_request_url({
-          'transaction_id' => time_payment,
-          'card_id' => card_id,
-          'pin_field' => pin_field,
-          'seri_field' => seri_field
-        })
+      revice_data = baokim.create_request_url({
+        'transaction_id' => time_payment,
+        'card_id' => card_id,
+        'pin_field' => pin_field,
+        'seri_field' => seri_field
+      })
 
-        redirect_url = "#{request.protocol}#{request.host_with_port}/home/payment/#{payment.id}"
-       
-        if revice_data.code == 200
-          redirect_url += '/success?p=baokim_card'
+      # redirect_url = "#{request.protocol}#{request.host_with_port}/home/payment/#{payment.id}"
+      data = JSON.parse(revice_data.body)
+  
+      if revice_data.code == 200
+        current_user.money += data['amount']
+
+        if current_user.save
+          process_card_payment(current_user, @course)
         else
-          redirect_url += '/error?p=baokim_card'
+          render 'page_not_found', status: 404
         end
-
-        redirect_to redirect_url
+      else
+        render json: data
+        return
+        # redirect_url += '/error?p=baokim_card'
       end
+
+      # redirect_to redirect_url
+      # end
     end
   end
 
@@ -274,5 +262,30 @@ class PaymentController < ApplicationController
 
       owned_course.save
       current_user.save
+    end
+
+    def process_card_payment(current_user, course)
+      if current_user.money > course.price
+        current_user.money -= course.price
+
+        payment = Payment.new(
+          :course_id => course.id,
+          :user_id => current_user.id,
+          :method => Constants::PaymentMethod::CARD,
+          :created_at => Time.now(),
+          :status => Constants::PaymentStatus::SUCCESS
+        )
+
+        owned_course = current_user.courses.where(:course_id => course.id.to_s).first
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+        if (owned_course.save && payment.save && current_user.save)
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/success"
+          return
+        else
+          render 'page_not_found', status: 404
+          return
+        end
+      end
     end
 end
