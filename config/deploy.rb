@@ -42,6 +42,15 @@ set :linked_dirs, fetch(:linked_dirs) + %w{public/uploads log tmp/pids tmp/cache
 set :keep_releases, 3
 
 namespace :deploy do
+  before "assets:precompile", :get_bower_dependencies
+  desc 'Get bower dependencies'
+  task :get_bower_dependencies do
+    on roles(:app) do
+      within release_path do
+        execute :bower, "install"
+      end
+    end
+  end
 
   desc 'Restart application'
   task :restart do
