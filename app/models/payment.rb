@@ -17,8 +17,8 @@ class Payment
   # COD code
   field :cod_code, type: String
 
-  validates_presence_of :cod_code if :method == Constants::PaymentMethod::COD
-  validates_uniqueness_of :course_id if :method == Constants::PaymentMethod::COD
+  validates :cod_code, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
+  validates :course_id, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues
   validates_uniqueness_of :course_id, scope: :user_id
 

@@ -22,8 +22,8 @@
           %i.material-icons.large business
           %h6 Chuyển khoản
           %h6 qua ngân hàng
-    / .col.s3
-    /   %a.disable.payment-tab.course{:href => '#', :class => [('active' if method == 'cih')]}
-    /     .card-image.course-image
-    /       %i.material-icons.large room
-    /       %h6 Thanh toán trực tiếp
+    .col.s3
+      %a.payment-tab.course{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
+        .card-image.course-image
+          %i.material-icons.large style
+          %h6 Thanh toán thẻ cào

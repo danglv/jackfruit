@@ -103,6 +103,7 @@ module Constants
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"
+    CARD = "card"
   end
 
   module CourseVersions
