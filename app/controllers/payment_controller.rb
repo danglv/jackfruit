@@ -1,5 +1,6 @@
 class PaymentController < ApplicationController
   include PaymentServices
+
   before_filter :authenticate_user!, :except => [:error]
   before_action :validate_course, :except => [:status, :success, :cancel, :error]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
@@ -169,7 +170,6 @@ class PaymentController < ApplicationController
   # POST
   def import_code
     cod_code = params[:cod_code]
-
     if @payment.cod_code == cod_code
       owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).first
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
