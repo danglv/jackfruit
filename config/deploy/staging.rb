@@ -39,7 +39,7 @@ role :db,  %w{rails@sgstaging1.tudemy.vn:22}
 set :rails_env, 'staging'
 set :user, 'rails'
 set :deploy_to, '/home/rails/tudemy'
-set :branch, 'master'
+set :branch, 'dev'
 
 
 # Custom SSH Options

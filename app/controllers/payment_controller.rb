@@ -84,24 +84,14 @@ class PaymentController < ApplicationController
   # GET, POST
   def card
     if request.method == 'GET'
-      process_card_payment(current_user, @course)
+      process_card_payment
     elsif request.method == 'POST'
-      # payment_service_provider = params[:p]
       card_id = params[:card_id]
       pin_field = params[:pin_field]
       seri_field = params[:seri_field]
       time_payment = Time.now()
 
-      payment = Payment.create(
-        :course_id => @course.id,
-        :user_id => current_user.id,
-        :method => Constants::PaymentMethod::CARD,
-        :created_at => time_payment
-      )
-
       create_course_for_user()
-
-      # if payment_service_provider == 'baokim_card'
       baokim = BaoKimPaymentCard.new
 
       revice_data = baokim.create_request_url({
@@ -111,25 +101,19 @@ class PaymentController < ApplicationController
         'seri_field' => seri_field
       })
 
-      # redirect_url = "#{request.protocol}#{request.host_with_port}/home/payment/#{payment.id}"
       data = JSON.parse(revice_data.body)
-  
-      if revice_data.code == 200
-        current_user.money += data['amount']
+ 
+      if revice_data.code.to_i == 200
+        current_user.money += data['amount'].to_i
 
         if current_user.save
-          process_card_payment(current_user, @course)
+          process_card_payment
         else
           render 'page_not_found', status: 404
         end
       else
-        render json: data
-        return
-        # redirect_url += '/error?p=baokim_card'
+        @error = data['errorMessage']
       end
-
-      # redirect_to redirect_url
-      # end
     end
   end
 
@@ -149,14 +133,7 @@ class PaymentController < ApplicationController
   def success
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
-      params.delete('p')
-      params.delete('action')
-      params.delete('id')
-      params.delete('controller')
-      
-      baokim = BaoKimPayment.new
       @course = Course.where(id: @payment.course_id).first
-      
       if baokim.verify_response_url(params)
         owned_course = current_user.courses.where(course_id: @course.id).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
@@ -165,16 +142,7 @@ class PaymentController < ApplicationController
         render 'page_not_found', status: 404
       end
     elsif payment_service_provider == 'baokim_card'
-      baokim = BaoKimPaymentCard.new
-      @course = Course.where(id: @payment.course_id).first
-
-      if baokim.verify_response_url(params, @payment)
-        owned_course = current_user.courses.where(course_id: @course.id).first
-        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-        owned_course.save
-      else
-        render 'page_not_found', status: 404
-      end
+      @course = Course.where(id: @payment.course_id.to_s).first
     end
   end
 
@@ -182,21 +150,11 @@ class PaymentController < ApplicationController
   def cancel
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
-      params.delete('p')
-      params.delete('action')
-      params.delete('id')
-      params.delete('controller')
-      
-      baokim = BaoKimPayment.new
       @course = Course.where(id: @payment.course_id).first
       
-      if baokim.verify_response_url(params)
-        owned_course = current_user.courses.where(course_id: @course.id).first
-        owned_course.payment_status = Constants::PaymentStatus::CANCEL
-        owned_course.save
-      else
-        render 'page_not_found', status: 404
-      end
+      owned_course = current_user.courses.where(course_id: @course.id).first
+      owned_course.payment_status = Constants::PaymentStatus::CANCEL
+      owned_course.save
     end
   end
 
@@ -264,23 +222,25 @@ class PaymentController < ApplicationController
       current_user.save
     end
 
-    def process_card_payment(current_user, course)
-      if current_user.money > course.price
-        current_user.money -= course.price
+    def process_card_payment
+      if current_user.money > @course.price
+        current_user.money -= @course.price
+
+        create_course_for_user()
 
         payment = Payment.new(
-          :course_id => course.id,
+          :course_id => @course.id,
           :user_id => current_user.id,
           :method => Constants::PaymentMethod::CARD,
           :created_at => Time.now(),
           :status => Constants::PaymentStatus::SUCCESS
         )
 
-        owned_course = current_user.courses.where(:course_id => course.id.to_s).first
+        owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
 
         if (owned_course.save && payment.save && current_user.save)
-          redirect_to root_url + "home/payment/#{payment.id.to_s}/success"
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else
           render 'page_not_found', status: 404
