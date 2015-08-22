@@ -5,6 +5,7 @@ class Course
   field :name, type: String, default: ""
   field :lang, type: String, default: "vi"
   field :price, type: Integer, default: 0
+  field :discount_price, type: Integer, default: 0
 
   field :alias_name, type: String, default: ""
   field :sub_title, type: String, default: ""
@@ -39,7 +40,7 @@ class Course
   index({name: 1, created_at: 1})
   
   validates_presence_of :name
-  validates_numericality_of :price, :num_rate, only_integer: true, greater_than_or_equal: 0
+  validates_numericality_of :price, :discount_price, :num_rate, only_integer: true, greater_than_or_equal: 0
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
   validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 
