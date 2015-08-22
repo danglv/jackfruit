@@ -22,6 +22,7 @@ module Constants
 
   module PaymentStatus
     SUCCESS = "success"
+    PROCESS = "process"
     PENDING = "pending"
     CANCEL = "cancel"
   end
@@ -102,6 +103,7 @@ module Constants
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"
+    CARD = "card"
   end
 
   module CourseVersions

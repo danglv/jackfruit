@@ -1,8 +1,9 @@
 class PaymentController < ApplicationController
   include PaymentServices
-  before_filter :authenticate_user!
-  before_action :validate_course, :except => [:status, :success, :cancel]
-  before_action :validate_payment, :only => [:status, :success, :cancel, :pending]
+
+  before_filter :authenticate_user!, :except => [:error]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error]
+  before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
 
   # GET
   def index
@@ -31,6 +32,9 @@ class PaymentController < ApplicationController
         :method => Constants::PaymentMethod::COD
       )
 
+      #generated cod code for user
+      payment.generate_cod_code
+
       create_course_for_user()
 
       redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
@@ -40,8 +44,6 @@ class PaymentController < ApplicationController
   def online_payment
     baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
-    alias_name = params[:alias_name]
-    @course = Course.where(:alias_name => alias_name).first
 
     if request.method == 'GET'
       banks = baokim.get_seller_info()
@@ -80,6 +82,40 @@ class PaymentController < ApplicationController
     end
   end
 
+  # GET, POST
+  def card
+    if request.method == 'GET'
+      process_card_payment
+    elsif request.method == 'POST'
+      card_id = params[:card_id]
+      pin_field = params[:pin_field]
+      seri_field = params[:seri_field]
+      time_payment = Time.now()
+      create_course_for_user()
+      baokim = BaoKimPaymentCard.new
+
+      revice_data = baokim.create_request_url({
+        'transaction_id' => time_payment,
+        'card_id' => card_id,
+        'pin_field' => pin_field,
+        'seri_field' => seri_field
+      })
+
+      data = JSON.parse(revice_data.body)
+      if revice_data.code.to_i == 200
+        current_user.money += data['amount'].to_i
+        if current_user.save
+          @error = "Bạn đã nạp thành công " + data['amount'].to_s + "đ"
+          process_card_payment
+        else
+          render 'page_not_found', status: 404
+        end
+      else
+        @error = data['errorMessage']
+      end
+    end
+  end
+
   # GET
   def transfer
   end
@@ -96,14 +132,7 @@ class PaymentController < ApplicationController
   def success
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
-      params.delete('p')
-      params.delete('action')
-      params.delete('id')
-      params.delete('controller')
-      
-      baokim = BaoKimPayment.new
       @course = Course.where(id: @payment.course_id).first
-      
       if baokim.verify_response_url(params)
         owned_course = current_user.courses.where(course_id: @course.id).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
@@ -111,6 +140,8 @@ class PaymentController < ApplicationController
       else
         render 'page_not_found', status: 404
       end
+    elsif payment_service_provider == 'baokim_card'
+      @course = Course.where(id: @payment.course_id.to_s).first
     end
   end
 
@@ -118,26 +149,40 @@ class PaymentController < ApplicationController
   def cancel
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
-      params.delete('p')
-      params.delete('action')
-      params.delete('id')
-      params.delete('controller')
-      
-      baokim = BaoKimPayment.new
       @course = Course.where(id: @payment.course_id).first
       
-      if baokim.verify_response_url(params)
-        owned_course = current_user.courses.where(course_id: @course.id).first
-        owned_course.payment_status = Constants::PaymentStatus::CANCEL
-        owned_course.save
-      else
-        render 'page_not_found', status: 404
-      end
+      owned_course = current_user.courses.where(course_id: @course.id).first
+      owned_course.payment_status = Constants::PaymentStatus::CANCEL
+      owned_course.save
     end
   end
 
   # GET
   def pending
+  end
+
+  # GET
+  def error
+  end
+
+  # POST
+  def import_code
+    cod_code = params[:cod_code]
+    if @payment.cod_code == cod_code
+      owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).first
+      owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+      if owned_course.save
+        render json: {message: "Thành công!"}
+        return
+      else
+        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing
+        return
+      end
+    else
+      render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
+      return
+    end    
   end
 
   private
@@ -173,5 +218,32 @@ class PaymentController < ApplicationController
 
       owned_course.save
       current_user.save
+    end
+
+    def process_card_payment
+      if current_user.money > @course.price
+        current_user.money -= @course.price
+
+        create_course_for_user()
+
+        payment = Payment.new(
+          :course_id => @course.id,
+          :user_id => current_user.id,
+          :method => Constants::PaymentMethod::CARD,
+          :created_at => Time.now(),
+          :status => Constants::PaymentStatus::SUCCESS
+        )
+
+        owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+        if (owned_course.save && payment.save && current_user.save)
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
+          return
+        else
+          render 'page_not_found', status: 404
+          return
+        end
+      end
     end
 end
