@@ -91,7 +91,6 @@ class PaymentController < ApplicationController
       pin_field = params[:pin_field]
       seri_field = params[:seri_field]
       time_payment = Time.now()
-
       create_course_for_user()
       baokim = BaoKimPaymentCard.new
 
@@ -103,11 +102,10 @@ class PaymentController < ApplicationController
       })
 
       data = JSON.parse(revice_data.body)
- 
       if revice_data.code.to_i == 200
         current_user.money += data['amount'].to_i
-
         if current_user.save
+          @error = "Bạn đã nạp thành công " + data['amount'].to_s + "đ"
           process_card_payment
         else
           render 'page_not_found', status: 404
