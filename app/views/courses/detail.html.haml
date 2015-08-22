@@ -60,12 +60,20 @@
             - else
               = image_tag 'course-image-intro.png', :style => 'width: 100%'
         .col.s5
-          .row
-            %a.row.courses{:href => "#"}
-              - if @course.price == 0
-                %h5.course-price{:style => 'margin: 0'} Miễn phí
-              - else
+          .row.courses
+            - if @course.price == 0
+              .col.s12
+                %span.course-price{:style => 'margin: 0'} Miễn phí
+            - else
+              - if @course.discount_price == 0
+                .col.s12
                 %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              - else
+                .col.s12.no-padding
+                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.discount_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                .col.s12.no-padding{:style => 'line-height: 34px;'}
+                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span (Giảm giá: #{100 * (@course.price - @course.discount_price) / @course.price}%)
           .row
             - if !current_user.blank?
               .col.s6.no-padding
