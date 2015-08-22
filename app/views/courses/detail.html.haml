@@ -65,15 +65,15 @@
               .col.s12
                 %span.course-price{:style => 'margin: 0'} Miễn phí
             - else
-              - if @course.discount_price == 0
+              - if @course.old_price == 0
                 .col.s12
-                %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               - else
                 .col.s12.no-padding
-                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.discount_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 .col.s12.no-padding{:style => 'line-height: 34px;'}
-                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                  %span (Giảm giá: #{100 * (@course.price - @course.discount_price) / @course.price}%)
+                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.old_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span (Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%)
           .row
             - if !current_user.blank?
               .col.s6.no-padding
