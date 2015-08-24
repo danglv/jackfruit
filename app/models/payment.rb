@@ -17,6 +17,9 @@ class Payment
   # COD code
   field :cod_code, type: String
 
+  # Người bán
+  field :seller, type: String, default: Constants.SellerValues.first
+
   validates :cod_code, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
   validates :course_id, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues
