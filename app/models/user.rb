@@ -77,6 +77,10 @@ class User
   # Money
   field :money, type: Integer, default: 0
 
+  # Tỉ lệ chia tiền cho thầy: thầy bán, mình 
+  field :allot_ratio_default, type: Float, default: 0
+  field :allot_ratio_instructor, type: Float, default: 0
+
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
   validates_numericality_of :money, only_integer: true, greater_than_or_equal: 0
