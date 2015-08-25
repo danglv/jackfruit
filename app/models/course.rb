@@ -17,7 +17,7 @@ class Course
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"
   
-  field :average_rating, type: Float, default: 0
+  field :rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0
   field :students, type: Integer, default: 0
 
@@ -26,6 +26,12 @@ class Course
   field :intro_image, type: String, default: "course-image-intro.png"
   # role for course
   field :version, type: String, default: "test"
+
+  # fake_field
+  field :fake_average_rating, type: Float, default: 4
+  field :fake_students, type: Integer, default: 0
+  field :fake_num_rate, type: Integer, default: 0
+  field :fake_enabled, type: Boolean, default: true
 
   embeds_many :curriculums, class_name: "Course::Curriculum"
   embeds_many :discussions, class_name: "Course::Discussion"
@@ -50,7 +56,7 @@ class Course
     rates = self.reviews.map(&:rate)
     self.num_rate = rates.count
     
-    self.average_rating = if rates.count == 0 
+    self.rating = if rates.count == 0 
       0
     else
       rates.sum / rates.count
@@ -75,5 +81,29 @@ class Course
 
   def version_enum
     Constants.CourseVersionsValues
+  end
+
+  def average_rating
+    if self.fake_enabled == true
+      self.fake_average_rating
+    else
+      self.rating
+    end
+  end
+
+  def students
+    if self.fake_enabled == true
+      self.fake_students
+    else
+      self.fake_students
+    end
+  end
+
+  def num_rate
+    if self.fake_enabled == true
+      self.fake_num_rate
+    else
+      self.fake_num_rate
+    end
   end
 end
