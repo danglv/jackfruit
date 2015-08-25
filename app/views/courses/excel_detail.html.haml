@@ -73,7 +73,9 @@
                   %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 .col.s12.no-padding{:style => 'line-height: 34px;'}
                   %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.old_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                  %span (Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%)
+                  %span Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%
+                  %br
+                  %span.red-text= "Ngày hết hạn: " + DateTime.now.day.to_s + "/" + DateTime.now.mon.to_s + "/" + DateTime.now.year.to_s + " "
           .row
             - if !current_user.blank?
               .col.s6.no-padding
@@ -96,6 +98,9 @@
                   - else 
                     %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Mua khóa học
+              .col.s6.no-padding
+                .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
+                  %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
             - else
               .col.s6.no-padding
                 - if @course.price == 0
@@ -104,6 +109,9 @@
                 - else 
                   %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                     Mua khóa học
+              .col.s6.no-padding
+                .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
+                  %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
               /   %i.material-icons.is-favorite group
@@ -158,6 +166,14 @@
         .row
           = render 'detail_description', method: 'detail'
         .row
+          .col.s12.no-padding{:style => "text-align: center"}
+            - if @course.price == 0
+              %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
+                Bắt đầu học ngay
+            - else 
+              %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                Mua khóa học
+        .row
           %h4{:style => 'border-bottom: 1px solid #999'}
             Giáo trình
           .divider
@@ -181,6 +197,14 @@
                         %span.black-text= curi.description
                       - else
                         %span.black-text Văn bản
+            .row
+              .col.s12.no-padding{:style => "text-align: center; margin-top:25px;"}
+                - if @course.price == 0
+                  %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
+                    Bắt đầu học ngay
+                - else 
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Mua khóa học
             .row
               %h5
                 Tiểu sử tác giả

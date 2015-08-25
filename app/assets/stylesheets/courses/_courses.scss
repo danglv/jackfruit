@@ -56,6 +56,16 @@
 }
 
 .courses {
+   .hotline{
+     position: fixed;
+     bottom: 0px;
+     right: 0px;
+     background-color: #FF5722;
+     color: white;
+     width: 200px;
+     height: 70px;
+     border-radius: 50px;
+  }
   &.card-style {
     .course {
       @extend .card;
@@ -72,7 +82,7 @@
       }
     }
   }
-
+ 
   &.list-style {
     .course {
       border-top: 1px solid #b6b6b6;
@@ -200,7 +210,7 @@
     }
 
     &-price {
-      color: #44ba31;
+      color: #2BBBAD;
       font-weight: 700;
       &.free {
         color: #ff5050;
