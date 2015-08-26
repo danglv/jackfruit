@@ -1,13 +1,24 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
 %main.payment
-  .row
-    .col.s12.no-padding
+  .row.no-margin
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
       = render :partial => 'payment/header_payment'
-      .container-1140
-        = render 'payment_method', method: ''
-        .row.payment-content
-          %h4 2. Hoàn tất thanh toán
-          .col.s12 Bạn chưa lựa chọn hình thức thanh toán nào
+  .p_container
+    .row.no-margin.course-price
+      .col-xs-8.col-sm-5.col-md-4.col-lg-3.no-padding
+        %span Kĩ năng thuyết trình và nói trước công chúng
+      .col-xs-3.col-xs-offset-1.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
+        %span.pull-right 300.000 VNĐ
+    .row.no-margin.coupon
+      .col-xs-6.col-sm-3.col-md-2.col-lg-2.no-padding
+        %input.form-control{:placeholder => "Nhập mã coupon ở đây", :type => "text"}
+    .row.no-margin.total-cost
+      .col-xs-3.col-sm-5.col-md-4.col-lg-3.no-padding
+        %span Thành tiền
+      .col-xs-3.col-xs-offset-6.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
+        %span.pull-right 300.000 VNĐ
+    .row.no-margin
+      = render 'payment_method', method: ''
+    .row.payment-content.no-margin
+      %h4 2. Hoàn tất thanh toán
+      .col-xs-12 Bạn chưa lựa chọn hình thức thanh toán nào
+    

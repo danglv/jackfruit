@@ -3,5 +3,8 @@
 $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
-@import "bootstrap-material-design/sass/material-wfont.scss";
-@import "bootstrap-material-design/sass/ripples.scss";
+@import "bootstrap-material-design/dist/css/material.css";
+@import "bootstrap-material-design/dist/css/ripples.css";
+
+@import "payment/payment.scss";
+@import "settings.scss"

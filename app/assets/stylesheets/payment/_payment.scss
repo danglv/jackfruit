@@ -1,0 +1,88 @@
+.payment{
+  .p_container {
+    padding: 0 15px !important;
+  }
+  .no-margin {
+    margin: 0;
+  }
+  .no-padding {
+    padding: 0;
+  }
+  .payment-header {
+    height: 46px;
+    background-color: #38b34a;
+    font-size: 18px;
+    line-height: 40px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .course-price {
+    border-bottom: 1px solid #acacac;
+    height: 44px;
+    margin-bottom: 10px;
+  }
+  .coupon {
+    border-bottom: 1px solid #acacac;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  .total-cost {
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .payment-list {
+    width: 100%;
+    height: 48px;
+    text-transform: none;
+    text-align: left;
+    font-size: 14px !important;
+    &:hover {
+      background-color: #338abc !important;
+      color: #fff;
+    }
+    &.disable:hover{
+      background: none;
+      color: #9e9e9e;
+      cursor: default;
+    }
+  }
+  .payment-list.active {
+    background-color: #338abc !important;
+    color: #fff;
+  }
+  .payment-card {
+    width: 100%;
+    height: 170px; 
+    padding: 20px 15px;
+    &:hover {
+      background-color: #338abc !important;
+      color: #fff;
+    }
+    &.disable:hover{
+      background: none;
+      color: #9e9e9e;
+      cursor: default;
+    }
+  }
+  .payment-card.active {
+    background-color: #338abc !important;
+    color: #fff;
+  }
+}
+@media (max-width: 479px) {
+  .payment-320 {
+    display: block;
+  }
+  .payment-480-up {
+    display: none;
+  }
+}
+@media (min-width: 480px) {
+  .payment-320 {
+    display: none;
+  }
+  .payment-480-up {
+    display: block;
+  }
+}
