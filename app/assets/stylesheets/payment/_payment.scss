@@ -8,6 +8,9 @@
   .no-padding {
     padding: 0;
   }
+  .center-align {
+    text-align: center;
+  }
   .payment-header {
     height: 46px;
     background-color: #38b34a;
@@ -36,7 +39,7 @@
     height: 48px;
     text-transform: none;
     text-align: left;
-    font-size: 14px !important;
+    overflow: hidden;
     &:hover {
       background-color: #338abc !important;
       color: #fff;
@@ -55,9 +58,11 @@
     width: 100%;
     height: 170px; 
     padding: 20px 15px;
+    color: #727272;
+    text-transform: none;
     &:hover {
       background-color: #338abc !important;
-      color: #fff;
+      color: #fff ;
     }
     &.disable:hover{
       background: none;
@@ -69,7 +74,23 @@
     background-color: #338abc !important;
     color: #fff;
   }
+  .payment-editor {
+    margin-bottom: 20px;
+  }
+  .purchase-button {
+    width: 100%;
+    text-transform: none;
+  }
+  .payment-content.active{
+    h4{
+      color: #338abc;
+      font-weight: bold;
+    }
+  }
 }
+
+/*Responsive*/
+/*Màn 480-*/
 @media (max-width: 479px) {
   .payment-320 {
     display: block;
@@ -78,11 +99,13 @@
     display: none;
   }
 }
+/*Màn 480+*/
 @media (min-width: 480px) {
   .payment-320 {
     display: none;
   }
   .payment-480-up {
     display: block;
+    margin-bottom: 25px;
   }
 }

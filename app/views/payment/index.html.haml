@@ -9,7 +9,7 @@
       .col-xs-3.col-xs-offset-1.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
         %span.pull-right 300.000 VNĐ
     .row.no-margin.coupon
-      .col-xs-6.col-sm-3.col-md-2.col-lg-2.no-padding
+      .col-xs-7.col-sm-3.col-md-3.col-lg-2.no-padding
         %input.form-control{:placeholder => "Nhập mã coupon ở đây", :type => "text"}
     .row.no-margin.total-cost
       .col-xs-3.col-sm-5.col-md-4.col-lg-3.no-padding
@@ -20,5 +20,5 @@
       = render 'payment_method', method: ''
     .row.payment-content.no-margin
       %h4 2. Hoàn tất thanh toán
-      .col-xs-12 Bạn chưa lựa chọn hình thức thanh toán nào
+      .col-xs-12{:style => "color: #727272; margin-bottom: 15px;"} Bạn chưa lựa chọn hình thức thanh toán nào
     
