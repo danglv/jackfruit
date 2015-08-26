@@ -94,6 +94,16 @@
     list-style-type: disc;
     list-style-position: inside;
   }
+  .credit-card-button {
+    border: 3px solid #ccc;
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+    }
+  }
+  .banks-card {
+    width: 100%;
+  }
 }
 
 /*Responsive*/
