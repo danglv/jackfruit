@@ -68,5 +68,86 @@ $(document).ready(function (){
 			});
 		}
 		
-	})
+	});
+
+  //================== new layout
+
+  //expand reply
+  $(".discussion-item-reply").on("click", function (){
+    var listChildren = $(this).parent().find(".list-children");
+    if( listChildren != null){
+      if( !listChildren.hasClass("expand") ){
+        listChildren.fadeIn();
+        listChildren.addClass("expand");
+      }
+      else{
+        listChildren.fadeOut();
+        listChildren.removeClass("expand");
+        listChildren.addClass("collapsed");
+      }
+      
+    }
+  });
+
+   $(".noti-item-reply").on("click", function (){
+    var listChildren = $(this).parent().find(".list-children");
+    if( listChildren != null){
+      if( !listChildren.hasClass("expand") ){
+        listChildren.fadeIn();
+        listChildren.addClass("expand");
+      }
+      else{
+        listChildren.fadeOut();
+        listChildren.removeClass("expand");
+        listChildren.addClass("collapsed");
+      }
+      
+    }
+  });
+  // tab to show
+  $(".tab").on("click", function (){
+
+    var tabValue = $(this).attr("val");
+    var itemsProgress = $(this).parent().find(".progress").children();
+    $(".tab-actived").removeClass("tab-actived");
+    $(".progress-actived").removeClass("progress-actived");
+    $(this).addClass("tab-actived");
+    switch (tabValue){ 
+      case "discussion":
+        $(".noti").fadeOut();
+        $(".discussion").fadeIn();
+        $(".discussion").removeClass("collapsed");
+        $(".discussion").addClass("expand");
+        $(".noti").addClass("collapsed");
+
+        $(itemsProgress[0]).addClass("progress-actived");
+        $(itemsProgress[0]).fadeIn();
+        break;
+
+      case "noti": 
+        $(".noti").fadeIn();
+        $(".discussion").fadeOut();
+        $(".noti").removeClass("collapsed");
+        $(".noti").addClass("expand");
+        $(".discussion").addClass("collapsed");
+
+        $(itemsProgress[1]).addClass("progress-actived");
+        $(itemsProgress[1]).fadeIn();
+        break;
+
+      case "student":
+      default : 
+        $(".noti").fadeOut();
+        $(".discussion").fadeIn();
+        $(".discussion").addClass("expand");
+        $(".discussion").removeClass("collapsed");
+        $(".noti").addClass("collapsed");
+
+        $(itemsProgress[2]).addClass("progress-actived");
+        $(itemsProgress[2]).fadeIn();
+        break;
+    };
+
+  });
+
 })
