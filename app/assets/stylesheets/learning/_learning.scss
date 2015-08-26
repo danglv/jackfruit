@@ -1,0 +1,77 @@
+.no-padding {
+  padding: 0px !important;
+}
+.no-margin {
+  margin: 0px !important;
+}
+.learning {
+  background-color: #f4f3f2;
+  padding: 0px 15px;
+  &-header {
+    height: 50px;
+    background: #727272;
+    &-container {
+      margin: 0px 15px;
+    }
+  }
+  .course-name {
+    line-height: 50px;
+    color: white;
+    font-weight: bold;
+  }
+
+  &-container {
+    margin: 16px 15px 0px 15px;
+    background: #666;
+    .list-lecture {
+      height: 500px;
+      background-color: #E6F1F6;
+      .lecture-header {
+        height: 80px;
+        border-radius: 5px;
+        background-color: #727272;
+        .glyphicon-play {
+          height: 40px;
+          width: 40px;
+          background-color: white;
+          border-radius: 40px;
+          text-align: center;
+          line-height: 40px;
+          font-size: 22px;
+          text-indent: 4px;
+          margin: 20px;
+        }
+        &-content{
+            display: inline-block;
+            color: white;
+            
+        }
+
+      }
+    }
+    .lecture-discussion {
+      height: 500px;
+      background-color: #ff5722;
+    }
+  }
+
+   /* Small devices (tablets, 768px and up) */
+  @media (min-width: 320) { 
+
+  }
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: 768) { 
+
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: 992) { 
+ 
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200) { 
+
+  }
+
+}
