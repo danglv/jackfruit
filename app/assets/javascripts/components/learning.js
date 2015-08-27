@@ -73,80 +73,94 @@ $(document).ready(function (){
   //================== new layout
 
   //expand reply
-  $(".discussion-item-reply").on("click", function (){
-    var listChildren = $(this).parent().find(".list-children");
-    if( listChildren != null){
-      if( !listChildren.hasClass("expand") ){
-        listChildren.fadeIn();
-        listChildren.addClass("expand");
-      }
-      else{
-        listChildren.fadeOut();
-        listChildren.removeClass("expand");
-        listChildren.addClass("collapsed");
-      }
-      
-    }
-  });
+  $.fn.discussionItemReply = function (){
 
-   $(".noti-item-reply").on("click", function (){
-    var listChildren = $(this).parent().find(".list-children");
-    if( listChildren != null){
-      if( !listChildren.hasClass("expand") ){
-        listChildren.fadeIn();
-        listChildren.addClass("expand");
+    this.on("click", function (){
+      var listChildren = $(this).parent().find(".list-children");
+      if( listChildren != null){
+        if( !listChildren.hasClass("expand") ){
+          listChildren.fadeIn();
+          listChildren.addClass("expand");
+        }
+        else{
+          listChildren.fadeOut();
+          listChildren.removeClass("expand");
+          listChildren.addClass("collapsed");
+        }
       }
-      else{
-        listChildren.fadeOut();
-        listChildren.removeClass("expand");
-        listChildren.addClass("collapsed");
+      return this;
+    })
+  }
+  $.fn.notiItemReply = function (){
+    this.on("click", function (){
+      var listChildren = $(this).parent().find(".list-children");
+      if( listChildren != null){
+        if( !listChildren.hasClass("expand") ){
+          listChildren.fadeIn();
+          listChildren.addClass("expand");
+        }
+        else{
+          listChildren.fadeOut();
+          listChildren.removeClass("expand");
+          listChildren.addClass("collapsed");
+        }
       }
-      
-    }
-  });
+      return this;
+    })
+  }
+  $(".discussion-item-reply").discussionItemReply();
+  $(".noti-item-reply").notiItemReply();
+
+
   // tab to show
-  $(".tab").on("click", function (){
+  $(".learning_tab").on("click", function (){
 
-    var tabValue = $(this).attr("val");
-    var itemsProgress = $(this).parent().find(".progress").children();
     $(".tab-actived").removeClass("tab-actived");
     $(".progress-actived").removeClass("progress-actived");
-    $(this).addClass("tab-actived");
-    switch (tabValue){ 
-      case "discussion":
-        $(".noti").fadeOut();
-        $(".discussion").fadeIn();
-        $(".discussion").removeClass("collapsed");
-        $(".discussion").addClass("expand");
-        $(".noti").addClass("collapsed");
+    var tabValue = $(this).attr("val");
+    var itemsProgress = $(this).parent().find(".progress").children();
 
-        $(itemsProgress[0]).addClass("progress-actived");
-        $(itemsProgress[0]).fadeIn();
-        break;
+    var progress_actived = function (object){
+       $(object).addClass("progress-actived");
+       $(object).fadeIn();
+    }
+    var effectActive = function (active, nonActive){
 
-      case "noti": 
-        $(".noti").fadeIn();
-        $(".discussion").fadeOut();
-        $(".noti").removeClass("collapsed");
-        $(".noti").addClass("expand");
-        $(".discussion").addClass("collapsed");
+      $(active).removeClass("collapsed");
+      $(active).addClass("expand");
+      $(active).fadeIn();
+      $(nonActive).fadeOut();
+      $(nonActive).removeClass("expand");
+      $(nonActive).addClass("collapsed");
+    }
+    var tabActions = {
+      discussion : function (){
+        progress_actived( itemsProgress[0]);
+        effectActive(".discussion",".noti");
+        return;
+      },
+      noti : function (){
+        progress_actived( itemsProgress[1]);
+        effectActive(".noti",".discussion");
+        return;
+      },
+      student : function (){
+        progress_actived( itemsProgress[2]);
+        return;
 
-        $(itemsProgress[1]).addClass("progress-actived");
-        $(itemsProgress[1]).fadeIn();
-        break;
-
-      case "student":
-      default : 
-        $(".noti").fadeOut();
-        $(".discussion").fadeIn();
-        $(".discussion").addClass("expand");
-        $(".discussion").removeClass("collapsed");
-        $(".noti").addClass("collapsed");
-
-        $(itemsProgress[2]).addClass("progress-actived");
-        $(itemsProgress[2]).fadeIn();
-        break;
-    };
+      },
+      default : function (){
+        progress_actived( itemsProgress[0]);
+        effectActive(".discussion",".noti");
+        return;
+      }
+    }
+    // check exists
+    if ( tabValue in tabActions == false)
+    {
+      tabValue = "default"
+    }
+    tabActions[tabValue]();
 
   });
 

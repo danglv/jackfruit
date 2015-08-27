@@ -5,12 +5,7 @@
 .no-margin {
   margin: 0px !important;
 }
-.px14 {
-  font-size: 14px;
-}
-.px16 {
-  font-size: 16px;
-}
+
 .bold {
   font-weight: bold;
 }
@@ -79,6 +74,12 @@
         height: 80px;
         border-radius: 3px;
         background-color: #727272;
+        &-index, &-time {
+          font-size: 14px;
+        }
+        &-name {
+          font-size: 16px;
+        }
         .glyphicon-play {
           height: 40px;
           width: 40px;
@@ -112,11 +113,11 @@
           float: left;
           width: 100%;
 
-          ul {
+          &-content {
             list-style: none;
             padding: 0px;
           }
-          ul, li {
+          &-content, &-item {
             float: left;
             margin-right: 4px;
           }
@@ -576,11 +577,6 @@
   }
 }
 
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-
-}
-
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
   .learning {
@@ -590,9 +586,4 @@
       }
     }
   }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-
 }

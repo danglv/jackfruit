@@ -25,17 +25,17 @@
               %span.glyphicon.glyphicon-play
             %li
               .lecture-header-content
-                %p.no-margin.px14 Bài giảng 1:
-                %p.no-margin.px16 Starting Threads
-                %p.no-margin.px14 09:58 phút
+                %p.no-margin.lecture-header-index Bài giảng 1:
+                %p.no-margin.lecture-header-name Starting Threads
+                %p.no-margin.lecture-header-time 09:58 phút
         .row.no-margin.lecture-progress
           .row.no-margin.progress-title
-            %ul 
-              %li Bạn đã hoàn thành 
-              %li.bold 4
-              %li trên
-              %li.bold 9
-              %li bài giảng
+            %ul.progress-title-content
+              %li.progress-title-item Bạn đã hoàn thành 
+              %li.progress-title-item.bold 4
+              %li.progress-title-item trên
+              %li.progress-title-item.bold 9
+              %li.progress-title-item bài giảng
           .row.trophy
             = image_tag 'learning/trophy.png'
           .row.no-margin.progress-container
@@ -233,15 +233,15 @@
                     .row.type-document         
       .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.lecture-discussion
         .row.no-margin
-          .col-md-4.col-lg-4.tab.tab-actived{:val => "discussion"}
+          .col-md-4.col-lg-4.learning_tab.tab-actived{:val => "discussion"}
             %a{:href => "#tab1"}
               %i.mdi-communication-forum
               %span Thảo luận 
-          .col-md-4.col-lg-4.tab{:val => "noti"}
+          .col-md-4.col-lg-4.learning_tab{:val => "noti"}
             %a{:href => "#tab2"}
               %span.glyphicon.glyphicon-bullhorn
               %span Thông báo 
-          .col-md-4.col-lg-4.tab{:val => "student"}
+          .col-md-4.col-lg-4.learning_tab{:val => "student"}
             %a
               %span.glyphicon.glyphicon-user 
               %span 9999 Học viên 
