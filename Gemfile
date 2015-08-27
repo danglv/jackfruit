@@ -21,8 +21,7 @@ gem 'jbuilder', '~> 2.0'
 # Mongoid
 gem "mongoid", "~> 4.0.0"
 gem "bson_ext"
-# Materialize Sass
-gem 'materialize-sass'
+
 # Haml
 gem "haml-rails", "~> 0.9"
 # bundle exec rake doc:rails generates the API under doc/api.
