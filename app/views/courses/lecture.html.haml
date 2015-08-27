@@ -35,8 +35,6 @@
           var action = 'Stop';
           var label = playerInstance.getPlaylist()[playerInstance.getPlaylistIndex()].file;
           var value = playerInstance.getPosition();
-          console.log(label);
-          console.log(value);
           ga('send', 'event', category, action, label, value);
           return "Tracked";
         };
