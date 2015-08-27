@@ -3,20 +3,116 @@
   .payment
     .row.no-margin
       .col-xs-12.no-padding
-        .payment-header.fail
+        .payment-header.pendding
           %span.title
-            %b Rất tiếc! Giao dịch của bạn chưa thành công
+            %b Giao dịch của bạn đang được xử lý
     .p_container
       .row.no-margin{:style => "margin-bottom: 30px;"}
         .col-xs-12.no-padding
-          %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin
+          %h5 Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang Lịch sử giao dịch để được cập nhật thường xuyên
       .row.no-margin
         .col-xs-3.no-padding
           %h5.left-align Khóa học
         .col-xs-7.col-xs-offset-2.no-padding
-          %h5.right-align Kỹ năng thuyết trình và nói trước công chúng
+          %h5.right-align
+            %b Kỹ năng thuyết trình và nói trước công chúng
           / %h5 @course.name
-      .row.no-margin
+      .row.no-margin/ Màn hình từ 320px
+.payment-320
+  %main.payment
+    .row.no-margin
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+        = render :partial => 'payment/header_payment'
+    .p_container
+      = render 'payment_method', method: 'transfer'
+      .row.payment-content.active.no-margin
+        %h4 2. Hoàn tất thanh toán
+        .col-xs-12.no-padding{:style => "color: #ff5722; margin-bottom: 15px;"}
+          %h5 Chuyển khoản ngân hàng
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.no-padding Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+        .row.no-margin
+          .col-xs-12.no-padding
+            %div.tranfer-information
+              Số tài khoản: 
+              %b 67664288
+            %div.tranfer-information
+              Chủ tài khoản: 
+              %b Lê Đức Bình
+            %div.tranfer-information
+              Ngân hàng: 
+              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.no-padding
+          %u Ghi chú khi chuyển khoản
+        .col-xs-12.no-padding
+          %ul.col-xs-12.no-padding.no-margin
+            %li.tranfer-note Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+            %li.tranfer-note Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.no-padding{:style => "color: #ff5722"} Chuyển tiền qua Paypal
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.no-padding
+          %div.tranfer-information
+            Địa chỉ email nhận tiền:
+            = succeed "." do 
+              %b minh@deltaviet.com. 
+            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
+          %div.tranfer-information
+            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
+      .row.no-margin{:style => "margin-bottom: 100px;"}
+        .col-xs-12.no-padding
+          %div
+          Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+/ Màn hình từ 480px trở lên          
+.payment-480-up 
+  %main.payment
+    .row.no-margin
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+        = render :partial => 'payment/header_payment', status: ''
+    .p_container
+      = render 'payment_method', method: 'transfer'
+      .row.payment-content.active.no-margin
+        %h4 2. Hoàn tất thanh toán
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "color: #ff5722; margin-bottom: 15px;"}
+          %h5 Chuyển khoản ngân hàng
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+        .row.no-margin
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %div.tranfer-information
+              Số tài khoản: 
+              %b 67664288
+            %div.tranfer-information
+              Chủ tài khoản: 
+              %b Lê Đức Bình
+            %div.tranfer-information
+              Ngân hàng: 
+              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %u Ghi chú khi chuyển khoản
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %ul.col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
+            %li.tranfer-note Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+            %li.tranfer-note Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
+      .row.no-margin{:style => "margin-bottom: 5px;"}
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "color: #ff5722"}
+          %h5 Chuyển tiền qua Paypal
+      .row.no-margin{:style => "margin-bottom: 15px;"}
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %div.tranfer-information
+            Địa chỉ email nhận tiền:
+            = succeed "." do 
+              %b minh@deltaviet.com. 
+            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
+          %div.tranfer-information
+            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
+      .row.no-margin{:style => "margin-bottom: 100px;"}
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %div
+          Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+        
         .col-xs-3.no-padding
           %h5.left-align Chi phí
         .col-xs-7.col-xs-offset-2.no-padding
@@ -26,7 +122,7 @@
         .col-xs-3.no-padding
           %h5.left-align Trạng thái
         .col-xs-7.col-xs-offset-2.no-padding
-          %h5.right-align.fail-text Thất bại
+          %h5.right-align.pendding-text Đang xử lý
           / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
     .divider{:style => "margin-bottom: 15px"}
     .p_container
@@ -36,7 +132,7 @@
         .col-xs-11
           %span Hotline: 
           = succeed "." do
-            %b 0123456789
+            %b 01638533244
       .row.no-margin{:style => "margin-bottom: 25px;"}
         .col-xs-12.no-padding
           %a.btn.btn-info.btn-raised.btn-lg.refresh-button Thử lại
@@ -49,17 +145,20 @@
   .payment
     .row.no-margin
       .col-xs-12.no-padding
-        .payment-header.fail
-          %span.title Rất tiếc! Giao dịch của bạn chưa thành công
+        .payment-header.pendding
+          %span.title 
+            %b Giao dịch của bạn đang được xử lý
     .p_container
       .row.no-margin{:style => "margin-bottom: 30px;"}
         .col-xs-12.no-padding
-          %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
+          %h5 Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang 
+          %a Lịch sử giao dịch để được cập nhật thường xuyên
       .row.no-margin
         .col-xs-2.no-padding
           %h5.left-align Khóa học
         .col-xs-8.col-xs-offset-2.no-padding
-          %h5.right-align Kỹ năng thuyết trình và nói trước công chúng
+          %h5.right-align
+            %b Kỹ năng thuyết trình và nói trước công chúng
           / %h5 @course.name
       .row.no-margin
         .col-xs-2.no-padding
@@ -71,7 +170,7 @@
         .col-xs-2.no-padding
           %h5.left-align Trạng thái
         .col-xs-8.col-xs-offset-2.no-padding
-          %h5.right-align.fail-text Thất bại
+          %h5.right-align.pendding-text Đang xử lý
           / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
     .divider{:style => "margin-bottom: 15px"}
     .p_container
@@ -81,7 +180,7 @@
         .col-xs-11
           %span Hotline: 
           = succeed "." do
-            %b 0123456789
+            %b 01638533244
       .row.no-margin
         .col-xs-4.no-padding.center-align{:style => "margin-top: 10px;"}
           %a{:href => "#", :style => "text-decoration: none;"}
@@ -94,18 +193,19 @@
     .payment.hidden-xs{:style => "margin-top: 30px;"}
       .row.no-margin
         .col-sm-12.col-md-12.col-lg-12.no-padding
-          .payment-header.fail
+          .payment-header.pendding
             %span.title{:style => "font-size: 18px;"}
-              %b Rất tiếc! Giao dịch của bạn chưa thành công
+              %b Giao dịch của bạn đang được xử lý
       .p_container
         .row.no-margin{:style => "margin-bottom: 30px;"}
           .col-sm-12.col-md-12.col-lg-12.no-padding
-            %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
+            %h5 Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang Lịch sử giao dịch để được cập nhật thường xuyên
         .row.no-margin
           .col-sm-2.col-md-2.col-lg-2.no-padding
             %h5.left-align Khóa học
           .col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.no-padding
-            %h5.right-align Kỹ năng thuyết trình và nói trước công chúng
+            %h5.right-align
+              %b Kỹ năng thuyết trình và nói trước công chúng
             / %h5 @course.name
         .row.no-margin
           .col-sm-2.col-md-2.col-lg-2.no-padding
@@ -117,7 +217,7 @@
           .col-sm-2.col-md-2.col-lg-2.no-padding
             %h5.left-align Trạng thái
           .col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.no-padding
-            %h5.right-align.fail-text Thất bại
+            %h5.right-align.pendding-text Đang xử lý
             / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
       .divider{:style => "margin-bottom: 15px"}
       .p_container
@@ -127,7 +227,7 @@
           .col-sm-11.col-md-11.col-lg-11
             %span Hotline: 
             = succeed "." do
-              %b 0123456789
+              %b 01638533244
         .row.no-margin
           .col-sm-5.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.no-padding.center-align{:style => "margin-top: 18px;"}
             %a{:href => "#", :style => "text-decoration: none;"}

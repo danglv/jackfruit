@@ -33,6 +33,9 @@
     &.fail {
       background-color: #ff4444;
     }
+    &.pendding {
+      background-color: #ffbb33;
+    }
   }
   .course-price {
     border-bottom: 1px solid #acacac;
@@ -124,6 +127,9 @@
   .warning-text, .fail-text {
     color: #ff4444;
   }
+  .pendding-text {
+    color: #ffbb33;
+  }
   .price-text {
     color: #009688;
   }
@@ -150,19 +156,6 @@
     display: none;
   }
   .payment-480-up {
-    display: block;
-    margin-bottom: 25px;
-  }
-}
-/* Màn 768+ */
-@media (min-width: 768px) {
-  .payment-320 {
-    display: none;
-  }
-  .payment-480-up {
-    display: none;
-  }
-  .payment-768-up {
     display: block;
     margin-bottom: 25px;
   }
