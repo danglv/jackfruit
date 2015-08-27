@@ -115,17 +115,16 @@ $(document).ready(function (){
   // tab to show
   $(".learning_tab").on("click", function () {
 
-    $(".tab-actived").removeClass("tab-actived");
-    $(".progress-actived").removeClass("progress-actived");
     var tabValue = $(this).attr("val");
     var itemsProgress = $(this).parent().find(".progress").children();
 
     var progress_actived = function (object) {
+       $(".progress-actived").removeClass("progress-actived");
        $(object).addClass("progress-actived");
        $(object).fadeIn();
     };
     var effectActive = function (active, nonActive) {
-
+      $(".tab-actived").removeClass("tab-actived");
       $(active).removeClass("collapsed");
       $(active).addClass("expand");
       $(active).fadeIn();
@@ -133,19 +132,22 @@ $(document).ready(function (){
       $(nonActive).removeClass("expand");
       $(nonActive).addClass("collapsed");
     };
+    var object = $(this);
     var tabActions = {
       discussion : function () {
         progress_actived( itemsProgress[0]);
         effectActive(".discussion",".noti");
+        object.addClass("tab-actived");
         return;
       },
       noti : function () {
         progress_actived( itemsProgress[1]);
         effectActive(".noti",".discussion");
+        object.addClass("tab-actived");
         return;
       },
       student : function () {
-        progress_actived( itemsProgress[2]);
+        // progress_actived( itemsProgress[2]);
         return;
 
       },

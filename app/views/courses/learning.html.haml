@@ -2,18 +2,18 @@
   .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin.learning-header
     .row.learning-header-container
       %span.course-name User Experience of Web Design
-      .rating
-        %ul
+      .rating-container
+        %ul.rating
           %li
-            %i.mdi-action-grade.rated
+            %i.mdi-action-grade.star.rated{:val => "1"}
           %li
-            %i.mdi-action-grade.rated
+            %i.mdi-action-grade.star.rated{:val => "2"}
           %li
-            %i.mdi-action-grade.rated
+            %i.mdi-action-grade.star.rated{:val => "3"}
           %li
-            %i.mdi-action-grade.rated
+            %i.mdi-action-grade.star.rated{:val => "4"}
           %li
-            %i.mdi-action-grade
+            %i.mdi-action-grade.star.rated{:val => "5"}
           %li 
             %a.rate-it Rate it
   .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
@@ -366,7 +366,7 @@
                       %ul.child-item-title
                         %li.bold ThanhNguyễn
                         %li đã đăng 1 thảo luận - 2 tháng trước 
-                      %span.child-item-subject 
+                      %span.child-item-subject
                         Please do something
                       %p.child-item-content
                         The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
@@ -434,4 +434,3 @@
                     .col-md-11.col-lg-11.no-padding.send-reply
                       %input.form-control{:placeholder => "Bình luận của bạn"}       
                       .btn.btn-primary Gửi bình luận 
-          

@@ -1,0 +1,23 @@
+.col-xs-12.col-sm-10.col-md-6.col-lg-4.no-padding.rating-popup
+  .row.rating-popup-title
+    %span Đánh giá khoá học
+    %span.glyphicon.glyphicon-remove-circle.rating-popup-close
+  .row.rating-popup-main
+    .row.no-margin 
+      %span Đánh giá : 
+      %ul.no-padding.rating
+        %li
+          %i.mdi-action-grade.star.rated{:val => "1"}
+        %li
+          %i.mdi-action-grade.star.rated{:val => "2"}
+        %li
+          %i.mdi-action-grade.star.rated{:val => "3"}
+        %li
+          %i.mdi-action-grade.star.rated{:val => "4"}
+        %li
+          %i.mdi-action-grade.star{:val => "5"}
+    %form
+      %input{:type => "hidden", :name => "star", :value => "5"}
+      %input.form-control{:placeholder => "Tiêu đề"}
+      %textarea.form-control{:placeholder => "Nội dung"}
+      %button.btn.btn-primary Đánh giá
