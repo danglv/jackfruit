@@ -18,7 +18,6 @@
 //= require bootstrap-material-design/dist/js/ripples
 
 $.material.init();
-$.material.input();
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
