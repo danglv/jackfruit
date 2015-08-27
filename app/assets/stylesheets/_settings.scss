@@ -4,6 +4,20 @@
 .no-padding {
   padding: 0;
 }
-.p_container {
+.p-container {
   padding: 0 15px;
+}
+.center-align {
+  text-align: center;
+}
+.right-align {
+  text-align: right;
+}
+.left-align {
+  text-align: left;
+}
+.divider {
+  border-style: inset;
+  border-width: 1px;
+  color: #b6b6b6;
 }
