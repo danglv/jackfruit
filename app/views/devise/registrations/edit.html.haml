@@ -1,31 +1,106 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "off"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+%header{:style => 'margin-bottom:20px;'}
+.clearfix
+
+%main.p-profile
+  .profile-container
+    .profile-left
+      .container-fluid
+        .image-profile
+          = image_tag 'profile_default.png'
+        .name-user.text-center Rihana
+        %ul.nav-user
+          %li.nav-item.active
+            %a{:href => "#"} Thông tin cá nhân
+          %li.nav-item
+            %a{:href => "#"} Ảnh đại diện
+          %li.nav-item
+            %a{:href => "#"} Tài khoản
+    .profile-right
+      .container-fluid.text-center
+        .label-user
+          .label-title Thông tin cá nhân
+          .label-text Thêm thông tin về bạn để chia sẻ trên trang cá nhân
+        %form.form-user-edit
+          .form-group-label Cơ bản
+          .form-group
+            %input.form-control.item-form-group{:type => "text",:placeholder =>'Chức vụ'}
+            %input.form-control.item-form-group{:type => "text",:placeholder =>'Linh'}
+            %input.form-control.item-form-group{:type => "text",:placeholder =>'Lê'}
+            #headline.item-form-group
+              %input.form-control{:type => "text",:placeholder =>'Headline'}
+              %label.headCount 60
+          .form-group-label Tiểu sử
+          .form-group
+            %input.form-control.item-form-group{:type => "text",:placeholder =>'Thông tin'}
+            %select#language.form-control.item-form-group{:name => "language"}
+              %option{:value => "language"} Lựa chọn ngôn ngữ
+              %option{:value => "language"} Tiếng Việt
+              %option{:value => "language"} Tiếng Anh
+              %option{:value => "language"} Tiếng Pháp
+          .form-group-label Link
+          .form-group
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://
+                %span.link-profile Websilte
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://plus.google.com/
+                %span.link-profile Google+ Profile
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://twiter.com/
+                %span.link-profile http://twiter.com/
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://facebook.com/
+                %span.link-profile Facebook Profile
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://linkedin.com/
+                %span.link-profile http://linkedin.com/
+            .item-link-social.item-form-group
+              %input.form-control{:type => "text",:required => "required"}
+              .item-text-social
+                %span.pre-link http://youtube.com/
+                %span.link-profile Youtube Profile
+          %button.btn.btn-info{:type => 'submit',:style => 'font-weight: bold'} Lưu thay đổi
+%footer
+
+
+/ %h2
+/   Edit #{resource_name.to_s.humanize}
+/ = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+/   = devise_error_messages!
+/   .field
+/     = f.label :email
+/     %br/
+/     = f.email_field :email, autofocus: true
+/   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+/     %div
+/       Currently waiting confirmation for: #{resource.unconfirmed_email}
+/   .field
+/     = f.label :password
+/     %i (leave blank if you don't want to change it)
+/     %br/
+/     = f.password_field :password, autocomplete: "off"
+/   .field
+/     = f.label :password_confirmation
+/     %br/
+/     = f.password_field :password_confirmation, autocomplete: "off"
+/   .field
+/     = f.label :current_password
+/     %i (we need your current password to confirm your changes)
+/     %br/
+/     = f.password_field :current_password, autocomplete: "off"
+/   .actions
+/     = f.submit "Update"
+/ %h3 Cancel my account
+/ %p
+/   Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+/ = link_to "Back", :back

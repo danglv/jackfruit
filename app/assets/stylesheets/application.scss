@@ -2,5 +2,7 @@
 $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
-@import "bootstrap-material-design/sass/material-wfont.scss";
-@import "bootstrap-material-design/sass/ripples.scss";
+@import "bootstrap-material-design/dist/css/material";
+@import "bootstrap-material-design/dist/css/ripples";
+//style
+@import "components/profile";
