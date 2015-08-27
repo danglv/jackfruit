@@ -75,7 +75,8 @@
                   %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.old_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%
                   %br
-                  %span.red-text= "Ngày hết hạn: " + DateTime.now.day.to_s + "/" + DateTime.now.mon.to_s + "/" + DateTime.now.year.to_s + " "
+                  / %span.red-text= "Ngày hết hạn: " + DateTime.now.day.to_s + "/" + DateTime.now.mon.to_s + "/" + DateTime.now.year.to_s + " "
+                  %span.red-text= "Ngày hết hạn: 31/08/2015 " 
           .row
             - if !current_user.blank?
               .col.s6.no-padding
