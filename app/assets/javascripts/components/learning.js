@@ -75,14 +75,14 @@ $(document).ready(function (){
   //expand reply
   $.fn.discussionItemReply = function () {
 
-    this.on("click", function (){
+    this.on("click", function () {
       var listChildren = $(this).parent().find(".list-children");
-      if( listChildren != null){
-        if( !listChildren.hasClass("expand") ){
+      if ( listChildren != null) {
+        if( !listChildren.hasClass("expand") ) {
           listChildren.fadeIn();
           listChildren.addClass("expand");
         }
-        else{
+        else {
           listChildren.fadeOut();
           listChildren.removeClass("expand");
           listChildren.addClass("collapsed");
@@ -95,7 +95,7 @@ $(document).ready(function (){
     this.on("click", function () {
       var listChildren = $(this).parent().find(".list-children");
       if( listChildren != null){
-        if( !listChildren.hasClass("expand") ){
+        if( !listChildren.hasClass("expand") ) {
           listChildren.fadeIn();
           listChildren.addClass("expand");
         }
