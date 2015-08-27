@@ -73,7 +73,7 @@ $(document).ready(function (){
   //================== new layout
 
   //expand reply
-  $.fn.discussionItemReply = function (){
+  $.fn.discussionItemReply = function () {
 
     this.on("click", function (){
       var listChildren = $(this).parent().find(".list-children");
@@ -88,11 +88,11 @@ $(document).ready(function (){
           listChildren.addClass("collapsed");
         }
       }
-      return this;
-    })
-  }
-  $.fn.notiItemReply = function (){
-    this.on("click", function (){
+    });
+    return this;
+  };
+  $.fn.notiItemReply = function () {
+    this.on("click", function () {
       var listChildren = $(this).parent().find(".list-children");
       if( listChildren != null){
         if( !listChildren.hasClass("expand") ){
@@ -105,26 +105,26 @@ $(document).ready(function (){
           listChildren.addClass("collapsed");
         }
       }
-      return this;
-    })
-  }
+    });
+    return this;
+  };
   $(".discussion-item-reply").discussionItemReply();
   $(".noti-item-reply").notiItemReply();
 
 
   // tab to show
-  $(".learning_tab").on("click", function (){
+  $(".learning_tab").on("click", function () {
 
     $(".tab-actived").removeClass("tab-actived");
     $(".progress-actived").removeClass("progress-actived");
     var tabValue = $(this).attr("val");
     var itemsProgress = $(this).parent().find(".progress").children();
 
-    var progress_actived = function (object){
+    var progress_actived = function (object) {
        $(object).addClass("progress-actived");
        $(object).fadeIn();
-    }
-    var effectActive = function (active, nonActive){
+    };
+    var effectActive = function (active, nonActive) {
 
       $(active).removeClass("collapsed");
       $(active).addClass("expand");
@@ -132,33 +132,33 @@ $(document).ready(function (){
       $(nonActive).fadeOut();
       $(nonActive).removeClass("expand");
       $(nonActive).addClass("collapsed");
-    }
+    };
     var tabActions = {
-      discussion : function (){
+      discussion : function () {
         progress_actived( itemsProgress[0]);
         effectActive(".discussion",".noti");
         return;
       },
-      noti : function (){
+      noti : function () {
         progress_actived( itemsProgress[1]);
         effectActive(".noti",".discussion");
         return;
       },
-      student : function (){
+      student : function () {
         progress_actived( itemsProgress[2]);
         return;
 
       },
-      default : function (){
+      default : function () {
         progress_actived( itemsProgress[0]);
         effectActive(".discussion",".noti");
         return;
       }
-    }
+    };
     // check exists
-    if ( tabValue in tabActions == false)
-    {
-      tabValue = "default"
+    if ( tabValue in tabActions == false) {
+
+      tabValue = "default";
     }
     tabActions[tabValue]();
 
