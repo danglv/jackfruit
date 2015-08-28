@@ -20,20 +20,18 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      payment = Payment.new(
-        :name => name,
-        :email => email,
-        :mobile => mobile,
-        :address => address,
-        :city => city,
-        :district => district,
+      payment = Payment.find_or_initialize_by(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD
       )
 
-      #generated cod code for user
-      payment.generate_cod_code
+      payment.name = name,
+      payment.email = email,
+      payment.mobile = mobile,
+      payment.address = address,
+      payment.city = city,
+      payment.district = district,
 
       if payment.save
         create_course_for_user()
@@ -53,6 +51,9 @@ class PaymentController < ApplicationController
       @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
       @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
     elsif request.method == 'POST'
+      # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
+      Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
+      
       payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
@@ -240,7 +241,9 @@ class PaymentController < ApplicationController
         current_user.money -= @course.price
 
         create_course_for_user()
-
+        # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
+        Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
+      
         payment = Payment.new(
           :course_id => @course.id,
           :user_id => current_user.id,
