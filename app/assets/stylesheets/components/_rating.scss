@@ -73,6 +73,14 @@
   left: 0;
 }
 
+/* 480 */
+
+@media (max-height: 320px) { 
+  .rating-popup {
+    position: absolute;
+    top: 80%;
+  }
+}
 
 /* 480 */
 @media (max-width: 320px) { 
