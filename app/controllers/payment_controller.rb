@@ -53,15 +53,27 @@ class PaymentController < ApplicationController
       @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
       @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
     elsif request.method == 'POST'
-      payment = Payment.create(
+      payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::ONLINE_PAYMENT
       )
 
-      create_course_for_user()
+      if payment.save
+        create_course_for_user()
+      else
+        render 'page_not_found', status: 404
+      end
 
       if payment_service_provider == 'baokim'
+
+        payment.name = params['payer_name']
+        payment.email = params['payer_email']
+        payment.address = params['payer_address']
+        payment.mobile = params['payer_phone_no']
+        
+        payment.save
+
         result = baokim.pay_by_card({
           'order_id' =>  payment.id.to_s,
           'bank_payment_method_id' => params['bank_payment_method_id'].to_i,
