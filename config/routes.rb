@@ -1,4 +1,6 @@
 Rails.application.routes.draw do  
+  get 'stencil/index'
+
   root to: "application#index"
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
@@ -41,10 +43,16 @@ Rails.application.routes.draw do
       get '/:id/pending', to: 'payment#pending'
       get '/:id/cancel', to: 'payment#cancel'
       get '/:id/error', to: 'payment#error'
+     
       # get '/:id/update', to: 'payment#update'
     end
   end
-
+  resources :payment, only: %w[] do
+    collection do
+      get :payment_history
+      get :payment_bill
+    end
+  end
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
   # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"

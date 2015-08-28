@@ -11,27 +11,30 @@
       margin-bottom: 20px;
     }
     .position {
-      margin-bottom: 5px;
+      margin-bottom: 5px !important;
       .text {
         font-size: 14px;
         color: #212121;
       }
     }
     .information {
-      margin-bottom: 15px;
+      margin-bottom: 15px !important;
     }
     .information-bill {
-      margin: 15px 0;
+      margin: 15px 0 !important;
       .purchase-for {
-        margin-bottom: 15px;
+        margin-bottom: 15px !important;
       }
     }
     .bill-detail {
-      margin: 15px 0;
+      margin: 15px 0 !important;
       font-size: 14px;
     }
     .support {
-      margin-top: 15px;
+      margin-top: 15px !important;
+      .support-text {
+        line-height: 24px;
+      }
     }
   }
   .payment-header {
@@ -42,6 +45,11 @@
     color: #fff;
     text-align: center;
     margin-bottom: 15px;
+    .title {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 500;
+    }
     &.fail {
       background-color: #ff4444;
     }
@@ -53,28 +61,46 @@
     }
   }
   .course-price {
-    border-bottom: 1px solid #acacac;
     height: 44px;
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
   }
   .coupon {
     border-bottom: 1px solid #acacac;
     height: 40px;
-    margin-bottom: 10px;
+    margin: 10px 0 !important;
   }
   .total-cost {
     font-weight: 700;
-    margin-bottom: 20px;
+    margin: 10px 0 15px 0 !important;
   }
   .payment-list {
     width: 100%;
     height: 48px;
-    text-transform: none;
-    text-align: left;
-    overflow: hidden;
+    .list-style {
+      padding: 10px 15px !important;
+      display: block;
+      float: left;
+      height: 48px;
+      .list-style-icon {
+        color: #727272;
+        width: 20px;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .list-style-text {
+        color: #212121;
+        font-size: 14px;
+        display: inline-block;
+      }
+    }
     &:hover {
       background-color: #338abc !important;
-      color: #fff;
+      box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15) !important;
+      .list-style {
+        .list-style-icon, .list-style-text {
+          color: #fff;
+        }
+      }
     }
     &.disable:hover{
       background: none;
@@ -84,7 +110,11 @@
   }
   .payment-list.active {
     background-color: #338abc !important;
-    color: #fff;
+    .list-style {
+      .list-style-icon, .list-style-text {
+        color: #fff;
+      }
+    }
   }
   .payment-card {
     width: 100%;
@@ -92,9 +122,18 @@
     padding: 20px 15px;
     color: #727272;
     text-transform: none;
+    .payment-card-icon {
+      color: #727272;
+    }
+    .payment-card-text {
+      color: #212121;
+    }
     &:hover {
       background-color: #338abc !important;
-      color: #fff ;
+      box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15) !important;
+      .payment-card-icon, .payment-card-text {
+        color: #fff;
+      }
     }
     &.disable:hover{
       background: none;
@@ -104,7 +143,9 @@
   }
   .payment-card.active {
     background-color: #338abc !important;
-    color: #fff;
+    .payment-card-icon, .payment-card-text {
+      color: #fff;
+    }
   }
   .payment-editor {
     margin-bottom: 20px;
@@ -119,12 +160,24 @@
       font-weight: bold;
     }
   }
+  .transfer-bank {
+    margin: 15px 0 25px 0 !important;
+  }
   .tranfer-information {
     text-indent: 40px;
   }
-  .tranfer-note {
-    list-style-type: disc;
-    list-style-position: inside;
+  .transfer-note {
+    margin-bottom: 25px !important;
+    .list-note {
+      list-style-type: disc;
+      list-style-position: inside;
+    }
+  }
+  .transfer-paypal {
+    margin-bottom: 25px !important;
+  }
+  .office-address {
+    margin-bottom: 25px !important;
   }
   .credit-card-button {
     border: 3px solid #ccc;

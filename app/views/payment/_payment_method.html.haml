@@ -2,75 +2,85 @@
 .payment-320
   .row.no-margin.payment-content{:class => [('active' if method == '')]}
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-      %h4 1. Lựa chọn hình thức thanh toán
+      %h4{:style => "font-weight: 400"} 1. Lựa chọn hình thức thanh toán
   .row.no-margin
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
-        .row
-          .col-xs-2.center-align
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
+        .row.no-margin.list-style
+          .list-style-icon
             %i.mdi-1x.mdi-action-shopping-cart
-          .col-xs-10.no-padding
+          .list-style-text
             %h5 Giao khóa học và thu tiền tận nơi
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
-        .row
-          .col-xs-2.center-align
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
+        .row.no-margin.list-style
+          .list-style-icon
             %i.mdi-1x.mdi-action-credit-card
-          .col-xs-10.no-padding
+          .list-style-text
             %h5 Thanh toán trực tuyến bằng thẻ ATM hoặc Visa/Master
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
-        .row
-          .col-xs-2.center-align
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
+        .row.no-margin.list-style
+          .list-style-icon
             %i.mdi-1x.mdi-image-style
-          .col-xs-10.no-padding
+          .list-style-text
             %h5 Thanh toán bằng thẻ cào điện thoại, thẻ game
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
-        .row
-          .col-xs-2.center-align  
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
+        .row.no-margin.list-style
+          .list-style-icon  
             %i.mdi-1x.mdi-communication-business
-          .col-xs-10.no-padding            
+          .list-style-text            
             %h5 Chuyển khoản qua ngân hàng
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
-        .row
-          .col-xs-2.center-align 
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
+        .row.no-margin.list-style
+          .list-style-icon 
             %i.mdi-1x.mdi-communication-location-on
-          .col-xs-10.no-padding
+          .list-style-text 
             %h5 Thanh toán trực tiếp tại văn phòng Pedia
 / Màn hình từ 480px trở lên
 .payment-480-up
   .row.no-margin.payment-content{:class => [('active' if method == '')]}
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-      %h4 1. Lựa chọn hình thức thanh toán
+      %h4{:style => "font-weight: 400"} 1. Lựa chọn hình thức thanh toán
   .row.no-margin.payment-content.center-align
     .col-xs-6.col-sm-4.col-md-3.col-lg-2.col-lg-offset-1
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
-        %i.mdi-2x.mdi-action-shopping-cart
-        %h5 Giao khóa học
-        %h5 và thu tiền tận nơi
+        .payment-card-icon
+          %i.mdi-2x.mdi-action-shopping-cart
+        .payment-card-text
+          %h5 Giao khóa học
+          %h5 và thu tiền tận nơi
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
-        %i.mdi-2x.mdi-action-credit-card
-        %h5 Thanh toán trực
-        %h5 tuyến bằng thẻ ATM
-        %h5 hoặc Visa/Master
+        .payment-card-icon
+          %i.mdi-2x.mdi-action-credit-card
+        .payment-card-text
+          %h5 Thanh toán trực
+          %h5 tuyến bằng thẻ ATM
+          %h5 hoặc Visa/Master
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
-        %i.mdi-2x.mdi-image-style
-        %h5 Thanh toán bằng 
-        %h5 thẻ điện thoại 
-        %h5 thẻ game
+        .payment-card-icon
+          %i.mdi-2x.mdi-image-style
+        .payment-card-text
+          %h5 Thanh toán bằng 
+          %h5 thẻ điện thoại 
+          %h5 thẻ game
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
-        %i.mdi-2x.mdi-communication-business
-        %h5 Chuyển khoản
-        %h5 qua ngân hàng
+        .payment-card-icon
+          %i.mdi-2x.mdi-communication-business
+        .payment-card-text
+          %h5 Chuyển khoản
+          %h5 qua ngân hàng
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
-        %i.mdi-2x.mdi-communication-location-on
-        %h5 Thanh toán trực tiếp
-        %h5 tại văn phòng
-        %h5 Pedia
+        .payment-card-icon
+          %i.mdi-2x.mdi-communication-location-on
+        .payment-card-text
+          %h5 Thanh toán trực tiếp
+          %h5 tại văn phòng
+          %h5 Pedia
   

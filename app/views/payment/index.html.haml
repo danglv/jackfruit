@@ -5,20 +5,21 @@
   .p-container
     .row.no-margin.course-price
       .col-xs-8.col-sm-5.col-md-4.col-lg-3.no-padding
-        %span Kĩ năng thuyết trình và nói trước công chúng
+        %span.normal-text Kĩ năng thuyết trình và nói trước công chúng
       .col-xs-3.col-xs-offset-1.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
-        %span.pull-right 300.000 VNĐ
+        %span.normal-text.pull-right 300.000 VNĐ
+    .divider
     .row.no-margin.coupon
       .col-xs-7.col-sm-3.col-md-3.col-lg-2.no-padding
         %input.form-control{:placeholder => "Nhập mã coupon ở đây", :type => "text"}
     .row.no-margin.total-cost
       .col-xs-3.col-sm-5.col-md-4.col-lg-3.no-padding
-        %span Thành tiền
+        %span.normal-text Thành tiền
       .col-xs-3.col-xs-offset-6.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
-        %span.pull-right 300.000 VNĐ
+        %span.normal-text.pull-right 300.000 VNĐ
     .row.no-margin
       = render 'payment_method', method: ''
     .row.payment-content.no-margin
-      %h4 2. Hoàn tất thanh toán
-      .col-xs-12{:style => "color: #727272; margin-bottom: 15px;"} Bạn chưa lựa chọn hình thức thanh toán nào
+      %h4{:style => "font-weight: 500;"} 2. Hoàn tất thanh toán
+      .col-xs-12.normal-text Bạn chưa lựa chọn hình thức thanh toán nào
     

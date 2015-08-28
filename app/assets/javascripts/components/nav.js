@@ -1,29 +1,54 @@
-(function ($){
+(function ($) {
 
-  $.fn.sliderDropdown = function (){
-    this.click(function (){
+  $.fn.sliderDropdown = function () {
+    var activator = this;
+
+    this.click(function () {
 
       // get pushedContainer and content 
-      var pushedContainer = $( $(this).attr("data-pushed-container"));
-      var dropdownContainer = $( $(this).attr("data-dropdown-container") );
+      var dropdownContainer = $($(this).attr("data-dropdown-container"));
       //  prepend content into pushedContainer
-      dropdownContainer.css({"float":"left"});
-      pushedContainer.parent().prepend(dropdownContainer);
+      dropdownContainer.css({
+        "float": "left"
+      });
       // show or hide slide
-      if(dropdownContainer.css("display") == "none"){
+      var isOpen = activator.parent().attr('class').indexOf('open') >= 0;
 
-        dropdownContainer.css({"margin-left": "-" + dropdownContainer.width() + "px"})
-        dropdownContainer.css({"display":"block"});
-        dropdownContainer.animate({"margin-left": "0px"},150);
-        pushedContainer.animate({"margin-left": (dropdownContainer.width() - 30) + "px"},150);
+      if (isOpen) {
+        dropdownContainer.animate({
+          "margin-left": "-" + dropdownContainer.width() + "px",
+        }, {
+          "duration": 200,
+          "done": function () {
+            activator.parent().removeClass('open');
+          }
+        });
 
+        dropdownContainer.removeClass('open');
+      } else {
+        dropdownContainer.animate({
+          "margin-left": "0px"
+        }, {
+          "duration": 200,
+          "done": function () {
+            activator.parent().addClass('open');
+            activator.parent().find('.dropdown-backdrop').click(function () {
+              dropdownContainer.animate({
+                "margin-left": "-" + dropdownContainer.width() + "px",
+              }, {
+                "duration": 200,
+                "done": function () {
+                  activator.parent().removeClass('open');
+                }
+              });
+
+              dropdownContainer.removeClass('open');
+            });
+          }
+        });
       }
-      else{
-        pushedContainer.animate({"margin-left":"0px"},150);
-        dropdownContainer.animate({"margin-left": "-" + dropdownContainer.width() + "px"},150);
-        dropdownContainer.css({"display":"none"});
-      }
-      return this;
     });
-  }
+
+    return this;
+  };
 }(jQuery));

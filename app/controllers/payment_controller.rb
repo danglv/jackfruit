@@ -160,6 +160,17 @@ class PaymentController < ApplicationController
   def error
   end
 
+  # GET
+  def payment_history
+
+    # render json: {:message => "Payment History"}
+  end
+
+  # GET
+  def payment_bill
+    # render json: {:message => "Payment History"}
+  end
+
   # POST
   def import_code
     cod_code = params[:cod_code]

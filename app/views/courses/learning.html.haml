@@ -1,179 +1,437 @@
-%header
- = render :partial => 'layouts/header'
- = render :partial => 'components/side_nav'
+.row.learning.no-padding.no-margin
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin.learning-header
+    .row.learning-header-container
+      %span.course-name User Experience of Web Design
+      .rating
+        %ul
+          %li
+            %i.mdi-action-grade.rated
+          %li
+            %i.mdi-action-grade.rated
+          %li
+            %i.mdi-action-grade.rated
+          %li
+            %i.mdi-action-grade.rated
+          %li
+            %i.mdi-action-grade
+          %li 
+            %a.rate-it Rate it
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
+    .row.learning-container
+      .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.list-lecture
+        .row.no-margin.lecture-header
+          %ul 
+            %li
+              %span.glyphicon.glyphicon-play
+            %li
+              .lecture-header-content
+                %p.no-margin.lecture-header-index Bài giảng 1:
+                %p.no-margin.lecture-header-name Starting Threads
+                %p.no-margin.lecture-header-time 09:58 phút
+        .row.no-margin.lecture-progress
+          .row.no-margin.progress-title
+            %ul.progress-title-content
+              %li.progress-title-item Bạn đã hoàn thành 
+              %li.progress-title-item.bold 4
+              %li.progress-title-item trên
+              %li.progress-title-item.bold 9
+              %li.progress-title-item bài giảng
+          .row.trophy
+            = image_tag 'learning/trophy.png'
+          .row.no-margin.progress-container
+            .progress
+              .progress-bar{:style => "width:59.99%;"}
+            .progress-finish
+              .finish
 
-%banner
- .row
-  .col.s12
-   - if !@banner.blank?
-    - if @banner.location == 'header'
-     - if @banner.type == 'image'
-      = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-     - if @banner.type == 'popup'
-      = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-
-%main.lecture-detail{:style => "background: #e9e9e9"}
- .row.header.no-padding
-  .row.header-container.container-1140.no-padding
-   .col.s11
-    %span.title.fix-height{:style => 'font-weight: 500; font-size: 24px'}= @course.name
-   .col.s1
-    .col.s5.no-padding 
-     %i.small.material-icons.white-text.no-padding{:style => "margin-top:10px;"} group 
-    .col.s5
-     %span.count= " " + @course.students.to_s
- .row.lecture-content
-  .col.s6
-   .row.lecture-content-header
-    - @indexLecture = 0
-    - @index = @owned_course.lectures.where(lecture_ratio: 100).count
-    - @count = @course.curriculums.where(type: "lecture").count
-    %a{:href => '/courses/'+@course.alias_name+'/lecture/0'}
-     .col.s2
-      %i.medium.material-icons.white-text{:style => "margin-top:10px; width:42px; height:42px"} play_circle_filled
-     .col.s10
-      .row.no-padding
-       %p{:style => "font-size: 12px"} Bài giảng 1:
-       - if @course.curriculums[0].type == 'chapter'
-        %p{:style => "font-size: 16px; font-weight: 500"}= @course.curriculums[1].title
-        %p{:style => "font-size: 12px"}= @course.curriculums[1].description   
-       - else
-        %p{:style => "font-size: 16px"}= @course.curriculums[0].title
-        %p{:style => "font-size: 12px"}= @course.curriculums[0].description   
-   .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
-   .row.progress{:style => "height:5px;background:#b6b6b6"}
-    .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
-   .row
-    .col.s12.list-lecture.no-padding
-     - have_chapter = @course.curriculums.where(type: "chapter").count == 0
-     - if have_chapter
-      - @course.curriculums.where(type: "lecture").each do |lecture|
-       - @indexLecture += 1
-       - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
-       .col.s12.lecture-list-items
-        %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-         .row.no-margin
-          .col.s1
-           -if owned_lecture.status == 0
-            .row.icon.locked
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-           -else
-            -if owned_lecture.status == 1
-             .row.icon.learning
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-            -else
-             -if owned_lecture.status == 2
-              .row.icon.completed
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-          .col.s10.no-padding.item-data
-           %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-           .row.detail
-            - if lecture.asset_type == "Video"
-             .col.s3.offset-s6.icon-video-type.no-padding
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-             .col.s9.no-padding= lecture.description
-            - else
-             .col.s3.offset-s6.icon-document-type.no-padding
-              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-             .col.s9.no-padding Văn bản
-     - else
-      - @course.curriculums.each do |curriculum|
-       - if curriculum.type == 'chapter'
-        .row.lecture-chap.no-margin
-         .col.s12.lecture-chap-title= curriculum.title
-         .col.s12.lecture-list-items
-          - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-           - @indexLecture += 1
-           - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
-           %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-            .row.no-margin
-             .col.s1
-              -if owned_lecture.status == 0
-               .row.icon.locked
-                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-              -else
-               -if owned_lecture.status == 1
-                .row.icon.learning
-                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-               -else
-                -if owned_lecture.status == 2
-                 .row.icon.completed
-                  %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-             .col.s10.no-padding.item-data
-              %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-              .row.detail
-               - if lecture.asset_type == "Video"
-                .col.s3.offset-s6.icon-video-type.no-padding
-                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-                .col.s9.no-padding= lecture.description
-               - else
-                .col.s3.offset-s6.icon-document-type.no-padding
-                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-                .col.s9.no-padding Văn bản
-  .col.s6.lecture-comment
-   .row.lecture-comment-title 
-    %span.bold{:style => 'font-weight: 500; font-size: 18px'} Thảo luận
-   .row.lecture-comment-tool
-    %ul
-     %li
-      %input.search#search-comment{:placeholder => "Tìm thảo luận", :type => "text"}
-     %li
-      %span.or hoặc
-     %li
-      %a.waves-effect.waves-light.add_comment.dropdown-button.btn{"data-activates" => "comment-dropdown", :href => "#"} Thêm thảo luận
-      %ul#comment-dropdown.dropdown-content
-       .row.header.valign-wrapper{:style => "height: 40px; font-size: 18px;background-color: #eee;margin: 0"}
-        .col.s12
-         %span{:style => "color: #333"} Thêm thảo luận mới
-       .row{:style => "margin: 0"}
-        %input#course-id{:type => "hidden", :value => @course._id}
-        .input-field.col.s12
-         %input#comment-title.validate{:type => "text", :style => "margin-bottom: 10px"}
-          %label.active{:for => "comment-title"} Tên chủ đề
-       .row
-        .input-field.col.s12
-         %textarea#comment-content.materialize-textarea{:type => "text"}
-         %label{:for => "comment-content"} Nội dung
-       .row.footer{:style => "height: 30px"}
-        .col.s12
-         %a#close-send-comment.btn-flat.left Thoát
-         %a#send-comment.btn.right Đăng
-   .row.lecture-comment-list
-    - @course.discussions.each do |discussion|
-     - if discussion.user
-      .col.s12.no-padding.cm-item
-       .row.cm-item-header.no-margin
-        %ul.no-margin
-         %li
-          %i.small.material-icons.no-padding face
-         %li{:style => 'margin-left: 5px'}
-          - if discussion.user.name
-           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.name 
-          - else 
-           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.email
-          %p.left{:style => 'font-weight: 500; color: #335d82; font-size: 12px; margin-left: 5px'}= " đã đăng một thảo luận"
-         %li
-         // %p -
-         %li 
-          //%p 1 tháng trước 
-       .row.cm-item-content
-        %p.no-margin{:style => 'font-size: 18px; font-weight: 500; color: #59657D'}= discussion.title
-        %p{:style => 'margin: 0px 0px 0px 0px'}= discussion.description
-       / .row.cm-item-footer.no-margin
-       /  %ul
-       /   %li
-       /    //%p Hãy là người đầu tiên trả lời
-       /   %li
-       /    //%p -
-       /   %li
-       /    //%i.tiny.material-icons.no-padding.unliked thumb_up
-       /   %li
-       /   // %p= "Thích ("+discussion.status.to_s+")"
-       /   %li
-       /    //%p - 
-       /   %li 
-       /    //%p Theo dõi (1 người theo dõi)
-       /   %li
-       /    //%P -
-       /   %li
-       /    //%i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem
+        .row.no-margin.list-lecture-container
+          .row.chap-title Chương 1: My First Section
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                / completed
+                / learning
+                / none
+                / glyphicon glyphicon-ok
+                /glyphicon glyphicon-pencil
+                .status-container.completed
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.learning
+                  %span.glyphicon.glyphicon-pencil
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span Văn bản
+                      %li
+                        %a{:href => "#"}  
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-title Chương 1: My First Section
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                / completed
+                / learning
+                / none
+                / glyphicon glyphicon-ok
+                /glyphicon glyphicon-pencil
+                .status-container.completed
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.learning
+                  %span.glyphicon.glyphicon-pencil
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span Văn bản
+                      %li
+                        %a{:href => "#"}  
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %span.glyphicon.glyphicon-ok
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
+                .row.no-margin
+                  .row.no-margin.type-video
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-play
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %span.glyphicon.glyphicon-download-alt
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document         
+      .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.lecture-discussion
+        .row.no-margin
+          .col-md-4.col-lg-4.learning_tab.tab-actived{:val => "discussion"}
+            %a{:href => "#tab1"}
+              %i.mdi-communication-forum
+              %span Thảo luận 
+          .col-md-4.col-lg-4.learning_tab{:val => "noti"}
+            %a{:href => "#tab2"}
+              %span.glyphicon.glyphicon-bullhorn
+              %span Thông báo 
+          .col-md-4.col-lg-4.learning_tab{:val => "student"}
+            %a
+              %span.glyphicon.glyphicon-user 
+              %span 9999 Học viên 
+          .col-md-12.col-lg-12.no-padding.progress
+            .col-md-4.col-lg-4.progress-actived
+            .col-md-4.col-lg-4
+            .col-md-4.col-lg-4
+        .row.no-margin.discussion
+          .row.no-margin
+            .col-md-8.col-lg-8.no-padding.search
+              %input.form-control{:placeholder => "Tìm kiếm thảo luận"}
+              %span.glyphicon.glyphicon-search
+            .col-md-4.col-lg-4.no-padding
+              .btn.btn-primary Đăng thảo luận mới 
+          .row.no-margin.list-discussion
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.mdi-editor-insert-emoticon
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold ThanhNguyễn
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  Please do something
+                %p.discussion-item-content
+                  The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                %a.discussion-item-reply Phản hồi (1)
+                .row.no-margin.list-children.collapsed
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.no-margin 
+                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                      %input.form-control{:placeholder => "Phản hồi của bạn"}       
+                      .btn.btn-primary Gửi phản hồi 
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.mdi-editor-insert-emoticon
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold ThanhNguyễn
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  Please do something
+                %p.discussion-item-content
+                  The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                %a.discussion-item-reply Phản hồi (2)
+                .row.no-margin.list-children.collapsed
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.no-margin 
+                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                      %input.form-control{:placeholder => "Phản hồi của bạn"}       
+                      .btn.btn-primary Gửi phản hồi 
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.mdi-editor-insert-emoticon
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold ThanhNguyễn
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  Please do something
+                %p.discussion-item-content
+                  The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                %a.discussion-item-reply Phản hồi (3)
+                .row.no-margin.list-children.collapsed
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.no-margin 
+                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                      %input.form-control{:placeholder => "Phản hồi của bạn"}       
+                      .btn.btn-primary Gửi phản hồi 
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.mdi-editor-insert-emoticon
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold ThanhNguyễn
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  Please do something
+                %p.discussion-item-content
+                  The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                %a.discussion-item-reply Phản hồi (4)
+                .row.no-margin.list-children.collapsed
+                  .row.no-margin 
+                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                      %input.form-control{:placeholder => "Phản hồi của bạn"}       
+                      .btn.btn-primary Gửi phản hồi 
+        .row.no-margin.noti.collapsed
+          .row.no-margin.list-noti
+            .row.noti-item.no-margin
+              .col-md-1.col-lg-1.no-padding.noti-item-avatar
+                %i.mdi-editor-insert-emoticon
+              .col-md-11.col-lg-11.no-padding.noti-item-main
+                %ul.noti-item-title
+                  %li.bold ThanhNguyễn
+                  %li đã đăng 1 thông báo - 2 tháng trước 
+                %span.noti-item-subject 
+                  Please do something
+                %p.noti-item-content
+                  The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                %a.noti-item-reply Bình luận (1)
+                .row.no-margin.list-children.collapsed
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.child-item.no-margin
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.child-item-main
+                      %ul.child-item-title
+                        %li.bold ThanhNguyễn
+                        %li - 2 tháng trước 
+                      %span.child-item-subject 
+                        Please do something
+                      %p.child-item-content
+                        The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                  .row.no-margin 
+                    .col-md-1.col-lg-1.no-padding.child-item-avatar
+                      %i.mdi-editor-insert-emoticon
+                    .col-md-11.col-lg-11.no-padding.send-reply
+                      %input.form-control{:placeholder => "Bình luận của bạn"}       
+                      .btn.btn-primary Gửi bình luận 
+          
