@@ -539,7 +539,9 @@
     &-container {
       .list-lecture {
         &-container {
-
+          .chap-title {
+            margin: 0px -15px;
+          }
           .chap-item {
             margin: 0px -15px;
             .item-container {
@@ -574,6 +576,9 @@
     &-container {
       .list-lecture {
         &-container {
+          .chap-title {
+            margin: 0px;
+          }
           .chap-item {
             margin: 0px ;
             .item-container {
