@@ -529,6 +529,7 @@
     &-container {
       .list-lecture {
         &-container {
+
           .chap-item {
             margin: 0px -15px;
             .item-container {
@@ -578,6 +579,9 @@
 @media (min-width: 992px) { 
   .learning {
     &-container {
+      .list-lecture {
+        margin: 0px;
+      }
       .lecture-discussion{
         display: block;
       }

@@ -69,3 +69,17 @@
   right: 0;
   left: 0;
 }
+
+
+/* 480 */
+@media (max-width: 320px) { 
+  .rating-popup {
+    width: 100%;
+  }
+}
+   /* 768*/
+@media (max-width: 768px) { 
+   .rating-popup {
+     width: calc(100% - 60px);
+  }
+}
