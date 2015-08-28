@@ -47,10 +47,10 @@
           margin-left: 5px;
           cursor: pointer;
         }
-        .mdi-action-grade, a {
+        .fa-star, a {
           line-height: 30px;
         }
-        .mdi-action-grade {
+        .fa-star {
            color: #b6b6b6;
            font-size: 18px;
         }
@@ -126,7 +126,9 @@
         }
         .trophy {
           text-align: right;
-          margin: 5px 0px;
+          margin: 2px 0px;
+          font-size: 20px;
+          color: #b6b6b6
         }
         .progress-container {
 
@@ -228,7 +230,7 @@
               .fa-download {
                 color: #727272
               }
-              .mdi-communication-forum {
+              .fa-comments {
                 color: #727272;
                 font-size: 16px;
                 line-height: 22px;
@@ -526,6 +528,14 @@
    /* 320*/
 @media (min-width: 320px) { 
   .learning {
+    &-header {
+      &-container {
+        .course-name {
+          max-width: 100px;
+          float: left;
+        }
+      }
+    }
     &-container {
       .list-lecture {
         &-container {
@@ -554,6 +564,13 @@
 /* 480 */
 @media (min-width: 480px) { 
   .learning {
+    &-header {
+      &-container {
+        .course-name {
+          max-width: none;
+        }
+      }
+    }
     &-container {
       .list-lecture {
         &-container {
