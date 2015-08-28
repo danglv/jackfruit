@@ -16,7 +16,6 @@
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
-//= require components/profile
 
 $.material.init();
 
