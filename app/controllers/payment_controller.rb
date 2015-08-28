@@ -20,7 +20,7 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      payment = Payment.create(
+      payment = Payment.new(
         :name => name,
         :email => email,
         :mobile => mobile,
@@ -35,9 +35,12 @@ class PaymentController < ApplicationController
       #generated cod code for user
       payment.generate_cod_code
 
-      create_course_for_user()
-
-      redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+      if payment.save
+        create_course_for_user()
+        redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+      else
+        render 'page_not_found', status: 404
+      end
     end
   end
 
