@@ -14,6 +14,9 @@
 
   background-color: #f4f3f2;
   padding: 0px 15px;
+  a {
+    text-decoration: none;
+  }
   .collapsed {
     display: none;
   }
@@ -25,7 +28,7 @@
     background: #727272;
     &-container {
       margin: 0px 15px;
-      .rating {
+      .rating-container {
         width: 153px;
         height: 30px;
         margin-top: 10px;
@@ -42,11 +45,12 @@
         }
         .rate-it {
           margin-left: 5px;
+          cursor: pointer;
         }
-        .mdi-action-grade, a {
+        .fa-star, a {
           line-height: 30px;
         }
-        .mdi-action-grade {
+        .fa-star {
            color: #b6b6b6;
            font-size: 18px;
         }
@@ -80,14 +84,12 @@
         &-name {
           font-size: 16px;
         }
-        .glyphicon-play {
+        .fa-play-circle {
+          color: #ffffff;
           height: 40px;
           width: 40px;
-          background-color: white;
-          border-radius: 40px;
-          text-align: center;
           line-height: 40px;
-          font-size: 22px;
+          font-size: 40px;
           text-indent: 4px;
           margin: 20px;
         }
@@ -124,7 +126,9 @@
         }
         .trophy {
           text-align: right;
-          margin: 5px 0px;
+          margin: 2px 0px;
+          font-size: 20px;
+          color: #b6b6b6
         }
         .progress-container {
 
@@ -217,23 +221,16 @@
                 color: #212121
               }
               .type-video, .type-document {
-
+                margin: 3px 0px 0px 0px;
               }
-              .glyphicon-play {
-                width: 14px;
-                height: 14px;
-                border-radius: 14px;
-                background-color: #727272;
-                color: #fff;
-                font-size: 8px;
-                text-align: center;
-                line-height: 14px;
-                margin-left: 3px;
+              .fa-play-circle {
+               color: #727272;
+               font-size: 16px;
               }
-              .glyphicon-download-alt {
+              .fa-download {
                 color: #727272
               }
-              .mdi-communication-forum {
+              .fa-comments {
                 color: #727272;
                 font-size: 16px;
                 line-height: 22px;
@@ -271,7 +268,7 @@
         height: 5px;
         margin: 0px;
       }
-      .tab {
+      .learning_tab {
         text-align: center;
       }
       .btn-primary {
@@ -286,8 +283,9 @@
         padding: 0px;
       }
       .discussion {
-        .glyphicon-search {
+        .fa-search {
           position: absolute;
+          top: 0px;
           right: 0px;
         }
         .search {
@@ -327,7 +325,7 @@
             width: 100%;
             font-size: 16px;
             color: #727272;
-            font-weight: bold;
+            font-weight: 500;
           }
           &-reply {
             color: #338abc;
@@ -392,12 +390,13 @@
               height: 100%;
             }
             .btn-primary {
-             position: absolute;
-             top: -8px;
-             right: 0px;
-             width: 109px;
-             padding: 0px;
-             line-height: 40px;
+              position: absolute;
+              top: -1px;
+              right: 0px;
+              width: 101px;
+              padding: 0px;
+              line-height: 31px;
+              font-size: 13px;
 
             }
           }
@@ -529,9 +528,23 @@
    /* 320*/
 @media (min-width: 320px) { 
   .learning {
+    &-header {
+      &-container {
+        .course-name {
+          width: calc(100% - 155px);
+          float: left;
+          white-space: nowrap;
+          overflow:hidden !important;
+          text-overflow: ellipsis;
+        }
+      }
+    }
     &-container {
       .list-lecture {
         &-container {
+          .chap-title {
+            margin: 0px -15px;
+          }
           .chap-item {
             margin: 0px -15px;
             .item-container {
@@ -556,9 +569,19 @@
 /* 480 */
 @media (min-width: 480px) { 
   .learning {
+    &-header {
+      &-container {
+        .course-name {
+          width: auto;
+        }
+      }
+    }
     &-container {
       .list-lecture {
         &-container {
+          .chap-title {
+            margin: 0px;
+          }
           .chap-item {
             margin: 0px ;
             .item-container {
@@ -581,6 +604,9 @@
 @media (min-width: 992px) { 
   .learning {
     &-container {
+      .list-lecture {
+        margin: 0px;
+      }
       .lecture-discussion{
         display: block;
       }
