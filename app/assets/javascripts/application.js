@@ -16,7 +16,9 @@
 //= require bootstrap-sass/assets/javascripts/bootstrap
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
-//= require ./components/learning.js
+
+//= require components/learning.js
+//= require components/rating.js
 //= require ./components/nav
 
 $(document).ready(function () {
@@ -25,6 +27,7 @@ $(document).ready(function () {
   $.material.input();
   $('.active-nav').sliderDropdown();
 });
+
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
