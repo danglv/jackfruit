@@ -45,6 +45,7 @@
         }
         .rate-it {
           margin-left: 5px;
+          cursor: pointer;
         }
         .mdi-action-grade, a {
           line-height: 30px;
@@ -83,14 +84,12 @@
         &-name {
           font-size: 16px;
         }
-        .glyphicon-play {
+        .fa-play-circle {
+          color: #ffffff;
           height: 40px;
           width: 40px;
-          background-color: white;
-          border-radius: 40px;
-          text-align: center;
           line-height: 40px;
-          font-size: 22px;
+          font-size: 40px;
           text-indent: 4px;
           margin: 20px;
         }
@@ -220,20 +219,13 @@
                 color: #212121
               }
               .type-video, .type-document {
-
+                margin: 3px 0px 0px 0px;
               }
-              .glyphicon-play {
-                width: 14px;
-                height: 14px;
-                border-radius: 14px;
-                background-color: #727272;
-                color: #fff;
-                font-size: 8px;
-                text-align: center;
-                line-height: 14px;
-                margin-left: 3px;
+              .fa-play-circle {
+               color: #727272;
+               font-size: 16px;
               }
-              .glyphicon-download-alt {
+              .fa-download {
                 color: #727272
               }
               .mdi-communication-forum {
@@ -289,8 +281,9 @@
         padding: 0px;
       }
       .discussion {
-        .glyphicon-search {
+        .fa-search {
           position: absolute;
+          top: 0px;
           right: 0px;
         }
         .search {
