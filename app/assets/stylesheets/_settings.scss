@@ -20,4 +20,7 @@
   border-style: inset;
   border-width: 1px;
   color: #b6b6b6;
+  &.bold {
+    color: #212121;
+  }
 }

@@ -1,4 +1,39 @@
 .payment{
+  &-box {
+    background-color: #fff;
+  }
+  &-bill {
+    margin-top: 25px;
+    .title {
+      font-size: 36px;
+      color: #212121;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .position {
+      margin-bottom: 5px;
+      .text {
+        font-size: 14px;
+        color: #212121;
+      }
+    }
+    .information {
+      margin-bottom: 15px;
+    }
+    .information-bill {
+      margin: 15px 0;
+      .purchase-for {
+        margin-bottom: 15px;
+      }
+    }
+    .bill-detail {
+      margin: 15px 0;
+      font-size: 14px;
+    }
+    .support {
+      margin-top: 15px;
+    }
+  }
   .payment-header {
     height: 46px;
     background-color: #38b34a;
@@ -12,6 +47,9 @@
     }
     &.pending {
       background-color: #ffbb33;
+    }
+    &.success {
+      background-color: #38b34a;
     }
   }
   .course-price {
@@ -106,6 +144,9 @@
   }
   .pending-text {
     color: #ffbb33;
+  }
+  .success-text {
+    color: #38b34a;
   }
   .price-text {
     color: #009688;

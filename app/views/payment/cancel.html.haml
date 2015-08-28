@@ -1,13 +1,13 @@
 / Màn hình từ 320px
 .payment-320
-  .payment
+  .payment.payment-box
     .row.no-margin
       .col-xs-12.no-padding
         .payment-header.fail
           %span.title
             %b Rất tiếc! Giao dịch của bạn chưa thành công
     .p-container
-      .row.no-margin{:style => "margin-bottom: 30px;"}
+      .row.no-margin{:style => "margin-bottom: 5px;"}
         .col-xs-12.no-padding
           %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin
       .row.no-margin
@@ -47,14 +47,14 @@
             %span.other-course-text khám phá các khóa học khác
 / Màn hình từ 480px đến 767px         
 .payment-480-up.hidden-sm.hidden-md.hidden-lg
-  .payment
+  .payment.payment-box
     .row.no-margin
       .col-xs-12.no-padding
         .payment-header.fail
           %span.title
             %b Rất tiếc! Giao dịch của bạn chưa thành công
     .p-container
-      .row.no-margin{:style => "margin-bottom: 30px;"}
+      .row.no-margin{:style => "margin-bottom: 5px;"}
         .col-xs-12.no-padding
           %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
       .row.no-margin
@@ -94,7 +94,7 @@
 / Màn hình từ 768px trở lên   
 .row.no-margin
   .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
-    .payment.hidden-xs{:style => "margin-top: 30px;"}
+    .payment.payment-box.hidden-xs{:style => "margin-top: 5px;"}
       .row.no-margin
         .col-sm-12.col-md-12.col-lg-12.no-padding
           .payment-header.fail

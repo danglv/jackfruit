@@ -1,96 +1,181 @@
-/ Màn hình từ 320px
 .payment-320
-  %main.payment
-    .row.no-margin
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-        = render :partial => 'payment/header_payment'
+  .payment.payment-bill
     .p-container
-      = render 'payment_method', method: 'transfer'
-      .row.payment-content.active.no-margin
-        %h4 2. Hoàn tất thanh toán
-        .col-xs-12.no-padding{:style => "color: #ff5722; margin-bottom: 15px;"}
-          %h5 Chuyển khoản ngân hàng
-      .row.no-margin{:style => "margin-bottom: 15px;"}
-        .col-xs-12.no-padding Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
-        .row.no-margin
-          .col-xs-12.no-padding
-            %div.tranfer-information
-              Số tài khoản: 
-              %b 67664288
-            %div.tranfer-information
-              Chủ tài khoản: 
-              %b Lê Đức Bình
-            %div.tranfer-information
-              Ngân hàng: 
-              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
-      .row.no-margin{:style => "margin-bottom: 15px;"}
-        .col-xs-12.no-padding
-          %u Ghi chú khi chuyển khoản
-        .col-xs-12.no-padding
-          %ul.col-xs-12.no-padding.no-margin
-            %li.tranfer-note Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-            %li.tranfer-note Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
-      .row.no-margin{:style => "margin-bottom: 15px;"}
-        .col-xs-12.no-padding{:style => "color: #ff5722"} Chuyển tiền qua Paypal
-      .row.no-margin{:style => "margin-bottom: 15px;"}
-        .col-xs-12.no-padding
-          %div.tranfer-information
-            Địa chỉ email nhận tiền:
-            = succeed "." do 
-              %b minh@deltaviet.com. 
-            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-          %div.tranfer-information
-            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
-      .row.no-margin{:style => "margin-bottom: 100px;"}
-        .col-xs-12.no-padding
-          %div
-          Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
-/ Màn hình từ 480px trở lên          
-.payment-480-up 
-  %main.payment
-    .row.no-margin
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-        = render :partial => 'payment/header_payment', status: ''
+      .row.no-margin
+        %span.title Pedia
+      .row.no-margin.position
+        %h5.text Tầng 5, Tòa nhà Topica
+        %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+        %h5.text pedia.vn
+      .row.no-margin.information
+        %h5
+          %b Ngày xuất:
+          21-08-2015
+        %h5
+          %b Hóa đơn số:
+          21-08-2015
+      .divider
+      .row.no-margin.information-bill
+        %h5.purchase-for
+          %b Thanh toán cho: 
+          Thảo My Ăn Cứt
+        %h5.coupon-code
+          %b Coupon Code:
+          NGOCDEPTRAI141
+      .divider
+      .row.no-margin.bill-detail
+        %h5
+          %b Khóa học: 
+          Làm thế nào để Thảo My Ăn Cứt
+        %h5
+          %b Ngày thanh toán:
+          18-05-2015
+        %h5
+          %b Số lượng:
+          1
+        %h5
+          %b Đơn giá:
+          200.000 VNĐ
+        %h5
+          %b Thành tiền:
+          200.000 VNĐ
+      .divider
+      .row.no-margin.support
+        %h5{:style => "color: #212121"}
+          Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
+          %a{:href => "#"} hotro@pedia.vn
+.payment-480-up.hidden-sm.hidden-md.hidden-lg  
+  .payment.payment-bill
     .p-container
-      = render 'payment_method', method: 'transfer'
-      .row.payment-content.active.no-margin
-        %h4 2. Hoàn tất thanh toán
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "color: #ff5722; margin-bottom: 15px;"}
-          %h5 Chuyển khoản ngân hàng
-      .row.no-margin{:style => "margin-bottom: 15px;"}
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
-        .row.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            %div.tranfer-information
-              Số tài khoản: 
-              %b 67664288
-            %div.tranfer-information
-              Chủ tài khoản: 
-              %b Lê Đức Bình
-            %div.tranfer-information
-              Ngân hàng: 
-              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
-      .row.no-margin{:style => "margin-bottom: 15px;"}
+      .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %u Ghi chú khi chuyển khoản
+          %span.title Pedia
+      .row.no-margin.bill-detail
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %ul.col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
-            %li.tranfer-note Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-            %li.tranfer-note Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
-      .row.no-margin{:style => "margin-bottom: 5px;"}
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "color: #ff5722"}
-          %h5 Chuyển tiền qua Paypal
-      .row.no-margin{:style => "margin-bottom: 15px;"}
+          .row.no-margin
+            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text Tầng 5, Tòa nhà Topica
+            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Ngày xuất:
+                21-08-2015
+          .row.no-margin
+            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Hóa đơn số:
+          .row.no-margin
+            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text pedia.vn
+            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5 PDIANMAFVKWN1241542543
+                
+      .divider
+      .row.no-margin.bill-detail
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %div.tranfer-information
-            Địa chỉ email nhận tiền:
-            = succeed "." do 
-              %b minh@deltaviet.com. 
-            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-          %div.tranfer-information
-            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
-      .row.no-margin{:style => "margin-bottom: 100px;"}
+          .row.no-margin
+            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5 
+                %b Thanh toán cho: 
+                Thảo My Ăn Cứt
+            .col-xs-6.col-sm-4.col-sm-offset-4.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Coupon Code:
+                NGOCDEPTRAI141
+      .divider
+      .row.no-margin.bill-detail
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %div
-          Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
-        
+          %h5
+            %b Khóa học: 
+            Làm thế nào để Thảo My Ăn Cứt
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Ngày thanh toán:
+            18-05-2015
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Số lượng:
+            1
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Đơn giá:
+            200.000 VNĐ
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Thành tiền:
+            200.000 VNĐ
+      .divider
+      .row.no-margin.support
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5{:style => "color: #212121"}
+            Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
+            %a{:href => "#"} hotro@pedia.vn
+.row.no-margin
+  .col-sm-12.col-md-12.col-lg-12.no-padding 
+  .payment.payment-bill
+    .p-container
+      .row.no-margin
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %span.title Pedia
+      .row.no-margin.bill-detail
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          .row.no-margin
+            .col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text Tầng 5, Tòa nhà Topica
+            .col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Ngày xuất:
+                21-08-2015
+          .row.no-margin
+            .col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+            .col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Hóa đơn số:
+          .row.no-margin
+            .col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5.text pedia.vn
+            .col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+              %h5 PDIANMAFVKWN1241542543
+                
+      .divider
+      .row.no-margin.bill-detail
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          .row.no-margin
+            .col-sm-4.col-md-12.col-lg-12.no-padding
+              %h5 
+                %b Thanh toán cho: 
+                Thảo My Ăn Cứt
+            .col-sm-4.col-sm-offset-4.col-md-12.col-lg-12.no-padding
+              %h5
+                %b Coupon Code:
+                NGOCDEPTRAI141
+      .divider
+      .row.no-margin.bill-detail
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Khóa học: 
+            Làm thế nào để Thảo My Ăn Cứt
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Ngày thanh toán:
+            18-05-2015
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Số lượng:
+            1
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Đơn giá:
+            200.000 VNĐ
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5
+            %b Thành tiền:
+            200.000 VNĐ
+      .divider
+      .row.no-margin.support
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          %h5{:style => "color: #212121"}
+            Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
+            %a{:href => "#"} hotro@pedia.vn
