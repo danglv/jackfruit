@@ -531,7 +531,7 @@
     &-header {
       &-container {
         .course-name {
-          width: 100px;
+          width: calc(100% - 155px);
           float: left;
           white-space: nowrap;
           overflow:hidden !important;
