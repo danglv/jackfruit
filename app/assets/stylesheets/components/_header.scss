@@ -1,0 +1,166 @@
+body {
+  color: $text-color-default;
+}
+
+header {
+  border-top: 4px solid $primary-color;
+  box-shadow: 0px 1px 2px #CCC;
+  padding: 0 5px;
+  position: relative;
+
+  .header-inner {
+    @extend .row;
+    margin: 0;
+  }
+
+  .header-col {
+    @include make-xs-column(4);
+    padding: 0;
+    position: initial;
+  }
+
+  .btn-group {
+    box-shadow: none;
+    margin: 0;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  .dropdown-toggle {
+    height: 52px;
+    line-height: 52px;
+    &:active {
+      box-shadow: none;
+    }
+
+    > i, span {
+      cursor: pointer;
+      font-size: 18px;
+      padding: 8px;
+    }
+  }
+
+  .logo {
+    line-height: 52px;
+    text-align: center;
+  }
+
+  .search-box {
+    padding: 0 15px;
+    display: inline-block;
+    width: 200px;
+
+    @media (max-width: 992px) {
+      display: none;
+    }
+
+    .search-input {
+      display: inline;
+      padding-right: 40px;
+    }
+
+    .btn-search {
+      background: none;
+      border: none;
+      display: inline-block;
+      font-size: 1.8rem;
+      margin-left: -30px;
+      position: absolute;
+    }
+  }
+}
+
+.search-dropdown {
+  @media (min-width: 993px) {
+    display: none;
+  }
+  position: static;
+  .dropdown-menu {
+    width: 100%;
+  }
+
+  .search-box {
+    display: block;
+    width: 100%;
+  }
+}
+
+.user-dropdown {
+  .user-avatar-small {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+  }
+
+  .user-avatar-medium {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+  }
+
+  .dropdown-menu {
+    width: 260px;
+  }
+
+  &-header {
+    @extend .row;
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    padding: 10px 20px 20px;
+
+    &-left {
+      @include make-xs-column(5);
+      padding: 0;
+    }
+
+    &-right {
+      @include make-xs-column(7);
+      padding: 5px 0 0 10px;
+      
+      .name {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .link {
+        color: #727272;
+        font-size: 20px;
+        margin-right: 5px;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &-links {
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    .link {
+      color: $text-color-default;
+      display: block;
+      line-height: 26px;
+      text-decoration: none;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  &-logout {
+    padding: 10px 20px;
+    .btn-logout {
+      width: 100%;
+    }
+  }
+}
+
+.cats-dropdown {
+  .dropdown-menu {
+    width: 240px;
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+}

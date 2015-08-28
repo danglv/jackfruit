@@ -1,0 +1,179 @@
+%header
+ = render :partial => 'layouts/header'
+ = render :partial => 'components/side_nav'
+
+%banner
+ .row
+  .col.s12
+   - if !@banner.blank?
+    - if @banner.location == 'header'
+     - if @banner.type == 'image'
+      = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+     - if @banner.type == 'popup'
+      = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+
+%main.lecture-detail{:style => "background: #e9e9e9"}
+ .row.header.no-padding
+  .row.header-container.container-1140.no-padding
+   .col.s11
+    %span.title.fix-height{:style => 'font-weight: 500; font-size: 24px'}= @course.name
+   .col.s1
+    .col.s5.no-padding 
+     %i.small.material-icons.white-text.no-padding{:style => "margin-top:10px;"} group 
+    .col.s5
+     %span.count= " " + @course.students.to_s
+ .row.lecture-content
+  .col.s6
+   .row.lecture-content-header
+    - @indexLecture = 0
+    - @index = @owned_course.lectures.where(lecture_ratio: 100).count
+    - @count = @course.curriculums.where(type: "lecture").count
+    %a{:href => '/courses/'+@course.alias_name+'/lecture/0'}
+     .col.s2
+      %i.medium.material-icons.white-text{:style => "margin-top:10px; width:42px; height:42px"} play_circle_filled
+     .col.s10
+      .row.no-padding
+       %p{:style => "font-size: 12px"} Bài giảng 1:
+       - if @course.curriculums[0].type == 'chapter'
+        %p{:style => "font-size: 16px; font-weight: 500"}= @course.curriculums[1].title
+        %p{:style => "font-size: 12px"}= @course.curriculums[1].description   
+       - else
+        %p{:style => "font-size: 16px"}= @course.curriculums[0].title
+        %p{:style => "font-size: 12px"}= @course.curriculums[0].description   
+   .row.lecture-content-learing-progress-text= "Bạn đã hoàn thành " +@index.to_s + " trên " + @count.to_s+ " bài giảng"
+   .row.progress{:style => "height:5px;background:#b6b6b6"}
+    .determinate{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
+   .row
+    .col.s12.list-lecture.no-padding
+     - have_chapter = @course.curriculums.where(type: "chapter").count == 0
+     - if have_chapter
+      - @course.curriculums.where(type: "lecture").each do |lecture|
+       - @indexLecture += 1
+       - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
+       .col.s12.lecture-list-items
+        %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
+         .row.no-margin
+          .col.s1
+           -if owned_lecture.status == 0
+            .row.icon.locked
+             %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+           -else
+            -if owned_lecture.status == 1
+             .row.icon.learning
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+            -else
+             -if owned_lecture.status == 2
+              .row.icon.completed
+               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+          .col.s10.no-padding.item-data
+           %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
+           .row.detail
+            - if lecture.asset_type == "Video"
+             .col.s3.offset-s6.icon-video-type.no-padding
+              %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+             .col.s9.no-padding= lecture.description
+            - else
+             .col.s3.offset-s6.icon-document-type.no-padding
+              %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+             .col.s9.no-padding Văn bản
+     - else
+      - @course.curriculums.each do |curriculum|
+       - if curriculum.type == 'chapter'
+        .row.lecture-chap.no-margin
+         .col.s12.lecture-chap-title= curriculum.title
+         .col.s12.lecture-list-items
+          - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
+           - @indexLecture += 1
+           - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
+           %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
+            .row.no-margin
+             .col.s1
+              -if owned_lecture.status == 0
+               .row.icon.locked
+                %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+              -else
+               -if owned_lecture.status == 1
+                .row.icon.learning
+                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
+               -else
+                -if owned_lecture.status == 2
+                 .row.icon.completed
+                  %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
+             .col.s10.no-padding.item-data
+              %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
+              .row.detail
+               - if lecture.asset_type == "Video"
+                .col.s3.offset-s6.icon-video-type.no-padding
+                 %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
+                .col.s9.no-padding= lecture.description
+               - else
+                .col.s3.offset-s6.icon-document-type.no-padding
+                 %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
+                .col.s9.no-padding Văn bản
+  .col.s6.lecture-comment
+   .row.lecture-comment-title 
+    %span.bold{:style => 'font-weight: 500; font-size: 18px'} Thảo luận
+   .row.lecture-comment-tool
+    %ul
+     %li
+      %input.search#search-comment{:placeholder => "Tìm thảo luận", :type => "text"}
+     %li
+      %span.or hoặc
+     %li
+      %a.waves-effect.waves-light.add_comment.dropdown-button.btn{"data-activates" => "comment-dropdown", :href => "#"} Thêm thảo luận
+      %ul#comment-dropdown.dropdown-content
+       .row.header.valign-wrapper{:style => "height: 40px; font-size: 18px;background-color: #eee;margin: 0"}
+        .col.s12
+         %span{:style => "color: #333"} Thêm thảo luận mới
+       .row{:style => "margin: 0"}
+        %input#course-id{:type => "hidden", :value => @course._id}
+        .input-field.col.s12
+         %input#comment-title.validate{:type => "text", :style => "margin-bottom: 10px"}
+          %label.active{:for => "comment-title"} Tên chủ đề
+       .row
+        .input-field.col.s12
+         %textarea#comment-content.materialize-textarea{:type => "text"}
+         %label{:for => "comment-content"} Nội dung
+       .row.footer{:style => "height: 30px"}
+        .col.s12
+         %a#close-send-comment.btn-flat.left Thoát
+         %a#send-comment.btn.right Đăng
+   .row.lecture-comment-list
+    - @course.discussions.each do |discussion|
+     - if discussion.user
+      .col.s12.no-padding.cm-item
+       .row.cm-item-header.no-margin
+        %ul.no-margin
+         %li
+          %i.small.material-icons.no-padding face
+         %li{:style => 'margin-left: 5px'}
+          - if discussion.user.name
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.name 
+          - else 
+           %p.left{:style => 'font-weight: 500; color: #353535'}= discussion.user.email
+          %p.left{:style => 'font-weight: 500; color: #335d82; font-size: 12px; margin-left: 5px'}= " đã đăng một thảo luận"
+         %li
+         // %p -
+         %li 
+          //%p 1 tháng trước 
+       .row.cm-item-content
+        %p.no-margin{:style => 'font-size: 18px; font-weight: 500; color: #59657D'}= discussion.title
+        %p{:style => 'margin: 0px 0px 0px 0px'}= discussion.description
+       / .row.cm-item-footer.no-margin
+       /  %ul
+       /   %li
+       /    //%p Hãy là người đầu tiên trả lời
+       /   %li
+       /    //%p -
+       /   %li
+       /    //%i.tiny.material-icons.no-padding.unliked thumb_up
+       /   %li
+       /   // %p= "Thích ("+discussion.status.to_s+")"
+       /   %li
+       /    //%p - 
+       /   %li 
+       /    //%p Theo dõi (1 người theo dõi)
+       /   %li
+       /    //%P -
+       /   %li
+       /    //%i.tiny.material-icons.no-padding{:style => "color:#999999"} report_problem

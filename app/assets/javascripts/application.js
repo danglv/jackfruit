@@ -13,11 +13,21 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
+//= require bootstrap-sass/assets/javascripts/bootstrap
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
 
-$.material.init();
+//= require components/learning.js
+//= require components/rating.js
+//= require ./components/nav
+
+$(document).ready(function () {
+  $.material.init();
+  $.material.ripples();
+  $.material.input();
+  $('.active-nav').sliderDropdown();
+});
+
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
