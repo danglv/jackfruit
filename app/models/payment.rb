@@ -20,7 +20,6 @@ class Payment
   validates :cod_code, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
   validates :course_id, presence: true, :if => proc{|obj| obj.method == Constants::PaymentMethod::COD}
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues
-  validates_uniqueness_of :course_id, scope: :user_id
 
   before_save :update_status
   before_destroy :check_owned_course
