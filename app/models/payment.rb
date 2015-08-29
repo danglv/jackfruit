@@ -30,7 +30,7 @@ class Payment
       :user_id => self.user_id,
       :course_id => self.course_id,
       :method => "cod",
-      :cod_code.nil => [nil, ""]
+      :cod_code.nin => [nil, ""]
     ).or(
       {:status => "pending"},
       {:status => "process"}
