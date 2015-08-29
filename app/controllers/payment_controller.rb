@@ -184,7 +184,6 @@ class PaymentController < ApplicationController
   # POST
   def import_code
     cod_code = params[:cod_code]
-    binding.pry
     if @payment.cod_code == cod_code
       owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).last
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
