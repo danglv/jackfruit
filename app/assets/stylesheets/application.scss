@@ -15,11 +15,9 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "components/colors";
 @import "components/header";
 @import "components/slider-sidebar";
-
-// Page-specific
-@import "learning/learning";
 @import "components/rating";
+@import "learning/learning";
+@import "lecture/lecture";
 @import "payment/payment.scss";
 @import "settings.scss"
-
 

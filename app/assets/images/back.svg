@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="112" height="45" viewBox="0 0 112 45">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2b3b55;
+        stroke: #b6b6b6;
+        stroke-width: 2px;
+        fill-rule: evenodd;
+      }
+      .cls-1:hover {
+        fill:red;
+      }
+    </style>
+  </defs>
+  <path d="M66.392,36.000 L56.000,44.000 L45.608,36.000 L1.000,36.000 L1.000,1.000 L111.000,1.000 L111.000,36.000 L66.392,36.000 Z" class="cls-1"/>
+</svg>

@@ -17,6 +17,7 @@
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
 
+//= require components/lecture.js
 //= require components/learning.js
 //= require components/rating.js
 //= require ./components/nav
