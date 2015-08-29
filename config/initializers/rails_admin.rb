@@ -94,6 +94,10 @@ RailsAdmin.config do |config|
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :cod_code
     end
 
     edit do
@@ -108,6 +112,10 @@ RailsAdmin.config do |config|
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :cod_code
     end
   end
 
