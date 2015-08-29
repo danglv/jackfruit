@@ -192,7 +192,6 @@ class PaymentController < ApplicationController
 
       if owned_course.save
         render json: {message: "Thành công!"}
-        redirect_to (request.base_url + request.original_fullpath)
         return
       else
         render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing
