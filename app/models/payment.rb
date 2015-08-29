@@ -29,12 +29,13 @@ class Payment
     cod_payment = Payment.where(
       :user_id => self.user_id,
       :course_id => self.course_id,
-      :method => "cod"
+      :method => "cod",
+      :cod_code.nil => [nil, ""]
     ).or(
       {:status => "pending"},
       {:status => "process"}
     )
-    errors.add(:user_id, "cod for this user has been booked") unless cod_payment.blank?
+    errors.add(:user_id, "cod for this user has been booked, can't cancel") unless cod_payment.blank?
   end
 
   before_save :update_status
