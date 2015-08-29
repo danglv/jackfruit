@@ -1,49 +1,151 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%main.payment.container-1140
-  .row.courses.card-style
-    .offset-s2.col.s8    
-      .row.courses.card-style.center-align
-        .course
-          .card-image.course-image.pending
-            .row
-              .col.s12.no-padding
-                .payment-pending-header.green.valign-wrapper
-                  .col.s12{:style => "text-align:center;background:#ffbb33;padding:15px"}
-                    %b.white-text{:style => "font-size: 24px"} Giao dịch của bạn đang được xử lý
-            .row
-              .offset-s1.col.s10.left-align.no-padding.pending-title
-                %span
-                  Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
-                  %a.pending-title-link{:href => "/home/my-course/learning"} Khóa học của bạn
-                  thường xuyên
-            .row.no-margin
-              .offset-s1.col.s2.left-align
-                %span Khóa học
-              .col.s8.right-align
-                %b= @course.name
-            .row.no-margin
-              .offset-s1.col.s2.left-align
-                %span Chi phí
-              .col.s8.right-align.pending-price
-                %b.teal-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
-            .row
-              .offset-s1.col.s2.left-align
-                %span Trạng thái
-              .col.s8.right-align.pending-status
-                %b Đang chờ xử lý
-            .row
-              .offset-s1.col.s10.no-padding
-                %hr/
-            .row
-              .offset-s1.col.s11.left-align
-                %div.pending-phone
-                  %i.material-icons.pending-phone-icon phone
-                  %span Hotline:
-                  %b 01638533244
-            .row
-              .col.s12
-                %div.pending-btn-other-course
-                  %a.btn-large.text-white.bold{:href => "/courses/"} KHÁM PHÁ CÁC KHÓA HỌC KHÁC
+/ Màn hình từ 320px
+.payment-320
+  .header
+    = render :partial => 'components/header/index'
+  .payment
+    .row.no-margin
+      .col-xs-12.no-padding
+        .payment-header.pending
+          %span.title
+            %b Giao dịch của bạn đang được xử lý
+    .p-container
+      .row.no-margin{:style => "margin-bottom: 5px;"}
+        .col-xs-12.no-padding
+          %h5.normal-text
+            Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
+            %a.link-text{:href => "#"} Lịch sử giao dịch
+            để được cập nhật thường xuyên.
+      .row.no-margin
+        .col-xs-3.no-padding
+          %h5.normal-text.left-align Khóa học
+        .col-xs-7.col-xs-offset-2.no-padding
+          %h5.right-align
+            %b Kỹ năng thuyết trình và nói trước công chúng
+          / %h5 @course.name
+      .row.no-margin
+        .col-xs-3.no-padding
+          %h5.normal-text.left-align Chi phí
+        .col-xs-7.col-xs-offset-2.no-padding
+          %h5.right-align.price-text
+            %b 300.000đ
+          / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      .row.no-margin{:style => "margin-bottom: 20px"}
+        .col-xs-3.no-padding
+          %h5.normal-text.left-align Trạng thái
+        .col-xs-7.col-xs-offset-2.no-padding
+          %h5.right-align.pending-text
+            %b Đang xử lý
+          / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+    .divider{:style => "margin-bottom: 15px"}
+    .p-container
+      .row.no-margin{:style => "margin-bottom: 25px;"}
+        .col-xs-1.no-padding.communication-icon
+          %i.mdi-communication-call
+        .col-xs-11
+          %span.normal-text Hotline: 
+          = succeed "." do
+            %b 01638533244
+      .row.no-margin{:style => "margin-bottom: 25px;"}
+        .col-xs-12.no-padding
+          %a.btn.btn-info.btn-raised.btn-lg.refresh-button khám phá các khóa học khác
+/ Màn hình từ 480px đến 767px         
+.payment-480-up.hidden-sm.hidden-md.hidden-lg
+  .header
+    = render :partial => 'components/header/index'
+  .payment
+    .row.no-margin
+      .col-xs-12.no-padding
+        .payment-header.pending
+          %span.title
+            %b Giao dịch của bạn đang được xử lý
+    .p-container
+      .row.no-margin{:style => "margin-bottom: 5px;"}
+        .col-xs-12.no-padding
+          %h5.normal-text
+            Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
+            %a.link-text{:href => "#"} Lịch sử giao dịch
+            để được cập nhật thường xuyên.
+      .row.no-margin
+        .col-xs-2.no-padding
+          %h5.normal-text.left-align Khóa học
+        .col-xs-8.col-xs-offset-2.no-padding
+          %h5.right-align
+            %b Kỹ năng thuyết trình và nói trước công chúng
+          / %h5 @course.name
+      .row.no-margin
+        .col-xs-2.no-padding
+          %h5.normal-text.left-align Chi phí
+        .col-xs-8.col-xs-offset-2.no-padding
+          %h5.right-align.price-text
+            %b 300.000đ
+          / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      .row.no-margin{:style => "margin-bottom: 20px"}
+        .col-xs-2.no-padding
+          %h5.left-align Trạng thái
+        .col-xs-8.col-xs-offset-2.no-padding
+          %h5.right-align.pending-text
+            %b Đang xử lý
+          / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+    .divider{:style => "margin-bottom: 15px"}
+    .p-container
+      .row.no-margin{:style => "margin-bottom: 25px;"}
+        .col-xs-1.no-padding.communication-icon
+          %i.mdi-communication-call
+        .col-xs-11
+          %span.normal-text Hotline: 
+          = succeed "." do
+            %b 01638533244
+      .row.no-margin
+        .col-xs-12.no-padding
+          %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} khám phá các khóa học khác
+/ Màn hình từ 768px trở lên   
+.row.no-margin
+  .header.hidden-xs
+    = render :partial => 'components/header/index' 
+  .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
+    .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
+      .row.no-margin
+        .col-sm-12.col-md-12.col-lg-12.no-padding
+          .payment-header.pending
+            %span.title{:style => "font-size: 18px;"}
+              %b Giao dịch của bạn đang được xử lý
+      .p-container
+        .row.no-margin{:style => "margin-bottom: 5px;"}
+          .col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5.normal-text
+              Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
+              %a.link-text{:href => "#"} Lịch sử giao dịch
+              để được cập nhật thường xuyên.
+        .row.no-margin
+          .col-sm-2.col-md-2.col-lg-2.no-padding
+            %h5.normal-text.left-align Khóa học
+          .col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.no-padding
+            %h5.right-align
+              %b Kỹ năng thuyết trình và nói trước công chúng
+            / %h5 @course.name
+        .row.no-margin
+          .col-sm-2.col-md-2.col-lg-2.no-padding
+            %h5.normal-text.left-align Chi phí
+          .col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.no-padding
+            %h5.right-align.price-text
+              %b 300.000đ
+            / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .row.no-margin{:style => "margin-bottom: 20px"}
+          .col-sm-2.col-md-2.col-lg-2.no-padding
+            %h5.normal-text.left-align Trạng thái
+          .col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2.no-padding
+            %h5.right-align.pending-text
+              %b Đang xử lý
+            / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      .divider{:style => "margin-bottom: 15px"}
+      .p-container
+        .row.no-margin{:style => "margin-bottom: 25px;"}
+          .col-sm-1.col-md-1.col-lg-1.no-padding.communication-icon
+            %i.mdi-communication-call
+          .col-sm-11.col-md-11.col-lg-11.no-padding
+            %span.normal-text Hotline: 
+            = succeed "." do
+              %b 01638533244
+        .row.no-margin
+          .col-sm-6.col-sm-offset-3.col-md-5.col-md-offset-4.col-lg-5.col-lg-offset-4.no-padding
+            %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} khám phá các khóa học khác

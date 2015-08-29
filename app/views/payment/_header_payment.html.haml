@@ -1,8 +1,4 @@
-.row.green.payment-header
-  .container-1140
-    .row.no-margin
-      .col.s6
-        %h4.white-text Xác nhận thanh toán
-        %p.white-text= @course.name
-      .col.s6
-        %h4.right.white-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+.header
+  = render :partial => 'components/header/index'
+.payment-header
+  %span.title Xác nhận thanh toán

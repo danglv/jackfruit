@@ -43,10 +43,12 @@ Rails.application.routes.draw do
       get '/:id/pending', to: 'payment#pending'
       get '/:id/cancel', to: 'payment#cancel'
       get '/:id/error', to: 'payment#error'
+      get '/:alias_name/payment_history', to: 'payment#payment_history'
+      get '/:alias_name/payment_bill', to: 'payment#payment_bill'
+     
       # get '/:id/update', to: 'payment#update'
     end
   end
-
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
   # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
