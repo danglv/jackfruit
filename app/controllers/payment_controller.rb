@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
 
   before_filter :authenticate_user!, :except => [:error]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
 
   # GET
@@ -185,11 +185,14 @@ class PaymentController < ApplicationController
   def import_code
     cod_code = params[:cod_code]
     if @payment.cod_code == cod_code
-      owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).first
+      owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).last
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+      @payment.status = Constants::PaymentStatus::SUCCESS
+      @payment.save
 
       if owned_course.save
         render json: {message: "Thành công!"}
+        redirect_to (request.base_url + request.original_fullpath)
         return
       else
         render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing

@@ -16,7 +16,7 @@ $(document).ready(function (){
     var params = {
       'cod_code' : cod_code,
     }
-    var URL = '/home/payment/cod/' +payment_id+ '/import_code';
+    var URL = '/home/payment/cod/' + payment_id + '/import_code';
     $.ajax({
         type: 'POST',
         url: URL,

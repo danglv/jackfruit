@@ -132,14 +132,14 @@ class CoursesController < ApplicationController
       if !current_user.courses.where(
         :course_id => @course.id.to_s,
         :payment_status => Constants::PaymentStatus::SUCCESS
-        ).first.blank?
+        ).last.blank?
         redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
       else
         @payment = Payment.where(
           user_id: current_user.id.to_s,
           course_id: @course.id.to_s
-        ).first
+        ).last
       end
     end
 
