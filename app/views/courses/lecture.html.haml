@@ -3,17 +3,23 @@
     .row.lecture-player-header.no-margin 
       %a.lecture-back
         %i.fa.fa-play-circle
-        %span Quay lại 
-      %a.player-navigation
-        = image_tag 'lecture-back.png'
+        %span Quay lại   
+      %ul.no-padding.no-margin.lecture-tools 
+        %li
+          %a.player-navigation-back Bài giảng trước 
+        %li.full-screen
+          %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
       %iframe{:src => "https://www.youtube.com/embed/wOwFA4WSIXM"}
     .row.lecture-player-footer.no-margin
       %a.lecture-autoplay 
         %span Tự động chạy:
         %span.open Bật 
-      %a.player-navigation
-        = image_tag 'lecture-next.png'
+      %ul.no-padding.no-margin.lecture-tools
+        %li
+          %a.player-navigation-next Bài giảng tiếp 
+        %li
+          %i.visibility-collapse s
   .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
     %ul.nav.nav-tabs.lecture-container-header
       %li.active

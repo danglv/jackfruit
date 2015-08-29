@@ -1,10 +1,14 @@
 .lecture { 
+
   a {
-    color: #212121;
+    color: #888888;
     text-decoration: none;
   }
+  .visibility-collapse {
+    visibility: collapse;
+  }
   .lecture-player {
-    background-color: #36445c;
+    background-color: #2C2F37;
     .lecture-back {
       color: #ffffff;
       font-size: 14px;
@@ -28,10 +32,48 @@
         color: #eb0e0e;
       }
     }
-    .player-navigation {
-      float:right;
-      margin-top: 5px;
+    .lecture-tools {
+      list-style: none;
+      float: right;
+      li {
+        float: left;
+        color: #fff;
+        margin-left: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        i {
+          line-height: 60px;
+          font-size: 19px;
+        }
+      }
+    
     }
+    .player-navigation-back, .player-navigation-next {
+      float:left;
+      margin-top: 5px;
+      width: 110px;
+      height: 43px;
+      color: #888888;
+      text-align: center;
+    }
+    .player-navigation-back { 
+      line-height: 53px;
+      background: image-url("lecture-back.png") no-repeat;
+    }
+    .player-navigation-next {
+       background: image-url("lecture-next.png") no-repeat;
+       line-height: 37px;
+    }
+    .player-navigation-back:hover, .player-navigation-next:hover {
+      color: #ffffff;
+    }
+    .rotate {
+      transform: rotate(180deg);
+      -ms-transform:  rotate(180deg);
+      -webkit-transform:  rotate(180deg);
+      -moz-transform: rotate(180deg);
+    }
+
     &-main {
       height: 100%;
       iframe {
@@ -42,7 +84,7 @@
     }
   }
   &-container-header {
-    height: 59px; 
+    height: 40px; 
     background-color: #ffffff;
     .active, li:hover {
       background-color: #338abc;
@@ -51,15 +93,19 @@
       }
     }
     li {
-      width: 25%;
+      width: calc(25% - 1px);
       text-align: center;
       color: #727272;
-      font-size: 22px;
+      font-size: 20px;
       line-height: 35px;
+      border-right: 1px solid #b6b6b6;
       a {
         padding: 0px;
-        line-height: 59px;
+        line-height: 40px;
       }
+    }
+    li:last-child {
+      border-right: none;
     }
     i {
       color: #727272;
@@ -160,11 +206,12 @@
         padding: 0px 9px;
         font-weight: bold;
         font-size: 14px;
+        color: #212121;
       }
       .chap-item {
         margin: 0px;
         background: #fff;
-        border-bottom: 1px solid #b6b6b6;
+        border-bottom: 1px solid #f0f0f0;
         .item-container {
           margin: 0px;
           border-left: 1px solid #b6b6b6;
@@ -217,24 +264,29 @@
             }
             .type-video, .type-document {
               margin: 3px 0px 0px 0px;
-            }
-            .fa-play-circle {
-             color: #727272;
-             font-size: 16px;
-            }
-            .fa-download {
-              color: #727272
-            }
-            .mdi-communication-forum {
-              color: #727272;
-              font-size: 16px;
-              line-height: 22px;
+              span, i {
+                color: #DDDDDD;
+                font-size: 16px;
+                line-height: 22px;
+              }
             }
           }
         }
       }
       .chap-item:hover {
-        background-color: #eee
+        background-color: #F1F1F1;
+        a {
+          color: #212121;
+        }
+        .item-container {
+          .chap-item-content {
+            .type-video, .type-document {
+              span, i {
+                color: #212121;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -245,6 +297,9 @@
       display: none;
     }
     .lecture-player { 
+      .full-screen {
+        display: none;
+      }
       .lecture-back, .lecture-autoplay {
        line-height: 53px;
       }
@@ -260,7 +315,6 @@
 
 @media (min-width: 480px) { 
   .lecture {
-
     .lecture-player { 
       .lecture-back, .lecture-autoplay {
         line-height: 60px;
@@ -293,6 +347,11 @@
 
 @media (min-width: 768px) { 
   .lecture {
+    .lecture-player { 
+      .full-screen {
+        display: block;
+      }
+    }
     &-container {
       display: block;
     }
