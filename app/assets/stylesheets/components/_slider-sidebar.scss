@@ -1,0 +1,11 @@
+.slider-sidebar-wrapper {
+  float: left;
+  margin-left: -240px;
+  min-height: 1px;
+  position: relative;
+  width: 240px;
+  .dropdown-menu {
+    display: block;
+    width: 100%;
+  }
+}

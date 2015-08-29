@@ -1,8 +1,17 @@
 @charset "UTF-8";
-$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootstrap-material-design/dist/css/material";
 @import "bootstrap-material-design/dist/css/ripples";
-//style
+@import "bootstrap-material-design/dist/css/material.css";
+@import "bootstrap-material-design/dist/css/ripples.css";
+@import "bootstrap-material-design/dist/css/roboto";
+
+// Components
 @import "components/profile";
+@import "components/colors";
+@import "components/header";
+@import "components/slider-sidebar";
+@import "learning/learning";
+@import "components/rating"
