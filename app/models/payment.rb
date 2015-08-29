@@ -19,10 +19,23 @@ class Payment
 
   validates :course_id, :user_id, presence: true
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues
-  validates_uniqueness_of :user_id, :scope => :course_id, :if => proc{|obj| obj.status == Constants::PaymentStatus::SUCCESS}
-  validates_uniqueness_of :user_id, :scope => :course_id, :if => proc{|obj| 
-    ((obj.status == Constants::PaymentStatus::PENDING || obj.status == Constants::PaymentStatus::PROCESS) && obj.method == Constants::PaymentMethod::COD)
-  }
+  validates_uniqueness_of :user_id, :scope => :course_id, :if => Proc.new{|obj| obj.status == Constants::PaymentStatus::SUCCESS}
+  # validates_uniqueness_of :user_id, :scope => :course_id, :if => Proc.new{|obj| 
+  #   ((obj.status == Constants::PaymentStatus::PENDING || obj.status == Constants::PaymentStatus::PROCESS) && obj.method == Constants::PaymentMethod::COD)
+  # }
+  validate :check_method_cod
+
+  def check_method_cod
+    cod_payment = Payment.where(
+      :user_id => self.user_id,
+      :course_id => self.course_id,
+      :method => "cod"
+    ).or(
+      {:status => "pending"},
+      {:status => "process"}
+    )
+    errors.add(:user_id, "cod for this user has been booked") unless cod_payment.blank?
+  end
 
   before_save :update_status
   before_destroy :check_owned_course

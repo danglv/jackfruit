@@ -81,14 +81,15 @@
             - if !current_user.blank?
               .col.s6.no-padding
                 - if !@owned_course.blank?
-                  - if @owned_course.payment_status == 'pending'
-                    %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
-                      Đang chờ xử lý
+                  - if @owned_course.payment_status == 'pending' || @owned_course.payment_status == 'process'
                     - if @payment.method == 'cod'
                       #cod-code-container.no-padding
                         %input{:type => 'text', :placeholder => 'Nhập COD code ...',:payment_id => @payment.id}
                         %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                         %a.btn#submit-cod-code{} Nhập
+                    - else
+                      %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        Mua khoá học                    
                   - else
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
