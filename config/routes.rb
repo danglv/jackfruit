@@ -43,14 +43,10 @@ Rails.application.routes.draw do
       get '/:id/pending', to: 'payment#pending'
       get '/:id/cancel', to: 'payment#cancel'
       get '/:id/error', to: 'payment#error'
+      get '/:alias_name/payment_history', to: 'payment#payment_history'
+      get '/:alias_name/payment_bill', to: 'payment#payment_bill'
      
       # get '/:id/update', to: 'payment#update'
-    end
-  end
-  resources :payment, only: %w[] do
-    collection do
-      get :payment_history
-      get :payment_bill
     end
   end
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup

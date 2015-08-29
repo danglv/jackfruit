@@ -1,6 +1,8 @@
 .payment{
   &-box {
     background-color: #fff;
+    margin-top: 30px !important;
+    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
   }
   &-bill {
     margin-top: 25px;
@@ -35,6 +37,21 @@
       .support-text {
         line-height: 24px;
       }
+    }
+  }
+  &-history {
+    margin-top: 15px;
+    .purchase-history {
+      margin-bottom: 15px !important;
+    }
+    .account-balance {
+      margin-bottom: 15px !important;
+    }
+    .pagination-row-1 {
+      margin-bottom: 25px !important;
+    }
+    .money-back-information {
+      margin-bottom: 5px !important;
     }
   }
   .payment-header {
@@ -174,7 +191,7 @@
     }
   }
   .transfer-paypal {
-    margin-bottom: 25px !important;
+    margin: 15px 0 25px 0 !important;
   }
   .office-address {
     margin-bottom: 25px !important;
@@ -188,12 +205,14 @@
   }
   .refresh-button {
     width: 100%;
+    font-weight: bold;
   }
   .banks-card {
     width: 100%;
   }
   .warning-text, .fail-text {
     color: #ff4444;
+    font-weight: 400;
   }
   .pending-text {
     color: #ffbb33;
@@ -206,9 +225,13 @@
   }
   .other-course-text {
     font-size: 16px;
+    font-weight: bold;
     color: #338abc;
     text-transform: uppercase;
   } 
+  .communication-icon {
+    color: #338abc;
+  }
 }
 
 /*Responsive*/
