@@ -534,8 +534,11 @@
     &-header {
       &-container {
         .course-name {
-          max-width: 100px;
+          width: calc(100% - 155px);
           float: left;
+          white-space: nowrap;
+          overflow:hidden !important;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -572,7 +575,7 @@
     &-header {
       &-container {
         .course-name {
-          max-width: none;
+          width: auto;
         }
       }
     }
