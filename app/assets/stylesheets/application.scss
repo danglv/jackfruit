@@ -1,5 +1,7 @@
 @charset "UTF-8";
+
 $icon-font-path: "bootstrap-material-design/dist/fonts/";
+
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootstrap-material-design/dist/css/material";
@@ -13,5 +15,11 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "components/colors";
 @import "components/header";
 @import "components/slider-sidebar";
+
+// Page-specific
 @import "learning/learning";
-@import "components/rating"
+@import "components/rating";
+@import "payment/payment.scss";
+@import "settings.scss"
+
+

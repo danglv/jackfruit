@@ -1,0 +1,256 @@
+.payment{
+  &-box {
+    background-color: #fff;
+    margin-top: 30px !important;
+    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+  }
+  &-bill {
+    margin-top: 25px;
+    .title {
+      font-size: 36px;
+      color: #212121;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .position {
+      margin-bottom: 5px !important;
+      .text {
+        font-size: 14px;
+        color: #212121;
+      }
+    }
+    .information {
+      margin-bottom: 15px !important;
+    }
+    .information-bill {
+      margin: 15px 0 !important;
+      .purchase-for {
+        margin-bottom: 15px !important;
+      }
+    }
+    .bill-detail {
+      margin: 15px 0 !important;
+      font-size: 14px;
+    }
+    .support {
+      margin-top: 15px !important;
+      .support-text {
+        line-height: 24px;
+      }
+    }
+  }
+  &-history {
+    margin-top: 15px;
+    .purchase-history {
+      margin-bottom: 15px !important;
+    }
+    .account-balance {
+      margin-bottom: 15px !important;
+    }
+    .pagination-row-1 {
+      margin-bottom: 25px !important;
+    }
+    .money-back-information {
+      margin-bottom: 5px !important;
+    }
+  }
+  .payment-header {
+    height: 46px;
+    background-color: #38b34a;
+    font-size: 14px;
+    line-height: 40px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+    .title {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 500;
+    }
+    &.fail {
+      background-color: #ff4444;
+    }
+    &.pending {
+      background-color: #ffbb33;
+    }
+    &.success {
+      background-color: #38b34a;
+    }
+  }
+  .course-price {
+    height: 44px;
+    margin-bottom: 10px !important;
+  }
+  .coupon {
+    border-bottom: 1px solid #acacac;
+    height: 40px;
+    margin: 10px 0 !important;
+  }
+  .total-cost {
+    font-weight: 700;
+    margin: 10px 0 15px 0 !important;
+  }
+  .payment-list {
+    width: 100%;
+    height: 48px;
+    .list-style {
+      padding: 10px 15px !important;
+      display: block;
+      float: left;
+      height: 48px;
+      .list-style-icon {
+        color: #727272;
+        width: 20px;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .list-style-text {
+        color: #212121;
+        font-size: 14px;
+        display: inline-block;
+      }
+    }
+    &:hover {
+      background-color: #338abc !important;
+      box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15) !important;
+      .list-style {
+        .list-style-icon, .list-style-text {
+          color: #fff;
+        }
+      }
+    }
+    &.disable:hover{
+      background: none;
+      color: #9e9e9e;
+      cursor: default;
+    }
+  }
+  .payment-list.active {
+    background-color: #338abc !important;
+    .list-style {
+      .list-style-icon, .list-style-text {
+        color: #fff;
+      }
+    }
+  }
+  .payment-card {
+    width: 100%;
+    height: 170px; 
+    padding: 20px 15px;
+    color: #727272;
+    text-transform: none;
+    .payment-card-icon {
+      color: #727272;
+    }
+    .payment-card-text {
+      color: #212121;
+    }
+    &:hover {
+      background-color: #338abc !important;
+      box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15) !important;
+      .payment-card-icon, .payment-card-text {
+        color: #fff;
+      }
+    }
+    &.disable:hover{
+      background: none;
+      color: #9e9e9e;
+      cursor: default;
+    }
+  }
+  .payment-card.active {
+    background-color: #338abc !important;
+    .payment-card-icon, .payment-card-text {
+      color: #fff;
+    }
+  }
+  .payment-editor {
+    margin-bottom: 20px;
+  }
+  .purchase-button {
+    width: 100%;
+    text-transform: none;
+  }
+  .payment-content.active{
+    h4{
+      color: #338abc;
+      font-weight: bold;
+    }
+  }
+  .transfer-bank {
+    margin: 15px 0 25px 0 !important;
+  }
+  .tranfer-information {
+    text-indent: 40px;
+  }
+  .transfer-note {
+    margin-bottom: 25px !important;
+    .list-note {
+      list-style-type: disc;
+      list-style-position: inside;
+    }
+  }
+  .transfer-paypal {
+    margin: 15px 0 25px 0 !important;
+  }
+  .office-address {
+    margin-bottom: 25px !important;
+  }
+  .credit-card-button {
+    border: 3px solid #ccc;
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+    }
+  }
+  .refresh-button {
+    width: 100%;
+    font-weight: bold;
+  }
+  .banks-card {
+    width: 100%;
+  }
+  .warning-text, .fail-text {
+    color: #ff4444;
+    font-weight: 400;
+  }
+  .pending-text {
+    color: #ffbb33;
+  }
+  .success-text {
+    color: #38b34a;
+  }
+  .price-text {
+    color: #009688;
+  }
+  .other-course-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #338abc;
+    text-transform: uppercase;
+  } 
+  .communication-icon {
+    color: #338abc;
+  }
+}
+
+/*Responsive*/
+/* Màn 480- */
+@media (max-width: 479px) {
+  .payment-320 {
+    display: block;
+  }
+  .payment-480-up {
+    display: none;
+  }
+}
+/* Màn 480+ */
+@media (min-width: 480px) {
+  .payment-320 {
+    display: none;
+  }
+  .payment-480-up {
+    display: block;
+    margin-bottom: 25px;
+  }
+}

@@ -1,3 +1,41 @@
+.no-margin {
+  margin: 0;
+}
+.no-padding {
+  padding: 0;
+}
+.p-container {
+  padding: 0 15px;
+}
+.center-align {
+  text-align: center;
+}
+.right-align {
+  text-align: right;
+}
+.left-align {
+  text-align: left;
+}
+.divider {
+  border-style: inset;
+  border-width: 1px;
+  color: #b6b6b6;
+  &.bold {
+    color: #212121;
+  }
+}
+.link-text {
+  color: #338abc !important;
+  text-decoration: none !important;
+}
+.normal-text {
+  font-size: 14px;
+  color: #212121;
+  font-weight: 400;
+}
+
+
+
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -870,3 +908,6 @@ $page-header-border-color:    $gray-lighter !default;
 $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Horizontal line color.
 $hr-border:                   $gray-lighter !default;
+
+
+
