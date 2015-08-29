@@ -93,6 +93,9 @@
   .payment-list {
     width: 100%;
     height: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     .list-style {
       padding: 10px 15px !important;
       display: block;
@@ -207,8 +210,24 @@
     width: 100%;
     font-weight: bold;
   }
-  .banks-card {
-    width: 100%;
+  .bank-card {
+    img {
+      width: 100%;
+    }
+  }
+  .bank-list {
+    list-style: none;
+    .list {
+      margin: 10px 0 !important;
+    }
+    .bank-icon {
+      img {
+        width: 100%;
+      }
+    }
+    .bank-label {
+      font-size: 18px;
+    }
   }
   .warning-text, .fail-text {
     color: #ff4444;

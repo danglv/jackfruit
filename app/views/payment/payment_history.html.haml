@@ -3,7 +3,7 @@
   .header
     = render :partial => 'components/header/index'
   .payment.payment-history
-    .p-container
+    .container
       .row.no-margin.purchase-history
         %h4.center-align
           %b Lịch sử thanh toán
@@ -28,38 +28,38 @@
         %table.table.table-striped.table-hover
           %thead
             %tr
-              %th Khóa học
-              %th Hóa đơn
+              %th.left-align Khóa học
+              %th.right-align Hóa đơn
           %tbody
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text
+              %td.normal-text.right-align
                 %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
       .row.no-margin.money-back-information
         %h4.center-align
@@ -80,19 +80,19 @@
         %table.table.table-striped.table-hover
           %thead
             %tr
-              %th Khóa học
-              %th Số tiền
+              %th.left-align Khóa học
+              %th.right-align Số tiền
           %tbody
             %tr
-              %td.normal-text
+              %td.normal-text.left-align
                 %a.link-text Body Language of Love a
-              %td.normal-text 141.000 VNĐ       
+              %td.normal-text.right-align 141.000 VNĐ       
 / Màn hình 480px đến 768px
 .payment-480-up.hidden-sm.hidden-md.hidden-lg 
   .header
     = render :partial => 'components/header/index' 
   .payment.payment-history
-    .p-container
+    .container
       .row.no-margin.purchase-history
         .col-xs-12.no-padding
           %h4.center-align
@@ -187,7 +187,7 @@
     = render :partial => 'components/header/index'
   .col-sm-12.col-md-12.col-lg-12.no-padding 
   .payment.payment-history
-    .p-container
+    .container
       .row.no-margin.purchase-history
         .col-xs-12.no-padding
           %h4.pill-left
@@ -304,9 +304,8 @@
 .row.no-margin.hidden-xs.hidden-sm
   .header
     = render :partial => 'components/header/index'
-  .col-sm-12.col-md-12.col-lg-12.no-padding 
   .payment.payment-history
-    .p-container
+    .container
       .row.no-margin.purchase-history
         .col-xs-12.no-padding
           %h4.pill-left

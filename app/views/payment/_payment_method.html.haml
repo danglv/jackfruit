@@ -17,14 +17,14 @@
           .list-style-icon
             %i.mdi-1x.mdi-action-credit-card
           .list-style-text
-            %h5 Thanh toán trực tuyến bằng thẻ ATM hoặc Visa/Master
+            %h5 Thanh toán trực tuyến bằng thẻ ATM 
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
         .row.no-margin.list-style
           .list-style-icon
             %i.mdi-1x.mdi-image-style
           .list-style-text
-            %h5 Thanh toán bằng thẻ cào điện thoại, thẻ game
+            %h5 Thanh toán bằng thẻ cào điện thoại
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
         .row.no-margin.list-style
