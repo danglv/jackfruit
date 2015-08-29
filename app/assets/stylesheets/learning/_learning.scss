@@ -11,7 +11,9 @@
 }
 
 .learning {
-
+  a {
+    color: #212121
+  }
   background-color: #f4f3f2;
   padding: 0px 15px;
   a {
@@ -60,9 +62,7 @@
       }
     }
   }
-  a {
-    color: #212121;
-  }
+
   .course-name {
     line-height: 50px;
     color: white;
@@ -70,7 +70,7 @@
   }
 
   &-container {
-    margin: 16px 0px 0px 0px;
+    margin: 19px auto 0px auto;
     background: #f4f3f2;
     .list-lecture {
       padding: 0px 15px;
@@ -165,15 +165,17 @@
           padding: 0px 9px;
           font-weight: bold;
           font-size: 14px;
+          color: #212121;
         }
         .chap-item {
           margin: 0px;
-          background: #fff;
-          border-bottom: 1px solid #b6b6b6;
+          background: #ffffff;
+          border-bottom: 1px solid #f0f0f0;
           .item-container {
             margin: 0px;
             border-left: 1px solid #b6b6b6;
             height: 58px;
+            
             .chap-item-status {
               width: 19px;
               height: 100%;
@@ -208,8 +210,10 @@
             .chap-item-content {
               padding-top: 10px;
               padding-bottom: 10px;
-              color: #212121;
               font-size: 14px;
+              a {
+                color: #888888;
+              }
               ul {
                 margin: 0px 0px 0px 0px;
                 float: left;
@@ -222,24 +226,27 @@
               }
               .type-video, .type-document {
                 margin: 3px 0px 0px 0px;
-              }
-              .fa-play-circle {
-               color: #727272;
-               font-size: 16px;
-              }
-              .fa-download {
-                color: #727272
-              }
-              .fa-comments {
-                color: #727272;
-                font-size: 16px;
-                line-height: 22px;
+                span, i {
+                  color: #DDDDDD;
+                  font-size: 16px;
+                  line-height: 22px;
+                }
               }
             }
           }
         }
         .chap-item:hover {
-          background-color: #eee
+          background-color: #f1f1f1;
+          .item-container {
+            .chap-item-content a {
+              color: #212121;
+            }
+            .type-video, .type-document {
+              span, i {
+                color: #212121;
+              } 
+            }
+          }
         }
       }
     }
@@ -577,6 +584,7 @@
       }
     }
     &-container {
+
       .list-lecture {
         &-container {
           .chap-title {
@@ -599,17 +607,33 @@
     }
   }
 }
-
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) { 
+  .learning {
+    &-container {
+      width: 750px;
+    }
+  }
+}
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
   .learning {
     &-container {
+      width: 970px;
       .list-lecture {
         margin: 0px;
       }
       .lecture-discussion{
         display: block;
       }
+    }
+  }
+}
+
+@media (min-width: 1200px) { 
+  .learning {
+    &-container {
+      width: 1170px;
     }
   }
 }
