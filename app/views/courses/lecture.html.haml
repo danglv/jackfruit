@@ -1,3 +1,322 @@
-.row.lecture 
-  .col-xs-12.col-sm-7.col-md-8.col-lg-9
-  .col-xs-0.col-sm-5.col-md-4.col-lg-3
+.row.no-margin.lecture 
+  .col-xs-12.col-sm-7.col-md-8.col-lg-9.lecture-player
+    .row.lecture-player-header.no-margin 
+      %a.lecture-back
+        %i.fa.fa-play-circle
+        %span Quay lại   
+      %ul.no-padding.no-margin.lecture-tools 
+        %li
+          %a.player-navigation-back Bài giảng trước 
+        %li.full-screen
+          %i.fa.fa-chevron-right
+    .row.lecture-player-main.no-margin
+      %iframe{:src => "https://www.youtube.com/embed/wOwFA4WSIXM"}
+    .row.lecture-player-footer.no-margin
+      %a.lecture-autoplay 
+        %span Tự động chạy:
+        %span.open Bật 
+      %ul.no-padding.no-margin.lecture-tools
+        %li
+          %a.player-navigation-next Bài giảng tiếp 
+        %li
+          %i.visibility-collapse s
+  .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
+    %ul.nav.nav-tabs.lecture-container-header
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-list"} 
+          %i.fa.fa-list
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-download"}
+          %i.fa.fa-download
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion"} 
+          %i.fa.fa-comments
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-note"} 
+          %i.fa.fa-file-text
+    .tab-content
+      #lecture-tab-list.tab-pane.fade.active.in
+        .row.no-margin.list-lecture-container
+          .row.chap-title Chương 1: My First Section
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                / completed
+                / learning
+                / none
+                / glyphicon glyphicon-ok
+                /glyphicon glyphicon-pencil
+                .status-container.completed
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.learning
+                  %i.fa.fa-pencil
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span Văn bản
+                      %li
+                        %a{:href => "#"}  
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-title Chương 1: My First Section
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                / completed
+                / learning
+                / none
+                / glyphicon glyphicon-ok
+                /glyphicon glyphicon-pencil
+                .status-container.completed
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.learning
+                  %i.fa.fa-pencil
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span Văn bản
+                      %li
+                        %a{:href => "#"}  
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document        
+          .row.chap-title Chương 1: My First Section
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                / completed
+                / learning
+                / none
+                / glyphicon glyphicon-ok
+                /glyphicon glyphicon-pencil
+                .status-container.completed
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.learning
+                  %i.fa.fa-pencil
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span Văn bản
+                      %li
+                        %a{:href => "#"}  
+                          %i.mdi-communication-forum
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+          .row.chap-item
+            .row.item-container
+              .chap-item-status
+                .status-container.none
+                  %i.fa.fa-check
+              .chap-item-content
+                .row.no-margin 
+                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
+                .row.no-margin
+                  .row.type-document
+                    %ul.no-padding
+                      %li 
+                        %a{:href => "#"}
+                          %i.fa.fa-play-circle
+                      %li
+                        %span 09:58
+                      %li
+                        %a{:href => "#"}
+                          %i.fa.fa-download
+                      %li
+                        %a{:href => "#"}
+                          %i.mdi-communication-forum
+                    .row.type-document
+      #lecture-tab-download.tab-pane.fade
+      #lecture-tab-discussion.tab-pane.fade
+      #lecture-tab-note.tab-pane.fade
+    
