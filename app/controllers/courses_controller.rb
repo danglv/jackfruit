@@ -128,6 +128,7 @@ class CoursesController < ApplicationController
 
   def detail
     if current_user
+
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       if !current_user.courses.where(
         :course_id => @course.id.to_s,
@@ -161,7 +162,11 @@ class CoursesController < ApplicationController
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
     if @course.id.to_s == "55c3306344616e0ca600001f"
-      render :template => "courses/excel_detail"
+      if params[:layout].to_i == 1
+        render :template => "courses/detail"
+      else
+        render :template => "courses/excel_detail"
+      end
     else
       render :template => "courses/detail"
     end
