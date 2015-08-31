@@ -55,7 +55,7 @@
     }
   }
   .payment-header {
-    height: 46px;
+    height: auto;
     background-color: #38b34a;
     font-size: 14px;
     line-height: 40px;
@@ -97,7 +97,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     .list-style {
-      padding: 10px 15px !important;
+      padding: 10px !important;
       display: block;
       float: left;
       height: 48px;
@@ -227,6 +227,34 @@
     }
     .bank-label {
       font-size: 18px;
+    }
+  }
+  .card-purchase {
+    margin-bottom: 25px !important;
+  }
+  .card-purchase-guild {
+    margin-bottom: 15px !important;
+  }
+  .phone-cards {
+    margin-bottom: 25px !important;
+    .phone-card {
+      img {
+        width: 100%;
+        height: 46px;
+        border: 3px solid #727272;
+        margin-bottom: 15px !important;
+      }
+      &:hover, &:focus {
+        img {
+          border: 3px solid #338abc;
+        }
+      };
+    }
+  }
+  .card-input {
+    margin-bottom: 25px !important;
+    .code, .seri {
+      height: 40px;
     }
   }
   .warning-text, .fail-text {

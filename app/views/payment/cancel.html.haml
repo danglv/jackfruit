@@ -8,7 +8,7 @@
         .payment-header.fail
           %span.title
             %b Rất tiếc! Giao dịch của bạn chưa thành công
-    .p-container
+    .container
       .row.no-margin{:style => "margin-bottom: 5px;"}
         .col-xs-12.no-padding
           %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin
@@ -34,13 +34,13 @@
             %b Thất bại
           / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
     .divider{:style => "margin-bottom: 15px"}
-    .p-container
+    .container
       .row.no-margin{:style => "margin-bottom: 25px;"}
         .col-xs-1.no-padding.communication-icon
           %i.mdi-communication-call
         .col-xs-11
           %span.normal-text Hotline: 
-          = succeed "." do
+          = succeed "" do
             %b 01638533244
       .row.no-margin{:style => "margin-bottom: 25px;"}
         .col-xs-12.no-padding
@@ -59,7 +59,7 @@
         .payment-header.fail
           %span.title
             %b Rất tiếc! Giao dịch của bạn chưa thành công
-    .p-container
+    .container
       .row.no-margin{:style => "margin-bottom: 5px;"}
         .col-xs-12.no-padding
           %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
@@ -85,13 +85,13 @@
             %b Thất bại
           / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
     .divider{:style => "margin-bottom: 15px"}
-    .p-container
+    .container
       .row.no-margin{:style => "margin-bottom: 25px;"}
         .col-xs-1.no-padding.communication-icon
           %i.mdi-communication-call
         .col-xs-11
           %span.normal-text Hotline: 
-          = succeed "." do
+          = succeed "" do
             %b 01638533244
       .row.no-margin
         .col-xs-4.no-padding.center-align{:style => "margin-top: 10px;"}
@@ -142,7 +142,7 @@
             %i.mdi-communication-call
           .col-sm-11.col-md-11.col-lg-11
             %span.normal-text Hotline: 
-            = succeed "." do
+            = succeed "" do
               %b 01638533244
         .row.no-margin
           .col-sm-5.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.no-padding.center-align{:style => "margin-top: 18px;"}
