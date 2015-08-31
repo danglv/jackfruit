@@ -121,6 +121,7 @@ RailsAdmin.config do |config|
 
   config.model 'User' do
     list do
+      field :created_at
       field :name
       field :email
       field :role
