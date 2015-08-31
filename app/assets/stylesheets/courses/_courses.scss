@@ -1,0 +1,45 @@
+.detail {
+  margin: 20px 0 70px;
+  .course-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #212121;
+    margin-bottom: 5px !important;
+  }
+  .course {
+    &-rating {
+      margin: 10px 0 !important;
+      &-point {
+        .fa {
+          color: #727272;
+          font-size: 20px;
+          width: 20px;
+          &.is-rated {
+            color: #ffbb33;
+          }
+        }
+      }
+    }
+    &-price {
+      font-weight: bold;
+      color: #44ba31;
+      margin: 10px 0 !important;
+      .free {
+        color: #ff4444;
+      }
+    }
+  }
+  .video-container {
+    margin: 10px 0;
+  }
+  .buy-button, .learning-button {
+    width: 100%;
+    font-weight: 400;
+  }
+  .pending-button {
+    width: 100%;
+    font-weight: 400;
+    background-color: #ffbb33 !important;
+    color: #fff !important;
+  }
+}
