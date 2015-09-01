@@ -1,10 +1,17 @@
 .detail {
-  margin: 20px 0 70px;
-  .course-title {
-    font-size: 16px;
+  margin-bottom: 70px;
+  .detail-course-title {
+    font-size: 18px;
     font-weight: bold;
     color: #212121;
-    margin-bottom: 5px !important;
+    margin: 20px 0 5px 0 !important;
+    &-big {
+      font-size: 30px;
+      margin: 20px 0 5px 0 !important;
+    }
+  }
+  .sub_title {
+    line-height: 20px;
   }
   .course {
     &-rating {
@@ -24,8 +31,8 @@
       font-weight: bold;
       color: #44ba31;
       margin: 10px 0 !important;
-      .free {
-        color: #ff4444;
+      &.free {
+        color: #ff4444 !important;
       }
     }
   }
@@ -41,5 +48,75 @@
     font-weight: 400;
     background-color: #ffbb33 !important;
     color: #fff !important;
+  }
+  .favorite-button {
+    width: 100%;
+    font-weight: 400;
+    background-color: #727272 !important;
+    color: #fff !important;
+    text-transform: none !important;
+    &.no-text {
+      width: 65px !important;
+      padding: 8px !important;
+    }
+  }
+  .list-info {
+    margin: 20px 0 25px 0 !important;
+  }
+  .description {
+    margin: 20px 0 25px 0 !important;
+  }
+  .curiculums {
+    margin-bottom: 25px !important;
+    .curiculum {
+      .curiculum-title {
+        margin: 20px 0 !important;
+      }
+      .curiculum-list {
+        border-bottom: 1px solid #b6b6b6;
+        .curiculum-content {
+          margin: 10px 0px !important;
+        }
+      }
+    }
+  }
+  .author {
+    margin-bottom: 15px !important;
+    .social-button {
+      font-size: 24px;
+    }
+  }
+  .rating {
+    margin-bottom: 25px !important;
+    .rating-text {
+      font-size: 18px;
+    }
+    .rating-point {
+      font-size: 60px;
+      color: #ff4444;
+    }
+    .course-rating-people {
+      font-size: 16px;
+    }
+    .progress {
+      margin: 20px 0 !important;
+      height: 6px;
+      .progress-bar {
+        background-color: #ffbb33 !important;
+      }
+    }
+  }
+  .discussion {
+    margin: 20px 0 !important;
+  }
+  .related-box {
+    background-color: #fff;
+    border: 1px solid #727272;
+    .related-content {
+      padding: 20px 10px !important;
+      img {
+        width: 100%;
+      }
+    }
   }
 }
