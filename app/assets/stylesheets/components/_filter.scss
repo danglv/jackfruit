@@ -1,0 +1,70 @@
+.filter {
+  &-category {
+    float: left;
+    margin: 19px 0px 0px 0px;
+    &-title {
+      color: #338abc;
+      font-weight: 500;
+    }
+    &-item {
+      color: #212121;
+      .checkbox-material {
+        color: #338abc;
+        margin-right: 8px;
+      }
+      .checkbox {
+        margin: 10px 0px 0px 0px;
+      }
+    }
+    
+  }
+}
+
+@media (min-width: 320px) {
+  .filter {
+    &-category {
+      &-content {
+        padding: 0px 0px 0px 0px;
+      }
+      width: 100%;
+    }
+
+  }
+} 
+@media (min-width: 480px) { 
+  .filter {
+    &-category {
+
+    }
+    .filter-budget, .filter-feature {
+      width: 50%
+    }
+    .filter-level {
+      .filter-category-item {
+        width: 25%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) { 
+  .filter {
+    &-category {
+      width: 100% !important;
+       &-content {
+        padding: 0px 0px 0px 27px;
+      }
+      &-item {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) { 
+  .filter {
+    &-category {
+
+    }
+  }
+}
