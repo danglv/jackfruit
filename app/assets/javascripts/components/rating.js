@@ -34,7 +34,7 @@
     this.on("click", function () {
 
       var valueStar = parseInt($(this).attr("val"));
-      var ratings = $(".rating-active");
+      var ratings = $(".rating");
       $("input[name=star]").val(valueStar);
       ratings.each( function (){
         var itemStars = $(this).find(".star");
