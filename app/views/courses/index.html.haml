@@ -1,26 +1,3 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%banner
-  .row
-    .col.s12
-      - if !@banner.blank?
-        - if @banner.location == 'header'
-          - if @banner.type == 'image'
-            = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-          - if @banner.type == 'popup'
-            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-
-%main.container-1140
-  .row.course-list.highest-rating
-    - @courses.to_a.each do |course_h|
-      - if course_h.last.last.count >0
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= course_h.last.first
-        .row.courses.card-style
-          - course_h.last.last.each do |course|
-            .col.s3
-              = render :partial => 'components/courses/course_card', :locals => {:course => course}
+.row.no-margin.card-category
+  = render :partial => 'components/courses/course_card'
+  = render :partial => 'components/courses/list_card'
