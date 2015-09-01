@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get '/:alias_name', to: 'payment#index'
       get '/cod/:alias_name', to: 'payment#cod'
       post :cod
+      get '/cancel_cod/:course_id', to: 'payment#cancel_cod'
       post '/cod/:id/import_code', to: 'payment#import_code'
       get '/online_payment/:alias_name', to: 'payment#online_payment'
       post '/online_payment', to: 'payment#online_payment'
