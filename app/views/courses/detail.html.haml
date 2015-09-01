@@ -194,15 +194,18 @@
                   .row.no-margin.curiculum-list
                     .col-xs-12.no-padding
                       .row.no-margin.curiculum-content
-                        .col-xs-1
+                        .col-xs-1.no-padding
                           - if curi.asset_type == "Video"
                             %i.fa.fa-play-circle
                           - else
                             %i.fa.fa-file
                         .col-xs-3
                           %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                        .col-xs-7.no-padding
+                        .col-xs-6.no-padding
                           %h5.normal-text.no-margin #{curi.title}
+                        .col-xs-2
+                          %h5.normal-text.no-margin
+                            %b 2:09
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -384,6 +387,15 @@
                     .col-xs-2
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
                         %i.mdi-action-favorite
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Nhập mã khuyến mãi
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Học thử miễn phí
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
                     .col-xs-8.no-padding
@@ -397,6 +409,15 @@
                         Mua khóa học
                     .col-xs-2
                       %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Nhập mã khuyến mãi
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Học thử miễn phí
+                    .col-xs-8.no-padding
+                      %a.link-text{:href => ""}
+                        %h5.normal-text.link-text Góp ý
               - else
                 - if @course.price == 0
                   .col-xs-8.no-padding
@@ -410,6 +431,15 @@
                       Mua khóa học
                   .col-xs-2
                     %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                  .col-xs-8.no-padding
+                    %a.link-text{:href => ""}
+                      %h5.normal-text.link-text Nhập mã khuyến mãi
+                  .col-xs-8.no-padding
+                    %a.link-text{:href => ""}
+                      %h5.normal-text.link-text Học thử miễn phí
+                  .col-xs-8.no-padding
+                    %a.link-text{:href => ""}
+                      %h5.normal-text.link-text Góp ý
         .col-xs-4.no-padding
           .divider
           .row.no-margin
@@ -478,15 +508,18 @@
                   .row.no-margin.curiculum-list
                     .col-xs-12.no-padding
                       .row.no-margin.curiculum-content
-                        .col-xs-1
+                        .col-xs-1.no-padding
                           - if curi.asset_type == "Video"
                             %i.fa.fa-play-circle
                           - else
                             %i.fa.fa-file
-                        .col-xs-3
+                        .col-xs-2.no-paddingf
                           %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                         .col-xs-7.no-padding
                           %h5.normal-text.no-margin #{curi.title}
+                        .col-xs-2.no-padding
+                          %h5.normal-text.no-margin
+                            %b 2:09
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -807,8 +840,11 @@
                             %i.fa.fa-file
                         .col-sm-2
                           %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                        .col-sm-8.no-padding
+                        .col-sm-7.no-padding
                           %h5.normal-text.no-margin #{curi.title}
+                        .col-sm-2.no-padding
+                          %h5.normal-text
+                            %b 2:09
       .row.no-margin.author
         .col-sm-12.no-padding
           %h4
@@ -1424,6 +1460,17 @@
             .col-lg-8
               %h5.normal-text 
                 %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
+      .row.no-margin
+        .col-lg-8.no-padding
+          %ul.nav.nav-pills
+            %li.active
+              %a{:href => "#"} Mô tả chi tiết
+            %li
+              %a{:href => "#"} Giáo trình
+            %li
+              %a{:href => "#"} Giảng viên
+            %li
+              %a{:href => "#"} Đánh giá
     .divider
     .container
       .row.no-margin
