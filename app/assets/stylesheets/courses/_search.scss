@@ -1,0 +1,23 @@
+.search {
+
+  .container {
+    margin: auto;
+  }
+  &-header {
+    background-color: #37b34a;
+    height: 80px;
+    h4 {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 40px;
+    }
+   
+  }
+  &-result-container {
+    .search-result-main {
+      background-color: #fff;
+      padding: 20px;
+    }
+  }
+}
