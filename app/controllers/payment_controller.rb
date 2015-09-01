@@ -2,11 +2,46 @@ class PaymentController < ApplicationController
   include PaymentServices
 
   before_filter :authenticate_user!, :except => [:error]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
 
   # GET
   def index
+    payment = Payment.where(
+      :course_id => @course.id,
+      :user_id => current_user.id,
+      :method => Constants::PaymentMethod::COD
+    ).or(
+      {:status => "pending"},
+      {:status => "process"}
+    ).first
+
+    unless payment.blank?
+      redirect_to :back
+    end
+  end
+
+  def cancel_cod
+    payment = Payment.where(
+      :course_id => params[:course_id],
+      :user_id => current_user.id,
+      :method => Constants::PaymentMethod::COD
+    ).or(
+      {:status => "pending"},
+      {:status => "process"}
+    ).first
+
+    unless payment.blank?
+      payment.status = "cancel"
+      payment.save
+      owned_course = current_user.courses.where(course_id: params[:course_id]).first
+      owned_course.payment_status = Constants::PaymentStatus::CANCEL
+      owned_course.save
+
+      redirect_to :back
+    else
+      redirect_to :back
+    end
   end
 
   # GET, POST

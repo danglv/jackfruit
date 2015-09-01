@@ -97,11 +97,15 @@
               .col.s6.no-padding
                 - if !@owned_course.blank?
                   - if @owned_course.payment_status == 'pending' || @owned_course.payment_status == 'process'
+                    %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
+                      Đang chờ xử lý
                     - if @payment.method == 'cod'
                       #cod-code-container.no-padding
                         %input{:type => 'text', :placeholder => 'Nhập COD code ...',:payment_id => @payment.id}
                         %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                         %a.btn#submit-cod-code{} Nhập
+                        .row
+                          %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", :style => "font-size: smaller; font-style: italic; padding: 5px;"} Huỷ COD
                     - else
                       %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                         Mua khoá học                    
