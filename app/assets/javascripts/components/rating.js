@@ -27,7 +27,7 @@
       $(".star").moveOnStar();
     });
   }
-  $(".rating").ratingOpenPopup();
+  $(".rating-active").ratingOpenPopup();
 
   // handle and detect move on star
   $.fn.moveOnStar = function () {
