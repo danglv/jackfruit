@@ -148,6 +148,7 @@
   
 }
 .course-card:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,.55);
   .course-info {
     opacity: 1;
   }
