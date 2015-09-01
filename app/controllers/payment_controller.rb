@@ -154,6 +154,9 @@ class PaymentController < ApplicationController
 
       data = JSON.parse(revice_data.body)
       # check data 
+      if data.blank?
+        @error = "Lỗi nhà mạng. Xin vui lòng thử lại sau."
+      end
 
       if revice_data.code.to_i == 200
         current_user.money += data['amount'].to_i
