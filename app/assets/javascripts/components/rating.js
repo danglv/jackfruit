@@ -27,14 +27,14 @@
       $(".star").moveOnStar();
     });
   }
-  $(".rating").ratingOpenPopup();
+  $(".rating-active").ratingOpenPopup();
 
   // handle and detect move on star
   $.fn.moveOnStar = function () {
     this.on("click", function () {
 
       var valueStar = parseInt($(this).attr("val"));
-      var ratings = $(".rating");
+      var ratings = $(".rating-active");
       $("input[name=star]").val(valueStar);
       ratings.each( function (){
         var itemStars = $(this).find(".star");
