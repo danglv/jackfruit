@@ -11,7 +11,8 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "bootstrap-material-design/dist/css/roboto";
 
 // Components
-@import "components/profile";
+@import "profile/profile";
+@import "profile/view_profile";
 @import "components/colors";
 @import "components/header";
 @import "components/slider-sidebar";

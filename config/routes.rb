@@ -57,9 +57,8 @@ Rails.application.routes.draw do
   get "/users/:id/show" => "users#show", as: :user
   # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
 
+  
   resources :users, :path => 'home/my-course', only: %w[] do
-    member do
-    end
     collection do      
       get :select_course
       get :learning
@@ -68,6 +67,13 @@ Rails.application.routes.draw do
       get :search
     end
   end 
+  
+  resources :users, only: %w[] do
+
+    collection do
+      get :view_profile
+    end
+  end
 
   resources :settings, only: %w[] do
     member do
