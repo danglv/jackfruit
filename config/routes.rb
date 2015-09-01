@@ -82,6 +82,12 @@ Rails.application.routes.draw do
       post :index
     end
   end
+
+  resources :demo, only: %w[] do
+    collection do
+      get :index
+    end
+  end
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'  
