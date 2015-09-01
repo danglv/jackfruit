@@ -1,4 +1,12 @@
 module Constants
+  module AppVersion
+    VER_1 = "ver_1"
+  end
+
+  module TrackingTypes
+    PAYMENT = "payment"
+  end
+
   module  CurriculumTypes
     CHAPTER = "chapter"
     LECTURE = "lecture"

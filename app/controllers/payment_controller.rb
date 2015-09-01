@@ -72,6 +72,18 @@ class PaymentController < ApplicationController
         create_course_for_user()
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::COD,
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
         render 'page_not_found', status: 404
       end
     end
@@ -98,6 +110,18 @@ class PaymentController < ApplicationController
       if payment.save
         create_course_for_user()
       else
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::ONLINE_PAYMENT,
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
         render 'page_not_found', status: 404
       end
 
@@ -164,6 +188,18 @@ class PaymentController < ApplicationController
           @error = "Bạn đã nạp thành công " + data['amount'].to_s + "đ"
           process_card_payment
         else
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::CARD,
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
           render 'page_not_found', status: 404
         end
       else
@@ -194,6 +230,20 @@ class PaymentController < ApplicationController
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
       else
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_page => Constants::PaymentStatus::SUCCESS,
+            :status => "fail",
+            :baokim => "verify_response_url"
+          },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
         render 'page_not_found', status: 404
       end
     elsif payment_service_provider == 'baokim_card'
@@ -249,6 +299,19 @@ class PaymentController < ApplicationController
       @payment = Payment.where(:id => payment_id).first
 
       if @payment.blank?
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_validate => "Payment blank",
+            :status => "fail",
+          },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
         render 'page_not_found', status: 404
         return
       end
@@ -301,6 +364,22 @@ class PaymentController < ApplicationController
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else
+          Tracking.create_tracking(
+            :type => Constants::TrackingTypes::PAYMENT,
+            :content => {
+              :payment_method => Constants::PaymentMethod::CARD,
+              :status => "fail",
+              :owned_course_save => owned_course.errors,
+              :payment_save => payment.errors,
+              :current_user => current_user.errors
+            },
+            :ip => request.remote_ip,
+            :platform => {},
+            :device => {},
+            :version => Constants::AppVersion::VER_1,
+            :identity => current_user.id.to_s,
+            :object => payment.id
+          )
           render 'page_not_found', status: 404
           return
         end
