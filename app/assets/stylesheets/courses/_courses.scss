@@ -1,10 +1,14 @@
 .detail {
-  margin: 20px 0 70px;
+  margin-bottom: 70px;
   .course-title {
     font-size: 18px;
     font-weight: bold;
     color: #212121;
-    margin-bottom: 5px !important;
+    margin: 20px 0 5px 0 !important;
+    &-big {
+      font-size: 30px;
+      margin: 20px 0 5px 0 !important;
+    }
   }
   .sub_title {
     line-height: 20px;
@@ -77,9 +81,42 @@
     }
   }
   .author {
-    margin-bottom: 25px !important;
+    margin-bottom: 15px !important;
     .social-button {
       font-size: 24px;
+    }
+  }
+  .rating {
+    margin-bottom: 25px !important;
+    .rating-text {
+      font-size: 18px;
+    }
+    .rating-point {
+      font-size: 60px;
+      color: #ff4444;
+    }
+    .course-rating-people {
+      font-size: 16px;
+    }
+    .progress {
+      margin: 20px 0 !important;
+      height: 6px;
+      .progress-bar {
+        background-color: #ffbb33 !important;
+      }
+    }
+  }
+  .discussion {
+    margin: 20px 0 !important;
+  }
+  .related-box {
+    background-color: #fff;
+    border: 1px solid #727272;
+    .related-content {
+      padding: 20px 10px !important;
+      img {
+        width: 100%;
+      }
     }
   }
 }
