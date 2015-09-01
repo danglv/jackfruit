@@ -17,7 +17,21 @@
   &-result-container {
     .search-result-main {
       background-color: #fff;
-      padding: 20px;
+      padding: 20px 20px 0px 20px;
+      .courses-result {
+        .list-card {
+          margin-top: 20px;
+        }
+      }
+      .courses-pagination {
+        text-align: center;
+        .pagination {
+          padding: 0px;
+        }
+      }
+    }
+    .search-result-left {
+      margin-bottom: 20px;
     }
   }
 }
