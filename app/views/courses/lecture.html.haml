@@ -34,7 +34,7 @@
           var category = 'JW Player Video';
           var action = 'Stop';
           var label = playerInstance.getPlaylist()[playerInstance.getPlaylistIndex()].file;
-          var value = playerInstance.getPosition();
+          var value = Math.round(1000 * playerInstance.getPosition());
           ga('send', 'event', category, action, label, value);
           return "Tracked";
         };
