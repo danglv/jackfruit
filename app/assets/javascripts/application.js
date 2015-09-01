@@ -20,6 +20,7 @@
 //= require components/lecture.js
 //= require components/learning.js
 //= require components/rating.js
+//= require components/filter.js
 //= require ./components/nav
 
 $(document).ready(function () {
