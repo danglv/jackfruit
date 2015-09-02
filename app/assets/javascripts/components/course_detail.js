@@ -34,3 +34,34 @@
 //   });
 
 // })
+
+(function ($) {
+
+  $.fn.setActive = function () {
+    this.click(function () {
+      $(".active").removeClass("active");
+      $(this).addClass("active");
+    });
+  };
+
+  $.fn.documentScroll = function () {
+    this.scroll(function () {
+      if( $(document).scrollTop() >= $($(".description")[4]).offset().top ){
+        $(".menu-fixed").css("display","block");
+      }
+      else {
+        $(".menu-fixed").css("display","none");
+      }
+
+    });
+  };
+
+  // check to active handle for scroll
+  if( $(".detail").length != 0){
+
+    $(document).documentScroll();
+    $(".menu-fixed li").setActive();
+
+  };
+
+})(jQuery);

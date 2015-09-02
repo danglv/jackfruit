@@ -1460,22 +1460,22 @@
             .col-lg-8
               %h5.normal-text 
                 %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-      .row.no-margin
-        .col-lg-8.no-padding
-          %ul.nav.nav-pills
-            %li.active
-              %a{:href => "#"} Mô tả chi tiết
-            %li
-              %a{:href => "#"} Giáo trình
-            %li
-              %a{:href => "#"} Giảng viên
-            %li
-              %a{:href => "#"} Đánh giá
+    .row.no-margin.menu-fixed
+      .container
+        %ul.nav.nav-pills
+          %li.active
+            %a{:href => "#description"} Mô tả chi tiết
+          %li
+            %a{:href => "#curiculums"} Giáo trình
+          %li
+            %a{:href => "#author"} Giảng viên
+          %li
+            %a{:href => "#rating"} Đánh giá
     .divider
     .container
       .row.no-margin
         .col-lg-8.no-padding
-          .row.no-margin.description
+          .row.no-margin.description#description
             .col-lg-12.no-padding
               %h4.no-margin
                 %b Mô tả về khóa học  
@@ -1489,7 +1489,7 @@
               %h4
                 %b Giáo trình
           .divider
-          .row.no-margin.curiculums
+          .row.no-margin.curiculums#curiculums
             .col-lg-12.no-padding
               - @course.curriculums.each do |curi|
                 .row.no-margin.curiculum
@@ -1515,7 +1515,7 @@
                             .col-lg-2.no-padding
                               %h5.normal-text
                                 %b 2:09
-          .row.no-margin.author
+          .row.no-margin.author#author
             .col-lg-12.no-padding
               %h4
                 %b Tiểu sử tác giả
@@ -1554,7 +1554,7 @@
               - if @course.user.instructor_profile.description.count > 0
                 - @course.user.instructor_profile.description.each do |i|
                   %h5.normal-text= i
-          .row.no-margin.rating
+          .row.no-margin.rating#rating
             .col-lg-12.no-padding
               %h4.normal-text
                 %b Đánh giá
