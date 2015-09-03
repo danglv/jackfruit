@@ -72,6 +72,10 @@ class PaymentController < ApplicationController
 
       if payment.save
         create_course_for_user()
+        begin
+          RestClient.post 'http://internal.tudemy.vn:8000/notify', :to => 'mercury', :msg => "{type:'cod', msg: 'Có đơn COD mới'}}"
+        rescue => e
+        end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
         Tracking.create_tracking(
