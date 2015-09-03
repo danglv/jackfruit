@@ -1,0 +1,22 @@
+.row.no-margin.courses-sorting
+  %ul 
+    %li.courses-sorting-title
+      Sắp xếp 
+    %li
+      .dropdown
+        %span.courses-sorting-selected.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown"}
+          Mặc định
+          %b.caret
+        %ul.dropdown-menu
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "populor"} Phổ biến 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "thapcao"} Giá tiền từ thấp -> cao 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "caothap"} Giá tiền từ cao -> thấp 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "language"} Ngôn ngữ 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "newest"} Mới nhất 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "oldest"} Cũ nhất 

@@ -1,104 +1,29 @@
-%main.search
-  .row.search-header
-    .row.container-1140.search-result-title
-      .row
-        .col.s12.no-padding
-          %h4.white-text Kết quả tìm kiếm cho từ khóa "#{@keywords}"
-  .row.category-main.container-1140
-    %form#test-form{:action => '', :method => 'GET'}
-      %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
-      %input#page-search{:type => 'hidden', :name => 'q', :value => ''}
-      .col.sidebar
-        %ul.course-filters
-          %li.course-filter
-            %p.course-filter-title Chi phí
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#price-free-filter.filled-in{:type => 'checkbox', :name => 'budget', :value => 'free'}
-                %label{:for => 'price-free-filter'} Miễn phí
-              %li.course-filter-item
-                %input#price-nonfree-filter.filled-in{:type => 'checkbox', :name => 'budget', :value => 'paid'}
-                %label{:for => 'price-nonfree-filter'} Trả phí
-          %li.course-filter
-            %p.course-filter-title Ngôn ngữ
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#language-en-filter.filled-in{:type => 'checkbox', :name => 'lang', :value => 'en'}
-                %label{:for => 'language-en-filter'} Tiếng Anh
-              %li.course-filter-item
-                %input#language-vi-filter.filled-in{:type => 'checkbox', :name => 'lang', :value => 'vi'}
-                %label{:for => 'language-vi-filter'} Tiếng Việt
-          %li.course-filter
-            %p.course-filter-title Trình độ
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#level-all-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'all'}
-                %label{:for => 'level-all-filter'} Mọi trình độ
-              %li.course-filter-item
-                %input#level-beginner-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'beginner'}
-                %label{:for => 'level-beginner-filter'} Cơ bản
-              %li.course-filter-item
-                %input#level-basic-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'intermediate'}
-                %label{:for => 'level-basic-filter'} Trung cấp
-              %li.course-filter-item
-                %input#level-advanced-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'expert'}
-                %label{:for => 'level-advanced-filter'} Nâng cao
-      .col.s9
-        .row.sorting
-          .input-field.col.s4
-            %select.sorting-options#sorting-options{:name => 'ordering'}
-              %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
-              %option{:value => 'ratings'} Đánh giá cao
-              %option{:value => 'newest'} Mới nhất
-              %option{:value => 'price-low-to-high'} Giá thấp đến cao
-              %option{:value => 'price-high-to-low'} Giá cao đến thấp
-        .row.courses.list-style
-          - @courses.each do |course|
-            .col.s12
-              = render :partial => 'components/courses/course_list', :locals => {:course => course}
-        .row
-        - if @total_page.to_i > 1
-        - @page = @page.to_i
-          %div.center-pagination
-            %ul.pagination  
-              - if @page == 1
-                %li.disable
-                  %a{:herf => "#!"}
-                    %i.material-icons chevron_left
-                %li.waves-effect.page 1
-                %li.waves-effect.page 2
-                - if @total_page != 2
-                  - if @total_page == 3
-                    %li.waves-effect.page 3
-                  - else 
-                    %li ..
-                    %li.waves-effect.page= @total_page
-              - else
-                %li.waves-effect#pre_page
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_left
-                - if @page > 3
-                  %li.waves-effect.page 1
-                  %li ..
-                  %li.waves-effect.page= @page - 1
-                  %li.waves-effect.page= @page
-                - else
-                  %li.waves-effect.page 1
-                  - (2..@page).each do |i|
-                    %li.waves-effect.page= i
-                - if @page < (@total_page - 2)
-                  %li.waves-effect.page= @page + 1
-                  %li ..
-                  %li.waves-effect.page= @total_page
-                - else
-                  - ((@page +1)..@total_page).each do |i|
-                    %li.waves-effect.page= i
-              - if @page == @total_page
-                %li.disable
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_right
-              - else
-                %li.waves-effect#next_page
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_right
-              
+.search
+  .row.no-margin.search-header
+    .row.container
+      %h4 Kết quả tìm kiếm cho từ khóa “ThanhNguyễn”
+  .row.container.search-result-container
+    .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.search-result-left
+      = render :partial => 'components/courses/filter'
+    .col-lg-10.col-md-9.col-sm-9.col-xs-12.search-result-main
+      = render :partial => 'components/courses/sorting'
+      .row.no-margin.courses-result
+        - (1..10).each do |a|
+          = render :partial => 'components/courses/list_card'
+      .row.no-margin.courses-pagination
+
+        %ul.pagination.pagination-md
+          %li
+            %a{:href => "javascript:void(0)"} <
+          %li.active
+            %a{:href => "javascript:void(0)"} 1
+          %li
+            %a{:href => "javascript:void(0)"} 2
+          %li
+            %a{:href => "javascript:void(0)"} ...
+          %li
+            %a{:href => "javascript:void(0)"} 58
+          %li
+            %a{:href => "javascript:void(0)"} 59
+          %li
+            %a{:href => "javascript:void(0)"} >
