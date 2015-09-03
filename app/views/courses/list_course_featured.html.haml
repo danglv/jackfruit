@@ -1,111 +1,44 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%banner
-  .row
-    .col.s12
-      - if !@banner.blank?
-        - if @banner.location == 'header'
-          - if @banner.type == 'image'
-            = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-          - if @banner.type == 'popup'
-            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}  
-
 %main.category
-  .row.category-header
-    .row.container-1140{:style => "padding-left: 240px;"}
-      .row
-        .col.s12
-          %ul.breadcum
-            %li.breadcum-item
-              %a{:href => '/courses'} Trang chủ
-            %li.breadcum-divider /
-            %li.breadcum-item
-              %a{:href => '/courses/' + @category_id}= @category_name
-      .row
-        .col.s12
-          %h4.category-title= @category_name
-      .row{:style => 'margin-bottom: 0;'}
-        .col.s12
-          %ul.tab-category.no-margin
-            %li.active
-              %a{:href => '#'} Nổi bật
-            %li
-              %a{:href => '/courses/' + @category_id + '/all_courses'} Tất cả các khoá học
-  .row.category-feature-main.container-1140
-    .left.sidebar
-      %ul.other-categories
-        %li.other-categories-title Các chủ đề khác
-        - @other_category.each do |cate|
-          %li.other-category
-            %a{:href => "/courses/#{cate.id}"}= cate.name
-    .col.s9.no-padding
-      -# top-free
-      - if @courses["top_free"].last.count > 0
-        .row.course-list.highest-rating
-          .col.s12.no-padding
-            .row.course-list-header
-              .col.s12
-                %h5.course-list-header-title= @courses["top_free"].first
-            .row.courses.card-style
-              - @courses["top_free"].last.each do |tf|
-                .col.s4
-                  = render :partial => 'components/courses/course_card', :locals => {:course => tf}
-      -# top_paid
-      .row.course-list.highest-rating
-        .col.s12.no-padding
-          - if @courses["top_paid"].last.count > 0
-            .row.course-list-header
-              .col.s12
-                %h5.course-list-header-title= @courses["top_paid"].first
-            .row.courses.card-style
-              - @courses["top_paid"].last.each do |tp|
-                .col.s4
-                  = render :partial => 'components/courses/course_card', :locals => {:course => tp}
-      -# newest
-      .row.course-list.highest-rating
-        .col.s12.no-padding
-          - if @courses["newest"].last.count > 0
-            .row.course-list-header
-              .col.s12
-                %h5.course-list-header-title= @courses["newest"].first
-            .row.courses.card-style
-              - @courses["newest"].last.each do |ne|
-                .col.s4
-                  = render :partial => 'components/courses/course_card', :locals => {:course => ne}
-      .row
-        .col.s12.no-padding
-          .row
-            .col.s12.related-category
-              %h5.course-list-header-title Chủ đề liên quan
-          .row
-            .col.s3.center-align
-              .row
-                %a.related-icon{:href => "/courses/thiet-ke"}
-                  = image_tag 'design-icon.png'
-              .row
-                %a.related-text{:href => "/courses/thiet-ke"}
-                  Thiết kế
-            .col.s3.center-align
-              .row
-                %a.related-icon{:href => "/courses/cong-nghe-thong-tin-va-phan-mem"}
-                  = image_tag 'technical-icon.png'
-              .row
-                %a.related-text{:href => "/courses/cong-nghe-thong-tin-va-phan-mem"}
-                  Công nghệ và phần mềm
-            .col.s3.center-align
-              .row
-                %a.related-icon{:href => "/courses/hieu-suat-van-phong"}
-                  = image_tag 'office-icon.png'
-              .row
-                %a.related-text{:href => "/courses/hieu-suat-van-phong"}
-                  Ứng dụng văn phòng
-            .col.s3.center-align
-              .row
-                %a.related-icon{:href => "marketing"}
-                  = image_tag 'marketing-icon.png'
-              .row
-                %a.related-text{:href => "marketing"}
-                  Marketing
+  .row.no-margin.category-header
+    .row.container
+      %ul.no-padding.breadcrumb
+        %li 
+          %a{:href => "/"}
+            %i.fa.fa-home
+        %li.breadcrumb-home
+          %a{:href => "#"} Trang chủ 
+        %li Lập trình 
+      .row.no-margin.category-header-name 
+        %h2 Lập trình 
+      .row.no-margin.category-header-navigation
+        %ul.nav.nav-tabs
+          %li.active.disabled
+            %a{:href => "#"} Nổi bật   
+          %li
+            %a{:href => "/courses/id/all_courses"} Tất cả khoá học 
+  .row.no-margin.category-all-courses
+    .container
+      .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-all-courses-left
+        = render :partial => 'components/courses/filter'
+      .col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
+        = render :partial => 'components/courses/sorting'
+        .row.no-margin.courses-result
+          - (1..10).each do |a|
+            = render :partial => 'components/courses/list_card'
+        .row.no-margin.courses-pagination
 
+          %ul.pagination.pagination-md
+            %li
+              %a{:href => "javascript:void(0)"} <
+            %li.active
+              %a{:href => "javascript:void(0)"} 1
+            %li
+              %a{:href => "javascript:void(0)"} 2
+            %li
+              %a{:href => "javascript:void(0)"} ...
+            %li
+              %a{:href => "javascript:void(0)"} 58
+            %li
+              %a{:href => "javascript:void(0)"} 59
+            %li
+              %a{:href => "javascript:void(0)"} >
