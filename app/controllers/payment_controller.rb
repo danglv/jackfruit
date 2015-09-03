@@ -4,7 +4,7 @@ class PaymentController < ApplicationController
   before_filter :authenticate_user!, :except => [:error]
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
-
+  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod]
   # GET
   def index
     payment = Payment.where(
@@ -19,8 +19,6 @@ class PaymentController < ApplicationController
     unless payment.blank?
       redirect_to :back
     end
-
-    @coupon_code = params['coupon_code']
   end
 
   def cancel_cod
@@ -56,25 +54,13 @@ class PaymentController < ApplicationController
       address = params[:address]
       city = params[:city]
       district = params[:district]
-      coupon_code = params[:coupon_code]
-
-      discount = 0
-      coupons = []
-      coupon_code.split(",").each {|coupon|
-        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-        response = Net::HTTP.get(uri)
-        if JSON.parse(response)['return_value'].to_i > 0
-          discount += JSON.parse(response)['return_value'].to_i
-          coupons << coupon
-        end
-      }
       
       payment = Payment.find_or_initialize_by(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
-        :coupons => coupons,
-        :money => @course.price * (100 - discount)/100
+        :coupons => @coupons,
+        :money => @price
       )
 
       payment.name = name,
@@ -115,7 +101,6 @@ class PaymentController < ApplicationController
       banks = baokim.get_seller_info()
       @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
       @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
-      @coupon_code = params[:coupon_code]
     elsif request.method == 'POST'
       # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
       Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
@@ -145,19 +130,8 @@ class PaymentController < ApplicationController
       end
 
       if payment_service_provider == 'baokim'
-        coupon_code = params[:coupon_code]
-        discount = 0
-        coupons = []
-        coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
-          if JSON.parse(response)['return_value'].to_i > 0
-            discount += JSON.parse(response)['return_value'].to_i
-            coupons << coupon
-          end
-        }
-        payment.coupons = coupons
-        payment.money = @course.price * (100 - discount) / 100
+        payment.coupons = @coupons
+        payment.money = @price
         payment.name = params['payer_name']
         payment.email = params['payer_email']
         payment.address = params['payer_address']
@@ -171,7 +145,7 @@ class PaymentController < ApplicationController
           'currency_code' => 'VND',
           'transaction_mode_id' => '1',
           'escrow_timeout' => 3,
-          'total_amount' =>  @course.price * (100 - discount) / 100,
+          'total_amount' => @price,
           'shipping_fee' =>  0,
           'tax_fee' =>  0,
           'order_description' =>  @course.name,
@@ -373,21 +347,9 @@ class PaymentController < ApplicationController
     end
 
     def process_card_payment
-      coupon_code = params[:coupon_code]
-      discount = 0
-      coupons = []
-      coupon_code.split(",").each {|coupon|
-        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-        response = Net::HTTP.get(uri)
-        if JSON.parse(response)['return_value'].to_i > 0
-          discount += JSON.parse(response)['return_value'].to_i
-          coupons << coupon
-        end
-      }
-      
-      if current_user.money > (@course.price * (100 - discount)/100)
+      if current_user.money > @price
         
-        current_user.money -= @course.price * (100 - discount)/100
+        current_user.money -= @price
         create_course_for_user()
         # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
         Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
@@ -398,8 +360,8 @@ class PaymentController < ApplicationController
           :method => Constants::PaymentMethod::CARD,
           :created_at => Time.now(),
           :status => Constants::PaymentStatus::SUCCESS,
-          :coupons => coupons,
-          :money => @course.price * (100 - discount)/100
+          :coupons => @coupons,
+          :money => @price
         )
 
         owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
@@ -429,5 +391,22 @@ class PaymentController < ApplicationController
           return
         end
       end
+    end
+
+    def process_coupon
+      @coupon_code = params['coupon_code']
+      @discount = 0
+      @coupons = []
+      if !@coupon_code.blank?
+        @coupon_code.split(",").each {|coupon|
+          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+          response = Net::HTTP.get(uri)
+          if JSON.parse(response)['return_value'].to_i > 0
+            @discount += JSON.parse(response)['return_value'].to_i
+            @coupons << coupon
+          end
+        }
+      end
+      @price = @course.price * (100 - @discount) / 100
     end
 end

@@ -5,7 +5,7 @@
 %main.payment
   .row
     .col.s12.no-padding
-      = render :partial => 'payment/header_payment'
+      = render :partial => 'payment/header_payment', :locals => {:price => @price}
       .container-1140
         = render 'payment_method', method: 'cod'
         .row.payment-content.active
