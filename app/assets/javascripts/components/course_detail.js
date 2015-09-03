@@ -87,9 +87,11 @@ $(document).ready(function () {
           } else if (coupon_code_param.split(",").indexOf(coupon_code) < 0) {
             $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "," + coupon_code);
           };
-
+          d = new Date(xhr.responseJSON.expired_date);
+          
+          $("#expired_date").text("Ngày hết hạn: " + d.getDate() + "/" +(d.getMonth() + 1) + "/" + d.getFullYear());
           $("#coupon-code-container").remove();
-
+          $("#line-through-price").css("display", "block");
         } else {
           $("#coupon-code-container input[type=text]").val("Mã coupon không tồn tại");
         };
