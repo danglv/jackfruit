@@ -1,7 +1,6 @@
 'use strict';
 
 $(document).ready(function () {
-    alert("okd");
   var element = $('.row.payment-content.active');
   if (element.length > 0) {
     $('html, body').animate({
