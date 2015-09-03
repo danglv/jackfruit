@@ -78,7 +78,6 @@ $(document).ready(function () {
         if (xhr.responseJSON.course_id == course_id) {
           discount = parseFloat(discount) + parseFloat(xhr.responseJSON.return_value);
           price = parseInt((parseInt(price) * (100 - discount) / 100 / 1000)) * 1000;
-          console.log(price);
           $(".course-price").text(number_to_currency(price, "đ", ","));
           $(".discount").text("(Giảm giá: " + discount + "%)");
 
@@ -88,6 +87,9 @@ $(document).ready(function () {
           } else if (coupon_code_param.split(",").indexOf(coupon_code) < 0) {
             $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "," + coupon_code);
           };
+
+          $("#coupon-code-container").remove();
+
         } else {
           $("#coupon-code-container input[type=text]").val("Mã coupon không tồn tại");
         };
