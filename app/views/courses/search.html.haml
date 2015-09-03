@@ -1,6 +1,4 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
+- @courses = ['blabla'];
 - if (@courses.count!=0 && @courses.first[0] != "featured")
   = render :partial => 'search_result'
 - else

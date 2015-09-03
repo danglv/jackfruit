@@ -1,0 +1,22 @@
+.courses-sorting {
+  ul, ul li {
+    float: left;
+  }
+  ul {
+    padding: 0px;
+    list-style: none;
+  }
+  ul li {
+    margin-right: 10px;
+  }
+  &-title {
+    line-height: 32px;
+  }
+  .dropdown-toggle {
+    cursor: pointer;
+  }
+  .dropdown {
+    padding: 5px 10px;
+    border: 1px solid #727272;
+  }
+}

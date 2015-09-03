@@ -195,85 +195,85 @@ class CoursesController < ApplicationController
   end
 
   def search
-    @keywords = params[:q]
-    @page     = params[:page] || 1
-    budget   = params[:budget]
-    lang     = params[:lang]
-    level    = params[:level]
-    ordering = params[:ordering]
+    # @keywords = params[:q]
+    # @page     = params[:page] || 1
+    # budget   = params[:budget]
+    # lang     = params[:lang]
+    # level    = params[:level]
+    # ordering = params[:ordering]
 
-    @keywords = Utils.nomalize_string(@keywords)
-    pattern  = /#{Regexp.escape(@keywords)}/i
+    # @keywords = Utils.nomalize_string(@keywords)
+    # pattern  = /#{Regexp.escape(@keywords)}/i
 
-    condition = {}
+    # condition = {}
 
-    if budget == Constants::BudgetTypes::FREE
-      condition[:price] = 0
-    elsif budget == Constants::BudgetTypes::PAID
-      condition[:price.gt] = 0
-    end
+    # if budget == Constants::BudgetTypes::FREE
+    #   condition[:price] = 0
+    # elsif budget == Constants::BudgetTypes::PAID
+    #   condition[:price.gt] = 0
+    # end
 
-    condition[:enabled] = true
-    condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
-    condition[:level] = level if Constants.CourseLevelValues.include?(level)
-    condition[:alias_name] = pattern
+    # condition[:enabled] = true
+    # condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
+    # condition[:level] = level if Constants.CourseLevelValues.include?(level)
+    # condition[:alias_name] = pattern
 
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-    else
-      condition[:version] = Constants::CourseVersions::PUBLIC
-    end
+    # if current_user
+    #   condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    # else
+    #   condition[:version] = Constants::CourseVersions::PUBLIC
+    # end
 
-    sort_by = ORDERING.first.last    
-    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
+    # sort_by = ORDERING.first.last    
+    # sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
 
-    @courses  = Course.where(condition).order(sort_by)
-    @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
+    # @courses  = Course.where(condition).order(sort_by)
+    # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
     
-    if @courses.count == 0
-      condition.delete(:name)
-      condition[:description] = pattern  
-      @courses  = Course.where(condition).order(sort_by)
-    end
+    # if @courses.count == 0
+    #   condition.delete(:name)
+    #   condition[:description] = pattern  
+    #   @courses  = Course.where(condition).order(sort_by)
+    # end
 
-    @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
+    # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
-    if @courses.count == 0
-      @courses = {}
+    # if @courses.count == 0
+    #   @courses = {}
       
-      condition = {:enabled => true,:label_ids.in => ["featured"]}
-      if current_user
-        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-      else
-        condition[:version] = Constants::CourseVersions::PUBLIC
-      end
+    #   condition = {:enabled => true,:label_ids.in => ["featured"]}
+    #   if current_user
+    #     condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    #   else
+    #     condition[:version] = Constants::CourseVersions::PUBLIC
+    #   end
 
-      @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], [Course.where(condition).first]]
-      condition = {:enabled => true, :price => 0}
-      if current_user
-        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-      else
-        condition[:version] = Constants::CourseVersions::PUBLIC
-      end
+    #   @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], [Course.where(condition).first]]
+    #   condition = {:enabled => true, :price => 0}
+    #   if current_user
+    #     condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    #   else
+    #     condition[:version] = Constants::CourseVersions::PUBLIC
+    #   end
 
-      @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
-      condition = {:enabled => true, :price.gt => 0}
-      if current_user
-        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-      else
-        condition[:version] = Constants::CourseVersions::PUBLIC
-      end
+    #   @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+    #   condition = {:enabled => true, :price.gt => 0}
+    #   if current_user
+    #     condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    #   else
+    #     condition[:version] = Constants::CourseVersions::PUBLIC
+    #   end
 
-      @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
-      condition = {:enabled => true}
-      if current_user
-        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-      else
-        condition[:version] = Constants::CourseVersions::PUBLIC
-      end
+    #   @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+    #   condition = {:enabled => true}
+    #   if current_user
+    #     condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    #   else
+    #     condition[:version] = Constants::CourseVersions::PUBLIC
+    #   end
 
-      @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(12)]
-    end
+    #   @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(12)]
+    # end
   end
 
   def select
