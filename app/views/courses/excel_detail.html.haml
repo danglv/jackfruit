@@ -69,6 +69,10 @@
               - if @coupon.blank?
                 .col.s12
                   %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                .col.s12.no-padding#line-through-price{:style => 'line-height: 34px;display: none;'}
+                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
+                  %span#expired_date
               - else
                 .col.s12.no-padding
                   %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(((@course.price * (100 - @coupon.map{|c| c['return_value'].to_i}.sum) / 100) / 1000.to_i) * 1000, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
@@ -76,6 +80,7 @@
                   %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
                   %br
+                  %span#expired_date= "Ngày hết hạn: " + @coupon.first['expired_date'].to_time.strftime("%d/%m/%Y")
                   / %span.red-text= "Ngày hết hạn: " + DateTime.now.day.to_s + "/" + DateTime.now.mon.to_s + "/" + DateTime.now.year.to_s + " "
                   / %span.red-text= "Ngày hết hạn: 31/08/2015 " 
           .row
@@ -102,7 +107,7 @@
                   - if @course.price == 0
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
-                  - else 
+                  - elsif @coupon.blank?
                     %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                       Mua khóa học
                     #coupon-code-container.no-padding
