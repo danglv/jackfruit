@@ -406,7 +406,7 @@ class PaymentController < ApplicationController
           uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
           response = Net::HTTP.get(uri)
           if JSON.parse(response)['return_value'].to_i > 0
-            @discount += JSON.parse(response)['return_value'].to_i
+            @discount += JSON.parse(response)['return_value'].to_f
             @coupons << coupon
           end
         }

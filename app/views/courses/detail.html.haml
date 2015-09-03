@@ -100,7 +100,6 @@
                       Mua khóa học
                     #coupon-code-container.no-padding
                       %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
-                      %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                       %a.btn#submit-coupon-code{} Nhập
             - else
               .col.s6.no-padding
