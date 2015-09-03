@@ -114,4 +114,17 @@
   }
   
 }
+@media (max-width: 768px) { 
+  .list-card {
+    .course-image { 
+      width: 87px;
+      height: 87px;
+      img {
+        height: 87px;
+        width: auto;
+        margin-left: -30px;
+      }
+    }
+  }
+}
 

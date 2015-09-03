@@ -1,10 +1,9 @@
+.row.no-margin
+  = render :partial => 'components/courses/sorting'
 .row.no-margin.card-category
-  .col-lg-3
-    = render :partial => 'components/courses/sorting'
-  .col-lg-3
-    = render :partial => 'components/courses/course_card'
-  .col-lg-3
-    = render :partial => 'components/courses/learning_card'
+  = render :partial => 'components/courses/course_card'
+.row.no-margin
+  = render :partial => 'components/courses/learning_card'
 .row.no-margin
   = render :partial => 'components/courses/list_card'
 .row.no-margin

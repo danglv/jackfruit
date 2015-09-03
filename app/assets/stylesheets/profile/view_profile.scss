@@ -1,0 +1,61 @@
+.profile-view {
+	.main-header {
+		background: #37a34b;
+    height: 94px;
+		.header-title {
+			font-size: 32px;
+			color: white;
+			font-weight: 500;
+      padding-top: 10px;
+		}
+		.header-text {
+			color: white;
+		}
+	}
+
+	.profile-detail {
+		background:white;
+		padding-top:20px;
+		.icon-social {
+			font-size: 20px;
+			color: #37a34b;
+		}
+		.profile-title {
+			font-size: 14px;
+			font-weight: 700;
+		}
+		.profile-description {
+			font-size: 16px;
+		}
+    .profile-view-tab {
+      background: transparent;
+      &>li{
+        &>a{
+          color: #212121 !important;
+          font-weight: normal;
+          padding: 5px;
+        }
+      }
+      &>li.active{
+        &>a{
+          border-bottom: 5px solid #37b34a !important;
+        }
+      }
+    }
+	}
+
+	.profile-course {
+		.learning-card {
+			display: inline-block;
+			margin: 0 12px 16px 12px;
+		}
+	}
+
+	.profile-pagination {
+		li.active {
+			background: #37b34a;
+
+		}
+	}
+
+}

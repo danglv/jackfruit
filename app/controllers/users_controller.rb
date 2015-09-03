@@ -218,4 +218,8 @@ class UsersController < ApplicationController
     def check_valid_length(string, min_length, max_length)
       string.length >= min_length && string.length <= max_length
     end
+
+  def view_profile
+    
+  end
 end
