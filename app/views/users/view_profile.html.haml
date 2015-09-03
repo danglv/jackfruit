@@ -10,7 +10,7 @@
       .row
         .col-lg-offset-1.col-lg-3.col-md-offset-1.col-md-4.col-sm-5.col-xs-12{:style => 'margin-bottom:20px'}
           .image-profile
-            = image_tag 'profile-default.png',:style => 'width:100%;margin-bottom:10px'
+            = image_tag 'http://thuvien.yeunhiepanh.net/Uploads/Picture/20116300577-MG_7889-1_resize.jpg',:style => 'width:100%;margin-bottom:10px'
             .col-xs-2.text-center.no-padding
               %a{:href => ""} 
                 %i.fa.fa-globe.icon-social
@@ -33,17 +33,19 @@
           .profile-title 
             Thông tin học viên 
           .profile-description Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing 
-      .row{:style => 'margin-top:30px'}
-        .col-lg-6.col-md-6.col-sm-6.col-xs-6
-          .studying.pull-right
-            %a{:href => ""} Đang học
-        .col-lg-6.col-md-6.col-sm-6.col-xs-6
-          .favour.pull-left
-            %a{:href => ""} Ưa thích
+      %ul.row.nav.nav-tabs.profile-view-tab{:style => 'margin-top:30px'}
+        %li.col-lg-6.col-md-6.col-sm-6.col-xs-6.active
+          %a.pull-right{:href => "#studying","data-toggle" => 'tab',:style => 'border-bottom:5px solid #37b34a'} Đang học
+        %li.col-lg-6.col-md-6.col-sm-6.col-xs-6
+          %a.pull-left{:href => "#favorite","data-toggle" => 'tab'} Ưa thích
   %section.profile-course{:style => 'padding-top:20px'}
-    .container.text-center
-      - (1..12).each do |a|
-        = render :partial => 'components/courses/learning_card'
+    .container.text-center.tab-content
+      #studying.tab-pane.fade.active.in
+        - (1..12).each do |a|
+          = render :partial => 'components/courses/learning_card'
+      #favorite.tab-pane.fade
+        - (1..8).each do |a|
+          = render :partial => 'components/courses/learning_card'
   %section.profile-pagination
     .container.text-center
       %ul.pagination
