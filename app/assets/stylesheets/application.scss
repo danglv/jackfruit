@@ -21,10 +21,13 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "components/learning_card";
 @import "components/sorting";
 @import "components/filter";
+@import "components/other-category";
 @import "learning/learning";
 @import "lecture/lecture";
 @import "payment/payment.scss";
 @import "courses/courses.scss";
 @import "courses/search.scss";
+@import "courses/category.scss";
+
 @import "settings.scss"
 
