@@ -1,7 +1,7 @@
 .profile-view {
 	.main-header {
 		background: #37a34b;
-    height: 94px;
+   	height: 94px;
 		.header-title {
 			font-size: 32px;
 			color: white;
@@ -12,7 +12,6 @@
 			color: white;
 		}
 	}
-
 	.profile-detail {
 		background:white;
 		padding-top:20px;
@@ -43,19 +42,15 @@
       }
     }
 	}
-
 	.profile-course {
-		.learning-card {
+		.learning-card,.course-card {
 			display: inline-block;
 			margin: 0 12px 16px 12px;
 		}
 	}
-
 	.profile-pagination {
 		li.active {
 			background: #37b34a;
-
 		}
 	}
-
 }
