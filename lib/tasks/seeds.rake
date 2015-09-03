@@ -501,6 +501,76 @@ namespace :seeds do
       end
     }
   end
+
+  desc "seeds one course"
+  task seed_one_course_paid: :environment do
+    csv_file_name = "public/03-09-2015/PAS01 - Dev.Upload - Sheet1"
+    data = load_csv_file(csv_file_name) and true
+    @curriculums = []
+    @description = []
+    @requirement = []
+    @benefit = []
+    @audience = []
+    @course = Course.find_or_initialize_by(alias_name: data[1][0])
+    @course.name = data[1][1]
+    @course.sub_title = data[1][2]
+    data.each_with_index{|row, index|
+      if index == 0
+        next if (row[0] == "" || row[0] == "alias" || row[0] == "Alias")
+        course = Course.where(alias_name: row[0]).first
+
+        next if course.blank?
+      end
+
+      if !row[7].blank?
+        @curriculums << [row[7], "chapter", row[9], row[10], row[11]]
+      end
+  
+      if !row[8].blank?
+        @curriculums << [row[8], "lecture", row[9], row[10], row[11]]
+      end
+  
+      if !row[3].blank?
+        @description << row[3]
+      end
+
+      if !row[4].blank?
+        @requirement << row[4]
+      end
+
+      if !row[5].blank?
+        @benefit << row[5]
+      end
+
+      if !row[6].blank?
+        @audience << row[6]
+      end
+    }
+    chapter_index = 0
+    lecture_index = 0
+    @curriculums.each_with_index {|curriculum, x|
+      course_curriculum = @course.curriculums.find_or_initialize_by(
+        order: x,
+      )
+      course_curriculum.title = curriculum[0]
+      course_curriculum.description = curriculum[2]
+      course_curriculum.chapter_index = chapter_index
+      course_curriculum.lecture_index = lecture_index
+      course_curriculum.type = curriculum[1]
+      course_curriculum.asset_type = curriculum[3]
+      course_curriculum.url = curriculum[4]
+      course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum[3])
+      chapter_index += 1 if curriculum[1] == "chapter"
+      lecture_index += 1 if curriculum[1] == "lecture"
+    }
+    
+    @course.description = @description
+    @course.requirement = @requirement
+    @course.benefit     = @benefit
+    @course.audience    = @audience
+
+    binding.pry unless @course.save
+  end
 end
 
 def load_csv_file(file_name)

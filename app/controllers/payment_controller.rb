@@ -411,6 +411,6 @@ class PaymentController < ApplicationController
           end
         }
       end
-      @price = @course.price * (100 - @discount) / 100
+      @price = ((@course.price * (100 - @discount) / 100) / 1000).to_i * 1000
     end
 end
