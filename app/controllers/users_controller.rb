@@ -133,7 +133,9 @@ class UsersController < ApplicationController
         return
       end
     else
-      redirect_to root_url + "home/payment/#{@course.alias_name}"
+      url = root_url + "home/payment/#{@course.alias_name}"
+      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      redirect_to url
     end
   end
 

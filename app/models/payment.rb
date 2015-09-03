@@ -5,17 +5,26 @@ class Payment
   belongs_to :user, class_name: "User"
   belongs_to :course, class_name: "Course"
 
+  # user info
   field :name, type: String, default: ""
   field :email, type: String, default: ""
   field :mobile, type: String, default: ""
   field :address, type: String, default: ""
   field :city, type: String, default: ""
   field :district, type: String, default: ""
+
   field :method, type: String, default: Constants.PaymentMethodValues.first
   field :status, type: String, default: Constants::PaymentStatus::PENDING
 
   # COD code
   field :cod_code, type: String
+
+  # lưu giá bán
+  field :money, type: Integer, default: 0
+  # Lưu người bán
+  field :seller, type: String, default: Constants::Seller::TOPICA
+  # Lưu coupon
+  field :coupons, type: Array, default: []
 
   validates :course_id, :user_id, presence: true
   validates_inclusion_of :method, :in => Constants.PaymentMethodValues

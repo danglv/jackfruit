@@ -97,7 +97,8 @@ RailsAdmin.config do |config|
       field :address
       field :city
       field :district
-      field :cod_code
+      field :coupons
+      field :money
     end
 
     edit do

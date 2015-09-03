@@ -65,15 +65,15 @@
               .col.s12
                 %span.course-price{:style => 'margin: 0'} Miễn phí
             - else
-              - if @course.old_price == 0
+              - if @coupon.blank?
                 .col.s12
                   %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               - else
                 .col.s12.no-padding
-                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price * (100 - @coupon.map{|c| c['return_value'].to_i}.sum) / 100, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 .col.s12.no-padding{:style => 'line-height: 34px;'}
-                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.old_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                  %span (Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%)
+                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
           .row
             - if !current_user.blank?
               .col.s6.no-padding
@@ -96,16 +96,24 @@
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
                   - else 
-                    %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                       Mua khóa học
+                    #coupon-code-container.no-padding
+                      %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
+                      %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                      %a.btn#submit-coupon-code{} Nhập
             - else
               .col.s6.no-padding
                 - if @course.price == 0
                   %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                     Bắt đầu học ngay
                 - else 
-                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                     Mua khóa học
+                  #coupon-code-container.no-padding
+                    %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
+                    %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                    %a.btn#submit-coupon-code{} Nhập
             .col.s6.no-padding
               / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
               /   %i.material-icons.is-favorite group

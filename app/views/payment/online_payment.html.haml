@@ -38,6 +38,7 @@
                 %h5{:style => 'font-weight: bold;'} Thông tin thanh toán
               .row
                 %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
+                %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
                 %input{:type => "hidden", :name => "p", :value => 'baokim'}
                 .input-field
                   %input{:type => "text", :name => "payer_name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/

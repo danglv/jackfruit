@@ -128,7 +128,6 @@ class CoursesController < ApplicationController
 
   def detail
     if current_user
-
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       if !current_user.courses.where(
         :course_id => @course.id.to_s,
@@ -142,6 +141,30 @@ class CoursesController < ApplicationController
           course_id: @course.id.to_s
         ).last
       end
+    end
+
+    # Get Coupon
+    coupon_code = params[:coupon_code]
+    @coupon = []
+    uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
+    response = Net::HTTP.get(uri)
+    data = JSON.parse(response)
+    data['coupons'].each {|coupon|
+      if coupon['expired_date'].to_time > Time.now()
+        @coupon << coupon
+        break
+      end
+    }
+    if !coupon_code.blank?
+      uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=#{@course.id.to_s}")
+      response = Net::HTTP.get(uri)
+      data = JSON.parse(response)
+      data['coupons'].each {|coupon|
+        if coupon['expired_date'].to_time > Time.now()
+          @coupon << coupon
+          break
+        end
+      }
     end
 
     @courses = {}
