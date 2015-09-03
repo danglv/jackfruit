@@ -188,6 +188,7 @@ class CoursesController < ApplicationController
       if params[:layout].to_i == 1
         render :template => "courses/detail"
       else
+        @is_experiment_tund = 1
         render :template => "courses/excel_detail"
       end
     else
