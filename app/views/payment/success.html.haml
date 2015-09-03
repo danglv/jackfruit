@@ -22,7 +22,7 @@
               .offset-s1.col.s2.left-align
                 %span Chi phí
               .offset-s1.col.s7.right-align
-                %span.green-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %span.green-text= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             .row
               .offset-s1.col.s10{:style => 'border-bottom:1px solid #333'}
             .row.valign-wrapper

@@ -119,6 +119,11 @@ module Constants
     PUBLIC = "public"
   end
 
+  module Seller
+    TOPICA = "topica"
+    INSTRUCTOR = "instructor"
+  end
+
   class << self
     Constants.constants.each {|module_name|
       sub_module = Constants.const_get(module_name)

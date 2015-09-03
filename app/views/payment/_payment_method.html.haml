@@ -1,29 +1,29 @@
-.row.payment-content{:class => [('active' if method == '')]}
+.row.payment-content{:class => [("active" if method == "")]}
   .col.s12
     %h4 1. Lựa chọn hình thức thanh toán
 .row.payment-content
   .row.courses.card-style.center-align
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
+      %a.payment-tab.course{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [("active" if method == "cod")]}
         .card-image.course-image
           %i.material-icons.large shopping_cart
           %h6 Giao khóa học
           %h6 và thu tiền tận nơi
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
+      %a.payment-tab.course{:href => "/home/payment/online_payment/" + @course.alias_name + "?p=baokim&coupon_code=#{@coupon_code}", :class => [("active" if method == "online_payment")]}
         .card-image.course-image
           %i.material-icons.large credit_card
           %h6 Thanh toán trực tuyến
           %h6 bằng thẻ ATM
           %h6 hoặc Visa/Master
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
+      %a.payment-tab.course{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [("active" if method == "transfer")]}
         .card-image.course-image
           %i.material-icons.large business
           %h6 Chuyển khoản
           %h6 qua ngân hàng
     .col.s3
-      %a.payment-tab.course{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
+      %a.payment-tab.course{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [("active" if method == "card")]}
         .card-image.course-image
           %i.material-icons.large style
           %h6 Thanh toán thẻ cào

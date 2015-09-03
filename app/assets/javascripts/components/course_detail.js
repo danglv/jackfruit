@@ -36,4 +36,57 @@ $(document).ready(function () {
 
   });
 
+  $("#submit-coupon-code").on("click", function () {
+    var input_code = $("#coupon-code-container input[type=text]")
+    var coupon_code = input_code.val();
+    var course_id = input_code.attr("course_id");
+    var price = input_code.attr("price");
+    var discount = input_code.attr("discount");
+
+    if (coupon_code.trim() == "") {
+      input_code.focus();
+      return;
+    }
+    if (course_id.trim() == "") {
+      return;
+    }
+
+    var URL = "http://code.pedia.vn/coupon?coupon=" + coupon_code;
+    $.ajax({
+      type: 'GET',
+      url: URL,
+      success: function (data, textStatus, xhr) {
+        if (xhr.responseJSON.course_id == course_id) {
+          discount = parseInt(discount) + parseInt(xhr.responseJSON.return_value);
+          price = parseInt(price) * (100 - discount) / 100;
+          $(".course-price").text(number_to_currency(price, "đ", ","));
+          $(".discount").text("(Giảm giá: " + discount + "%)");
+
+          var coupon_code_param = getParameterByName("coupon_code", $("#btn-buy").attr("href"));
+          if (coupon_code_param == "") {
+            $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "&coupon_code=" + coupon_code);
+          } else if (coupon_code_param.split(",").indexOf(coupon_code) < 0) {
+            $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "," + coupon_code);
+          };
+        };
+      },
+      complete: function (xhr, textStatus) {
+      }
+    });
+  });
+
+  function number_to_currency(price, unit, delimiter) {
+    unit = unit || "đ";
+    delimiter = delimiter || ",";
+
+    return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + delimiter) + unit;
+  };
+
+  // get param url
+  function getParameterByName(name, url) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(url);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
 })
