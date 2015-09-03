@@ -184,15 +184,18 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
-    if ["55c3306344616e0ca600001f", "55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+    if ["55c3306344616e0ca600001f", "55cb2d3044616e15ca000000", "55cb2d3044616e15ca000000"].include?(@course.id.to_s)
       if params[:layout].to_i == 1
         render :template => "courses/detail"
+        return
       else
         @is_experiment_tund = 1
         render :template => "courses/excel_detail"
+        return
       end
     else
       render :template => "courses/detail"
+      return
     end
   end
 
