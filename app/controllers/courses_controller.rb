@@ -184,7 +184,7 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
-    if @course.id.to_s == "55c3306344616e0ca600001f"
+    if ["55c3306344616e0ca600001f", "55cb2d3044616e15ca000000"].include?(@course.id.to_s)
       if params[:layout].to_i == 1
         render :template => "courses/detail"
       else
