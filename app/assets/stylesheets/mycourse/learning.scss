@@ -1,0 +1,60 @@
+.myCourse-learning {
+  .header-myCourse {
+    padding-top: 25px;
+    .myCourse-label {
+      line-height: 32px;
+      text-indent: 6px;
+      font-weight: 500;
+      font-size: 18px;
+    }
+  }
+  .myCourse-tab {
+    background: transparent;
+    li {
+      margin-left: 11px;
+      margin-right: 11px;
+      a {
+        color: #338abc !important;
+        padding: 6px;
+        color: #212121 !important;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+    li.active {
+      a{
+        border-bottom: 5px solid #338abc !important;
+        color: #338abc !important;
+      }
+    }
+  }
+  .learning-card,.course-card {
+    display: inline-block;
+    margin: 6px;
+  }
+  @media screen and (min-width: 1200px) {
+    .myCourse-tab {
+      float: right;
+    }
+    .container {
+      width: 1010px;
+    }
+  }
+  @media screen and (max-width: 1199px) {
+    .myCourse-tab {
+      text-align: center;
+      li{
+        float: none;
+        display: inline-block;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .myCourse-tab{
+      &>li:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
