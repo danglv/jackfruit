@@ -116,6 +116,10 @@
 }
 @media (max-width: 768px) { 
   .list-card {
+    &-content {
+      width: calc(100% - 87px);
+      padding-right: 0px
+    }
     .course-image { 
       width: 87px;
       height: 87px;
