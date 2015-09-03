@@ -671,7 +671,7 @@
               - elsif @course.intro_link['youtu.be']
                 - pattern = /youtu.be\/(.*)\?/
                 - @youtube_id = pattern.match(@course.intro_link)[1]
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "190", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
+              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "450", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
             - elsif @course.image && @course.image != ''
               = image_tag @course.image, :style => 'width: 100%'
             - else
@@ -994,7 +994,7 @@
               - elsif @course.intro_link['youtu.be']
                 - pattern = /youtu.be\/(.*)\?/
                 - @youtube_id = pattern.match(@course.intro_link)[1]
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "190", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
+              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "340", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
             - elsif @course.image && @course.image != ''
               = image_tag @course.image, :style => 'width: 100%'
             - else
@@ -1330,7 +1330,7 @@
               - elsif @course.intro_link['youtu.be']
                 - pattern = /youtu.be\/(.*)\?/
                 - @youtube_id = pattern.match(@course.intro_link)[1]
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "190", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
+              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "340", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
             - elsif @course.image && @course.image != ''
               = image_tag @course.image, :style => 'width: 100%'
             - else
