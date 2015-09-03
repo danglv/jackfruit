@@ -70,7 +70,7 @@
                   %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               - else
                 .col.s12.no-padding
-                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price * (100 - @coupon.map{|c| c['return_value'].to_i}.sum) / 100, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(((@course.price * (100 - @coupon.map{|c| c['return_value'].to_i}.sum) / 100) / 1000.to_i) * 1000, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 .col.s12.no-padding{:style => 'line-height: 34px;'}
                   %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
