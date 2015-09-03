@@ -161,7 +161,7 @@
           %h4{:style => 'border-bottom: 1px solid #999'}
             Giáo trình
           .divider
-          .collection.courses{:style => "border: none"} 
+          .collection.courses 
             - @course.curriculums.each do |curi|
               - if(curi.type == 'chapter')
                 %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
@@ -296,32 +296,7 @@
         .row
           #fb-root
           .fb-share-button{:"data-href" => "#{request.url}", :"data-layout" => "button"}
-        - if @courses['related'].last.count > 0    
-          .row
-            %h5= @courses['related'].first
-          .row
-            %ul.collection
-              - @courses['related'].last.each do |relate|
-                %a.black-text{:href => "/courses/"+relate.alias_name+"/detail"}
-                  %li.collection-item.avatar
-                    - if relate.user
-                      = image_tag relate.image, :class => 'circle'
-                    %span.title.bold= relate.name
-                    - if relate.user
-                      %p= relate.user.name
-                    %span.courses
-                      %span.course-rating
-                      %span.course-rating-point
-                        - (1..5).each do |i|
-                          - if i <= relate.average_rating
-                            %i.material-icons.is-rated star_rate
-                          - else
-                            %i.material-icons star_rate
-                      .row
-                        - if relate.price == 0
-                          .col.s5.no-padding.course-price.free Miễn phí
-                        - else
-                          .col.s5.no-padding.course-price= number_to_currency(relate.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        
       .col.s12.course-list.highest-rating
     - if @courses['featured']
       .col.s12

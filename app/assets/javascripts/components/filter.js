@@ -30,8 +30,7 @@
   var budget = getParameterByName("budget");
   var feature = getParameterByName("feature");
   var level = getParameterByName("level");
-  console.log(budget+":"+feature+":"+level
-    );
+
   $(".filter input[type=checkbox]").each( function () {
     var value = $(this).attr('value');
     if (value == budget || value == feature || value == level) {
