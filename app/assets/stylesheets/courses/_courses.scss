@@ -129,3 +129,25 @@
     }
   }
 }
+.courses-select {
+  z-index: -1;
+  .top {
+    background-color: #fff;
+    .course-image {
+      img {
+        margin: 10px 0;
+        width: 100%;
+      }
+    }
+    .course-info {
+      text-align: center;
+      margin-bottom: 15px !important;
+    }
+    .learning-button {
+      text-transform: none;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px !important;
+    }
+  }
+}
