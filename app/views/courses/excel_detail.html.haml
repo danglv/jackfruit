@@ -91,7 +91,7 @@
                     %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
                       Đang chờ xử lý
                     - if @payment.method == 'cod'
-                      #coupon-code-container.no-padding
+                      #cod-code-container.no-padding
                         %input{:type => 'text', :placeholder => 'Nhập COD code ...',:payment_id => @payment.id}
                         %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                         %a.btn#submit-cod-code{} Nhập
@@ -99,7 +99,10 @@
                           %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", :style => "font-size: smaller; font-style: italic; padding: 5px;"} Huỷ COD
                     - else
                       %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                        Mua khoá học                    
+                        Mua khoá học
+                      #coupon-code-container.no-padding
+                        %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
+                        %a.btn#submit-coupon-code{} Nhập                
                   - else
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
@@ -124,6 +127,9 @@
                 - else 
                   %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                     Mua khóa học
+                  #coupon-code-container.no-padding
+                    %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
+                    %a.btn#submit-coupon-code{} Nhập
               .col.s6.no-padding
                 .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
                   %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
