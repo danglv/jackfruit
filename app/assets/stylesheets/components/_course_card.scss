@@ -277,8 +277,9 @@
         .course-title {
           margin: 0px;
         }
-        .course-price {
+        .course-price, .promotion-price {
           position: initial;
+          margin: 0px;
         }
         .rating-container {
           margin-top: 0px;
