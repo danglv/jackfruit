@@ -1,46 +1,16 @@
-.home.container-1140
-  %header.landingpage-header
-    = render :partial => 'header'
-  .home-top.flex-box
-    .splash-box
-      %span.splash-box-title Khóa học nào sẽ thay đổi cuộc đời bạn?
-      %span.splash-box-subtitle Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
-      %form{:action => '/courses/search', :method => 'GET', :id => 'search-form'}
-        .input-field
-          %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khóa học'}
-          %label{:for => 'course-search'}
-            %i.material-icons search
-      .row.hooks
-        .col.s4.hook.center-align
-          %i.material-icons.hook-icon payment
-          .hook-text Thanh toán 1 lần học trọn đời
-        .col.s4.hook
-          %i.material-icons.hook-icon replay_30
-          .hook-text Hoàn tiền sau 30 ngày nếu không hài lòng
-        .col.s4.hook
-          %i.material-icons.hook-icon local_convenience_store
-          .hook-text Học mọi lúc mọi nơi
-  .home-main.container-1140
-    .row
-      .col.s12
-        - if !@banner.blank?
-          - if @banner.location == 'header'
-            - if @banner.type == 'image'
-              = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-            - if @banner.type == 'popup'
-              = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-    .row
-      .col.s12
-        .home-headline Khám phá những chủ đề và khóa học phổ biến
-    .row.courses.card-style
-      - if @courses
-        - @courses.each do |c|
-          .col.s3
-            = render :partial => 'components/courses/course_card', :locals => {:course => c}
-    .row
-      .col.s12
-        %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;', :href => '/courses'} Khám phá các khóa học khác
-    .row{:style => 'text-align: center; margin-bottom: 60px;'}
-      %p{:style => 'font-size: 48px; margin-bottom: 0;'} Sẵn sàng để làm chủ những kỹ năng mới?
-      %p{:style => 'font-size: 32px; margin-top: 0;'} Đưa sự nghiệp của bạn lên tầm cao mới!
-      %a.btn.modal-trigger.waves-effect.deep-orange{:style => 'height: 70px; line-height: 70px;', :href => '#modal-register'} Đăng ký ngay     
+.hidden-lg
+  .row.no-margin
+    .col-xs-12.col-sm-12.col-md-12.no-padding
+      = render :partial => 'components/header/index'
+  .row.no-margin.landingpage
+    .col-xs-12.col-ld-12.col-md-12.no-padding
+      .row.no-margin.header-box
+        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+          %h4.no-margin.header-title Khóa học nào sẽ thay đổi cuộc đời bạn?
+        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+          %h5.header-description Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
+        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+          %input.form-control{:placeholder => "Tìm một khóa học", :type => "text"}
+          %i.fa.fa-search
+      .container            
+.hidden-xs.hidden-sm.hidden-md

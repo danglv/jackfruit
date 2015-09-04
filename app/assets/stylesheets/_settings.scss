@@ -33,8 +33,26 @@
   color: #212121;
   font-weight: 400;
 }
-
-
+/*Responsive*/
+/* Màn 480- */
+@media (max-width: 479px) {
+  .layout-320 {
+    display: block;
+  }
+  .layout-480-up {
+    display: none;
+  }
+}
+/* Màn 480+ */
+@media (min-width: 480px) {
+  .layout-320 {
+    display: none;
+  }
+  .layout-480-up {
+    display: block;
+    margin-bottom: 25px;
+  }
+}
 
 $bootstrap-sass-asset-helper: false !default;
 //

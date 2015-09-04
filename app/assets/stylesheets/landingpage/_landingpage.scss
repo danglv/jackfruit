@@ -1,0 +1,145 @@
+@media (max-width: 320px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: 90%;
+        color: #fff;
+      }
+    }
+  }
+}
+@media (min-width: 321px) and (max-width: 479px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: 90%;
+        color: #fff;
+      }
+    }
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: 90%;
+        color: #fff;
+      }
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-size: 32px;
+        font-weight: 500;
+        color: #fff;
+      }
+      .header-description {
+        font-size: 20px;
+        font-weight: 300;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: 95%;
+        color: #fff;
+      }
+    }
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-size: 32px;
+        font-weight: 500;
+        color: #fff;
+      }
+      .header-description {
+        font-size: 20px;
+        font-weight: 300;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: 95%;
+        color: #fff;
+      }
+    }
+  }
+}
+@media (min-width: 1201px) {}

@@ -284,19 +284,19 @@
 /*Responsive*/
 /* Màn 480- */
 @media (max-width: 479px) {
-  .payment-320 {
+  .layout-320 {
     display: block;
   }
-  .payment-480-up {
+  .layout-480-up {
     display: none;
   }
 }
 /* Màn 480+ */
 @media (min-width: 480px) {
-  .payment-320 {
+  .layout-320 {
     display: none;
   }
-  .payment-480-up {
+  .layout-480-up {
     display: block;
     margin-bottom: 25px;
   }
