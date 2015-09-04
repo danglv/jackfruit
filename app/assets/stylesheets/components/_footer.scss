@@ -1,0 +1,33 @@
+.footer {
+  width: 100%;
+  background-color: #212121;
+  padding: 15px 0px;
+  &-links-one, &-links-two {
+    list-style: none;
+    padding-left: 0px;
+    width: 100%;
+  }
+  &-links-one li, &-links-two li {
+    margin-right: 19px;
+  }
+  &-links-one, &-links-two, &-links-one li, &-links-two li {
+    float: left;
+  }
+  &-links-one {
+    margin-bottom: 5px;
+  }
+  &-links-one a, &-links-two a{
+    line-height: 16px;
+  }
+  &-links-one a{
+    color: #fff;
+    font-size: 14px;
+  }
+  &-links-two a{
+    color: #ccc;
+    font-size: 13px;
+  }
+  &-links-one a:hover, &-links-two a:hover{
+    text-decoration: none;
+  }
+}
