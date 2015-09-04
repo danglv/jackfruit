@@ -17,6 +17,7 @@
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
 
+//= require components/landing_page.js
 //= require components/course_detail.js
 //= require components/lecture.js
 //= require components/learning.js
@@ -31,7 +32,6 @@ $(document).ready(function () {
   $.material.input();
   $('.active-nav').sliderDropdown();
 });
-
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
