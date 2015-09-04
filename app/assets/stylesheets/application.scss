@@ -11,6 +11,7 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "bootstrap-material-design/dist/css/roboto";
 
 // Components
+@import "mycourse/learning";
 @import "profile/profile";
 @import "profile/view_profile";
 @import "components/colors";
@@ -20,6 +21,7 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "components/course_card";
 @import "components/list_card";
 @import "components/learning_card";
+@import "components/landingpage_card";
 @import "components/sorting";
 @import "components/filter";
 @import "components/other-category";

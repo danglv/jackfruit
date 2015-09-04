@@ -53,8 +53,8 @@
       }
       .other-category-container {
         label {
-          color: #338abc;
-          font-weight: bold;
+          color: #212121;
+          font-weight: 500;
           margin-top: 25px;
         }
         .other-category {
@@ -82,15 +82,187 @@
       margin: auto;
     }
   }
+  &-feature-courses {
+    &-left {
+      margin-bottom: 20px;
+      display: none;
+      .filter {
+        float: left;
+        padding-bottom: 26px;
+        border-bottom: 1px solid #b6b6b6;
+        margin-right: 15px;
+      }
+      .other-category-container {
+        label {
+          color: #212121;
+          font-weight: 500;
+          margin-top: 29px;
+        }
+        .other-category {
+          padding-left: 24px;
+        }
+      }
+    }
+    &-main {
+  
+      padding: 20px 0px 0px 0px;
+      margin-top: 2px;
+      .courses-result {
+      }
+      .course-card {
+        width: 100%;
+        margin: auto;
+      }
+      .card-container {
+        float: left;
+        width: 100%;
+        margin-bottom: 0px;
+        padding-left: 0px;
+        overflow: hidden;
+        list-style: none;
+      }
+      .course-card-item {
+        float: left;
+        margin-right: 15px;
+        padding-bottom: 10px;
+      }
+      .feature-title {
+        h4 {
+          float: left;
+          margin-bottom: 20px;
+        }
+        .load-more {
+          float: right;
+          line-height: 48px;
+          text-decoration: underline;
+          color: #338abc;
+        }
+       
+      }
+      .load-more-bottom {
+        margin-bottom: 25px;
+        text-decoration: underline;
+        color: #338abc;
+      }
+      .feature-list-courses {
+        margin-bottom: 30px;
+      }
+      .related-category {
+
+        margin: 0px 0px 30px 0px;
+        &-title {
+          line-height: 60px;
+          font-size: 18px;
+        }
+        .relate-item {
+          text-align: center; 
+          color: #009688;
+          &-title {
+            margin: 10px 0px 30px 0px !important;
+          }
+        }
+       
+      }
+    }
+    .container {
+      margin: auto;
+    }
+  }
+}
+
+@media (max-width: 321px) {
+  .category {
+    &-feature-courses {
+      &-main {
+        .relate-item {
+          width: 100%;
+        }
+      }
+    }
+  }
+  
 }
    /* 768*/
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
   .category {
     &-all-courses {
       &-left {
         .other-category-container {
           display: none;
         }
+      }
+    }
+    &-feature-courses {
+      &-main {
+        .course-card-item {
+          width: 100%;
+        }
+        .card-container {
+          .course-card-item:last-child {
+            .course-card {
+              border-bottom: none;
+            }
+          }
+        }
+        .load-more {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) { 
+  .category {
+    &-feature-courses {
+      &-main {
+        .course-card-item {
+          width: calc((100% - 30px)/3);
+        }
+        .course-card-item:nth-child(2) {
+          margin-right: 15px;
+        }
+        .course-card-item:nth-child(3) {
+          display: block;
+          margin-right: 0px;
+        }
+        .course-card-item:nth-child(4) {
+          display: none;
+        }
+        .load-more-bottom {
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 992px) { 
+  .category {
+    &-feature-courses {
+      &-main {
+        .course-card-item {
+          width: calc((100% - 45px)/4);
+        }
+        .course-card-item:nth-child(2) {
+          margin-right: 15px;
+        }
+        .course-card-item:nth-child(3) {
+          margin-right: 15px;
+          display: block;
+        }
+        .course-card-item:nth-child(4) {
+          display: block;
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1200px) { 
+  .category {
+    &-feature-courses {
+      &-left { 
+        display: block;
       }
     }
   }
