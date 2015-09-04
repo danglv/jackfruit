@@ -84,6 +84,8 @@ RailsAdmin.config do |config|
       field :course
       field :method
       field :status
+      field :money
+      field :coupons
     end
 
     show do
