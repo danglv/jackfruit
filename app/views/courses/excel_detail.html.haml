@@ -98,11 +98,8 @@
                         .row
                           %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", :style => "font-size: smaller; font-style: italic; padding: 5px;"} Huỷ COD
                     - else
-                      %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                         Mua khoá học
-                      #coupon-code-container.no-padding
-                        %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
-                        %a.btn#submit-coupon-code{} Nhập                
                   - else
                     %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
@@ -125,11 +122,12 @@
                   %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                     Bắt đầu học ngay
                 - else 
-                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                     Mua khóa học
-                  #coupon-code-container.no-padding
-                    %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
-                    %a.btn#submit-coupon-code{} Nhập
+                  - if @coupon.blank?
+                    #coupon-code-container.no-padding
+                      %input{:type => 'text', :placeholder => 'Nhập Coupon code ...',:course_id => @course.id, :price => @course.price, :discount => @coupon.map{|c| c['return_value'].to_i}.sum}
+                      %a.btn#submit-coupon-code{} Nhập
               .col.s6.no-padding
                 .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
                   %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
@@ -163,7 +161,7 @@
               %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
                 Bắt đầu học ngay
             - else 
-              %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+              %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                 Mua khóa học
         .row
           %h4{:style => 'border-bottom: 1px solid #999'}
@@ -195,7 +193,7 @@
                   %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
                     Bắt đầu học ngay
                 - else 
-                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning&coupon_code=#{@coupon.map{|c| c['coupon']}.join(',')}"}
                     Mua khóa học
 
             - if @courses['related'].last.count > 0    

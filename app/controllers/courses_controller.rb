@@ -156,15 +156,17 @@ class CoursesController < ApplicationController
       end
     }
     if !coupon_code.blank?
-      uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=#{@course.id.to_s}")
-      response = Net::HTTP.get(uri)
-      data = JSON.parse(response)
-      data['coupons'].each {|coupon|
-        if coupon['expired_date'].to_time > Time.now()
-          @coupon << coupon
-          break
-        end
-      }
+      if !coupon_code.split(",").blank?
+        coupon_code.split(",").each {|coupon|
+          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+          response = Net::HTTP.get(uri)
+          coupon = JSON.parse(response)
+          if coupon['expired_date'].to_time > Time.now()
+            @coupon << coupon
+            break
+          end
+        }
+      end
     end
 
     @courses = {}
