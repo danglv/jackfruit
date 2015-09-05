@@ -32,8 +32,12 @@
         font-weight: 400;
       }
       .category {
-        margin: 15px;
+        margin: auto;
         width: 290px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
       }
     }
   }
@@ -71,6 +75,14 @@
         font-size: 18px;
         font-weight: 400;
       }
+      .category {
+        margin: auto;
+        width: 290px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
     }
   }
 }
@@ -106,6 +118,14 @@
       .categories-title {
         font-size: 18px;
         font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 370px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
       }
     }
   }
@@ -145,6 +165,14 @@
         font-size: 18px;
         font-weight: 400;
       }
+      .category {
+        margin: auto;
+        width: 560px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
     }
   }
 }
@@ -182,6 +210,14 @@
       .categories-title {
         font-size: 18px;
         font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 560px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
       }
     }
   }
