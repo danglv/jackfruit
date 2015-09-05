@@ -1,5 +1,5 @@
 %main.myCourse-learning
-  .header-myCourse{:style => 'border-bottom: 1px solid #727272;margin-bottom:60px;'}
+  .header-myCourse
     .container
       .row
         .col-lg-6.visible-lg
@@ -16,8 +16,8 @@
       .row.tab-content
         .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade.active.in#myCourse-studying
           .list-course.text-center
-            .first-course{:style => 'display:inline-block;position:relative'}
-              .btn-group{:style => 'position:absolute;bottom:100%;left:6px;'}
+            .first-course
+              .btn-group
                 %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
                   Tất cả
                   %span.caret
@@ -37,8 +37,8 @@
               = render :partial => 'components/courses/learning_card'
         .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade#myCourse-favorite
           .list-course.text-center
-            .first-course{:style => 'display:inline-block;position:relative'}
-              .btn-group{:style => 'position:absolute;bottom:100%;left:6px;'}
+            .first-course
+              .btn-group
                 %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
                   Tất cả
                   %span.caret
@@ -56,67 +56,3 @@
               = render :partial => 'components/courses/course_card'
             - (1..23).each do |a|
               = render :partial => 'components/courses/course_card'
-/ %header
-/   = render :partial => 'layouts/header'
-/   = render :partial => 'components/side_nav'
-
-/ %main
-/   .row.course-list-header
-/     .col.s12
-/       %h5.course-list-header-title Khóa học của tôi
-/   .row.sorting
-/     .col.s12
-/       %select.sorting-options.left
-/         %option{:value => '', :disabled => '', :selected => ''} Tất cả 
-/         %option{:value => '1'} Ưa thích
-/         %option{:value => '2'} Chưa bắt đầu 
-/         %option{:value => '3'} Đang học 
-/         %option{:value => '4'} Đã hoàn thành 
-/   .row.course-list
-/     .col.s12
-/       .my-courses.card-style
-/         - @courses.each do |course|
-/         - owned_course = current_user.courses.where(:course_id => course.id.to_s).first
-/         - index = owned_course.lectures.where(lecture_ratio: 100).count
-/         - count = course.curriculums.where(type: "lecture").count
-/           .col.s3
-/             - if owned_course.payment_status == 'pending'
-/               %a.course{:href => '/courses/'+course.alias_name+'/detail'}
-/                 .card-image.course-image
-/                   = image_tag course.image
-/                 .card-content.course-content
-/                   .row.course-title
-/                     .col.s12.no-padding.fix-height= course.name
-/                   .row.course-author
-/                     .col.s12.no-padding= course.user.name
-/                   .row.progress.progress-background
-/                     .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
-/                   .row.course-footer
-/                     .col.s5.no-padding.left
-/                       %span.progress-color-pending Đang chờ xử lý
-/             - else
-/               %a.course{:href => '/courses/'+course.alias_name+'/learning'}
-/                 .card-image.course-image
-/                   = image_tag course.image
-/                 .card-content.course-content
-/                   .row.course-title
-/                     .col.s12.no-padding.fix-height= course.name
-/                   .row.course-author
-/                     .col.s12.no-padding= course.user.name
-/                   .row.progress.progress-background
-/                     .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
-/                   .row.course-footer
-/                     .col.s5.no-padding.left
-/                     - if index == 0 
-/                       %span.progress-color-begin Bắt đầu
-/                     - elsif index != count
-/                       %span.progress-color-learning= ((index.to_f / count.to_f)*100).ceil.to_s+"%"
-/                     - else
-/                       %span.progress-color-completed Hoàn thành
-/                     .col.s7.course-rating-point.no-padding.right
-/                       - (1..5).each do |i|
-/                         - if i <= course.average_rating
-/                           %i.material-icons.is-rated star_rate
-/                         - else
-/                           %i.material-icons star_rate
-       
