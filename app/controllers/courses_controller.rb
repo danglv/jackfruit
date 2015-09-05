@@ -192,7 +192,7 @@ class CoursesController < ApplicationController
         return
       else
         
-        if @course_id.to_s == "55c3306344616e0ca600001f"
+        if @course.id.to_s == "55c3306344616e0ca600001f"
           @is_experiment_tund = 1
         end
 
