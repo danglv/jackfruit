@@ -194,6 +194,8 @@ class CoursesController < ApplicationController
         
         if @course.id.to_s == "55c3306344616e0ca600001f"
           @is_experiment_tund = 1
+        elsif @course.id.to_s == "55cb2d3044616e15ca000000"
+          @is_experiment_ngocntn = 1
         end
 
         render :template => "courses/excel_detail"
