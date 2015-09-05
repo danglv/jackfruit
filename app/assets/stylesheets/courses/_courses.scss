@@ -18,6 +18,53 @@
     background-color: #fff;
     width: 100%;
     box-shadow: 0px 1px 1px  #888888;
+    a {
+      color: #333333;
+      font-size: 18px;
+    }
+    .container {
+      position: relative;
+      height: 60px;
+    }
+    .nav-pills {
+      position: absolute;
+      bottom: 0px;
+    }
+    .nav-pills li.active {
+      border-bottom: 4px solid #338abc;
+      a {
+        color: #333333;
+        background-color: transparent;
+
+      }
+    } 
+    .nav-pills a:hover {
+      background-color: transparent;
+    }
+    &-right{
+      list-style: none;
+      position: absolute;
+      right: 0px;
+      bottom: 10px;
+      margin: 0px 23px 0px 0px;
+      padding: 0px;
+      li {
+        float: left;
+        margin-right: 20px;
+        .btn {
+          background-color: #338abc;
+        }
+        h3 {
+          font-size: 20px;
+        }
+        a, h3 {
+          line-height: 40px;
+          padding-top: 0px;
+          padding-bottom: 0px;
+          margin-bottom: 0px !important;
+        }
+      }
+    }
   }
   .sub_title {
     line-height: 20px;
