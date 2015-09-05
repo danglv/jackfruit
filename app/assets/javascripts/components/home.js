@@ -12,13 +12,5 @@ $(document).ready(function() {
       $(this).html("Thu gọn <i class='fa fa-minus-circle'></i>");
       listCourse.css({"height":"auto","overflow":"visible"});
     }
-    // listCourse.css({"height": "auto", "overflow": "hidden"});
-
-    // if ($(this).parent().next().next('.list-course-card').css("height") == "310px"){
-    //   $(this).parent().next().next('.list-course-card').css({height:"auto",overflow:"visible"});
-    // }
-    // else {
-    //   $(this).parent().next().next('.list-course-card').css({height: "310px";overflow: "hidden"})
-    // }
   });
 });
