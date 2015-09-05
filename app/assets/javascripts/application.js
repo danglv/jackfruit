@@ -25,6 +25,7 @@
 //= require components/filter.js
 //= require components/sorting.js
 //= require ./components/nav
+//= require components/home
 
 $(document).ready(function () {
   $.material.init();

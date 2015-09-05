@@ -1,38 +1,53 @@
 .myCourse-learning {
   .header-myCourse {
     padding-top: 25px;
+    border-bottom: 1px solid #727272;
+    margin-bottom:60px;
     .myCourse-label {
       line-height: 32px;
       text-indent: 6px;
       font-weight: 500;
       font-size: 18px;
     }
-  }
-  .myCourse-tab {
-    background: transparent;
-    li {
-      margin-left: 11px;
-      margin-right: 11px;
-      a {
-        color: #338abc !important;
-        padding: 6px;
-        color: #212121 !important;
+    .myCourse-tab {
+      background: transparent;
+      li {
+        margin-left: 11px;
+        margin-right: 11px;
+        a {
+          color: #338abc !important;
+          padding: 6px;
+          color: #212121 !important;
+        }
+        a:hover {
+          text-decoration: none;
+        }
       }
-      a:hover {
-        text-decoration: none;
+      li.active {
+        a{
+          border-bottom: 5px solid #338abc !important;
+          color: #338abc !important;
+        }
       }
     }
-    li.active {
-      a{
-        border-bottom: 5px solid #338abc !important;
-        color: #338abc !important;
+  }
+  .main-myCourse {
+    .first-course {
+      display:inline-block;
+      position:relative;
+      .btn-group {
+        position:absolute;
+        bottom:100%;
+        left:6px;
       }
     }
+    .learning-card,.course-card {
+      display: inline-block;
+      margin: 6px;
+      text-align: left;
+    }
   }
-  .learning-card,.course-card {
-    display: inline-block;
-    margin: 6px;
-  }
+  
   @media screen and (min-width: 1200px) {
     .myCourse-tab {
       float: right;
