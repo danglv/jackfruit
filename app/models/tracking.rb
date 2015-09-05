@@ -15,11 +15,11 @@ class Tracking
 
   field :version, type: String
   # user_id hoặc unique string cho anonymous user
-  field :identity, type: String
+  field :str_identity, type: String
   # id cua 1 course hoac string dai dien cho App
   field :object, type: String
 
-  validates_uniqueness_of :identity
+  validates_uniqueness_of :str_identity
 
   def generate_unique_str
     SecureRandom.urlsafe_base64
