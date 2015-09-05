@@ -42,14 +42,20 @@
   .row.no-margin.landingpage
     .col-lg-12.no-padding
       .row.no-margin.home-top
-        #myCarousel.carousel.container.slide
+        #carousel.carousel.slide.carousel-fade{"data-ride" => "carousel"}
           .carousel-inner
-            .active.item.one
-            .item.two
-            .item.three
-            .item.four
-            .item.five
-            .item.six
+            .active.item
+              .fill{:style => "background-image:url(assets/landing-page-6.png)"}
+            .item
+              .fill{:style => "background-image:url(assets/landing-page-1.jpg)"}
+            .item
+              .fill{:style => "background-image:url(assets/landing-page-2.jpg)"}
+            .item
+              .fill{:style => "background-image:url(assets/landing-page-3.jpg)"}
+            .item
+              .fill{:style => "background-image:url(assets/landing-page-4.jpg)"}
+            .item
+              .fill{:style => "background-image:url(assets/landing-page-5.jpg)"}
       .row.no-margin.flex-box
         .col-lg-12.no-padding
           .splash-box
@@ -82,7 +88,7 @@
                     %i.fa.fa-globe
                   .hook-title
                     %h5.nomarl-text.no-margin Học mọi lúc mọi nơi
-      .container.home-main
+      .row.no-margin.no-padding.home-main.container
         .row.no-margin.categories
           .category
             %img{:src => "assets/python.png"}
@@ -90,3 +96,21 @@
             %img{:src => "assets/java.png"}
           .category
             %img{:src => "assets/excel.png"}
+        .row.no-margin.courses
+          - (1..30).each do
+            .course
+              = render :partial => 'components/courses/landingpage_card'
+        .row.no-margin.register
+          .col-lg-12
+            .row.no-margin
+              .col-lg-12.no-padding
+                %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "#"} Khám phá các khóa học khác
+            .row.no-margin
+              .col-lg-6.col-lg-offset-3.no-padding
+                %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
+            .row.no-margin
+              .col-lg-4.col-lg-offset-4.no-padding
+                %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
+            .row.no-margin
+              .col-lg-4.col-lg-offset-4.no-padding
+                %a.btn.btn-info.btn-raised.btn-lg.register-button{:href => "#"} Đăng ký ngay

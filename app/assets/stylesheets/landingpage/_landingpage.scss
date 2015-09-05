@@ -376,61 +376,35 @@
       width: 100%;
       height: 715px;
       background-size: cover;
-      .carousel { 
-        z-index: -99; 
-      } 
-      .carousel .item {
-        position: fixed; 
-        opacity: 0;
-        left:0 !important;
-        width: 100%; height: 100%;
-        -webkit-transition: opacity 0.5s;
-        -moz-transition: opacity 0.5s;
-        -ms-transition: opacity 0.5s;
-        -o-transition: opacity 0.5s;
-        transition: opacity 0.5s;
+      .carousel-fade {
+        .carousel-inner {
+          .item {
+            transition-property: opacity;
+            .fill{
+              height: 100%;
+            }
+          }
+          .item,
+          .active.left,
+          .active.right {
+            opacity: 0;
+          }
+          .active,
+          .next.left,
+          .prev.right {
+            opacity: 1;
+          }
+        }
+        .carousel-control {
+            z-index: 2;
+        }
       }
-      .carousel .one {
-        background: image-url("landing-page-1.jpg") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .two {
-        background: image-url("landing-page-2.jpg") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .three {
-        background: image-url("landing-page-3.jpg") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .four {
-        background: image-url("landing-page-4.jpg") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .five {
-        background: image-url("landing-page-5.jpg") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .six {
-        background: image-url("landing-page-6.png") no-repeat;
-        background-size: cover;
-        -moz-background-size: cover;
-      }
-      .carousel .active {
-        opacity: 1 !important;
-      }
-
-      .carousel .left {
-        opacity: 1 !important;
-        -webkit-transition: opacity 0.5s  !important;
-        -moz-transition: opacity 0.5s  !important;
-        -ms-transition: opacity 0.5s  !important;
-        -o-transition: opacity 0.5s  !important;
-        transition: opacity 0.5s  !important;
+      html, 
+      body, 
+      .carousel, 
+      .carousel-inner, 
+      .carousel-inner .item {
+          height: 100%;
       }
     }
     .flex-box {
@@ -493,17 +467,51 @@
     }
     .home-main {
       position: absolute;
+      top: 716px;
+      width: 100%;
       .categories {
-        margin: 10px 0 5px 0 !important;
+        max-width: 1210px;
+        display: block;
+        margin: auto !important; 
         .category {
-          margin: auto;
-          width: 290px;
+          margin: 15px;
+          width: 370px;
+          display: inline-block;
           img {
             width: 100%;
-            margin: 15px 0;
           }
+        }
+      }
+      .courses {
+        display: block;
+        max-width: 1172px;
+        margin: auto !important;
+        .course {
+          display: inline-block;
+          margin: 15px 10px;
+        }
+      }
+      .register {
+        margin: 15px 0 50px 0 !important;
+        text-align: center;
+        .other-course-button {
+          width: 100%;
+          background-color: #338abc;
+        }
+        .register-button {
+          width: 100%;
+          background-color: #38b34a;
+        }
+        .hook-1 {
+          font-size: 32px;
+          font-weight: bold;
+        }
+        .hook-2 {
+          font-size: 20px;
+          font-weight: 400;
         }
       }
     }
   }
 }
+
