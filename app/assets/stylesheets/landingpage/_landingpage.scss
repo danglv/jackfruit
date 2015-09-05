@@ -28,7 +28,7 @@
       margin: 10px 0 5px 0 !important;
       text-align: center;
       .categories-title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
       }
       .category {
@@ -38,6 +38,35 @@
           width: 100%;
           margin: 15px 0;
         }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
       }
     }
   }
@@ -72,7 +101,7 @@
       margin: 10px 0 5px 0 !important;
       text-align: center;
       .categories-title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
       }
       .category {
@@ -82,6 +111,35 @@
           width: 100%;
           margin: 15px 0;
         }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
       }
     }
   }
@@ -116,7 +174,7 @@
       margin: 10px 0 5px 0 !important;
       text-align: center;
       .categories-title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
       }
       .category {
@@ -126,6 +184,35 @@
           width: 100%;
           margin: 15px 0;
         }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
       }
     }
   }
@@ -162,7 +249,7 @@
       margin: 10px 0 5px 0 !important;
       text-align: center;
       .categories-title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
       }
       .category {
@@ -172,6 +259,35 @@
           width: 100%;
           margin: 15px 0;
         }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 585px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin: 15px 10px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
       }
     }
   }
@@ -208,7 +324,7 @@
       margin: 10px 0 5px 0 !important;
       text-align: center;
       .categories-title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
       }
       .category {
@@ -218,6 +334,35 @@
           width: 100%;
           margin: 15px 0;
         }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 880px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin: 15px 10px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
       }
     }
   }
@@ -342,6 +487,20 @@
             max-width: 142px;
             text-align: left;
             color: #fff
+          }
+        }
+      }
+    }
+    .home-main {
+      position: absolute;
+      .categories {
+        margin: 10px 0 5px 0 !important;
+        .category {
+          margin: auto;
+          width: 290px;
+          img {
+            width: 100%;
+            margin: 15px 0;
           }
         }
       }
