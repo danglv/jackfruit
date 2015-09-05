@@ -1,0 +1,77 @@
+.home {
+  padding-top: 75px;
+  .container {
+    .category-title {
+      font-weight: 400;
+      font-size: 18px;
+      color: #212121;
+      line-height: 43px;
+    }
+    .learning-card,.course-card {
+      display: inline-block;
+      margin: 6px;
+      text-align: left;
+    }
+    .list-course-list {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .container {
+      width: 1010px;
+      .category-title {
+        text-indent: 7px;
+      }
+      .list-course-card {
+        height: 310px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1199px) and (min-width: 992px) {
+    .container {
+      .category-title {
+        text-indent: 10px;
+      }
+      width: 770px;
+    }
+  }
+
+  @media screen and (max-width: 991px) and (min-width: 768px) {
+    .container {
+      width: 520px;
+      .category-title {
+        text-indent: 7px;
+        float: none !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) and (min-width: 480px) {
+    .container {
+      width: 280px;
+      .category-title {
+        text-align: center;
+        float: none !important;
+      }
+    } 
+  }
+  @media screen and (max-width: 479px) {
+    .container {
+      .category-titile {
+        margin-bottom: 5px;
+      }
+      .list-course-card {
+        display: none;
+      }
+      .list-course-list {
+        display: block;
+        text-align: left !important;
+        .list-card{
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}

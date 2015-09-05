@@ -1,11 +1,30 @@
-.row.no-margin
-  = render :partial => 'components/courses/sorting'
-.row.no-margin.card-category
-  = render :partial => 'components/courses/course_card'
-.row.no-margin
-  = render :partial => 'components/courses/learning_card'
-.row.no-margin
-  = render :partial => 'components/courses/list_card'
-.row.no-margin
-  = render :partial => 'components/courses/filter'
-.row{:style => "margin: 0px 0px 100px 0px"}
+%main.home
+  .container
+    .row
+      .col-lg-12.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
+        .category-title.pull-left Student are now viewing
+        .category-show-all.pull-right.visible-lg.visible-md
+          %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'}
+            Xem tất cả&nbsp;
+            %i.fa.fa-plus-circle
+        .clearfix
+        .list-course-card.text-center
+          - (1..12).each do |a|
+            = render :partial => 'components/courses/course_card'
+        .list-course-list
+          - (1..4).each do |a|
+            = render :partial => 'components/courses/list_card'
+    .row
+      .col-lg-12.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
+        .category-title.pull-left Student are now viewing
+        .category-show-all.pull-right.visible-lg.visible-md
+          %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'} 
+            Xem tất cả&nbsp;
+            %i.fa.fa-plus-circle
+        .clearfix
+        .list-course-card.text-center
+          - (1..8).each do |a|
+            = render :partial => 'components/courses/course_card'
+        .list-course-list
+          - (1..4).each do |a|
+            = render :partial => 'components/courses/list_card'
