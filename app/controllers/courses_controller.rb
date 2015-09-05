@@ -191,7 +191,11 @@ class CoursesController < ApplicationController
         render :template => "courses/detail"
         return
       else
-        @is_experiment_tund = 1
+        
+        if @course_id.to_s == "55c3306344616e0ca600001f"
+          @is_experiment_tund = 1
+        end
+
         render :template => "courses/excel_detail"
         return
       end
