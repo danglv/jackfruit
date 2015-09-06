@@ -1,4 +1,5 @@
 (function ($) {
+  'use strict';
 
   $.fn.sliderDropdown = function () {
     var activator = this;
@@ -15,16 +16,7 @@
       var isOpen = activator.parent().attr('class').indexOf('open') >= 0;
 
       if (isOpen) {
-        dropdownContainer.animate({
-          "margin-left": "-" + dropdownContainer.width() + "px",
-        }, {
-          "duration": 200,
-          "done": function () {
-            activator.parent().removeClass('open');
-          }
-        });
-
-        dropdownContainer.removeClass('open');
+        dropdownContainerCloseAnimationHandler(dropdownContainer);
       } else {
         dropdownContainer.animate({
           "margin-left": "0px"
@@ -33,21 +25,25 @@
           "done": function () {
             activator.parent().addClass('open');
             activator.parent().find('.dropdown-backdrop').click(function () {
-              dropdownContainer.animate({
-                "margin-left": "-" + dropdownContainer.width() + "px",
-              }, {
-                "duration": 200,
-                "done": function () {
-                  activator.parent().removeClass('open');
-                }
-              });
-
-              dropdownContainer.removeClass('open');
+              dropdownContainerCloseAnimationHandler(dropdownContainer);
             });
           }
         });
       }
     });
+
+    function dropdownContainerCloseAnimationHandler(dropdownContainer) {
+      dropdownContainer.animate({
+        "margin-left": "-" + dropdownContainer.width() + "px",
+      }, {
+        "duration": 200,
+        "done": function () {
+          activator.parent().removeClass('open');
+        }
+      });
+
+      dropdownContainer.removeClass('open');
+    }
 
     return this;
   };
