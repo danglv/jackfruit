@@ -11,16 +11,9 @@
   %header
     .header-inner
       .header-col
-        .btn-group.cats-dropdown
-          .dropdown-toggle.active-nav{"data-dropdown-container" => ".slider-sidebar-wrapper", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+        .btn-group.cats-dropdown.cats-dropdown-fixed
+          .dropdown-toggle.active-nav{"data-dropdown-container" => ".slider-sidebar-wrapper", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
             %i.fa.fa-bars
-          %ul.dropdown-menu.hidden-xs.hidden-sm{"aria-labelledby" => "categoriesDropdown"}
-            %li
-              %a{:href => "#"} Regular link
-            %li.disabled
-              %a{:href => "#"} Disabled link
-            %li
-              %a{:href => "#"} Another link
         .search-box
           %form
             %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
@@ -65,6 +58,14 @@
                 %i.fa.fa-power-off
                 Đăng xuất
   .slider-sidebar-wrapper.hidden-md.hidden-lg.hidden-xl
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Regular link
+      %li.disabled
+        %a{:href => "#"} Disabled link
+      %li
+        %a{:href => "#"} Another link
+  .slider-sidebar-wrapper.slider-sidebar-fixed
     %ul.dropdown-menu
       %li
         %a{:href => "#"} Regular link

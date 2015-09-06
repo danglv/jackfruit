@@ -157,6 +157,12 @@ header {
 }
 
 .cats-dropdown {
+  &.cats-dropdown-fixed {
+    .dropdown-backdrop {
+      display: none !important;
+    }
+  }
+
   .dropdown-menu {
     width: 240px;
     @media (max-width: 992px) {

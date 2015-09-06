@@ -5,6 +5,23 @@
     var ANIMATED_DURATION = 200;
     var activator = this;
 
+    var isFixed = (activator.attr('data-fixed') === 'true');
+
+    if (isFixed) {
+      activator.parent().on({
+        'shown.bs.dropdown': function () {
+          this.closable = false;
+        },
+        'click': function () {
+          this.closable = true;
+        },
+        'hide.bs.dropdown': function () {
+          return this.closable;
+        }
+      });
+      activator.click();
+    }
+
     function dropdownContainerCloseAnimationHandler(dropdownContainer) {
       dropdownContainer.animate({
         'margin-left': '-' + dropdownContainer.width() + 'px',
@@ -32,7 +49,7 @@
       });
     }
 
-    this.click(function () {
+    activator.click(function () {
       // get pushedContainer and content 
       var dropdownContainer = $($(this).attr('data-dropdown-container'));
 
