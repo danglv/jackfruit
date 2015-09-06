@@ -50,6 +50,7 @@ header {
     padding: 0 15px;
     display: inline-block;
     width: 200px;
+    position: relative;
 
     @media (max-width: 992px) {
       display: none;
@@ -67,6 +68,8 @@ header {
       font-size: 1.8rem;
       margin-left: -30px;
       position: absolute;
+      top: 0px;
+      right: 10px;
     }
   }
 }
@@ -157,6 +160,22 @@ header {
 }
 
 .cats-dropdown {
+  &.cats-dropdown-fixed {
+    @media (max-width: 992px) {
+      display: none;
+    }
+
+    .dropdown-backdrop {
+      display: none !important;
+    }
+  }
+
+  &.cats-dropdown-mobile {
+    @media (min-width: 993px) {
+      display: none;
+    }
+  }
+
   .dropdown-menu {
     width: 240px;
     @media (max-width: 992px) {

@@ -4,6 +4,20 @@
   min-height: 1px;
   position: relative;
   width: 240px;
+  
+  &.slider-sidebar-fixed {
+    margin-left: 0px;
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  &.slider-sidebar-mobile {
+    @media (min-width: 993px) {
+      display: none;
+    }
+  }
+  
   .dropdown-menu {
     display: block;
     width: 100%;

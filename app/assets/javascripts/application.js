@@ -31,7 +31,8 @@ $(document).ready(function () {
   $.material.init();
   $.material.ripples();
   $.material.input();
-  $('.active-nav').sliderDropdown();
+  $('.active-nav-1').sliderDropdown();
+  $('.active-nav-2').sliderDropdown();
 });
 
 (function (d, s, id) {
