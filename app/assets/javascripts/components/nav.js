@@ -19,6 +19,7 @@
           return this.closable;
         }
       });
+
       activator.click();
     }
 
@@ -49,9 +50,18 @@
       });
     }
 
-    activator.click(function () {
+    activator.click(function (e) {
       // get pushedContainer and content 
       var dropdownContainer = $($(this).attr('data-dropdown-container'));
+      activator = $(e.target).parent();
+
+      activator.parent().on({
+        'hide.bs.dropdown': function () {
+          if (activator.parent().css('display') === 'none') {
+            dropdownContainerCloseAnimationHandler(dropdownContainer);
+          }
+        }
+      });
 
       // show or hide slide
       var isOpen = activator.parent().attr('class').indexOf('open') >= 0;

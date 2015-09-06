@@ -11,6 +11,12 @@
       display: none;
     }
   }
+
+  &.slider-sidebar-mobile {
+    @media (min-width: 993px) {
+      display: none;
+    }
+  }
   
   .dropdown-menu {
     display: block;

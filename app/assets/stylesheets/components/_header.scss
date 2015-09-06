@@ -158,8 +158,18 @@ header {
 
 .cats-dropdown {
   &.cats-dropdown-fixed {
+    @media (max-width: 992px) {
+      display: none;
+    }
+
     .dropdown-backdrop {
       display: none !important;
+    }
+  }
+
+  &.cats-dropdown-mobile {
+    @media (min-width: 993px) {
+      display: none;
     }
   }
 
