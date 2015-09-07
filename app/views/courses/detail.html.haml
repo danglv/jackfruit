@@ -154,9 +154,9 @@
                 - time = 0
                 - @course.curriculums.each do |curi|
                   - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                    - time += curi.description.to_i
+                    - time = time + curi.description.to_time.min
                 - if time > 60
-                  = (time/60).to_s + 'h'
+                  = (time/60).to_s + 'h' + (time%60).to_s + "p"
                 - else
                   = '1h'
               %p.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
