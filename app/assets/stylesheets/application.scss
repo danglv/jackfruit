@@ -10,11 +10,10 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "bootstrap-material-design/dist/css/ripples.css";
 @import "bootstrap-material-design/dist/css/roboto";
 
+// setting
+@import "settings";
+
 // Components
-@import "home/index";
-@import "mycourse/learning";
-@import "profile/profile";
-@import "profile/view_profile";
 @import "components/colors";
 @import "components/header";
 @import "components/slider-sidebar";
@@ -27,14 +26,17 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 @import "components/filter";
 @import "components/other-category";
 @import "components/sign-in";
-@import "landingpage/landingpage";
 @import "components/footer";
+@import "landingpage/landingpage";
+
+// layout
+@import "courses/index";
+@import "mycourse/learning";
+@import "users/edit";
+@import "users/view_profile";
 @import "learning/learning";
 @import "lecture/lecture";
-@import "payment/payment.scss";
-@import "courses/courses.scss";
-@import "courses/search.scss";
-@import "courses/category.scss";
-
-@import "settings.scss"
-
+@import "payment/payment";
+@import "courses/courses";
+@import "courses/search";
+@import "courses/category";
