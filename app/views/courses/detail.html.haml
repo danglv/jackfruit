@@ -68,7 +68,7 @@
                 %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
-                  %i.mdi-action-favorite
+                  %i.fa.fa-heart
                   %span Ưa thích
               .col-xs-12.no-padding
                 %h5.normal-text 
@@ -78,7 +78,7 @@
                 %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
-                  %i.mdi-action-favorite
+                  %i.fa.fa-heart
                   %span Ưa thích
           - else
             - if @course.price == 0
@@ -87,7 +87,7 @@
                   Bắt đầu học ngay
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
-                  %i.mdi-action-favorite
+                  %i.fa.fa-heart
                   %span Ưa thích
             - else 
               .col-xs-12.no-padding
@@ -95,7 +95,7 @@
                   Mua khóa học
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
-                  %i.mdi-action-favorite
+                  %i.fa.fa-heart
                   %span Ưa thích
               .col-xs-12.no-padding
                 %a.link-text{:href => ""}
@@ -113,7 +113,7 @@
                 Bắt đầu học ngay
             .col-xs-6.no-padding
               %a.btn.btn-raised.btn-lg.favorite-button 
-                %i.mdi-action-favorite
+                %i.fa.fa-heart
                 %span Ưa thích
           - else 
             .col-xs-12.no-padding
@@ -121,7 +121,7 @@
                 Mua khóa học
             .col-xs-6.no-padding
               %a.btn.btn-raised.btn-lg.favorite-button 
-                %i.mdi-action-favorite
+                %i.fa.fa-heart
                 %span Ưa thích
             .col-xs-12.no-padding
               %a.link-text{:href => ""}
@@ -378,13 +378,13 @@
                     .col-xs-8.no-padding
                       %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
                     .col-xs-2
-                      %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
                   - else
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
                     .col-xs-2
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                     .col-xs-8.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -400,13 +400,14 @@
                       %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                         Bắt đầu học ngay
                     .col-xs-2
-                      %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
                   - else 
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                         Mua khóa học
                     .col-xs-2
-                      %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                        %i.fa.fa-heart
                     .col-xs-8.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -422,13 +423,14 @@
                     %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Bắt đầu học ngay
                   .col-xs-2
-                    %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                    %a.btn.btn-raised.btn-lg.favorite-button.no-text 
                 - else 
                   .col-xs-8.no-padding
                     %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                       Mua khóa học
                   .col-xs-2
-                    %a.btn.btn-raised.btn-lg.mdi-action-favorite.favorite-button.no-text 
+                    %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                      %i.fa.fa-heart
                   .col-xs-8.no-padding
                     %a.link-text{:href => ""}
                       %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -693,14 +695,14 @@
                       %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
                     .col-sm-5
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                   - else
                     .col-sm-6.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
                     .col-sm-5
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                     .col-sm-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -717,7 +719,7 @@
                         Bắt đầu học ngay
                     .col-sm-5
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                   - else 
                     .col-sm-6.no-padding
@@ -725,7 +727,7 @@
                         Mua khóa học
                     .col-sm-5
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                     .col-sm-12.no-padding
                       %a.link-text{:href => ""}
@@ -743,7 +745,7 @@
                       Bắt đầu học ngay
                   .col-sm-5
                     %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.mdi-action-favorite
+                      %i.fa.fa-heart
                       %span Ưa thích 
                 - else 
                   .col-sm-6.no-padding
@@ -751,7 +753,7 @@
                       Mua khóa học
                   .col-sm-5
                     %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.mdi-action-favorite
+                      %i.fa.fa-heart
                       %span Ưa thích 
                   .col-sm-12.no-padding
                     %a.link-text{:href => ""}
@@ -1014,14 +1016,14 @@
                       %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
                     .col-md-6
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                   - else
                     .col-md-6.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
                     .col-md-6
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                     .col-md-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -1038,7 +1040,7 @@
                         Bắt đầu học ngay
                     .col-md-6
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                   - else 
                     .col-md-6.no-padding
@@ -1046,7 +1048,7 @@
                         Mua khóa học
                     .col-md-6
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.mdi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                     .col-md-12.no-padding
                       %a.link-text{:href => ""}
@@ -1064,7 +1066,7 @@
                       Bắt đầu học ngay
                   .col-md-6
                     %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.mdi-action-favorite
+                      %i.fa.fa-heart
                       %span Ưa thích 
                 - else 
                   .col-md-6.no-padding
@@ -1072,7 +1074,7 @@
                       Mua khóa học
                   .col-md-6
                     %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.mdi-action-favorite
+                      %i.fa.fa-heart
                       %span Ưa thích 
                   .col-md-12.no-padding
                     %a.link-text{:href => ""}
