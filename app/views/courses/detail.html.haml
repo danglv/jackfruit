@@ -154,7 +154,7 @@
                 - time = 0
                 - @course.curriculums.each do |curi|
                   - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                    - time += curi.description.to_i
+                    - time = time + curi.description.to_time.min
                 - if time > 60
                   = (time/60).to_s + 'h'
                 - else
