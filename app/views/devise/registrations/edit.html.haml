@@ -1,108 +1,107 @@
-%header
-.clearfix
-
-%main.profile
-  .container
-    .row.main-profile
-      .col-lg-3.col-md-4.col-sm-12.col-xs-12.profile-top
-        .profile-left
-          .profile-image
-            = image_tag "profile_default.png",:style => 'width:100%'
-          .profile-name.text-center.bold{:style => 'font-size:16px'} Rihanna
-          %ul.profile-nav.nav.nav-tabs.no-padding
-            %li.profile-item-nav.active{:role => "presentation"}
-              %a{:href => "#profile","data-toggle" => 'tab'} Thông tin cá nhân
-            %li.profile-item-nav{:role => "presentation"}
-              %a{:href => "#avatar","data-toggle" => 'tab'} Ảnh đại diện
-            %li.profile-item-nav{:role => "presentation"}
-              %a{:href => "#account","data-toggle" => 'tab'} Tài khoản
-      .col-lg-9.col-md-8.col-sm-12.col-xs-12.tab-content.profile-bot
-        .profile-right.tab-pane.fade.active.in#profile
-          .profile-label.text-center
-            .profile-title.bold Thông tin cá nhân
-            .profiel-text Thêm thông tin về bạn để chia sẻ trên trang cá nhân
-          .row.profile-form
-            .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
-              %form{:action => ""}
-                .form-title.bold Cơ bản
-                .group-profile-input
-                  %input.form-control{:type => "text",:placeholder => 'Học hàm'}
-                .group-profile-input
-                  %input.form-control{:type => "text",:placeholder => 'Họ'}
-                .group-profile-input
-                  %input.form-control{:type => "text",:placeholder => 'Tên'}
-                .group-profile-input.group-headline
-                  %input.form-control{:type => "text",:placeholder => 'Đơn vị công tác'}
-                .form-title.bold Tiểu sử
-                .group-profile-input
-                  %input.form-control{:type => "text",:placeholder => 'Thông tin'}
-                .group-profile-input
-                  %select.form-control{:name => ""}
-                    %option{:value => ""} Lựa chọn ngôn ngữ
-                    %option{:value => ""} Tiếng Việt
-                    %option{:value => ""} Tiếng Anh
-                    %option{:value => ""} Tiếng Pháp
-                .form-title.bold Link
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:39px',:placeholder => 'Website'}
-                  .text-placeholder
-                    %span.pre-link http//
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:150px',:placeholder => 'Google+ Profile'}
-                  .text-placeholder
-                    %span.pre-link http://plus.google.com/
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:114px',:placeholder => 'Twitter Profile'}
-                  .text-placeholder
-                    %span.pre-link http://twiter.com/
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:136px',:placeholder => 'Facebook Profile'}
-                  .text-placeholder
-                    %span.pre-link http://facebook.com/
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:126px',:placeholder => 'Linkedin Profile'}
-                  .text-placeholder
-                    %span.pre-link http://linkedin.com/
-                .group-profile-input
-                  %input.form-control{:type => "text",:style => 'text-indent:129px',:placeholder => 'Youtube Profile'}
-                  .text-placeholder
-                    %span.pre-link http://youtube.com/
-                .group-profile-input.text-center
-                  %a.btn.btn-default.bold.profile-button-save Lưu thay đổi
-        .profile-right.tab-pane.fade#avatar
-          .profile-label.text-center
-            .profile-title.bold Ảnh đại diện
-            .profiel-text Thêm một bức ảnh đẹp về bản thân bạn
-          .row.profile-avatar
-            %form.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3.col-xs-12
-              .avatar-title.bold Xem trước
-              .avatar-image
-                = image_tag "profile_default.png",:style => 'width:100%'
-                .avatar-detail{:style => 'color:#212121;padding-top:10px'} Bức ảnh mà bạn chọn phải có phải có định dạng jpeg hoặc png
-              .avatar-action
-                .avatar-action-title.bold Thêm/Thay đổi ảnh
-                .avatar-action-choose.text-center
-                  %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Chọn ảnh của bạn
-                .avatar-action-save.text-center
-                  %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Lưu thay đổi
-        .profile-right.tab-pane.fade#account
-          .profile-label.text-center
-            .profile-title.bold Tài khoản
-            .profiel-text Tùy chỉnh tài khoản và đổi mật khẩu của bạn
-          .row.profile-account
-            %form.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
-              .profile-account-title.bold{:style => 'font-size:16px;'} Email
-              .group-input-account.account-email
-                %input.form-control{:type => "text",:placeholder => 'test@gmail.com'}
-              .profile-account-title.bold{:style => 'font-size:16px;'} Mật khẩu
-              .group-input-account
-                %input.form-control{:type => "password",:placeholder => 'Mật khẩu hiện tại'}/
-              .group-input-account
-                %input.form-control{:type => "password",:placeholder => 'Mật khẩu mới'}/
-              .group-input-account
-                %input.form-control{:type => "password",:placeholder => 'Xác nhận mật khẩu mới'}/
-              .password-save.text-center
-                %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px;'} Đổi mật khẩu
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"}  
+  %main.profile
+    .container
+      .row.main-profile
+        .col-lg-3.col-md-4.col-sm-12.col-xs-12.profile-top
+          .profile-left
+            .profile-image
+              = image_tag "profile_default.png",:style => 'width:100%'
+            .profile-name.text-center.bold{:style => 'font-size:16px'} Rihanna
+            %ul.profile-nav.nav.nav-tabs.no-padding
+              %li.profile-item-nav.active{:role => "presentation"}
+                %a{:href => "#profile","data-toggle" => 'tab'} Thông tin cá nhân
+              %li.profile-item-nav{:role => "presentation"}
+                %a{:href => "#avatar","data-toggle" => 'tab'} Ảnh đại diện
+              %li.profile-item-nav{:role => "presentation"}
+                %a{:href => "#account","data-toggle" => 'tab'} Tài khoản
+        .col-lg-9.col-md-8.col-sm-12.col-xs-12.tab-content.profile-bot
+          .profile-right.tab-pane.fade.active.in#profile
+            .profile-label.text-center
+              .profile-title.bold Thông tin cá nhân
+              .profiel-text Thêm thông tin về bạn để chia sẻ trên trang cá nhân
+            .row.profile-form
+              .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
+                %form{:action => ""}
+                  .form-title.bold Cơ bản
+                  .group-profile-input
+                    %input.form-control{:type => "text",:placeholder => 'Học hàm'}
+                  .group-profile-input
+                    %input.form-control{:type => "text",:placeholder => 'Họ'}
+                  .group-profile-input
+                    %input.form-control{:type => "text",:placeholder => 'Tên'}
+                  .group-profile-input.group-headline
+                    %input.form-control{:type => "text",:placeholder => 'Đơn vị công tác'}
+                  .form-title.bold Tiểu sử
+                  .group-profile-input
+                    %input.form-control{:type => "text",:placeholder => 'Thông tin'}
+                  .group-profile-input
+                    %select.form-control{:name => ""}
+                      %option{:value => ""} Lựa chọn ngôn ngữ
+                      %option{:value => ""} Tiếng Việt
+                      %option{:value => ""} Tiếng Anh
+                      %option{:value => ""} Tiếng Pháp
+                  .form-title.bold Link
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:39px',:placeholder => 'Website'}
+                    .text-placeholder
+                      %span.pre-link http//
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:150px',:placeholder => 'Google+ Profile'}
+                    .text-placeholder
+                      %span.pre-link http://plus.google.com/
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:114px',:placeholder => 'Twitter Profile'}
+                    .text-placeholder
+                      %span.pre-link http://twiter.com/
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:136px',:placeholder => 'Facebook Profile'}
+                    .text-placeholder
+                      %span.pre-link http://facebook.com/
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:126px',:placeholder => 'Linkedin Profile'}
+                    .text-placeholder
+                      %span.pre-link http://linkedin.com/
+                  .group-profile-input
+                    %input.form-control{:type => "text",:style => 'text-indent:129px',:placeholder => 'Youtube Profile'}
+                    .text-placeholder
+                      %span.pre-link http://youtube.com/
+                  .group-profile-input.text-center
+                    %a.btn.btn-default.bold.profile-button-save Lưu thay đổi
+          .profile-right.tab-pane.fade#avatar
+            .profile-label.text-center
+              .profile-title.bold Ảnh đại diện
+              .profiel-text Thêm một bức ảnh đẹp về bản thân bạn
+            .row.profile-avatar
+              %form.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3.col-xs-12
+                .avatar-title.bold Xem trước
+                .avatar-image
+                  = image_tag "profile_default.png",:style => 'width:100%'
+                  .avatar-detail{:style => 'color:#212121;padding-top:10px'} Bức ảnh mà bạn chọn phải có phải có định dạng jpeg hoặc png
+                .avatar-action
+                  .avatar-action-title.bold Thêm/Thay đổi ảnh
+                  .avatar-action-choose.text-center
+                    %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Chọn ảnh của bạn
+                  .avatar-action-save.text-center
+                    %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Lưu thay đổi
+          .profile-right.tab-pane.fade#account
+            .profile-label.text-center
+              .profile-title.bold Tài khoản
+              .profiel-text Tùy chỉnh tài khoản và đổi mật khẩu của bạn
+            .row.profile-account
+              %form.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
+                .profile-account-title.bold{:style => 'font-size:16px;'} Email
+                .group-input-account.account-email
+                  %input.form-control{:type => "text",:placeholder => 'test@gmail.com'}
+                .profile-account-title.bold{:style => 'font-size:16px;'} Mật khẩu
+                .group-input-account
+                  %input.form-control{:type => "password",:placeholder => 'Mật khẩu hiện tại'}/
+                .group-input-account
+                  %input.form-control{:type => "password",:placeholder => 'Mật khẩu mới'}/
+                .group-input-account
+                  %input.form-control{:type => "password",:placeholder => 'Xác nhận mật khẩu mới'}/
+                .password-save.text-center
+                  %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px;'} Đổi mật khẩu
 
 
 / %h2

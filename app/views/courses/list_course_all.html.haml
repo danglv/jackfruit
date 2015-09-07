@@ -1,48 +1,50 @@
-%main.category
-  .row.no-margin.category-header
-    .row.container
-      %ul.no-padding.breadcrumb
-        %li 
-          %a{:href => "/"}
-            %i.fa.fa-home
-        %li.breadcrumb-home
-          %a{:href => "#"} Trang chủ 
-        %li Lập trình 
-      .row.no-margin.category-header-name 
-        %h2 Lập trình 
-      .row.no-margin.category-header-navigation
-        %ul.nav.nav-tabs
-          %li
-            %a{:href => "/courses/id"} Nổi bật   
-          %li.active.disabled
-            %a{:href => "#"} Tất cả khoá học 
-  .row.no-margin.category-all-courses
-    .container
-      .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-all-courses-left
-        = render :partial => 'components/courses/filter'
-        .row.no-margin.other-category-container
-          %label Các chủ đề khác 
-          = render :partial => 'components/courses/other_category'
-      .col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
-        = render :partial => 'components/courses/sorting'
-        .row.no-margin.courses-result
-          - (1..10).each do |a|
-            = render :partial => 'components/courses/list_card'
-        .row.no-margin.courses-pagination
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"}  
+  %main.category
+    .row.no-margin.category-header
+      .row.container
+        %ul.no-padding.breadcrumb
+          %li 
+            %a{:href => "/"}
+              %i.fa.fa-home
+          %li.breadcrumb-home
+            %a{:href => "#"} Trang chủ 
+          %li Lập trình 
+        .row.no-margin.category-header-name 
+          %h2 Lập trình 
+        .row.no-margin.category-header-navigation
+          %ul.nav.nav-tabs
+            %li
+              %a{:href => "/courses/id"} Nổi bật   
+            %li.active.disabled
+              %a{:href => "#"} Tất cả khoá học 
+    .row.no-margin.category-all-courses
+      .container
+        .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-all-courses-left
+          = render :partial => 'components/courses/filter'
+          .row.no-margin.other-category-container
+            %label Các chủ đề khác 
+            = render :partial => 'components/courses/other_category'
+        .col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
+          = render :partial => 'components/courses/sorting'
+          .row.no-margin.courses-result
+            - (1..10).each do |a|
+              = render :partial => 'components/courses/list_card'
+          .row.no-margin.courses-pagination
 
-          %ul.pagination.pagination-md
-            %li
-              %a{:href => "javascript:void(0)"} <
-            %li.active
-              %a{:href => "javascript:void(0)"} 1
-            %li
-              %a{:href => "javascript:void(0)"} 2
-            %li
-              %a{:href => "javascript:void(0)"} ...
-            %li
-              %a{:href => "javascript:void(0)"} 58
-            %li
-              %a{:href => "javascript:void(0)"} 59
-            %li
-              %a{:href => "javascript:void(0)"} >
+            %ul.pagination.pagination-md
+              %li
+                %a{:href => "javascript:void(0)"} <
+              %li.active
+                %a{:href => "javascript:void(0)"} 1
+              %li
+                %a{:href => "javascript:void(0)"} 2
+              %li
+                %a{:href => "javascript:void(0)"} ...
+              %li
+                %a{:href => "javascript:void(0)"} 58
+              %li
+                %a{:href => "javascript:void(0)"} 59
+              %li
+                %a{:href => "javascript:void(0)"} >
 = render :partial => 'components/footer/index'

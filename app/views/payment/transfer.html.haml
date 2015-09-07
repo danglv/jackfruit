@@ -1,98 +1,102 @@
 / Màn hình từ 320px
 .layout-320
-  %main.payment
-    .row.no-margin
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-        = render :partial => 'payment/header_payment'
-    .container
-      = render 'payment_method', method: 'transfer'
-      .row.payment-content.active.no-margin
-        %h4 2. Hoàn tất thanh toán
-        .col-xs-12.no-padding
-          %h5 
-            %b Chuyển khoản ngân hàng
-      .row.no-margin.transfer-bank
-        .col-xs-12.no-padding.normal-text Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}  
+    %main.payment
+      .row.no-margin
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+          = render :partial => 'payment/header_payment'
+      .container
+        = render 'payment_method', method: 'transfer'
+        .row.payment-content.active.no-margin
+          %h4 2. Hoàn tất thanh toán
+          .col-xs-12.no-padding
+            %h5 
+              %b Chuyển khoản ngân hàng
+        .row.no-margin.transfer-bank
+          .col-xs-12.no-padding.normal-text Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+          .row.no-margin
+            .col-xs-12.no-padding
+              %div.transfer-information.normal-text
+                Số tài khoản: 
+                %b 67664288
+              %div.transfer-information.normal-text
+                Chủ tài khoản: 
+                %b Lê Đức Bình
+              %div.transfer-information.normal-text
+                Ngân hàng: 
+                %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
+        .row.no-margin.transfer-note
+          .col-xs-12.no-padding
+            %u.normal-text Ghi chú khi chuyển khoản
+          .col-xs-12.no-padding
+            %ul.col-xs-12.no-padding.no-margin
+              %li.list-note.normal-text Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+              %li.list-note.normal-text Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
         .row.no-margin
           .col-xs-12.no-padding
+            %h5
+              %b Chuyển tiền qua Paypal
+        .row.no-margin.transfer-paypal
+          .col-xs-12.no-padding
             %div.transfer-information.normal-text
-              Số tài khoản: 
-              %b 67664288
+              Địa chỉ email nhận tiền:
+              = succeed "." do 
+                %b minh@deltaviet.com. 
+              Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
             %div.transfer-information.normal-text
-              Chủ tài khoản: 
-              %b Lê Đức Bình
-            %div.transfer-information.normal-text
-              Ngân hàng: 
-              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
-      .row.no-margin.transfer-note
-        .col-xs-12.no-padding
-          %u.normal-text Ghi chú khi chuyển khoản
-        .col-xs-12.no-padding
-          %ul.col-xs-12.no-padding.no-margin
-            %li.list-note.normal-text Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-            %li.list-note.normal-text Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
-      .row.no-margin
-        .col-xs-12.no-padding
-          %h5
-            %b Chuyển tiền qua Paypal
-      .row.no-margin.transfer-paypal
-        .col-xs-12.no-padding
-          %div.transfer-information.normal-text
-            Địa chỉ email nhận tiền:
-            = succeed "." do 
-              %b minh@deltaviet.com. 
-            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-          %div.transfer-information.normal-text
-            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
-      .row.no-margin
-        .col-xs-12.no-padding
-          %span.normal-text Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+              Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
+        .row.no-margin
+          .col-xs-12.no-padding
+            %span.normal-text Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
 / Màn hình từ 480px trở lên          
-.layout-480-up 
-  %main.payment
-    .row.no-margin
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-        = render :partial => 'payment/header_payment', status: ''
-    .container
-      = render 'payment_method', method: 'transfer'
-      .row.payment-content.active.no-margin
-        %h4 2. Hoàn tất thanh toán
+.layout-480-up
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}   
+    %main.payment
+      .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %h5
-            %b Chuyển khoản ngân hàng
-      .row.no-margin.transfer-bank
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.normal-text Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+          = render :partial => 'payment/header_payment', status: ''
+      .container
+        = render 'payment_method', method: 'transfer'
+        .row.payment-content.active.no-margin
+          %h4 2. Hoàn tất thanh toán
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Chuyển khoản ngân hàng
+        .row.no-margin.transfer-bank
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.normal-text Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
+          .row.no-margin
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+              %div.transfer-information.normal-text
+                Số tài khoản: 
+                %b 67664288
+              %div.transfer-information.normal-text
+                Chủ tài khoản: 
+                %b Lê Đức Bình
+              %div.transfer-information.normal-text
+                Ngân hàng: 
+                %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
+        .row.no-margin.transfer-note
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %u.normal-text Ghi chú khi chuyển khoản
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %ul.col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
+              %li.list-note.normal-text Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
+              %li.list-note.normal-text Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
         .row.no-margin
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Chuyển tiền qua Paypal
+        .row.no-margin.transfer-paypal
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
             %div.transfer-information.normal-text
-              Số tài khoản: 
-              %b 67664288
+              Địa chỉ email nhận tiền:
+              = succeed "." do 
+                %b minh@deltaviet.com. 
+              Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
             %div.transfer-information.normal-text
-              Chủ tài khoản: 
-              %b Lê Đức Bình
-            %div.transfer-information.normal-text
-              Ngân hàng: 
-              %b Ngân hàng VPBank, Chi Nhánh Định Công, Hà Nội
-      .row.no-margin.transfer-note
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %u.normal-text Ghi chú khi chuyển khoản
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %ul.col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
-            %li.list-note.normal-text Tại mục "Ghi chú" khi chuyển khoản, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký
-            %li.list-note.normal-text Ví dụ: 0912345678 - Nguyen Thi Thu Hien - hien.nguyen@gmail.com - Xay dung trang web thuong mai đien tu voi Wordpress   
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %h5
-            %b Chuyển tiền qua Paypal
-      .row.no-margin.transfer-paypal
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %div.transfer-information.normal-text
-            Địa chỉ email nhận tiền:
-            = succeed "." do 
-              %b minh@deltaviet.com. 
-            Tỉ giá áp dụng: 1 USD = 20.300 VNĐ (tỉ giá trên PayPal).
-          %div.transfer-information.normal-text
-            Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          %span.normal-text Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
+              Tại mục "Message" khi chuyển tiền, bạn ghi rõ: Số điện thoại - Họ Tên - Email đăng ký học - Khóa học đăng ký.       
+        .row.no-margin
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %span.normal-text Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.

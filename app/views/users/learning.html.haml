@@ -1,58 +1,60 @@
-%main.myCourse-learning
-  .header-myCourse
-    .container
-      .row
-        .col-lg-6.visible-lg
-          .myCourse-label Khóa học của tôi
-        .col-lg-6.col-md-12.col-sm-12.col-xs-12
-          %ul.nav.nav-tabs.myCourse-tab
-            %li.active
-              %a{:href => "#myCourse-studying","data-toggle" => "tab"} Đang học
-            %li
-              %a{:href => "#myCourse-favorite","data-toggle" => "tab"} Ưa thích
-  .main-myCourse
-    .container
-      // list-course
-      .row.tab-content
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade.active.in#myCourse-studying
-          .list-course.text-center
-            .first-course
-              .btn-group
-                %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
-                  Tất cả
-                  %span.caret
-                %ul.dropdown-menu
-                  %li
-                    %a{:href => "javascript:void(0)"} Ưa thích
-                  %li
-                    %a{:href => "javascript:void(0)"} Chưa bắt đầu
-                  %li
-                    %a{:href => "javascript:void(0)"} Đang học
-                  %li
-                    %a{:href => "javascript:void(0)"} Đã hoàn thành
-                  %li
-                    %a{:href => "javascript:void(0)"} Lưu trữ
-              = render :partial => 'components/courses/learning_card'
-            - (1..23).each do |a|
-              = render :partial => 'components/courses/learning_card'
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade#myCourse-favorite
-          .list-course.text-center
-            .first-course
-              .btn-group
-                %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
-                  Tất cả
-                  %span.caret
-                %ul.dropdown-menu
-                  %li
-                    %a{:href => "javascript:void(0)"} Ưa thích
-                  %li
-                    %a{:href => "javascript:void(0)"} Chưa bắt đầu
-                  %li
-                    %a{:href => "javascript:void(0)"} Đang học
-                  %li
-                    %a{:href => "javascript:void(0)"} Đã hoàn thành
-                  %li
-                    %a{:href => "javascript:void(0)"} Lưu trữ
-              = render :partial => 'components/courses/course_card'
-            - (1..23).each do |a|
-              = render :partial => 'components/courses/course_card'
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"}  
+  %main.myCourse-learning
+    .header-myCourse
+      .container
+        .row
+          .col-lg-6.visible-lg
+            .myCourse-label Khóa học của tôi
+          .col-lg-6.col-md-12.col-sm-12.col-xs-12
+            %ul.nav.nav-tabs.myCourse-tab
+              %li.active
+                %a{:href => "#myCourse-studying","data-toggle" => "tab"} Đang học
+              %li
+                %a{:href => "#myCourse-favorite","data-toggle" => "tab"} Ưa thích
+    .main-myCourse
+      .container
+        // list-course
+        .row.tab-content
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade.active.in#myCourse-studying
+            .list-course.text-center
+              .first-course
+                .btn-group
+                  %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
+                    Tất cả
+                    %span.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "javascript:void(0)"} Ưa thích
+                    %li
+                      %a{:href => "javascript:void(0)"} Chưa bắt đầu
+                    %li
+                      %a{:href => "javascript:void(0)"} Đang học
+                    %li
+                      %a{:href => "javascript:void(0)"} Đã hoàn thành
+                    %li
+                      %a{:href => "javascript:void(0)"} Lưu trữ
+                = render :partial => 'components/courses/learning_card'
+              - (1..23).each do |a|
+                = render :partial => 'components/courses/learning_card'
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade#myCourse-favorite
+            .list-course.text-center
+              .first-course
+                .btn-group
+                  %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
+                    Tất cả
+                    %span.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "javascript:void(0)"} Ưa thích
+                    %li
+                      %a{:href => "javascript:void(0)"} Chưa bắt đầu
+                    %li
+                      %a{:href => "javascript:void(0)"} Đang học
+                    %li
+                      %a{:href => "javascript:void(0)"} Đã hoàn thành
+                    %li
+                      %a{:href => "javascript:void(0)"} Lưu trữ
+                = render :partial => 'components/courses/course_card'
+              - (1..23).each do |a|
+                = render :partial => 'components/courses/course_card'
