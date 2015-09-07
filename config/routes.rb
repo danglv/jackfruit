@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :payment, :path => 'home/payment', only: %w[] do
+  resources :payment, :path => 'home/payment', only: %w[create] do
     collection do
       get '/:alias_name', to: 'payment#index'
       get '/cod/:alias_name', to: 'payment#cod'
@@ -45,6 +45,11 @@ Rails.application.routes.draw do
       get '/:id/cancel', to: 'payment#cancel'
       get '/:id/error', to: 'payment#error'
       # get '/:id/update', to: 'payment#update'
+
+      # api for mercury
+      get '/:id/detail', to: 'payment#detail'
+      post '/:id/update', to: 'payment#update'
+      get '/all/list_payment', to: 'payment#list_payment'
     end
   end
 

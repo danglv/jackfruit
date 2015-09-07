@@ -85,3 +85,6 @@ gem 'pry-rails', '~> 0.3.4'
 gem 'will_paginate_mongoid', '~> 2.0.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+# serializer
+gem 'active_model_serializers', '~> 0.9.3'
