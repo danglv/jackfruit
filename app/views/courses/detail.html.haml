@@ -1,8 +1,7 @@
 / Màn hình từ 320px
 .layout-320
-  .header
-    = render :partial => 'components/header/index'
-  %main.detail
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-xs-12.no-padding
@@ -309,9 +308,8 @@
             %h5.link-text.normal-text Xem thêm các bình luận khác
 / Màn hình từ 480px đến 767px         
 .layout-480-up.hidden-sm.hidden-md.hidden-lg
-  .header
-    = render :partial => 'components/header/index'
-  %main.detail
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-xs-12.no-padding
@@ -623,9 +621,8 @@
             %h5.link-text.normal-text Xem thêm các bình luận khác
 / Màn hình từ 768px đến 992px  
 .row.no-margin.hidden-xs.hidden-md.hidden-lg
-  .header
-    = render :partial => 'components/header/index' 
-  %main.detail
+  = render :partial => 'components/header/index'
+  .container-wrappe.detail{:style => "overflow: hidden;"}
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-sm-12.no-padding
@@ -946,9 +943,8 @@
             %h5.link-text.normal-text Xem thêm các bình luận khác
 / Màn hình từ 992px trở lên
 .row.no-margin.hidden-xs.hidden-sm.hidden-lg
-  .header
-    = render :partial => 'components/header/index' 
-  %main.detail
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-md-12.no-padding
@@ -1282,9 +1278,8 @@
                   = render :partial => 'components/courses/list_card'  
 / Màn hình từ 1200px trở lên
 .row.no-margin.hidden-xs.hidden-sm.hidden-md
-  .header
-    = render :partial => 'components/header/index' 
-  %main.detail
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}
     .row.no-margin{:style => "background-color: #fff"}
       .container
         .row.no-margin

@@ -1,178 +1,184 @@
 /  Màn hình 320
 .layout-320
-  .payment.payment-bill
-    .container
-      .row.no-margin
-        %span.title Pedia
-      .row.no-margin.position
-        %h5.text Tầng 5, Tòa nhà Topica
-        %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
-        %h5.text pedia.vn
-      .row.no-margin.information
-        %h5
-          %b Ngày xuất:
-          21-08-2015
-        %h5
-          %b Hóa đơn số:
-          21-08-2015
-      .divider
-      .row.no-margin.information-bill
-        %h5.purchase-for
-          %b Thanh toán cho: 
-          Thảo My 
-        %h5.coupon-code
-          %b Coupon Code:
-          NGOCDEPTRAI141
-      .divider
-      .row.no-margin.bill-detail
-        %h5
-          %b Khóa học: 
-          Làm thế nào để học tiếng Việt
-        %h5
-          %b Ngày thanh toán:
-          18-05-2015
-        %h5
-          %b Số lượng:
-          1
-        %h5
-          %b Đơn giá:
-          200.000 VNĐ
-        %h5
-          %b Thành tiền:
-          200.000 VNĐ
-      .divider
-      .row.no-margin.support
-        %h5.support-text
-          Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
-          %a.link-text{:href => "#"} hotro@pedia.vn
-/ Màn hình 480px đến 768px
-.layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg  
-  .payment.payment-bill
-    .container
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}  
+    .payment.payment-bill
+      .container
+        .row.no-margin
           %span.title Pedia
-      .row.no-margin.bill-detail
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          .row.no-margin
-            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
-              %h5.text Tầng 5, Tòa nhà Topica
-            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
-              %h5
-                %b Ngày xuất:
-                21-08-2015
-          .row.no-margin
-            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
-              %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
-            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
-              %h5
-                %b Hóa đơn số:
-          .row.no-margin
-            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
-              %h5.text pedia.vn
-            .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
-              %h5 PDIANMAFVKWN1241542543
-                
-      .divider
-      .row.no-margin.bill-detail
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          .row.no-margin
-            .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
-              %h5 
-                %b Thanh toán cho: 
-                Thảo My 
-            .col-xs-6.col-sm-4.col-sm-offset-4.col-md-12.col-lg-12.no-padding
-              %h5
-                %b Coupon Code:
-                NGOCDEPTRAI141
-      .divider
-      .row.no-margin.bill-detail
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+        .row.no-margin.position
+          %h5.text Tầng 5, Tòa nhà Topica
+          %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+          %h5.text pedia.vn
+        .row.no-margin.information
+          %h5
+            %b Ngày xuất:
+            21-08-2015
+          %h5
+            %b Hóa đơn số:
+            21-08-2015
+        .divider
+        .row.no-margin.information-bill
+          %h5.purchase-for
+            %b Thanh toán cho: 
+            Thảo My 
+          %h5.coupon-code
+            %b Coupon Code:
+            NGOCDEPTRAI141
+        .divider
+        .row.no-margin.bill-detail
           %h5
             %b Khóa học: 
             Làm thế nào để học tiếng Việt
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           %h5
             %b Ngày thanh toán:
             18-05-2015
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           %h5
             %b Số lượng:
             1
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           %h5
             %b Đơn giá:
             200.000 VNĐ
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           %h5
             %b Thành tiền:
             200.000 VNĐ
-      .divider
-      .row.no-margin.support
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+        .divider
+        .row.no-margin.support
           %h5.support-text
             Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
             %a.link-text{:href => "#"} hotro@pedia.vn
+/ Màn hình 480px đến 768px
+.layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}    
+    .payment.payment-bill
+      .container
+        .row.no-margin
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %span.title Pedia
+        .row.no-margin.bill-detail
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            .row.no-margin
+              .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+                %h5.text Tầng 5, Tòa nhà Topica
+              .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+                %h5
+                  %b Ngày xuất:
+                  21-08-2015
+            .row.no-margin
+              .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+                %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+              .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+                %h5
+                  %b Hóa đơn số:
+            .row.no-margin
+              .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+                %h5.text pedia.vn
+              .col-xs-5.col-xs-offset-1.col-sm-3.col-sm-offset-5.col-md-12.col-lg-12.no-padding
+                %h5 PDIANMAFVKWN1241542543
+                  
+        .divider
+        .row.no-margin.bill-detail
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            .row.no-margin
+              .col-xs-6.col-sm-4.col-md-12.col-lg-12.no-padding
+                %h5 
+                  %b Thanh toán cho: 
+                  Thảo My 
+              .col-xs-6.col-sm-4.col-sm-offset-4.col-md-12.col-lg-12.no-padding
+                %h5
+                  %b Coupon Code:
+                  NGOCDEPTRAI141
+        .divider
+        .row.no-margin.bill-detail
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Khóa học: 
+              Làm thế nào để học tiếng Việt
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Ngày thanh toán:
+              18-05-2015
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Số lượng:
+              1
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Đơn giá:
+              200.000 VNĐ
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5
+              %b Thành tiền:
+              200.000 VNĐ
+        .divider
+        .row.no-margin.support
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5.support-text
+              Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
+              %a.link-text{:href => "#"} hotro@pedia.vn
 / Màn hình từ 768px trở lên
 .row.no-margin.hidden-xs
-  .col-sm-12.col-md-12.col-lg-12.no-padding 
-  .payment.payment-bill
-    .container
-      .row.no-margin
-        .col-sm-12.col-md-12.col-lg-12.no-padding
-          %span.title Pedia
-      .row.no-margin.bill-detail
-        .col-sm-12.col-md-12.col-lg-12.no-padding
-          .row.no-margin
-            .col-sm-4.col-md-3.col-lg-3.no-padding
-              %h5.text Tầng 5, Tòa nhà Topica
-            .col-sm-3.col-sm-offset-5.col-md-2.col-md-offset-7.col-lg-2.col-lg-offset-7.no-padding
-              %h5
-                %b Ngày xuất:
-                21-08-2015
-          .row.no-margin
-            .col-sm-4.col-md-3.col-lg-3.no-padding
-              %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
-            .col-sm-3.col-sm-offset-5.col-md-2.col-md-offset-7.col-lg-2.col-lg-offset-7.no-padding
-              %h5
-                %b Hóa đơn số:
-          .row.no-margin
-            .col-sm-4.col-md-3.col-lg-3.no-padding
-              %h5.text pedia.vn
-            .col-sm-3.col-sm-offset-5.col-md-3.col-md-offset-6.col-lg-2.col-lg-offset-7.no-padding
-              %h5.right-align PDIANMAFVKWN1241542543   
-      .divider
-      .row.no-margin.bill-detail
-        .col-sm-12.col-md-12.col-lg-12.no-padding
-          .row.no-margin
-            .col-sm-4.col-md-3.col-lg-3.no-padding
-              %h5 
-                %b Thanh toán cho: 
-                Thảo My 
-            .col-sm-4.col-sm-offset-4.col-md-3.col-md-offset-6.col-lg-3.col-lg-offset-6.no-padding
-              %h5.right-align
-                %b Coupon Code:
-                NGOCDEPTRAI141
-      .divider
-      .row.no-margin.bill-detail
-        %table.table.table-striped.table-hover
-          %thead
-            %tr
-              %th Khóa học
-              %th Ngày thanh toán
-              %th Số lượng
-              %th Đơn giá
-              %th Thành tiền
-          %tbody
-            %tr.active
-              %td.normal-text Làm thế nào để học tiếng Việt
-              %td.normal-text 18-05-2015
-              %td.normal-text 1
-              %td.normal-text 200.000 VNĐ
-              %td.normal-text 200.000 VNĐ
-      .divider
-      .row.no-margin.support
-        .col-sm-12.col-md-12.col-lg-12.no-padding
-          %h5.support-text
-            Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
-            %a.link-text{:href => "#"} hotro@pedia.vn
+  = render :partial => 'components/header/index'
+  .container-wrapper.detail{:style => "overflow: hidden;"}  
+    .col-sm-12.col-md-12.col-lg-12.no-padding 
+    .payment.payment-bill
+      .container
+        .row.no-margin
+          .col-sm-12.col-md-12.col-lg-12.no-padding
+            %span.title Pedia
+        .row.no-margin.bill-detail
+          .col-sm-12.col-md-12.col-lg-12.no-padding
+            .row.no-margin
+              .col-sm-4.col-md-3.col-lg-3.no-padding
+                %h5.text Tầng 5, Tòa nhà Topica
+              .col-sm-3.col-sm-offset-5.col-md-2.col-md-offset-7.col-lg-2.col-lg-offset-7.no-padding
+                %h5
+                  %b Ngày xuất:
+                  21-08-2015
+            .row.no-margin
+              .col-sm-4.col-md-3.col-lg-3.no-padding
+                %h5.text Số 75 Phương Mai, Đống Đa, Hà Nội
+              .col-sm-3.col-sm-offset-5.col-md-2.col-md-offset-7.col-lg-2.col-lg-offset-7.no-padding
+                %h5
+                  %b Hóa đơn số:
+            .row.no-margin
+              .col-sm-4.col-md-3.col-lg-3.no-padding
+                %h5.text pedia.vn
+              .col-sm-3.col-sm-offset-5.col-md-3.col-md-offset-6.col-lg-2.col-lg-offset-7.no-padding
+                %h5.right-align PDIANMAFVKWN1241542543   
+        .divider
+        .row.no-margin.bill-detail
+          .col-sm-12.col-md-12.col-lg-12.no-padding
+            .row.no-margin
+              .col-sm-4.col-md-3.col-lg-3.no-padding
+                %h5 
+                  %b Thanh toán cho: 
+                  Thảo My 
+              .col-sm-4.col-sm-offset-4.col-md-3.col-md-offset-6.col-lg-3.col-lg-offset-6.no-padding
+                %h5.right-align
+                  %b Coupon Code:
+                  NGOCDEPTRAI141
+        .divider
+        .row.no-margin.bill-detail
+          %table.table.table-striped.table-hover
+            %thead
+              %tr
+                %th Khóa học
+                %th Ngày thanh toán
+                %th Số lượng
+                %th Đơn giá
+                %th Thành tiền
+            %tbody
+              %tr.active
+                %td.normal-text Làm thế nào để học tiếng Việt
+                %td.normal-text 18-05-2015
+                %td.normal-text 1
+                %td.normal-text 200.000 VNĐ
+                %td.normal-text 200.000 VNĐ
+        .divider
+        .row.no-margin.support
+          .col-sm-12.col-md-12.col-lg-12.no-padding
+            %h5.support-text
+              Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
+              %a.link-text{:href => "#"} hotro@pedia.vn
