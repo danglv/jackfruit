@@ -21,7 +21,7 @@ class Tracking
 
   validates_uniqueness_of :str_identity
 
-  def generate_unique_str
+  def self.generate_unique_str
     SecureRandom.urlsafe_base64
   end
 

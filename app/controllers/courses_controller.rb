@@ -144,29 +144,50 @@ class CoursesController < ApplicationController
     end
 
     # Get Coupon
-    coupon_code = params[:coupon_code]
-    @coupon = []
-    uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
-    response = Net::HTTP.get(uri)
-    data = JSON.parse(response)
-    data['coupons'].each {|coupon|
-      if coupon['expired_date'].to_time > Time.now()
-        @coupon << coupon
-        break
+    begin
+      coupon_code = params[:coupon_code]
+      @coupon = []
+      uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
+      response = Net::HTTP.get(uri)
+      data = JSON.parse(response)
+      data['coupons'].each {|coupon|
+        if coupon['expired_date'].to_time > Time.now()
+          @coupon << coupon
+          break
+        end
+      }
+      if !coupon_code.blank?
+        if !coupon_code.split(",").blank?
+          coupon_code.split(",").each {|coupon|
+            uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+            response = Net::HTTP.get(uri)
+            coupon = JSON.parse(response)
+            if coupon['expired_date'].to_time > Time.now()
+              @coupon << coupon
+              break
+            end
+          }
+        end
       end
-    }
-    if !coupon_code.blank?
-      if !coupon_code.split(",").blank?
-        coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
-          coupon = JSON.parse(response)
-          if coupon['expired_date'].to_time > Time.now()
-            @coupon << coupon
-            break
-          end
-        }
+    rescue Exception => e
+      @coupon = []
+      unless current_user.blank?
+        identity = current_user.id.to_s
+      else
+        identity = Tracking.generate_unique_str
       end
+      Tracking.create_tracking(
+          :type => Constants::TrackingTypes::COURSE_DETAILS,
+          :content => {
+            :message => "die server coupon",
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :str_identity => identity,
+          :object => @course.id
+        )
     end
 
     @courses = {}
