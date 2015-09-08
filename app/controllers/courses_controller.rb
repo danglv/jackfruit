@@ -161,7 +161,7 @@ class CoursesController < ApplicationController
           uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
           response = Net::HTTP.get(uri)
           coupon = JSON.parse(response)
-          if coupon['expired_date'].to_time > Time.now()
+          if coupon['expired_date'].to_time > Time.now() && (@course.id.to_s == coupon['course_id'].to_s)
             @coupon << coupon
             break
           end
