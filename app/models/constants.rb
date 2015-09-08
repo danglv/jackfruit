@@ -5,6 +5,7 @@ module Constants
 
   module TrackingTypes
     PAYMENT = "payment"
+    COURSE_DETAILS = "course_details"
   end
 
   module  CurriculumTypes

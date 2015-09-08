@@ -87,7 +87,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -127,7 +127,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -206,7 +206,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
           render 'page_not_found', status: 404
@@ -250,7 +250,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -422,7 +422,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -492,7 +492,7 @@ class PaymentController < ApplicationController
             :platform => {},
             :device => {},
             :version => Constants::AppVersion::VER_1,
-            :identity => current_user.id.to_s,
+            :str_identity => current_user.id.to_s,
             :object => payment.id
           )
           render 'page_not_found', status: 404
