@@ -7,38 +7,48 @@
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
         .row.no-margin.list-style
-          .list-style-icon
-            %i.mdi-1x.mdi-action-shopping-cart
+          .list-style-icon{:style => "font-size: 24px; vertical"}
+            %i.fa.fa-shopping-cart{:style => "vertical-align: top"}
           .list-style-text
-            %h5 Giao khóa học và thu tiền tận nơi
+            %span Giao khóa học và thu tiền tận nơi
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
         .row.no-margin.list-style
-          .list-style-icon
-            %i.mdi-1x.mdi-action-credit-card
+          .list-style-icon{:style => "font-size: 24px;"}
+            %i.fa.fa-credit-card{:style => "vertical-align: top"}
           .list-style-text
-            %h5 Thanh toán trực tuyến bằng thẻ ATM 
+            %span Thanh toán trực tuyến bằng 
+            %br thẻ ATM hoặc Visa/Master
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
         .row.no-margin.list-style
           .list-style-icon
-            %i.mdi-1x.mdi-image-style
+            %svg{:height => "24", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 41 36", :width => "40", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
+              %defs
+                :css
+                  .cls-1 {
+                    fill: #727272 ;
+                    fill-rule: evenodd;
+                  }
+              %path.cls-1{:d => "M39.726,10.703 L26.599,23.857 C26.397,24.061 26.129,24.163 25.863,24.163 C25.596,24.163 25.329,24.061 25.126,23.857 L21.043,19.765 L35.642,5.134 L39.726,9.227 C39.921,9.423 40.031,9.688 40.031,9.965 C40.031,10.241 39.921,10.507 39.726,10.703 ZM16.959,15.673 C16.764,15.476 16.654,15.211 16.654,14.935 C16.654,14.658 16.764,14.393 16.959,14.196 L30.086,1.041 C30.288,0.838 30.556,0.736 30.822,0.736 C31.088,0.736 31.355,0.838 31.559,1.042 L33.218,2.705 L18.618,17.335 L16.959,15.673 ZM19.138,7.465 C19.138,7.061 18.811,6.734 18.408,6.734 L5.155,6.734 C4.751,6.734 4.425,7.061 4.425,7.465 L4.425,27.864 C4.425,28.267 4.752,28.595 5.155,28.595 L18.408,28.595 C18.811,28.595 19.138,28.267 19.138,27.864 L19.138,21.607 L22.808,25.284 L22.808,32.114 C22.808,33.899 21.365,35.346 19.583,35.346 L3.980,35.346 C2.198,35.346 0.755,33.899 0.755,32.114 L0.755,5.867 C0.755,4.082 2.198,2.635 3.980,2.635 L19.583,2.635 C20.984,2.635 22.163,3.534 22.609,4.784 L19.138,8.262 L19.138,7.465 ZM14.759,33.578 L18.067,33.578 C18.798,33.578 19.390,32.984 19.390,32.251 C19.390,31.519 18.798,30.925 18.067,30.925 L14.759,30.925 C14.027,30.925 13.435,31.519 13.435,32.251 C13.435,32.984 14.027,33.578 14.759,33.578 ZM5.496,33.578 L8.804,33.578 C9.536,33.578 10.128,32.984 10.128,32.251 C10.128,31.519 9.536,30.925 8.804,30.925 L5.496,30.925 C4.765,30.925 4.173,31.519 4.173,32.251 C4.173,32.984 4.765,33.578 5.496,33.578 Z"}
           .list-style-text
-            %h5 Thanh toán bằng thẻ cào điện thoại
+            %span Thanh toán bằng thẻ cào 
+            %br điện thoại, thẻ game
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
         .row.no-margin.list-style
-          .list-style-icon  
-            %i.mdi-1x.mdi-communication-business
+          .list-style-icon{:style => "font-size: 24px;"}  
+            %i.fa.fa-building{:style => "vertical-align: top"}
           .list-style-text            
-            %h5 Chuyển khoản qua ngân hàng
+            %span Chuyển khoản qua ngân hàng
     .col-xs-12.no-padding
       %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
         .row.no-margin.list-style
-          .list-style-icon 
-            %i.mdi-1x.mdi-communication-location-on
+          .list-style-icon{:style => "font-size: 24px;"}
+            %i.fa.fa-map-marker{:style => "vertical-align: top"}
           .list-style-text 
-            %h5 Thanh toán trực tiếp tại văn phòng Pedia
+            %span Thanh toán trực tiếp tại 
+            %br văn phòng Pedia
 / Màn hình từ 480px trở lên
 .layout-480-up
   .row.no-margin.payment-content{:class => [('active' if method == '')]}
@@ -47,15 +57,15 @@
   .row.no-margin.payment-content.center-align
     .col-xs-6.col-sm-4.col-md-3.col-lg-2.col-lg-offset-1
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
-        .payment-card-icon
-          %i.mdi-2x.mdi-action-shopping-cart
+        .payment-card-icon{:style => "font-size: 48px"}
+          %i.fa.fa-shopping-cart
         .payment-card-text
           %h5 Giao khóa học
           %h5 và thu tiền tận nơi
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
-        .payment-card-icon
-          %i.mdi-2x.mdi-action-credit-card
+        .payment-card-icon{:style => "font-size: 48px"}
+          %i.fa.fa-credit-card
         .payment-card-text
           %h5 Thanh toán trực
           %h5 tuyến bằng thẻ ATM
@@ -63,22 +73,29 @@
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
         .payment-card-icon
-          %i.mdi-2x.mdi-image-style
+          %svg{:height => "50", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 41 36", :width => "60", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
+            %defs
+              :css
+                .cls-1 {
+                  fill: #727272 ;
+                  fill-rule: evenodd;
+                }
+            %path.cls-1{:d => "M39.726,10.703 L26.599,23.857 C26.397,24.061 26.129,24.163 25.863,24.163 C25.596,24.163 25.329,24.061 25.126,23.857 L21.043,19.765 L35.642,5.134 L39.726,9.227 C39.921,9.423 40.031,9.688 40.031,9.965 C40.031,10.241 39.921,10.507 39.726,10.703 ZM16.959,15.673 C16.764,15.476 16.654,15.211 16.654,14.935 C16.654,14.658 16.764,14.393 16.959,14.196 L30.086,1.041 C30.288,0.838 30.556,0.736 30.822,0.736 C31.088,0.736 31.355,0.838 31.559,1.042 L33.218,2.705 L18.618,17.335 L16.959,15.673 ZM19.138,7.465 C19.138,7.061 18.811,6.734 18.408,6.734 L5.155,6.734 C4.751,6.734 4.425,7.061 4.425,7.465 L4.425,27.864 C4.425,28.267 4.752,28.595 5.155,28.595 L18.408,28.595 C18.811,28.595 19.138,28.267 19.138,27.864 L19.138,21.607 L22.808,25.284 L22.808,32.114 C22.808,33.899 21.365,35.346 19.583,35.346 L3.980,35.346 C2.198,35.346 0.755,33.899 0.755,32.114 L0.755,5.867 C0.755,4.082 2.198,2.635 3.980,2.635 L19.583,2.635 C20.984,2.635 22.163,3.534 22.609,4.784 L19.138,8.262 L19.138,7.465 ZM14.759,33.578 L18.067,33.578 C18.798,33.578 19.390,32.984 19.390,32.251 C19.390,31.519 18.798,30.925 18.067,30.925 L14.759,30.925 C14.027,30.925 13.435,31.519 13.435,32.251 C13.435,32.984 14.027,33.578 14.759,33.578 ZM5.496,33.578 L8.804,33.578 C9.536,33.578 10.128,32.984 10.128,32.251 C10.128,31.519 9.536,30.925 8.804,30.925 L5.496,30.925 C4.765,30.925 4.173,31.519 4.173,32.251 C4.173,32.984 4.765,33.578 5.496,33.578 Z"}
         .payment-card-text
           %h5 Thanh toán bằng 
           %h5 thẻ điện thoại 
           %h5 thẻ game
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
-        .payment-card-icon
-          %i.mdi-2x.mdi-communication-business
+        .payment-card-icon{:style => "font-size: 48px"}
+          %i.fa.fa-building
         .payment-card-text
           %h5 Chuyển khoản
           %h5 qua ngân hàng
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
       %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
-        .payment-card-icon
-          %i.mdi-2x.mdi-communication-location-on
+        .payment-card-icon{:style => "font-size: 48px"}
+          %i.fa.fa-map-marker
         .payment-card-text
           %h5 Thanh toán trực tiếp
           %h5 tại văn phòng

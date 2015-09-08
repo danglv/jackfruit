@@ -109,7 +109,7 @@
       }
       .list-style-text {
         color: #212121;
-        font-size: 14px;
+        font-size: 12px;
         display: inline-block;
       }
     }
@@ -119,6 +119,9 @@
       .list-style {
         .list-style-icon, .list-style-text {
           color: #fff;
+        }
+        .cls-1 {
+          fill: #fff;
         }
       }
     }
@@ -133,6 +136,9 @@
     .list-style {
       .list-style-icon, .list-style-text {
         color: #fff;
+      }
+      .cls-1 {
+        fill: #fff;
       }
     }
   }
@@ -154,6 +160,9 @@
       .payment-card-icon, .payment-card-text {
         color: #fff;
       }
+      .cls-1 {
+        fill: #fff;
+      }
     }
     &.disable:hover{
       background: none;
@@ -165,6 +174,9 @@
     background-color: #338abc !important;
     .payment-card-icon, .payment-card-text {
       color: #fff;
+    }
+    .cls-1 {
+      fill: #fff;
     }
   }
   .payment-editor {
