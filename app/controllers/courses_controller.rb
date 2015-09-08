@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_filter :validate_content_type_param
+  before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
@@ -370,5 +370,25 @@ class CoursesController < ApplicationController
       render json: {message: "Có lỗi xảy ra"}
       return
     end
+  end
+
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+
+    if keywords.blank?
+      render json: {}
+      return
+    end
+
+    keywords = Utils.nomalize_string(keywords)
+    pattern = /#{Regexp.escape(keywords)}/
+
+    courses = Course.where(:alias_name => pattern).map { |course|
+      CourseSerializer.new(course).suggestion_search_hash
+    }
+
+    render json: courses, root: false
+    return
   end
 end

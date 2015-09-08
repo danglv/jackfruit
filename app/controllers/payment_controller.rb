@@ -1,10 +1,10 @@
 class PaymentController < ApplicationController
   include PaymentServices
 
-  before_filter :authenticate_user!, :except => [:error]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod]
-  before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code]
-  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod]
+  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+  before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
+  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   # GET
   def index
     payment = Payment.where(
@@ -300,6 +300,110 @@ class PaymentController < ApplicationController
       render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
       return
     end    
+  end
+
+  # GET: API get cod payment for mercury
+  def detail
+    render json: PaymentSerializer.new(@payment).cod_hash
+  end
+
+  # POST: API update payment for mercury
+  def update
+    mobile = params[:mobile]
+    email = params[:email]
+    address = params[:address]
+    status = params[:status]
+
+    @payment.update({
+      mobile: mobile.blank? ? @payment.mobile : mobile,
+      email: email.blank? ? @payment.email : email,
+      address: address.blank? ? @payment.address : address,
+      status: status.blank? ? @payment.status : status
+    })
+
+    if @payment.save
+      render json: PaymentSerializer.new(@payment).cod_hash
+      return
+    else
+      render json: {message: "Lỗi không lưu được data!"}
+    end
+  end
+
+  # GET: API list payment for mercury
+  def list_payment
+    name = params[:name]
+    method = params[:method]
+    payment_date = params[:date]
+    page = params[:page] || 1
+    per_page = params[:per_page] || 10
+
+    condition = {}
+    condition[:name] = /#{Regexp.escape(name)}/ unless name.blank?
+    condition[:method] = method unless method.blank?
+    condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
+    
+    payments = Payment.where(condition)
+
+    total_pages = (payments.count.to_f / per_page).ceil
+    next_page = page >= total_pages ? 0 : page + 1
+
+    payments = payments.paginate(page: page, per_page: per_page).map { |payment|
+      PaymentSerializer.new(payment).cod_hash
+    }
+
+    render json: {
+      payments: payments,
+      total_pages: total_pages,
+      next_page: next_page
+    }
+    return
+  end
+
+  # POST: API create new payment
+  def create
+    user_id = params[:user_id]
+    method  = params[:method]
+    course_id = params[:course_id]
+    coupon = params[:coupon]
+    email = params[:email]
+    address = params[:address]
+    name = params[:name]
+    mobile = params[:mobile]
+
+    payment = Payment.new(
+      :user_id => user_id,
+      :course_id => course_id,
+      :method => method,
+      :coupons => [coupon],
+      :name => name,
+      :email => email,
+      :address => address,
+      :mobile => mobile
+    )
+
+    user = User.find(user_id)
+    course = Course.find(course_id)
+    owned_course = user.courses.find_or_initialize_by(course_id: course_id)
+    owned_course.created_at = Time.now() if owned_course.created_at.blank?
+
+    course.curriculums.where(
+      :type => Constants::CurriculumTypes::LECTURE
+    ).map{ |curriculum|
+      owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+    }
+
+    course.students += 1
+    
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+    if payment.save && owned_course.save && user.save && course.save
+      render json: PaymentSerializer.new(payment).cod_hash
+      return
+    else
+      render json: {message: "Lỗi không lưu được data!"}
+      return
+    end
   end
 
   private
