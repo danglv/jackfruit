@@ -61,9 +61,9 @@
 /                       %p.red-text{:style => "margin-bottom: 10px; margin-top: -10px"}= @error
 /                     %input.btn.btn-large.expanded{:type => 'submit', :value => 'Đặt mua khóa học', :style => "background-color: #38b34a"}
 
-= render :partial => 'components/header/index'
-.container-wrapper.detail{:style => "overflow: hidden;"} 
-  .layout-320 
+.layout-320
+  = render :partial => 'components/header/index'
+  .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
@@ -119,9 +119,11 @@
             %input.form-control{:placeholder => "Số seri", :type => "text"}
         .row.no-margin
           .col-xs-12.no-padding.payment-editor
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học 
-                       
-  .layout-480-up  
+            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học     
+   
+.layout-480-up 
+  = render :partial => 'components/header/index'
+  .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding

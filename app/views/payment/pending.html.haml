@@ -1,7 +1,7 @@
-.header
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
-    .layout-320
+.layout-320
+  .header
+    = render :partial => 'components/header/index'
+    .container-wrapper{:style => "overflow: hidden;"}  
       .payment
         .row.no-margin
           .col-xs-12.no-padding
@@ -48,8 +48,11 @@
           .row.no-margin{:style => "margin-bottom: 25px;"}
             .col-xs-12.no-padding
               %a.btn.btn-info.btn-raised.btn-lg.refresh-button khám phá các khóa học khác
-     
-    .layout-480-up.hidden-sm.hidden-md.hidden-lg
+        
+.layout-480-up.hidden-sm.hidden-md.hidden-lg
+  .header
+    = render :partial => 'components/header/index'
+    .container-wrapper{:style => "overflow: hidden;"}  
       .payment
         .row.no-margin
           .col-xs-12.no-padding
@@ -96,9 +99,12 @@
           .row.no-margin
             .col-xs-12.no-padding
               %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} khám phá các khóa học khác
-  
-    .row.no-margin.hidden-xs 
-      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding 
+ 
+.row.no-margin
+  .header.hidden-xs
+    = render :partial => 'components/header/index'
+    .container-wrapper{:style => "overflow: hidden;"}  
+      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
         .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
           .row.no-margin
             .col-sm-12.col-md-12.col-lg-12.no-padding

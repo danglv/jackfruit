@@ -1,6 +1,6 @@
-= render :partial => 'components/header/index'
-.container-wrapper.detail{:style => "overflow: hidden;"}  
-  .layout-320
+.layout-320
+  = render :partial => 'components/header/index'
+  .container-wrapper{:style => "overflow: hidden;"}  
     .payment.payment-bill
       .container
         .row.no-margin
@@ -47,7 +47,9 @@
             Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
             %a.link-text{:href => "#"} hotro@pedia.vn
 
-  .layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg
+.layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg
+  = render :partial => 'components/header/index'
+  .container-wrapper{:style => "overflow: hidden;"}    
     .payment.payment-bill
       .container
         .row.no-margin
@@ -115,7 +117,9 @@
               Mọi thắc mắc về khóa học này vui lòng liên hệ với chúng tôi qua hòm thư
               %a.link-text{:href => "#"} hotro@pedia.vn
 
-  .row.no-margin.hidden-xs
+.row.no-margin.hidden-xs
+  = render :partial => 'components/header/index'
+  .container-wrapper{:style => "overflow: hidden;"}  
     .col-sm-12.col-md-12.col-lg-12.no-padding 
       .payment.payment-bill
         .container
