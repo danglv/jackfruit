@@ -1,0 +1,387 @@
+%header
+  = render :partial => 'layouts/header'
+  = render :partial => 'components/side_nav'
+
+%banner
+  .row
+    .col.s12
+      - if !@banner.blank?
+        - if @banner.location == 'header'
+          - if @banner.type == 'image'
+            = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+          - if @banner.type == 'popup'
+            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
+
+%main.detail
+  .row.detail-top{:style => "padding: 0px auto; width:85%"}
+    .col.s12
+      .row.no-margin
+        %h4.course-title
+          = @course.name
+      .row.no-margin
+        %p
+          = @course.sub_title
+      .row.no-margin
+        %span.courses
+          .course-rating.col.s7.valign-wrapper.no-padding
+            .col.s3.course-rating-point.no-padding
+              - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.material-icons.is-rated star_rate
+                - else
+                  %i.material-icons star_rate
+            .col.s6.course-rating-people.no-padding 
+              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+      .row.valign-wrapper.no-margin
+        %span.left
+      - if @course.user
+        Giảng dạy bởi 
+        %a{:href => "#",:style => "line-height:50px;"}= @course.user.name
+      - else
+        %a{:href => "#"} Tudemy
+      .row
+        .col.s7.no-padding
+          .video-container.no-controls
+            - if @course.intro_link && @course.intro_link != ''
+              - if @course.intro_link['v=']
+                - @indexStart = @course.intro_link.index('v=') + 2
+                - if @course.intro_link['&']
+                  - @indexEnd = @course.intro_link.index('&')-1
+                  - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
+                - else
+                  - @indexEnd = @course.intro_link.length
+                  - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
+              - elsif @course.intro_link['youtu.be']
+                - pattern = /youtu.be\/(.*)\?/
+                - @youtube_id = pattern.match(@course.intro_link)[1]
+              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "480", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "853"}
+            - elsif @course.image && @course.image != ''
+              = image_tag @course.image, :style => 'width: 100%'
+            - else
+              = image_tag 'course-image-intro.png', :style => 'width: 100%'
+        .col.s5
+          .row.courses
+            - if @course.price == 0
+              .col.s12
+                %span.course-price{:style => 'margin: 0'} Miễn phí
+            - else
+              - if @course.old_price == 0
+                .col.s12
+                  %h5.course-price{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              - else
+                .col.s12.no-padding
+                  %span.course-price{:style => 'font-size: 1.64rem'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                .col.s12.no-padding{:style => 'line-height: 34px;'}
+                  %span{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.old_price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span (Giảm giá: #{100 * (@course.price - @course.old_price).abs / @course.old_price}%)
+                  %br
+                  %span.red-text= "Ngày hết hạn: 15/9/2015"
+          .row
+            - if !current_user.blank?
+              .col.s6.no-padding
+                - if !@owned_course.blank?
+                  - if @owned_course.payment_status == 'pending'
+                    %a.btn{:style => "background-color: #ffbb33;cursor: default;box-shadow: none"}
+                      Đang chờ xử lý
+                    - if @payment.method == 'cod'
+                      #cod-code-container.no-padding
+                        %input{:type => 'text', :placeholder => 'Nhập COD code ...',:payment_id => @payment.id}
+                        %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                        %a.btn#submit-cod-code{} Nhập
+                  - else
+                    %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      Bắt đầu học ngay
+                - else
+                  - if @course.price == 0
+                    %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      Bắt đầu học ngay
+                  - else 
+                    %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      Mua khóa học
+              .col.s6.no-padding
+                .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
+                  %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
+            - else
+              .col.s6.no-padding
+                - if @course.price == 0
+                  %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Bắt đầu học ngay
+                - else 
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Mua khóa học
+              .col.s6.no-padding
+                .row{:style => "position:fixed; bottom:0px;right:0px; background:#FF5722; color:white; width:200px; height: 50px; border-radius:50px;font-size: 18px;text-align: center;border-radius: 5px; margin-right:20px; z-index: 10"}
+                  %p.no-margin{:style => "line-height:50px"} Hotline: 0961215368
+            .col.s6.no-padding
+              / %a.valign-wrapper.btn.disabled{:href => "/home/my-course/select_course?course_id=#{@course.id.to_s}&type=wishlist"}
+              /   %i.material-icons.is-favorite group
+              /   Ưa thích
+          / %a.row{:href => "#"}
+          /   Nhập mã khuyễn mãi
+          / %a.row{:href => "#"}
+          /   Xem thử miễn phí
+          / %a.row{:href => "#"}
+          /   Tùy chọn khác
+          .row
+            .divider
+          .col.s5.courses
+            .row
+              %p.course-author
+                Số lượng bài giảng
+              %p.course-author
+                Thời lượng video
+              %p.course-author
+                Trình độ
+              %p.course-author
+                Ngôn ngữ
+              / %p.course-author
+              /   bao gồm
+          .col.s7
+            .row
+              %p.bold
+                = @course.curriculums.where(:type => 'lecture').count
+              %p.bold
+                - time = 0
+                - @course.curriculums.each do |curi|
+                  - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                    - type = curi.description.split(":").length
+                    - if type == 3
+                      - time = time + curi.description.to_time.min
+                    - elsif type == 2 
+                      - time = time + curi.description.to_i
+                - if time > 60
+                  = (time/60).to_s + 'h' + (time%60).to_s + "p"
+                - else
+                  = '1h'
+              %p.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+              %p.bold 
+                = Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
+              / %p.bold
+              /   Lifetime access
+              / %p.bold
+              /   30 day money back
+              / %p.bold
+              /   Avariable on iOS and Android
+              / %p.bold
+              /   Certificate of completion
+  .row{:style => "background-color:#e9e9e9"}
+    .row.detail-main{:style => "padding: 0px auto; width:85%"}
+      .col.s7
+        .row
+          = render 'detail_description', method: 'detail'
+        .row
+          .col.s12.no-padding{:style => "text-align: center"}
+            - if @course.price == 0
+              %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
+                Bắt đầu học ngay
+            - else 
+              %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                Mua khóa học
+        .row
+          %h4{:style => 'border-bottom: 1px solid #999'}
+            Giáo trình
+          .divider
+          .collection.courses{:style => "border: none"} 
+            - @course.curriculums.each do |curi|
+              - if(curi.type == 'chapter')
+                %a.collection-item.active{:href => "#", :style => "pointer-events: none"} #{curi.title}
+              - else
+                / - @course.curriculums.where(chapter_index: curi.chapter_index, type: "lecture").asc(:lecture_index).each do |lecture|
+                %a.collection-item.no-padding{:href =>  '#', :style => "pointer-events: none; background: #e9e9e9; border-bottom: 1px solid #b6b6b6"}
+                  .row.no-margin{:style => "margin: 10px 0px"}
+                    .col.s9.left
+                      %span.grey-text.left{:style => 'width: 20px'}= (curi.lecture_index + 1 ).to_s
+                      - if curi.asset_type == "Video"
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} play_circle_filled
+                      - else 
+                        %i.tiny.material-icons.grey-text.left{:style => 'margin-top: 4px'} insert_drive_file
+                      %span{:style => "color: #338abc"} #{curi.title}
+                    .col.s3.no-padding{:style => 'text-align:right'}
+                      - if curi.asset_type == "Video"
+                        %span.black-text= curi.description
+                      - else
+                        %span.black-text Văn bản
+            .row
+              .col.s12.no-padding{:style => "text-align: center; margin-top:25px;"}
+                - if @course.price == 0
+                  %a.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",}
+                    Bắt đầu học ngay
+                - else 
+                  %a#btn-buy.btn{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    Mua khóa học
+            .row
+              %h5
+                Tiểu sử tác giả
+              .row
+                .col-xs-5.col-md-3.col-lg-1{:style => "display:inline-block; vertical-align: middle; float:none"}
+                  - if !@course.user.avatar.blank?
+                    = image_tag @course.user.avatar, :style => "width:110px"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width:110px"
+                .col-xs-5.col-md-7.col-lg-9{:style => "display:inline-block; vertical-align: middle; float:none"}
+                  .row.instructor{:style => "font-size: 16px;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if @course.user
+                        - if @course.user.instructor_profile
+                          %span= @course.user.instructor_profile.academic_rank
+                        %a{:href => "#!"}= @course.user.name
+                      - else 
+                        %a{:href => "#!"} Tudemy
+                  .row.function{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if !@course.user.instructor_profile.function.blank?
+                        %span= 'Nghề nghiệp: ' + @course.user.instructor_profile.function
+                  .row.work{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
+                    .col.s12
+                      - if !@course.user.instructor_profile.work_unit.blank?
+                        %span= 'Đơn vị công tác: ' + @course.user.instructor_profile.work_unit
+              .row
+                /description
+                - if @course.user.instructor_profile.description.count > 0
+                  %ul{:style => " list-style: none;"}
+                    - @course.user.instructor_profile.description.each do |i|
+                      %li
+                        %p= i
+          /       %a{:href => "https://www.facebook.com/tudemy"}
+          /         = image_tag 'facebook.png'
+          /   .row
+          /     %p= @course.user.biography
+          / %a{:href => "/users/" + @course.user._id + "/show"}
+          /     Tiểu sử chi tiết
+          / .row.courses
+          /   %h4
+          /     Đánh giá
+          /   %h1.pink-text #{@course.average_rating}
+          /   %span.course-rating
+          /     %span.course-rating-point
+          /       %i.material-icons.is-rated star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /       %i.material-icons star_rate
+          /   %span.course-rating-people.no-padding
+          /     #{@course.num_rate} đánh giá
+          /   %p
+          /     Chi tiết
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 5 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 90%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 4 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 40%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 3 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 60%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 2 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 20%"}
+          /     .col.s1
+          /       %span 3174
+          /   .row
+          /     .col.s1.no-padding
+          /       %span 1 sao
+          /     .col.s4.no-padding
+          /       .progress.grey.lighten-1
+          /         .determinate.yellow.darken-2{:style => "width: 5%"}
+          /     .col.s1
+          /       %span 3174
+        .row
+        - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
+          %ul.collection
+            %li.collection-item.avatar{:style => "background-color:#e1e1e1;border-bottom: 1px solid #999"}
+              %img.circle{:alt => "", :src => "/assets/avatar.png"}
+                .title.bold= rv.user.name
+                / %p 2 ngày trước
+                %span.courses
+                  %span.course-rating
+                  %span.course-rating-point
+                    - (1..5).each do |i|
+                      - if i <= rv.rate
+                        %i.material-icons.is-rated star_rate
+                      - else
+                        %i.material-icons star_rate
+                %p.bold= rv.title
+                %p= rv.description
+      .col.s4
+        .row
+          #fb-root
+          .fb-share-button{:"data-href" => "#{request.url}", :"data-layout" => "button"}
+        - if @courses['related'].last.count > 0    
+          .row
+            %h5= @courses['related'].first
+          .row
+            %ul.collection
+              - @courses['related'].last.each do |relate|
+                %a.black-text{:href => "/courses/"+relate.alias_name+"/detail"}
+                  %li.collection-item.avatar
+                    - if relate.user
+                      = image_tag relate.image, :class => 'circle'
+                    %span.title.bold= relate.name
+                    - if relate.user
+                      %p= relate.user.name
+                    %span.courses
+                      %span.course-rating
+                      %span.course-rating-point
+                        - (1..5).each do |i|
+                          - if i <= relate.average_rating
+                            %i.material-icons.is-rated star_rate
+                          - else
+                            %i.material-icons star_rate
+                      .row
+                        - if relate.price == 0
+                          .col.s5.no-padding.course-price.free Miễn phí
+                        - else
+                          .col.s5.no-padding.course-price= number_to_currency(relate.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+      .col.s12.course-list.highest-rating
+    - if @courses['featured']
+      .col.s12
+        .row.course-list-header
+          .col.s12
+            %h5.course-list-header-title Được đánh giá cao
+        .row.courses.card-style
+          - @courses['featured'].each do |c|
+            .col.s3
+              %a.course{:href => '/courses/'+c._id+'/detail'}
+                .card-image.course-image
+                  = image_tag c.image
+                .card-content.course-content
+                  .row.course-title
+                    .col.s12.no-padding= c.name 
+                  .row.course-author
+                  - if c.user
+                    .col.s12.no-padding= "Bởi " + c.user.name
+                  .row.course-rating
+                    .col.s7.course-rating-point.no-padding
+                      - (1..5).each do |i|
+                        - if i <= c.average_rating
+                          %i.material-icons.is-rated star_rate
+                        - else
+                          %i.material-icons star_rate
+                    .col.s5.course-rating-people.no-padding= '(' + c.num_rate.to_s + ')'
+                  .row.course-footer
+                    .col.s7.no-padding.course-favorite
+                      %span.left
+                        %i.material-icons.is-favorite group
+                      %span.left=  c.students.to_s
+                    - if c.price == 0
+                      .col.s5.no-padding.course-price.free{:style => "text-align:right;"} Miễn phí
+                    - else
+                      .col.s5.no-padding.course-price{:style => "text-align:right;"}= number_to_currency(c.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
