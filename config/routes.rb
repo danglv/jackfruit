@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       get '/:alias_name/learning', to: 'courses#learning'
       get '/:alias_name/select', to: 'courses#select'
       get '/:alias_name/lecture/:lecture_index', to: 'courses#lecture'
+
+      # API for mercury
+      get '/api/suggestion_search', to: 'courses#suggestion_search'
     end
   end
 
@@ -47,9 +50,9 @@ Rails.application.routes.draw do
       # get '/:id/update', to: 'payment#update'
 
       # api for mercury
-      get '/:id/detail', to: 'payment#detail'
-      post '/:id/update', to: 'payment#update'
-      get '/all/list_payment', to: 'payment#list_payment'
+      get '/api/:id/detail', to: 'payment#detail'
+      post '/api/:id/update', to: 'payment#update'
+      get '/api/list_payment', to: 'payment#list_payment'
     end
   end
 
@@ -66,6 +69,9 @@ Rails.application.routes.draw do
       get :teaching
       get :wishlist
       get :search
+      get '/api/suggestion_search', to: 'users#suggestion_search'
+      post '/api/active_course', to: 'users#active_course'
+      get '/api/:id/get_user_detail', to: 'users#get_user_detail'
     end
   end 
 

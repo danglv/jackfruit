@@ -381,7 +381,23 @@ class PaymentController < ApplicationController
       :mobile => mobile
     )
 
-    if payment.save
+    user = User.find(user_id)
+    course = Course.find(course_id)
+    owned_course = user.courses.find_or_initialize_by(course_id: course_id)
+    owned_course.created_at = Time.now() if owned_course.created_at.blank?
+
+    course.curriculums.where(
+      :type => Constants::CurriculumTypes::LECTURE
+    ).map{ |curriculum|
+      owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+    }
+
+    course.students += 1
+    
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+    if payment.save && owned_course.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
