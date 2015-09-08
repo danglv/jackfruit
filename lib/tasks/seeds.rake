@@ -504,7 +504,7 @@ namespace :seeds do
 
   desc "seeds one course"
   task seed_one_course_paid: :environment do
-    csv_file_name = "public/08-09-2015/goi3/TA02 - Dev.Upload - Sheet1"
+    csv_file_name = "public/08-09-2015/goi5/TA03 - Dev.Upload - Sheet1"
     data = load_csv_file(csv_file_name) and true
     @curriculums = []
     @description = []
