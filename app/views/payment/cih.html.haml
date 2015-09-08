@@ -1,7 +1,7 @@
 / Màn hình 320px
 .layout-320
   = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
+  .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
@@ -24,7 +24,7 @@
 / Màn hình từ 480px trở lên
 .layout-480-up 
   = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
+  .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding

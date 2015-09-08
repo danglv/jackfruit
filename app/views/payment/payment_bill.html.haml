@@ -1,7 +1,7 @@
 /  Màn hình 320
 .layout-320
   = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
+  .container-wrapper{:style => "overflow: hidden;"}  
     .payment.payment-bill
       .container
         .row.no-margin
@@ -50,7 +50,7 @@
 / Màn hình 480px đến 768px
 .layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg
   = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}    
+  .container-wrapper{:style => "overflow: hidden;"}    
     .payment.payment-bill
       .container
         .row.no-margin
@@ -120,7 +120,7 @@
 / Màn hình từ 768px trở lên
 .row.no-margin.hidden-xs
   = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
+  .container-wrapper{:style => "overflow: hidden;"}  
     .col-sm-12.col-md-12.col-lg-12.no-padding 
     .payment.payment-bill
       .container
