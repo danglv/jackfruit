@@ -155,6 +155,7 @@ RailsAdmin.config do |config|
       field :labels
       field :instructor_profile
       field :courses
+      field :avatar
     end
   end
 

@@ -504,13 +504,15 @@ namespace :seeds do
 
   desc "seeds one course"
   task seed_one_course_paid: :environment do
-    csv_file_name = "public/07-09-2015/SKE02 - Dev.Upload - Sheet1"
+    csv_file_name = "public/08-09-2015/goi5/TA03 - Dev.Upload - Sheet1"
     data = load_csv_file(csv_file_name) and true
     @curriculums = []
     @description = []
     @requirement = []
     @benefit = []
     @audience = []
+
+    Course.where(alias_name: data[1][0]).destroy_all
     @course = Course.find_or_initialize_by(alias_name: data[1][0])
     @course.name = data[1][1]
     @course.sub_title = data[1][2]
