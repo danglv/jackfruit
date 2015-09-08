@@ -1,6 +1,8 @@
-- @courses = ['bla bla'];
-- if (@courses.count!=0 && @courses.first[0] != "featured")
-  = render :partial => 'search_result'
-- else
-  = render :partial => 'search_false'
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"} 
+  - @courses = ['bla bla'];
+  - if (@courses.count!=0 && @courses.first[0] != "featured")
+    = render :partial => 'search_result'
+  - else
+    = render :partial => 'search_false'
 = render :partial => 'components/footer/index'

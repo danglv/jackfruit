@@ -1,7 +1,7 @@
-/ Màn hình từ 320px
-.layout-320
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"}
+
+  .layout-320  
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-xs-12.no-padding
@@ -306,10 +306,8 @@
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
-/ Màn hình từ 480px đến 767px         
-.layout-480-up.hidden-sm.hidden-md.hidden-lg
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}
+
+  .layout-480-up.hidden-sm.hidden-md.hidden-lg
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-xs-12.no-padding
@@ -621,10 +619,8 @@
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
-/ Màn hình từ 768px đến 992px  
-.row.no-margin.hidden-xs.hidden-md.hidden-lg
-  = render :partial => 'components/header/index'
-  .container-wrappe.detail{:style => "overflow: hidden;"}
+
+  .row.no-margin.hidden-xs.hidden-md.hidden-lg
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-sm-12.no-padding
@@ -943,10 +939,8 @@
         .col-sm-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
-/ Màn hình từ 992px trở lên
-.row.no-margin.hidden-xs.hidden-sm.hidden-lg
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}
+
+  .row.no-margin.hidden-xs.hidden-sm.hidden-lg
     .container{:style => "background-color: #fff"}
       .row.no-margin
         .col-md-12.no-padding
@@ -1278,10 +1272,8 @@
                 - (1..3).each do
                   / - @courses['related'].last.each do |relate|
                   = render :partial => 'components/courses/list_card'  
-/ Màn hình từ 1200px trở lên
-.row.no-margin.hidden-xs.hidden-sm.hidden-md
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}
+
+  .row.no-margin.hidden-xs.hidden-sm.hidden-md
     .row.no-margin{:style => "background-color: #fff"}
       .container
         .row.no-margin

@@ -1,7 +1,6 @@
-/ Màn hình từ 320px
-.layout-320
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}  
+= render :partial => 'components/header/index'
+.container-wrapper.detail{:style => "overflow: hidden;"} 
+  .layout-320
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
@@ -49,10 +48,8 @@
         .row.no-margin
           .col-xs-12.no-padding
             %span.normal-text Giao dịch sẽ hoàn tất khi DeltaViet nhận được tiền từ ngân hàng, thường là từ 1 – 24 giờ. Tudemy sẽ email báo cho bạn biết khi giao dịch hoàn tất.
-/ Màn hình từ 480px trở lên          
-.layout-480-up
-  = render :partial => 'components/header/index'
-  .container-wrapper.detail{:style => "overflow: hidden;"}   
+        
+  .layout-480-up
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
