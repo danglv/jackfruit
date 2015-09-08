@@ -1,0 +1,150 @@
+#login-modal, #register-modal {
+  text-align: left;
+  @media (max-width: 640px) {
+    padding-left: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    
+    .modal-dialog {
+      margin: 0;
+    }
+
+    .modal-content .modal-body {
+      padding: 0 33px 0px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+    }
+
+    .modal-body-left {
+      float: left;
+      width: 100%;
+    }
+
+    .modal-body-right {
+      float: left;
+      width: 100%;
+    }
+
+    .forgot-password-link {
+      line-height: 40px;
+    }
+
+    .form-control-wrapper {
+      margin: 20px 0;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1200px) {
+    .modal-dialog {
+      width: 400px;
+      margin: 10px auto;
+    }
+
+    .modal-content .modal-body {
+      padding: 0 34px 16px;
+    }
+
+    .form-control-wrapper {
+      margin: 20px 0;
+    }
+  }
+
+  @media (min-width: 1201px) {
+    .modal-dialog {
+      width: 600px;
+    }
+
+    .modal-body-left {
+      float: left;
+      padding: 25px 10px 0 5px;
+      width: 50%;
+    }
+
+    .modal-body-right {
+      border-left: 1px solid $border-color-default;
+      float: left;
+      padding-left: 15px;
+      padding-right: 8px;
+      padding-top: 25px;
+      width: 50%; 
+    }
+
+    .forgot-password-link {
+      line-height: 50px;
+    }
+
+    .form-control-wrapper {
+      margin: 30px 0;
+    }
+  }
+
+  .modal-dialog {
+    border-radius: 5px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid $border-color-default;
+    padding: 10px;
+  }
+
+  .modal-body {
+    @extend .row;
+    padding-bottom: 0;
+  }
+
+  .modal-footer {
+    border-top: 1px solid $border-color-default;
+    line-height: 60px;
+    text-align: center;
+  }
+
+  .modal-title {
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  .forgot-password-link {
+    text-align: center;
+  }
+
+  .btn-link {
+    color: $secondary-color;
+    font-size: 16px;
+  }
+}
+
+.btn-expanded {
+  width: 100%;
+}
+
+.btn-social-login {
+  color: #fff !important;
+  font-size: 16px;
+  height: 40px;
+  text-transform: none;
+  min-width: 270px;
+  width: 100%;
+
+  @media (max-width: 1200px) {
+    line-height: 34px;
+    height: 50px;
+  }
+}
+
+.btn-facebook {
+  background-color: $facebook-color-default !important;
+}
+
+.btn-google {
+  background-color: $google-color-default !important;
+}
+
+.btn-login-submit {
+  background-color: $primary-color !important;
+  color: #fff !important;
+  font-size: 16px;
+  height: 50px;
+}
