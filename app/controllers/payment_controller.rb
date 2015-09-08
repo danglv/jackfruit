@@ -334,7 +334,7 @@ class PaymentController < ApplicationController
     name = params[:name]
     method = params[:method]
     payment_date = params[:date]
-    page = params[:page] || 1
+    page = params[:page].to_i || 1
     per_page = params[:per_page] || 10
 
     condition = {}
