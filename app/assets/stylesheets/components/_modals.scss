@@ -18,16 +18,6 @@
       font-size: 16px;
     }
 
-    .modal-body-left {
-      float: left;
-      width: 100%;
-    }
-
-    .modal-body-right {
-      float: left;
-      width: 100%;
-    }
-
     .forgot-password-link {
       line-height: 40px;
     }
@@ -58,17 +48,13 @@
     }
 
     .modal-body-left {
-      float: left;
       padding: 25px 10px 0 5px;
       width: 50%;
     }
 
     .modal-body-right {
       border-left: 1px solid $border-color-default;
-      float: left;
-      padding-left: 15px;
-      padding-right: 8px;
-      padding-top: 25px;
+      padding: 25px 8px 0 15px;
       width: 50%; 
     }
 
@@ -95,6 +81,13 @@
     padding-bottom: 0;
   }
 
+  .modal-body-left, .modal-body-right {
+    float: left;
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+  }
+
   .modal-footer {
     border-top: 1px solid $border-color-default;
     line-height: 60px;
@@ -114,37 +107,4 @@
     color: $secondary-color;
     font-size: 16px;
   }
-}
-
-.btn-expanded {
-  width: 100%;
-}
-
-.btn-social-login {
-  color: #fff !important;
-  font-size: 16px;
-  height: 40px;
-  text-transform: none;
-  min-width: 270px;
-  width: 100%;
-
-  @media (max-width: 1200px) {
-    line-height: 34px;
-    height: 50px;
-  }
-}
-
-.btn-facebook {
-  background-color: $facebook-color-default !important;
-}
-
-.btn-google {
-  background-color: $google-color-default !important;
-}
-
-.btn-login-submit {
-  background-color: $primary-color !important;
-  color: #fff !important;
-  font-size: 16px;
-  height: 50px;
 }
