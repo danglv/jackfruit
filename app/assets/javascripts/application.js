@@ -31,9 +31,25 @@ $(document).ready(function () {
   $.material.init();
   $.material.ripples();
   $.material.input();
+
+  // fix wrapper width min-width
+  $('html').css('min-width','300px')
+  $('.active-nav-2').click(function(event) {
+    if ($(this).attr('aria-expanded')=='false') {
+      $( "html" ).animate({
+        'min-width': '560px'
+      }, 200);
+    }else{
+      $( "html" ).animate({
+        'min-width': '300px'
+      }, 200);
+    }
+  });
+
   $('.active-nav-1').sliderDropdown();
   $('.active-nav-2').sliderDropdown();
 });
+
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
