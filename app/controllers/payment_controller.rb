@@ -101,11 +101,11 @@ class PaymentController < ApplicationController
     baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
 
-    if request.method == 'GET'
-      banks = baokim.get_seller_info()
-      @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
-      @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
-    elsif request.method == 'POST'
+    # if request.method == 'GET'
+    banks = baokim.get_seller_info()
+    @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
+    @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
+    if request.method == 'POST'
       # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
       Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
       
