@@ -1,11 +1,9 @@
-= render :partial => 'components/header/index'
-.container-wrapper{:style => "overflow: hidden;"}  
-  .search
-    .row.no-margin.search-header
-      .row.container
-        %h4 Không có kết quả cho từ khóa “ThanhNguyễn”
-    .row.no-margin.search-fail-container
-      .row.container.search-fail-container-main
-        / temp...
-        - (1..10).each do |a|
-          = render :partial => 'components/courses/list_card'
+.search
+.row.no-margin.search-header
+  .row.container
+    %h4 Không có kết quả cho từ khóa “ThanhNguyễn”
+.row.no-margin.search-fail-container
+  .row.container.search-fail-container-main
+    / temp...
+    - (1..10).each do |a|
+      = render :partial => 'components/courses/list_card'

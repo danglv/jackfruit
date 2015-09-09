@@ -43,9 +43,6 @@
   %body
     = yield
     = javascript_include_tag 'application'
-    = render :partial => 'confirmable/sessions/new'
-    = render :partial => 'confirmable/registrations/new'
-    = render :partial => 'confirmable/support/new'
 
     - if Rails.env == 'production'
       :javascript
