@@ -84,6 +84,7 @@ class User
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
   validates_numericality_of :money, only_integer: true, greater_than_or_equal: 0
+  validates_uniqueness_of :email
 
   embeds_one :instructor_profile, class_name: "User::InstructorProfile"
   # embeds_one :profile, class_name: "User::Profile"

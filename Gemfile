@@ -65,6 +65,9 @@ gem 'net-http-digest_auth', '~> 1.4'
 # Webmock
 gem 'webmock', group: :test
 
+# Http request
+gem 'rest-client', '~> 1.8.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -81,3 +84,6 @@ gem 'pry-rails', '~> 0.3.4'
 gem 'will_paginate_mongoid', '~> 2.0.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+# serializer
+gem 'active_model_serializers', '~> 0.9.3'

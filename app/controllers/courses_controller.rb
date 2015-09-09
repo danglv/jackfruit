@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_filter :validate_content_type_param
+  before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
@@ -132,14 +132,40 @@ class CoursesController < ApplicationController
       if !current_user.courses.where(
         :course_id => @course.id.to_s,
         :payment_status => Constants::PaymentStatus::SUCCESS
-        ).first.blank?
+        ).last.blank?
         redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
       else
         @payment = Payment.where(
           user_id: current_user.id.to_s,
           course_id: @course.id.to_s
-        ).first
+        ).last
+      end
+    end
+
+    # Get Coupon
+    coupon_code = params[:coupon_code]
+    @coupon = []
+    uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
+    response = Net::HTTP.get(uri)
+    data = JSON.parse(response)
+    data['coupons'].each {|coupon|
+      if coupon['expired_date'].to_time > Time.now()
+        @coupon << coupon
+        break
+      end
+    }
+    if !coupon_code.blank?
+      if !coupon_code.split(",").blank?
+        coupon_code.split(",").each {|coupon|
+          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+          response = Net::HTTP.get(uri)
+          coupon = JSON.parse(response)
+          if coupon['expired_date'].to_time > Time.now() && (@course.id.to_s == coupon['course_id'].to_s)
+            @coupon << coupon
+            break
+          end
+        }
       end
     end
 
@@ -159,6 +185,26 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+
+    if ["55c3306344616e0ca600001f", "55cb2d3044616e15ca000000", "55cb2d3044616e15ca000000", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
+      if params[:layout].to_i == 1
+        render :template => "courses/detail"
+        return
+      else
+        
+        if @course.id.to_s == "55c3306344616e0ca600001f"
+          @is_experiment_tund = 1
+        elsif @course.id.to_s == "55cb2d3044616e15ca000000"
+          @is_experiment_ngocntn = 1
+        end
+
+        render :template => "courses/excel_detail"
+        return
+      end
+    else
+      render :template => "courses/detail"
+      return
+    end
   end
 
   def learning
@@ -324,5 +370,25 @@ class CoursesController < ApplicationController
       render json: {message: "Có lỗi xảy ra"}
       return
     end
+  end
+
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+
+    if keywords.blank?
+      render json: {}
+      return
+    end
+
+    keywords = Utils.nomalize_string(keywords)
+    pattern = /#{Regexp.escape(keywords)}/
+
+    courses = Course.where(:alias_name => pattern).map { |course|
+      CourseSerializer.new(course).suggestion_search_hash
+    }
+
+    render json: courses, root: false
+    return
   end
 end
