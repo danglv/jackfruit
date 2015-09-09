@@ -1,3 +1,6 @@
+require "net/http"
+require "uri"
+
 class Tracking
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -21,11 +24,26 @@ class Tracking
 
   validates_uniqueness_of :str_identity
 
-  def generate_unique_str
+  def self.generate_unique_str
     SecureRandom.urlsafe_base64
   end
 
   def self.create_tracking data
     Tracking.create data
+
+    uri = URI.parse("http://email.pedia.vn/email_services/send_email")
+    Net::HTTP.post_form(uri, {
+      :email => "quangnk@topica.edu.vn",
+      :str_html => "Lỗi #{self.id}",
+      :sender => "topicamemo2@memo.net.vn",
+      :subj => "Lỗi hệ thống Pedia."
+    })
+
+    Net::HTTP.post_form(uri, {
+      :email => "hieubt@topica.edu.vn",
+      :str_html => "Lỗi #{self.id}",
+      :sender => "topicamemo2@memo.net.vn",
+      :subj => "Lỗi hệ thống Pedia."
+    })
   end
 end
