@@ -313,12 +313,16 @@ class PaymentController < ApplicationController
     email = params[:email]
     address = params[:address]
     status = params[:status]
+    city = params[:city]
+    district = params[:district]
 
     @payment.update({
       mobile: mobile.blank? ? @payment.mobile : mobile,
       email: email.blank? ? @payment.email : email,
       address: address.blank? ? @payment.address : address,
-      status: status.blank? ? @payment.status : status
+      status: status.blank? ? @payment.status : status,
+      city: city.blank? ? @payment.city : city,
+      district: district.blank? ? @payment.district : district
     })
 
     if @payment.save
