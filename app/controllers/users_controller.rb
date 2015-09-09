@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
   before_filter :validate_course, only: [:select_course]
 
@@ -133,7 +133,9 @@ class UsersController < ApplicationController
         return
       end
     else
-      redirect_to root_url + "home/payment/#{@course.alias_name}"
+      url = root_url + "home/payment/#{@course.alias_name}"
+      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      redirect_to url
     end
   end
 
@@ -162,6 +164,46 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+    keywords = Utils.nomalize_string(keywords)
+    pattern = /#{Regexp.escape(keywords)}/
+
+    users = User.where(:name => pattern).map { |user|
+      UserSerializer.new(user).suggestion_search_hash
+    }
+
+    render json: users, root: false
+    return
+  end
+
+  # POST: API active course for user (mercury)
+  def active_course
+    course_id = params[:course_id]
+    user_id = params[:user_id]
+    user = User.find(user_id)
+
+    owned_course = user.courses.where(course_id: course_id).first
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+    if user.save
+      render json: {message: "Thành công!"}
+      return
+    else
+      render json: {message: "Thất bại!"}
+      return
+    end
+  end
+
+  # GET: API get user info & course of user
+  def get_user_detail
+    user_id = params[:id]
+    user = User.find(user_id)
+
+    render json: UserSerializer.new(user).profile_detail_hash
   end
 
   # GET/PATCH /users/:id/finish_signup

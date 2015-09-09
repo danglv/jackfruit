@@ -82,6 +82,8 @@ RailsAdmin.config do |config|
       field :course
       field :method
       field :status
+      field :money
+      field :coupons
     end
 
     show do
@@ -92,6 +94,11 @@ RailsAdmin.config do |config|
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :coupons
+      field :money
     end
 
     edit do
@@ -106,11 +113,16 @@ RailsAdmin.config do |config|
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :cod_code
     end
   end
 
   config.model 'User' do
     list do
+      field :created_at
       field :name
       field :email
       field :role
@@ -141,6 +153,7 @@ RailsAdmin.config do |config|
       field :labels
       field :instructor_profile
       field :courses
+      field :avatar
     end
   end
 
