@@ -5,14 +5,14 @@
       %h4{:style => "font-weight: 400"} 1. Lựa chọn hình thức thanh toán
   .row.no-margin
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'cod')]}
         .row.no-margin.list-style
           .list-style-icon{:style => "font-size: 24px; vertical"}
             %i.fa.fa-shopping-cart{:style => "vertical-align: top"}
           .list-style-text
             %span Giao khóa học và thu tiền tận nơi
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => "/home/payment/online_payment/" + @course.alias_name + "?p=baokim&coupon_code=#{@coupon_code}", :class => [('active' if method == 'online_payment')]}
         .row.no-margin.list-style
           .list-style-icon{:style => "font-size: 24px;"}
             %i.fa.fa-credit-card{:style => "vertical-align: top"}
@@ -20,7 +20,7 @@
             %span Thanh toán trực tuyến bằng 
             %br thẻ ATM hoặc Visa/Master
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [('active' if method == 'card')]}
         .row.no-margin.list-style
           .list-style-icon
             %svg{:height => "24", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 41 36", :width => "40", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
@@ -35,7 +35,7 @@
             %span Thanh toán bằng thẻ cào 
             %br điện thoại, thẻ game
     .col-xs-12.no-padding
-      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
+      %a.btn.btn-default.btn-raised.payment-list.no-padding{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'transfer')]}
         .row.no-margin.list-style
           .list-style-icon{:style => "font-size: 24px;"}  
             %i.fa.fa-building{:style => "vertical-align: top"}
@@ -56,14 +56,14 @@
       %h4{:style => "font-weight: 400"} 1. Lựa chọn hình thức thanh toán
   .row.no-margin.payment-content.center-align
     .col-xs-6.col-sm-4.col-md-3.col-lg-2.col-lg-offset-1
-      %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/cod/' + @course.alias_name, :class => [('active' if method == 'cod')]}
+      %a.btn.btn-default.btn-raised.payment-card{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'cod')]}
         .payment-card-icon{:style => "font-size: 48px"}
           %i.fa.fa-shopping-cart
         .payment-card-text
           %h5 Giao khóa học
           %h5 và thu tiền tận nơi
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
-      %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/online_payment/' + @course.alias_name + '?p=baokim', :class => [('active' if method == 'online_payment')]}
+      %a.btn.btn-default.btn-raised.payment-card{:href => "/home/payment/online_payment/" + @course.alias_name + "?p=baokim&coupon_code=#{@coupon_code}", :class => [('active' if method == 'online_payment')]}
         .payment-card-icon{:style => "font-size: 48px"}
           %i.fa.fa-credit-card
         .payment-card-text
@@ -71,7 +71,7 @@
           %h5 tuyến bằng thẻ ATM
           %h5 hoặc Visa/Master
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
-      %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/card/' + @course.alias_name + '?p=baokim_card', :class => [('active' if method == 'card')]}
+      %a.btn.btn-default.btn-raised.payment-card{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [('active' if method == 'card')]}
         .payment-card-icon
           %svg{:height => "50", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 41 36", :width => "60", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
             %defs
@@ -86,7 +86,7 @@
           %h5 thẻ điện thoại 
           %h5 thẻ game
     .col-xs-6.col-sm-4.col-md-3.col-lg-2
-      %a.btn.btn-default.btn-raised.payment-card{:href => '/home/payment/transfer/' + @course.alias_name, :class => [('active' if method == 'transfer')]}
+      %a.btn.btn-default.btn-raised.payment-card{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'transfer')]}
         .payment-card-icon{:style => "font-size: 48px"}
           %i.fa.fa-building
         .payment-card-text
@@ -100,4 +100,3 @@
           %h5 Thanh toán trực tiếp
           %h5 tại văn phòng
           %h5 Pedia
-  
