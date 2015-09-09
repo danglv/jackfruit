@@ -26,7 +26,10 @@
               .offset-s1.col.s2.left-align
                 %span Chi phí
               .col.s8.right-align.fail-price
-                %b.teal-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+                - if @payment
+                  %b.teal-text= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+                - else 
+                  %b.teal-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
             .row
               .offset-s1.col.s2.left-align
                 %span Trạng thái
@@ -43,6 +46,9 @@
                   %b 0961215368
             .row
               .offset-s1.col.s6.no-padding.left-align
-                %a.teal-text.bold{:href => "#"} Khám phá các khóa học khác
+                %a.teal-text.bold{:href => "/courses"} Khám phá các khóa học khác
               .col.s4.no-padding.righ-align
-                %a.btn-large.teal.bold.expanded{:href => "#"} Thử lại
+                - if @course
+                  %a.btn-large.teal.bold.expanded{:href => "/courses/" + @course.alias_name + "/detail"} Thử lại
+                - else 
+                  %a.btn-large.teal.bold.expanded{:href => "#"} Thử lại

@@ -73,7 +73,7 @@ class PaymentController < ApplicationController
       if payment.save
         create_course_for_user()
         begin
-          RestClient.post 'http://internal.tudemy.vn:8000/notify', :to => 'mercury', :msg => "{type:'cod', msg: 'Có đơn COD mới'}}"
+          RestClient.post 'http://localhost:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD mới' 
         rescue => e
         end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
@@ -87,7 +87,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -101,11 +101,11 @@ class PaymentController < ApplicationController
     baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
 
-    if request.method == 'GET'
-      banks = baokim.get_seller_info()
-      @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
-      @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
-    elsif request.method == 'POST'
+    # if request.method == 'GET'
+    banks = baokim.get_seller_info()
+    @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
+    @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
+    if request.method == 'POST'
       # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
       Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
       
@@ -127,7 +127,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -206,7 +206,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
           render 'page_not_found', status: 404
@@ -253,7 +253,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -316,12 +316,16 @@ class PaymentController < ApplicationController
     email = params[:email]
     address = params[:address]
     status = params[:status]
+    city = params[:city]
+    district = params[:district]
 
     @payment.update({
       mobile: mobile.blank? ? @payment.mobile : mobile,
       email: email.blank? ? @payment.email : email,
       address: address.blank? ? @payment.address : address,
-      status: status.blank? ? @payment.status : status
+      status: status.blank? ? @payment.status : status,
+      city: city.blank? ? @payment.city : city,
+      district: district.blank? ? @payment.district : district
     })
 
     if @payment.save
@@ -425,7 +429,7 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
+          :str_identity => current_user.id.to_s,
           :object => payment.id
         )
         render 'page_not_found', status: 404
@@ -495,7 +499,7 @@ class PaymentController < ApplicationController
             :platform => {},
             :device => {},
             :version => Constants::AppVersion::VER_1,
-            :identity => current_user.id.to_s,
+            :str_identity => current_user.id.to_s,
             :object => payment.id
           )
           render 'page_not_found', status: 404

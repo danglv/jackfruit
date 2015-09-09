@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_filter :validate_content_type_param, :except => [:suggestion_search]
+  before_filter :validate_content_type_param
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
@@ -144,29 +144,50 @@ class CoursesController < ApplicationController
     end
 
     # Get Coupon
-    coupon_code = params[:coupon_code]
-    @coupon = []
-    uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
-    response = Net::HTTP.get(uri)
-    data = JSON.parse(response)
-    data['coupons'].each {|coupon|
-      if coupon['expired_date'].to_time > Time.now()
-        @coupon << coupon
-        break
+    begin
+      coupon_code = params[:coupon_code]
+      @coupon = []
+      uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
+      response = Net::HTTP.get(uri)
+      data = JSON.parse(response)
+      data['coupons'].each {|coupon|
+        if coupon['expired_date'].to_time > Time.now()
+          @coupon << coupon
+          break
+        end
+      }
+      if !coupon_code.blank?
+        if !coupon_code.split(",").blank?
+          coupon_code.split(",").each {|coupon|
+            uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+            response = Net::HTTP.get(uri)
+            coupon = JSON.parse(response)
+            if coupon['expired_date'].to_time > Time.now()
+              @coupon << coupon
+              break
+            end
+          }
+        end
       end
-    }
-    if !coupon_code.blank?
-      if !coupon_code.split(",").blank?
-        coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
-          coupon = JSON.parse(response)
-          if coupon['expired_date'].to_time > Time.now() && (@course.id.to_s == coupon['course_id'].to_s)
-            @coupon << coupon
-            break
-          end
-        }
+    rescue Exception => e
+      @coupon = []
+      unless current_user.blank?
+        identity = current_user.id.to_s
+      else
+        identity = Tracking.generate_unique_str
       end
+      Tracking.create_tracking(
+          :type => Constants::TrackingTypes::COURSE_DETAILS,
+          :content => {
+            :message => "die server coupon",
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :str_identity => identity,
+          :object => @course.id
+        )
     end
 
     @courses = {}
@@ -186,7 +207,7 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
-    if ["55c3306344616e0ca600001f", "55cb2d3044616e15ca000000", "55cb2d3044616e15ca000000", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
+    if ["55c3306344616e0ca600001f", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
       if params[:layout].to_i == 1
         render :template => "courses/detail"
         return
@@ -201,6 +222,9 @@ class CoursesController < ApplicationController
         render :template => "courses/excel_detail"
         return
       end
+    elsif ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+        render :template => "courses/detail_v3"
+        return
     else
       render :template => "courses/detail"
       return
@@ -370,25 +394,5 @@ class CoursesController < ApplicationController
       render json: {message: "Có lỗi xảy ra"}
       return
     end
-  end
-
-  # GET: API suggestion search for user by name
-  def suggestion_search
-    keywords = params[:q]
-
-    if keywords.blank?
-      render json: {}
-      return
-    end
-
-    keywords = Utils.nomalize_string(keywords)
-    pattern = /#{Regexp.escape(keywords)}/
-
-    courses = Course.where(:alias_name => pattern).map { |course|
-      CourseSerializer.new(course).suggestion_search_hash
-    }
-
-    render json: courses, root: false
-    return
   end
 end
