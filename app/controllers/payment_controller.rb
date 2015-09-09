@@ -213,6 +213,9 @@ class PaymentController < ApplicationController
         end
       else
         @error = data['errorMessage']
+        # url = request.protocol + request.host_with_port + "/home/payment/card/#{params[:alias_name]}?p=baokim_card"
+        # url += "&coupon_code=#{params[:coupon_code]}" unless params[:coupon_code].blank?
+        # redirect_to url
       end
     end
   end

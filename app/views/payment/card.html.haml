@@ -56,6 +56,7 @@
                     %input#card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
                     %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
                     %input{:type => "hidden", :name => "p", :placeholder => "baokim_card", :value => "baokim_card"}
+                    %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
                     = hidden_field_tag :authenticity_token, form_authenticity_token
                     .input-field
                       %input.no-margin{:type => "text", :name => "pin_field", :placeholder => "Mã số thẻ", :required => "required"}
