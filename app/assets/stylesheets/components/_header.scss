@@ -3,11 +3,17 @@ header {
   box-shadow: 0px 1px 2px #CCC;
   padding: 0 5px;
   position: relative;
+  &.header-primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
 
   &.header-landingpage {
     background: transparent;
     box-shadow: none;
-    
+    position: absolute;
+    top: 0;
+    width: 100%;
     @media (max-width: 1024px) {
       display: none;
     }

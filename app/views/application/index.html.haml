@@ -1,47 +1,164 @@
+#register-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h3.modal-title Đăng ký
+      .modal-body
+        .modal-body-left
+          %p.hidden-xs.hidden-sm Đăng ký với tài khoản mạng xã hội
+          %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
+            %i.left.fa.fa-facebook
+            %span.left Đăng ký bằng Facebook
+          %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
+            %i.left.fa.fa-google-plus
+            %span.left Đăng ký bằng Google+
+        .modal-body-right
+          %p.hidden-xs.hidden-sm Đăng ký bằng email
+          %form{:method => "post",:action => "/users/sign_in"}
+            .form-control-wrapper
+              %input#name.form-control{:type => 'text', :required => 'true', :placeholder => 'Tên đầy đủ', :name => "user[name]"}
+            .form-control-wrapper
+              %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+            .form-control-wrapper 
+              %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng ký'}
+        %p.forgot-password-link
+          %a.btn-link{:href => "#"} Quên mật khẩu?
+      .modal-footer
+        Đã có tài khoản?
+        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#login-modal"} Đăng nhập
+#login-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h3.modal-title Đăng nhập
+      .modal-body
+        .modal-body-left
+          %p.hidden-xs.hidden-sm Đăng nhập với tài khoản mạng xã hội
+          %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
+            %i.left.fa.fa-facebook
+            %span.left Đăng nhập bằng Facebook
+          %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
+            %i.left.fa.fa-google-plus
+            %span.left Đăng nhập bằng Google+
+        .modal-body-right
+          %p.hidden-xs.hidden-sm Đăng nhập bằng email
+          %form{:method => "post",:action => "/users/sign_in"}
+            .form-control-wrapper
+              %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+            .form-control-wrapper 
+              %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
+        %p.forgot-password-link
+          %a.btn-link{:href => "#"} Quên mật khẩu?
+      .modal-footer
+        Chưa có tài khoản?
+        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký
 / Màn hình từ 320px đến 1200px
 .hidden-lg
   .row.no-margin
     .col-xs-12.col-sm-12.col-md-12.no-padding
-      = render :partial => 'components/header/index'
-  .row.no-margin.landingpage
-    .col-xs-12.col-ld-12.col-md-12.no-padding
-      .row.no-margin.header-box
-        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
-          %h4.no-margin.header-title Khóa học nào sẽ thay đổi cuộc đời bạn?
-        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
-          %h5.header-description Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
-        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
-          %input.form-control{:placeholder => "Tìm một khóa học", :type => "text"}
-          %i.fa.fa-search
-      .container
-        .row.no-margin.categories
-          .layout-320
-            %h4.categories-title Khám phá những chủ đề 
-            %h4.categories-title và khóa học phổ biến
-          .layout-480-up
-            %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
-          .category
-            / %img{:src => "assets/python.png"}
-            %img{:src => "https://lh3.googleusercontent.com/JRne5aDos_PSAc_-2jbOPPlTUDEYR3nR0wb8Q8roSIwMT_G53GXpJ8uZWXO3QJxPr7aiFG18Ui0eMtWusmFSSkG7eRkb2FD9WxI4IEhhws9u3hhk6ewsbpFJ9iSQcM6bQ5EGkhrsywqGNjEaTWnTfvZ-q6UAtTGCs9Y64oUkH--62iwtB3aPEbOw8R3yOU26YGNhhV1-5wSqlvAHDBZOaqVSTcuN4hiwmd34fKIa5QtssgfylgDDrvA9WJIAZOR98Zu91QpzBP072KPMakbqvKZIr6KnS5km_9rXlJHzzmyq4dlGd9C9BoQNhdFNU0qF8xxFBxFwKl1mLP7PS6_f0FwecID08FcfBqNT9nhrRjlwtbGaQbIUW-K4zW9rtELE9PB_T15D_9RxkM4UouCF1obZhpNB2h1mvzLnDBuX69yMwLFOXI4c-P8FLdBXHOYPltCSSKBsXw7gIFbXLGyxmjgP0PsVo1pjEb1MAz4hPDpR4rBEXCFLugYW40-XZznAWx7aYny0X9rMosUQsjn0L4Q=w290-h163-no"}
-          .category
-            / %img{:src => "assets/java.png"}
-            %img{:src => "https://lh3.googleusercontent.com/6jjuUuk-2Gp7a4L2Yqja_djZ-ndcFm5z26cYjdAXCDX_Sr-qBzF01zOFErN3Ot9YM0Xzs2jMa3FaXsdPXLzgAaK3EzYmwOVzW4vyykPhDhm86PLfDfYk7pZvnR5J2lsAAAU3g7iTrGaH0AkSntxgc7yiSDZXS6YiB-FlsjTuAmA1mpL9aAWBPgKVChsR2HXTc5XlwcfHuXctGjK37TJcO37NSOmOeEmNmoirXk266G62DcsMGn_eeuz3qTBn1tYDtB3_5dU4Igz3XW3c1hTCU04iVpFKIiZX3XFl4gN1gE3uq1r9fWDenn_NuvBKDtVMAfJp7JeXlU4qX5UyEII4vljHiZiC_AZ_m80ywW8Tn7a_9R5wS3TH0lmGZHJ7ESqVSJIv-x-07jHTuBZeSbSUAsug_b2HdgSixKbGHYbrFDJLC8U5PFWb-WU6geI-_KPdbZ3c6R9GEEoPXhCizihyJSuAOHFD7Fm2XHRzz3rJDNpl-y650KMADFFru098aduM5KMFxH9eQmJTReZpruvLK8o=w290-h163-no"}
-          .category
-            / %img{:src => "assets/excel.png"}
-            %img{:src => "https://lh3.googleusercontent.com/UpLRguVYJNOL8GUbX1eO10ohvttqKqK7pb47hGjKmVlKpZEiJF8WVuLBDGgf4x0YlFmbUmp9elrcF-YndDHBcgGsLXGe0aDIfoeg0F38rEvxopyuLKTZEwEzklqo1na-3hAJzcgTh1iyFiWhKbrbIGtOf7eKe27lPBc5-Xg_oqfhgIc4tIDF3ttkgG324aIJUY4oTBt9iNFhIfH6tTwcM9ujnNvuLU9stHsPIAxvRzQSWWJmzusuRozSBeZUuiugBUGtSIUOuDnlHGp0R2LYHmfN7fd0NaNlo9HIImyLYJxnMynJa65rg7MPUVZPkXXK-KDBQYdNsWV2t6taYmU1Ea3UvnuvB8YMjGszv0ryGppMnmbYceTbZc_H2pT19ZJLUfpO20llkGOlPz98Pov3Ldww2CVxZA0xZ3Ucjm3fGhtkgsx3eGRXhkO8fuuYXNfSvgupfab4rpbRmpEzjAVF9X9duRnGgiHDd3phflcBqPAKjkdfRI4Ele08f6wmVT6vVWJOj1PKLtUOapNv5g2f3r8=w290-h163-no"}
-        .row.no-margin.courses
-          - (1..30).each do
-            .course
-              = render :partial => 'components/courses/landingpage_card'
-        .row.no-margin.register
-          .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
-            %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "#"} Khám phá các khóa học khác
-          .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
-            %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
-          .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
-            %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
-          .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
-            %a.btn.btn-info.btn-raised.btn-lg.register-button{:href => "#"} Đăng ký ngay
+      %header.header-primary
+        .header-inner
+          .header-col
+            .btn-group.cats-dropdown.cats-dropdown-fixed
+              .dropdown-toggle.active-nav-1{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
+                %i.fa.fa-bars
+            .btn-group.cats-dropdown.cats-dropdown-mobile
+              .dropdown-toggle.active-nav-2{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
+                %i.fa.fa-bars
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "#"} Regular link
+                %li.disabled
+                  %a{:href => "#"} Disabled link
+                %li
+                  %a{:href => "#"} Another link
+            .search-box
+              %form
+                %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
+                %button.btn-search{:type => "submit"}
+                  %i.fa.fa-search
+            .btn-group.search-dropdown
+              .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                %i.fa.fa-search
+              .dropdown-menu
+                .search-box
+                  %form
+                    %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
+                    %button.btn-search{:type => "submit"}
+                      %i.fa.fa-search
+          .header-col
+            .logo
+              / = image_tag "logo.png"
+              %img{:src => "http://i.imgur.com/gNAMKhW.png"}
+          .header-col.text-right
+            %a.btn.btn-default.btn-flat.hidden-xs.hidden-sm{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
+              Đăng kí
+              .ripple-wrapper
+            %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
+              Đăng nhập
+              .ripple-wrapper
+      .slider-sidebar-wrapper.slider-sidebar-mobile
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Regular link
+          %li.disabled
+            %a{:href => "#"} Disabled link
+          %li
+            %a{:href => "#"} Another link
+      .slider-sidebar-wrapper.slider-sidebar-fixed
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Regular link
+          %li.disabled
+            %a{:href => "#"} Disabled link
+          %li
+            %a{:href => "#"} Another link
+      .container-wrapper{:style => "overflow: hidden;"}
+        .row.no-margin.landingpage
+          .col-xs-12.col-ld-12.col-md-12.no-padding
+            .row.no-margin.header-box
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+                %h4.no-margin.header-title Khóa học nào sẽ thay đổi cuộc đời bạn?
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+                %h5.header-description Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+                %input.form-control{:placeholder => "Tìm một khóa học", :type => "text"}
+                %i.fa.fa-search
+            .container
+              .row.no-margin.categories
+                .layout-320
+                  %h4.categories-title Khám phá những chủ đề 
+                  %h4.categories-title và khóa học phổ biến
+                .layout-480-up
+                  %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
+                .category
+                  / %img{:src => "assets/python.png"}
+                  %img{:src => "http://i.imgur.com/46AOanb.png"}
+                .category
+                  / %img{:src => "assets/java.png"}
+                  %img{:src => "http://i.imgur.com/bB2Ua8s.png"}
+                .category
+                  / %img{:src => "assets/excel.png"}
+                  %img{:src => "http://i.imgur.com/picle7D.png"}
+              .row.no-margin.courses
+                - (1..30).each do
+                  .course
+                    = render :partial => 'components/courses/landingpage_card'
+              .row.no-margin.register
+                .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
+                  %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses", :style => "font-size: 16px"} Khám phá các khóa học khác
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
+                  %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
+                  %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
+                .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
+                  %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
 
 /Màn hình từ 1200px trở lên 
 .hidden-xs.hidden-sm.hidden-md
@@ -51,22 +168,22 @@
         #carousel.carousel.slide.carousel-fade{"data-ride" => "carousel"}
           .carousel-inner
             .active.item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/k4jXwTDcTAb5vSL7NRDoZjfwMelIFS3xyQfTMNErFXW1onlOHX28F3VJGjyUliF8lLzhvlwQxsEvXnAOa36v85p5T51h7cZ2Q9R0STO3dnjD8xgIcwgu_Iurxjy6a1vEwHQkgUoiKPCPkQmxc36fZ0-CIlyAqKq9gEIv0UbAIAx36PNqs2m_GtWSV_yIU5IfpaG5QweoAKyRdokrkgV5koK28gEOnDo5_DeSE-OKBG_u_4Q2HbkBUFABjEPKb4o9IdpFhHpqKpcC7flRVvt6u81KeHTyjb5NXFP4r1iA3fmnP6BwL9r9Ao1cysQ3r-jge__WCLg5S8Du7oagTn_Gkzcyk8BShpFZEPXmY6mB8yAVpWdF6onNNjvA2-Jo4wLewL0ElXLZ-72AId1Ua0a-FkzF_BCOWJdXPca0ySvYQa32rt2-RVxJOSj_SdbqEvzlJ3-rkrjfWtn1jmaP_LFbRZe0bzW8-QCJ1NzbfWxmnx3EqAKl4SG0WYJtsD80r9Tk1RUznCQy-YsttqD-1bZvOrk=w965-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/lxhmRxp.jpg); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-6.png)"}
             .item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/6Dt4DD7bxxHTnFEyywU4QMNdlb7QVfa_2u5eNUkpt-DJk2868JgV8lrtvLKAuDLPnozMxwDzXiOsnwGoR3oLYyLTuhdQ1EfvOkVcKcHdoeHWCdqLEHaf7jSKNfAlaefHdGT1P7csZ0FYpf0OKBIR6J77cXVmfXMbR18NVHUe5l1Ha7lwqstfSaxrFeCXUYQTLzArPECQhoxuZMtdTV6Q71RBwtr6494N0JKBvqXiLlkgfb46G5anrFVPXEYcZPWhOi4rX74NkOVt1ZRN_-O1BI1rx6hPx8w_kSE55Lcso1TouDgIjvXjj2gXWaWTgCeLBB-bZj9aeLNodTBhQwsMP5JKzlo2YbEHLbJX_SC6mM5I_M95zgoiW01apnG2V1AQqhqix0Vmmpsyww07daz-1ppMiuwFEDCNlno9Py7rqnaw_Ne4wsqru33W4AyuFnEwe6otVCmi22D3Y9cZWUuIyTDhSZzsWmli6JoW8T5eHCrGDTMH5r17GsYSgdonEzWFvsXA4ltdnHY5nK8ag6jWr4c=w965-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/5LHDj0e.jpg); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-1.jpg)"}
             .item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/fBshvIPu6MeGcRlxYKnBDCZCmMwK2Oc98T7_sVrWXm3TklJyzZ9KQ6SZxTh_YkzUkjQdYawGc-5VouLn-r9V2x_5KU_b5fv6toewvYIV3ZhrlYRvf-2DC25AQDOG_RTLqWCdx8dqQXtvSlMzNkDcc5X7V9hU5klwx6Eilnh-2kr_qaNF0G-XGc7DOqvU9ioegf3kbB6cOT6MFwVpI7ways0GEV9Sr9Anfqybo72V1ZMIGDB4xYzTvtFd70L6uoW7S8RoBrFK9F5EL--vxiRnYWSkb5pX-Zf_teX3iFTCJNjz2OX5SxN1_zi1BEWlSr2XJrED-FCRqeIDmHRu0b1jRPuZWBIJ5VS5xMuL4BDacqw7nwaCQqi-xvVjIks04bvtekYQs8ET7qpC1qoUyBiQQPK7Lv15K8zQ1j354-QvNrHtn6jbAJOU3GyChGzGFe5cUtwzDgxmdZ36Ha6vzI6u0E7SqRZ-3OM-EVqcMBXq_i3-oQxjr2xNC-XjdQU1Xo1pv9ZPxW1sYJkm7pB_hXix8Nk=w965-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/8uCVojD.jpg); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-2.jpg)"}
             .item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/8LaLZK3ngo8TVou2JvTZ9m2BumoTPMhNUYM7SRkFx0Jh-tlTs2MYiq3poL8Nf7Obwd6nnTDqLRAlKX37OrtRpL1PGZADpaKKxTwHHOQ2yh4Mclgp-6qKTXYnazB-8NZwsjcWydnEiJh5re-jqvNjpNqMJPygWHKUXdrLksMf7x3ktdMnY519No8CpUtuxe2FeX5r4xQkCwRbkb_YQyp5VDFZhPQuIfL_wKil3LwFYKTtsBn873q1teKaNjM3qDBA1yOPepAIKh6AJ0FGWYr_TJmoUJzkwbynXfz98-pqwuqL8gjVqs1wpi96jnocgFpyM34aHuncV7H8GP2fUlyV7XbZ-4yAiyZX1ZSsHkB5lZeDxDiszsgSHaR_NyffJ7xNq07qTJm1RAofy8Tc3jk9uxnMPChNYtRGmlMqWGS-QnERmp3eZdHFdoY9pK9-n-y13lnvsc4BPtTPpFb1LZ-EStLh3yrMNPpyqDmSQQ3iXY1pMN7qA3rg0Eh58KC23hTQbH_X0zgTLT58mZCdmlEcKGc=w965-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/m4Srb02.jpg); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-3.jpg)"}
             .item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/IwR7lMF5yvKMbfvUfs0uskaRE8lTwwaupkvsGoQJuX6oi2FguTeHAEBcEkGyqHhn7fju-h3qm1_Sr2ZHnGNc2QWhv53QQQNob-3vsF4pVDPnh_aCbKDffpqUpw7ugcUjJq17wv2Y3m94iUWiN_QQpJZLh0fKC46yCoOJcqQ2bLNL9EvK7RwbWxDmt6gPsgwqb-g7C40p510a37GIQxfb-ZZPobqzLNoyIoT0wQFK-brry1x4of0hO4YrDIlR3QVHYsg2ufCQCz40Ow3chpTe3UuL5DhH8ToNFDNaUbmCzvjSps2r51Qgalctbz9JPMPgohmE8IhFmGz2SDl_PTVxFrdBRZuyDAleascqtV4LYjskJ_DH5oqJWrMmN4bqb3jbZBte1NOplYNxcpgvAa6LQVnT3-5zRKRiEK-QT-yotpC_m_JvQASCYhlx4-2RWeGUuXxHAswljRTUys0rA95aGUmskYJuLZDy-AxuwZjCyCYNnFdK0Qc8N5hTBm50IwELWDwzlV9vxLmd-WP3OyIlyW8=w965-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/HHkcMSE.jpg); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-4.jpg)"}
             .item
-              .fill{:style => "background-image:url(https://lh3.googleusercontent.com/1xxoqisAwVZCETPdlM4Ra2nfRU2HC74WAL2d5r58jcQ36fHtDksZwmbxhrZ-ZjryPJSU1yzNetnHP00cYBIHXgaK6c61xBGcZUhsgSDL01l5wL5yAARvLD4wXGzKE4-1CpU2R6Ppc13fKxRWI21Ac4BiRvAzbZqtJfop1ZSYwCI4Rvp5G1BBkG-R6oBKaduUFaBRjh9KDhgQZDdENOxX4AbMr8QW9eplvkIGwoz7EH4A4FyFr7nuUsPsVaNyNC0W39-F75ISYscB7cbqem3jPnZ9gEoUbifnPzwegGpUcD6sVGgGaR9sPowvBfmzex5tDGA33sD-7lE1Axpz2wjxXUb-ualZvzfqObUT0xnFx2D-sgXSP8cn23ZJIY0IpZrQ5IUe5Lmep_aHoYD3Il1jAJmS774MRZUrn83JB0s0KqaIRLE_HtM6clh1tvikbbCRdkjD-hvSXRfYJE3WrepVtnnDwOqhBeX89pTrjoOOjc_KqfS7HXCAAbu59yPbTsa12WWIDgF504_-mahFf9NgkUs=w1144-h643-no); width: 100%; background-size: 100% 715px;"}
+              .fill{:style => "background-image:url(http://i.imgur.com/JtYIHX0.png); width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-5.jpg)"}
       .row.no-margin.flex-box
         .col-lg-12.no-padding
@@ -104,13 +221,13 @@
         .row.no-margin.categories
           .category
             / %img{:src => "assets/python.png"}
-            %img{:src => "https://lh3.googleusercontent.com/JRne5aDos_PSAc_-2jbOPPlTUDEYR3nR0wb8Q8roSIwMT_G53GXpJ8uZWXO3QJxPr7aiFG18Ui0eMtWusmFSSkG7eRkb2FD9WxI4IEhhws9u3hhk6ewsbpFJ9iSQcM6bQ5EGkhrsywqGNjEaTWnTfvZ-q6UAtTGCs9Y64oUkH--62iwtB3aPEbOw8R3yOU26YGNhhV1-5wSqlvAHDBZOaqVSTcuN4hiwmd34fKIa5QtssgfylgDDrvA9WJIAZOR98Zu91QpzBP072KPMakbqvKZIr6KnS5km_9rXlJHzzmyq4dlGd9C9BoQNhdFNU0qF8xxFBxFwKl1mLP7PS6_f0FwecID08FcfBqNT9nhrRjlwtbGaQbIUW-K4zW9rtELE9PB_T15D_9RxkM4UouCF1obZhpNB2h1mvzLnDBuX69yMwLFOXI4c-P8FLdBXHOYPltCSSKBsXw7gIFbXLGyxmjgP0PsVo1pjEb1MAz4hPDpR4rBEXCFLugYW40-XZznAWx7aYny0X9rMosUQsjn0L4Q=w290-h163-no"}
+            %img{:src => "http://i.imgur.com/46AOanb.png"}
           .category
             / %img{:src => "assets/java.png"}
-            %img{:src => "https://lh3.googleusercontent.com/6jjuUuk-2Gp7a4L2Yqja_djZ-ndcFm5z26cYjdAXCDX_Sr-qBzF01zOFErN3Ot9YM0Xzs2jMa3FaXsdPXLzgAaK3EzYmwOVzW4vyykPhDhm86PLfDfYk7pZvnR5J2lsAAAU3g7iTrGaH0AkSntxgc7yiSDZXS6YiB-FlsjTuAmA1mpL9aAWBPgKVChsR2HXTc5XlwcfHuXctGjK37TJcO37NSOmOeEmNmoirXk266G62DcsMGn_eeuz3qTBn1tYDtB3_5dU4Igz3XW3c1hTCU04iVpFKIiZX3XFl4gN1gE3uq1r9fWDenn_NuvBKDtVMAfJp7JeXlU4qX5UyEII4vljHiZiC_AZ_m80ywW8Tn7a_9R5wS3TH0lmGZHJ7ESqVSJIv-x-07jHTuBZeSbSUAsug_b2HdgSixKbGHYbrFDJLC8U5PFWb-WU6geI-_KPdbZ3c6R9GEEoPXhCizihyJSuAOHFD7Fm2XHRzz3rJDNpl-y650KMADFFru098aduM5KMFxH9eQmJTReZpruvLK8o=w290-h163-no"}
+            %img{:src => "http://i.imgur.com/bB2Ua8s.png"}
           .category
             / %img{:src => "assets/excel.png"}
-            %img{:src => "https://lh3.googleusercontent.com/UpLRguVYJNOL8GUbX1eO10ohvttqKqK7pb47hGjKmVlKpZEiJF8WVuLBDGgf4x0YlFmbUmp9elrcF-YndDHBcgGsLXGe0aDIfoeg0F38rEvxopyuLKTZEwEzklqo1na-3hAJzcgTh1iyFiWhKbrbIGtOf7eKe27lPBc5-Xg_oqfhgIc4tIDF3ttkgG324aIJUY4oTBt9iNFhIfH6tTwcM9ujnNvuLU9stHsPIAxvRzQSWWJmzusuRozSBeZUuiugBUGtSIUOuDnlHGp0R2LYHmfN7fd0NaNlo9HIImyLYJxnMynJa65rg7MPUVZPkXXK-KDBQYdNsWV2t6taYmU1Ea3UvnuvB8YMjGszv0ryGppMnmbYceTbZc_H2pT19ZJLUfpO20llkGOlPz98Pov3Ldww2CVxZA0xZ3Ucjm3fGhtkgsx3eGRXhkO8fuuYXNfSvgupfab4rpbRmpEzjAVF9X9duRnGgiHDd3phflcBqPAKjkdfRI4Ele08f6wmVT6vVWJOj1PKLtUOapNv5g2f3r8=w290-h163-no"}
+            %img{:src => "http://i.imgur.com/picle7D.png"}
         .row.no-margin.courses
           - (1..30).each do
             .course
@@ -118,7 +235,7 @@
         .row.no-margin.register
           .col-lg-12
             .row.no-margin
-              .col-lg-12.no-padding
+              .col-lg-10.col-lg-offset-1.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "#"} Khám phá các khóa học khác
             .row.no-margin
               .col-lg-6.col-lg-offset-3.no-padding
@@ -128,78 +245,19 @@
                 %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
             .row.no-margin
               .col-lg-4.col-lg-offset-4.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.register-button{:href => "#"} Đăng ký ngay
-%header.header-landingpage{:style => "position: absolute;top: 0; width: 100%"}
-  .header-inner
-    .header-col
-    .header-col
-      .logo
-        / = image_tag "logo.png"
-        %img{:src => "https://lh3.googleusercontent.com/HIHcAuvmdWWdvTI36n-h0-mrubV0NTm5mlriYGjYc27NsfjJFdBQxn45H68Dx-vf3kSQHLFHRRgsIMO4nkcYJmu9NSwLpdAZhitG4cquiKY8mcpOtE6w6UJ0FIHoH2FZ2R4mMRMgANRezoW_hIxeRXbIQWIGXuQwGZAAjx5hBQBp6meLIk8obLQbGf8TmZ6mHTxcXCtLEzqwPlD9UpM_W1J6lt3zjuizzM8ozpB9nD335CkQ_cTmfovceS1UNZXCPCwdlWODFQclRKej6ZJrHyAPIBb82pM2K3v3yTcHxPepuonvVgZ-pGNpVWC2g6F4cVdjwzsowdxgtj76FjznqEqps-ENhNeXYVRqs2xFcIHIeI0gjNL3pae_K4hbCsE29RaL0HJrdOrIfH-yfEMpDFI-BlspeU3_IO8_3UsVqHIewO8gViaQwTAlea91LTTAJyniF54onUej4DVQ8LKMgg30_dz0-fh8sQJOxjP_gBIWUd4ffg2hpBYnR27LUf2CcDNIrZY88Rwxs_P8DkcWKjY=w75-h30-no"}
-    .header-col.text-right
-      %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
-        Đăng kí
-        .ripple-wrapper
-      %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
-        Đăng nhập
-        .ripple-wrapper
-      #register-modal.modal.fade
-        .modal-dialog
-          .modal-content
-            .modal-header
-              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-              %h3.modal-title Đăng ký
-            .modal-body
-              .modal-body-left
-                %p.hidden-xs.hidden-sm Đăng ký với tài khoản mạng xã hội
-                %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
-                  %i.left.fa.fa-facebook
-                  %span.left Đăng ký bằng Facebook
-                %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
-                  %i.left.fa.fa-google-plus
-                  %span.left Đăng ký bằng Google+
-              .modal-body-right
-                %p.hidden-xs.hidden-sm Đăng ký bằng email
-                %form{:method => "post",:action => "/users/sign_in"}
-                  .form-control-wrapper
-                    %input#name.form-control{:type => 'text', :required => 'true', :placeholder => 'Tên đầy đủ', :name => "user[name]"}
-                  .form-control-wrapper
-                    %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
-                  .form-control-wrapper 
-                    %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
-                  = hidden_field_tag :authenticity_token, form_authenticity_token
-                  %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng ký'}
-              %p.forgot-password-link
-                %a.btn-link{:href => "#"} Quên mật khẩu?
-            .modal-footer
-              Đã có tài khoản?
-              %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#login-modal"} Đăng nhập
-      #login-modal.modal.fade
-        .modal-dialog
-          .modal-content
-            .modal-header
-              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-              %h3.modal-title Đăng nhập
-            .modal-body
-              .modal-body-left
-                %p.hidden-xs.hidden-sm Đăng nhập với tài khoản mạng xã hội
-                %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
-                  %i.left.fa.fa-facebook
-                  %span.left Đăng nhập bằng Facebook
-                %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
-                  %i.left.fa.fa-google-plus
-                  %span.left Đăng nhập bằng Google+
-              .modal-body-right
-                %p.hidden-xs.hidden-sm Đăng nhập bằng email
-                %form{:method => "post",:action => "/users/sign_in"}
-                  .form-control-wrapper
-                    %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
-                  .form-control-wrapper 
-                    %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
-                  = hidden_field_tag :authenticity_token, form_authenticity_token
-                  %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
-              %p.forgot-password-link
-                %a.btn-link{:href => "#"} Quên mật khẩu?
-            .modal-footer
-              Chưa có tài khoản?
-              %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký
+                %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
+  %header.header-landingpage
+    .header-inner
+      .header-col
+      .header-col
+        .logo
+          / = image_tag "logo.png"
+          %img{:src => "http://i.imgur.com/gNAMKhW.png"}
+      .header-col.text-right
+        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
+          Đăng kí
+          .ripple-wrapper
+        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
+          Đăng nhập
+          .ripple-wrapper
+        
