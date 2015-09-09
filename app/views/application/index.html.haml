@@ -159,7 +159,7 @@
                   %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
                 .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
                   %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
-
+      = render :partial => 'components/footer/index'
 /Màn hình từ 1200px trở lên 
 .hidden-xs.hidden-sm.hidden-md
   .row.no-margin.landingpage
@@ -246,6 +246,7 @@
             .row.no-margin
               .col-lg-4.col-lg-offset-4.no-padding
                 %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
+        = render :partial => 'components/footer/index'
   %header.header-landingpage
     .header-inner
       .header-col
@@ -260,4 +261,5 @@
         %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
           Đăng nhập
           .ripple-wrapper
+
         
