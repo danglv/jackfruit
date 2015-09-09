@@ -17,7 +17,7 @@
               %row.left
                 - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 %p.left{:style => "margin: 0px 0px 18px 0px"}= "Hiện tại trong ví của bạn đang có " + money + ", bạn hãy nạp thêm " 
-                - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                - money = number_to_currency(@price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 %p.left.red-text{:style => "margin: 0px 5px 18px 5px"}= money
                 %p.left{:style => "margin: 0px 0px 18px 0px"} để thanh toán khóa học này.
             .row
@@ -56,6 +56,7 @@
                     %input#card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
                     %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
                     %input{:type => "hidden", :name => "p", :placeholder => "baokim_card", :value => "baokim_card"}
+                    %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
                     = hidden_field_tag :authenticity_token, form_authenticity_token
                     .input-field
                       %input.no-margin{:type => "text", :name => "pin_field", :placeholder => "Mã số thẻ", :required => "required"}

@@ -17,7 +17,8 @@ class PaymentSerializer < ActiveModel::Serializer
       email: object.email,
       address: object.address,
       method: object.method,
-      created_at: object.created_at
+      created_at: object.created_at,
+      money: object.money
     }
   end
 end
