@@ -134,7 +134,7 @@
         }
         .load-more {
           float: right;
-          line-height: 48px;
+          line-height: 30px;
           text-decoration: underline;
           color: #338abc;
         }
@@ -158,6 +158,9 @@
         .relate-item {
           text-align: center; 
           color: #009688;
+          a:hover {
+            text-decoration: none;
+          }
           &-title {
             margin: 10px 0px 30px 0px !important;
           }
