@@ -30,7 +30,9 @@
                 %i.fa.fa-search
     .header-col
       .logo
-        = image_tag "logo.png"
+        / = image_tag "logo.png"
+        %a{:href => "/courses"}
+          %img{:src => "https://lh3.googleusercontent.com/hWLwAFXaaCOSNw2nvQMEioQ0jDad_XnMOrwf6Nn_htjCjfNzAcWtuB5TNrFtLWfsahIBalUhrxO_CtY4O9xjmPDjsRUDbmBoomMMHrjaw7CfjTR5sylfEAZc_VX3bLhMCLtkwF7dlioeVqX-mds9DMtyUIs1p2Aw9pUmDAoal9YJhxqgmXepof3yHyzLGmnDDSv53KuoLfjdVqE8ZhcwPPQz3ftHdfYu-ksGBapi5ZhfQp1V_Tfxm5lEGuXAYecZXUlnMAQbe7eX6cba1NirDCb6ZHoVGMHO6NUeizrvFmg4GjNrwJ6h-XzbC1VvIKid2YNTLb3dlaGCLULO4dHde7CVJTtbFLP235S1LkWWfXjOdLR_tJ0BMM01RV9G5aJSGK9K2DOz81agVbtEP7yTC9-nzGxmbLv7wGKSKjXOCXlJmwp5ssieH6q3ATsm3jHeMAKolbKyTeYDxdtpNLBq_mGUv6U3ypkEevRpJyARql2LPedve_DKYrqbnZh-Rnr4v1P4v944Yf_4jnQrdN4OPdg=w100-h40-no"}
     .header-col.text-right
       .btn-group.user-dropdown
         .dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
@@ -77,31 +79,19 @@
   %main.home
     .container
       .row
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
-          .category-title.pull-left Student are now viewing
-          .category-show-all.pull-right.visible-lg.visible-md
-            %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'}
-              Xem tất cả&nbsp;
-              %i.fa.fa-plus-circle
-          .clearfix
-          .list-course-card.text-center
-            - (1..12).each do |a|
-              = render :partial => 'components/courses/course_card'
-          .list-course-list
-            - (1..4).each do |a|
-              = render :partial => 'components/courses/list_card'
-      .row
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
-          .category-title.pull-left Student are now viewing
-          .category-show-all.pull-right.visible-lg.visible-md
-            %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'} 
-              Xem tất cả&nbsp;
-              %i.fa.fa-plus-circle
-          .clearfix
-          .list-course-card.text-center
-            - (1..8).each do |a|
-              = render :partial => 'components/courses/course_card'
-          .list-course-list
-            - (1..4).each do |a|
-              = render :partial => 'components/courses/list_card'
+        - @courses.to_a.each do |course_h|
+          - if course_h.last.last.count >0
+            .col-lg-10.col-lg-offset-1.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
+              .category-title.pull-left= course_h.last.first
+              .category-show-all.pull-right.visible-lg.visible-md
+                %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'}
+                  Xem tất cả&nbsp;
+                  %i.fa.fa-plus-circle
+              .clearfix
+              .list-course-card.text-center
+                - course_h.last.last.each do |course|
+                  = render :partial => 'components/courses/course_card', :locals => {:course => course}
+              .list-course-list
+                - course_h.last.last.each do |course|
+                  = render :partial => 'components/courses/list_card', :locals => {:course => course}
 = render :partial => 'components/footer/index'   
