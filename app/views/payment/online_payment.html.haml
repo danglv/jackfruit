@@ -11,7 +11,7 @@
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           = render :partial => 'payment/header_payment'
       .container
-        = render 'payment_method', method: 'transfer'
+        = render 'payment_method', method: 'online_payment'
         .row.payment-content.active.no-margin
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.no-padding{:style => "margin-bottom: 20px"}
@@ -70,7 +70,7 @@
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           = render :partial => 'payment/header_payment'
       .container
-        = render 'payment_method', method: 'transfer'
+        = render 'payment_method', method: 'online_payment'
         .row.payment-content.active.no-margin
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
@@ -124,7 +124,7 @@
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
           = render :partial => 'payment/header_payment'
       .container
-        = render 'payment_method', method: 'transfer'
+        = render 'payment_method', method: 'online_payment'
         .row.payment-content.active.no-margin
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
