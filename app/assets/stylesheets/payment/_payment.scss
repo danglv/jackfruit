@@ -82,7 +82,7 @@
     }
   }
   .course-price {
-    height: 44px;
+    min-height: 25px;
     margin-bottom: 10px !important;
   }
   .coupon {
@@ -96,7 +96,7 @@
   }
   .payment-list {
     width: 100%;
-    height: 48px;
+    height: 60px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -104,17 +104,32 @@
       padding: 10px !important;
       display: block;
       float: left;
-      height: 48px;
+      height: 60px;
       .list-style-icon {
         color: #727272;
-        width: 20px;
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
         display: inline-block;
         margin-right: 10px;
+        vertical-align: -webkit-baseline-middle;
       }
       .list-style-text {
         color: #212121;
         font-size: 12px;
         display: inline-block;
+        vertical-align: -webkit-baseline-middle;
+        text-align: left;
+        @media (max-width: 465px) { 
+          .one-line {
+            display: none;
+          }
+        }
+        @media (min-width: 465px) { 
+          .two-line {
+            display: none;
+          }
+        }
       }
     }
     &:hover {
