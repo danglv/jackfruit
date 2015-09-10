@@ -42,7 +42,7 @@
                         %li.course-card-item
                           = render :partial => 'components/courses/course_card', :locals => {:course => course}
                       - i = i + 1
-                %a.btn.btn-default.btn-sm.load-more{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
+                %a.btn.btn-default.btn-sm.load-more-bottom{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
           .row.related-category
             %label.related-category-title Chủ đề liên quan
             .row.no-margin
