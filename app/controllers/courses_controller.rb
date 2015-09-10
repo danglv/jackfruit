@@ -83,6 +83,7 @@ class CoursesController < ApplicationController
 
   def list_course_all
     @page        = params[:page] || 1
+    @page = @page.to_i
     @category_name = @category.name;
     # filter sort paginate course
 

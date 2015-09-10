@@ -24,6 +24,7 @@
 //= require components/rating.js
 //= require components/filter.js
 //= require components/sorting.js
+//= require components/list_course.js
 //= require ./components/nav
 //= require components/home
 
