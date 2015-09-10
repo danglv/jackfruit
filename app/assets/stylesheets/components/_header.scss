@@ -46,6 +46,22 @@ header {
       box-shadow: none;
     }
 
+    &.active-nav-with-text {
+      @media (min-width: 1201px) {
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        background-color: $primary-color;
+        padding-right: 10px;
+        border-radius: 3px;
+        font-weight: 500;
+        margin-top: 6px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
     > i, span {
       cursor: pointer;
       font-size: 18px;
