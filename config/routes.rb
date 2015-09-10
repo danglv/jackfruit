@@ -41,8 +41,8 @@ Rails.application.routes.draw do
       get '/transfer/:alias_name', to: 'payment#transfer'
       get '/cih/:alias_name', to: 'payment#cih'
       get '/card/:alias_name', to: 'payment#card'
-      # commit để test giao diện card
-      # post :card
+      post '/card/:alias_name', to: 'payment#card'
+
       get '/:id/status', to: 'payment#status'
       get '/:id/success', to: 'payment#success'
       get '/:id/pending', to: 'payment#pending'
