@@ -1,10 +1,8 @@
-%header
-  = render :partial => 'layouts/header'
-
-#register-modal
+#register-modal.modal.fade
   .modal-dialog
-    .modal-content{:style => "box-shadow: none;"}
+    .modal-content
       .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
         %h3.modal-title Đăng ký
       .modal-body
         .modal-body-left
