@@ -26,15 +26,15 @@
             = render :partial => 'components/courses/other_category'
         .col-lg-10.col-md-12.col-sm-12.col-xs-12.category-feature-courses-main
           .row.card-category.no-margin
-            - (1..3).each do |a|
+            - @courses.each do |category|
               .row.no-margin.feature-title
-                %h4 Top gì đó
+                %h4= category.last.first
                 %a.load-more{:href => "#"} Xem tất cả 
               .row.no-margin.feature-list-courses
                 %ul.card-container
-                  - (1..4).each do |b| 
+                  - category.last.last.each do |course|
                     %li.course-card-item
-                      = render :partial => 'components/courses/course_card'
+                      = render :partial => 'components/courses/course_card', :locals => {:course => course}
               %a.load-more-bottom{:href => "#"} Xem tất cả 
           .row.related-category
             %label.related-category-title Chủ đề liên quan

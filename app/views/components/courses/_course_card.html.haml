@@ -2,11 +2,28 @@
   %a{:href => '#'}
     .course-info
       .avatar 
-        %img{:src => "https://lh3.googleusercontent.com/6DxsL0UPJk485fTe-w3ZB6_C0fiHNtzCW9HHsLnuVmUFddE5te-dyizXT5LgcksB3V9oC12kumsi9xeuC7yf7FSPKgodLuSB4j_iHAI36eNLCfTEW4uI2TmNUbhgbwHyhuLkCbpbDIjO5FT7mvOdXoW7rnRvkdLieO_gZoeBR0yEw5EWkilg75HVhvmE5bCBZp7plVwhJ0UUhK9KDoemrEoX1uJNtzmg7ZK4wP14idxV0Fyy3E4mWldi9RCm_b85KiT_KJHXtbp9WWkh4Z8s9i6xvr2nNKEuu752Qq_yNk2cwGwHMrz7YHyc_8TxvsLtyJaQ3pQ_06hmXG7enX11fAk4evuG9BAFQaV1nv4bU3VMaSfjIt9HpJ6KEMp0Gb01tYY82SHRhHfpRctBt4Qb4CLUGj7ajxPk2l-O7Y8Px_YrYG8N3S_1isoYZzFESCAishAXjFX27FGkzPXFdb1okGsPV4Cja6PFPr2eUG1c6PgeqoeoO-Ny5kLqxQ9Nvo38mOVY7UATUBo_5UlAhv4_T4o=s480-no"}
-      %span 141 bài giảng
-      %span 1410 giờ video
+        - if course.user.avatar != ""
+          = image_tag course.user.avatar
+        - else 
+          = image_tag 'author-avatar.png'
+      %span= course.curriculums.where(:type => "lecture").count.to_s + " bài giảng"
+      - time = 0
+      - course.curriculums.each do |curi|
+        - if curi.type == 'lecture' && curi.asset_type == 'Video'
+          - type = curi.description.split(":").length
+          - if type == 3
+            - if curi.description.to_i < 24
+              - time = time + curi.description.to_time.min
+            - else 
+              - time = time + curi.description.to_i
+          - elsif type == 2 
+            - time = time + curi.description.to_i
+      - if time > 60
+        %span= (time/60).to_s + " giờ video"
+      - else
+        %span= "1 giờ video"
     .course-image.no-margin
-      = image_tag 'course-image.png'
+      = image_tag course.image
     .course-wishlist
       %svg{:height => "18", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 20 18", :width => "20", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
         %defs
@@ -29,26 +46,23 @@
         .wishlist-tooltip-inner
           %span Ưa thích
     .course-card-content
-      .row.ellipsis-2lines.course-title iOS7 Programming: Fast Start!
-      .row.ellipsis-2lines.course-description Sam Fitzgerald, Network Expert 20+ years- CCIE #19367
+      .row.ellipsis-2lines.course-title= course.name
+      .row.ellipsis-2lines.course-description= course.sub_title
       .row.no-margin.course-rating
         .rating-container
           %ul
-            %li
-              %i.fa.fa-star.star.rated{:val => "1"}
-            %li
-              %i.fa.fa-star.star.rated{:val => "2"}
-            %li
-              %i.fa.fa-star.star.rated{:val => "3"}
-            %li
-              %i.fa.fa-star.star.rated{:val => "4"}
-            %li
-              %i.fa.fa-star.star.rated{:val => "5"}
-          %span.course-people-rating (19)
+            - (1..5).each do |i|
+              - if i <= course.average_rating
+                %li
+                  %i.fa.fa-star.star.rated{:val => i}
+              - else
+                %li
+                  %i.fa.fa-star.star{:val => i}
+          %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
       // an hien tuy theo co promotion hay khong
-      / .row.no-margin.course-price 141.000 VND
-      .row.promotion-price
-        %span.promotion-badge
-          1,000,000 VND
-        %span.old-price
-          3,000,000 VND
+      .row.no-margin.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+      / .row.promotion-price
+      /   %span.promotion-badge
+      /     1,000,000 VND
+      /   %span.old-price
+      /     3,000,000 VND
