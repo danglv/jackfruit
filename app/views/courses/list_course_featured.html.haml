@@ -8,34 +8,41 @@
             %a{:href => "/"}
               %i.fa.fa-home
           %li.breadcrumb-home
-            %a{:href => "#"} Trang chủ 
-          %li Lập trình 
+            %a{:href => "/"} Trang chủ 
+          %li= @category.name 
         .row.no-margin.category-header-name 
-          %h2 Lập trình 
+          %h2= @category.name 
         .row.no-margin.category-header-navigation
           %ul.nav.nav-tabs
             %li.active.disabled
               %a{:href => ""} Nổi bật   
             %li
-              %a{:href => "/courses/id/all_courses"} Tất cả khoá học 
+              %a{:href => "/courses/#{@category.id}/all_courses"} Tất cả khoá học 
     .row.no-margin.category-feature-courses
       .container
         .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-feature-courses-left
           .row.no-margin.other-category-container
             %label Các chủ đề khác 
-            = render :partial => 'components/courses/other_category'
+            = render :partial => 'components/courses/other_category', :locals => {:other_categories => @other_category}
         .col-lg-10.col-md-12.col-sm-12.col-xs-12.category-feature-courses-main
           .row.card-category.no-margin
             - @courses.each do |category|
-              .row.no-margin.feature-title
-                %h4= category.last.first
-                %a.load-more{:href => "#"} Xem tất cả 
-              .row.no-margin.feature-list-courses
-                %ul.card-container
-                  - category.last.last.each do |course|
-                    %li.course-card-item
-                      = render :partial => 'components/courses/course_card', :locals => {:course => course}
-              %a.load-more-bottom{:href => "#"} Xem tất cả 
+              - if category.last.last.count > 0
+                .row.no-margin.feature-title
+                  %h4= category.last.first
+                  %a.load-more{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
+                .row.no-margin.feature-list-courses
+                  %ul.card-container
+                    - i = 1
+                    - category.last.last.each do |course|
+                      - if i%4 == 0
+                        %li.course-card-item{:style => "margin-right: 0px"}
+                          = render :partial => 'components/courses/course_card', :locals => {:course => course}
+                      - else
+                        %li.course-card-item
+                          = render :partial => 'components/courses/course_card', :locals => {:course => course}
+                      - i = i + 1
+                %a.load-more-bottom{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
           .row.related-category
             %label.related-category-title Chủ đề liên quan
             .row.no-margin

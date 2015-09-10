@@ -48,7 +48,7 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).limit(12)]
+    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).limit(8)]
 
     condition = {:price => 0,:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(8)]
 
     condition = {:price.gt => 0,:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -65,7 +65,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(12)]
+    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(8)]
 
     condition = {:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(12)]
+    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(8)]
 
     @other_category = Category.where(
       :parent_category_id => @category.parent_category_id,
