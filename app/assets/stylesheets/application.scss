@@ -14,10 +14,22 @@ $icon-font-path: "bootstrap-material-design/dist/fonts/";
 // Components
 @import "components/colors";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   color: $text-color-default;
   font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 300;
+}
+
+.container-wrapper {
+  margin-bottom: -85px;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 @import "components/header";
