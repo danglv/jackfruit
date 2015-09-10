@@ -17,7 +17,9 @@
         .row.card-purchase.no-margin
           .col-xs-12.no-padding
             - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text= "Hiện tại trong ví của bạn đang có " + money + ", bạn hãy nạp thêm " 
+            %span.normal-text= "Hiện tại trong ví của bạn đang có "
+            %span.normal-text.warning-text=money
+            %span.normal-text= ", bạn hãy nạp thêm " 
             - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             %span.normal-text.warning-text= money
             = succeed "" do
@@ -39,25 +41,31 @@
                   %span.normal-text Quay lại bước hai để nạp thẻ tiếp theo
         .row.phone-cards.no-margin
           .col-xs-6
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
               = image_tag 'payment/mobifone'
           .col-xs-6
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
               = image_tag 'payment/vinaphone'
           .col-xs-6
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
               = image_tag 'payment/viettel'
           .col-xs-6
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
               = image_tag 'payment/gate'
         .row.no-margin.card-input
-          .col-xs-12.no-padding.code
-            %input.form-control{:placeholder => "Mã số thẻ", :type => "text"}
-          .col-xs-12.no-padding.seri
-            %input.form-control{:placeholder => "Số seri", :type => "text"}
-        .row.no-margin
-          .col-xs-12.no-padding.payment-editor
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học  
+          %form.form-card{:method => "post",:action => ""}
+            %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            .col-xs-12.no-padding.code
+              %input.form-control{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
+            .col-xs-12.no-padding.seri
+              %input.form-control{:placeholder => "Số seri", :type => "text", :name => "seri_field"}
+            .col-xs-12.no-padding
+              - if @error
+                %p.red-text= @error
+            .row.no-margin
+              .col-xs-12.no-padding.payment-editor
+                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
   = render :partial => 'components/footer/index'      
    
 .layout-480-up 
@@ -78,7 +86,9 @@
         .row.card-purchase.no-margin
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
             - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text= "Hiện tại trong ví của bạn đang có " + money + ", bạn hãy nạp thêm " 
+            %span.normal-text= "Hiện tại trong ví của bạn đang có "
+            %span.normal-text.warning-text= money
+            %span.normal-text= ", bạn hãy nạp thêm " 
             - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             %span.normal-text.warning-text= money
             = succeed "" do
@@ -88,39 +98,46 @@
             %h5.normal-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại, thẻ game:
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
             .row.no-margin
-              .col-xs-1.col-sm-1.col-md-1.col-lg-1.no-padding
+              .no-padding{:style => "float:left; margin-right: 8px;"}
                 %p.badge 1
               .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
                 %p.normal-text Cào lớp tráng bạc để biết mã thẻ (Áp dụng cho Vinaphone, Viettel và Mobifone)
             .row.no-margin
-              .col-xs-1.col-sm-1.col-md-1.col-lg-1.no-padding
+              .no-padding{:style => "float:left; margin-right: 8px;"}
                 %p.badge 2
               .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
                 %p.normal-text Chọn loại thẻ & nhập mã thẻ cùng số seri rồi ấn nút “Nạp ngay”. Lưu ý viết liền không khoảng trắng hoặc dấu “-”
             .row.no-margin
-              .col-xs-1.col-sm-1.col-md-1.col-lg-1.no-padding
+              .no-padding{:style => "float:left; margin-right: 8px;"}
                 %p.badge 3
               .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
                 %p.normal-text Quay lại bước hai để nạp thẻ tiếp theo
         .row.phone-cards.no-margin
           .col-xs-3.col-sm-3.col-md-2.col-md-offset-2.col-lg-2.col-lg-offset-2
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
               = image_tag 'payment/mobifone'
           .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
               = image_tag 'payment/vinaphone'
           .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
               = image_tag 'payment/viettel'
           .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card{:href => "#"}
+            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
               = image_tag 'payment/gate'
         .row.no-margin.card-input
-          .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.code
-            %input.form-control{:placeholder => "Mã số thẻ", :type => "text"}
-          .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.seri
-            %input.form-control{:placeholder => "Số seri", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học
+          %form.form-card{:method => "post",:action => ""}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
+            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.code
+              %input.form-control{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
+            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.seri
+              %input.form-control{:placeholder => "Số seri", :type => "text", :name => "seri_field"}
+            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding
+              - if @error
+                %p.red-text= @error
+            .row.no-margin
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor
+                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
   = render :partial => 'components/footer/index'   
+

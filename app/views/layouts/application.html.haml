@@ -38,8 +38,7 @@
           '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
           valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
           '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-          :javascript
-        utmx('url','A/B');/ End of Google Analytics Content Experiment code
+        utmx('url','A/B');
   %body
     = yield
     = javascript_include_tag 'application'
@@ -50,7 +49,6 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
       - if current_user && current_user.id
         :javascript
           ga('create', 'UA-65260176-1', {'userId': "#{current_user.id}"});
