@@ -1,19 +1,7 @@
 .row.no-margin.other-category
-  %a.other-category-item{:href => "/courses/id"}
-    %span Phát triển web
-  %a.other-category-item{:href => "/courses/id"}
-    %span Ngôn ngữ lập trình
-  %a.other-category-item{:href => "/courses/id"}
-    %span Phát triển game
-  %a.other-category-item{:href => "/courses/id"}
-    %span Cơ sở dữ liệu
-  %a.other-category-item{:href => "/courses/id"}
-    %span Kiểm tra phần mềm
-  %a.other-category-item{:href => "/courses/id"}
-    %span Công cụ lập trình
-  %a.other-category-item{:href => "/courses/id"}
-    %span Thương mại điện tử
-
+  - other_categories.each do |category|
+    %a.other-category-item{:href => "/courses/" + category.id}
+      %span= category.name
       
       
       
