@@ -30,7 +30,7 @@
               - if category.last.last.count > 0
                 .row.no-margin.feature-title
                   %h4= category.last.first
-                  %a.load-more{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
+                  %a.btn.btn-default.btn-sm.load-more{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả
                 .row.no-margin.feature-list-courses
                   %ul.card-container
                     - i = 1
