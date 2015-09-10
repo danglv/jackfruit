@@ -1,33 +1,29 @@
-%header
-  = render :partial => 'layouts/header'
-
-#register-modal
+#login-modal.modal.fade
   .modal-dialog
-    .modal-content{:style => "box-shadow: none;"}
+    .modal-content
       .modal-header
-        %h3.modal-title Đăng ký
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h3.modal-title Đăng nhập
       .modal-body
         .modal-body-left
-          %p.hidden-xs.hidden-sm Đăng ký với tài khoản mạng xã hội
+          %p.hidden-xs.hidden-sm Đăng nhập với tài khoản mạng xã hội
           %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
             %i.left.fa.fa-facebook
-            %span.left Đăng ký bằng Facebook
+            %span.left Đăng nhập bằng Facebook
           %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
             %i.left.fa.fa-google-plus
-            %span.left Đăng ký bằng Google+
+            %span.left Đăng nhập bằng Google+
         .modal-body-right
-          %p.hidden-xs.hidden-sm Đăng ký bằng email
+          %p.hidden-xs.hidden-sm Đăng nhập bằng email
           %form{:method => "post",:action => "/users/sign_in"}
-            .form-control-wrapper
-              %input#name.form-control{:type => 'text', :required => 'true', :placeholder => 'Tên đầy đủ', :name => "user[name]"}
             .form-control-wrapper
               %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
             .form-control-wrapper 
               %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
             = hidden_field_tag :authenticity_token, form_authenticity_token
-            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng ký'}
+            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
         %p.forgot-password-link
           %a.btn-link{:href => "#"} Quên mật khẩu?
       .modal-footer
-        Đã có tài khoản?
-        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#login-modal"} Đăng nhập
+        Chưa có tài khoản?
+        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký
