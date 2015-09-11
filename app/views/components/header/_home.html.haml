@@ -37,31 +37,7 @@
         = render :partial => "devise/registrations/new"
         = render :partial => "devise/sessions/new"
       - else
-        .btn-group.user-dropdown
-          .dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
-            = image_tag "https://graph.facebook.com/484092475082021/picture", :class => "user-avatar-small"
-          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuDivider"}
-            .user-dropdown-header
-              .user-dropdown-header-left
-                = image_tag "https://graph.facebook.com/484092475082021/picture", :class => "user-avatar-medium"
-              .user-dropdown-header-right
-                %p.name Seahorse ES
-                %a.link{:href => "#"}
-                  %i.fa.fa-user
-                %a.link{:href => "#"}
-                  %i.fa.fa-pencil
-                %a.link{:href => "#"}
-                  %i.fa.fa-cog
-            .user-dropdown-links
-              %a.link{:href => "#"} Các khoá học của tôi
-              %a.link{:href => "#"} Tin nhắn
-              %a.link{:href => "#"} Ưa thích
-              %a.link{:href => "#"} Hỗ trợ
-              %a.link{:href => "#"} Lịch sử giao dịch
-            .user-dropdown-logout
-              %a.btn.btn-flat.btn-logout{:href => "#"}
-                %i.fa.fa-power-off
-                Đăng xuất
+        = render :partial => "components/user_dropdown"
 .slider-sidebar-wrapper.slider-sidebar-mobile
   = render :partial => "components/dropdown_menu_category"
 .slider-sidebar-wrapper.slider-sidebar-fixed
