@@ -3,10 +3,14 @@
 }
 .payment {
   min-width: 320px;
+  &.white-background {
+    background-color: #fff;
+  }
   &-box {
     background-color: #fff;
     margin-top: 30px !important;
-    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    margin-bottom: 5px;
   }
   &-bill {
     margin-top: 25px;
@@ -254,6 +258,7 @@
   .refresh-button {
     width: 100%;
     font-weight: bold;
+    font-size: 16px;
   }
   .bank-card {
     border: 2px solid #fff;
