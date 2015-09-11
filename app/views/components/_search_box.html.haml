@@ -1,0 +1,5 @@
+.search-box
+  %form{:method => "GET", :action => "/courses/search"}
+    %input.form-control.search-input{:type => "text", :name => "q", :placeholder => "Tìm kiếm khóa học"}
+    %button.btn-search{:type => "submit"}
+      %i.fa.fa-search
