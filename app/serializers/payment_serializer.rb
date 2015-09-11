@@ -24,7 +24,8 @@ class PaymentSerializer < ActiveModel::Serializer
       money: object.money,
       city: object.city,
       district: object.district,
-      cod_code: object.cod_code
+      cod_code: object.cod_code,
+      status: object.status
     }
   end
 end
