@@ -20,16 +20,6 @@ $(document).ready(function () {
   // 
   $.fn.selectmenthod = function () {
     this.click(function () {
-      // if( $(this).hasClass("selected") ) {
-      //   console.log("this");
-      //   $(this).removeClass("selected");
-      // }
-      // else {
-      //   console.log("ok");
-      //   $(".selected").removeClass("selected");
-      //   $(this).addClass("selected");
-      //   $(".phone-cards").val($(this).attr("val"));
-      // }
       $(".selected").removeClass("selected");
       $(this).addClass("selected");
       $(".credit-card-button").val($(this).attr("val"));
