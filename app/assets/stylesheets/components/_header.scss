@@ -82,6 +82,10 @@ header {
   .logo {
     line-height: 52px;
     text-align: center;
+    > a {
+      display: inline-block;
+      line-height: 40px;
+    }
   }
 
   .search-box {
