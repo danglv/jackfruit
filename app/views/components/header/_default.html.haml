@@ -6,20 +6,12 @@
           %i.fa.fa-bars
           %span.active-nav-text Danh sách khoá học
         = render :partial => "components/dropdown_menu_category"
-      .search-box
-        %form
-          %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-          %button.btn-search{:type => "submit"}
-            %i.fa.fa-search
+      = render :partial => "components/search_box"
       .btn-group.search-dropdown
         .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
           %i.fa.fa-search
         .dropdown-menu
-          .search-box
-            %form
-              %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-              %button.btn-search{:type => "submit"}
-                %i.fa.fa-search
+          = render :partial => "components/search_box"
     .header-col
       .logo
         %a{:href => "/courses"}= image_tag "logo.png"

@@ -9,20 +9,12 @@
         .dropdown-toggle.active-nav-2{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
           %i.fa.fa-bars
         = render :partial => "components/dropdown_menu_category"
-      .search-box
-        %form
-          %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-          %button.btn-search{:type => "submit"}
-            %i.fa.fa-search
+      = render :partial => "components/search_box"
       .btn-group.search-dropdown
         .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
           %i.fa.fa-search
         .dropdown-menu
-          .search-box
-            %form
-              %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-              %button.btn-search{:type => "submit"}
-                %i.fa.fa-search
+          = render :partial => "components/search_box"
     .header-col
       .logo
         %a{:href => "/courses"}= image_tag "logo.png"
