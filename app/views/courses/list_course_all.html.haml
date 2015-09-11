@@ -1,4 +1,4 @@
-= render :partial => 'components/header/index'
+= render :partial => 'components/header/default'
 .container-wrapper{:style => "overflow: hidden;"}  
   %main.category
     .row.no-margin.category-header
@@ -8,16 +8,16 @@
             %a{:href => "/"}
               %i.fa.fa-home
           %li.breadcrumb-home
-            %a{:href => "#"} Trang chủ 
-          %li Lập trình 
+            %a{:href => "/"} Trang chủ 
+          %li= @category.name 
         .row.no-margin.category-header-name 
-          %h2 Lập trình 
+          %h2= @category.name  
         .row.no-margin.category-header-navigation
           %ul.nav.nav-tabs
             %li
-              %a{:href => "/courses/id"} Nổi bật   
+              %a{:href => "/courses/#{@category.id}"} Nổi bật   
             %li.active.disabled
-              %a{:href => "#"} Tất cả khoá học 
+              %a{:href => "javascript:void(0)"} Tất cả khoá học 
     .row.no-margin.category-all-courses
       .container
         .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-all-courses-left
@@ -28,23 +28,55 @@
         .col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
           = render :partial => 'components/courses/sorting'
           .row.no-margin.courses-result
-            - (1..10).each do |a|
-              = render :partial => 'components/courses/list_card'
+            - @courses.each do |course|
+              = render :partial => 'components/courses/list_card', :locals => {:course => course}
           .row.no-margin.courses-pagination
-
             %ul.pagination.pagination-md
-              %li
-                %a{:href => "javascript:void(0)"} <
-              %li.active
-                %a{:href => "javascript:void(0)"} 1
-              %li
-                %a{:href => "javascript:void(0)"} 2
-              %li
-                %a{:href => "javascript:void(0)"} ...
-              %li
-                %a{:href => "javascript:void(0)"} 58
-              %li
-                %a{:href => "javascript:void(0)"} 59
-              %li
-                %a{:href => "javascript:void(0)"} >
+              - if @page >= 1 && @total_page > 1
+                / prev page 
+                - if @page == 1
+                  %li
+                    %a.disable{:href => "javascript:void(0)", :val => ""} <
+                - else 
+                  %li
+                    %a.page{:href => "javascript:void(0)", :val => (@page - 1).to_s} <
+                - if @total_page <= 5
+                  / progress with total page <= 5
+                  - (1..@total_page).each do |i|
+                    - if @page == i
+                      %li.active
+                        %a.page{:href => "javascript:void(0)", :val => ""}= i
+                    - else
+                      %li
+                        %a.page{:href => "javascript:void(0)", :val => i}= i
+                - else 
+                  - if @page >= 4
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 1} 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 2} 2
+                    %li 
+                      %a ...
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page - 1) }= @page - 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => @page }= @page
+                  - else 
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 1} 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 2} 2
+                    %li 
+                      %a ...
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page + 1) }= @page + 2 
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page + 2)}= @page + 3
+                / next page 
+                - if @page == @total_page
+                  %li
+                    %a.disable{:href => "javascript:void(0)", :val => ""} >
+                - else
+                  %li
+                    %a.page{:href => "javascript:void(0)", :val => (@page + 1).to_s} >
 = render :partial => 'components/footer/index'

@@ -12,8 +12,9 @@
     .header-inner
       .header-col
         .btn-group.cats-dropdown.cats-dropdown-fixed
-          .dropdown-toggle.active-nav-1{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
+          .dropdown-toggle.active-nav-1.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
             %i.fa.fa-bars
+            %span.active-nav-text Danh sách khoá học
         .btn-group.cats-dropdown.cats-dropdown-mobile
           .dropdown-toggle.active-nav-2{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
             %i.fa.fa-bars
@@ -40,7 +41,7 @@
                   %i.fa.fa-search
       .header-col
         .logo
-          = image_tag "logo.png"
+          %a{:href => '/courses'}= image_tag "logo.png"
       .header-col.text-right
         %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal"}
           Đăng kí

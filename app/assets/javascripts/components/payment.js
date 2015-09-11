@@ -17,4 +17,12 @@ $(document).ready(function () {
     $(this).addClass("active-provider");
   });
 
-});
+  // add effect when choose menthod purchase online_payment
+  $.fn.selectmenthod = function () {
+    this.click(function () {
+      $(".selected").removeClass("selected");
+      $(this).addClass("selected");
+    });
+  };
+  $(".select-card").selectmenthod();
+}); 

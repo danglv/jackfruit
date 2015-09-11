@@ -1,5 +1,5 @@
 .course-card
-  %a{:href => '#'}
+  %a{:href => "/courses/#{course.alias_name}/detail"}
     .course-info
       .avatar 
         - if course.user.avatar != ""
@@ -60,7 +60,10 @@
                   %i.fa.fa-star.star{:val => i}
           %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
       // an hien tuy theo co promotion hay khong
-      .row.no-margin.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+      - if course.price != 0
+        .row.no-margin.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+      - else
+        .row.no-margin.course-price Miễn phí
       / .row.promotion-price
       /   %span.promotion-badge
       /     1,000,000 VND
