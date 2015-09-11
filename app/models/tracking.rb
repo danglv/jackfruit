@@ -30,18 +30,18 @@ class Tracking
 
   def self.create_tracking data
     t = Tracking.create data
-
     uri = URI.parse("http://email.pedia.vn/email_services/send_email")
+
     Net::HTTP.post_form(uri, {
       :email => "quangnk@topica.edu.vn",
-      :str_html => "Lỗi #{t.id}",
+      :str_html => "Lỗi tracking id: #{t.id}",
       :sender => "topicamemo2@memo.net.vn",
       :subj => "Lỗi hệ thống Pedia."
     })
 
     Net::HTTP.post_form(uri, {
       :email => "hieubt@topica.edu.vn",
-      :str_html => "Lỗi #{t.id}",
+      :str_html => "Lỗi tracking id: #{t.id}",
       :sender => "topicamemo2@memo.net.vn",
       :subj => "Lỗi hệ thống Pedia."
     })
