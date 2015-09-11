@@ -17,3 +17,8 @@ Jackfruit [![build status](http://ci.memo.edu.vn/projects/1/status.png?ref=maste
 # Other services
 
 # Deployment
+
+## Versioning
+  ```
+    major[.feature[.bug.[.abtest]]]
+  ```
