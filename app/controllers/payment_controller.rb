@@ -262,6 +262,7 @@ class PaymentController < ApplicationController
 
   # GET
   def cancel
+    binding.pry
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
       @course = Course.where(id: @payment.course_id).first
