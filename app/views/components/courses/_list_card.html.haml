@@ -13,11 +13,10 @@
         .rating-container
           %ul
             - (1..5).each do |i|
-              - if i <= course.average_rating
-                %li
+              %li
+                - if i <= course.average_rating
                   %i.fa.fa-star.star.rated{:val => i}
-              - else
-                %li
+                - else
                   %i.fa.fa-star.star{:val => i}
           %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
         - if course.price != 0
