@@ -91,15 +91,25 @@ header {
   .search-box {
     padding: 0 15px;
     display: inline-block;
-    width: 200px;
+    width: 220px;
     position: relative;
 
     @media (max-width: 992px) {
       display: none;
     }
 
+    @media (min-width: 1201px) {
+      .search-input {
+        height: 40px;
+      }
+
+      .btn-search {
+        line-height: 40px;
+      }
+    }
+
     .search-input {
-      display: inline;
+      display: inline;      
       padding-right: 40px;
     }
 
