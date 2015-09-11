@@ -39,9 +39,8 @@
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-1.no-padding.communication-icon
+            .col-xs-12.no-padding.hot-line
               %i.fa.fa-phone
-            .col-xs-11
               %span.normal-text Hotline: 
               = succeed "" do
                 %b 01638533244
@@ -91,9 +90,8 @@
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-1.no-padding.communication-icon
+            .col-xs-12.no-padding.hot-line
               %i.fa.fa-phone
-            .col-xs-11
               %span.normal-text Hotline: 
               = succeed "" do
                 %b 01638533244
@@ -106,51 +104,51 @@
   .header.hidden-xs
     = render :partial => 'components/header/index'
     .container-wrapper{:style => "overflow: hidden;"}  
-      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
-        .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
-          .row.no-margin
-            .col-sm-12.col-md-12.col-lg-12.no-padding
-              .payment-header.pending
-                %span.title{:style => "font-size: 18px;"}
-                  %b Giao dịch của bạn đang được xử lý
-          .container
-            .row.no-margin{:style => "margin-bottom: 5px;"}
-              .col-sm-10.col-md-10.col-lg-10.no-padding
+      .row.no-margin
+        .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
+          .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
+            .row.no-margin
+              .col-sm-12.col-md-12.col-lg-12.no-padding
+                .payment-header.pending
+                  %span.title{:style => "font-size: 18px;"}
+                    %b Giao dịch của bạn đang được xử lý
+            .container.full-width
+              .row.no-margin{:style => "margin-bottom: 5px;"}
                 %h5.normal-text
                   Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
                   %a.link-text{:href => "#"} Lịch sử giao dịch
                   để được cập nhật thường xuyên.
-            .row.no-margin
-              .col-sm-2.col-md-2.col-lg-2.no-padding
-                %h5.normal-text.left-align Khóa học
-              .col-sm-8.col-md-8.col-lg-6.no-padding
-                %h5.right-align
-                  %b Kỹ năng thuyết trình và nói trước công chúng
-                / %h5 @course.name
-            .row.no-margin
-              .col-sm-2.col-md-2.col-lg-2.no-padding
-                %h5.normal-text.left-align Chi phí
-              .col-sm-8.col-md-8.col-lg-6.no-padding
-                %h5.right-align.price-text
-                  %b 300.000đ
-                / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            .row.no-margin{:style => "margin-bottom: 20px"}
-              .col-sm-2.col-md-2.col-lg-2.no-padding
-                %h5.normal-text.left-align Trạng thái
-              .col-sm-8.col-md-8.col-lg-6.no-padding
-                %h5.right-align.pending-text
-                  %b Đang xử lý
-                / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .divider{:style => "margin-bottom: 15px"}
-          .container
-            .row.no-margin{:style => "margin-bottom: 25px;"}
-              .col-sm-1.col-md-1.col-lg-1.no-padding.communication-icon
-                %i.fa.fa-phone
-              .col-sm-11.col-md-11.col-lg-11.no-padding
-                %span.normal-text Hotline: 
-                = succeed "" do
-                  %b 01638533244
-            .row.no-margin
-              .col-sm-6.col-sm-offset-2.col-md-4.col-md-offset-3.col-lg-4.col-lg-offset-2.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} khám phá các khóa học khác
+              .row.no-margin
+                .content
+                  .content-left
+                    %h5.normal-text Khóa học
+                  .content-right
+                    %h5
+                      %b Kỹ năng thuyết trình và nói trước công chúng
+                      / %h5 @course.name
+              .row.no-margin
+                .content
+                  .content-left
+                    %h5.normal-text Chi phí
+                  .content-right
+                    %h5.price-text
+                      %b 300.000đ
+              .row.no-margin{:style => "margin-bottom: 20px"}
+                .content
+                  .content-left
+                    %h5.normal-text Trạng thái
+                  .content-right
+                    %h5.pending-text
+                      %b Đang xử lý
+            .divider{:style => "margin-bottom: 15px"}
+            .container.full-width
+              .row.no-margin{:style => "margin-bottom: 25px;"}
+                .col-sm-10.col-md-10.col-lg-10.no-padding.hot-line
+                  %i.fa.fa-phone
+                  %span.normal-text Hotline: 
+                  = succeed "" do
+                    %b 01638533244
+              .row.no-margin
+                .col-sm-6.col-sm-offset-2.col-md-4.col-md-offset-3.col-lg-4.col-lg-offset-2.no-padding
+                  %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} khám phá các khóa học khác
     = render :partial => 'components/footer/index'   

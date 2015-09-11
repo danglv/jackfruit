@@ -11,6 +11,20 @@
     margin-top: 30px !important;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     margin-bottom: 5px;
+    .full-width {
+      width: 100%;
+    }
+    .content {
+      display: block;
+      .content-left {
+        display: inline-block;
+        float: left;
+      }
+      .content-right {
+        display: inline-block;
+        float: right;
+      }
+    }
   }
   &-bill {
     margin-top: 25px;
@@ -336,8 +350,11 @@
     color: #338abc;
     text-transform: uppercase;
   } 
-  .communication-icon {
-    color: #338abc;
+  .hot-line {
+    .fa-phone {
+      color: #338abc;
+      margin-right: 10px;
+    }
   }
 }
 
