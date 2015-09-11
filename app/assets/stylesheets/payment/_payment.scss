@@ -25,6 +25,15 @@
         float: right;
       }
     }
+    .payment-box-bottom {
+      display: block;
+      text-align: center;
+      .refresh-button {
+        font-size: 16px;
+        font-weight: bold;
+        width: 310px;
+      }
+    }
   }
   &-bill {
     margin-top: 25px;
