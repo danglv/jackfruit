@@ -47,6 +47,12 @@ header {
     }
 
     &.active-nav-with-text {
+      @media (max-width: 1200px) {
+        .active-nav-text {
+          display: none;
+        }
+      }
+
       @media (min-width: 1201px) {
         height: 40px;
         line-height: 40px;
@@ -58,6 +64,10 @@ header {
         margin-top: 6px;
         &:hover {
           cursor: pointer;
+        }
+        .active-nav-text {
+          font-size: 14px;
+          padding: 0;
         }
       }
     }
@@ -72,6 +82,10 @@ header {
   .logo {
     line-height: 52px;
     text-align: center;
+    > a {
+      display: inline-block;
+      line-height: 40px;
+    }
   }
 
   .search-box {
