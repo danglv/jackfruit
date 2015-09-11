@@ -256,6 +256,10 @@
     font-weight: bold;
   }
   .bank-card {
+    border: 2px solid #fff;
+    &.selected {
+      border: 2px solid #338abc !important;
+    }
     img {
       width: 100%;
     }
