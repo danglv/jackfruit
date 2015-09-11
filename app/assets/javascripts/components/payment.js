@@ -22,8 +22,7 @@ $(document).ready(function () {
     this.click(function () {
       $(".selected").removeClass("selected");
       $(this).addClass("selected");
-      $(".credit-card-button").val($(this).attr("val"));
     });
   };
-  $(".select-visa").selectmenthod();
-});
+  $(".select-card").selectmenthod();
+}); 
