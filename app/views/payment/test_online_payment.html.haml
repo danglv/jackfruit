@@ -34,7 +34,10 @@
           .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ ATM nội địa
           .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
-            %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
+            %form
+              %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
+              %a.btn-search
+                %i.fa.fa-search
           .col-xs-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
         .row.no-margin{:style => "margin-bottom: 20px"}
           .col-xs-12.no-padding

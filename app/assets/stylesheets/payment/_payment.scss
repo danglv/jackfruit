@@ -211,6 +211,17 @@
       font-weight: bold;
     }
   }
+  .btn-search {
+    background: none;
+    border: none;
+    display: inline-block;
+    font-size: 1.8rem;
+    margin-left: -30px;
+    position: absolute;
+    top: -2px;
+    right: 10px;
+    color: #212121;
+  }
   .transfer-bank {
     margin: 15px 0 25px 0 !important;
   }
