@@ -23,7 +23,8 @@ class PaymentSerializer < ActiveModel::Serializer
       created_at: object.created_at,
       money: object.money,
       city: object.city,
-      district: object.district
+      district: object.district,
+      cod_code: object.cod_code
     }
   end
 end
