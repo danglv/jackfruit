@@ -6,13 +6,7 @@
     .btn-group.cats-dropdown.cats-dropdown-mobile
       .dropdown-toggle.active-nav-2{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
         %i.fa.fa-bars
-      %ul.dropdown-menu
-        %li
-          %a{:href => "#"} Regular link
-        %li.disabled
-          %a{:href => "#"} Disabled link
-        %li
-          %a{:href => "#"} Another link
+      = render :partial => "components/dropdown_menu_category"
     .search-box
       %form
         %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
