@@ -1,8 +1,8 @@
 = render :partial => 'components/header/index'
 .container-wrapper.detail{:style => "overflow: hidden;"}
 
-  .layout-320  
-    .container{:style => "background-color: #fff"}
+  .layout-320
+    .container{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}
       .row.no-margin
         .col-xs-12.no-padding
           %h4.no-margin.detail-course-title
@@ -57,7 +57,7 @@
             %h3.course-price.free.no-margin Miễn phí
           - else
             %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-      .row.no-margin
+      .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
         - if !current_user.blank?
           - if !@owned_course.blank?
             - if @owned_course.payment_status == 'pending'
@@ -129,29 +129,27 @@
             .col-xs-12.no-padding
               %a.link-text{:href => ""}
                 %h5.normal-text.link-text Học thử miễn phí
-            .col-xs-12.no-padding
+            .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %a.link-text{:href => ""}
                 %h5.normal-text.link-text Góp ý
-            .divider
-      .divider
-      .row.no-margin.list-info
-        .col-xs-5.courses.no-padding
+      .row.no-margin.detail-list-info{:style => 'margin: 10px 0 25px 0 !important'}
+        .col-xs-7.courses.no-padding
           .row.no-margin
-            %p.course-author
+            %h5.course-author
               Số lượng bài giảng
-            %p.course-author
+            %h5.course-author
               Thời lượng video
-            %p.course-author
+            %h5.course-author
               Trình độ
-            %p.course-author
+            %h5.course-author
               Ngôn ngữ
             / %p.course-author
             /   bao gồm
-        .col-xs-7.no-padding
+        .col-xs-5.no-padding
           .row.no-margin
-            %p.bold
+            %h5.bold
               = @course.curriculums.where(:type => 'lecture').count
-            %p.bold
+            %h5.bold
               - time = 0
               - @course.curriculums.each do |curi|
                 - if curi.type == 'lecture' && curi.asset_type == 'Video'
@@ -160,10 +158,9 @@
                 = (time/60).to_s + 'h'
               - else
                 = '1h'
-            %p.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-            %p.bold 
+            %h5.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+            %h5.bold 
               = Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-    .divider
     .container
       .row.no-margin.description
         .col-xs-12.no-padding
@@ -175,36 +172,35 @@
           %a.link-text{:href => "#"}
             %b Xem chi tiết
       .row.no-margin
-        .col-xs-12.no-padding
+        .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
             %b Giáo trình
-      .divider
       .row.no-margin.curiculums
         .col-xs-12.no-padding
           - @course.curriculums.each do |curi|
             .row.no-margin.curiculum
               .col-xs-12.no-padding
                 - if(curi.type == 'chapter')
-                  .row.no-margin.curiculum-title
+                  .row.no-margin.curiculum-title{:style => 'border-bottom:1px solid #cccccc'}
                     %a.normal-text{:href => "#", :style => "pointer-events: none; margin: 15px 0"}
                       %b #{curi.title}
-                  .divider
                 - else
                   .row.no-margin.curiculum-list
                     .col-xs-12.no-padding
                       .row.no-margin.curiculum-content
-                        .col-xs-1.no-padding
-                          - if curi.asset_type == "Video"
-                            %i.fa.fa-play-circle
-                          - else
-                            %i.fa.fa-file
-                        .col-xs-3
-                          %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                        .col-xs-6.no-padding
-                          %h5.normal-text.no-margin #{curi.title}
-                        .col-xs-2
-                          %h5.normal-text.no-margin
-                            %b 2:09
+                        .col-xs-12
+                          .detail-curi-type.pull-left{:style => 'margin-right:10px'}
+                            - if curi.asset_type == "Video"
+                              %i.fa.fa-play-circle
+                            - else
+                              %i.fa.fa-file
+                          .detail-curi-lecture.pull-left{:style => 'margin-right:25px;width:60px'}
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
+                          .detail-curi-title.pull-left{:style => 'width:130px'}
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          / .detail-curi-leacture.pull-right
+                          /   %h5.normal-text.no-margin
+                          /     %b #{curi.description}
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -244,7 +240,7 @@
           - if @course.user.instructor_profile.description.count > 0
             - @course.user.instructor_profile.description.each do |i|
               %h5.normal-text= i
-      .row.no-margin.rating
+      .row.no-margin.rating{:style => 'border-bottom:1px solid #cccccc'}
         .col-xs-12.no-padding
           %h4.normal-text
             %b Đánh giá
@@ -263,19 +259,18 @@
         .col-xs-12.no-padding
           %h5.normal-text Chi tiết
         - (1..5).each do |i|
-          .row.no-margin
+          .row{:style => 'margin:20px 0'}
             .col-xs-2.no-padding
-              %h5.normal-text 5 sao
-            .col-xs-8.no-padding
-              .progress.progress-striped.active
+              .normal-text.text-right 5 sao
+            .col-xs-8
+              .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
-            .col-xs-2
-              %h5.normal-text
+            .col-xs-2.no-padding
+              .normal-text
                 %b 3174
-      .divider
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - (1..2).each do |i|
-        .row.no-margin.discussion
+        .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
@@ -301,14 +296,13 @@
                   %b Just what I needed.
               .col-xs-12.no-padding
                 %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-        .divider
       .row.no-margin
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
 
   .layout-480-up.hidden-sm.hidden-md.hidden-lg
-    .container{:style => "background-color: #fff"}
+    .container{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}
       .row.no-margin
         .col-xs-12.no-padding
           %h4.no-margin.detail-course-title
@@ -397,13 +391,14 @@
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                         Bắt đầu học ngay
-                    .col-xs-2
+                    .col-xs-4
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                        %i.fa.fa-heart
                   - else 
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
                         Mua khóa học
-                    .col-xs-2
+                    .col-xs-4
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
                         %i.fa.fa-heart
                     .col-xs-8.no-padding
@@ -438,45 +433,44 @@
                   .col-xs-8.no-padding
                     %a.link-text{:href => ""}
                       %h5.normal-text.link-text Góp ý
-        .col-xs-4.no-padding
-          .divider
-          .row.no-margin
-            .col-xs-6.no-padding
-              %h5.normal-text.course-author
-                Số lượng bài giảng
-            .col-xs-6
-              %h5.normal-text
-                %b= @course.curriculums.where(:type => 'lecture').count
-          .row.no-margin
-            .col-xs-6.no-padding
-              %h5.normal-text.course-author
-                Thời lượng video
-            .col-xs-6
-              %h5.normal-text
-                %b
-                  - time = 0
-                  - @course.curriculums.each do |curi|
-                    - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                      - time += curi.description.to_i
-                  - if time > 60
-                    = (time/60).to_s + 'h'
-                  - else
-                    = '1h'
-          .row.no-margin
-            .col-xs-6.no-padding
-              %h5.normal-text.course-author
-                Trình độ
-            .col-xs-6
-              %h5.normal-text{:style => 'text-transform: capitalize'}
-                %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-          .row.no-margin
-            .col-xs-6.no-padding
-              %h5.normal-text.course-author
-                Ngôn ngữ
-            .col-xs-6
-              %h5.normal-text 
-                %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-    .divider
+        .col-xs-4.no-padding{:style => 'border-top:1px solid #cccccc'}
+          .detail-list-info
+            .row.no-margin
+              .col-xs-6.no-padding
+                %h5.normal-text.course-author
+                  Số lượng bài giảng
+              .col-xs-6
+                %h5.normal-text
+                  %b= @course.curriculums.where(:type => 'lecture').count
+            .row.no-margin
+              .col-xs-6.no-padding
+                %h5.normal-text.course-author
+                  Thời lượng video
+              .col-xs-6
+                %h5.normal-text
+                  %b
+                    - time = 0
+                    - @course.curriculums.each do |curi|
+                      - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                        - time += curi.description.to_i
+                    - if time > 60
+                      = (time/60).to_s + 'h'
+                    - else
+                      = '1h'
+            .row.no-margin
+              .col-xs-6.no-padding
+                %h5.normal-text.course-author
+                  Trình độ
+              .col-xs-6
+                %h5.normal-text{:style => 'text-transform: capitalize'}
+                  %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+            .row.no-margin
+              .col-xs-6.no-padding
+                %h5.normal-text.course-author
+                  Ngôn ngữ
+              .col-xs-6
+                %h5.normal-text 
+                  %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
     .container
       .row.no-margin.description
         .col-xs-12.no-padding
@@ -488,36 +482,32 @@
           %a.link-text{:href => "#"}
             %b Xem chi tiết
       .row.no-margin
-        .col-xs-12.no-padding
+        .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
             %b Giáo trình
-      .divider
       .row.no-margin.curiculums
         .col-xs-12.no-padding
           - @course.curriculums.each do |curi|
             .row.no-margin.curiculum
               .col-xs-12.no-padding
                 - if(curi.type == 'chapter')
-                  .row.no-margin.curiculum-title
+                  .row.no-margin.curiculum-title{:style => 'border-bottom:1px solid #cccccc'}
                     %a.normal-text{:href => "#", :style => "pointer-events: none; margin: 15px 0"}
                       %b #{curi.title}
-                  .divider
                 - else
                   .row.no-margin.curiculum-list
                     .col-xs-12.no-padding
                       .row.no-margin.curiculum-content
-                        .col-xs-1.no-padding
-                          - if curi.asset_type == "Video"
-                            %i.fa.fa-play-circle
-                          - else
-                            %i.fa.fa-file
-                        .col-xs-2.no-paddingf
-                          %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                        .col-xs-7.no-padding
-                          %h5.normal-text.no-margin #{curi.title}
-                        .col-xs-2.no-padding
-                          %h5.normal-text.no-margin
-                            %b 2:09
+                        .col-xs-12
+                          .detail-curi-type.pull-left{:style => 'margin-right:10px'}
+                            - if curi.asset_type == "Video"
+                              %i.fa.fa-play-circle
+                            - else
+                              %i.fa.fa-file
+                          .detail-curi-lecture.pull-left{:style => 'margin-right:25px;width:60px'}
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
+                          .detail-curi-title.pull-left{:style => 'width:270px'}
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -557,7 +547,7 @@
           - if @course.user.instructor_profile.description.count > 0
             - @course.user.instructor_profile.description.each do |i|
               %h5.normal-text= i
-      .row.no-margin.rating
+      .row.no-margin.rating{:style => 'border-bottom:1px solid #cccccc'}
         .col-xs-12.no-padding
           %h4.normal-text
             %b Đánh giá
@@ -576,19 +566,18 @@
         .col-xs-12.no-padding
           %h5.normal-text Chi tiết
         - (1..5).each do |i|
-          .row.no-margin
+          .row{:style => 'margin:20px 0'}
             .col-xs-1.no-padding
-              %h5.normal-text 5 sao
+              .normal-text.text-right 5 sao
             .col-xs-6
-              .progress.progress-striped.active
+              .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
             .col-xs-2.no-padding
-              %h5.normal-text
+              .normal-text
                 %b 3174
-      .divider
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - (1..2).each do |i|
-        .row.no-margin.discussion
+        .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
@@ -614,100 +603,125 @@
                   %b Just what I needed.
               .col-xs-12.no-padding
                 %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-        .divider
       .row.no-margin
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
 
   .row.no-margin.hidden-xs.hidden-md.hidden-lg
-    .container{:style => "background-color: #fff"}
-      .row.no-margin
-        .col-sm-12.no-padding
-          %h4.no-margin.detail-course-title-big
-            %b= @course.name
-      .row.no-margin
-        .col-sm-12.no-padding
-          %h5.no-margin.normal-text.sub_title
-            = @course.sub_title
-      .row.no-margin.course-rating
-        .col-sm-12.no-padding
-          .col-sm-2.no-padding.course-rating-point.no-padding
-            - (1..5).each do |i|
-              - if i <= @course.average_rating
-                %i.fa.fa-star.is-rated 
-              - else
-                %i.fa.fa-star
-          .col-sm-10.no-padding.course-rating-people.no-padding 
-            %h5.normal-text.no-margin.left-align
-              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
-      .row.no-margin
-        .col-sm-12.no-padding.no-padding.normal-text
-          - if @course.user
-            Giảng dạy bởi 
-            %a.link-text.normal-text{:href => "#"}= @course.user.name
-          - else
-            %a.link-text.normal-text{:href => "#"} Tudemy
-      .row.no-margin
-        .col-sm-12.no-padding.no-padding.author-information
-          %h5.normal-text.link-text Design  /  User Experience
-      .row.no-margin
-        .col-sm-12.no-padding.no-padding
-          .video-container.no-controls
-            - if @course.intro_link && @course.intro_link != ''
-              - if @course.intro_link['v=']
-                - @indexStart = @course.intro_link.index('v=') + 2
-                - if @course.intro_link['&']
-                  - @indexEnd = @course.intro_link.index('&')-1
-                  - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
+    .row.no-margin{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}
+      .container
+        .row.no-margin
+          .col-sm-12.no-padding
+            %h4.no-margin.detail-course-title-big
+              %b= @course.name
+        .row.no-margin
+          .col-sm-12.no-padding
+            %h5.no-margin.normal-text.sub_title
+              = @course.sub_title
+        .row.no-margin.course-rating
+          .col-sm-12.no-padding
+            .col-sm-2.no-padding.course-rating-point.no-padding
+              - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.fa.fa-star.is-rated 
                 - else
-                  - @indexEnd = @course.intro_link.length
-                  - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
-              - elsif @course.intro_link['youtu.be']
-                - pattern = /youtu.be\/(.*)\?/
-                - @youtube_id = pattern.match(@course.intro_link)[1]
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "450", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
-            - elsif @course.image && @course.image != ''
-              = image_tag @course.image, :style => 'width: 100%'
+                  %i.fa.fa-star
+            .col-sm-10.no-padding.course-rating-people.no-padding 
+              %h5.normal-text.no-margin.left-align
+                = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+        .row.no-margin
+          .no-padding.normal-text.pull-left{:style => 'margin-right: 30px'}
+            - if @course.user
+              Giảng dạy bởi 
+              %a.link-text.normal-text{:href => "#"}= @course.user.name
             - else
-              = image_tag 'course-image-intro.png', :style => 'width: 100%'
-      .row.no-margin
-        .col-sm-7.no-padding.no-padding
-          .row.no-margin
-            .col-sm-12.no-padding
-              - if @course.price == 0
-                %h3.course-price.free.no-margin Miễn phí
-              - else
-                %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin
-            .col-sm-12.no-padding
-              - if !current_user.blank?
-                - if !@owned_course.blank?
-                  - if @owned_course.payment_status == 'pending'
-                    - if @payment.method == 'cod'
-                      .col-sm-6.no-padding
-                        %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                    .col-sm-6.no-padding
-                      %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                    .col-sm-5
-                      %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.fa.fa-heart
-                        %span Ưa thích 
+              %a.link-text.normal-text{:href => "#"} Tudemy
+          .no-padding.author-information.pull-left
+            .normal-text.link-text Design  /  User Experience
+        .row.no-margin
+          .col-sm-12.no-padding.no-padding
+            .video-container.no-controls
+              - if @course.intro_link && @course.intro_link != ''
+                - if @course.intro_link['v=']
+                  - @indexStart = @course.intro_link.index('v=') + 2
+                  - if @course.intro_link['&']
+                    - @indexEnd = @course.intro_link.index('&')-1
+                    - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
                   - else
-                    .col-sm-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
-                    .col-sm-5
-                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                        %i.fa.fa-heart
-                    .col-sm-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Nhập mã khuyến mãi
-                    .col-sm-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Học thử miễn phí
-                    .col-sm-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Góp ý
+                    - @indexEnd = @course.intro_link.length
+                    - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
+                - elsif @course.intro_link['youtu.be']
+                  - pattern = /youtu.be\/(.*)\?/
+                  - @youtube_id = pattern.match(@course.intro_link)[1]
+                %iframe{:allowfullscreen => "", :frameborder => "0", :height => "450", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
+              - elsif @course.image && @course.image != ''
+                = image_tag @course.image, :style => 'width: 100%'
+              - else
+                = image_tag 'course-image-intro.png', :style => 'width: 100%'
+        .row.no-margin
+          .col-sm-7.no-padding
+            .row.no-margin
+              .col-sm-12.no-padding
+                - if @course.price == 0
+                  %h3.course-price.free.no-margin Miễn phí
+                - else
+                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .row.no-margin
+              .col-sm-12.no-padding
+                - if !current_user.blank?
+                  - if !@owned_course.blank?
+                    - if @owned_course.payment_status == 'pending'
+                      - if @payment.method == 'cod'
+                        .col-sm-6.no-padding
+                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
+                      .col-sm-6.no-padding
+                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                      .col-sm-5
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                    - else
+                      .col-sm-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                      .col-sm-5
+                        %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                          %i.fa.fa-heart
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Nhập mã khuyến mãi
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Học thử miễn phí
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Góp ý
+                  - else
+                    - if @course.price == 0
+                      .col-sm-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                          Bắt đầu học ngay
+                      .col-sm-5
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                    - else 
+                      .col-sm-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                          Mua khóa học
+                      .col-sm-5
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Nhập mã khuyến mãi
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Học thử miễn phí
+                      .col-sm-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
                     .col-sm-6.no-padding
@@ -734,71 +748,44 @@
                     .col-sm-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
-              - else
-                - if @course.price == 0
-                  .col-sm-6.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                      Bắt đầu học ngay
-                  .col-sm-5
-                    %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.fa.fa-heart
-                      %span Ưa thích 
-                - else 
-                  .col-sm-6.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                      Mua khóa học
-                  .col-sm-5
-                    %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.fa.fa-heart
-                      %span Ưa thích 
-                  .col-sm-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Nhập mã khuyến mãi
-                  .col-sm-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Học thử miễn phí
-                  .col-sm-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Góp ý
-        .col-sm-5.no-padding.no-padding
-          .divider
-          .row.no-margin
-            .col-sm-6.no-padding
-              %h5.normal-text.course-author
-                Số lượng bài giảng
-            .col-sm-6
-              %h5.normal-text
-                %b= @course.curriculums.where(:type => 'lecture').count
-          .row.no-margin
-            .col-sm-6.no-padding
-              %h5.normal-text.course-author
-                Thời lượng video
-            .col-sm-6
-              %h5.normal-text
-                %b
-                  - time = 0
-                  - @course.curriculums.each do |curi|
-                    - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                      - time += curi.description.to_i
-                  - if time > 60
-                    = (time/60).to_s + 'h'
-                  - else
-                    = '1h'
-          .row.no-margin
-            .col-sm-6.no-padding
-              %h5.normal-text.course-author
-                Trình độ
-            .col-sm-6
-              %h5.normal-text{:style => 'text-transform: capitalize'}
-                %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-          .row.no-margin
-            .col-sm-6.no-padding
-              %h5.normal-text.course-author
-                Ngôn ngữ
-            .col-sm-6
-              %h5.normal-text 
-                %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-    .divider
+          .col-sm-5.no-padding{:style => 'border-top:1px solid #cccccc'}
+            .detail-list-info
+              .row.no-margin
+                .col-sm-6.no-padding
+                  %h5.normal-text.course-author
+                    Số lượng bài giảng
+                .col-sm-6
+                  %h5.normal-text
+                    %b= @course.curriculums.where(:type => 'lecture').count
+              .row.no-margin
+                .col-sm-6.no-padding
+                  %h5.normal-text.course-author
+                    Thời lượng video
+                .col-sm-6
+                  %h5.normal-text
+                    %b
+                      - time = 0
+                      - @course.curriculums.each do |curi|
+                        - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                          - time += curi.description.to_i
+                      - if time > 60
+                        = (time/60).to_s + 'h'
+                      - else
+                        = '1h'
+              .row.no-margin
+                .col-sm-6.no-padding
+                  %h5.normal-text.course-author
+                    Trình độ
+                .col-sm-6
+                  %h5.normal-text{:style => 'text-transform: capitalize'}
+                    %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+              .row.no-margin
+                .col-sm-6.no-padding
+                  %h5.normal-text.course-author
+                    Ngôn ngữ
+                .col-sm-6
+                  %h5.normal-text 
+                    %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
     .container
       .row.no-margin.description
         .col-sm-12.no-padding
@@ -810,36 +797,35 @@
           %a.link-text{:href => "#"}
             %b Xem chi tiết
       .row.no-margin
-        .col-sm-12.no-padding
+        .col-sm-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
             %b Giáo trình
-      .divider
       .row.no-margin.curiculums
         .col-sm-12.no-padding
           - @course.curriculums.each do |curi|
             .row.no-margin.curiculum
               .col-sm-12.no-padding
                 - if(curi.type == 'chapter')
-                  .row.no-margin.curiculum-title
+                  .row.no-margin.curiculum-title{:style => 'border-bottom:1px solid #cccccc'}
                     %a.normal-text{:href => "#", :style => "pointer-events: none; margin: 15px 0"}
                       %b #{curi.title}
-                  .divider
                 - else
                   .row.no-margin.curiculum-list
                     .col-sm-12.no-padding
                       .row.no-margin.curiculum-content
-                        .col-sm-1
-                          - if curi.asset_type == "Video"
-                            %i.fa.fa-play-circle
-                          - else
-                            %i.fa.fa-file
-                        .col-sm-2
-                          %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                        .col-sm-7.no-padding
-                          %h5.normal-text.no-margin #{curi.title}
-                        .col-sm-2.no-padding
-                          %h5.normal-text
-                            %b 2:09
+                        .col-sm-12
+                          .detail-curi-type.pull-left{:style => 'margin-right:10px'}
+                            - if curi.asset_type == "Video"
+                              %i.fa.fa-play-circle
+                            - else
+                              %i.fa.fa-file
+                          .detail-curi-lecture.pull-left{:style => 'margin-right:30px;width:60px'}
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
+                          .detail-curi-title.pull-left
+                            %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          .detail-curi-leacture.pull-right
+                            %h5.normal-text.no-margin
+                              %b #{curi.description}
       .row.no-margin.author
         .col-sm-12.no-padding
           %h4
@@ -877,7 +863,7 @@
           - if @course.user.instructor_profile.description.count > 0
             - @course.user.instructor_profile.description.each do |i|
               %h5.normal-text= i
-      .row.no-margin.rating
+      .row.no-margin.rating{:style => 'border-bottom:1px solid #cccccc'}
         .col-sm-12.no-padding
           %h4.normal-text.rating-text
             %b Đánh giá
@@ -896,19 +882,18 @@
         .col-sm-12.no-padding
           %h5.normal-text Chi tiết
         - (1..5).each do |i|
-          .row.no-margin
+          .row{:style => 'margin:20px 0;'}
             .col-sm-1.no-padding
-              %h5.normal-text 5 sao
+              .normal-text.text-right 5 sao
             .col-sm-4
-              .progress.progress-striped.active
+              .progress.progress-striped.active{:style => 'height:17px; margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
             .col-sm-2.no-padding
-              %h5.normal-text
+              .normal-text
                 %b 3174
-      .divider
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - (1..2).each do |i|
-        .row.no-margin.discussion
+        .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-sm-12.no-padding
             .row.no-margin.discussion-top
               .col-sm-1.no-padding
@@ -934,99 +919,124 @@
                   %b Just what I needed.
               .col-sm-12.no-padding
                 %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-        .divider
       .row.no-margin
         .col-sm-12.no-padding
           %a.link-text{:href => "#"}
             %h5.link-text.normal-text Xem thêm các bình luận khác
 
   .row.no-margin.hidden-xs.hidden-sm.hidden-lg
-    .container{:style => "background-color: #fff"}
-      .row.no-margin
-        .col-md-12.no-padding
-          %h4.no-margin.detail-course-title-big
-            %b= @course.name
-      .row.no-margin
-        .col-md-12.no-padding
-          %h5.no-margin.normal-text.sub_title
-            = @course.sub_title
-      .row.no-margin.course-rating
-        .col-md-12.no-padding
-          .col-md-2.no-padding.course-rating-point
-            - (1..5).each do |i|
-              - if i <= @course.average_rating
-                %i.fa.fa-star.is-rated 
-              - else
-                %i.fa.fa-star
-          .col-md-10.course-rating-people.no-padding 
-            %h5.normal-text.no-margin.left-align
-              = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
-      .row.no-margin
-        .col-md-12.no-padding.normal-text
-          - if @course.user
-            Giảng dạy bởi 
-            %a.link-text.normal-text{:href => "#"}= @course.user.name
-          - else
-            %a.link-text.normal-text{:href => "#"} Tudemy
-      .row.no-margin
-        .col-md-12.no-padding.no-padding.author-information
-          %h5.normal-text.link-text Design  /  User Experience
-      .row.no-margin
-        .col-md-7.no-padding
-          .video-container.no-controls
-            - if @course.intro_link && @course.intro_link != ''
-              - if @course.intro_link['v=']
-                - @indexStart = @course.intro_link.index('v=') + 2
-                - if @course.intro_link['&']
-                  - @indexEnd = @course.intro_link.index('&')-1
-                  - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
+    .row.no-margin{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}
+      .container
+        .row.no-margin
+          .col-md-12.no-padding
+            %h4.no-margin.detail-course-title-big
+              %b= @course.name
+        .row.no-margin
+          .col-md-12.no-padding
+            %h5.no-margin.normal-text.sub_title
+              = @course.sub_title
+        .row.no-margin.course-rating
+          .col-md-12.no-padding
+            .col-md-2.no-padding.course-rating-point
+              - (1..5).each do |i|
+                - if i <= @course.average_rating
+                  %i.fa.fa-star.is-rated 
                 - else
-                  - @indexEnd = @course.intro_link.length
-                  - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
-              - elsif @course.intro_link['youtu.be']
-                - pattern = /youtu.be\/(.*)\?/
-                - @youtube_id = pattern.match(@course.intro_link)[1]
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "340", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
-            - elsif @course.image && @course.image != ''
-              = image_tag @course.image, :style => 'width: 100%'
+                  %i.fa.fa-star
+            .col-md-10.course-rating-people.no-padding 
+              %h5.normal-text.no-margin.left-align
+                = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+        .row.no-margin
+          .no-padding.normal-text.pull-left{:style => 'margin-right:30px'}
+            - if @course.user
+              Giảng dạy bởi 
+              %a.link-text.normal-text{:href => "#"}= @course.user.name
             - else
-              = image_tag 'course-image-intro.png', :style => 'width: 100%'
-        .col-md-5
-          .row.no-margin
-            .col-md-12.no-padding
-              - if @course.price == 0
-                %h3.course-price.free.no-margin Miễn phí
-              - else
-                %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin
-            .col-md-12.no-padding
-              - if !current_user.blank?
-                - if !@owned_course.blank?
-                  - if @owned_course.payment_status == 'pending'
-                    - if @payment.method == 'cod'
-                      .col-md-3.no-padding
-                        %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                    .col-md-6.no-padding
-                      %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                    .col-md-6
-                      %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.fa.fa-heart
-                        %span Ưa thích 
+              %a.link-text.normal-text{:href => "#"} Tudemy
+          .no-padding.author-information.pull-left
+            .normal-text.link-text Design  /  User Experience
+        .row.no-margin
+          .col-md-7.no-padding
+            .video-container.no-controls
+              - if @course.intro_link && @course.intro_link != ''
+                - if @course.intro_link['v=']
+                  - @indexStart = @course.intro_link.index('v=') + 2
+                  - if @course.intro_link['&']
+                    - @indexEnd = @course.intro_link.index('&')-1
+                    - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
                   - else
-                    .col-md-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
-                    .col-md-6
-                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                        %i.fa.fa-heart
-                    .col-md-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Nhập mã khuyến mãi
-                    .col-md-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Học thử miễn phí
-                    .col-md-12.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Góp ý
+                    - @indexEnd = @course.intro_link.length
+                    - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
+                - elsif @course.intro_link['youtu.be']
+                  - pattern = /youtu.be\/(.*)\?/
+                  - @youtube_id = pattern.match(@course.intro_link)[1]
+                %iframe{:allowfullscreen => "", :frameborder => "0", :height => "340", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
+              - elsif @course.image && @course.image != ''
+                = image_tag @course.image, :style => 'width: 100%'
+              - else
+                = image_tag 'course-image-intro.png', :style => 'width: 100%'
+          .col-md-5
+            .row.no-margin
+              .col-md-12.no-padding
+                - if @course.price == 0
+                  %h3.course-price.free.no-margin Miễn phí
+                - else
+                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
+              .col-md-12.no-padding
+                - if !current_user.blank?
+                  - if !@owned_course.blank?
+                    - if @owned_course.payment_status == 'pending'
+                      - if @payment.method == 'cod'
+                        .col-md-3.no-padding
+                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
+                      .col-md-6.no-padding
+                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                      .col-md-6
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                    - else
+                      .col-md-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                      .col-md-6
+                        %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                          %i.fa.fa-heart
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Nhập mã khuyến mãi
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Học thử miễn phí
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Góp ý
+                  - else
+                    - if @course.price == 0
+                      .col-md-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                          Bắt đầu học ngay
+                      .col-md-6
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                    - else 
+                      .col-md-6.no-padding
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                          Mua khóa học
+                      .col-md-6
+                        %a.btn.btn-raised.btn-lg.favorite-button 
+                          %i.fa.fa-heart
+                          %span Ưa thích 
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Nhập mã khuyến mãi
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Học thử miễn phí
+                      .col-md-12.no-padding
+                        %a.link-text{:href => ""}
+                          %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
                     .col-md-6.no-padding
@@ -1053,70 +1063,43 @@
                     .col-md-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
-              - else
-                - if @course.price == 0
-                  .col-md-6.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                      Bắt đầu học ngay
-                  .col-md-6
-                    %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.fa.fa-heart
-                      %span Ưa thích 
-                - else 
-                  .col-md-6.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-                      Mua khóa học
-                  .col-md-6
-                    %a.btn.btn-raised.btn-lg.favorite-button 
-                      %i.fa.fa-heart
-                      %span Ưa thích 
-                  .col-md-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Nhập mã khuyến mãi
-                  .col-md-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Học thử miễn phí
-                  .col-md-12.no-padding
-                    %a.link-text{:href => ""}
-                      %h5.normal-text.link-text Góp ý
-          .divider
-          .row.no-margin
-            .col-md-4.no-padding
-              %h5.normal-text.course-author
-                Số lượng bài giảng
-            .col-md-8
-              %h5.normal-text
-                %b= @course.curriculums.where(:type => 'lecture').count
-          .row.no-margin
-            .col-md-4.no-padding
-              %h5.normal-text.course-author
-                Thời lượng video
-            .col-md-8
-              %h5.normal-text
-                %b
-                  - time = 0
-                  - @course.curriculums.each do |curi|
-                    - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                      - time += curi.description.to_i
-                  - if time > 60
-                    = (time/60).to_s + 'h'
-                  - else
-                    = '1h'
-          .row.no-margin
-            .col-md-4.no-padding
-              %h5.normal-text.course-author
-                Trình độ
-            .col-md-8
-              %h5.normal-text{:style => 'text-transform: capitalize'}
-                %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-          .row.no-margin
-            .col-md-4.no-padding
-              %h5.normal-text.course-author
-                Ngôn ngữ
-            .col-md-8
-              %h5.normal-text 
-                %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-    .divider
+            .detail-list-info
+              .row.no-margin
+                .col-md-4.no-padding
+                  %h5.normal-text.course-author
+                    Số lượng bài giảng
+                .col-md-8
+                  %h5.normal-text
+                    %b= @course.curriculums.where(:type => 'lecture').count
+              .row.no-margin
+                .col-md-4.no-padding
+                  %h5.normal-text.course-author
+                    Thời lượng video
+                .col-md-8
+                  %h5.normal-text
+                    %b
+                      - time = 0
+                      - @course.curriculums.each do |curi|
+                        - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                          - time += curi.description.to_i
+                      - if time > 60
+                        = (time/60).to_s + 'h'
+                      - else
+                        = '1h'
+              .row.no-margin
+                .col-md-4.no-padding
+                  %h5.normal-text.course-author
+                    Trình độ
+                .col-md-8
+                  %h5.normal-text{:style => 'text-transform: capitalize'}
+                    %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+              .row.no-margin
+                .col-md-4.no-padding
+                  %h5.normal-text.course-author
+                    Ngôn ngữ
+                .col-md-8
+                  %h5.normal-text 
+                    %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
     .container
       .row.no-margin
         .col-md-8.no-padding
@@ -1130,36 +1113,35 @@
               %a.link-text{:href => "#"}
                 %b Xem chi tiết
           .row.no-margin
-            .col-md-12.no-padding
+            .col-md-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %h4
                 %b Giáo trình
-          .divider
           .row.no-margin.curiculums
             .col-md-12.no-padding
               - @course.curriculums.each do |curi|
                 .row.no-margin.curiculum
                   .col-md-12.no-padding
                     - if(curi.type == 'chapter')
-                      .row.no-margin.curiculum-title
+                      .row.no-margin.curiculum-title{:style => 'border-bottom:1px solid #cccccc'}
                         %a.normal-text{:href => "#", :style => "pointer-events: none; margin: 15px 0"}
                           %b #{curi.title}
-                      .divider
                     - else
                       .row.no-margin.curiculum-list
                         .col-md-12.no-padding
                           .row.no-margin.curiculum-content
-                            .col-md-1
-                              - if curi.asset_type == "Video"
-                                %i.fa.fa-play-circle
-                              - else
-                                %i.fa.fa-file
-                            .col-md-2
-                              %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                            .col-md-7.no-padding
-                              %h5.normal-text.no-margin #{curi.title}
-                            .col-md-2.no-padding
-                              %h5.normal-text
-                                %b 2:09
+                            .col-md-12
+                              .detail-curi-type.pull-left{:style => 'margin-right:10px'}
+                                - if curi.asset_type == "Video"
+                                  %i.fa.fa-play-circle
+                                - else
+                                  %i.fa.fa-file
+                              .detail-curi-lecture.pull-left{:style => 'margin-right:40px;width:60px'}
+                                %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
+                              .detail-curi-title.pull-left
+                                %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              .detail-curi-leacture.pull-right
+                                %h5.normal-text.no-margin
+                                  %b #{curi.description}
           .row.no-margin.author
             .col-md-12.no-padding
               %h4
@@ -1199,38 +1181,37 @@
               - if @course.user.instructor_profile.description.count > 0
                 - @course.user.instructor_profile.description.each do |i|
                   %h5.normal-text= i
-          .row.no-margin.rating
+          .row.no-margin.rating{:style => 'border-bottom:1px solid #cccccc'}
             .col-md-12.no-padding
               %h4.normal-text
                 %b Đánh giá
             .col-md-12.no-padding
               %h1.rating-point.no-margin 4.2
             .col-md-12.no-padding
-              .col-md-4.course-rating-point.no-padding
+              .course-rating-point.no-padding.pull-left{:style => 'margin-right:8px'}
                 - (1..5).each do |i|
                   - if i <= @course.average_rating
                     %i.fa.fa-star.is-rated 
                   - else
                     %i.fa.fa-star
-              .col-md-7.no-padding 
+              .no-padding.pull-left
                 %h5.normal-text.course-rating-people.no-margin.left-align
                   = @course.reviews.count.to_s + ' đánh giá' 
             .col-md-12.no-padding
               %h5.normal-text Chi tiết
             - (1..5).each do |i|
-              .row.no-margin
+              .row{:style => 'margin:20px 0'}
                 .col-md-1.no-padding
-                  %h5.normal-text 5 sao
+                  .normal-text.text-right 5 sao
                 .col-md-6
-                  .progress.progress-striped.active
+                  .progress.progress-striped.active{:style => 'height: 17px;margin:0 !important'}
                     .progress-bar{:style => "width: 60%;"}
                 .col-md-2.no-padding
-                  %h5.normal-text
+                  .normal-text
                     %b 3174
-          .divider
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           - (1..2).each do |i|
-            .row.no-margin.discussion
+            .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
               .col-md-12.no-padding
                 .row.no-margin.discussion-top
                   .col-md-2.no-padding
@@ -1256,7 +1237,6 @@
                       %b Just what I needed.
                   .col-md-12.no-padding
                     %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-            .divider
           .row.no-margin
             .col-md-12.no-padding
               %a.link-text{:href => "#"}
@@ -1269,42 +1249,39 @@
                   %b= @courses['related'].first
             .row.no-margin.related-box
               .col-md-12.no-padding.related-content
-                - (1..3).each do
-                  / - @courses['related'].last.each do |relate|
-                  = render :partial => 'components/courses/list_card'  
+                - @courses["related"].last.to_a.each do |course_r|
+                  = render :partial => 'components/courses/list_card',:locals => {:course => course_r}
 
   .row.no-margin.hidden-xs.hidden-sm.hidden-md
-    .row.no-margin{:style => "background-color: #fff"}
+    .row.no-margin{:style => "background-color: #fff;padding-top:25px;padding-bottom:20px;"}
       .container
         .row.no-margin
           .col-lg-12.no-padding
-            %h4.no-margin.detail-course-title-big
-              %b= @course.name
+            %h4.no-margin.detail-course-title-big{:style => '%font-size:36px'}= @course.name
         .row.no-margin
           .col-lg-12.no-padding
             %h5.no-margin.normal-text.sub_title
               = @course.sub_title
         .row.no-margin.course-rating
           .col-lg-12.no-padding
-            .col-lg-2.no-padding.course-rating-point
+            .no-padding.course-rating-point.pull-left{:style => 'margin-right:8px'}
               - (1..5).each do |i|
                 - if i <= @course.average_rating
                   %i.fa.fa-star.is-rated 
                 - else
                   %i.fa.fa-star
-            .col-lg-10.course-rating-people.no-padding 
+            .course-rating-people.no-padding.pull-left
               %h5.normal-text.no-margin.left-align
                 = @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
         .row.no-margin
-          .col-lg-12.no-padding.normal-text
+          .no-padding.normal-text.pull-left{:style => 'margin-right:30px'}
             - if @course.user
               Giảng dạy bởi 
               %a.link-text.normal-text{:href => "#"}= @course.user.name
             - else
               %a.link-text.normal-text{:href => "#"} Tudemy
-        .row.no-margin
-          .col-lg-12.no-padding.no-padding.author-information
-            %h5.normal-text.link-text Design  /  User Experience
+          .no-padding.author-information
+            .normal-text.link-text Design  /  User Experience
         .row.no-margin
           .col-lg-7.no-padding
             .video-container.no-controls
@@ -1332,7 +1309,7 @@
                   %h3.course-price.free.no-margin Miễn phí
                 - else
                   %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            .row.no-margin
+            .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
               .col-lg-12.no-padding
                 - if !current_user.blank?
                   - if !@owned_course.blank?
@@ -1344,7 +1321,7 @@
                         %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.lgi-action-favorite
+                          %i.fa.fa-heart
                           %span Ưa thích 
                     - else
                       .col-lg-6.no-padding
@@ -1368,7 +1345,7 @@
                           Bắt đầu học ngay
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.lgi-action-favorite
+                          %i.fa.fa-heart
                           %span Ưa thích 
                     - else 
                       .col-lg-6.no-padding
@@ -1376,7 +1353,7 @@
                           Mua khóa học
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.lgi-action-favorite
+                          %i.fa.fa-heart
                           %span Ưa thích 
                       .col-lg-12.no-padding
                         %a.link-text{:href => ""}
@@ -1390,11 +1367,11 @@
                 - else
                   - if @course.price == 0
                     .col-lg-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'background-color:#338abc'}
                         Bắt đầu học ngay
                     .col-lg-6
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.lgi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                   - else 
                     .col-lg-6.no-padding
@@ -1402,7 +1379,7 @@
                         Mua khóa học
                     .col-lg-6
                       %a.btn.btn-raised.btn-lg.favorite-button 
-                        %i.lgi-action-favorite
+                        %i.fa.fa-heart
                         %span Ưa thích 
                     .col-lg-12.no-padding
                       %a.link-text{:href => ""}
@@ -1413,44 +1390,44 @@
                     .col-lg-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
-            .divider
-            .row.no-margin
-              .col-lg-4.no-padding
-                %h5.normal-text.course-author
-                  Số lượng bài giảng
-              .col-lg-8
-                %h5.normal-text
-                  %b= @course.curriculums.where(:type => 'lecture').count
-            .row.no-margin
-              .col-lg-4.no-padding
-                %h5.normal-text.course-author
-                  Thời lượng video
-              .col-lg-8
-                %h5.normal-text
-                  %b
-                    - time = 0
-                    - @course.curriculums.each do |curi|
-                      - if curi.type == 'lecture' && curi.asset_type == 'Video'
-                        - time += curi.description.to_i
-                    - if time > 60
-                      = (time/60).to_s + 'h'
-                    - else
-                      = '1h'
-            .row.no-margin
-              .col-lg-4.no-padding
-                %h5.normal-text.course-author
-                  Trình độ
-              .col-lg-8
-                %h5.normal-text{:style => 'text-transform: capitalize'}
-                  %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-            .row.no-margin
-              .col-lg-4.no-padding
-                %h5.normal-text.course-author
-                  Ngôn ngữ
-              .col-lg-8
-                %h5.normal-text 
-                  %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
-    .row.no-margin.menu-fixed
+            .detail-list-info
+              .row.no-margin
+                .col-lg-4.no-padding
+                  %h5.normal-text.course-author
+                    Số lượng bài giảng
+                .col-lg-8
+                  %h5.normal-text
+                    %b= @course.curriculums.where(:type => 'lecture').count
+              .row.no-margin
+                .col-lg-4.no-padding
+                  %h5.normal-text.course-author
+                    Thời lượng video
+                .col-lg-8
+                  %h5.normal-text
+                    %b
+                      - time = 0
+                      - @course.curriculums.each do |curi|
+                        - if curi.type == 'lecture' && curi.asset_type == 'Video'
+                          - time += curi.description.to_i
+                      - if time > 60
+                        = (time/60).to_s + 'h'
+                      - else
+                        = '1h'
+              .row.no-margin
+                .col-lg-4.no-padding
+                  %h5.normal-text.course-author
+                    Trình độ
+                .col-lg-8
+                  %h5.normal-text{:style => 'text-transform: capitalize'}
+                    %b= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
+              .row.no-margin
+                .col-lg-4.no-padding
+                  %h5.normal-text.course-author
+                    Ngôn ngữ
+                .col-lg-8
+                  %h5.normal-text 
+                    %b= Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
+    .row.no-margin.menu-fixed{:style => 'border-bottom:1px solid #cccccc'}
       .container
         %ul.nav.nav-pills
           %li.active
@@ -1464,17 +1441,16 @@
         %ul.menu-fixed-right
           %li
             - if @course.price == 0
-              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:0 15px'}
                 Bắt đầu học ngay
             - else 
-              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
-              Mua khóa học
+              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:0 15px'}
+                Mua khóa học
           %li
             - if @course.price == 0
               %h3.course-price.free Miễn phí
             - else
               %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-    .divider
     .container
       .row.no-margin
         .col-lg-8.no-padding
@@ -1488,36 +1464,35 @@
               %a.link-text{:href => "#"}
                 %b Xem chi tiết
           .row.no-margin
-            .col-lg-12.no-padding
+            .col-lg-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %h4
                 %b Giáo trình
-          .divider
           .row.no-margin.curiculums#curiculums
             .col-lg-12.no-padding
               - @course.curriculums.each do |curi|
                 .row.no-margin.curiculum
                   .col-lg-12.no-padding
                     - if(curi.type == 'chapter')
-                      .row.no-margin.curiculum-title
+                      .row.no-margin.curiculum-title{:style => 'border-bottom:1px solid #cccccc'}
                         %a.normal-text{:href => "#", :style => "pointer-events: none; margin: 15px 0"}
                           %b #{curi.title}
-                      .divider
                     - else
                       .row.no-margin.curiculum-list
                         .col-lg-12.no-padding
                           .row.no-margin.curiculum-content
-                            .col-lg-1
-                              - if curi.asset_type == "Video"
-                                %i.fa.fa-play-circle
-                              - else
-                                %i.fa.fa-file
-                            .col-lg-2
-                              %h5.normal-text.no-margin= 'Bài số ' + (curi.lecture_index + 1 ).to_s
-                            .col-lg-7.no-padding
-                              %h5.normal-text.no-margin #{curi.title}
-                            .col-lg-2.no-padding
-                              %h5.normal-text
-                                %b 2:09
+                            .col-lg-12
+                              .detail-curi-type.pull-left{:style => 'margin-right:10px'}
+                                - if curi.asset_type == "Video"
+                                  %i.fa.fa-play-circle
+                                - else
+                                  %i.fa.fa-file
+                              .detail-curi-lecture.pull-left{:style => 'margin-right:40px;width:60px'}
+                                %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
+                              .detail-curi-title.pull-left
+                                %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              .detail-curi-leacture.pull-right
+                                %h5.normal-text.no-margin
+                                  %b #{curi.description}
           .row.no-margin.author#author
             .col-lg-12.no-padding
               %h4
@@ -1557,38 +1532,37 @@
               - if @course.user.instructor_profile.description.count > 0
                 - @course.user.instructor_profile.description.each do |i|
                   %h5.normal-text= i
-          .row.no-margin.rating#rating
+          .row.no-margin.rating#rating{:style => 'border-bottom:1px solid #ccccc'}
             .col-lg-12.no-padding
               %h4.normal-text
                 %b Đánh giá
             .col-lg-12.no-padding
               %h1.rating-point.no-margin 4.2
             .col-lg-12.no-padding
-              .col-lg-4.course-rating-point.no-padding
+              .course-rating-point.no-padding.pull-left{:style => 'margin-right:8px'}
                 - (1..5).each do |i|
                   - if i <= @course.average_rating
                     %i.fa.fa-star.is-rated 
                   - else
                     %i.fa.fa-star
-              .col-lg-7.no-padding 
+              .no-padding
                 %h5.normal-text.course-rating-people.no-margin.left-align
                   = @course.reviews.count.to_s + ' đánh giá' 
             .col-lg-12.no-padding
               %h5.normal-text Chi tiết
             - (1..5).each do |i|
-              .row.no-margin
+              .row{:style => 'margin: 20px 0;'}
                 .col-lg-1.no-padding
-                  %h5.normal-text 5 sao
+                  .normal-text.text-right 5 Sao
                 .col-lg-6
-                  .progress.progress-striped.active
-                    .progress-bar{:style => "width: 60%;"}
+                  .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
+                    .progress-bar{:style => "width: 60%"}
                 .col-lg-2.no-padding
-                  %h5.normal-text
+                  .normal-text
                     %b 3174
-          .divider
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           - (1..2).each do |i|
-            .row.no-margin.discussion
+            .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
               .col-lg-12.no-padding
                 .row.no-margin.discussion-top
                   .col-lg-2.no-padding
@@ -1614,7 +1588,6 @@
                       %b Just what I needed.
                   .col-lg-12.no-padding
                     %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
-            .divider
           .row.no-margin
             .col-lg-12.no-padding
               %a.link-text{:href => "#"}
@@ -1627,7 +1600,6 @@
                   %b= @courses['related'].first
             .row.no-margin.related-box
               .col-lg-12.no-padding.related-content
-                - (1..3).each do
-                  / - @courses['related'].last.each do |relate|
-                  = render :partial => 'components/courses/list_card'  
+                - @courses["related"].last.to_a.each do |course|
+                  = render :partial => 'components/courses/list_card',:locals => {:course => course}
 = render :partial => 'components/footer/index'                                  
