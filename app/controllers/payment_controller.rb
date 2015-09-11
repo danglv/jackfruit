@@ -5,6 +5,8 @@ class PaymentController < ApplicationController
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
   before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+  skip_before_filter :verify_authenticity_token, only: [:update]
+
   # GET
   def index
     payment = Payment.where(
@@ -63,18 +65,32 @@ class PaymentController < ApplicationController
         :money => @price
       )
 
-      payment.name = name,
-      payment.email = email,
-      payment.mobile = mobile,
-      payment.address = address,
-      payment.city = city,
-      payment.district = district,
-
+      payment.name = name
+      payment.email = email
+      payment.mobile = mobile
+      payment.address = address
+      payment.city = city
+      payment.district = district
+      puts payment.to_s
+      #binding.pry
       if payment.save
         create_course_for_user()
         begin
           RestClient.post 'http://localhost:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD mới' 
         rescue => e
+          Tracking.create_tracking(
+          :type => Constants::TrackingTypes::API,
+          :content => {
+            :payment_method => Constants::PaymentMethod::COD,
+            :api_detail => "Không thể tạo COD mới bên flow",
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :str_identity => current_user.id.to_s,
+          :object => payment.id
+        )
         end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
@@ -307,7 +323,11 @@ class PaymentController < ApplicationController
 
   # GET: API get cod payment for mercury
   def detail
-    render json: PaymentSerializer.new(@payment).cod_hash
+    if @payment.method == Constants::PaymentMethod::COD
+      render json: PaymentSerializer.new(@payment).cod_hash
+    else
+      render json: PaymentSerializer.new(@payment).cod_hash
+    end
   end
 
   # POST: API update payment for mercury
@@ -327,12 +347,16 @@ class PaymentController < ApplicationController
       city: city.blank? ? @payment.city : city,
       district: district.blank? ? @payment.district : district
     })
-
+    
     if @payment.save
-      render json: PaymentSerializer.new(@payment).cod_hash
+      puts "save sucess"
+      render :json => PaymentSerializer.new(@payment).cod_hash.to_json
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      puts "save fail"
+      render :json => {:message => "Lỗi không lưu được data!"}.to_json
+      puts "after render "+{:message => "Lỗi không lưu được data!"}.to_json
+      return
     end
   end
 
