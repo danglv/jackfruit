@@ -11,6 +11,7 @@ class PaymentSerializer < ActiveModel::Serializer
     {
       id: self.id,
       name: object.name,
+      user_id: object.user_id.to_s,
       course_id: object.course_id.to_s,
       course_alias_name: object.course.alias_name,
       course: object.course.name,
@@ -20,7 +21,9 @@ class PaymentSerializer < ActiveModel::Serializer
       address: object.address,
       method: object.method,
       created_at: object.created_at,
-      money: object.money
+      money: object.money,
+      city: object.city,
+      district: object.district
     }
   end
 end

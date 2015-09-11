@@ -86,5 +86,7 @@ gem 'will_paginate_mongoid', '~> 2.0.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
+gem 'rack-cors', :require => 'rack/cors'
+
 # serializer
 gem 'active_model_serializers', '~> 0.9.3'
