@@ -1,10 +1,5 @@
-/ %header
-/   = render :partial => 'layouts/header'
-/   = render :partial => 'components/side_nav'
-
-/ Màn hình từ 320px
 .layout-320
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
@@ -32,9 +27,10 @@
           .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
           .col-xs-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          .col-xs-12.no-padding
-            %a.btn.btn-default.credit-card-button.select-visa
-              %img{:src => "http://www.tomnjerrys.net/wp-content/uploads/2013/06/MasterCard-credit-cards-and-Visa-If-you-apply-for-both.jpg"}
+          - @credit_cards.each do | card |
+            .col-xs-12.no-padding
+              %a.btn.btn-default.credit-card-button.select-visa
+                = image_tag card["logo_url"]
         .row.payment-content.active.no-margin
           .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ ATM nội địa
@@ -47,26 +43,21 @@
         .row.no-margin{:style => "margin-bottom: 20px"}
           .col-xs-12.no-padding
             %ul.bank-list.no-padding
-              %li.row.no-margin.list
-                .col-xs-2.no-padding
-                  %a.bank-icon{:href => "#"}
-                    %img{:src => "http://i.imgur.com/vAEItQT.png"}
-                .col-xs-10
-                  %h5.normal-text.no-margin.bank-label Ngân hàng ACB
-              .divider
-              %li.row.no-margin.list
-                .col-xs-2.no-padding
-                  %a.bank-icon{:href => "#"}
-                    %img{:src => "http://i.imgur.com/vAEItQT.png"}
-                .col-xs-10
-                  %h5.normal-text.no-margin.bank-label Ngân hàng ACB
+              - @local_card_banks.each do | card |
+                %li.row.no-margin.list
+                  .col-xs-2.no-padding
+                    %a.bank-icon{:href => "#"}
+                      = image_tag card["logo_url"]
+                  .col-xs-10
+                    %h5.normal-text.no-margin.bank-label= card["name"]
+                .divider
         .row.no-margin{:style => "margin-bottom: 40px"}
           .col-xs-12.no-padding
             %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học        
   = render :partial => 'components/footer/index'   
 
 .layout-480-up.hidden-sm.hidden-md.hidden-lg
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
@@ -94,9 +85,10 @@
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
-            %a.btn.btn-default.credit-card-button.select-visa
-              %img{:src => "http://www.tomnjerrys.net/wp-content/uploads/2013/06/MasterCard-credit-cards-and-Visa-If-you-apply-for-both.jpg"}
+          - @credit_cards.each do | card |
+            .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
+              %a.btn.btn-default.credit-card-button.select-visa
+                = image_tag card["logo_url"]
         .row.payment-content.active.no-margin
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ ATM nội địa
@@ -109,13 +101,13 @@
         .row.no-margin{:style => "margin-bottom: 20px"}
           .col-xs-12.no-padding
             %ul.bank-list.no-padding
-              - (1..30).each do
+              - @local_card_banks.each do | card |
                 %li.row.no-margin.list
                   .col-xs-2.no-padding
                     %a.bank-icon{:href => "#"}
-                      %img{:src => "http://i.imgur.com/vAEItQT.png"}
+                      = image_tag card["logo_url"]
                   .col-xs-10
-                    %h5.normal-text.no-margin.bank-label Ngân hàng ACB
+                    %h5.normal-text.no-margin.bank-label= card["name"]
                 .divider
         .row.no-margin
           .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
@@ -123,7 +115,7 @@
   = render :partial => 'components/footer/index'   
 
 .row.no-margin.hidden-xs
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}   
     %main.payment
       .row.no-margin
@@ -151,9 +143,10 @@
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
-            %a.btn.btn-default.credit-card-button.select-visa
-              %img{:src => "http://www.tomnjerrys.net/wp-content/uploads/2013/06/MasterCard-credit-cards-and-Visa-If-you-apply-for-both.jpg"}
+          - @credit_cards.each do | card |
+            .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
+              %a.btn.btn-default.credit-card-button.select-visa
+                = image_tag card["logo_url"]
         .row.payment-content.active.no-margin
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
             %b Thanh toán bằng thẻ ATM nội địa
@@ -162,10 +155,10 @@
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
         .row.no-margin
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
-            - (1..30).each do
+            - @local_card_banks.each do | card |
               .col-sm-4.col-md-3.col-lg-2
                 %a.btn.btn-default.btn-raised.bank-card.select-bank
-                  %img{:src => "http://i.imgur.com/vAEItQT.png"}
+                  = image_tag card["logo_url"]
         .row.no-margin
           .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
             %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học  
