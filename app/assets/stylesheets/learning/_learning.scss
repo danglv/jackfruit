@@ -115,24 +115,28 @@
       }
       .lecture-progress {
 
-        .progress-title {
-          float: left;
-          width: 100%;
-
-          &-content {
-            list-style: none;
-            padding: 0px;
-          }
-          &-content, &-item {
-            float: left;
-            margin-right: 4px;
-          }
-        }
+          
         .trophy {
           text-align: right;
           margin: 2px 0px;
           font-size: 20px;
-          color: #b6b6b6
+          color: #b6b6b6;
+          .progress-title {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+          
+            &-content {
+              list-style: none;
+              padding: 0px;
+              font-size: 14px;
+              color: #212121;
+            }
+            &-content, &-item {
+              float: left;
+              margin-right: 4px;
+            }
+          }
         }
         .progress-container {
 
@@ -615,6 +619,15 @@
 /* Medium devices (desktops, 768px and up) */
 @media (min-width: 768px) { 
   .learning {
+    &-header {
+      &-container {
+        .course-name {
+          width: auto;
+          font-size: 24px;
+          font-weight: normal;
+        }
+      }
+    }
     &-container {
       width: 750px;
     }
