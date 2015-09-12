@@ -58,12 +58,14 @@ Rails.application.routes.draw do
 
   # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   get "/users/:id/show" => "users#show", as: :user
+
+  get "/users/set_course_for_user" => "users#set_course_for_user", as: :set_course
   # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
 
   resources :users, :path => 'home/my-course', only: %w[] do
     member do
     end
-    collection do      
+    collection do
       get :select_course
       get :learning
       get :teaching

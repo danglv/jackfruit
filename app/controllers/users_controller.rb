@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
-  before_filter :validate_course, only: [:select_course]
+  before_filter :validate_course, only: [:select_course, :set_course_for_user]
 
   def index
     learning
@@ -104,6 +104,36 @@ class UsersController < ApplicationController
     }
 
     head :ok
+  end
+
+  def set_course_for_user
+    user_id = params[:user_id]
+
+    if user_id.blank?
+      render json:{:message => "Thiếu user_id"}
+      return
+    end
+
+    current_user = User.where(:id => user_id).first
+
+    if current_user.blank?
+      render json:{:message => "Sai user_id"}
+      return
+    end
+
+    owned_course = current_user.courses.where(course_id: @course.id).first
+    if owned_course.blank?
+      owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
+      UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
+    end
+
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+    init_lectures_for_owned_course(owned_course, @course)
+    current_user.save
+
+    render json:{:message => "SUCCESS!!!"}
+    return
   end
 
   def select_course
