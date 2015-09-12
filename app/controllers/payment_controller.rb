@@ -269,6 +269,8 @@ class PaymentController < ApplicationController
       owned_course = current_user.courses.where(course_id: @course.id).first
       owned_course.payment_status = Constants::PaymentStatus::CANCEL
       owned_course.save
+    else
+      @course = Course.last
     end
   end
 
