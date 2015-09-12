@@ -262,7 +262,6 @@ class PaymentController < ApplicationController
 
   # GET
   def cancel
-    binding.pry
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
       @course = Course.where(id: @payment.course_id).first
@@ -270,6 +269,8 @@ class PaymentController < ApplicationController
       owned_course = current_user.courses.where(course_id: @course.id).first
       owned_course.payment_status = Constants::PaymentStatus::CANCEL
       owned_course.save
+    else
+      @course = Course.last
     end
   end
 
