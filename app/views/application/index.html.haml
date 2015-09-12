@@ -78,20 +78,12 @@
                   %a{:href => "#"} Disabled link
                 %li
                   %a{:href => "#"} Another link
-            .search-box
-              %form
-                %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-                %button.btn-search{:type => "submit"}
-                  %i.fa.fa-search
+            = render :partial => "components/search_box"
             .btn-group.search-dropdown
               .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                 %i.fa.fa-search
               .dropdown-menu
-                .search-box
-                  %form
-                    %input.form-control.search-input{:type => "text", :name => "q", :placeholder => ""}
-                    %button.btn-search{:type => "submit"}
-                      %i.fa.fa-search
+                = render :partial => "components/search_box"
           .header-col
             .logo
               / = image_tag "logo.png"
@@ -128,8 +120,7 @@
               .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
                 %h5.header-description Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
               .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
-                %input.form-control{:placeholder => "Tìm một khóa học", :type => "text"}
-                %i.fa.fa-search
+                = render :partial => "components/search_box"
             .container
               .row.no-margin.categories
                 .layout-320
@@ -196,8 +187,7 @@
                 %span.splash-box-subtitle Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
             .row.no-margin
               .col-lg-12.no-padding
-                %input.form-control{:placeholder => "Tìm một khóa học", :type => "text"}
-                %i.fa.fa-search
+                = render :partial => "components/search_box"
             .row.no-margin.hooks
               .col-lg-4.no-padding
                 .row.no-margin.hook
@@ -255,11 +245,7 @@
           / = image_tag "logo.png"
           %img{:src => "http://i.imgur.com/gNAMKhW.png"}
       .header-col.text-right
-        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
-          Đăng kí
-          .ripple-wrapper
-        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
-          Đăng nhập
-          .ripple-wrapper
+        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"} Đăng kí
+        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}Đăng nhập
 
         
