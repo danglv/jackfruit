@@ -55,7 +55,7 @@
                 .row.chap-title #{curriculum.title}
               - else
                 .row.chap-item
-                  %a{:href => ""}
+                  %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                     .row.item-container
                       .chap-item-status
                         - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
