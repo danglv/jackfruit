@@ -1,4 +1,4 @@
-= render :partial => 'components/header/index'
+= render :partial => 'components/header/default'
 .container-wrapper{:style => "overflow: hidden;"}  
   %main.profile
     .container
@@ -6,8 +6,8 @@
         .col-lg-3.col-md-4.col-sm-12.col-xs-12.profile-top
           .profile-left
             .profile-image
-              = image_tag "profile_default.png",:style => 'width:100%'
-            .profile-name.text-center.bold{:style => 'font-size:16px'} Rihanna
+              = image_tag "#{@current_user.avatar}",:style => 'width:100%'
+            .profile-name.text-center.bold{:style => 'font-size:16px'} #{@current_user.name}
             %ul.profile-nav.nav.nav-tabs.no-padding
               %li.profile-item-nav.active{:role => "presentation"}
                 %a{:href => "#profile","data-toggle" => 'tab'} Thông tin cá nhân
@@ -25,22 +25,31 @@
                 %form{:action => ""}
                   .form-title.bold Cơ bản
                   .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => 'Học hàm'}
+                    %input.form-control{:type => "text",:placeholder => "#{@current_user.desination.blank? ? 'Học hàm' : ''}", :value => "#{@current_user.desination}"}
                   .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => 'Họ'}
+                    %input.form-control{:type => "text",:placeholder => "#{@current_user.last_name.blank? ? 'Họ' : ''}", :value => "#{@current_user.last_name}"}
                   .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => 'Tên'}
+                    %input.form-control{:type => "text",:placeholder => "#{@current_user.first_name.blank? ? 'Tên' : ''}", :value => "#{@current_user.first_name}"}
                   .group-profile-input.group-headline
                     %input.form-control{:type => "text",:placeholder => 'Đơn vị công tác'}
                   .form-title.bold Tiểu sử
                   .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => 'Thông tin'}
+                    %input.form-control{:type => "text",:placeholder => "#{@current_user.biography.blank? ? 'Thông tin' : ''}", :value => "#{@current_user.biography}"}
                   .group-profile-input
                     %select.form-control{:name => ""}
-                      %option{:value => ""} Lựa chọn ngôn ngữ
-                      %option{:value => ""} Tiếng Việt
-                      %option{:value => ""} Tiếng Anh
-                      %option{:value => ""} Tiếng Pháp
+                      %option{:value => "vi"} Lựa chọn ngôn ngữ
+                      - if @current_user.lang == "vi"
+                        %option{:value => "vi", :selected => ""} Tiếng Việt
+                      - else
+                        %option{:value => "vi"} Tiếng Việt
+                      - if @current_user.lang == "en"
+                        %option{:value => "en", :selected => ""} Tiếng Anh
+                      - else
+                        %option{:value => "en"} Tiếng Anh
+                      - if @current_user.lang == "fr"
+                        %option{:value => "fr", :selected => ""} Tiếng Pháp
+                      - else
+                        %option{:value => "fr"} Tiếng Pháp
                   .form-title.bold Link
                   .group-profile-input
                     %input.form-control{:type => "text",:style => 'text-indent:39px',:placeholder => 'Website'}
@@ -76,7 +85,7 @@
               %form.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3.col-xs-12
                 .avatar-title.bold Xem trước
                 .avatar-image
-                  = image_tag "profile_default.png",:style => 'width:100%'
+                  = image_tag "#{@current_user.avatar}",:style => 'width:100%'
                   .avatar-detail{:style => 'color:#212121;padding-top:10px'} Bức ảnh mà bạn chọn phải có phải có định dạng jpeg hoặc png
                 .avatar-action
                   .avatar-action-title.bold Thêm/Thay đổi ảnh
@@ -92,7 +101,7 @@
               %form.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
                 .profile-account-title.bold{:style => 'font-size:16px;'} Email
                 .group-input-account.account-email
-                  %input.form-control{:type => "text",:placeholder => 'test@gmail.com'}
+                  %input.form-control{:type => "text",:placeholder => "#{@current_user.email.blank? ? 'yourname@gmail.com' : ''}", :value => "#{@current_user.email}", :disabled => ""}
                 .profile-account-title.bold{:style => 'font-size:16px;'} Mật khẩu
                 .group-input-account
                   %input.form-control{:type => "password",:placeholder => 'Mật khẩu hiện tại'}/

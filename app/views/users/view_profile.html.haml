@@ -1,12 +1,12 @@
-= render :partial => 'components/header/index'
+= render :partial => 'components/header/default'
 .container-wrapper{:style => "overflow: hidden;"}  
   %main.profile-view
     .main-header
       .container
         .row
           .col-lg-offset-1.col-lg-10.col-md-offset-1.col-md-10.col-sm-12.col-xs-12
-            .header-title Rihanna
-            .header-text Good girl gone bad
+            .header-title #{@current_user.name}
+            .header-text The world will be destroyed
     %section.profile-detail
       .container
         .row
@@ -43,11 +43,15 @@
     %section.profile-course{:style => 'padding-top:20px'}
       .container.text-center.tab-content
         #studying.tab-pane.fade.active.in
-          - (1..12).each do |a|
-            = render :partial => 'components/courses/learning_card'
+          / - (1..12).each do |a|
+          /   = render :partial => 'components/courses/learning_card'
+          - @current_user.courses.each do |course|
+            = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
         #favorite.tab-pane.fade
-          - (1..8).each do |a|
-            = render :partial => 'components/courses/course_card'
+          - @current_user.courses.each do |course|
+            = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
+          / - (1..8).each do |a|
+          /   = render :partial => 'components/courses/course_card'
     %section.profile-pagination
       .container.text-center
         %ul.pagination

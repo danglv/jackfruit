@@ -1,25 +1,40 @@
 .row.no-margin.lecture 
   .col-xs-12.col-sm-7.col-md-8.col-lg-9.lecture-player
     .row.lecture-player-header.no-margin 
-      %a.lecture-back
+      %a.lecture-back{:href => "/courses/#{@course.alias_name}/learning"}
         %i.fa.fa-play-circle
-        %span Quay lại   
+        %span Quay lại
+      - @index_lecture = @lecture.lecture_index.to_i
       %ul.no-padding.no-margin.lecture-tools 
-        %li
-          %a.player-navigation-back Bài giảng trước 
+        - if @index_lecture !=0
+          %li
+            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước 
         %li.full-screen
           %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
-      %iframe{:src => "https://www.youtube.com/embed/tKWCOZ_PwMA"}
+      - if @lecture.url.index('v=').blank?
+        - @indexStart = @lecture.url.index('.be/') + 4
+        - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
+      - else
+        - @indexStart = @lecture.url.index('v=') + 2
+      - if @lecture.url['&']
+        - @indexEnd = @lecture.url.index('&')-1
+        - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+      - else
+        - @indexEnd = @lecture.url.length
+        - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
+      - if @youtube_id
+        %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
     .row.lecture-player-footer.no-margin
       %a.lecture-autoplay 
         %span Tự động chạy:
         %span.open Bật 
-      %ul.no-padding.no-margin.lecture-tools
-        %li
-          %a.player-navigation-next Bài giảng tiếp 
-        %li
-          %i.visibility-collapse s
+      - if @lecture.lecture_index.to_i != @owned_course.lectures.count-1 
+        %ul.no-padding.no-margin.lecture-tools
+          %li
+            %a.player-navigation-next{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture+1}"} Bài giảng tiếp 
+          %li
+            %i.visibility-collapse s
   .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
     %ul.nav.nav-tabs.lecture-container-header
       %li.active
@@ -37,285 +52,40 @@
     .tab-content
       #lecture-tab-list.tab-pane.fade.active.in
         .row.no-margin.list-lecture-container
-          .row.chap-title Chương 1: My First Section
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                / completed
-                / learning
-                / none
-                / glyphicon glyphicon-ok
-                /glyphicon glyphicon-pencil
-                .status-container.completed
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
+          - @owned_lectures = @owned_course.lectures
+          - @course.curriculums.each do |curriculum|
+            - if curriculum.type == 'chapter'
+              .row.chap-title #{curriculum.title}
+            - else
+              .row.chap-item
+                .row.item-container
+                  .chap-item-status
+                    - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                      .status-container.none
+                        %i.fa.fa-check
+                    - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                      .status-container.learning
+                        %i.fa.fa-pencil
+                    - else
+                      .status-container.completed
+                        %i.fa.fa-check
+                  .chap-item-content
+                    .row.no-margin{:style => 'width:260px'}
+                      %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"} Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                    .row.no-margin
+                      .row.type-document
+                        %ul.no-padding
+                          %li 
+                            %a{:href => "#"}
+                              %i.fa.fa-play-circle
+                          %li
+                            %span #{curriculum.description}
+                          %li
+                            %a{:href => "#"}
+                              %i.fa.fa-download
+                          %li
+                            %a{:href => "#"}
                           %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.learning
-                  %i.fa.fa-pencil
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span Văn bản
-                      %li
-                        %a{:href => "#"}  
-                          %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document
-          .row.chap-title Chương 1: My First Section
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                / completed
-                / learning
-                / none
-                / glyphicon glyphicon-ok
-                /glyphicon glyphicon-pencil
-                .status-container.completed
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.learning
-                  %i.fa.fa-pencil
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span Văn bản
-                      %li
-                        %a{:href => "#"}  
-                          %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document        
-          .row.chap-title Chương 1: My First Section
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                / completed
-                / learning
-                / none
-                / glyphicon glyphicon-ok
-                /glyphicon glyphicon-pencil
-                .status-container.completed
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 1: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.learning
-                  %i.fa.fa-pencil
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 2: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span Văn bản
-                      %li
-                        %a{:href => "#"}  
-                          %i.fa.fa-comments
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 3: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document
-          .row.chap-item
-            .row.item-container
-              .chap-item-status
-                .status-container.none
-                  %i.fa.fa-check
-              .chap-item-content
-                .row.no-margin 
-                  %a{:href => "#"}Bài giảng 4: Introduction To The Course
-                .row.no-margin
-                  .row.type-document
-                    %ul.no-padding
-                      %li 
-                        %a{:href => "#"}
-                          %i.fa.fa-play-circle
-                      %li
-                        %span 09:58
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-download
-                      %li
-                        %a{:href => "#"}
-                          %i.fa.fa-comments
-                    .row.type-document
       #lecture-tab-download.tab-pane.fade
       #lecture-tab-discussion.tab-pane.fade
       #lecture-tab-note.tab-pane.fade
