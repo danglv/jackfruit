@@ -369,7 +369,6 @@ class PaymentController < ApplicationController
       payments = Payment.where(condition)
     end
 
-    binding.pry
     total_pages = (payments.count.to_f / per_page).ceil
     next_page = page >= total_pages ? 0 : page + 1
 
