@@ -11,49 +11,54 @@
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.no-padding{:style => "margin-bottom: 20px"}
             %b Thông tin thanh toán
-        .row.no-margin
-          .col-xs-12.no-padding.payment-editor
-            %input.form-control{:placeholder => "Tên đầy đủ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.no-padding.payment-editor
-            %input.form-control{:placeholder => "Email", :type => "text"}
-        .row.no-margin
-          .col-xs-12.no-padding.payment-editor
-            %input.form-control{:placeholder => "Địa chỉ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.no-padding.payment-editor
-            %input.form-control{:placeholder => "Số điện thoại", :type => "text"}
-        .row.payment-content.active.no-margin
-          .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
-          .col-xs-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          - @credit_cards.each do | card |
-            .col-xs-12.no-padding
-              %a.btn.btn-default.credit-card-button.select-visa
-                = image_tag card["logo_url"]
-        .row.payment-content.active.no-margin
-          .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ ATM nội địa
-          .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
-            %form
+        %form{:method => "post",:action => "/home/payment/online_payment"}
+          .row.no-margin
+            %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
+            %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
+            %input{:type => "hidden", :name => "p", :value => 'baokim'}
+          .row.no-margin
+            .col-xs-12.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
+          .row.no-margin
+            .col-xs-12.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_email", :placeholder => "Email", :required => "required"}/
+          .row.no-margin
+            .col-xs-12.no-padding.payment-editor
+              %input{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}/
+          .row.no-margin
+            .col-xs-12.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_phone_no", :placeholder => "Số điện thoại", :required => "required"}/
+          .row.payment-content.active.no-margin
+            .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
+              %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
+            .col-xs-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
+            - @credit_cards.each do |card|
+              .col-xs-12.no-padding
+                %input.btn.btn-default.credit-card-button.select-card{:required => "required", :checked => "checked", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                  = image_tag card['logo_url']
+          .row.payment-content.active.no-margin
+            .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
+              %b Thanh toán bằng thẻ ATM nội địa
+            .col-xs-12.no-padding{:style => "margin-bottom: 15px"}
               %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
               %a.btn-search
                 %i.fa.fa-search
-          .col-xs-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
-        .row.no-margin{:style => "margin-bottom: 20px"}
-          .col-xs-12.no-padding
-            %ul.bank-list.no-padding
-              - @local_card_banks.each do | card |
-                %li.row.no-margin.list
-                  .col-xs-2.no-padding
-                    %a.bank-icon{:href => "#"}
-                      = image_tag card["logo_url"]
-                  .col-xs-10
-                    %h5.normal-text.no-margin.bank-label= card["name"]
-                .divider
-        .row.no-margin{:style => "margin-bottom: 40px"}
-          .col-xs-12.no-padding
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học        
+            .col-xs-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
+          .row.no-margin{:style => "margin-bottom: 20px"}
+            .col-xs-12.no-padding
+              %ul.bank-list.no-padding
+                - @local_card_banks.each do |card|
+                  %li.row.no-margin.list
+                    .col-xs-2.no-padding
+                      %input.bank-icon{:required => "required", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                        = image_tag card['logo_url']
+                    .col-xs-10
+                      %h5.normal-text.no-margin.bank-label= card['id']
+                  .divider
+          .row.no-margin{:style => "margin-bottom: 40px"}
+            .col-xs-12.no-padding
+              = hidden_field_tag :authenticity_token, form_authenticity_token
+              %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}       
   = render :partial => 'components/footer/index'   
 
 .layout-480-up.hidden-sm.hidden-md.hidden-lg
@@ -69,49 +74,54 @@
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
             %b Thông tin thanh toán
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Tên đầy đủ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Email", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Địa chỉ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Số điện thoại", :type => "text"}
-        .row.payment-content.active.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          - @credit_cards.each do | card |
-            .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
-              %a.btn.btn-default.credit-card-button.select-visa
-                = image_tag card["logo_url"]
-        .row.payment-content.active.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ ATM nội địa
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.visible-xs-block{:style => "margin-bottom: 15px"}
-            %form
-              %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
-              %a.btn-search
-                %i.fa.fa-search
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
-        .row.no-margin{:style => "margin-bottom: 20px"}
-          .col-xs-12.no-padding
-            %ul.bank-list.no-padding
-              - @local_card_banks.each do | card |
-                %li.row.no-margin.list
-                  .col-xs-2.no-padding
-                    %a.bank-icon{:href => "#"}
-                      = image_tag card["logo_url"]
-                  .col-xs-10
-                    %h5.normal-text.no-margin.bank-label= card["name"]
-                .divider
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học  
+          %form{:method => "post",:action => "/home/payment/online_payment"}
+            .row.no-margin
+              %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
+              %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
+              %input{:type => "hidden", :name => "p", :value => 'baokim'}
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+                %input{:type => "text", :name => "payer_name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+                %input{:type => "text", :name => "payer_email", :placeholder => "Email", :required => "required"}/
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+                %input{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}/
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+                %input{:type => "text", :name => "payer_phone_no", :placeholder => "Số điện thoại", :required => "required"}/
+            .row.payment-content.active.no-margin
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
+                %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
+              - @credit_cards.each do |card|
+                .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
+                  %input.btn.btn-default.credit-card-button.select-card{:required => "required", :checked => "checked", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                    = image_tag card['logo_url']
+            .row.payment-content.active.no-margin
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
+                %b Thanh toán bằng thẻ ATM nội địa
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.visible-xs-block{:style => "margin-bottom: 15px"}
+                %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
+                %a.btn-search
+                  %i.fa.fa-search
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
+            .row.no-margin{:style => "margin-bottom: 20px"}
+              .col-xs-12.no-padding
+                %ul.bank-list.no-padding
+                  - @local_card_banks.each do |card|
+                    %li.row.no-margin.list
+                      .col-xs-2.no-padding
+                        %input.bank-icon{:required => "required", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                          = image_tag card['logo_url']
+                      .col-xs-10
+                        %h5.normal-text.no-margin.bank-label= card['id']
+                    .divider
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
+                = hidden_field_tag :authenticity_token, form_authenticity_token
+                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}       
   = render :partial => 'components/footer/index'   
 
 .row.no-margin.hidden-xs
@@ -127,39 +137,45 @@
           %h4 2. Hoàn tất thanh toán
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
             %b Thông tin thanh toán
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Tên đầy đủ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Email", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Địa chỉ", :type => "text"}
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
-            %input.form-control{:placeholder => "Số điện thoại", :type => "text"}
-        .row.payment-content.active.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
-          - @credit_cards.each do | card |
-            .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
-              %a.btn.btn-default.credit-card-button.select-visa
-                = image_tag card["logo_url"]
-        .row.payment-content.active.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
-            %b Thanh toán bằng thẻ ATM nội địa
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.visible-xs-block{:style => "margin-bottom: 15px"}
-            %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
-        .row.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
-            - @local_card_banks.each do | card |
-              .col-sm-4.col-md-3.col-lg-2
-                %a.btn.btn-default.btn-raised.bank-card.select-bank
-                  = image_tag card["logo_url"]
-        .row.no-margin
-          .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
-            %a.btn.btn-success.btn-raised.btn-lg.purchase-button Đặt mua khóa học  
+        %form{:method => "post",:action => "/home/payment/online_payment"}
+          .row.no-margin
+            %input{:type => "hidden", :name => "alias_name", :value => @course.alias_name}
+            %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
+            %input{:type => "hidden", :name => "p", :value => 'baokim'}
+          .row.no-margin
+            .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
+          .row.no-margin
+            .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_email", :placeholder => "Email", :required => "required"}/
+          .row.no-margin
+            .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+              %input{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}/
+          .row.no-margin
+            .col-xs-12.col-sm-4.col-md-4.col-lg-4.no-padding.payment-editor
+              %input{:type => "text", :name => "payer_phone_no", :placeholder => "Số điện thoại", :required => "required"}/
+          .row.payment-content.active.no-margin
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor{:style => "margin-bottom: 15px"}
+              %b Thanh toán bằng thẻ Tín dụng và Ghi nợ quốc tế
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding (Áp dụng cho học viên có thẻ Visa hoặc MasterCard)
+            - @credit_cards.each do |card|
+              .col-xs-6.col-sm-4.col-md-3.col-lg-2.no-padding
+                %input.btn.btn-default.credit-card-button.select-card{:required => "required", :checked => "checked", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                  = image_tag card['logo_url']
+          .row.payment-content.active.no-margin
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 15px"}
+              %b Thanh toán bằng thẻ ATM nội địa
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.visible-xs-block{:style => "margin-bottom: 15px"}
+              %input.form-control{:placeholder => "Nhập tên loại thẻ/ngân hàng cần tìm", :type => "text"}
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"} (Áp dụng cho học viên có tài khoản thẻ nội địa (ATM) tại ngân hàng tương ứng và có đăng ký dịch vụ Internet Banking và mua hàng trực tuyến)
+          .row.no-margin
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding{:style => "margin-bottom: 20px"}
+              - @local_card_banks.each do |card|
+                .col-sm-4.col-md-3.col-lg-2
+                  %input.bank-icon.select-card{:required => "required", :name => "bank_payment_method_id", :type => "text", :id => card['id'], :value => card['id']}
+                    = image_tag card['logo_url']
+          .row.no-margin
+            .col-xs-12.col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4.col-lg-4.col-lg-offset-4.no-padding{:style => "margin-bottom: 40px"}
+              = hidden_field_tag :authenticity_token, form_authenticity_token
+                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}         
   = render :partial => 'components/footer/index'   
