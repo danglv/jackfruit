@@ -1,12 +1,13 @@
 .learning-card
-  %a{:href => '#'}
+  - @progress = owned_course.lectures.where(:status => 2).count * 100/owned_course.lectures.count
+  %a{:href => "/courses/#{course.alias_name}/learning"}
     .course-image.no-margin
-      = image_tag 'course-image.png'
+      = image_tag course.image
     .learning-card-content
-      %span.ellipsis-2lines.course-title iOS7 Programming: Fast Start!
-      %span.no-margin.ellipsis-1lines.course-author By ThanhNguyễn
+      %span.ellipsis-2lines.course-title= course.name
+      %span.no-margin.ellipsis-1lines.course-author= course.user.name
       .progress
-        .progress-bar.progress-completed{:style => "width: 50%;"}
+        .progress-bar.progress-completed{:style => "width: #{@progress}%;"}
         / &-completed {
         /   background-color: #17AA1C;
         / }
@@ -16,7 +17,10 @@
         / &-begin {
         /   background-color: #BFBFBF;
         / }
-      %span.learning-status.learning-text 50% completed
+      - if @progress == 0
+        %span.learning-status.learning-text{:style => 'color:#009688'} Bắt đầu
+      - else
+        %span.learning-status.learning-text #{@progress} %
       / .completed-text {
       /   color: #BCBCBC;
       / }
@@ -28,16 +32,13 @@
       / }
       .rating-container
         %ul.rating.rating-active
-          %li
-            %i.fa.fa-star.star.rated{:val => "1"}
-          %li
-            %i.fa.fa-star.star.rated{:val => "2"}
-          %li
-            %i.fa.fa-star.star.rated{:val => "3"}
-          %li
-            %i.fa.fa-star.star.rated{:val => "4"}
-          %li
-            %i.fa.fa-star.star.rated{:val => "5"}
+          - (1..5).each do |i|
+            - if i <= course.rating
+              %li
+                %i.fa.fa-star.star.rated
+            - else
+              %li
+                %i.fa.fa-star.star
           %br
           %li{:style => "float:right"}
             %span.rate-it Rate it   

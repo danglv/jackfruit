@@ -75,7 +75,6 @@ class UsersController < ApplicationController
       :type => learning,
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
-
   end
 
   def teaching
