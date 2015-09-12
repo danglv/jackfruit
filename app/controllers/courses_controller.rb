@@ -406,4 +406,18 @@ class CoursesController < ApplicationController
       return
     end
   end
+
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+    keywords = Utils.nomalize_string(keywords)
+    pattern = /#{Regexp.escape(keywords)}/
+
+    courses = Course.where(:alias_name => pattern).map { |course|
+      CourseSerializer.new(course).suggestion_search_hash
+    }
+
+    render json: courses, root: false
+    return
+  end
 end
