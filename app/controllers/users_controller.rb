@@ -107,7 +107,7 @@ class UsersController < ApplicationController
   end
 
   def select_course
-    if @course.price == 0
+    if @course.price == 0 || @price == 0
       owned_course = current_user.courses.where(course_id: @course.id).first
       if owned_course.blank?
         owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())

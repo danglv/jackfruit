@@ -5,6 +5,8 @@ class PaymentController < ApplicationController
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :update]
   before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+  before_action :cancel_payment_logic, :only => [:cod, :online_payment, :card]
+
   # GET
   def index
     payment = Payment.where(
@@ -54,8 +56,8 @@ class PaymentController < ApplicationController
       address = params[:address]
       city = params[:city]
       district = params[:district]
-      
-      payment = Payment.find_or_initialize_by(
+
+      payment = Payment.create(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
@@ -106,9 +108,6 @@ class PaymentController < ApplicationController
     @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
     @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
     if request.method == 'POST'
-      # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
-      Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
-      
       payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
@@ -422,6 +421,16 @@ class PaymentController < ApplicationController
   end
 
   private
+    def cancel_payment
+      Payment.where(:user_id => current_user.id, course_id: @course.id).update_all(status: "cancel")
+    end
+
+    def cancel_payment_logic
+      if request.method == "POST"
+        cancel_payment
+      end
+    end
+
     def validate_payment
       payment_id = params[:id]
       @payment = Payment.where(:id => payment_id).first
