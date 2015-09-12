@@ -40,9 +40,9 @@ class Payment
       :user_id => self.user_id,
       :course_id => self.course_id,
       :status => Constants::PaymentStatus::SUCCESS
-    ).first
+    ).count
 
-    errors.add(:user_id, "khoa hoc da duoc mua thanh cong") unless payment.blank?
+    errors.add(:user_id, "khoa hoc da duoc mua thanh cong") if payment > 1
   end
 
   def check_method_cod

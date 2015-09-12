@@ -340,12 +340,14 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(@payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data! #{@payment.errors.as_json}"}
     end
   end
 
   # GET: API list payment for mercury
   def list_payment
+
+    keywords = params[:keyword]
     name = params[:name]
     method = params[:method]
     payment_date = params[:date]
@@ -353,12 +355,21 @@ class PaymentController < ApplicationController
     per_page = params[:per_page] || 10
 
     condition = {}
-    condition[:name] = /#{Regexp.escape(name)}/ unless name.blank?
     condition[:method] = method unless method.blank?
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
-    payments = Payment.where(condition)
+    conditionName = {}
+    conditionName[:name] = /#{Regexp.escape(keywords)}/ 
 
+    conditionId = {}
+    conditionId[:id] = keywords
+    if !keywords.blank?
+      payments = Payment.or(conditionName, conditionId)
+    else 
+      payments = Payment.where(condition)
+    end
+
+    binding.pry
     total_pages = (payments.count.to_f / per_page).ceil
     next_page = page >= total_pages ? 0 : page + 1
 
