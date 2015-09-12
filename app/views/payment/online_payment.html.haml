@@ -1,6 +1,5 @@
-/ Màn hình từ 320px
 .layout-320
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
@@ -63,7 +62,7 @@
   = render :partial => 'components/footer/index'   
 
 .layout-480-up.hidden-sm.hidden-md.hidden-lg
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     %main.payment
       .row.no-margin
@@ -126,7 +125,7 @@
   = render :partial => 'components/footer/index'   
 
 .row.no-margin.hidden-xs
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}   
     %main.payment
       .row.no-margin
