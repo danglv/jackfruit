@@ -1,6 +1,6 @@
 .layout-320
   .header
-    = render :partial => 'components/header/index'
+    = render :partial => 'components/header/default'
     .container-wrapper{:style => "overflow: hidden;"}
       %main.courses-select
         .row.no-margin.top
@@ -42,7 +42,7 @@
 
 .layout-480-up.hidden-sm.hidden-md.hidden-lg
   .header
-    = render :partial => 'components/header/index'
+    = render :partial => 'components/header/default'
     .container-wrapper{:style => "overflow: hidden;"}
       %main.courses-select
         .row.no-margin.top
@@ -83,7 +83,7 @@
   = render :partial => 'components/footer/index'
 
 .layout-480-up.hidden-xs
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}
     %main.courses-select
       .row.no-margin.top
