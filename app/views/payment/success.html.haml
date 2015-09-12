@@ -13,29 +13,26 @@
             .col-xs-12.no-padding
               %h5.normal-text
                 Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
-                %a.link-text{:href => "#"} Lịch sử giao dịch
+                %a.link-text{:href => "/home/payment/#{@course.alias_name}/payment_history"} Lịch sử giao dịch
                 để được cập nhật thường xuyên.
           .row.no-margin
             .col-xs-3.no-padding
               %h5.normal-text.left-align Khóa học
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align
-                %b Kỹ năng thuyết trình và nói trước công chúng
-              / %h5 @course.name
+                %b= @course.name
           .row.no-margin
             .col-xs-3.no-padding
               %h5.normal-text.left-align Chi phí
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align.price-text
-                %b 300.000đ
-              / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row.no-margin{:style => "margin-bottom: 20px"}
             .col-xs-3.no-padding
               %h5.normal-text.left-align Trạng thái
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align.success-text
                 %b Thành công
-              / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
@@ -46,10 +43,10 @@
                 %b 0961215368
           .row.no-margin{:style => "margin-bottom: 25px;"}
             .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button khám phá các khóa học khác
+              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
           .row.no-margin
             .col-xs-12.no-padding.center-align
-              %a{:href => "#", :style => "text-decoration: none;"}
+              %a{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning", :style => "text-decoration: none;"}
                 %span.other-course-text Vào học ngay
   = render :partial => 'components/footer/index'   
 
@@ -68,29 +65,26 @@
             .col-xs-12.no-padding
               %h5.normal-text
                 Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
-                %a.link-text{:href => "#"} Lịch sử giao dịch
+                %a.link-text{:href => "/home/payment/#{@course.alias_name}/payment_history"} Lịch sử giao dịch
                 để được cập nhật thường xuyên.
           .row.no-margin
             .col-xs-2.no-padding
               %h5.normal-text.left-align Khóa học
             .col-xs-8.col-xs-offset-2.no-padding
               %h5.right-align
-                %b Kỹ năng thuyết trình và nói trước công chúng
-              / %h5 @course.name
+                %b= @course.name
           .row.no-margin
             .col-xs-2.no-padding
               %h5.normal-text.left-align Chi phí
             .col-xs-8.col-xs-offset-2.no-padding
               %h5.right-align.price-text
-                %b 300.000đ
-              / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row.no-margin{:style => "margin-bottom: 20px"}
             .col-xs-2.no-padding
               %h5.normal-text.left-align Trạng thái
             .col-xs-8.col-xs-offset-2.no-padding
               %h5.right-align.success-text
                 %b Thành công
-              / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
@@ -101,10 +95,10 @@
                 %b 0961215368
           .row.no-margin
             .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:style => "font-size: 16px;font-weight: bold"} Vào học ngay
+              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Vào học ngay
           .row.no-margin
             .col-xs-12.no-padding.center-align
-              %a{:href => "#", :style => "text-decoration: none;"}
+              %a{:href => "/courses", :style => "text-decoration: none;"}
                 %span.other-course-text khám phá các khóa học khác
   = render :partial => 'components/footer/index'   
 
@@ -123,7 +117,7 @@
             .row.no-margin{:style => "margin-bottom: 5px;"}
               %h5.normal-text
                 Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
-                %a.link-text{:href => "#"} Lịch sử giao dịch 
+                %a.link-text{:href => "/home/payment/#{@course.alias_name}/payment_history"} Lịch sử giao dịch 
                 để được cập nhật thường xuyên.
             .row.no-margin
               .content
@@ -131,16 +125,14 @@
                   %h5.normal-text Khóa học
                 .content-right
                   %h5
-                    %b Kỹ năng thuyết trình và nói trước công chúng
-                    / %h5 @course.name
+                    %b= @course.name
             .row.no-margin
               .content
                 .content-left
                   %h5.normal-text Chi phí
                 .content-right
                   %h5.price-text
-                    %b 300.000đ
-                  / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             .row.no-margin{:style => "margin-bottom: 20px"}
               .row.no-margin{:style => "margin-bottom: 20px"}
                 .content
@@ -149,7 +141,6 @@
                   .content-right
                     %h5.success-text
                       %b Thành công
-                    / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .divider{:style => "margin-bottom: 15px"}
           .container.full-width
             .row.no-margin{:style => "margin-bottom: 25px;"}
@@ -160,9 +151,9 @@
                   %b 0961215368
             .row.no-margin
               .payment-box-bottom
-                %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} Vào học ngay
+                %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Vào học ngay
             .row.no-margin
               .payment-box-bottom
-                %a{:href => "#", :style => "text-decoration: none;"}
+                %a{:href => "/courses", :style => "text-decoration: none;"}
                   %span.other-course-text khám phá các khóa học khác
     = render :partial => 'components/footer/index'   
