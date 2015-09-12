@@ -210,14 +210,14 @@ class CoursesController < ApplicationController
   end
 
   def learning
-    # @owned_course = current_user.courses.where(
-    #   :course_id => @course._id,
-    #   :payment_status => Constants::PaymentStatus::SUCCESS
-    # ).first
-    # if @owned_course.blank?
-    #   redirect_to root_url + "courses/#{@course.alias_name}/detail"
-    #   return
-    # end
+    @owned_course = current_user.courses.where(
+      :course_id => @course._id,
+      :payment_status => Constants::PaymentStatus::SUCCESS
+    ).first
+    if @owned_course.blank?
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
+      return
+    end
   end
 
   def lecture 
