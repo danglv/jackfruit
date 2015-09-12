@@ -402,7 +402,8 @@ class PaymentController < ApplicationController
       :name => name,
       :email => email,
       :address => address,
-      :mobile => mobile
+      :mobile => mobile,
+      :status => "success"
     )
 
     user = User.find(user_id)
