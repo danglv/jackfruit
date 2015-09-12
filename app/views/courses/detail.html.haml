@@ -62,10 +62,11 @@
           - if !@owned_course.blank?
             - if @owned_course.payment_status == 'pending'
               - if @payment.method == 'cod'
-                .col.xs-12.nopadding
-                  %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-              .col-xs-12.no-padding
-                %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                #cod-code-container.no-padding
+                  .col.xs-12.nopadding
+                    %input{:type => 'text', :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
+                .col-xs-12.no-padding
+                  %a.btn.btn-raised.btn-lg.pending-button#submit-cod-code Kích hoạt mã COD
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
                   %i.fa.fa-heart
