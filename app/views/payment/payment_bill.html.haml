@@ -1,5 +1,5 @@
 .layout-320
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     .payment.payment-bill
       .container
@@ -49,7 +49,7 @@
   = render :partial => 'components/footer/index'   
 
 .layout-480-up.hide-xs.hidden-sm.hidden-md.hidden-lg
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}    
     .payment.payment-bill
       .container
@@ -120,7 +120,7 @@
   = render :partial => 'components/footer/index'   
 
 .row.no-margin.hidden-xs
-  = render :partial => 'components/header/index'
+  = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
     .col-sm-12.col-md-12.col-lg-12.no-padding 
       .payment.payment-bill
