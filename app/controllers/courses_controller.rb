@@ -207,24 +207,35 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
-    if ["55c3306344616e0ca600001f", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
-      if params[:layout].to_i == 1
-        render :template => "courses/detail"
-        return
-      else
+    # if ["55c3306344616e0ca600001f", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
+    #   if params[:layout].to_i == 1
+    #     render :template => "courses/detail"
+    #     return
+    #   else
         
-        if @course.id.to_s == "55c3306344616e0ca600001f"
-          @is_experiment_tund = 1
-        elsif @course.id.to_s == "55cb2d3044616e15ca000000"
-          @is_experiment_ngocntn = 1
-        end
+    #     if @course.id.to_s == "55c3306344616e0ca600001f"
+    #       @is_experiment_tund = 1
+    #     elsif @course.id.to_s == "55cb2d3044616e15ca000000"
+    #       @is_experiment_ngocntn = 1
+    #     end
 
-        render :template => "courses/excel_detail"
-        return
-      end
-    elsif ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
-        render :template => "courses/detail_v3"
-        return
+    #     render :template => "courses/excel_detail"
+    #     return
+    #   end
+    # elsif ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+    #     render :template => "courses/detail_v3"
+    #     return
+    # else
+    #   render :template => "courses/detail"
+    #   return
+    # end
+
+    if ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+      render :template => "courses/detail_v3"
+      return
+    elsif @course.id.to_s == "55c3306344616e0ca600001f"
+      render :template => "courses/detail_combo_promo"
+      return
     else
       render :template => "courses/detail"
       return
@@ -351,20 +362,20 @@ class CoursesController < ApplicationController
     @courses  = {}
   
     labels.each {|label|
-    title = if Course::Localization::TITLES[label.to_sym].blank?
-      label
-    else
-      Course::Localization::TITLES[label.to_sym][I18n.default_locale]
-    end
+      title = if Course::Localization::TITLES[label.to_sym].blank?
+        label
+      else
+        Course::Localization::TITLES[label.to_sym][I18n.default_locale]
+      end
 
-    condition = {:enabled => true, :label_ids.in => [label]}
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-    else
-      condition[:version] = Constants::CourseVersions::PUBLIC
-    end
-    @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12)]
-   }
+      condition = {:enabled => true, :label_ids.in => [label]}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
+      @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12)]
+    }
   end
 
   def add_discussion
