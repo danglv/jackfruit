@@ -23,7 +23,10 @@
       - else
         %span= "1 giờ video"
     .course-image.no-margin
-      = image_tag course.image
+      - if course.image != ""
+        = image_tag course.image
+      - else
+        = image_tag 'http://tudemy.vn/assets/course-image-5e755c0910ca7b35381f2ea00091ed03bd786afecdf16714e5aa08a46d211b7e.png'
     .course-wishlist
       %svg{:height => "18", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 20 18", :width => "20", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
         %defs

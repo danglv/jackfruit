@@ -2,7 +2,10 @@
   - @progress = owned_course.lectures.where(:status => 2).count * 100/owned_course.lectures.count
   %a{:href => "/courses/#{course.alias_name}/learning"}
     .course-image.no-margin
-      = image_tag course.image
+      - if course.image != ""
+        = image_tag course.image
+      - else
+        = image_tag 'http://tudemy.vn/assets/course-image-5e755c0910ca7b35381f2ea00091ed03bd786afecdf16714e5aa08a46d211b7e.png'
     .learning-card-content
       %span.ellipsis-2lines.course-title= course.name
       %span.no-margin.ellipsis-1lines.course-author= course.user.name
