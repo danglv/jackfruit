@@ -1,3 +1,5 @@
+= render :partial => "devise/registrations/new"
+= render :partial => "devise/sessions/new"
 / Màn hình từ 320px đến 1200px
 .hidden-lg
   .row.no-margin
@@ -18,7 +20,7 @@
                 = render :partial => "components/search_box"
           .header-col
             .logo
-              %a{:href => "/courses"}= image_tag "logo.png"
+              %a{:href => "/courses"}= image_tag "logo-360.png"
           .header-col.text-right
             - if !current_user
               %a.btn.btn-default.btn-flat.hidden-xs.hidden-sm{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
@@ -27,8 +29,6 @@
               %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
                 Đăng nhập
                 .ripple-wrapper
-              = render :partial => "devise/registrations/new"
-              = render :partial => "devise/sessions/new"
             - else
               = render :partial => "components/user_dropdown"
         .slider-sidebar-wrapper.slider-sidebar-mobile
@@ -149,7 +149,7 @@
           .col-lg-12
             .row.no-margin
               .col-lg-10.col-lg-offset-1.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "#"} Khám phá các khóa học khác
+                %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses"} Khám phá các khóa học khác
             .row.no-margin
               .col-lg-6.col-lg-offset-3.no-padding
                 %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
@@ -165,8 +165,7 @@
       .header-col
       .header-col
         .logo
-          / = image_tag "logo.png"
-          %img{:src => "http://i.imgur.com/gNAMKhW.png"}
+          %a{:href => "/courses"}= image_tag "logo-360.png"
       .header-col.text-right
         %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"} Đăng kí
         %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}Đăng nhập

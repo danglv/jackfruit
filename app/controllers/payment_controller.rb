@@ -405,7 +405,8 @@ class PaymentController < ApplicationController
       owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
     }
 
-    course.students += 1
+    total_student = course.students + 1
+    course["students"] = total_student
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = Constants::PaymentStatus::SUCCESS
@@ -457,7 +458,9 @@ class PaymentController < ApplicationController
           owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
         }
 
-      @course.students += 1
+      total_student = @course.students + 1
+      @course["students"] = total_student
+    
       @course.save
 
       owned_course.type = Constants::OwnedCourseTypes::LEARNING
