@@ -25,7 +25,7 @@
         .col-xs-12.no-padding.normal-text
           - if @course.user
             Giảng dạy bởi 
-            %a.link-text.normal-text{:href => "#"}= @course.user.name
+            %a.link-text.normal-text= @course.user.name
           - else
             %a.link-text.normal-text{:href => "#"} Tudemy
       .row.no-margin
@@ -57,15 +57,22 @@
             %h3.course-price.free.no-margin Miễn phí
           - else
             %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            / %h3{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            / %h3.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
+            / %br
+            / %h3#expired_date= "Ngày hết hạn: " + @coupon.first['expired_date'].to_time.strftime("%d/%m/%Y")
       .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
         - if !current_user.blank?
           - if !@owned_course.blank?
-            - if @owned_course.payment_status == 'pending'
+            - if @owned_course.payment_status == 'pending' || @owned_course.payment_status == 'process'
               - if @payment.method == 'cod'
-                .col.xs-12.nopadding
-                  %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-              .col-xs-12.no-padding
-                %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                .cod-code-container.no-padding
+                  .col.xs-12.no-padding
+                    %input.form-control{:type => 'text', :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
+                  .col.xs-12.no-padding
+                    %i.txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                  .col.xs-12.no-padding
+                    %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{} Kích hoạt mã COD
               .col-xs-6.no-padding
                 %a.btn.btn-raised.btn-lg.favorite-button 
                   %i.fa.fa-heart
@@ -73,6 +80,15 @@
               .col-xs-12.no-padding
                 %h5.normal-text 
                   %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+              .col-xs-12.no-padding
+                %h5.normal-text 
+                  %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                  = succeed "" do
+                    %b Hủy giao dịch COD
+                  tại
+                  = succeed "" do
+                    %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                  và tiếp tục mua khóa học
             - else
               .col-xs-12.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -325,7 +341,7 @@
         .col-xs-12.no-padding.normal-text
           - if @course.user
             Giảng dạy bởi 
-            %a.link-text.normal-text{:href => "#"}= @course.user.name
+            %a.link-text.normal-text= @course.user.name
           - else
             %a.link-text.normal-text{:href => "#"} Tudemy
       .row.no-margin
@@ -365,12 +381,29 @@
                 - if !@owned_course.blank?
                   - if @owned_course.payment_status == 'pending'
                     - if @payment.method == 'cod'
-                      .col.xs-10.nopadding
-                        %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                    .col-xs-8.no-padding
-                      %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                    .col-xs-2
-                      %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                      .cod-code-container.no-padding
+                        .col.xs-10.no-padding
+                          %input.form-control{:type => 'text', :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
+                        .col-xs-8.no-padding
+                          %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px"} Kích hoạt mã COD
+                        .col-xs-2
+                          %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                            %i.fa.fa-heart
+                        .col-xs-10
+                          %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                        .col-xs-12.no-padding
+                      .col-xs-12.no-padding
+                        %h5.normal-text 
+                          %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                      .col-xs-12.no-padding
+                        %h5.normal-text 
+                          %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                          = succeed "" do
+                            %b Hủy giao dịch COD
+                          tại
+                          = succeed "" do
+                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                          và tiếp tục mua khóa học
                   - else
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -417,6 +450,7 @@
                       Bắt đầu học ngay
                   .col-xs-2
                     %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                      %i.fa.fa-heart
                 - else 
                   .col-xs-8.no-padding
                     %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -634,7 +668,7 @@
           .no-padding.normal-text.pull-left{:style => 'margin-right: 30px'}
             - if @course.user
               Giảng dạy bởi 
-              %a.link-text.normal-text{:href => "#"}= @course.user.name
+              %a.link-text.normal-text= @course.user.name
             - else
               %a.link-text.normal-text{:href => "#"} Tudemy
           .no-padding.author-information.pull-left
@@ -673,14 +707,29 @@
                   - if !@owned_course.blank?
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
-                        .col-sm-6.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                      .col-sm-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                      .col-sm-5
-                        %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.fa.fa-heart
-                          %span Ưa thích 
+                        .cod-code-container.no-padding
+                          .col-sm-6.no-padding
+                            %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text", :style => "height: 48px",:payment_id => @payment.id}
+                          .col-sm-6.no-padding
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px"} Kích hoạt mã COD
+                          .col-sm-12.no-padding
+                            %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                          .col-sm-5
+                            %a.btn.btn-raised.btn-lg.favorite-button 
+                              %i.fa.fa-heart
+                              %span Ưa thích 
+                          .col-sm-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-sm-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-sm-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -950,7 +999,7 @@
           .no-padding.normal-text.pull-left{:style => 'margin-right:30px'}
             - if @course.user
               Giảng dạy bởi 
-              %a.link-text.normal-text{:href => "#"}= @course.user.name
+              %a.link-text.normal-text= @course.user.name
             - else
               %a.link-text.normal-text{:href => "#"} Tudemy
           .no-padding.author-information.pull-left
@@ -988,14 +1037,29 @@
                   - if !@owned_course.blank?
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
-                        .col-md-3.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                      .col-md-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                      .col-md-6
-                        %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.fa.fa-heart
-                          %span Ưa thích 
+                        .cod-code-container.no-padding
+                          .col-md-3.no-padding
+                            %input.form-control{:type => 'text', :style => "height: 48px", :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
+                          .col-xs-8.no-padding
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px; width: 100%"} Kích hoạt mã COD
+                          .col-md-6
+                            %a.btn.btn-raised.btn-lg.favorite-button
+                              %i.fa.fa-heart
+                              %span Ưa thích 
+                          .col-md-12
+                            %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                          .col-md-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-md-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-md-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -1277,7 +1341,7 @@
           .no-padding.normal-text.pull-left{:style => 'margin-right:30px'}
             - if @course.user
               Giảng dạy bởi 
-              %a.link-text.normal-text{:href => "#"}= @course.user.name
+              %a.link-text.normal-text= @course.user.name
             - else
               %a.link-text.normal-text{:href => "#"} Tudemy
           .no-padding.author-information
@@ -1315,20 +1379,35 @@
                   - if !@owned_course.blank?
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
-                        .col-lg-3.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                      .col-lg-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
-                      .col-lg-6
-                        %a.btn.btn-raised.btn-lg.favorite-button 
-                          %i.fa.fa-heart
-                          %span Ưa thích 
+                        .cod-code-container.no-padding
+                          .col-lg-4.no-padding
+                            %input.form-control{:type => 'text', :style => "height: 48px", :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
+                          .col-lg-6
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px; width: 100%"} Kích hoạt mã COD
+                          .col-lg-6
+                            %a.btn.btn-raised.btn-lg.favorite-button
+                              %i.fa.fa-heart
+                              %span Ưa thích 
+                          .col-lg-12
+                            %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                          .col-lg-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-lg-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-lg-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                          %i.lgi-action-favorite
+                          %i.fa.fa-heart
                       .col-lg-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
