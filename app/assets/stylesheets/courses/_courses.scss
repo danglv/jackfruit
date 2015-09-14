@@ -133,6 +133,16 @@
   .description {
     margin: 20px 0 25px 0 !important;
   }
+  .short_description {
+    width: 100%;
+    line-height: 24px;
+    height: 180px;
+    overflow: hidden;
+  }
+  .long_description {
+    width: 100%;
+    height:auto;
+  }
   .curiculums {
     margin-bottom: 25px !important;
     .curiculum {

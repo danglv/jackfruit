@@ -94,6 +94,19 @@ $(document).ready(function () {
 
   });
 
+  $(".load-more").click(function () {
+    if ($(".description-content").hasClass("short_description")) {
+      $(".description-content").removeClass("short_description");
+      $(".description-content").addClass("long_description");
+      $(this).text("Thu gọn");
+    } else if ($(".description-content").hasClass("long_description")) {
+      $(".description-content").removeClass("long_description");
+      $(".description-content").addClass("short_description");
+      $(this).text("Xem chi tiết");
+    };
+    
+  });
+
   // $("#submit-coupon-code").on("click", function () {
   //   var input_code = $("#coupon-code-container input[type=text]")
   //   var coupon_code = input_code.val();
