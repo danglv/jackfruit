@@ -17,10 +17,13 @@
         / &-begin {
         /   background-color: #BFBFBF;
         / }
-      - if @progress == 0
-        %span.learning-status.learning-text{:style => 'color:#009688'} Bắt đầu
+      - if owned_course.payment_status == 'pending'
+        %span.learning-status.learning-text{:style => 'color:#ffbb33'} Đang chở xử lý
       - else
-        %span.learning-status.learning-text #{@progress} %
+        - if @progress == 0
+          %span.learning-status.learning-text{:style => 'color:#009688'} Bắt đầu
+        - else
+          %span.learning-status.learning-text #{@progress} %
       / .completed-text {
       /   color: #BCBCBC;
       / }
