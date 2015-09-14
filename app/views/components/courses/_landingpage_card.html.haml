@@ -3,8 +3,8 @@
     .course-image.no-margin
       = image_tag course.image
     .landingpage-card-content
-      %span.ellipsis-2lines.course-title= course.name
-      %span.no-margin.ellipsis-1lines.course-author
+      .ellipsis-2lines.course-title= course.name
+      .no-margin.ellipsis-1lines.course-author
         - if course.user
           %span= course.user.name
         - else
