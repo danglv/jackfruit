@@ -205,25 +205,96 @@
     }
   }
 }
-.courses-select {
-  z-index: -1;
-  .top {
-    background-color: #fff;
-    .course-image {
-      img {
-        margin: 10px 0;
-        width: 100%;
+.select {
+  min-width: 320px;
+  .select-header{
+    padding-top:15px;
+    padding-bottom:20px;
+    background:white;    
+    .select-button{
+      background:#338abc;
+      color:white;
+      text-transform:none;
+      line-height:34px;
+    }
+    .select-button:hover {
+      background: #03a9f4;
+    }
+  }
+
+  .select-courses{
+    .category-title {
+      font-size: 24px;
+      padding: 15px 0;
+    }
+  }
+    
+
+  @media screen and (max-width: 767px) {
+    .select-header{
+      text-align: center;
+      .select-header-content {
+        padding-bottom: 20px;
+      }
+      .select-header-image {
+        width: 270px;
+        margin: 0 auto;
+        padding-bottom: 15px;
       }
     }
-    .course-info {
-      text-align: center;
-      margin-bottom: 15px !important;
+    .select-courses {
+      .category-title {
+        padding: 10px 15px;
+      }
+      .list-courses-card {
+        display: none;
+      }
+      .list-courses-list {
+        display: block;
+      }
     }
-    .learning-button {
-      text-transform: none;
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 20px !important;
+  }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .select-courses {
+      .list-courses-card {
+        display: block;
+        width: 510px;
+        margin: auto;
+      }
+      .list-courses-list {
+        display: none;
+      }
     }
+  }
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
+    .select-courses {
+      .list-courses-card {
+        display: block;
+        width: 765px;
+        margin: auto;
+      }
+      .list-courses-list {
+        display: none;
+      }
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .select-courses {
+      .list-courses-card {
+        display: block;
+        width: 1020px;
+        margin: auto;
+      }
+      .list-courses-list {
+        display: none;
+      }
+    }
+  }
+  .course-card {
+    display: inline-block;
+    margin: 11px;
+  }
+  .list-card {
+    margin-bottom: 15px;
   }
 }
