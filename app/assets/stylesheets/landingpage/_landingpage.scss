@@ -21,7 +21,7 @@
       .fa-search {
         position: absolute;
         top: 12px;
-        left: 90%;
+        left: -20px;
         color: #fff;
       }
     }
@@ -95,7 +95,7 @@
       .fa-search {
         position: absolute;
         top: 12px;
-        left: 90%;
+        left: -20px;
         color: #fff;
       }
     }
@@ -168,7 +168,7 @@
       .fa-search {
         position: absolute;
         top: 12px;
-        left: 90%;
+        left: -20px;
         color: #fff;
       }
     }
@@ -243,7 +243,7 @@
       .fa-search {
         position: absolute;
         top: 12px;
-        left: 95%;
+        left: -20px;
         color: #fff;
       }
     }
@@ -318,7 +318,7 @@
       .fa-search {
         position: absolute;
         top: 12px;
-        left: 95%;
+        left: -20px;
         color: #fff;
       }
     }
@@ -475,12 +475,31 @@
         max-width: 1210px;
         display: block;
         margin: auto !important; 
+        padding: 15px;
+        text-align: left;
         .category {
-          margin: 15px;
-          width: 360px;
+          width: 560px;
+          min-height: 172px;
+          height: 172px;
           display: inline-block;
+          text-align: right;
+          /*margin: 0px 10px;*/
           img {
             width: 100%;
+            height: 100%;
+          }
+        }
+        .category-big {
+          width: 560px;
+          min-height: 365px;
+          height: 365px;
+          display: inline-block;
+          text-align: right;
+          margin-right: 20px;
+          vertical-align: top;
+          img {
+            width: 100%;
+            height: 100%;
           }
         }
       }

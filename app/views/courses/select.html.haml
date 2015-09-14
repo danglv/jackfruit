@@ -14,7 +14,7 @@
               .test-author 
                 được hướng dẫn bởi
                 %span.bold #{@course.user.name}
-            %a.btn.btn-default.select-button.bold.btn-lg Tiếp tục khóa học
+            %a.btn.btn-default.select-button.bold.btn-lg{:href => "/courses/#{@course.alias_name}/learning"} Tiếp tục khóa học
     .select-courses
       .container
         - @courses.each_value do |category|
