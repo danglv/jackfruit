@@ -57,27 +57,26 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      payment = Payment.create(
+      payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
         :coupons => @coupons,
-        :money => @price
-      )
-
-      payment.name = name,
-      payment.email = email,
-      payment.mobile = mobile,
-      payment.address = address,
-      payment.city = city,
-      payment.district = district,
+        :money => @price,
+        :name => name,
+        :email => email,
+        :mobile => mobile,
+        :address => address,
+        :city => city,
+        :district => district 
+      ) 
 
       if payment.save
         create_course_for_user()
-        # begin
-        #   RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
-        # rescue => e
-        # end
+        begin
+          RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :timeout => 2000, :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
+        rescue Exception => e
+        end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
         Tracking.create_tracking(
@@ -363,9 +362,9 @@ class PaymentController < ApplicationController
     conditionId = {}
     conditionId[:id] = keywords
     if !keywords.blank?
-      payments = Payment.or(conditionName, conditionId).desc(:created_at)
+      payments = Payment.or(conditionName, conditionId)
     else 
-      payments = Payment.where(condition).desc(:created_at)
+      payments = Payment.where(condition)
     end
 
     total_pages = (payments.count.to_f / per_page).ceil
