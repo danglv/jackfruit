@@ -13,9 +13,9 @@
           = image_tag "http://tudemy.vn/assets/avatar-423ab3967baaae6f80f0669022331d9e1eebc71ad3eb060c520387937b96849b.png", :class => "user-avatar-medium"
       .user-dropdown-header-right
         %p.name= @current_user.name
-        %a.link{:href => "/users/edit"}
-          %i.fa.fa-user
         %a.link{:href => "/users/view_profile"}
+          %i.fa.fa-user
+        %a.link{:href => "/users/edit"}
           %i.fa.fa-pencil
         %a.link{:href => "#"}
           %i.fa.fa-cog
