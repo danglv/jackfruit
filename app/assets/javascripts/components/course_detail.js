@@ -99,7 +99,7 @@ $(document).ready(function () {
       $(".description-content").removeClass("short_description");
       $(".description-content").addClass("long_description");
       $(this).text("Thu gọn");
-    } else if ($(".description-content").hasClass("long_description")) {
+    } else {
       $(".description-content").removeClass("long_description");
       $(".description-content").addClass("short_description");
       $(this).text("Xem chi tiết");
