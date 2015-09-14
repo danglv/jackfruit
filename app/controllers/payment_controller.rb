@@ -74,10 +74,10 @@ class PaymentController < ApplicationController
 
       if payment.save
         create_course_for_user()
-        begin
-          RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
-        rescue => e
-        end
+        # begin
+        #   RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
+        # rescue => e
+        # end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
         Tracking.create_tracking(
