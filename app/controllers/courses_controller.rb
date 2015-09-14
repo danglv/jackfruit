@@ -411,7 +411,7 @@ class CoursesController < ApplicationController
   def suggestion_search
     keywords = params[:q]
     keywords = Utils.nomalize_string(keywords)
-    pattern = /#{Regexp.escape(keywords)}/
+    pattern = /#{Regexp.escape(keywords)}/i
 
     courses = Course.where(:alias_name => pattern).map { |course|
       CourseSerializer.new(course).suggestion_search_hash

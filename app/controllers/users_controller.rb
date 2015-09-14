@@ -200,7 +200,7 @@ class UsersController < ApplicationController
   def suggestion_search
     keywords = params[:q]
     keywords = Utils.nomalize_string(keywords)
-    pattern = /#{Regexp.escape(keywords)}/
+    pattern = /#{Regexp.escape(keywords)}/i
 
     users = User.where(:name => pattern).map { |user|
       UserSerializer.new(user).suggestion_search_hash
