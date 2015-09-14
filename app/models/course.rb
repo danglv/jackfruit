@@ -87,7 +87,7 @@ class Course
     if self.fake_enabled == true
       self.fake_average_rating
     else
-      self.rating
+      self.read_attribute(:rating)
     end
   end
 
@@ -95,7 +95,7 @@ class Course
     if self.fake_enabled == true
       self.fake_students
     else
-      self.fake_students
+      self.read_attribute(:students)
     end
   end
 
@@ -103,7 +103,7 @@ class Course
     if self.fake_enabled == true
       self.fake_num_rate
     else
-      self.fake_num_rate
+      self.read_attribute(:num_rate)
     end
   end
 end
