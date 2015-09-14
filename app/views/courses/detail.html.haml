@@ -57,10 +57,6 @@
             %h3.course-price.free.no-margin Miễn phí
           - else
             %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            / %h3{:style => 'margin-right: 5px; text-decoration: line-through; font-weight: 500; font-size: 18px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            / %h3.discount (Giảm giá: #{@coupon.map{|c| c['return_value'].to_i}.sum}%)
-            / %br
-            / %h3#expired_date= "Ngày hết hạn: " + @coupon.first['expired_date'].to_time.strftime("%d/%m/%Y")
       .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
         - if !current_user.blank?
           - if !@owned_course.blank?
@@ -183,9 +179,10 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-xs-12.no-padding
-          %h5.normal-text{:style => "line-height: 24px"} Work Alongside Me to Create & Operate Your Website Right Now. Never created a website before? Perfect. This course was created for you. Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.  
+          .description-content.short_description
+            = render 'detail_description', method: 'detail'
         .col-xs-12.no-padding
-          %a.link-text{:href => "#"}
+          %a.link-text.load-more{:style => "cursor: pointer;"}
             %b Xem chi tiết
       .row.no-margin
         .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
@@ -511,9 +508,10 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-xs-12.no-padding
-          %h5.normal-text{:style => "line-height: 24px"} Work Alongside Me to Create & Operate Your Website Right Now. Never created a website before? Perfect. This course was created for you. Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.  
+          .description-content.short_description
+            = render 'detail_description', method: 'detail'
         .col-xs-12.no-padding
-          %a.link-text{:href => "#"}
+          %a.link-text.load-more{:style => "cursor: pointer;"}
             %b Xem chi tiết
       .row.no-margin
         .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
@@ -841,9 +839,10 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-sm-12.no-padding
-          %h5.normal-text{:style => "line-height: 24px"} Work Alongside Me to Create & Operate Your Website Right Now. Never created a website before? Perfect. This course was created for you. Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.  
+          .description-content.short_description
+            = render 'detail_description', method: 'detail'
         .col-sm-12.no-padding
-          %a.link-text{:href => "#"}
+          %a.link-text.load-more{:style => "cursor: pointer;"}
             %b Xem chi tiết
       .row.no-margin
         .col-sm-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
@@ -1172,9 +1171,10 @@
               %h4.no-margin
                 %b Mô tả về khóa học  
             .col-md-12.no-padding
-              %h5.normal-text{:style => "line-height: 24px"} Work Alongside Me to Create & Operate Your Website Right Now. Never created a website before? Perfect. This course was created for you. Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.  
+              .description-content.short_description
+                = render 'detail_description', method: 'detail'
             .col-md-12.no-padding
-              %a.link-text{:href => "#"}
+              %a.link-text.load-more{:style => "cursor: pointer;"}
                 %b Xem chi tiết
           .row.no-margin
             .col-md-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
@@ -1538,9 +1538,10 @@
               %h4.no-margin
                 %b Mô tả về khóa học  
             .col-lg-12.no-padding
-              %h5.normal-text{:style => "line-height: 24px"} Work Alongside Me to Create & Operate Your Website Right Now. Never created a website before? Perfect. This course was created for you. Entrepreneurs and creatives like you are unique. You constantly have new ideas that will change the world. But sometimes... technology gets in the way.  
+              .description-content.short_description
+                = render 'detail_description', method: 'detail'
             .col-lg-12.no-padding
-              %a.link-text{:href => "#"}
+              %a.link-text.load-more{:style => "cursor: pointer;"}
                 %b Xem chi tiết
           .row.no-margin
             .col-lg-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
