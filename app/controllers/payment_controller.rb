@@ -75,7 +75,7 @@ class PaymentController < ApplicationController
       if payment.save
         create_course_for_user()
         begin
-          RestClient.post 'http://localhost:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD mới' 
+          RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
         rescue => e
         end
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
@@ -363,9 +363,9 @@ class PaymentController < ApplicationController
     conditionId = {}
     conditionId[:id] = keywords
     if !keywords.blank?
-      payments = Payment.or(conditionName, conditionId)
+      payments = Payment.or(conditionName, conditionId).desc(:created_at)
     else 
-      payments = Payment.where(condition)
+      payments = Payment.where(condition).desc(:created_at)
     end
 
     total_pages = (payments.count.to_f / per_page).ceil
