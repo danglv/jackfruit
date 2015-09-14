@@ -11,7 +11,6 @@
 }
 
 .learning {
-  min-width: 320px;
   a {
     color: #212121
   }
@@ -306,6 +305,7 @@
         }
         .search {
           margin-top: 33px;
+          min-width: auto !important;
         }
         .list-discussion {
           margin-top: 20px;
