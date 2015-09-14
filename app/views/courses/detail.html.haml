@@ -391,6 +391,19 @@
                             %i.fa.fa-heart
                         .col-xs-10
                           %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                        .col-xs-12.no-padding
+                      .col-xs-12.no-padding
+                        %h5.normal-text 
+                          %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                      .col-xs-12.no-padding
+                        %h5.normal-text 
+                          %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                          = succeed "" do
+                            %b Hủy giao dịch COD
+                          tại
+                          = succeed "" do
+                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                          và tiếp tục mua khóa học
                   - else
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -705,6 +718,18 @@
                             %a.btn.btn-raised.btn-lg.favorite-button 
                               %i.fa.fa-heart
                               %span Ưa thích 
+                          .col-sm-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-sm-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-sm-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -1021,8 +1046,20 @@
                             %a.btn.btn-raised.btn-lg.favorite-button
                               %i.fa.fa-heart
                               %span Ưa thích 
-                          .col-md-
+                          .col-md-12
                             %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                          .col-md-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-md-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-md-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -1353,6 +1390,18 @@
                               %span Ưa thích 
                           .col-lg-12
                             %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
+                          .col-lg-12.no-padding
+                            %h5.normal-text 
+                              %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
+                          .col-lg-12.no-padding
+                            %h5.normal-text 
+                              %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                              = succeed "" do
+                                %b Hủy giao dịch COD
+                              tại
+                              = succeed "" do
+                                %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                              và tiếp tục mua khóa học
                     - else
                       .col-lg-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
