@@ -368,9 +368,10 @@
                       .col.xs-10.nopadding
                         %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
                     .col-xs-8.no-padding
-                      %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                      %a.btn.btn-raised.btn-lg.pending-button{:style => "font-size: 16px"} Kích hoạt mã COD
                     .col-xs-2
                       %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                        %i.fa.fa-heart
                   - else
                     .col-xs-8.no-padding
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
@@ -417,6 +418,7 @@
                       Bắt đầu học ngay
                   .col-xs-2
                     %a.btn.btn-raised.btn-lg.favorite-button.no-text 
+                      %i.fa.fa-heart
                 - else 
                   .col-xs-8.no-padding
                     %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -674,9 +676,9 @@
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
                         .col-sm-6.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
+                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text", :style => "height: 48px"}
                       .col-sm-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                        %a.btn.btn-raised.btn-lg.pending-button{:style => "font-size: 16px"} Kích hoạt mã COD
                       .col-sm-5
                         %a.btn.btn-raised.btn-lg.favorite-button 
                           %i.fa.fa-heart
@@ -989,9 +991,9 @@
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
                         .col-md-3.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                      .col-md-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text", :style => "height: 48px"}
+                      .col-md-8
+                        %a.btn.btn-raised.btn-lg.pending-button{:style => "font-size: 16px; width: 100%"} Kích hoạt mã COD
                       .col-md-6
                         %a.btn.btn-raised.btn-lg.favorite-button 
                           %i.fa.fa-heart
@@ -1316,9 +1318,9 @@
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
                         .col-lg-3.no-padding
-                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text"}
-                      .col-lg-6.no-padding
-                        %a.btn.btn-raised.btn-lg.pending-button Kích hoạt mã COD
+                          %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text", :style => "height: 48px"}
+                      .col-lg-6
+                        %a.btn.btn-raised.btn-lg.pending-button{:style => "font-size: 16px"} Kích hoạt mã COD
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button 
                           %i.fa.fa-heart
@@ -1328,7 +1330,7 @@
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
                       .col-lg-6
                         %a.btn.btn-raised.btn-lg.favorite-button.no-text 
-                          %i.lgi-action-favorite
+                          %i.fa.fa-heart
                       .col-lg-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
