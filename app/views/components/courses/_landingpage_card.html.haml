@@ -1,12 +1,19 @@
-.landingpage-card
-  %a{:href => '#'}
+.landingpage-card  
+  %a{:href => "/courses/#{course.alias_name}/detail"}
     .course-image.no-margin
-      = image_tag 'course-image.png'
+      = image_tag course.image
     .landingpage-card-content
-      %span.ellipsis-2lines.course-title Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing 
-      %span.no-margin.ellipsis-1lines.course-author ThanhNguyễn
+      %span.ellipsis-2lines.course-title= course.name
+      %span.no-margin.ellipsis-1lines.course-author
+        - if course.user
+          %span= course.user.name
+        - else
+          %span Tudemy
       .row.no-margin.landingpage-card-content-bottom
         .landing-card-users
           %i.fa.fa-users
-          %span 14.1K học viên
-        %span.course-price 141.000 VND
+          - if course.students == 0
+            %span= course.students
+          - else
+            %span= course.students.to_s + ' Học viên'
+        %span.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
