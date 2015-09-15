@@ -79,7 +79,6 @@
     .list-lecture {
       padding: 0px 15px;
       .lecture-header {
-        height: 80px;
         border-radius: 3px;
         background-color: #727272;
         &-index, &-time {
@@ -100,17 +99,20 @@
         ul {
           list-style: none;
           padding-left: 0px;
+          width: 100%;
         }
         ul, ul li {
             float: left;
         }
         &-content {
-            color: white;
-            margin-top: 7px;
-            .px16 {
-              line-height: 30px;
-            }
-
+          color: white;
+          margin-top: 7px;
+          .px16 {
+            line-height: 30px;
+          }
+        }
+        .first-lecture {
+          width: calc(100% - 90px);
         }
       }
       .lecture-progress {
@@ -182,7 +184,6 @@
           .item-container {
             margin: 0px;
             border-left: 1px solid #f0f0f0;
-            height: 58px;
             
             .chap-item-status {
               width: 19px;
@@ -217,6 +218,7 @@
               height: 100%;
             }
             .chap-item-content {
+              width: calc(100% - 25px);
               padding-top: 10px;
               padding-bottom: 10px;
               font-size: 14px;
