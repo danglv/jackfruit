@@ -1,10 +1,10 @@
 class PaymentController < ApplicationController
   include PaymentServices
 
-  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create, :get_money]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create, :get_money]
+  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :update]
-  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create, :get_money]
+  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :cancel_payment_logic, :only => [:cod, :online_payment, :card]
 
   # GET
@@ -429,37 +429,6 @@ class PaymentController < ApplicationController
       render json: {message: "Lỗi không lưu được data!"}
       return
     end
-  end
-
-  def get_money
-    course_id = params[:course_id]
-    coupon_code = params[:coupon_code]
-
-    if course_id.blank?
-      render json: {message: "chưa truyền dữ course_id"}, status: :missing
-    end
-
-    course = Course.find(course_id)
-
-    if course_id.blank?
-      render json: {message: "course_id không chính xác"}, status: :missing
-    end
-
-    discount = 0
-    coupons = []
-    if !@coupon_code.blank?
-      coupon_code.split(",").each {|coupon|
-        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-        response = Net::HTTP.get(uri)
-        if JSON.parse(response)['return_value'].to_i > 0
-          discount += JSON.parse(response)['return_value'].to_f
-          coupons << coupon
-        end
-      }
-    end
-    price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
-
-    render json: {price: "#{price}"}
   end
 
   private
