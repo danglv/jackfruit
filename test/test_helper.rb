@@ -21,19 +21,20 @@ Minitest::Reporters.use!(
 # require "minitest/pride"
 
 class ActiveSupport::TestCase
+  # Rake::Task["db:test:prepare"].invoke
   # ActiveRecord::Migration.check_pending!
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
   # Add more helper methods to be used by all tests here...
 
   ## Test with Firefox
-  Capybara.default_driver = :selenium
+  # Capybara.default_driver = :selenium
 
   ## Test with Chrome/Chromium
-  # Capybara.register_driver :chrome do |app|
-  #   Capybara::Selenium::Driver.new(app, {:browser => :chrome})
-  # end
-  # Capybara.default_driver = :chrome
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, {:browser => :chrome})
+  end
+  Capybara.default_driver = :chrome
 
   ## Test with phantomjs
   # Capybara.register_driver :poltergeist do |app|
