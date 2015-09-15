@@ -51,14 +51,11 @@
                 .layout-480-up
                   %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
                 .category
-                  / %img{:src => "assets/python.png"}
-                  %img{:src => "http://i.imgur.com/46AOanb.png"}
+                  %a{:href => "#"}= image_tag "topic-bg-python.png"
                 .category
-                  / %img{:src => "assets/java.png"}
-                  %img{:src => "http://i.imgur.com/bB2Ua8s.png"}
+                  %a{:href => "#"}= image_tag "topic-bg-java.png"
                 .category
-                  / %img{:src => "assets/excel.png"}
-                  %img{:src => "http://i.imgur.com/picle7D.png"}
+                  %a{:href => "#"}= image_tag "topic-bg-excel.png"
               .row.no-margin.courses
                 - if @courses
                   - @courses.each do |c|
@@ -133,13 +130,10 @@
       .row.no-margin.no-padding.home-main.container
         .row.no-margin.categories
           .category-big
-            / %img{:src => "assets/python.png"}
-            %img{:src => "http://i.imgur.com/46AOanb.png"}
+            %a{:href => "#"}= image_tag "topic-bg-python-1200.png"
           .category{:style => "margin-bottom: 20px"}
-            / %img{:src => "assets/java.png"}
-            %img{:src => "http://i.imgur.com/bB2Ua8s.png", :style => "margin-bottom: 20px"}
-            / %img{:src => "assets/excel.png"}
-            %img{:src => "http://i.imgur.com/picle7D.png"}
+            %a{:href => "#"}= image_tag "topic-bg-java-1200.png", :style => "margin-bottom: 20px"
+            %a{:href => "#"}= image_tag "topic-bg-excel-1200.png"
         .row.no-margin.courses
           - if @courses
             - @courses.each do |c|
