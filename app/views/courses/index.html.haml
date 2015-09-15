@@ -5,17 +5,17 @@
       .row
         - @courses.to_a.each do |course_h|
           - if course_h.last.last.count >0
-            .col-lg-10.col-lg-offset-1.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
+            .col-sm-12{:style => 'margin-top:10px;'}
               .category-title.pull-left= course_h.last.first
               .category-show-all.pull-right.visible-lg.visible-md
                 %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'}
                   Xem tất cả&nbsp;
                   %i.fa.fa-plus-circle
               .clearfix
-              .list-course-card.text-center
+              .list-course-card
                 - course_h.last.last.each do |course|
                   = render :partial => 'components/courses/course_card', :locals => {:course => course}
               .list-course-list
                 - course_h.last.last.each do |course|
                   = render :partial => 'components/courses/list_card', :locals => {:course => course}
-= render :partial => 'components/footer/index'   
+= render :partial => 'components/footer/index'
