@@ -346,10 +346,9 @@ class PaymentController < ApplicationController
   def list_payment
 
     keywords = params[:keyword]
-    name = params[:name]
     method = params[:method]
     payment_date = params[:date]
-    page = params[:page].to_i || 1
+    page = params[:page].blank? ? 1 : params[:page].to_i
     per_page = params[:per_page] || 10
 
     condition = {}
@@ -357,9 +356,11 @@ class PaymentController < ApplicationController
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
     conditionName = {}
-    conditionName[:name] = /#{Regexp.escape(keywords)}/ 
+    conditionName[:method] = method unless method.blank?
+    conditionName[:name] = /#{Regexp.escape(keywords)}/
 
     conditionId = {}
+    conditionId[:method] = method unless method.blank?
     conditionId[:id] = keywords
     if !keywords.blank?
       payments = Payment.or(conditionName, conditionId)
