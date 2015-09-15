@@ -20,7 +20,7 @@
         %a{:href => "/courses"}= image_tag "logo.png"
     .header-col.text-right
       - if !current_user
-        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#register-modal"}
+        %a.btn.btn-default.btn-flat.button-register{"data-toggle" => "modal", "data-target" => "#register-modal"}
           Đăng kí
           .ripple-wrapper
         %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal"}
