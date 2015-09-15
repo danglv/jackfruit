@@ -88,4 +88,10 @@ header {
       line-height: 40px;
     }
   }
+
+  @media (max-width: 1199px) {
+    .button-register {
+      display: none;
+    }
+  }
 }
