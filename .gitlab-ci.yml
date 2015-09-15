@@ -1,0 +1,8 @@
+before_script:
+  - gem install bundler
+  - bundle install
+
+minitest:
+  test: "RAILS_ENV=test bundle exec rake test"
+  only:
+    - dev
