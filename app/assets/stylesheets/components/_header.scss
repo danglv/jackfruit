@@ -1,4 +1,8 @@
 header {
+  .button-header {
+    text-transform: none;
+    padding: 8px;
+  }
   .header-col-left {
     width: 34.333333% !important;
   }
@@ -95,12 +99,6 @@ header {
     > a {
       display: inline-block;
       line-height: 40px;
-    }
-  }
-
-  @media (max-width: 1199px) {
-    .button-register {
-      display: none;
     }
   }
 }
