@@ -363,9 +363,9 @@ class PaymentController < ApplicationController
     conditionId[:method] = method unless method.blank?
     conditionId[:id] = keywords
     if !keywords.blank?
-      payments = Payment.or(conditionName, conditionId)
+      payments = Payment.or(conditionName, conditionId).desc(:created_at)
     else 
-      payments = Payment.where(condition)
+      payments = Payment.where(condition).desc(:created_at)
     end
 
     total_pages = (payments.count.to_f / per_page).ceil
