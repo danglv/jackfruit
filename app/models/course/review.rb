@@ -1,5 +1,6 @@
 class Course::Review
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :status, type: Integer, default: 0
   
