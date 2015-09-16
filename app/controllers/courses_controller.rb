@@ -340,6 +340,7 @@ class CoursesController < ApplicationController
     end
     curriculum = @course.curriculums.where(id: curriculum_id).first
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
+    # binding.pry
     discussion = nil
     if parent_discussion_obj.blank?
       discussion = @course.discussions.create(

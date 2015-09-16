@@ -18,7 +18,7 @@
       var ratingTitle = $("#rating-title").val();
       var ratingContent = $("#rating-content").val();
       var ratingNumber = $($(".rating-popup")[0]).find(".rated").length;
-      var course_id = $("#course_id").val();
+      var course_id = $(".rating-active").attr("course_id");
 
 
       var params = {
