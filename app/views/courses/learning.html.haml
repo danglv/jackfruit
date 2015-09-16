@@ -5,7 +5,8 @@
       .container.no-padding
         .row.learning-header-container
           %span.course-name= @course.name
-          .rating-container
+          - if @owned_course.lectures.where(:status => 2).count > 0
+            .rating-container
             %ul.rating.rating-active
               - (1..5).each do |i|
                 - if i <= @course.reviews.where(:user_id => current_user.id).first.rate
