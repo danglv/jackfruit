@@ -10,7 +10,9 @@ class UserSerializer < ActiveModel::Serializer
   def suggestion_search_hash
     {
       id: self.id,
-      name: object.name
+      name: object.name,
+      email: object.email,
+      avatar: object.avatar
     }
   end
 
