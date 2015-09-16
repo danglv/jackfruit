@@ -344,14 +344,14 @@ class CoursesController < ApplicationController
     discussion = nil
     if parent_discussion_obj.blank?
       discussion = @course.discussions.create(
-      title: title,
-      description: description
-    )
+        title: title,
+        description: description
+      )
     else
       discussion = parent_discussion_obj.child_discussions.create(
-      title: title,
-      description: description
-    )
+        title: title,
+        description: description
+      )
     end
     
     discussion.user = current_user
@@ -359,6 +359,35 @@ class CoursesController < ApplicationController
 
     if @course.save
       render json: {title: title, description: description, email: current_user.email}
+      return
+    else
+      render json: {message: "Có lỗi xảy ra"}
+      return
+    end
+  end
+
+    def add_review
+    course_id = params[:course_id]
+    title = params[:title]
+    description = params[:description]
+    rate = params[:rate]
+
+    @course = Course.where(id: course_id).first
+    if @course.blank?
+      render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
+      return
+    end
+
+    review = @course.reviews.create(
+      title: title,
+      description: description,
+      rate: rate
+    )
+    
+    review.user = current_user
+
+    if @course.save
+      render json: {title: title, description: description, email: "hoptq@topica.edu.vn", rate: rate}
       return
     else
       render json: {message: "Có lỗi xảy ra"}

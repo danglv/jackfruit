@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :add_review
     end
     collection do
       get :search
