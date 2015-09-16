@@ -88,4 +88,28 @@
                           %i.fa.fa-comments
       #lecture-tab-download.tab-pane.fade
       #lecture-tab-discussion.tab-pane.fade
+        %form
+          %input#course_id{:type => "hidden", :value => "#{@course._id}"}
+          %input#lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+          %li
+            %textarea.form-control#discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+          %li
+            %textarea.form-control#discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+          %li
+            %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
+        .row.no-margin.list-discussion
+          - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
+          - lecture_discussions.reverse.each do |discussion|
+            - @user = User.where(:id => discussion.user_id).first
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.fa.fa-smile-o
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold #{@user.name}
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  #{discussion.title}
+                %p.discussion-item-content
+                  #{discussion.description}
       #lecture-tab-note.tab-pane.fade
