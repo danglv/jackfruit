@@ -56,36 +56,62 @@
           - @course.curriculums.each do |curriculum|
             - if curriculum.type == 'chapter'
               .row.chap-title #{curriculum.title}
+            - elsif curriculum.lecture_index == @index_lecture
+              .row.chap-item.active
+                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                  .row.item-container
+                    .chap-item-status
+                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        .status-container.none
+                          %i.fa.fa-check
+                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        .status-container.learning
+                          %i.fa.fa-pencil
+                      - else
+                        .status-container.completed
+                          %i.fa.fa-check
+                    .chap-item-content
+                      .row.no-margin
+                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                      .row.no-margin
+                        .row.type-document
+                          %ul.no-padding
+                            %li 
+                              %i.fa.fa-play-circle
+                            %li
+                              %span #{curriculum.description}
+                            %li
+                              %i.fa.fa-download
+                            %li
+                              %i.fa.fa-comments
             - else
               .row.chap-item
-                .row.item-container
-                  .chap-item-status
-                    - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
-                      .status-container.none
-                        %i.fa.fa-check
-                    - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
-                      .status-container.learning
-                        %i.fa.fa-pencil
-                    - else
-                      .status-container.completed
-                        %i.fa.fa-check
-                  .chap-item-content
-                    .row.no-margin
-                      %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"} Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
-                    .row.no-margin
-                      .row.type-document
-                        %ul.no-padding
-                          %li 
-                            %a{:href => "#"}
+                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                  .row.item-container
+                    .chap-item-status
+                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        .status-container.none
+                          %i.fa.fa-check
+                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        .status-container.learning
+                          %i.fa.fa-pencil
+                      - else
+                        .status-container.completed
+                          %i.fa.fa-check
+                    .chap-item-content
+                      .row.no-margin
+                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                      .row.no-margin
+                        .row.type-document
+                          %ul.no-padding
+                            %li 
                               %i.fa.fa-play-circle
-                          %li
-                            %span #{curriculum.description}
-                          %li
-                            %a{:href => "#"}
+                            %li
+                              %span #{curriculum.description}
+                            %li
                               %i.fa.fa-download
-                          %li
-                            %a{:href => "#"}
-                          %i.fa.fa-comments
+                            %li
+                              %i.fa.fa-comments
       #lecture-tab-download.tab-pane.fade
       #lecture-tab-discussion.tab-pane.fade
         %form
