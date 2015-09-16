@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
       # API for mercury
       get '/api/suggestion_search', to: 'courses#suggestion_search'
+      get '/api/get_money', to: 'courses#get_money'
     end
   end
 
@@ -53,7 +54,6 @@ Rails.application.routes.draw do
       get '/api/:id/detail', to: 'payment#detail'
       post '/api/:id/update', to: 'payment#update'
       get '/api/list_payment', to: 'payment#list_payment'
-      get '/api/get_money', to: 'payment#get_money'
     end
   end
 

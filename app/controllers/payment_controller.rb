@@ -1,10 +1,10 @@
 class PaymentController < ApplicationController
   include PaymentServices
 
-  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create, :get_money]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create, :get_money]
+  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
+  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :update]
-  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create, :get_money]
+  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :cancel_payment_logic, :only => [:cod, :online_payment, :card]
 
   # GET
@@ -346,10 +346,9 @@ class PaymentController < ApplicationController
   def list_payment
 
     keywords = params[:keyword]
-    name = params[:name]
     method = params[:method]
     payment_date = params[:date]
-    page = params[:page].to_i || 1
+    page = params[:page].blank? ? 1 : params[:page].to_i
     per_page = params[:per_page] || 10
 
     condition = {}
@@ -357,14 +356,16 @@ class PaymentController < ApplicationController
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
     conditionName = {}
-    conditionName[:name] = /#{Regexp.escape(keywords)}/ 
+    conditionName[:method] = method unless method.blank?
+    conditionName[:name] = /#{Regexp.escape(keywords)}/
 
     conditionId = {}
+    conditionId[:method] = method unless method.blank?
     conditionId[:id] = keywords
     if !keywords.blank?
-      payments = Payment.or(conditionName, conditionId)
+      payments = Payment.or(conditionName, conditionId).desc(:created_at)
     else 
-      payments = Payment.where(condition)
+      payments = Payment.where(condition).desc(:created_at)
     end
 
     total_pages = (payments.count.to_f / per_page).ceil
@@ -392,6 +393,7 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
+    money = params[:money]
 
     payment = Payment.new(
       :user_id => user_id,
@@ -402,7 +404,8 @@ class PaymentController < ApplicationController
       :email => email,
       :address => address,
       :mobile => mobile,
-      :status => "success"
+      :status => "success",
+      :money => money
     )
 
     user = User.find(user_id)
@@ -425,40 +428,9 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data!"}, status: :missing
       return
     end
-  end
-
-  def get_money
-    course_id = params[:course_id]
-    coupon_code = params[:coupon_code]
-
-    if course_id.blank?
-      render json: {message: "chưa truyền dữ course_id"}, status: :missing
-    end
-
-    course = Course.find(course_id)
-
-    if course_id.blank?
-      render json: {message: "course_id không chính xác"}, status: :missing
-    end
-
-    discount = 0
-    coupons = []
-    if !@coupon_code.blank?
-      coupon_code.split(",").each {|coupon|
-        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-        response = Net::HTTP.get(uri)
-        if JSON.parse(response)['return_value'].to_i > 0
-          discount += JSON.parse(response)['return_value'].to_f
-          coupons << coupon
-        end
-      }
-    end
-    price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
-
-    render json: {price: "#{price}"}
   end
 
   private

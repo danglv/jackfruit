@@ -21,23 +21,9 @@
        /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
        #video-container
        :javascript
-        var playerInstance = jwplayer('video-container');
-        playerInstance.setup({
-          skin: 'seven',
-          file: '#{@lecture.url}',
-          image: '',
-          width: '100%',
-          height: '100%',
-          ga: {}
-        });
-        window.onunload = function(e) {
-          var category = 'JW Player Video';
-          var action = 'Stop';
-          var label = playerInstance.getPlaylist()[playerInstance.getPlaylistIndex()].file;
-          var value = Math.round(1000 * playerInstance.getPosition());
-          ga('send', 'event', category, action, label, value);
-          return "Tracked";
-        };
+        var jw_video_url = '#{@lecture.url}';
+        var jw_video_container = 'video-container';
+        var jw_should_load = true;
       - else
        / Use video from youtube
        - if @lecture.url.index('v=').blank?

@@ -191,14 +191,20 @@ class CoursesController < ApplicationController
     end
 
     @courses = {}
-    condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    # Relative courses
+    # condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    condition = {:enabled => true}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
+    # Select three first courses in the same category
+    # @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Select three first courses in relatives list
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], @course.relatives.where(condition).limit(3)]
 
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Top paid
     condition = {:enabled => true, :label_ids.in => ["top_paid"]}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
@@ -419,5 +425,38 @@ class CoursesController < ApplicationController
 
     render json: courses, root: false
     return
+  end
+
+  # GET: API get price of course
+  def get_money
+    course_id = params[:course_id]
+    coupon_code = params[:coupon_code]
+
+    if course_id.blank?
+      render json: {message: "chưa truyền dữ course_id"}, status: :missing
+    end
+
+    course = Course.find(course_id)
+
+    if course_id.blank?
+      render json: {message: "course_id không chính xác"}, status: :missing
+    end
+
+    discount = 0
+    coupons = []
+    if !coupon_code.blank?
+      coupon_code.split(",").each {|coupon|
+        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+        response = Net::HTTP.get(uri)
+        data = JSON.parse(response)
+        if data['return_value'].to_i > 0 && data['expired_date'].to_datetime > Time.now()
+          discount += JSON.parse(response)['return_value'].to_f
+          coupons << coupon
+        end
+      }
+    end
+    price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
+
+    render json: {price: "#{price}"}
   end
 end
