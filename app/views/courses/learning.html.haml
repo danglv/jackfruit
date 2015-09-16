@@ -119,6 +119,8 @@
                       %a.btn.btn-primary#discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
             .row.no-margin.list-discussion
               - @course.discussions.each do |discussion|
+                -binding.pry
+                - curriculum = @owned_course.lectures.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - @user = User.where(:id => discussion.user_id).first
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
@@ -126,7 +128,10 @@
                   .col-md-11.col-lg-11.no-padding.discussion-item-main
                     %ul.discussion-item-title
                       %li.bold #{@user.name}
-                      %li đã đăng 1 thảo luận - 2 tháng trước 
+                      - if !curriculum.blank?
+                        %li= "đã đăng 1 thảo luận trong bài giảng " + curriculum.lecture_index + " - 2 tháng trước"  
+                      - else
+                        %li đã đăng 1 thảo luận - 2 tháng trước 
                     %span.discussion-item-subject 
                       #{discussion.title}
                     %p.discussion-item-content
