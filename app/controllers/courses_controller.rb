@@ -349,7 +349,8 @@ class CoursesController < ApplicationController
     else
       discussion = parent_discussion_obj.child_discussions.create(
         title: title,
-        description: description
+        description: description,
+        parent_discussion: parent_discussion
       )
     end
     
