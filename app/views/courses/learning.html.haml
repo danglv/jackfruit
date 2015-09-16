@@ -7,16 +7,16 @@
           %span.course-name= @course.name
           - if @owned_course.lectures.where(:status => 2).count > 0
             .rating-container
-            %ul.rating.rating-active
-              - (1..5).each do |i|
-                - if i <= @course.reviews.where(:user_id => current_user.id).first.rate
-                  %li
-                    %i.fa.fa-star.star.rated{:val => i}
-                - else
-                  %li
-                    %i.fa.fa-star.star{:val => i}
-              %li 
-                %a.rate-it Rate it
+              %ul.rating.rating-active
+                - (1..5).each do |i|
+                  - if i <= @course.reviews.where(:user_id => current_user.id).first.rate
+                    %li
+                      %i.fa.fa-star.star.rated{:val => i}
+                  - else
+                    %li
+                      %i.fa.fa-star.star{:val => i}
+                %li 
+                  %a.rate-it Rate it
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
       .row.learning-container
         .col-xs-12.col-sm-10.col-sm-offset-1.col-md-6.col-lg-6.list-lecture
