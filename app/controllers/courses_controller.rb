@@ -331,14 +331,15 @@ class CoursesController < ApplicationController
     curriculum_id = params[:curriculum_id]
     title         = params[:title]
     description   = params[:description]
-    @course       = Course.where(id: course_id).first
+    parent_discussion = params[:parent_discussion]
 
+    @course = Course.where(id: course_id).first
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
     end
 
-    curriculum    = @course.curriculums.where(id:curriculum_id).first
+    curriculum = @course.curriculums.where(id: curriculum_id).first
 
     discussion = @course.discussions.create(
       title: title,
@@ -346,6 +347,7 @@ class CoursesController < ApplicationController
     )
     discussion.user = current_user
     discussion.curriculum = curriculum if !curriculum.blank?
+    discussion.parent_discussion = parent_discussion if !parent_discussion.blank?
     if @course.save
       render json: {title: title, description: description, email: current_user.email}
       return

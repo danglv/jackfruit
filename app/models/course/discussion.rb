@@ -3,7 +3,6 @@ class Course::Discussion
 
   field :status, type: Integer, default: 0
   field :parent_discussion, type: String, default: ""
-  field :lecture_id, type: String, default: ""
   
   field :title, type: String, default: ""
   field :description, type: String, default: ""
