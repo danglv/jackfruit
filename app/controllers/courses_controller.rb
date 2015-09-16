@@ -360,7 +360,7 @@ class CoursesController < ApplicationController
     discussion.curriculum = curriculum if !curriculum.blank?
 
     if @course.save
-      render json: {title: title, description: description, email: current_user.email}
+      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar}
       return
     else
       render json: {message: "Có lỗi xảy ra"}
