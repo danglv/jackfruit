@@ -118,7 +118,7 @@
                     %li
                       %a.btn.btn-primary#discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
             .row.no-margin.list-discussion
-              - @course.discussions.each do |discussion|
+              - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - @user = User.where(:id => discussion.user_id).first
                 .row.discussion-item.no-margin
@@ -145,7 +145,7 @@
                     - else
                       %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
-                      - discussion.child_discussions.each do |child_discussion|
+                      - discussion.child_discussions.reverse.each do |child_discussion|
                         .row.child-item.no-margin
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o

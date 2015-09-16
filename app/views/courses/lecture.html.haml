@@ -99,7 +99,7 @@
             %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
         .row.no-margin.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
-          - lecture_discussions.each do |discussion|
+          - lecture_discussions.reverse.each do |discussion|
             - @user = User.where(:id => discussion.user_id).first
             .row.discussion-item.no-margin
               .col-md-1.col-lg-1.no-padding.discussion-item-avatar
