@@ -340,14 +340,23 @@ class CoursesController < ApplicationController
     end
 
     curriculum = @course.curriculums.where(id: curriculum_id).first
-
-    discussion = @course.discussions.create(
+    parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
+    discussion = nil
+    if parent_discussion_obj.blank?
+      discussion = @course.discussions.create(
       title: title,
-      description: description,
+      description: description
     )
+    else
+      discussion = parent_discussion_obj.child_discussions.create(
+      title: title,
+      description: description
+    )
+    end
+    
     discussion.user = current_user
     discussion.curriculum = curriculum if !curriculum.blank?
-    discussion.parent_discussion = parent_discussion if !parent_discussion.blank?
+
     if @course.save
       render json: {title: title, description: description, email: current_user.email}
       return

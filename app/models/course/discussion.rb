@@ -7,6 +7,7 @@ class Course::Discussion
   field :title, type: String, default: ""
   field :description, type: String, default: ""
 
+  embeds_many :child_discussions, class_name: "Course::Discussion"
   embedded_in :course
   belongs_to :user
   belongs_to :curriculum, class_name: "Course::Curriculum"
