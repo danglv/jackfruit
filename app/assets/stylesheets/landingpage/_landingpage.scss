@@ -203,7 +203,7 @@
       }
     }
     .register {
-      margin: 15px 0 50px 0 !important;
+      margin: 0px 15px 0px 15px !important;
       text-align: center;
       .other-course-button {
         width: 100%;
@@ -278,7 +278,8 @@
       }
     }
     .register {
-      margin: 15px 0 50px 0 !important;
+      max-width: 565px;
+      margin: auto !important;
       text-align: center;
       .other-course-button {
         width: 100%;
@@ -353,7 +354,8 @@
       }
     }
     .register {
-      margin: 15px 0 50px 0 !important;
+      max-width: 860px;
+      margin: auto !important;
       text-align: center;
       .other-course-button {
         width: 100%;
@@ -477,7 +479,7 @@
       top: 716px;
       width: 100%;
       .categories {
-        max-width: 1210px;
+        max-width: 1176px;
         display: block;
         margin: auto !important; 
         padding: 15px;
@@ -521,6 +523,8 @@
         margin: 15px 0 50px 0 !important;
         text-align: center;
         .other-course-button {
+          margin-left: 0;
+          margin-right: 0;
           width: 100%;
           background-color: #338abc;
         }
