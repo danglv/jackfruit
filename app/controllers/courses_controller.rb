@@ -191,14 +191,20 @@ class CoursesController < ApplicationController
     end
 
     @courses = {}
-    condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    # Relative courses
+    # condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    condition = {:enabled => true}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
+    # Select three first courses in the same category
+    # @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Select three first courses in relatives list
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], @course.relatives.where(condition).limit(3)]
 
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Top paid
     condition = {:enabled => true, :label_ids.in => ["top_paid"]}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
