@@ -327,10 +327,10 @@ class CoursesController < ApplicationController
   end
 
   def add_discussion
-    course_id     = params[:course_id]
+    course_id = params[:course_id]
     curriculum_id = params[:curriculum_id]
-    title         = params[:title]
-    description   = params[:description]
+    title = params[:title]
+    description = params[:description]
     parent_discussion = params[:parent_discussion]
 
     @course = Course.where(id: course_id).first
@@ -366,7 +366,7 @@ class CoursesController < ApplicationController
   end
 
   def rating
-    course_id = params[:course_id]
+    course_id = params[:id]
     title = params[:title]
     description = params[:description]
     rate = params[:rate]
