@@ -372,7 +372,7 @@ class CoursesController < ApplicationController
     rate = params[:rate]
 
     @course = Course.where(id: course_id).first
-    review = @course.reviews.where(:course_id => course_id, :user_id => current_user.id).first
+    review = @course.reviews.where(:user_id => current_user.id).first
       
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
