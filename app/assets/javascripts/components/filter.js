@@ -30,7 +30,12 @@
   var budget = getParameterByName("budget");
   var feature = getParameterByName("feature");
   var level = getParameterByName("level");
+  var search = getParameterByName("q")
 
+  if(search != "") {
+    $("#search-input").attr("name","q");
+    $("#search-input").val(search);
+  }
   $(".filter input[type=checkbox]").each( function () {
     var value = $(this).attr('value');
     if (value == budget || value == feature || value == level) {
