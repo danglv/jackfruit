@@ -62,13 +62,13 @@
                     .course
                       = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
               .row.no-margin.register
-                .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
+                .col-xs-12.col-sm-12.col-md-12.no-padding
                   %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses", :style => "font-size: 16px"} Khám phá các khóa học khác
                 .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
                   %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
                 .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
                   %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
-                .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-md-1.no-padding
+                .col-xs-12.col-sm-12.col-md-12.no-padding
                   %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
       = render :partial => 'components/footer/index'
 /Màn hình từ 1200px trở lên 
@@ -141,8 +141,8 @@
                 = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
         .row.no-margin.register
           .col-lg-12
-            .row.no-margin
-              .col-lg-10.col-lg-offset-1.no-padding
+            .row.no-margin{:style => "max-width: 1153px;margin: auto !important;text-align: center;"}
+              .col-lg-12.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses"} Khám phá các khóa học khác
             .row.no-margin
               .col-lg-6.col-lg-offset-3.no-padding
