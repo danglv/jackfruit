@@ -20,10 +20,10 @@
         %a{:href => "/courses"}= image_tag "logo.png"
     .header-col.text-right.header-col-right
       - if !current_user
-        %a.btn.btn-default.btn-flat.button-register{"data-toggle" => "modal", "data-target" => "#register-modal"}
+        %a.btn.btn-default.btn-flat.button-header.hidden-sm.hidden-xs{"data-toggle" => "modal", "data-target" => "#register-modal"}
           Đăng kí
           .ripple-wrapper
-        %a.btn.btn-default.btn-flat{"data-toggle" => "modal", "data-target" => "#login-modal"}
+        %a.btn.btn-default.btn-flat.button-header{"data-toggle" => "modal", "data-target" => "#login-modal"}
           Đăng nhập
           .ripple-wrapper
         = render :partial => "devise/registrations/new"
