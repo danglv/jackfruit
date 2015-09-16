@@ -338,7 +338,6 @@ class CoursesController < ApplicationController
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
     end
-
     curriculum = @course.curriculums.where(id: curriculum_id).first
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
     discussion = nil
