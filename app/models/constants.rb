@@ -24,8 +24,8 @@ module Constants
 
   module Labels
     FEATURED = "featured"
-    TOP_FREE = "top_free"
     TOP_PAID = "top_paid"
+    TOP_FREE = "top_free"
   end
 
   module PaymentStatus
