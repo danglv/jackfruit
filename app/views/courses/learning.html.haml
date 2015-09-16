@@ -6,13 +6,17 @@
         .row.learning-header-container
           %span.course-name= @course.name
           .rating-container
-            %ul.rating.rating-active{:course_id => "#{@course._id}"}
-              - num_rate = 0
-              - begin
-                - review = @course.reviews.where(:user_id => current_user.id).first
-                - if !review.blank?
-                  - num_rate = review.rate
-              - rescue
+            - num_rate = 0
+            - title = ''
+            - description = ''
+            - begin
+              - review = @course.reviews.where(:user_id => current_user.id).first
+              - if !review.blank?
+                - num_rate = review.rate
+                - title = review.title
+                - description = review.description
+            - rescue
+            %ul.rating.rating-active{:course_id => "#{@course._id}", "data-rate" => num_rate, "data-title" => title, "data-description" => description}
               - (1..5).each do |i|
                 - if i <= num_rate
                   %li
@@ -163,12 +167,10 @@
                             %p.child-item-content
                               #{child_discussion.description}
                       .row.no-margin 
-                        %form
-                          %span= discussion.id
-                          %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
-                          .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
-                            %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
-                            .btn.btn-primary.comment-submit{:href => "", :type => "submit"} Gửi phản hồi 
+                        / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
+                        .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                          %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                          .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               .row.noti-item.no-margin

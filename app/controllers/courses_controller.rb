@@ -373,7 +373,7 @@ class CoursesController < ApplicationController
     title = params[:title]
     description = params[:description]
     rate = params[:rate]
-
+    
     @course = Course.where(id: course_id).first
     review = @course.reviews.where(:user_id => current_user.id).first
       

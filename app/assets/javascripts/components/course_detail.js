@@ -55,8 +55,11 @@
 
 $(document).ready(function () {
 
+  $(".favorite-button").click(function (){
+    alert("test");
+  });
+
   $(".submit-cod-code").on("click", function () {
-    console.log("clicked");
 
     var parent = $($(this).parent()).parent();
     $(".txtNoti").css("display", "none");
