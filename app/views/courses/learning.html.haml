@@ -128,41 +128,40 @@
                     %ul.discussion-item-title
                       %li.bold #{@user.name}
                       - if !curriculum.blank?
-                        %li= "đã đăng 1 thảo luận trong Bài giảng " + (curriculum.lecture_index + 1).to_s + " - 2 tháng trước"  
+                        %li đã đăng 1 thảo luận trong 
+                        = succeed "" do
+                          %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                            %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
+                          = succeed "" do
+                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"} - 2 tháng trước
                       - else
                         %li đã đăng 1 thảo luận - 2 tháng trước 
                     %span.discussion-item-subject 
                       #{discussion.title}
                     %p.discussion-item-content
                       #{discussion.description}
-                    %a.discussion-item-reply Phản hồi (2)
+                    - if discussion.child_discussions.count == 0
+                      %a.discussion-item-reply Phản hồi
+                    - else
+                      %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
-                      .row.child-item.no-margin
-                        .col-md-1.col-lg-1.no-padding.child-item-avatar
-                          %i.fa.fa-smile-o
-                        .col-md-11.col-lg-11.no-padding.child-item-main
-                          %ul.child-item-title
-                            %li.bold ThanhNguyễn
-                            %li đã đăng 1 thảo luận - 2 tháng trước 
-                          %span.child-item-subject 
-                            Please do something
-                          %p.child-item-content
-                            The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
-                      .row.child-item.no-margin
-                        .col-md-1.col-lg-1.no-padding.child-item-avatar
-                          %i.fa.fa-smile-o
-                        .col-md-11.col-lg-11.no-padding.child-item-main
-                          %ul.child-item-title
-                            %li.bold ThanhNguyễn
-                            %li đã đăng 1 thảo luận - 2 tháng trước 
-                          %span.child-item-subject 
-                            Please do something
-                          %p.child-item-content
-                            The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                      - discussion.child_discussions.each do |child_discussion|
+                        .row.child-item.no-margin
+                          .col-md-1.col-lg-1.no-padding.child-item-avatar
+                            %i.fa.fa-smile-o
+                          .col-md-11.col-lg-11.no-padding.child-item-main
+                            - @user = User.where(:id => child_discussion.user_id).first
+                            %ul.child-item-title
+                              %li.bold #{@user.name} 
+                              %li đã đăng 1 thảo luận - 2 tháng trước 
+                            %p.child-item-content
+                              #{child_discussion.description}
                       .row.no-margin 
-                        .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
-                          %input.form-control{:placeholder => "Phản hồi của bạn"}       
-                          .btn.btn-primary Gửi phản hồi 
+                        %form
+                          %input#discussion_id{:type => "hidden", :value => "#{discussion._id}"}
+                          .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                            %textarea.form-control#comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                            .btn.btn-primary#comment-submit{:href => "", :type => "submit"} Gửi phản hồi 
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               .row.noti-item.no-margin
