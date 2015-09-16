@@ -366,28 +366,36 @@ class CoursesController < ApplicationController
     end
   end
 
-    def add_review
+  def rating
     course_id = params[:course_id]
     title = params[:title]
     description = params[:description]
     rate = params[:rate]
 
     @course = Course.where(id: course_id).first
+    review = @course.reviews.where(:course_id => course_id, :user_id => current_user.id).first
+      
+    end
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
     end
 
-    review = @course.reviews.create(
-      title: title,
-      description: description,
-      rate: rate
-    )
-    
+    if review.blank?
+      review = @course.reviews.create(
+        title: title,
+        description: description,
+        rate: rate
+      )
+    else
+      review.title = title
+      review.description = description
+      review.rate = rate
+    end
     review.user = current_user
 
     if @course.save
-      render json: {title: title, description: description, email: "hoptq@topica.edu.vn", rate: rate}
+      render json: {title: title, description: description, email: current_user.email, rate: rate}
       return
     else
       render json: {message: "Có lỗi xảy ra"}
