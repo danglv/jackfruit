@@ -273,6 +273,9 @@
           }
         }
       }
+      .chap-item.active {
+        background: #338abc !important;
+      }
       .chap-item:hover {
         background-color: #F1F1F1;
         a {
