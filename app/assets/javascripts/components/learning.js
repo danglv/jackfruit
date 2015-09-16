@@ -70,10 +70,10 @@ $(document).ready(function (){
 		
 	});
 
-  $('#discussion-submit').click(function () {
-    var course_id = $("#course_id").val();
-    var title = $("#discussion-title").val();
-    var description = $("#discussion-content").val();
+  $('.discussion-submit').click(function () {
+    var course_id = $(".course_id").val();
+    var title = $(".discussion-title").val();
+    var description = $(".discussion-content").val();
 
     var params = {
       'title' : title,
@@ -92,10 +92,11 @@ $(document).ready(function (){
       });
   })
 
-  $('#comment-submit').click(function () {
-    var course_id = $("#course_id").val();
-    var parent_discussion = $("#discussion_id").val();
-    var description = $("#comment-content").val();
+  $('.comment-submit').click(function () {
+    var course_id = $(".course_id").val();
+    var parent_discussion = $(".discussion_id").val();
+    var description = $(".comment-content").val();
+    alert(parent_discussion);
 
     var params = {
       'parent_discussion' : parent_discussion,
