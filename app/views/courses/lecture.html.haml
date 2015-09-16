@@ -56,36 +56,86 @@
           - @course.curriculums.each do |curriculum|
             - if curriculum.type == 'chapter'
               .row.chap-title #{curriculum.title}
+            - elsif curriculum.lecture_index == @index_lecture
+              .row.chap-item.active
+                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                  .row.item-container
+                    .chap-item-status
+                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        .status-container.none
+                          %i.fa.fa-check
+                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        .status-container.learning
+                          %i.fa.fa-pencil
+                      - else
+                        .status-container.completed
+                          %i.fa.fa-check
+                    .chap-item-content
+                      .row.no-margin
+                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                      .row.no-margin
+                        .row.type-document
+                          %ul.no-padding
+                            %li 
+                              %i.fa.fa-play-circle
+                            %li
+                              %span #{curriculum.description}
+                            %li
+                              %i.fa.fa-download
+                            %li
+                              %i.fa.fa-comments
             - else
               .row.chap-item
-                .row.item-container
-                  .chap-item-status
-                    - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
-                      .status-container.none
-                        %i.fa.fa-check
-                    - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
-                      .status-container.learning
-                        %i.fa.fa-pencil
-                    - else
-                      .status-container.completed
-                        %i.fa.fa-check
-                  .chap-item-content
-                    .row.no-margin
-                      %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"} Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
-                    .row.no-margin
-                      .row.type-document
-                        %ul.no-padding
-                          %li 
-                            %a{:href => "#"}
+                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                  .row.item-container
+                    .chap-item-status
+                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        .status-container.none
+                          %i.fa.fa-check
+                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        .status-container.learning
+                          %i.fa.fa-pencil
+                      - else
+                        .status-container.completed
+                          %i.fa.fa-check
+                    .chap-item-content
+                      .row.no-margin
+                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                      .row.no-margin
+                        .row.type-document
+                          %ul.no-padding
+                            %li 
                               %i.fa.fa-play-circle
-                          %li
-                            %span #{curriculum.description}
-                          %li
-                            %a{:href => "#"}
+                            %li
+                              %span #{curriculum.description}
+                            %li
                               %i.fa.fa-download
-                          %li
-                            %a{:href => "#"}
-                          %i.fa.fa-comments
+                            %li
+                              %i.fa.fa-comments
       #lecture-tab-download.tab-pane.fade
       #lecture-tab-discussion.tab-pane.fade
+        %form
+          %input#course_id{:type => "hidden", :value => "#{@course._id}"}
+          %input#lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+          %li
+            %textarea.form-control#discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+          %li
+            %textarea.form-control#discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+          %li
+            %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
+        .row.no-margin.list-discussion
+          - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
+          - lecture_discussions.reverse.each do |discussion|
+            - @user = User.where(:id => discussion.user_id).first
+            .row.discussion-item.no-margin
+              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
+                %i.fa.fa-smile-o
+              .col-md-11.col-lg-11.no-padding.discussion-item-main
+                %ul.discussion-item-title
+                  %li.bold #{@user.name}
+                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                %span.discussion-item-subject 
+                  #{discussion.title}
+                %p.discussion-item-content
+                  #{discussion.description}
       #lecture-tab-note.tab-pane.fade

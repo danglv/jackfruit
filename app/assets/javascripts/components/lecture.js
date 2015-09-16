@@ -42,4 +42,28 @@
  }
  $(".full-screen").fullScreen();
 
+ $('#lecture-discussion-submit').click(function () {
+    var course_id = $("#course_id").val();
+    var title = $("#discussion-title").val();
+    var description = $("#discussion-content").val();
+    var curriculum_id = $("#lecture_id").val();
+
+    var params = {
+      'title' : title,
+      'description' : description,
+      'course_id' : course_id,
+      'curriculum_id' : curriculum_id
+    }
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          console.log(msg)
+        }
+      });
+  })
+
 }(jQuery));

@@ -70,6 +70,50 @@ $(document).ready(function (){
 		
 	});
 
+  $('#discussion-submit').click(function () {
+    var course_id = $("#course_id").val();
+    var title = $("#discussion-title").val();
+    var description = $("#discussion-content").val();
+
+    var params = {
+      'title' : title,
+      'description' : description,
+      'course_id' : course_id
+    }
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          console.log(msg)
+        }
+      });
+  })
+
+  $('#comment-submit').click(function () {
+    var course_id = $("#course_id").val();
+    var parent_discussion = $("#discussion_id").val();
+    var description = $("#comment-content").val();
+
+    var params = {
+      'parent_discussion' : parent_discussion,
+      'description' : description,
+      'course_id' : course_id
+    }
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          console.log(msg)
+        }
+      });
+  })
+
   //================== new layout
 
   //expand reply
