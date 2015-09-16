@@ -1,6 +1,6 @@
 %header
   .header-inner
-    .header-col
+    .header-col.header-col-left
       .btn-group.cats-dropdown.cats-dropdown-fixed
         .dropdown-toggle.active-nav-1.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
           %i.fa.fa-bars
@@ -15,10 +15,10 @@
           %i.fa.fa-search
         .dropdown-menu
           = render :partial => "components/search_box"
-    .header-col
+    .header-col.header-col-mid
       .logo
         %a{:href => "/courses"}= image_tag "logo.png"
-    .header-col.text-right
+    .header-col.text-right.header-col-right
       - if !current_user
         %a.btn.btn-default.btn-flat.button-register{"data-toggle" => "modal", "data-target" => "#register-modal"}
           Đăng kí

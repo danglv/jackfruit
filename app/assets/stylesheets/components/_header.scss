@@ -1,4 +1,13 @@
 header {
+  .header-col-left {
+    width: 34.333333% !important;
+  }
+  .header-col-mid {
+    width: 31.333333% !important;
+  }
+  .header-col-right {
+    width: 34.333333% !important;
+  }
   background-color: #fff;
   border-top: 4px solid $primary-color;
   box-shadow: 0px 1px 2px #ccc;

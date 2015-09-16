@@ -245,6 +245,7 @@
           .chap-item-status, .chap-item-content {
             float: left;
             height: 100%;
+            width: calc(100% - 20px);
           }
           .chap-item-content {
             padding-top: 10px;
