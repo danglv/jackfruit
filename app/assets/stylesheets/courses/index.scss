@@ -16,15 +16,29 @@
       display: none;
     }
   }
-  @media screen and (min-width: 1200px) {
-    .container {
+  @media screen and (min-width: 1260px) {
+    .container{
       width: 1010px;
       .category-title {
-        text-indent: 7px;
-        padding-left: 38px;
+        padding-left: 5px;
       }
       .category-show-all {
-        padding-right: 38px;
+        padding-right: 4px;
+      }
+      .list-course-card {
+        height: 310px;
+        overflow: hidden;
+      }
+    }
+  }
+  @media screen and (min-width: 1200px) and (max-width: 1260px) {
+    .container {
+      width: 770px;
+      .category-title {
+        padding-left: 9px;
+      }
+      .category-show-all {
+        padding-left: 5px;
       }
       .list-course-card {
         height: 310px;
@@ -35,24 +49,31 @@
 
   @media screen and (max-width: 1199px) and (min-width: 992px) {
     .container {
-      .category-title {
-        text-indent: 10px;
-      }
       width: 770px;
+      .category-title {
+      }
     }
   }
 
   @media screen and (max-width: 991px) and (min-width: 768px) {
     .container {
-      width: 520px;
+      width: 770px;
       .category-title {
-        text-indent: 7px;
         float: none !important;
       }
     }
   }
 
-  @media screen and (max-width: 767px) and (min-width: 480px) {
+  @media screen and (max-width: 767px) and (min-width: 560px) {
+    .container {
+      width: 520px;
+      .category-title {
+        text-align: center;
+        float: none !important;
+      }
+    } 
+  }
+  @media screen and (max-width: 589px) and (min-width: 480px) {
     .container {
       width: 280px;
       .category-title {

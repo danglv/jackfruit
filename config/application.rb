@@ -42,5 +42,11 @@ module Jackfruit
     config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
     # Minimum Sass number precision required by bootstrap-sass
     ::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
+
+    config.generators do |g|
+        g.template_engine :haml
+        g.orm :active_record
+        g.test_framework :minitest, spec: true
+    end
   end
 end
