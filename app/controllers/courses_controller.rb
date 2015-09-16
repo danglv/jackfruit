@@ -202,8 +202,9 @@ class CoursesController < ApplicationController
     # Select three first courses in the same category
     # @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
     # Select three first courses in relatives list
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], @course.relatives.where(condition).limit(3)]
-
+    rids = @course.relative_ids[0..2]
+    rcourses = Course.where(:id.in => rids).where(condition).sort{|a,b| rids.index(a.id) <=> rids.index(b.id)}
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], rcourses]
     # Top paid
     condition = {:enabled => true, :label_ids.in => ["top_paid"]}
     if current_user

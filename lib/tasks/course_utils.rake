@@ -30,6 +30,7 @@ namespace :course_utils do
   	puts "Almost done ..."
   	# Delete relative course which is same as course
   	relative_courses.each do |course|
+      course.reload
   		course.relatives.delete course
   	end
 
