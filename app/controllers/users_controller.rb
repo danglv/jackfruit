@@ -200,6 +200,11 @@ class UsersController < ApplicationController
   def suggestion_search
     keywords = params[:q]
     keywords = Utils.nomalize_string(keywords)
+
+    if keywords.include? '-'
+      keywords = keywords.gsub! '-', " "
+    end
+
     pattern = /#{Regexp.escape(keywords)}/i
 
     users = User.where(:name => pattern).map { |user|
