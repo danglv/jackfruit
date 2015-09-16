@@ -128,7 +128,12 @@
                     %ul.discussion-item-title
                       %li.bold #{@user.name}
                       - if !curriculum.blank?
-                        %li= "đã đăng 1 thảo luận trong Bài giảng " + (curriculum.lecture_index + 1).to_s + " - 2 tháng trước"  
+                        %li đã đăng 1 thảo luận trong 
+                        = succeed "" do
+                          %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                            %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
+                          = succeed "" do
+                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"} - 2 tháng trước
                       - else
                         %li đã đăng 1 thảo luận - 2 tháng trước 
                     %span.discussion-item-subject 
