@@ -2,6 +2,7 @@ class Course::Discussion
   include Mongoid::Document
 
   field :status, type: Integer, default: 0
+  # field :level , type: Integer, default: 0
   
   field :title, type: String, default: ""
   field :description, type: String, default: ""

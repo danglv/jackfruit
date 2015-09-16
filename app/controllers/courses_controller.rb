@@ -327,7 +327,7 @@ class CoursesController < ApplicationController
   end
 
   def add_discussion
-    course_id     = params[:id]
+    course_id     = params[:course_id]
     curriculum_id = params[:curriculum_id]
     title         = params[:title]
     description   = params[:description]

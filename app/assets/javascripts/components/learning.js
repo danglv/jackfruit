@@ -70,6 +70,28 @@ $(document).ready(function (){
 		
 	});
 
+  $('#discussion-submit').click(function () {
+    var course_id = $("#course_id").val();
+    var title = $("#discussion-title").val();
+    var description = $("#discussion-content").val();
+
+    var params = {
+      'title' : title,
+      'description' : description,
+      'course_id' : course_id
+    }
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          console.log(msg)
+        }
+      });
+  })
+
   //================== new layout
 
   //expand reply

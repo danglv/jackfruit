@@ -105,7 +105,17 @@
                 %input.form-control{:placeholder => "Tìm kiếm thảo luận"}
                 %i.fa.fa-search
               .col-md-4.col-lg-4.no-padding
-                %a.btn.btn-primary.add_comment.dropdown-button{"data-activates" => "comment-dropdown", :href => "#"} Thảo luận mới 
+                %a.btn.btn-primary.add_comment.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                  Thảo luận mới
+                %ul.dropdown-menu{:style => "height: 500px; width: 500px; position: absolute; left: -300px; padding: 30px;"}
+                  %form
+                    %input#course_id{:type => "hidden", :value => "#{@course._id}"}
+                    %li
+                      %textarea.form-control#discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+                    %li
+                      %textarea.form-control#discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+                    %li
+                      %a.btn.btn-primary#discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
             .row.no-margin.list-discussion
               - @course.discussions.each do |discussion|
                 - @user = User.where(:id => discussion.user_id).first
