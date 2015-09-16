@@ -1,8 +1,14 @@
+# image: ruby:2.2
+
+# services:
+#   - mongo
+
 before_script:
   - gem install bundler
   - bundle install
+  - cp config/mongoid.yml.tmpl config/mongoid.yml
+  - bower install
 
 minitest:
-  test: "RAILS_ENV=test bundle exec rake test"
-  only:
-    - dev
+  script:
+    - bundle exec rake test
