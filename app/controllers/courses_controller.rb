@@ -391,7 +391,6 @@ class CoursesController < ApplicationController
       review.rate = rate
     end
     review.user = current_user
-
     if @course.save
       render json: {title: title, description: description, email: current_user.email, rate: rate}
       return

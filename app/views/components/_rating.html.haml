@@ -1,4 +1,3 @@
-
 .col-xs-12.col-sm-8.col-md-6.col-lg-4.no-padding.rating-popup
   .row.rating-popup-title
     %span Đánh giá khoá học
@@ -17,8 +16,8 @@
           %i.fa.fa-star.star.rated{:val => "4"}
         %li
           %i.fa.fa-star.star{:val => "5"}
-    %form
+    .row.no-margin
       %input{:type => "hidden", :name => "star", :value => "5"}
-      %input.form-control{:placeholder => "Tiêu đề"}
-      %textarea.form-control{:placeholder => "Nội dung"}
-      %button.btn.btn-primary Đánh giá
+      %input.form-control#rating-title{:placeholder => "Tiêu đề"}
+      %textarea.form-control#rating-content{:placeholder => "Nội dung"}
+      %button.btn.btn-primary#rating-submit Đánh giá
