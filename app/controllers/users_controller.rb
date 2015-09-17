@@ -75,6 +75,8 @@ class UsersController < ApplicationController
       :type => learning,
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
+    @wishlist = Course.in(:id => current_user.wishlist);
+
   end
 
   def teaching
@@ -96,7 +98,7 @@ class UsersController < ApplicationController
     end
 
     current_user.save
-    
+
     render json: {:message => "ok"}
   end
 
