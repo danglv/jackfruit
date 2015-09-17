@@ -55,8 +55,23 @@
 
 $(document).ready(function () {
 
+  $(".favorite-button").click(function (){
+    var course_id = $(".course_id").val();
+    var params = {
+      'course_id' : course_id
+    }
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/wish_list';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+        }
+      });
+
+  });
+
   $(".submit-cod-code").on("click", function () {
-    console.log("clicked");
 
     var parent = $($(this).parent()).parent();
     $(".txtNoti").css("display", "none");

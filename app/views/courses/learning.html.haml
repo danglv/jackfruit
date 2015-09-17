@@ -5,24 +5,27 @@
       .container.no-padding
         .row.learning-header-container
           %span.course-name= @course.name
-          - if @owned_course.lectures.where(:status => 2).count > 0
-            .rating-container
-              %ul.rating.rating-active{:course_id => "#{@course._id}"}
-                - num_rate = 0
-                - begin
-                  - review = @course.reviews.where(:user_id => current_user.id).first
-                  - if !review.blank?
-                    - num_rate = review.rate
-                - rescue
-                - (1..5).each do |i|
-                  - if i <= num_rate
-                    %li
-                      %i.fa.fa-star.star.rated{:val => i}
-                  - else
-                    %li
-                      %i.fa.fa-star.star{:val => i}
-                %li 
-                  %a.rate-it Rate it
+          .rating-container
+            - num_rate = 0
+            - title = ''
+            - description = ''
+            - begin
+              - review = @course.reviews.where(:user_id => current_user.id).first
+              - if !review.blank?
+                - num_rate = review.rate
+                - title = review.title
+                - description = review.description
+            - rescue
+            %ul.rating.rating-active{:course_id => "#{@course._id}", "data-rate" => num_rate, "data-title" => title, "data-description" => description}
+              - (1..5).each do |i|
+                - if i <= num_rate
+                  %li
+                    %i.fa.fa-star.star.rated{:val => i}
+                - else
+                  %li
+                    %i.fa.fa-star.star{:val => i}
+              %li 
+                %a.rate-it Rate it
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
       .row.learning-container
         .col-xs-12.col-sm-10.col-sm-offset-1.col-md-6.col-lg-6.list-lecture
@@ -164,12 +167,10 @@
                             %p.child-item-content
                               #{child_discussion.description}
                       .row.no-margin 
-                        %form
-                          %span= discussion.id
-                          %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
-                          .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
-                            %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
-                            .btn.btn-primary.comment-submit{:href => "", :type => "submit"} Gửi phản hồi 
+                        / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
+                        .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                          %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                          .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               .row.noti-item.no-margin
