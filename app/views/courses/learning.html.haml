@@ -127,7 +127,7 @@
                     %li
                       %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
                     %li
-                      %a.btn.btn-primary.discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
+                      %a.btn.btn-primary.discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
             .row.no-margin.list-discussion
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
