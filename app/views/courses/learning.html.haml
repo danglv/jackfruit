@@ -5,27 +5,28 @@
       .container.no-padding
         .row.learning-header-container
           %span.course-name= @course.name
-          .rating-container
-            - num_rate = 0
-            - title = ''
-            - description = ''
-            - begin
-              - review = @course.reviews.where(:user_id => current_user.id).first
-              - if !review.blank?
-                - num_rate = review.rate
-                - title = review.title
-                - description = review.description
-            - rescue
-            %ul.rating.rating-active{:course_id => "#{@course._id}", "data-rate" => num_rate, "data-title" => title, "data-description" => description}
-              - (1..5).each do |i|
-                - if i <= num_rate
-                  %li
-                    %i.fa.fa-star.star.rated{:val => i}
-                - else
-                  %li
-                    %i.fa.fa-star.star{:val => i}
-              %li 
-                %a.rate-it Rate it
+          - if @owned_course.lectures.where(:status => 2).count > 0
+            .rating-container
+              - num_rate = 0
+              - title = ''
+              - description = ''
+              - begin
+                - review = @course.reviews.where(:user_id => current_user.id).first
+                - if !review.blank?
+                  - num_rate = review.rate
+                  - title = review.title
+                  - description = review.description
+              - rescue
+              %ul.rating.rating-active{:course_id => "#{@course._id}", "data-rate" => num_rate, "data-title" => title, "data-description" => description}
+                - (1..5).each do |i|
+                  - if i <= num_rate
+                    %li
+                      %i.fa.fa-star.star.rated{:val => i}
+                  - else
+                    %li
+                      %i.fa.fa-star.star{:val => i}
+                %li 
+                  %a.rate-it Rate it
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
       .row.learning-container
         .col-xs-12.col-sm-10.col-sm-offset-1.col-md-6.col-lg-6.list-lecture
@@ -131,6 +132,7 @@
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - @user = User.where(:id => discussion.user_id).first
+                - relative_time = TimeHelper.relative_time(discussion.created_at)
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                     %i.fa.fa-smile-o
@@ -143,9 +145,9 @@
                           %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                             %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
                           = succeed "" do
-                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"} - 2 tháng trước
+                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"}= "- #{relative_time}"
                       - else
-                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                        %li= "đã đăng 1 thảo luận - #{relative_time}" 
                     %span.discussion-item-subject 
                       #{discussion.title}
                     %p.discussion-item-content
@@ -156,6 +158,7 @@
                       %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
                       - discussion.child_discussions.reverse.each do |child_discussion|
+                        - child_relative_time = TimeHelper.relative_time(child_discussion.created_at)
                         .row.child-item.no-margin
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o
@@ -163,7 +166,7 @@
                             - @user = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
                               %li.bold #{@user.name} 
-                              %li đã đăng 1 thảo luận - 2 tháng trước 
+                              %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
                             %p.child-item-content
                               #{child_discussion.description}
                       .row.no-margin 
