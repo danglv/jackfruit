@@ -17,6 +17,10 @@ module Constants
     VI = "vi"
   end
 
+  module PreviewMode
+    TIME = 1.minutes
+  end
+
   module UserLang
     EN = "en"
     VI = "vi"
@@ -39,6 +43,7 @@ module Constants
     LEARNING = "learning"
     TEACHING = "teaching"
     WISHLIST = "wishlist"
+    PREVIEW  = "preview"
   end
 
   module ContentTypes

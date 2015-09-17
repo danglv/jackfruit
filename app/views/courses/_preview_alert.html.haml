@@ -1,0 +1,69 @@
+.col-xs-12.text-center{:style => 'background-color: #38B34A; margin: 10px 0px; padding: 5px 0px; color: white;'}
+	.col-xs-12.no-margin.center{:style => 'width: 80%;'}
+		.col-lg-2
+		.col-lg-1
+			.row.no-margin
+				Còn lại
+			.row.no-margin
+				%span.bold#remain-preview-time
+		.col-lg-4
+			.row.no-margin
+				Bạn đang xem thử khóa học
+			.row.no-margin
+				%span.bold #{@course.name}
+		.col-lg-1
+			.row.no-margin
+				Giá gốc
+			.row.no-margin
+				%span.bold.italic #{@course.price}
+		.col-lg-2
+			.row.no-margin
+				Giá khuyến mại
+			.row.no-margin
+				%span.bold 99.000
+		.col-lg-1
+			.row.no-margin
+				%a.btn.btn-primary{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+					Mua khóa học
+		.col-lg-2
+.col-xs-12
+	.modal.fade#disable_preview_modal{"aria-labelledby" => "disable_preview_modal", :role => "dialog", :tabindex => "-1", "data-backdrop" => "static"}
+		.modal-dialog{:role => "document"}
+			.modal-content
+				.modal-header
+					%h3#myModalLabel.modal-title Đã hết thời gian học thử
+				.modal-body{:style => "margin-top:20px;"}
+					%h4
+						Hãy mua khóa học
+						%b #{@course.name}
+						để tiếp tục học
+					%h4
+						Với giá ưu đãi
+						%b 99.000
+						%b
+							%s #{@course.price}
+				.modal-footer
+					%a.btn.btn-default{:type => "button", :href => "/courses/#{@course.alias_name.to_s}/detail", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Không, cảm ơn
+					%a.btn.btn-primary{:type => "button", :href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Mua khóa học
+:javascript
+	var stop_time = new Date("#{@owned_course.expired_at.utc}").getTime();
+	function startTimer(display) {
+		var timer = (stop_time - Date.now()) / 1000, minutes, seconds;
+		var interval = setInterval(function () {
+			if (--timer < 0) {
+				$('#disable_preview_modal').modal('show');
+				clearInterval(interval);
+				return;
+			}
+			minutes = parseInt(timer / 60, 10);
+			seconds = parseInt(timer % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.textContent = minutes + ":" + seconds;
+
+		}, 1000);
+	}
+	display = document.querySelector('#remain-preview-time');
+	startTimer(display);
