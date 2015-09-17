@@ -28,7 +28,6 @@
       $( window ).bind("resize", function (){
         $(".lecture-player").attr("style","");
         $( window ).unbind("resize");
-        console.log("resized")
       })
 
     }
@@ -61,13 +60,13 @@
         url: URL,
         data: params,
         success: function(msg){
-          console.log(msg)
         }
       });
   })
 
   $('.comment-submit').click(function () {
 
+    var obj = this;
     var course_id = $("#course_id").val();
     var parent_discussion = $(this).attr("discussion_id");
     var description = $(this).parent().find(".comment-content");
@@ -84,7 +83,6 @@
         url: URL,
         data: params,
         success: function(msg){
-          // console.log(msg)
           var data = msg;
 
           description.val("");

@@ -55,12 +55,14 @@
 
 $(document).ready(function () {
 
-  $(".favorite-button").click(function (){
+  $(".wishlist-button").click(function (){
     var course_id = $(".course_id").val();
+
     var params = {
-      'course_id' : course_id
+      'course_id': course_id,
     }
-    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/wish_list';
+
+    var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
     $.ajax({
         type: 'POST',
         url: URL,
@@ -68,6 +70,12 @@ $(document).ready(function () {
         success: function(msg){
         }
       });
+
+    if ($(".wishlist-button").hasClass("wishlisted")) {
+      $(".wishlist-button").removeClass("wishlisted");
+    } else {
+      $(".wishlist-button").addClass("wishlisted");
+    };
 
   });
 
