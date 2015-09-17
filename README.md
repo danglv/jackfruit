@@ -1,4 +1,4 @@
-Jackfruit [![build status](http://ci.pedia.vn/projects/1/status.png?ref=dev)](http://ci.pedia.vn/projects/1?ref=dev)
+Jackfruit [![build status](http://ci.pedia.vn/projects/4/status.png?ref=dev)](http://ci.pedia.vn/projects/4?ref=dev)
 ==========
 
 # Requirements
