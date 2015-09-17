@@ -294,9 +294,9 @@
                 .progress-bar{:style => "width: 60%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b= course_reviews.where(:rate => (6-i)).count
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - @course.reviews.each do |review|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
         - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
@@ -629,9 +629,9 @@
                 .progress-bar{:style => "width: 60%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b= course_reviews.where(:rate => (6-i)).count
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - @course.reviews.each do |review|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
         - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
@@ -966,9 +966,9 @@
                 .progress-bar{:style => "width: 60%;"}
             .col-sm-2.no-padding
               .normal-text
-                %b= course_reviews.where(:rate => (6-i)).count
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - @course.reviews.each do |review|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
         - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
@@ -1310,9 +1310,9 @@
                     .progress-bar{:style => "width: 60%;"}
                 .col-md-2.no-padding
                   .normal-text
-                    %b= course_reviews.where(:rate => (6-i)).count
+                    %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-          - @course.reviews.each do |review|
+          - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
             - user = User.where(:id => review.user_id.to_s).first
             - relative_time = TimeHelper.relative_time(review.created_at)
             .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
@@ -1687,9 +1687,9 @@
                     .progress-bar{:style => "width: 60%"}
                 .col-lg-2.no-padding
                   .normal-text
-                    %b= course_reviews.where(:rate => (6 - i)).count
+                    %b= course_reviews.where(:description.nin => "", :rate => (6 - i)).count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-          - @course.reviews.each do |review|
+          - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
             - user = User.where(:id => review.user_id.to_s).first
             - relative_time = TimeHelper.relative_time(review.created_at)
             .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
