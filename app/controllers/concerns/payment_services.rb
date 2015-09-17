@@ -89,6 +89,10 @@ module PaymentServices extend ActiveSupport::Concern
   end
 
   class BaoKimPaymentPro
+    def verify_response_url
+      true
+    end
+
     def get_seller_info
       params = {
         'business' => BaoKimConstant::EMAIL_BUSINESS
