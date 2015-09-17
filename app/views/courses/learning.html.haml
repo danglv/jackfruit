@@ -132,6 +132,7 @@
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - @user = User.where(:id => discussion.user_id).first
+                - relative_time = TimeHelper.relative_time(discussion.created_at)
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                     %i.fa.fa-smile-o
@@ -144,9 +145,9 @@
                           %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                             %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
                           = succeed "" do
-                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"} - 2 tháng trước
+                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"}= "- #{relative_time}"
                       - else
-                        %li đã đăng 1 thảo luận - 2 tháng trước 
+                        %li= "đã đăng 1 thảo luận - #{relative_time}" 
                     %span.discussion-item-subject 
                       #{discussion.title}
                     %p.discussion-item-content
@@ -157,6 +158,7 @@
                       %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
                       - discussion.child_discussions.reverse.each do |child_discussion|
+                        - child_relative_time = TimeHelper.relative_time(child_discussion.created_at)
                         .row.child-item.no-margin
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o
@@ -164,7 +166,7 @@
                             - @user = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
                               %li.bold #{@user.name} 
-                              %li đã đăng 1 thảo luận - 2 tháng trước 
+                              %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
                             %p.child-item-content
                               #{child_discussion.description}
                       .row.no-margin 
