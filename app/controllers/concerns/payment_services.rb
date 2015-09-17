@@ -89,7 +89,7 @@ module PaymentServices extend ActiveSupport::Concern
   end
 
   class BaoKimPaymentPro
-    def verify_response_url
+    def verify_response_url(params)
       true
     end
 
