@@ -68,11 +68,11 @@ vi:
         other: gần %{count} năm
       half_a_minute: 30 giây
       less_than_x_minutes:
-        one: chưa tới 1 phút
-        other: chưa tới %{count} phút
+        one: gần 1 phút
+        other: gần %{count} phút
       less_than_x_seconds:
-        one: chưa tới 1 giây
-        other: chưa tới %{count} giây
+        one: gần 1 giây
+        other: gần %{count} giây
       over_x_years:
         one: hơn 1 năm
         other: hơn %{count} năm

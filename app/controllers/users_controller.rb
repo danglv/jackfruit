@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
-  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
+  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist]
   before_filter :validate_course, only: [:select_course]
 
   def index
@@ -75,6 +75,8 @@ class UsersController < ApplicationController
       :type => learning,
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
+    @wishlist = Course.in(:id => current_user.wishlist)
+
   end
 
   def teaching
@@ -85,12 +87,19 @@ class UsersController < ApplicationController
     head :ok
   end
 
-  def wishlist
-    # wishlist = Constants::OwnedCourseTypes::WISHLIST
-    # course_ids = current_user.courses.where(type: wishlist).map(&:course_id)
-    # @courses = Course.where(:id.in => course_ids)
+  def update_wishlist
+    course_id = params[:course_id]
+    is_exist = current_user.wishlist.include?(course_id)
 
-    # head :ok
+    if is_exist
+      current_user.wishlist.delete(course_id)
+    else
+      current_user.wishlist << course_id
+    end
+
+    current_user.save
+
+    render json: {:message => "ok"}
   end
 
   def search
