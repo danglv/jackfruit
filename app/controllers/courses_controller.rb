@@ -197,6 +197,7 @@ class CoursesController < ApplicationController
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
+
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
