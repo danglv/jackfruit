@@ -127,13 +127,14 @@
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
           - lecture_discussions.reverse.each do |discussion|
             - @user = User.where(:id => discussion.user_id).first
+            - relative_time = TimeHelper.relative_time(discussion.created_at)
             .row.discussion-item.no-margin
               .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                 %i.fa.fa-smile-o
               .col-md-11.col-lg-11.no-padding.discussion-item-main
                 %ul.discussion-item-title
                   %li.bold #{@user.name}
-                  %li đã đăng 1 thảo luận - 2 tháng trước 
+                  %li= "đã đăng 1 thảo luận - #{relative_time}"
                 %span.discussion-item-subject 
                   #{discussion.title}
                 %p.discussion-item-content
