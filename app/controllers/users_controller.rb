@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
-  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
+  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist]
   before_filter :validate_course, only: [:select_course]
 
   def index
