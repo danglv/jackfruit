@@ -234,6 +234,7 @@ class PaymentController < ApplicationController
   def success
     payment_service_provider = params[:p]
     if payment_service_provider == 'baokim'
+      baokim = BaoKimPaymentPro.new
       @course = Course.where(id: @payment.course_id).first
       if baokim.verify_response_url(params)
         owned_course = current_user.courses.where(course_id: @course.id).first
