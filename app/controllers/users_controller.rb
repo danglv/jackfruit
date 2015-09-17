@@ -85,12 +85,19 @@ class UsersController < ApplicationController
     head :ok
   end
 
-  def wishlist
-    # wishlist = Constants::OwnedCourseTypes::WISHLIST
-    # course_ids = current_user.courses.where(type: wishlist).map(&:course_id)
-    # @courses = Course.where(:id.in => course_ids)
+  def update_wishlist
+    course_id = params[:course_id]
+    is_exist = current_user.wishlist.include?(course_id)
 
-    # head :ok
+    if is_exist
+      current_user.wishlist.delete(course_id)
+    else
+      current_user.wishlist << course_id
+    end
+
+    current_user.save
+    
+    render json: {:message => "ok"}
   end
 
   def search

@@ -139,4 +139,25 @@
                   #{discussion.title}
                 %p.discussion-item-content
                   #{discussion.description}
+                - if discussion.child_discussions.count == 0
+                  %a.discussion-item-reply Phản hồi
+                - else
+                  %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
+                .row.no-margin.list-children.collapsed
+                  - discussion.child_discussions.reverse.each do |child_discussion|
+                    .row.child-item.no-margin
+                      .col-md-1.col-lg-1.no-padding.child-item-avatar
+                        %i.fa.fa-smile-o
+                      .col-md-11.col-lg-11.no-padding.child-item-main
+                        - @user = User.where(:id => child_discussion.user_id).first
+                        %ul.child-item-title
+                          %li.bold #{@user.name} 
+                          %li đã đăng 1 thảo luận - 2 tháng trước 
+                        %p.child-item-content
+                          #{child_discussion.description}
+                  .row.no-margin 
+                    / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
+                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                      %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                      .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
       #lecture-tab-note.tab-pane.fade

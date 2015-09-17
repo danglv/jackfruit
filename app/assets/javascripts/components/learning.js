@@ -87,7 +87,7 @@ $(document).ready(function (){
         url: URL,
         data: params,
         success: function(msg){
-          console.log(msg)
+          var data = msg;
         }
       });
   })
@@ -98,7 +98,7 @@ $(document).ready(function (){
     var course_id = $(".course_id").val();
     var parent_discussion = $(this).attr("discussion_id");
     var description = $(this).parent().find(".comment-content");
-    console.log(parent_discussion + " : " + description);
+
     var params = {
       'parent_discussion' : parent_discussion,
       'description' : description.val(),
@@ -111,7 +111,6 @@ $(document).ready(function (){
         url: URL,
         data: params,
         success: function(msg){
-          // console.log(msg)
           var data = msg;
 
           description.val("");

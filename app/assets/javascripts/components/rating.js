@@ -20,7 +20,6 @@
   $.fn.sendRatingHandle = function () {
     this.click(function () {
 
-      console.log("send");
       var ratingTitle = $("#rating-title").val();
       var ratingContent = $("#rating-content").val();
       var ratingNumber = $($(".rating-popup")[0]).find(".rated").length;
@@ -60,12 +59,10 @@
       var description = $(this).attr("data-description");
 
       // set rated for star in popup
-      console.log(num_rate + " : " + title + " : " + description);
       for(var i = 1; i <= 5 ; i++) {
 
         if( i <= num_rate ) {
           htmlPopup += "<li> <i class='fa fa-star star rated' val='" + i + "'></i> </li>";
-          console.log(htmlPopup);
         }
         else {
           htmlPopup += "<li> <i class='fa fa-star star' val='" + i + "'></i> </li>";
@@ -106,8 +103,6 @@
       var valueStar = parseInt($(this).attr("val"));
       var ratings = $(boss);
       ratings.push($(".rating-popup"));
-      
-      console.log(ratings);
 
       $("input[name=star]").val(valueStar);
 
