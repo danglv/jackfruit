@@ -88,6 +88,11 @@ $(document).ready(function (){
         data: params,
         success: function(msg){
           var data = msg;
+
+          description.val("");
+          title.val("");
+
+          var discussionItem = "<div class='row child-item no-margin'> <div class='col-md-1 col-lg-1 no-padding child-item-avatar'> <i class='fa fa-smile-o'></i> </div> <div class='col-md-11 col-lg-11 no-padding child-item-main'> <ul class='child-item-title'> <li class='bold'>"+data.email+"</li> <li>vừa đăng thảo luận</li> </ul> <p class='child-item-content'>"+data.description+" </p> </div> </div> ";
         }
       });
   })
