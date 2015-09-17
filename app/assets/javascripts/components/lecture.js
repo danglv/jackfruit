@@ -41,11 +41,13 @@
  }
  $(".full-screen").fullScreen();
 
- $('#lecture-discussion-submit').click(function () {
-    var course_id = $("#course_id").val();
-    var title = $("#discussion-title").val();
-    var description = $("#discussion-content").val();
-    var curriculum_id = $("#lecture_id").val();
+ $('.lecture-discussion-submit').click(function () {
+    var obj = this;
+
+    var course_id = $(".course_id").val();
+    var title = $(".discussion-title").val();
+    var description = $(".discussion-content").val();
+    var curriculum_id = $(".lecture_id").val();
 
     var params = {
       'title' : title,
@@ -60,6 +62,10 @@
         url: URL,
         data: params,
         success: function(msg){
+          var data = msg;
+
+          var discussionItem = "<div class='row discussion-item no-margin'> <div class='col-md-1 col-lg-1 no-padding discussion-item-avatar'> <i class='fa fa-smile-o'></i> </div> <div class='col-md-11 col-lg-11 no-padding discussion-item-main'> <ul class='discussion-item-title'> <li class='bold'>"+data.email+"</li> </ul> <span class='discussion-item-subject'>"+data.title+" </span> <p class='discussion-item-content'>"+data.description+" </p> </div> </div>";
+          $(obj).parent().parent().parent().find(".list-discussion").prepend(discussionItem);
         }
       });
   })
