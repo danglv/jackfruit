@@ -15,14 +15,20 @@
   //       }
   //     });
   // })
-  $.fn.wishlist = function (e) {
+  
+  $.fn.wishlist = function () {
     this.click( function () {
       var course_id = $(this).attr('val');
       var params = {
         'course_id': course_id,
       }
 
-      console.log($(this));
+      var heart = $(this).children().children().get(1);
+      if (heart.classList.contains("wishlist")){
+        heart.classList.remove("wishlist");
+      }else{
+        heart.classList.add("wishlist"); 
+      }
 
       var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
       $.ajax({
@@ -32,9 +38,7 @@
           success: function(msg){
           }
         });
-      e.preventDefault();
-    })
-
+      })
   };
 
   $('.wishlist-heart').wishlist();
