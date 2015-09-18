@@ -49,6 +49,7 @@ class ActiveSupport::TestCase
   # end
   # Capybara.default_driver = :poltergeist_debug
 
+  Rake::Task["db:test:load"].invoke
 end
 
 class ActionController::TestCase
