@@ -1,3 +1,4 @@
+%input#preview_expired_time_alway_unique{:type => "hidden", :value => "#{@owned_course.expired_at.utc}"}
 .col-xs-12.text-center{:style => 'background-color: #38B34A; margin: 10px 0px; padding: 5px 0px; color: white;'}
 	.col-xs-12.no-margin.center{:style => 'width: 80%;'}
 		.col-lg-2
@@ -45,25 +46,3 @@
 				.modal-footer
 					%a.btn.btn-default{:type => "button", :href => "/courses/#{@course.alias_name.to_s}/detail", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Không, cảm ơn
 					%a.btn.btn-primary{:type => "button", :href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Mua khóa học
-:javascript
-	var stop_time = new Date("#{@owned_course.expired_at.utc}").getTime();
-	function startTimer(display) {
-		var timer = (stop_time - Date.now()) / 1000, minutes, seconds;
-		var interval = setInterval(function () {
-			if (--timer < 0) {
-				$('#disable_preview_modal').modal('show');
-				clearInterval(interval);
-				return;
-			}
-			minutes = parseInt(timer / 60, 10);
-			seconds = parseInt(timer % 60, 10);
-
-			minutes = minutes < 10 ? "0" + minutes : minutes;
-			seconds = seconds < 10 ? "0" + seconds : seconds;
-
-			display.textContent = minutes + ":" + seconds;
-
-		}, 1000);
-	}
-	display = document.querySelector('#remain-preview-time');
-	startTimer(display);

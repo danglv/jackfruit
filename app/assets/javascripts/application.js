@@ -29,6 +29,7 @@
 //= require components/payment.js
 //= require ./components/nav
 //= require components/home
+//= require components/preview
 
 $(document).ready(function () {
   $.material.init();

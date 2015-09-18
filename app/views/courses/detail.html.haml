@@ -113,8 +113,11 @@
                 %a.link-text{:href => ""}
                   %h5.normal-text.link-text Nhập mã khuyến mãi
               .col-xs-12.no-padding
-                %a.link-text{:href => ""}
-                  %h5.normal-text.link-text Học thử miễn phí
+                - if @preview_disabled
+                  %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                - else
+                  %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                    %h5.normal-text.link-text Học thử miễn phí
               .col-xs-12.no-padding
                 %a.link-text{:href => ""}
                   %h5.normal-text.link-text Góp ý
@@ -139,7 +142,7 @@
               %a.link-text{:href => ""}
                 %h5.normal-text.link-text Nhập mã khuyến mãi
             .col-xs-12.no-padding
-              %a.link-text{"data-toggle" => "modal", "data-target" => "#register-modal"}
+              %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                 %h5.normal-text.link-text Học thử miễn phí
             .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %a.link-text{:href => ""}
@@ -435,8 +438,11 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-xs-8.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Học thử miễn phí
+                      - if @preview_disabled
+                        %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                      - else
+                        %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                          %h5.normal-text.link-text Học thử miễn phí
                     .col-xs-8.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
@@ -459,7 +465,7 @@
                     %a.link-text{:href => ""}
                       %h5.normal-text.link-text Nhập mã khuyến mãi
                   .col-xs-8.no-padding
-                    %a.link-text{"data-toggle" => "modal", "data-target" => "#register-modal"}
+                    %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       %h5.normal-text.link-text Học thử miễn phí
                   .col-xs-8.no-padding
                     %a.link-text{:href => ""}
@@ -764,8 +770,11 @@
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-sm-12.no-padding
-                        %a.link-text{:href => ""}
-                          %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-sm-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -790,7 +799,7 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-sm-12.no-padding
-                      %a.link-text{"data-toggle" => "modal", "data-target" => "#register-modal"}
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         %h5.normal-text.link-text Học thử miễn phí
                     .col-sm-12.no-padding
                       %a.link-text{:href => ""}
@@ -1095,8 +1104,11 @@
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-md-12.no-padding
-                        %a.link-text{:href => ""}
-                          %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-md-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -1121,7 +1133,7 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-md-12.no-padding
-                      %a.link-text{"data-toggle" => "modal", "data-target" => "#register-modal"}
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         %h5.normal-text.link-text Học thử miễn phí
                     .col-md-12.no-padding
                       %a.link-text{:href => ""}
@@ -1439,10 +1451,10 @@
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-lg-12.no-padding
                         - if @preview_disabled
-                          %h5.normal-text.link-text{:style => "color:gray !important;"} Bạn đã preview khóa này
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
                         - else
                           %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                            %h5.normal-text.link-text Học thử miễn phí - Chưa học thử
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-lg-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -1468,7 +1480,7 @@
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-lg-12.no-padding
                       %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                        %h5.normal-text.link-text Học thử miễn phí - Guest
+                        %h5.normal-text.link-text Học thử miễn phí
                     .col-lg-12.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
