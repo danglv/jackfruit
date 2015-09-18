@@ -214,6 +214,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left{:style => 'width:130px'}
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
                           / .detail-curi-leacture.pull-right
                           /   %h5.normal-text.no-margin
                           /     %b #{curi.description}
@@ -546,6 +550,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left{:style => 'width:270px'}
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -880,6 +888,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
                           .detail-curi-leacture.pull-right
                             %h5.normal-text.no-margin
                               %b #{curi.description}
@@ -1215,6 +1227,10 @@
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                               .detail-curi-title.pull-left
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              - if curi.asset_type == "Video" && curi.previewable
+                                .detail-curi-leacture.pull-left
+                                  %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                    %b Xem thử
                               .detail-curi-leacture.pull-right
                                 %h5.normal-text.no-margin
                                   %b #{curi.description}
@@ -1585,6 +1601,10 @@
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                               .detail-curi-title.pull-left
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              - if curi.asset_type == "Video" && curi.previewable
+                                .detail-curi-leacture.pull-left
+                                  %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                    %b Xem thử
                               .detail-curi-leacture.pull-right
                                 %h5.normal-text.no-margin
                                   %b #{curi.description}

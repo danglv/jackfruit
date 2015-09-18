@@ -32,3 +32,26 @@
   };
 
 }(jQuery));
+
+function let_me_preview_this_video(url){
+
+  var modal_content = "";
+  modal_content += "<div id=\"preview_lecture_modal\" class=\"modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"preview_lecture_modal\">";
+  modal_content += "  <div class=\"modal-dialog\" role=\"document\">";
+  modal_content += "    <div class=\"modal-content\" style=\"background-color: black; height: 100%;\">";
+  modal_content += "      <iframe src=\"" + url + "\" style=\"width: 100%; height: 100%; border: none;\">";
+  modal_content += "      <\/iframe>";
+  modal_content += "    <\/div>";
+  modal_content += "  <\/div>";
+  modal_content += "<\/div>";
+
+  div = document.createElement("div");
+  div.innerHTML = modal_content;
+  document.body.appendChild(div.firstChild);
+
+  $('#preview_lecture_modal').modal('show');
+
+  $('#preview_lecture_modal').on('hidden.bs.modal', function (e) {
+    this.remove();
+  });
+}
