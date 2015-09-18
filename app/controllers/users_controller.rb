@@ -266,6 +266,43 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST: API create instructor for kelley
+  def create_instructor
+    instructor = params["instructor"]
+
+    if instructor.blank?
+      render json: {message: "Chưa truyền dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+
+    instructor = JSON.parse(instructor)
+
+    user = User.new(
+      name: instructor['name']
+    )
+
+    email = instructor['email'].blank? ? Utils.nomalize_string(instructor['name']).to_s + "@tudemy.vn" : instructor['email']
+    user.email = email
+    user.password = "12345678"
+
+    instructor_profile = User::InstructorProfile.new()
+    instructor_profile.academic_rank = instructor['instructor_profile']['academic_rank'] unless instructor['instructor_profile']['academic_rank'].blank?
+    instructor_profile.major = instructor['instructor_profile']['major'] unless instructor['instructor_profile']['major'].blank?
+    instructor_profile.function = instructor['instructor_profile']['function'] unless instructor['instructor_profile']['function'].blank?
+    instructor_profile.work_unit = instructor['instructor_profile']['work_unit'] unless instructor['instructor_profile']['work_unit'].blank?
+    instructor_profile.description = instructor['instructor_profile']['description'] unless instructor['instructor_profile']['description'].blank?
+    
+    user.instructor_profile = instructor_profile
+
+    if user.save
+      render json: {message: "Success"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+      return
+    end
+    
+  end
   private
     def set_user
       if params[:id] != nil
