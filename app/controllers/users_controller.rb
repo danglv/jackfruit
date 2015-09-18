@@ -89,6 +89,10 @@ class UsersController < ApplicationController
 
   def update_wishlist
     course_id = params[:course_id]
+    if course_id.blank?
+      render json: {:message => "Course_id không có"}, status: :unprocessable_entity
+      return
+    end
     is_exist = current_user.wishlist.include?(course_id)
 
     if is_exist
