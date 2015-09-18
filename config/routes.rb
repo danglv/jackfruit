@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :approve
     end
     collection do
       get :search
@@ -27,7 +28,7 @@ Rails.application.routes.draw do
       # API for mercury
       get '/api/suggestion_search', to: 'courses#suggestion_search'
       get '/api/get_money', to: 'courses#get_money'
-      
+
       # API for kelley
       post :upload_course
     end
