@@ -466,16 +466,17 @@ class CoursesController < ApplicationController
     course = params['course']
     course_id = params['course_id']
     user_id = params['user_id']
-
     if user_id.blank?
       render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
       return
     else
       user = User.find(user_id)
       course = JSON.parse(course)
-      c = Course.find(course_id)
-
-      c = Course.new(
+      if !course_id.blank?
+        c = Course.find(course_id)
+      end
+      
+      c = Course.find_or_initialize_by(
         alias_name: course['alias_name'],
         name: course['name'],
         sub_title: course['sub_title'],
@@ -515,7 +516,7 @@ class CoursesController < ApplicationController
       c.user = user
 
       if c.save
-        render json: {message: "success"}
+        render json: {message: "upload khoá học thành công"}
         return
       else
         render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
