@@ -27,6 +27,9 @@ Rails.application.routes.draw do
       # API for mercury
       get '/api/suggestion_search', to: 'courses#suggestion_search'
       get '/api/get_money', to: 'courses#get_money'
+      
+      # API for kelley
+      post :upload_course
     end
   end
 
