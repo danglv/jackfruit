@@ -55,8 +55,31 @@
 
 $(document).ready(function () {
 
+  $(".wishlist-button").click(function (){
+    var course_id = $(".course_id").val();
+
+    var params = {
+      'course_id': course_id,
+    }
+
+    var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+        }
+      });
+
+    if ($(".wishlist-button").hasClass("wishlisted")) {
+      $(".wishlist-button").removeClass("wishlisted");
+    } else {
+      $(".wishlist-button").addClass("wishlisted");
+    };
+
+  });
+
   $(".submit-cod-code").on("click", function () {
-    console.log("clicked");
 
     var parent = $($(this).parent()).parent();
     $(".txtNoti").css("display", "none");

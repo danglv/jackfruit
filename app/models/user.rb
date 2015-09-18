@@ -11,6 +11,8 @@ class User
   TEMP_EMAIL_PREFIX = 'tudemy@me'
   TEMP_EMAIL_REGEX = /\A[^@]+@[^@]+\z/
 
+  field :wishlist, type: Array, default: []
+
   ## Database authenticatable
   field :email, type: String, default: ""
   field :encrypted_password, type: String, default: ""

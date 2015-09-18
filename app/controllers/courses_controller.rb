@@ -57,14 +57,6 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4)]
-
-    condition = {:price.gt => 0,:category_ids.in => [@category.id], :enabled => true}
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-    else
-      condition[:version] = Constants::CourseVersions::PUBLIC
-    end
     @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4)]
 
     condition = {:category_ids.in => [@category.id], :enabled => true}
@@ -73,6 +65,16 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
+
+    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4)]
+
+    condition = {:price.gt => 0,:category_ids.in => [@category.id], :enabled => true}
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+
     @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(4)]
 
     @other_category = Category.where(
@@ -217,10 +219,12 @@ class CoursesController < ApplicationController
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
+
     if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
+
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
@@ -356,27 +360,73 @@ class CoursesController < ApplicationController
   end
 
   def add_discussion
-    course_id     = params[:id]
+    course_id = params[:course_id]
     curriculum_id = params[:curriculum_id]
-    title         = params[:title]
-    description   = params[:description]
-    @course       = Course.where(id: course_id).first
+    title = params[:title]
+    description = params[:description]
+    parent_discussion = params[:parent_discussion]
 
+    @course = Course.where(id: course_id).first
+    if @course.blank?
+      render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
+      return
+    end
+    curriculum = @course.curriculums.where(id: curriculum_id).first
+    parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
+    discussion = nil
+    if parent_discussion_obj.blank?
+      discussion = @course.discussions.create(
+        title: title,
+        description: description
+      )
+    else
+      discussion = parent_discussion_obj.child_discussions.create(
+        title: title,
+        description: description,
+        parent_discussion: parent_discussion
+      )
+    end
+    
+    discussion.user = current_user
+    discussion.curriculum = curriculum if !curriculum.blank?
+
+    if @course.save
+      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar}
+      return
+    else
+      render json: {message: "Có lỗi xảy ra"}
+      return
+    end
+  end
+
+  def rating
+    course_id = params[:id]
+    title = params[:title]
+    description = params[:description]
+    rate = params[:rate]
+    
+    @course = Course.where(id: course_id).first
+    review = @course.reviews.where(:user_id => current_user.id).first
+      
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
     end
 
-    curriculum    = @course.curriculums.where(id:curriculum_id).first
-
-    discussion = @course.discussions.create(
-      title: title,
-      description: description,
-    )
-    discussion.user = current_user
-    discussion.curriculum = curriculum if !curriculum.blank?
+    if review.blank?
+      review = @course.reviews.create(
+        title: title,
+        description: description,
+        rate: rate
+      )
+    else
+      review.title = title
+      review.description = description
+      review.rate = rate
+    end
+    review.user = current_user
     if @course.save
-      render json: {title: title, description: description, email: current_user.email}
+      render json: {title: title, description: description, email: current_user.email, rate: rate}
       return
     else
       render json: {message: "Có lỗi xảy ra"}

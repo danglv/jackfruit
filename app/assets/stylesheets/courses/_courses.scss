@@ -114,12 +114,24 @@
     background-color: #ffbb33 !important;
     color: #fff !important;
   }
-  .favorite-button {
+  .wishlist-button {
     width: 100%;
     font-weight: 400;
     background-color: #727272 !important;
     color: #fff !important;
     text-transform: none !important;
+    &.wishlisted {
+      background-color: #fff !important;
+      color: #333 !important;
+      border: 1px solid #ccc;
+      .fa-heart {
+        color: #d23837 !important;
+      }
+      &:hover{
+        background: #353535;
+        color: #fff;
+      }
+    }
     &.no-text {
       width: 65px !important;
       padding: 8px !important;

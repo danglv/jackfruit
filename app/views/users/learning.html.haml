@@ -56,7 +56,7 @@
                       %a{:href => "javascript:void(0)"} Đã hoàn thành
                     %li
                       %a{:href => "javascript:void(0)"} Lưu trữ
-                = render :partial => 'components/courses/course_card',:locals => {:course => Course.first}
-              - (1..23).each do |a|
-                = render :partial => 'components/courses/course_card',:locals => {:course => Course.first}
+              - if !@wishlist.blank?
+                - @wishlist.each do |course|
+                  = render :partial => 'components/courses/course_card',:locals => {:course => course}
 = render :partial => 'components/footer/index'                   

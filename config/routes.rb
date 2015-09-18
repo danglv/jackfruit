@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :rating
     end
     collection do
       get :search
@@ -72,7 +73,7 @@ Rails.application.routes.draw do
       get :select_course
       get :learning
       get :teaching
-      get :wishlist
+      post :update_wishlist
       get :search
       get '/api/suggestion_search', to: 'users#suggestion_search'
       post '/api/active_course', to: 'users#active_course'

@@ -5,17 +5,28 @@
       .container.no-padding
         .row.learning-header-container
           %span.course-name= @course.name
-          .rating-container
-            %ul.rating.rating-active
-              - (1..5).each do |i|
-                - if i <= @course.rating
-                  %li
-                    %i.fa.fa-star.star.rated
-                - else
-                  %li
-                    %i.fa.fa-star.star
-              %li 
-                %a.rate-it Rate it
+          - if @owned_course.lectures.where(:status => 2).count > 0
+            .rating-container
+              - num_rate = 0
+              - title = ''
+              - description = ''
+              - begin
+                - review = @course.reviews.where(:user_id => current_user.id).first
+                - if !review.blank?
+                  - num_rate = review.rate
+                  - title = review.title
+                  - description = review.description
+              - rescue
+              %ul.rating.rating-active{:course_id => "#{@course._id}", "data-rate" => num_rate, "data-title" => title, "data-description" => description}
+                - (1..5).each do |i|
+                  - if i <= num_rate
+                    %li
+                      %i.fa.fa-star.star.rated{:val => i}
+                  - else
+                    %li
+                      %i.fa.fa-star.star{:val => i}
+                %li 
+                  %a.rate-it Rate it
     - if @owned_course.type == 'preview'
       = render :partial => "courses/preview_alert", :local => {:course => @course}
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin
@@ -108,49 +119,63 @@
                 %input.form-control{:placeholder => "Tìm kiếm thảo luận"}
                 %i.fa.fa-search
               .col-md-4.col-lg-4.no-padding
-                %a.btn.btn-primary.add_comment.dropdown-button{"data-activates" => "comment-dropdown", :href => "#"} Thảo luận mới 
+                %a.btn.btn-primary.add_comment.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                  Thảo luận mới
+                %ul.dropdown-menu{:style => "height: 500px; width: 500px; position: absolute; left: -300px; padding: 30px;"}
+                  %form
+                    %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+                    %li
+                      %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+                    %li
+                      %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+                    %li
+                      %a.btn.btn-primary.discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
             .row.no-margin.list-discussion
-              - @course.discussions.each do |discussion|
+              - @course.discussions.reverse.each do |discussion|
+                - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - @user = User.where(:id => discussion.user_id).first
+                - relative_time = TimeHelper.relative_time(discussion.created_at)
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                     %i.fa.fa-smile-o
                   .col-md-11.col-lg-11.no-padding.discussion-item-main
                     %ul.discussion-item-title
                       %li.bold #{@user.name}
-                      %li đã đăng 1 thảo luận - 2 tháng trước 
+                      - if !curriculum.blank?
+                        %li đã đăng 1 thảo luận trong 
+                        = succeed "" do
+                          %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                            %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
+                          = succeed "" do
+                            %span{:style => "font-size: 14px; font-weight: 400; color: #212121"}= "- #{relative_time}"
+                      - else
+                        %li= "đã đăng 1 thảo luận - #{relative_time}" 
                     %span.discussion-item-subject 
                       #{discussion.title}
                     %p.discussion-item-content
                       #{discussion.description}
-                    %a.discussion-item-reply Phản hồi (2)
+                    - if discussion.child_discussions.count == 0
+                      %a.discussion-item-reply Phản hồi
+                    - else
+                      %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
-                      .row.child-item.no-margin
-                        .col-md-1.col-lg-1.no-padding.child-item-avatar
-                          %i.fa.fa-smile-o
-                        .col-md-11.col-lg-11.no-padding.child-item-main
-                          %ul.child-item-title
-                            %li.bold ThanhNguyễn
-                            %li đã đăng 1 thảo luận - 2 tháng trước 
-                          %span.child-item-subject 
-                            Please do something
-                          %p.child-item-content
-                            The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
-                      .row.child-item.no-margin
-                        .col-md-1.col-lg-1.no-padding.child-item-avatar
-                          %i.fa.fa-smile-o
-                        .col-md-11.col-lg-11.no-padding.child-item-main
-                          %ul.child-item-title
-                            %li.bold ThanhNguyễn
-                            %li đã đăng 1 thảo luận - 2 tháng trước 
-                          %span.child-item-subject 
-                            Please do something
-                          %p.child-item-content
-                            The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
+                      - discussion.child_discussions.reverse.each do |child_discussion|
+                        - child_relative_time = TimeHelper.relative_time(child_discussion.created_at)
+                        .row.child-item.no-margin
+                          .col-md-1.col-lg-1.no-padding.child-item-avatar
+                            %i.fa.fa-smile-o
+                          .col-md-11.col-lg-11.no-padding.child-item-main
+                            - @user = User.where(:id => child_discussion.user_id).first
+                            %ul.child-item-title
+                              %li.bold #{@user.name} 
+                              %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
+                            %p.child-item-content
+                              #{child_discussion.description}
                       .row.no-margin 
+                        / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
                         .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
-                          %input.form-control{:placeholder => "Phản hồi của bạn"}       
-                          .btn.btn-primary Gửi phản hồi 
+                          %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                          .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               .row.noti-item.no-margin

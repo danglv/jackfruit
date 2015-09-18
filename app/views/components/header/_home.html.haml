@@ -2,7 +2,7 @@
   .header-inner
     .header-col.header-col-left
       .btn-group.cats-dropdown.cats-dropdown-fixed
-        .dropdown-toggle.active-nav-1.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "true"}
+        .dropdown-toggle.active-nav-1.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-fixed", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
           %i.fa.fa-bars
           %span.active-nav-text Danh sách khoá học
       .btn-group.cats-dropdown.cats-dropdown-mobile
@@ -21,7 +21,7 @@
     .header-col.text-right.header-col-right
       - if !current_user
         %a.btn.btn-default.btn-flat.button-header.hidden-sm.hidden-xs{"data-toggle" => "modal", "data-target" => "#register-modal"}
-          Đăng kí
+          Đăng ký
           .ripple-wrapper
         %a.btn.btn-default.btn-flat.button-header{"data-toggle" => "modal", "data-target" => "#login-modal"}
           Đăng nhập
