@@ -434,13 +434,13 @@ class CoursesController < ApplicationController
     coupon_code = params[:coupon_code]
 
     if course_id.blank?
-      render json: {message: "chưa truyền dữ course_id"}, status: :missing
+      render json: {message: "chưa truyền dữ course_id"}, status: :unprocessable_entity
     end
 
     course = Course.find(course_id)
 
     if course_id.blank?
-      render json: {message: "course_id không chính xác"}, status: :missing
+      render json: {message: "course_id không chính xác"}, status: :unprocessable_entity
     end
 
     discount = 0
@@ -459,5 +459,68 @@ class CoursesController < ApplicationController
     price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
 
     render json: {price: "#{price}"}
+  end
+
+  # POST: API create course for kelley
+  def upload_course
+    course = params['course']
+    course_id = params['course_id']
+    user_id = params['user_id']
+
+    if user_id.blank?
+      render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
+      return
+    else
+      user = User.find(user_id)
+      course = JSON.parse(course)
+      c = Course.find(course_id)
+
+      c = Course.new(
+        alias_name: course['alias_name'],
+        name: course['name'],
+        sub_title: course['sub_title'],
+        description: course['description'],
+        requirement: course['requirement'],
+        benefit: course['benefit'],
+        audience: course['audience'],
+        level: course['level'],
+      ) if c.blank?
+      
+      c.price = course['price'] unless course['price'].blank?
+      c.image = course['image'] unless course['image'].blank?
+      c.intro_link = course['intro_link'] unless course['intro_link'].blank?
+      c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+      c.version = course['version'] unless course['version'].blank?
+      c.enabled = course['enabled'] unless course['enabled'].blank?
+
+      chapter_index = 0
+      lecture_index = 0
+
+      course['curriculums'].each_with_index {|curriculum, x|
+        course_curriculum = c.curriculums.find_or_initialize_by(
+          order: x,
+        )
+        course_curriculum.title = curriculum['title']
+        course_curriculum.description = curriculum['description']
+        course_curriculum.chapter_index = chapter_index
+        course_curriculum.lecture_index = lecture_index
+        course_curriculum.type = curriculum['type']
+        course_curriculum.asset_type = curriculum['asset_type']
+        course_curriculum.url = curriculum['url']
+        course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+        chapter_index += 1 if curriculum['type'] == "chapter"
+        lecture_index += 1 if curriculum['type'] == "lecture"
+      }
+
+      c.user = user
+
+      if c.save
+        render json: {message: "success"}
+        return
+      else
+        render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+        return
+      end
+    end
   end
 end
