@@ -524,4 +524,27 @@ class CoursesController < ApplicationController
       end
     end
   end
+
+  # POST: API approve course
+  def approve
+    course_id = params["id"]
+
+    course = Course.where(id: course_id).first
+
+    if course.blank?
+      render json: {message: "Course id Không chính xác!"}, status: :unprocessable_entity
+      return
+    end
+
+    course.enabled = true
+    course.version = "public"
+
+    if course.save
+      render json: {message: "Success!"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+  end
 end
