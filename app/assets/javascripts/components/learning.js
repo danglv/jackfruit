@@ -43,31 +43,25 @@ $(document).ready(function (){
 	// search comment when typing
 	$('#search-comment').on('input', function (){
 		var key_words = $(this).val();
-		if(key_words.trim() != ''){
-			var list_comment = $('.cm-item');
-			list_comment.each(function (){
-				var item_comment = $(this);
-				var isFind = false;
-				item_comment.find(".cm-item-content").each(function (){
-					if( $(this).text().toLowerCase().indexOf(key_words.toLowerCase()) > 0 ){
-						isFind = true;
-					}
-				})
-				if(!isFind){
-					item_comment.attr("style", "display: none");
-				}
-				else{
-					item_comment.attr("style", "display: block");
-				}
-			});
-		}
-		else{
-			var list_comment = $('.cm-item');
-			list_comment.each(function (){
-				$(this).attr("style", "display: block");
-			});
-		}
-		
+		console.log(key_words)
+    if(key_words.trim() != ''){
+      var list_discussion = $('.discussion-item');
+      list_discussion.each(function (){
+        var item_discussion = $(this);
+        var isFind = false;
+        item_discussion.find(".discussion-item-main").each(function (){
+          if( $(this).text().toLowerCase().indexOf(key_words.toLowerCase()) > 0 ){
+            isFind = true;
+          }
+        })
+        if(!isFind){
+          item_discussion.attr("style", "display: none");
+        }
+        else{
+          item_discussion.attr("style", "display: block");
+        }
+      })
+    }
 	});
 
   $('.discussion-submit').click(function () {
