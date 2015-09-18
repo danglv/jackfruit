@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
       # API for kelley
       post :upload_course
+      post :check_alias_name
     end
   end
 

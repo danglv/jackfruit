@@ -547,4 +547,17 @@ class CoursesController < ApplicationController
       return
     end
   end
+
+  def check_alias_name
+    alias_name = params['alias_name']
+
+    if alias_name.blank?
+      render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(alias_name: alias_name).count
+
+    render json: {num_courses: course}
+  end
 end
