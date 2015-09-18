@@ -39,6 +39,21 @@ $(document).ready(function () {
   $('.active-nav-2').sliderDropdown();
 });
 
+$(document).ajaxError(function (e, xhr, settings) {
+  if (xhr.status == 401) {
+    var course_id = gup('course_id', settings['url'])
+    window.location.replace("/users/sign_in?tcode=" + course_id)
+  }
+});
+
+function gup( name, url ) {
+  if (!url) url = location.href
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( url );
+  return results == null ? null : results[1];
+}
 
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
