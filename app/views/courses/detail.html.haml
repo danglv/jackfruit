@@ -60,6 +60,8 @@
             %h3.course-price.free.no-margin Miễn phí
           - else
             %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
       .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
         - if !current_user.blank?
           - if !@owned_course.blank?
