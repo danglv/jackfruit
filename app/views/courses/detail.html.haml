@@ -1,6 +1,8 @@
 = render :partial => 'components/header/default'
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
 .container-wrapper.detail{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
 
   .layout-320
     .container{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}

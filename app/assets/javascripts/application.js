@@ -31,6 +31,7 @@
 //= require components/home
 //= require components/preview
 //= require components/wishlist
+//= require components/popup_banner
 
 $(document).ready(function () {
   $.material.init();

@@ -1,3 +1,7 @@
 %header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/fixed_side_nav'
+  = render :partial => 'components/header/default'
+  .list-course
+    .first-course
+      - if !@owned_wishlist.blank?
+        - @owned_wishlist.each do |course|
+          = render :partial => 'components/courses/course_card',:locals => {:course => course}
