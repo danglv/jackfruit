@@ -25,6 +25,21 @@
       })
   };
 
+  if(window.location.hash) {
+    var hash = window.location.hash.substring(1);
+    if(hash == "wishlist") {
+      console.log($("#learning-tab"))
+      $("#learning-tab").removeClass("active")
+      $("#wishlist-tab").addClass("active")
+      $("#myCourse-studying").removeClass("active")
+      $("#myCourse-studying").removeClass("in")
+      $("#myCourse-favorite").addClass("active")
+      $("#myCourse-favorite").addClass("in")
+    } else {
+      alert("not")
+    }
+  }
+
   $('.wishlist-heart').wishlist();
 
 })(jQuery);

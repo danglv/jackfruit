@@ -1,6 +1,8 @@
 = render :partial => 'components/header/default'
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
 .container-wrapper.detail{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
 
   .layout-320
     .container{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}
@@ -28,7 +30,7 @@
             Giảng dạy bởi 
             %a.link-text.normal-text= @course.user.name
           - else
-            %a.link-text.normal-text{:href => "#"} Tudemy
+            %a.link-text.normal-text{:href => "#"} Pedia
       / .row.no-margin
       /   .col-xs-12.no-padding.author-information
       /     %h5.normal-text.link-text Design  /  User Experience
@@ -253,7 +255,7 @@
                     %span= @course.user.instructor_profile.academic_rank
                   %a.link-text{:href => "#!"}= @course.user.name
                 - else 
-                  %a.link-text{:href => "#!"} Tudemy
+                  %a.link-text{:href => "#!"} Pedia
               - if !@course.user.instructor_profile.function.blank?
                 .row.no-margin
                   .col-xs-12.no-padding
@@ -363,7 +365,7 @@
             Giảng dạy bởi 
             %a.link-text.normal-text= @course.user.name
           - else
-            %a.link-text.normal-text{:href => "#"} Tudemy
+            %a.link-text.normal-text{:href => "#"} Pedia
       / .row.no-margin
       /   .col-xs-12.no-padding.author-information
       /     %h5.normal-text.link-text Design  /  User Experience
@@ -595,7 +597,7 @@
                     %span= @course.user.instructor_profile.academic_rank
                   %a.link-text{:href => "#!"}= @course.user.name
                 - else 
-                  %a.link-text{:href => "#!"} Tudemy
+                  %a.link-text{:href => "#!"} Pedia
               - if !@course.user.instructor_profile.function.blank?
                 .row.no-margin
                   .col-xs-12.no-padding
@@ -707,7 +709,7 @@
               Giảng dạy bởi 
               %a.link-text.normal-text= @course.user.name
             - else
-              %a.link-text.normal-text{:href => "#"} Tudemy
+              %a.link-text.normal-text{:href => "#"} Pedia
           / .no-padding.author-information.pull-left
           /   .normal-text.link-text Design  /  User Experience
         .row.no-margin
@@ -941,7 +943,7 @@
                     %span= @course.user.instructor_profile.academic_rank
                   %a.link-text{:href => "#!"}= @course.user.name
                 - else 
-                  %a.link-text{:href => "#!"} Tudemy
+                  %a.link-text{:href => "#!"} Pedia
               - if !@course.user.instructor_profile.function.blank?
                 .row.no-margin
                   .col-sm-12.no-padding
@@ -1051,7 +1053,7 @@
               Giảng dạy bởi 
               %a.link-text.normal-text= @course.user.name
             - else
-              %a.link-text.normal-text{:href => "#"} Tudemy
+              %a.link-text.normal-text{:href => "#"} Pedia
           / .no-padding.author-information.pull-left
           /   .normal-text.link-text Design  /  User Experience
         .row.no-margin
@@ -1290,7 +1292,7 @@
                         %span= @course.user.instructor_profile.academic_rank
                       %a.link-text{:href => "#!"}= @course.user.name
                     - else 
-                      %a.link-text{:href => "#!"} Tudemy
+                      %a.link-text{:href => "#!"} Pedia
                   - if !@course.user.instructor_profile.function.blank?
                     .row.no-margin
                       .col-md-12.no-padding
@@ -1411,7 +1413,7 @@
               Giảng dạy bởi 
               %a.link-text.normal-text= @course.user.name
             - else
-              %a.link-text.normal-text{:href => "#"} Tudemy
+              %a.link-text.normal-text{:href => "#"} Pedia
           .no-padding.author-information
             / .normal-text.link-text Design  /  User Experience
         .row.no-margin
@@ -1674,7 +1676,7 @@
                         %span= @course.user.instructor_profile.academic_rank
                       %a.link-text{:href => "#!"}= @course.user.name
                     - else 
-                      %a.link-text{:href => "#!"} Tudemy
+                      %a.link-text{:href => "#!"} Pedia
                   - if !@course.user.instructor_profile.function.blank?
                     .row.no-margin
                       .col-lg-12.no-padding

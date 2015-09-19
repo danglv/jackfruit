@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       get :select_course
       get :learning
       get :teaching
+      get :wishlist
       get :update_wishlist
       get :search
       get '/api/suggestion_search', to: 'users#suggestion_search'
@@ -105,7 +106,7 @@ Rails.application.routes.draw do
   resources :resources, only: %w[] do
     collection do
       get '/embed/video/:course_id/(:lecture_id)', to: 'resources#embed_course_video'
-      get 'lecture/doc/:lecture_id/:doc_id', to: 'resources#lecture_doc', :as => :download_lecture_doc
+      get 'lecture/doc/:doc_id', to: 'resources#lecture_doc', :as => :download_lecture_doc
     end
   end
   

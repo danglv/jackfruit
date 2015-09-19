@@ -14,14 +14,14 @@ module ApplicationHelper
 		elsif (controller == "devise/registrations")
 			help_get_registrations_title(action)
 		else
-			title = "Tudemy"
+			title = "Pedia"
 		end
 	end
 
 	def help_get_courses_title(action)
 		if (["select", "lecture", "learning", "detail"].include? action)
 				title= if @course.blank?
-					"Tudemy"
+					"Pedia"
 				else
 					@course.name
 				end
@@ -36,7 +36,7 @@ module ApplicationHelper
 		if (["learning", "teaching", "wishlist"].include? action)
 			"Khóa học của tôi"
 		else
-			"Tudemy"
+			"Pedia"
 		end
 	end
 

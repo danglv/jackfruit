@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-	before_filter :authenticate_user!, only: [:lecture_doc]
+	# before_filter :authenticate_user!, only: [:lecture_doc]
 	layout 'embed'
 
 	def embed_course_video
@@ -18,20 +18,24 @@ class ResourcesController < ApplicationController
 	end
 
 	def lecture_doc
-		lecture_id = params[:lecture_id]
 		doc_id = params[:doc_id]
-
 		begin
-			lecture_id = BSON::ObjectId.from_string lecture_id
+			doc_id = BSON::ObjectId.from_string doc_id
 		rescue BSON::ObjectId::Invalid
 			return
 		end
-
-		if course = Course.where('curriculums._id' => lecture_id).first
-			if lecture = course.curriculums.where(:id => lecture_id).first
-				if doc = true
-					send_file "resources/lecture/demo_doc.txt"
-					return
+		# I am afraid that this work may cost time
+		# In fact, it hits database just one time for querying the course
+		# Plus, downloading documents is not a frequent stuff
+		# Anyway, should pay attention on this job
+		if course = Course.where('curriculums.documents._id' => doc_id).first
+			if lecture = course.curriculums.where('documents._id' => doc_id).first
+				if doc = lecture.documents.where(:id => doc_id).first
+					# Check file exists
+					if File.exist?(doc.link)
+						send_file doc.link
+						return
+					end
 				end
 			end
 		end

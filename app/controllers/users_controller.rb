@@ -75,7 +75,9 @@ class UsersController < ApplicationController
       :type => learning,
     ).map(&:course_id)
     @courses = Course.where(:id.in => course_ids)
-    @wishlist = Course.in(:id => current_user.wishlist)
+    # Wishlist inorge learned course. 
+    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
+    @wishlist = Course.in(:id => wishlist_ids)
 
   end
 
@@ -85,6 +87,16 @@ class UsersController < ApplicationController
     @courses = Course.where(:id.in => course_ids)
 
     head :ok
+  end
+
+  def wishlist
+    learning = Constants::OwnedCourseTypes::LEARNING
+    course_ids = current_user.courses.where(
+      :type => learning,
+    ).map(&:course_id)
+    # Wishlist inorge learned course. 
+    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
+    @owned_wishlist = Course.in(:id => wishlist_ids)
   end
 
   def update_wishlist
@@ -120,8 +132,8 @@ class UsersController < ApplicationController
 
   def select_course
     is_preview = params[:type] == "preview"
-    if @course.price == 0 || is_preview
-      owned_course = current_user.courses.where(course_id: @course.id).first
+    owned_course = current_user.courses.where(course_id: @course.id).first
+    if @course.price == 0 || is_preview || (!owned_course.blank? ? (owned_course.payment_status == Constants::PaymentStatus::SUCCESS) : false)
       # Haven't had course
       if owned_course.blank?
         owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())

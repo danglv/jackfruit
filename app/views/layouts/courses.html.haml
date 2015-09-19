@@ -40,13 +40,13 @@
     /   - image = @course.image
     - if params[:action] == "detail" && !@course.blank?
       %meta{:property => "og:title", :content => "#{@course.name}"}/
-      %meta{:property => "og:site_name", :content => "Khoá học của Tudemy"}/
+      %meta{:property => "og:site_name", :content => "Khoá học của Pedia"}/
       %meta{:property => "og:url", :content => "#{request.url}"}/
       %meta{:property => "og:description", :content => "#{@course.sub_title}"}/
       %meta{:property => "fb:app_id", :content => "1592966984299237"}/
       %meta{:content => "en_US", :property => "og:locale"}/
       %meta{:content => "https://www.facebook.com/profile.php?id=100009617780315", :property => "article:publisher", :property => "article:author"}/
-      %meta{:content => "https://www.facebook.com/pages/Tudemy/1460650207589951"}/
+      %meta{:content => "https://www.facebook.com/pages/Pedia/1460650207589951"}/
       %meta{:property => "og:image", :content => "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11754761_1425168711147041_1552365735035263083_o.jpg"}/
       %meta{:content => "image/jpeg", :property => "og:image:type"}/
       %meta{:content => "600", :property => "og:image:width"}/
@@ -55,7 +55,7 @@
 
       %title= @course.name
     - else
-      %title Tudemy
+      %title Pedia
 
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:name => "viewport", :content => "width=device-width"}/

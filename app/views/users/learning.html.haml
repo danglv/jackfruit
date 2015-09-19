@@ -1,5 +1,7 @@
 = render :partial => 'components/header/default'
-.container-wrapper{:style => "overflow: hidden;"}  
+.container-wrapper{:style => "overflow: hidden;"} 
+  .banner
+    = render :partial => "components/banner/banner" 
   %main.myCourse-learning
     .header-myCourse
       .container
@@ -8,9 +10,9 @@
             .myCourse-label Khóa học của tôi
           .col-lg-6.col-md-12.col-sm-12.col-xs-12
             %ul.nav.nav-tabs.myCourse-tab
-              %li.active
+              %li#learning-tab.active
                 %a{:href => "#myCourse-studying","data-toggle" => "tab"} Đang học
-              %li
+              %li#wishlist-tab
                 %a{:href => "#myCourse-favorite","data-toggle" => "tab"} Ưa thích
     .main-myCourse
       .container
@@ -56,7 +58,7 @@
                       %a{:href => "javascript:void(0)"} Đã hoàn thành
                     %li
                       %a{:href => "javascript:void(0)"} Lưu trữ
-              - if !@wishlist.blank?
-                - @wishlist.each do |course|
-                  = render :partial => 'components/courses/course_card',:locals => {:course => course}
+                - if !@wishlist.blank?
+                  - @wishlist.each do |course|
+                    = render :partial => 'components/courses/course_card',:locals => {:course => course}
 = render :partial => 'components/footer/index'                   
