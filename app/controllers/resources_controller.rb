@@ -1,4 +1,5 @@
 class ResourcesController < ApplicationController
+	before_filter :authenticate_user!, only: [:lecture_doc]
 	layout 'embed'
 
 	def embed_course_video
@@ -17,6 +18,23 @@ class ResourcesController < ApplicationController
 	end
 
 	def lecture_doc
-		send_file "resources/lecture/demo_doc.txt"
+		lecture_id = params[:lecture_id]
+		doc_id = params[:doc_id]
+
+		begin
+			lecture_id = BSON::ObjectId.from_string lecture_id
+		rescue BSON::ObjectId::Invalid
+			return
+		end
+
+		if course = Course.where('curriculums._id' => lecture_id).first
+			if lecture = course.curriculums.where(:id => lecture_id).first
+				if doc = true
+					send_file "resources/lecture/demo_doc.txt"
+					return
+				end
+			end
+		end
+		# Render not found page
 	end
 end
