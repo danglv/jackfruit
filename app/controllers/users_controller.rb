@@ -295,6 +295,11 @@ class UsersController < ApplicationController
     end
 
   def view_profile
-    
+    learning = Constants::OwnedCourseTypes::LEARNING
+    course_ids = current_user.courses.where(
+      :type => learning,
+    ).map(&:course_id)
+    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
+    @owned_wishlist = Course.in(:id => wishlist_ids)
   end
 end
