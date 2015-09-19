@@ -1,0 +1,14 @@
+- if !@banner.blank?
+  - if @banner.location == 'header'
+    - if @banner.type == 'image'
+      .row.no-margin
+        .col-xs-12.no-padding
+          %a{:href => @banner.url, :target => @banner.target}
+            .center-align
+              %image.img-responsive.center-block{:style => "width: 1140px", :src => "http://tudemy.vn/uploads/banner/giamcan1__2_.png"}
+    - if @banner.type == 'popup'
+      #popup-banner-modal.modal{:style => "width: 560px; height: 380px;overflow: hidden"}
+        .row.no-margin
+          .col-xs-12.no-padding
+            %img.img-responsive.center-block{:src => "http://tudemy.vn/uploads/banner/giamcan1__2_.png", :style => "z-index: 1"}
+            %a.btn-large.modal-close.deep-orange{:style => "z-index: 9999; position: absolute; top: 310px; left: 150px;"} Tôi đã biết thông tin này

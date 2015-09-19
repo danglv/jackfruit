@@ -87,6 +87,10 @@ class UsersController < ApplicationController
     head :ok
   end
 
+  def wishlist
+    @owned_wishlist = Course.in(:id => current_user.wishlist)
+  end
+
   def update_wishlist
     course_id = params[:course_id]
     if course_id.blank?
