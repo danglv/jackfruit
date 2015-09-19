@@ -44,18 +44,18 @@
               .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.search-landingpage
                 = render :partial => "components/search_box"
             .container
-              .row.no-margin.categories
-                .layout-320
-                  %h4.categories-title Khám phá những chủ đề 
-                  %h4.categories-title và khóa học phổ biến
-                .layout-480-up
-                  %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
-                .category
-                  %a{:href => "#"}= image_tag "topic-bg-python.png"
-                .category
-                  %a{:href => "#"}= image_tag "topic-bg-java.png"
-                .category
-                  %a{:href => "#"}= image_tag "topic-bg-excel.png"
+              / .row.no-margin.categories
+              /   .layout-320
+              /     %h4.categories-title Khám phá những chủ đề 
+              /     %h4.categories-title và khóa học phổ biến
+              /   .layout-480-up
+              /     %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-python.png"
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-java.png"
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-excel.png"
               .row.no-margin.courses
                 - if @courses
                   - @courses.each do |c|
@@ -72,30 +72,30 @@
                   %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
       = render :partial => 'components/footer/index'
 /Màn hình từ 1200px trở lên 
-.hidden-xs.hidden-sm.hidden-md
+.hidden-xs.hidden-sm.hidden-md{:style => 'position:relative'}
   .row.no-margin.landingpage
     .col-lg-12.no-padding
       .row.no-margin.home-top
         #carousel.carousel.slide.carousel-fade{"data-ride" => "carousel"}
           .carousel-inner
             .active.item
-              .fill{:style => "background-image:url(http://i.imgur.com/lxhmRxp.jpg); width: 100%; background-size: 100% 715px;"}
+              .fill.image-1{:style => "width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-6.png)"}
             .item
-              .fill{:style => "background-image:url(http://i.imgur.com/5LHDj0e.jpg); width: 100%; background-size: 100% 715px;"}
+              .fill.image-2{:style => "width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-1.jpg)"}
             .item
-              .fill{:style => "background-image:url(http://i.imgur.com/8uCVojD.jpg); width: 100%; background-size: 100% 715px;"}
+              .fill.image-3{:style => "width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-2.jpg)"}
             .item
-              .fill{:style => "background-image:url(http://i.imgur.com/m4Srb02.jpg); width: 100%; background-size: 100% 715px;"}
+              .fill.image-4{:style => "width: 100%; background-size: 100% 715px;"}
               / .fill{:style => "background-image:url(assets/landing-page-3.jpg)"}
-            .item
-              .fill{:style => "background-image:url(http://i.imgur.com/HHkcMSE.jpg); width: 100%; background-size: 100% 715px;"}
-              / .fill{:style => "background-image:url(assets/landing-page-4.jpg)"}
-            .item
-              .fill{:style => "background-image:url(http://i.imgur.com/JtYIHX0.png); width: 100%; background-size: 100% 715px;"}
-              / .fill{:style => "background-image:url(assets/landing-page-5.jpg)"}
+            / .item
+            /   .fill{:style => "background-image:url(http://i.imgur.com/HHkcMSE.jpg); width: 100%; background-size: 100% 715px;"}
+            /   / .fill{:style => "background-image:url(assets/landing-page-4.jpg)"}
+            / .item
+            /   .fill{:style => "background-image:url(http://i.imgur.com/JtYIHX0.png); width: 100%; background-size: 100% 715px;"}
+            /   / .fill{:style => "background-image:url(assets/landing-page-5.jpg)"}
       .row.no-margin.flex-box
         .col-lg-12.no-padding
           .splash-box
@@ -128,12 +128,12 @@
                   .hook-title
                     %h5.nomarl-text.no-margin Học mọi lúc mọi nơi
       .row.no-margin.no-padding.home-main.container
-        .row.no-margin.categories
-          .category-big
-            %a{:href => "#"}= image_tag "topic-bg-python-1200.png"
-          .category{:style => "margin-bottom: 20px"}
-            %a{:href => "#"}= image_tag "topic-bg-java-1200.png", :style => "margin-bottom: 20px"
-            %a{:href => "#"}= image_tag "topic-bg-excel-1200.png"
+        / .row.no-margin.categories
+        /   .category-big
+        /     %a{:href => "#"}= image_tag "topic-bg-python-1200.png"
+        /   .category{:style => "margin-bottom: 20px"}
+        /     %a{:href => "#"}= image_tag "topic-bg-java-1200.png", :style => "margin-bottom: 20px"
+        /     %a{:href => "#"}= image_tag "topic-bg-excel-1200.png"
         .row.no-margin.courses
           - if @courses
             - @courses.each do |c|
@@ -145,10 +145,10 @@
               .col-lg-12.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses"} Khám phá các khóa học khác
             .row.no-margin
-              .col-lg-6.col-lg-offset-3.no-padding
+              .no-padding
                 %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
             .row.no-margin
-              .col-lg-4.col-lg-offset-4.no-padding
+              .no-padding
                 %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
             .row.no-margin
               .col-lg-4.col-lg-offset-4.no-padding
