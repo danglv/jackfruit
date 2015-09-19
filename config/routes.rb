@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :approve
     end
     collection do
       get :search
@@ -27,6 +28,10 @@ Rails.application.routes.draw do
       # API for mercury
       get '/api/suggestion_search', to: 'courses#suggestion_search'
       get '/api/get_money', to: 'courses#get_money'
+
+      # API for kelley
+      post :upload_course
+      post :check_alias_name
     end
   end
 
@@ -75,6 +80,9 @@ Rails.application.routes.draw do
       get '/api/suggestion_search', to: 'users#suggestion_search'
       post '/api/active_course', to: 'users#active_course'
       get '/api/:id/get_user_detail', to: 'users#get_user_detail'
+
+      #API create instructor for kelley
+      post '/api/create_instructor', to: 'users#create_instructor'
     end
   end 
 
