@@ -278,7 +278,7 @@
           %h4.normal-text
             %b Đánh giá
         .col-xs-12.no-padding
-          %h1.rating-point.no-margin 4.2
+          %h1.rating-point.no-margin= @course.average_rating
         .col-xs-12.no-padding
           .col-xs-5.course-rating-point.no-padding
             - (1..5).each do |i|
@@ -291,18 +291,21 @@
               = @course.reviews.count.to_s + ' đánh giá' 
         .col-xs-12.no-padding
           %h5.normal-text Chi tiết
+          - course_reviews = @course.reviews
         - (1..5).each do |i|
           .row{:style => 'margin:20px 0'}
             .col-xs-2.no-padding
-              .normal-text.text-right 5 sao
+              .normal-text.text-right #{6 - i} Sao
             .col-xs-8
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b 3174
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - (1..2).each do |i|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
+        - user = User.where(:id => review.user_id.to_s).first
+        - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
@@ -312,10 +315,10 @@
                 .row.no-margin
                   .col-xs-12
                     %h5.normal-text.no-margin
-                      %b Jasmine Maddox
+                      %b= "#{user.name}"
                 .row.no-margin
                   .col-xs-12
-                    %h5.normal-text 2 ngày trước
+                    %h5.normal-text= relative_time
                 .row.no-margin
                   .col-xs-12.course-rating-point
                     - (1..5).each do |i|
@@ -326,9 +329,9 @@
             .row.no-margin
               .col-xs-12.no-padding
                 %h5.normal-text
-                  %b Just what I needed.
+                  %b= "#{review.title}"
               .col-xs-12.no-padding
-                %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
+                %h5.normal-text{:style => "line-height: 20px;"}= "#{review.description}"
       .row.no-margin
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
@@ -617,7 +620,7 @@
           %h4.normal-text
             %b Đánh giá
         .col-xs-12.no-padding
-          %h1.rating-point.no-margin 4.2
+          %h1.rating-point.no-margin= @course.average_rating
         .col-xs-12.no-padding
           .col-xs-4.course-rating-point.no-padding
             - (1..5).each do |i|
@@ -630,18 +633,21 @@
               = @course.reviews.count.to_s + ' đánh giá' 
         .col-xs-12.no-padding
           %h5.normal-text Chi tiết
+          - course_reviews = @course.reviews
         - (1..5).each do |i|
           .row{:style => 'margin:20px 0'}
             .col-xs-1.no-padding
-              .normal-text.text-right 5 sao
+              .normal-text.text-right #{6 - i} Sao
             .col-xs-6
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b 3174
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - (1..2).each do |i|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
+        - user = User.where(:id => review.user_id.to_s).first
+        - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
@@ -651,10 +657,10 @@
                 .row.no-margin
                   .col-xs-12
                     %h5.normal-text.no-margin
-                      %b Jasmine Maddox
+                      %b= "#{user.name}"
                 .row.no-margin
                   .col-xs-12
-                    %h5.normal-text 2 ngày trước
+                    %h5.normal-text= relative_time
                 .row.no-margin
                   .col-xs-12.course-rating-point
                     - (1..5).each do |i|
@@ -665,9 +671,9 @@
             .row.no-margin
               .col-xs-12.no-padding
                 %h5.normal-text
-                  %b Just what I needed.
+                  %b= "#{review.title}"
               .col-xs-12.no-padding
-                %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
+                %h5.normal-text{:style => "line-height: 20px;"}= "#{review.description}"
       .row.no-margin
         .col-xs-12.no-padding
           %a.link-text{:href => "#"}
@@ -958,7 +964,7 @@
           %h4.normal-text.rating-text
             %b Đánh giá
         .col-sm-12.no-padding
-          %h1.rating-point.no-margin 4.2
+          %h1.rating-point.no-margin= @course.average_rating
         .col-sm-12.no-padding
           .col-sm-2.course-rating-point.no-padding
             - (1..5).each do |i|
@@ -971,18 +977,21 @@
               = @course.reviews.count.to_s + ' đánh giá' 
         .col-sm-12.no-padding
           %h5.normal-text Chi tiết
+          - course_reviews = @course.reviews
         - (1..5).each do |i|
           .row{:style => 'margin:20px 0;'}
             .col-sm-1.no-padding
-              .normal-text.text-right 5 sao
+              .normal-text.text-right #{6 - i} Sao
             .col-sm-4
               .progress.progress-striped.active{:style => 'height:17px; margin:0 !important'}
                 .progress-bar{:style => "width: 60%;"}
             .col-sm-2.no-padding
               .normal-text
-                %b 3174
+                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-      - (1..2).each do |i|
+      - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
+        - user = User.where(:id => review.user_id.to_s).first
+        - relative_time = TimeHelper.relative_time(review.created_at)
         .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
           .col-sm-12.no-padding
             .row.no-margin.discussion-top
@@ -992,10 +1001,10 @@
                 .row.no-margin
                   .col-sm-12
                     %h5.normal-text.no-margin
-                      %b Jasmine Maddox
+                      %b= "#{user.name}"
                 .row.no-margin
                   .col-sm-12
-                    %h5.normal-text 2 ngày trước
+                    %h5.normal-text= relative_time
                 .row.no-margin
                   .col-sm-12.course-rating-point
                     - (1..5).each do |i|
@@ -1006,9 +1015,9 @@
             .row.no-margin
               .col-sm-12.no-padding
                 %h5.normal-text
-                  %b Just what I needed.
+                  %b= "#{review.title}"
               .col-sm-12.no-padding
-                %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
+                %h5.normal-text{:style => "line-height: 20px;"}= "#{review.description}"
       .row.no-margin
         .col-sm-12.no-padding
           %a.link-text{:href => "#"}
@@ -1306,7 +1315,7 @@
               %h4.normal-text
                 %b Đánh giá
             .col-md-12.no-padding
-              %h1.rating-point.no-margin 4.2
+              %h1.rating-point.no-margin= @course.average_rating
             .col-md-12.no-padding
               .course-rating-point.no-padding.pull-left{:style => 'margin-right:8px'}
                 - (1..5).each do |i|
@@ -1319,18 +1328,21 @@
                   = @course.reviews.count.to_s + ' đánh giá' 
             .col-md-12.no-padding
               %h5.normal-text Chi tiết
+              - course_reviews = @course.reviews
             - (1..5).each do |i|
               .row{:style => 'margin:20px 0'}
                 .col-md-1.no-padding
-                  .normal-text.text-right 5 sao
+                  .normal-text.text-right #{6 - i} Sao
                 .col-md-6
                   .progress.progress-striped.active{:style => 'height: 17px;margin:0 !important'}
                     .progress-bar{:style => "width: 60%;"}
                 .col-md-2.no-padding
                   .normal-text
-                    %b 3174
+                    %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-          - (1..2).each do |i|
+          - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
+            - user = User.where(:id => review.user_id.to_s).first
+            - relative_time = TimeHelper.relative_time(review.created_at)
             .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
               .col-md-12.no-padding
                 .row.no-margin.discussion-top
@@ -1340,10 +1352,10 @@
                     .row.no-margin
                       .col-md-12
                         %h5.normal-text.no-margin
-                          %b Jasmine Maddox
+                          %b= "#{user.name}"
                     .row.no-margin
                       .col-md-12
-                        %h5.normal-text 2 ngày trước
+                        %h5.normal-text= relative_time
                     .row.no-margin
                       .col-md-12.course-rating-point
                         - (1..5).each do |i|
@@ -1354,9 +1366,9 @@
                 .row.no-margin
                   .col-md-12.no-padding
                     %h5.normal-text
-                      %b Just what I needed.
+                      %b= "#{review.title}"
                   .col-md-12.no-padding
-                    %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
+                    %h5.normal-text{:style => "line-height: 20px;"}= "#{review.description}"
           .row.no-margin
             .col-md-12.no-padding
               %a.link-text{:href => "#"}
@@ -1687,7 +1699,7 @@
               %h4.normal-text
                 %b Đánh giá
             .col-lg-12.no-padding
-              %h1.rating-point.no-margin 4.2
+              %h1.rating-point.no-margin= @course.average_rating
             .col-lg-12.no-padding
               .course-rating-point.no-padding.pull-left{:style => 'margin-right:8px'}
                 - (1..5).each do |i|
@@ -1700,6 +1712,7 @@
                   = @course.reviews.count.to_s + ' đánh giá' 
             .col-lg-12.no-padding
               %h5.normal-text Chi tiết
+              - course_reviews = @course.reviews
             - (1..5).each do |i|
               .row{:style => 'margin: 20px 0;'}
                 .col-lg-1.no-padding
@@ -1709,9 +1722,11 @@
                     .progress-bar{:style => "width: 60%"}
                 .col-lg-2.no-padding
                   .normal-text
-                    %b 3174
+                    %b= course_reviews.where(:description.nin => "", :rate => (6 - i)).count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
-          - (1..2).each do |i|
+          - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
+            - user = User.where(:id => review.user_id.to_s).first
+            - relative_time = TimeHelper.relative_time(review.created_at)
             .row.no-margin.discussion{:style => 'border-bottom:1px solid #cccccc'}
               .col-lg-12.no-padding
                 .row.no-margin.discussion-top
@@ -1721,23 +1736,23 @@
                     .row.no-margin
                       .col-lg-12
                         %h5.normal-text.no-margin
-                          %b Jasmine Maddox
+                          %b= "#{user.name}"
                     .row.no-margin
                       .col-lg-12
-                        %h5.normal-text 2 ngày trước
+                        %h5.normal-text= relative_time
                     .row.no-margin
                       .col-lg-12.course-rating-point
                         - (1..5).each do |i|
-                          - if i <= @course.average_rating
+                          - if i <= review.rate
                             %i.fa.fa-star.is-rated 
                           - else
                             %i.fa.fa-star
                 .row.no-margin
                   .col-lg-12.no-padding
                     %h5.normal-text
-                      %b Just what I needed.
+                      %b= "#{review.title}"
                   .col-lg-12.no-padding
-                    %h5.normal-text{:style => "line-height: 20px;"} I loved how the course goes through the basic admin panel functions to show you how to set up a WordPress site. It is very clear, concise and does not assume the student will have any coding knowledge or ability.
+                    %h5.normal-text{:style => "line-height: 20px;"}= "#{review.description}"
           .row.no-margin
             .col-lg-12.no-padding
               %a.link-text{:href => "#"}

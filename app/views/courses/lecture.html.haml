@@ -117,14 +117,14 @@
       #lecture-tab-download.tab-pane.fade
       #lecture-tab-discussion.tab-pane.fade
         %form
-          %input#course_id{:type => "hidden", :value => "#{@course._id}"}
-          %input#lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+          %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+          %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
           %li
-            %textarea.form-control#discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+            %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
           %li
-            %textarea.form-control#discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+            %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
           %li
-            %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Post Thảo luận
+            %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
         .row.no-margin.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
           - lecture_discussions.reverse.each do |discussion|
