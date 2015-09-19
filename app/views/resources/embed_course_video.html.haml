@@ -1,0 +1,6 @@
+- if !@video_url.blank?
+		
+- elsif !@image_url.blank?
+	= image_tag '#{@image_url}', :style => 'width: 100%'
+- else
+	%h1
