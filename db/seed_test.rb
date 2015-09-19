@@ -60,14 +60,15 @@ sale_campaigns = Sale::Campaign.create([
 sale_packages = Sale::Package.create([
   {
     title: 'Test Sale Package 1',
-    price: 98000    
+    price: 98000,
+    campaign: sale_campaigns[0]
   }
 ])
 
 sale_courses = Sale::Course.create([
   {
-#    course: courses[0],
-#    base_price: courses[0].price,
+    course: courses[0],
+    base_price: courses[0].price,
     sale_package: sale_packages[0]
   }
 ])
