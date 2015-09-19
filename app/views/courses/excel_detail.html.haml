@@ -39,7 +39,7 @@
         Giảng dạy bởi 
         %a{:href => "#",:style => "line-height:50px;"}= @course.user.name
       - else
-        %a{:href => "#"} Tudemy
+        %a{:href => "#"} Pedia
       .row
         .col.s7.no-padding
           .video-container.no-controls
@@ -321,7 +321,7 @@
                       %span= @course.user.instructor_profile.academic_rank
                     %a{:href => "#!"}= @course.user.name
                   - else 
-                    %a{:href => "#!"} Tudemy
+                    %a{:href => "#!"} Pedia
               .row.function{:style => "font-size: 16px;color: #666;font-weight: 500;margin: 0"}
                 .col.s12
                   - if !@course.user.instructor_profile.function.blank?
