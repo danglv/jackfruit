@@ -8,8 +8,8 @@ module Sale
     field :title, type: String, default: ''
     field :price, type: Float, default: 0.0
 
-    embeds_many :courses, class_name: 'Sale::Course'
+    embedded_in :campaign, class_name: 'Sale::Campaign'
 
-    belongs_to :campaign, class_name: 'Sale::Campaign'
+    embeds_many :courses, class_name: 'Sale::Course'
   end
 end
