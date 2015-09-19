@@ -232,10 +232,10 @@ class PaymentController < ApplicationController
   # GET
   def success
     payment_service_provider = params[:p]
+    @course = Course.where(id: @payment.course_id).first
+    owned_course = current_user.courses.where(course_id: @course.id).first
     if payment_service_provider == 'baokim'
-      @course = Course.where(id: @payment.course_id).first
       if baokim.verify_response_url(params)
-        owned_course = current_user.courses.where(course_id: @course.id).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
       else
@@ -257,7 +257,11 @@ class PaymentController < ApplicationController
       end
     elsif payment_service_provider == 'baokim_card'
       @course = Course.where(id: @payment.course_id.to_s).first
+    else
+      @course = Course.where(id: @payment.course_id.to_s).first
     end
+    # If the first learning, display success page.
+    owned_course.set(:first_learning => false)
   end
 
   # GET
