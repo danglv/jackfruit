@@ -119,30 +119,39 @@ class UsersController < ApplicationController
   end
 
   def select_course
-    if @course.price == 0
+    is_preview = params[:type] == "preview"
+    if @course.price == 0 || is_preview
       owned_course = current_user.courses.where(course_id: @course.id).first
+      # Haven't had course
       if owned_course.blank?
         owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
         UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
-      end
 
-      if @course.price != 0
-        status = Constants::PaymentStatus::PENDING
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+        if is_preview
+          owned_course.type = Constants::OwnedCourseTypes::PREVIEW
+          owned_course.expired_at = Time.now + Constants::PreviewMode::TIME
+        else
+          owned_course.type = Constants::OwnedCourseTypes::LEARNING
+        end
+
+        init_lectures_for_owned_course(owned_course, @course)
+
+        if current_user.save
+          is_preview ?
+            (redirect_to root_url + "courses/#{@course.alias_name}/learning") :
+            (redirect_to root_url + "courses/#{@course.alias_name}/select")
+        else
+          redirect_to root_url + "courses"
+        end
+      # Already has course
       else
-        status = Constants::PaymentStatus::SUCCESS
-      end
-
-      owned_course.type = Constants::OwnedCourseTypes::LEARNING
-      owned_course.payment_status = status
-
-      init_lectures_for_owned_course(owned_course, @course)
-
-      if current_user.save
-        redirect_to root_url + "courses/#{@course.alias_name}/select"
-        return
-      else
-        redirect_to root_url + "courses"
-        return
+        if owned_course.preview? && owned_course.preview_expired?
+          redirect_to root_url + "courses/#{@course.alias_name}/detail"
+        else
+          redirect_to root_url + "courses/#{@course.alias_name}/learning"
+        end
       end
     else
       url = root_url + "home/payment/#{@course.alias_name}"

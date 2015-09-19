@@ -134,8 +134,11 @@
                 %a.link-text{:href => ""}
                   %h5.normal-text.link-text Nhập mã khuyến mãi
               .col-xs-12.no-padding
-                %a.link-text{:href => ""}
-                  %h5.normal-text.link-text Học thử miễn phí
+                - if @preview_disabled
+                  %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                - else
+                  %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                    %h5.normal-text.link-text Học thử miễn phí
               .col-xs-12.no-padding
                 %a.link-text{:href => ""}
                   %h5.normal-text.link-text Góp ý
@@ -152,7 +155,7 @@
               %a.link-text{:href => ""}
                 %h5.normal-text.link-text Nhập mã khuyến mãi
             .col-xs-12.no-padding
-              %a.link-text{:href => ""}
+              %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                 %h5.normal-text.link-text Học thử miễn phí
             .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %a.link-text{:href => ""}
@@ -224,6 +227,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left{:style => 'width:130px'}
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
                           / .detail-curi-leacture.pull-right
                           /   %h5.normal-text.no-margin
                           /     %b #{curi.description}
@@ -463,8 +470,11 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-xs-8.no-padding
-                      %a.link-text{:href => ""}
-                        %h5.normal-text.link-text Học thử miễn phí
+                      - if @preview_disabled
+                        %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                      - else
+                        %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                          %h5.normal-text.link-text Học thử miễn phí
                     .col-xs-8.no-padding
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Góp ý
@@ -481,7 +491,7 @@
                     %a.link-text{:href => ""}
                       %h5.normal-text.link-text Nhập mã khuyến mãi
                   .col-xs-8.no-padding
-                    %a.link-text{:href => ""}
+                    %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       %h5.normal-text.link-text Học thử miễn phí
                   .col-xs-8.no-padding
                     %a.link-text{:href => ""}
@@ -562,6 +572,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left{:style => 'width:270px'}
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
       .row.no-margin.author
         .col-xs-12.no-padding
           %h4
@@ -799,8 +813,11 @@
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-sm-12.no-padding
-                        %a.link-text{:href => ""}
-                          %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-sm-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -817,7 +834,7 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-sm-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         %h5.normal-text.link-text Học thử miễn phí
                     .col-sm-12.no-padding
                       %a.link-text{:href => ""}
@@ -898,6 +915,10 @@
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                           .detail-curi-title.pull-left
                             %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                          - if curi.asset_type == "Video" && curi.previewable
+                            .detail-curi-leacture.pull-left
+                              %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                %b Xem thử
                           .detail-curi-leacture.pull-right
                             %h5.normal-text.no-margin
                               %b #{curi.description}
@@ -1140,8 +1161,11 @@
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-md-12.no-padding
-                        %a.link-text{:href => ""}
-                          %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-md-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -1158,7 +1182,7 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-md-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         %h5.normal-text.link-text Học thử miễn phí
                     .col-md-12.no-padding
                       %a.link-text{:href => ""}
@@ -1240,6 +1264,10 @@
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                               .detail-curi-title.pull-left
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              - if curi.asset_type == "Video" && curi.previewable
+                                .detail-curi-leacture.pull-left
+                                  %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                    %b Xem thử
                               .detail-curi-leacture.pull-right
                                 %h5.normal-text.no-margin
                                   %b #{curi.description}
@@ -1493,8 +1521,11 @@
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
                       .col-lg-12.no-padding
-                        %a.link-text{:href => ""}
-                          %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã preview khóa học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .col-lg-12.no-padding
                         %a.link-text{:href => ""}
                           %h5.normal-text.link-text Góp ý
@@ -1511,7 +1542,7 @@
                       %a.link-text{:href => ""}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
                     .col-lg-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         %h5.normal-text.link-text Học thử miễn phí
                     .col-lg-12.no-padding
                       %a.link-text{:href => ""}
@@ -1617,6 +1648,10 @@
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                               .detail-curi-title.pull-left
                                 %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
+                              - if curi.asset_type == "Video" && curi.previewable
+                                .detail-curi-leacture.pull-left
+                                  %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
+                                    %b Xem thử
                               .detail-curi-leacture.pull-right
                                 %h5.normal-text.no-margin
                                   %b #{curi.description}

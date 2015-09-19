@@ -131,19 +131,41 @@ class CoursesController < ApplicationController
 
   def detail
     if current_user
+      # @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
+      # if !current_user.courses.where(
+      #   :course_id => @course.id.to_s,
+      #   :payment_status => Constants::PaymentStatus::SUCCESS
+      #   ).last.blank?
+      #   redirect_to root_url + "courses/#{@course.alias_name}/learning"
+      #   return
+      # else
+      #   @payment = Payment.where(
+      #     user_id: current_user.id.to_s,
+      #     course_id: @course.id.to_s
+      #   ).last
+      # end
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
-      if !current_user.courses.where(
-        :course_id => @course.id.to_s,
-        :payment_status => Constants::PaymentStatus::SUCCESS
-        ).last.blank?
-        redirect_to root_url + "courses/#{@course.alias_name}/learning"
-        return
-      else
-        @payment = Payment.where(
-          user_id: current_user.id.to_s,
-          course_id: @course.id.to_s
-        ).last
+      if @owned_course
+        # Course is learnable
+        if @owned_course.payment_status == Constants::PaymentStatus::SUCCESS
+          # Expired preview course
+          if @owned_course.preview? && @owned_course.preview_expired?
+            @owned_course = nil
+            @preview_disabled = true
+          # Learning course
+          else
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+            return
+          end
+        # Course is on payment
+        else
+          @payment = Payment.where(
+            user_id: current_user.id.to_s,
+            course_id: @course.id.to_s
+          ).last
+        end
       end
+
     end
 
     # Get Coupon
@@ -198,6 +220,11 @@ class CoursesController < ApplicationController
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
 
+    if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
+      return
+    end
+
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
@@ -211,7 +238,10 @@ class CoursesController < ApplicationController
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
-    
+    if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
+      return
+    end
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return

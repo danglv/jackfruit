@@ -55,4 +55,26 @@ module ApplicationHelper
 			"Đăng ký"
 		end
 	end
+
+	def help_get_youtube_url lecture
+		if lecture.url.index('v=').blank?
+			indexStart = lecture.url.index('.be/') + 4
+			youtube_id = lecture.url[indexStart..lecture.url.length]
+		else
+			indexStart = lecture.url.index('v=') + 2
+		end
+		if lecture.url['&']
+			indexEnd = lecture.url.index('&')-1
+			youtube_id = lecture.url[indexStart..indexEnd]
+		else
+			indexEnd = lecture.url.length
+			youtube_id =  lecture.url[indexStart..indexEnd]
+		end
+		if youtube_id
+			return 'https://www.youtube.com/embed/' + youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0'
+		else
+			return ""
+		end
+	end
+
 end
