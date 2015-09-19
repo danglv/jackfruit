@@ -1,6 +1,9 @@
 .header
   = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}
+    .banner
+    = render :partial => "components/banner/banner"
+    
     .layout-320  
       .payment.white-background
         .row.no-margin

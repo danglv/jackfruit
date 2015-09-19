@@ -2,6 +2,9 @@
 .layout-320
   = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
+    .banner
+      = render :partial => "components/banner/banner"
+
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
@@ -71,6 +74,8 @@
 .layout-480-up 
   = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}  
+    .banner
+      = render :partial => "components/banner/banner"
     %main.payment
       .row.no-margin
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
