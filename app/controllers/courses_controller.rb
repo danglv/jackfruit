@@ -167,6 +167,7 @@ class CoursesController < ApplicationController
         break
       end
     }
+
     if !coupon_code.blank?
       if !coupon_code.split(",").blank?
         coupon_code.split(",").each {|coupon|
@@ -181,6 +182,20 @@ class CoursesController < ApplicationController
       end
     end
 
+    # Check if course is in any sale campaign
+    @data = { discount: 0, discount_ratio: 0 }
+    sale_campaigns = Sale::Campaign.in_progress
+    sale_campaigns.each { |campaign|
+      package = campaign.packages.select { |p|
+        (p.courses.count == 1) && (p.courses.first.course.id == @course.id)
+      }.first
+
+      unless package.blank?
+        @data['discount'] = package.price
+        @data['discount_ratio'] = (package.price.to_f / @course.price.to_f * 100).ceil.to_i
+      end
+    }
+
     @courses = {}
     condition = {:enabled => true, :category_ids.in => @course.category_ids}
     if current_user
@@ -189,7 +204,9 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    @courses['related'] = [
+      Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)
+    ]
     condition = {:enabled => true, :label_ids.in => ["top_paid"]}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
