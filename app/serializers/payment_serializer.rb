@@ -10,11 +10,11 @@ class PaymentSerializer < ActiveModel::Serializer
   def cod_hash
     {
       id: self.id,
-      name: object.name,
+      name: !object.name.blank? ? object.name : object.user.email,
       user_id: object.user_id.to_s,
       course_id: object.course_id.to_s,
       course_alias_name: object.course.alias_name,
-      course: object.course.name,
+      course_name: object.course.name,
       coupons: object.coupons.join(", "),
       mobile: object.mobile,
       email: object.email,
@@ -26,6 +26,7 @@ class PaymentSerializer < ActiveModel::Serializer
       district: object.district,
       cod_code: object.cod_code,
       status: object.status
+
     }
   end
 end
