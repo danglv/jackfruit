@@ -41,7 +41,7 @@ module RailsAdmin
 end
 
 RailsAdmin.config do |config|
-  config.main_app_name = ["TUDEMY", "Tudemy"]
+  config.main_app_name = ["PEDIA", "Pedia"]
   ### Popular gems integration
 
   ## == Devise ==
