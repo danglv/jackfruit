@@ -1,11 +1,33 @@
 .search-landingpage {
-  input {
-  color:white;
+  .search-input {
+    background-color: white;
+    border-radius: 10px;
+    text-indent: 20px;
+  }
+  .fa.fa-search {
+    left: 0 !important;
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    top: 0 !important;
+    background-color: #1376d7;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  @media (max-width: 1199px) {
+    .btn-search {
+      right: 40px;
+      .fa.fa-search {
+        height: 40px;
+        line-height: 40px;
+        width: 40px;
+      }
+    }
   }
 }
 @media (max-width: 320px) {
   .landingpage {
-    min-width: 320px;
+    min-width: 300px;
     .header-box {
       background-color: #233543;
       padding: 25px 0 35px 0;
@@ -61,10 +83,16 @@
       .other-course-button {
         width: 100%;
         background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .register-button {
         width: 100%;
         background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .hook-1 {
         font-size: 22px;
@@ -79,7 +107,7 @@
 }
 @media (min-width: 321px) and (max-width: 479px) {
   .landingpage {
-    min-width: 320px;
+    min-width: 300px;
     .header-box {
       background-color: #233543;
       padding: 25px 0 35px 0;
@@ -135,10 +163,16 @@
       .other-course-button {
         width: 100%;
         background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .register-button {
         width: 100%;
         background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .hook-1 {
         font-size: 22px;
@@ -208,10 +242,16 @@
       .other-course-button {
         width: 100%;
         background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .register-button {
         width: 100%;
         background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .hook-1 {
         font-size: 22px;
@@ -284,10 +324,16 @@
       .other-course-button {
         width: 100%;
         background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .register-button {
         width: 100%;
         background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .hook-1 {
         font-size: 22px;
@@ -360,10 +406,16 @@
       .other-course-button {
         width: 100%;
         background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .register-button {
         width: 100%;
         background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
       }
       .hook-1 {
         font-size: 22px;
@@ -527,18 +579,24 @@
           margin-right: 0;
           width: 100%;
           background-color: #338abc;
+          height: 85px;
+          line-height: 69px;
+          font-weight: bold;
+          font-size: 28px;
+          margin-bottom: 50px;
         }
         .register-button {
-          width: 100%;
           background-color: #38b34a;
+          height: 70px;
+          line-height: 54px;
+          margin-top: 40px;
+          font-size: 15px;
         }
         .hook-1 {
-          font-size: 32px;
-          font-weight: bold;
+          font-size: 48px;
         }
         .hook-2 {
-          font-size: 20px;
-          font-weight: 400;
+          font-size: 32px;
         }
       }
     }
