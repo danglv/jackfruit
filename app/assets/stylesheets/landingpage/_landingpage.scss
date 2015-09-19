@@ -444,6 +444,18 @@
             .fill{
               height: 100%;
             }
+            .image-1 {
+              background-image: image-url('landingpage-1.jpg');
+            }
+            .image-2 {
+              background-image: image-url('landingpage-2.jpg'); 
+            }
+            .image-3 {
+              background-image: image-url('landingpage-3.jpg'); 
+            }
+            .image-4 {
+              background-image: image-url('landingpage-4.jpg'); 
+            }
           }
           .item,
           .active.left,

@@ -17,14 +17,14 @@
           %i.fa.fa-user
         %a.link{:href => "/users/edit"}
           %i.fa.fa-pencil
-        %a.link{:href => "#"}
-          %i.fa.fa-cog
+        / %a.link{:href => "#"}
+        /   %i.fa.fa-cog
     .user-dropdown-links
       %a.link{:href => "/home/my-course/learning"} Các khoá học của tôi
-      %a.link{:href => "/users/inbox"} Tin nhắn
+      / %a.link{:href => "/users/inbox"} Tin nhắn
       %a.link{:href => "/home/my-course/learning#wishlist"} Ưa thích
-      %a.link{:href => "/support"} Hỗ trợ
-      %a.link{:href => "#"} Lịch sử giao dịch
+      / %a.link{:href => "/support"} Hỗ trợ
+      / %a.link{:href => "/home/payment/"} Lịch sử giao dịch
     .user-dropdown-logout
       %a.btn.btn-flat.btn-logout{:href => root_url + "users/sign_out", "data-method" => "delete", :rel => "nofollow"}
         %i.fa.fa-power-off
