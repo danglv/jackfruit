@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       get :select_course
       get :learning
       get :teaching
+      get :wishlist
       get :update_wishlist
       get :search
       get '/api/suggestion_search', to: 'users#suggestion_search'

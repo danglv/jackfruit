@@ -5,6 +5,7 @@ class User::Course
   field :payment_status, type: String, default: ""
   field :type, type: String, default: ""
   field :expired_at, type: Time, default: nil
+  field :first_learning, type: Boolean, default: true
 
   embedded_in :user
   belongs_to :course, class_name: "Course"

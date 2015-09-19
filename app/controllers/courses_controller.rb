@@ -207,6 +207,8 @@ class CoursesController < ApplicationController
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
 
+    payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
+
     if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
@@ -215,6 +217,16 @@ class CoursesController < ApplicationController
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
+    end
+    # Redirect to success payment page if first learning and have payment
+    if (@owned_course.first_learning && !payment.blank?)
+      redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
+      return
+    end
+
+    # Update first learning if free course.
+    if @owned_course.first_learning == true
+      @owned_course.set(:first_learning => false)
     end
   end
 
