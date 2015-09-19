@@ -1,3 +1,5 @@
+- if @owned_course.type == 'preview'
+  = render :partial => "courses/preview_alert", :local => {:course => @course}
 .row.no-margin.lecture 
   .col-xs-12.col-sm-7.col-md-8.col-lg-9.lecture-player
     .row.lecture-player-header.no-margin 

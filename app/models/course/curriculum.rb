@@ -15,6 +15,8 @@ class Course::Curriculum
   field :asset_type, type: String, default: ""
   field :url, type: String, default: ""
 
+  field :previewable, type: Boolean, default: false
+
   embedded_in :course
 
   validates_inclusion_of :type, :in => Constants.CurriculumTypesValues

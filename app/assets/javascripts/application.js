@@ -29,6 +29,7 @@
 //= require components/payment.js
 //= require ./components/nav
 //= require components/home
+//= require components/preview
 //= require components/wishlist
 
 $(document).ready(function () {
