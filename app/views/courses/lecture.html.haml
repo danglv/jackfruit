@@ -82,8 +82,9 @@
                               %i.fa.fa-play-circle
                             %li
                               %span #{curriculum.description}
-                            %li
-                              %i.fa.fa-download
+                            - if curriculum.documents.count > 0
+                              %li
+                                %i.fa.fa-download
                             %li
                               %i.fa.fa-comments
             - else
@@ -110,18 +111,27 @@
                               %i.fa.fa-play-circle
                             %li
                               %span #{curriculum.description}
-                            %li
-                              %i.fa.fa-download
+                            - if curriculum.documents.count > 0
+                              %li
+                                %i.fa.fa-download
                             %li
                               %i.fa.fa-comments
       #lecture-tab-download.tab-pane.fade
-        %ul{:style => "margin-top:10px;"}
-          %li
-            %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :lecture_id => @lecture.id, :doc_id => 0}"}
-              Nội dung bài học
-          %li
-            %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :lecture_id => @lecture.id, :doc_id => 0}"}
-              Bài tập
+        / Short description of lecture
+        / - if @lecture.description
+        /   %p #{@lecture.description}
+        / - else
+        /   %p Không có mô tả
+        / Has documents
+        - if @lecture.documents.count > 0
+          %h5  Tài liệu của bài học
+          %ul{:style => "margin-top:10px;"}
+            - @lecture.documents.each do |document|
+              %li
+                %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :doc_id => document.id}"}
+                  #{document.title}
+        - else
+          %h5 Bài học không có tài liệu để tải
       #lecture-tab-discussion.tab-pane.fade
         %form
           %input.course_id{:type => "hidden", :value => "#{@course._id}"}
