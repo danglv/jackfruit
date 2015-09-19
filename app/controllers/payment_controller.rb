@@ -74,6 +74,7 @@ class PaymentController < ApplicationController
       if payment.save
         create_course_for_user()
         begin
+          payment['course_name'] = @course.name
           RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :timeout => 2000, :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý ' 
         rescue Exception => e
         end
@@ -344,24 +345,39 @@ class PaymentController < ApplicationController
 
   # GET: API list payment for mercury
   def list_payment
-
-    keywords = params[:keyword]
+    
+    status = params[:status]
+    method = params[:method]
+    from = params[:from]
+    to = params[:to]
+    keywords = !params[:keyword].blank? ? params[:keyword] : '' 
     method = params[:method]
     payment_date = params[:date]
     page = params[:page].blank? ? 1 : params[:page].to_i
     per_page = params[:per_page] || 10
 
     condition = {}
+    conditionName = {}
+    conditionId = {}
+
     condition[:method] = method unless method.blank?
+    condition[:status] = status unless status.blank?
+    if !from.blank? && !to.blank?
+      condition[:created_at] = from.to_date.beginning_of_day..to.to_date.end_of_day
+      conditionName[:created_at] = from.to_date.beginning_of_day..to.to_date.end_of_day
+      conditionId[:created_at] = from.to_date.beginning_of_day..to.to_date.end_of_day
+    end
+
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
-    conditionName = {}
     conditionName[:method] = method unless method.blank?
-    conditionName[:name] = /#{Regexp.escape(keywords)}/
+    conditionName[:status] = status unless status.blank?
+    conditionName[:name] = /#{Regexp.escape(keywords)}/i
 
-    conditionId = {}
     conditionId[:method] = method unless method.blank?
+    conditionId[:status] = status unless status.blank?
     conditionId[:id] = keywords
+
     if !keywords.blank?
       payments = Payment.or(conditionName, conditionId).desc(:created_at)
     else 
