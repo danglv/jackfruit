@@ -16,4 +16,7 @@ class ResourcesController < ApplicationController
 		end
 	end
 
+	def lecture_doc
+		send_file "resources/lecture/demo_doc.txt"
+	end
 end

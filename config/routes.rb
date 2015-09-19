@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   resources :resources do
     collection do
       get '/embed/video/:course_id/(:lecture_id)', to: 'resources#embed_course_video'
+      get 'lecture/doc/(:lecture_id)', to: 'resources#lecture_doc'
     end
   end
   
