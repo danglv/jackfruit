@@ -3,7 +3,7 @@ lock '3.4.0'
 
 set :rvm_type, :system
 set :rvm_ruby_version, 'ruby-2.2.2@rails422'
-set :application, 'tudemy'
+set :application, 'pedia'
 
 set :repo_url, 'git@git.memo.edu.vn:tcs/jackfruit.git'
 set :stages, %w[staging production]

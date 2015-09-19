@@ -318,7 +318,20 @@
     margin-bottom: 15px;
   }
 }
-
+.lecture{
+  .tab-content{
+    #lecture-tab-download{
+      ul{
+        margin-top:10px;
+        padding-left: 20px;
+        list-style-type: circle;
+      }
+      ul li{
+        margin-top: 5px;
+      }
+    }
+  }
+}
 @media (max-width: 320px) {
   #preview_lecture_modal{
     .modal-dialog {
