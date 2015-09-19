@@ -91,8 +91,9 @@
                                 %i.fa.fa-play-circle
                               %li
                                 %span #{curriculum.description}
-                              %li
-                                %i.fa.fa-download
+                              - if curriculum.documents.count > 0
+                                %li
+                                  %i.fa.fa-download
                               %li
                                 %i.fa.fa-comments
         .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.lecture-discussion
