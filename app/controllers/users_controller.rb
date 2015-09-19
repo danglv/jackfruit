@@ -124,8 +124,8 @@ class UsersController < ApplicationController
 
   def select_course
     is_preview = params[:type] == "preview"
-    if @course.price == 0 || is_preview
-      owned_course = current_user.courses.where(course_id: @course.id).first
+    owned_course = current_user.courses.where(course_id: @course.id).first
+    if @course.price == 0 || is_preview || (!owned_course.blank? ? (owned_course.payment_status == Constants::PaymentStatus::SUCCESS) : false)
       # Haven't had course
       if owned_course.blank?
         owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
