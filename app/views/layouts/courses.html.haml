@@ -40,13 +40,13 @@
     /   - image = @course.image
     - if params[:action] == "detail" && !@course.blank?
       %meta{:property => "og:title", :content => "#{@course.name}"}/
-      %meta{:property => "og:site_name", :content => "Khoá học của Tudemy"}/
+      %meta{:property => "og:site_name", :content => "Khoá học của Pedia"}/
       %meta{:property => "og:url", :content => "#{request.url}"}/
       %meta{:property => "og:description", :content => "#{@course.sub_title}"}/
       %meta{:property => "fb:app_id", :content => "1592966984299237"}/
       %meta{:content => "en_US", :property => "og:locale"}/
       %meta{:content => "https://www.facebook.com/profile.php?id=100009617780315", :property => "article:publisher", :property => "article:author"}/
-      %meta{:content => "https://www.facebook.com/pages/Tudemy/1460650207589951"}/
+      %meta{:content => "https://www.facebook.com/pages/Pedia/1460650207589951"}/
       %meta{:property => "og:image", :content => "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11754761_1425168711147041_1552365735035263083_o.jpg"}/
       %meta{:content => "image/jpeg", :property => "og:image:type"}/
       %meta{:content => "600", :property => "og:image:width"}/
@@ -55,7 +55,7 @@
 
       %title= @course.name
     - else
-      %title Tudemy
+      %title Pedia
 
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:name => "viewport", :content => "width=device-width"}/
@@ -63,6 +63,20 @@
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
     %script{:src => "http://content.jwplatform.com/libraries/zNiP4rLT.js", :type => "text/javascript"}
     = stylesheet_link_tag    'application', media: 'all'
+    / Facebook Pixel Code
+    :javascript
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','//connect.facebook.net/en_US/fbevents.js');
+      
+      fbq('init', '433950950110580');
+      fbq('track', 'PageView');
+    %noscript
+      %img{:height => "1", :src => "https://www.facebook.com/tr?id=433950950110580&ev=PageView&noscript=1", :style => "display:none", :width => "1"}/
+    / End Facebook Pixel Code
+    
     :javascript
       if (window.location.hash && window.location.hash == '#_=_') {
           if (window.history && history.pushState) {

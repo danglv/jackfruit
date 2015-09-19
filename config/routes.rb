@@ -103,6 +103,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :resources, only: %w[] do
+    collection do
+      get '/embed/video/:course_id/(:lecture_id)', to: 'resources#embed_course_video'
+      get 'lecture/doc/:lecture_id/:doc_id', to: 'resources#lecture_doc', :as => :download_lecture_doc
+    end
+  end
+  
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'  

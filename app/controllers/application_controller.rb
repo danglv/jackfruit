@@ -133,8 +133,13 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     last_url = request.referer
     uri = URI(last_url)
-    params = URI::decode_www_form(uri.query).to_h
-    course_id = params["tcode"]
+    course_id = nil
+    
+    if !uri.query.blank?
+      params = URI::decode_www_form(uri.query).to_h
+      course_id = params["tcode"]
+    end
+
     if ((resource.is_a? User) && !course_id.blank?)
       resource.wishlist << course_id if !(resource.wishlist.include? course_id)
       resource.save
