@@ -268,6 +268,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_note
+    lecture_id = params[:lecture_id]
+    time = params[:time]
+    content = params[:content]
+
+    @note = Note.where(lecture_id: curriculum_id).first
+
+  end
+
+  def update_note
+    
+  end
+
+  def delete_note
+    
+  end
+
+  def note
+    
+  end
+
   private
     def set_user
       if params[:id] != nil
@@ -297,4 +318,5 @@ class UsersController < ApplicationController
     def check_valid_length(string, min_length, max_length)
       string.length >= min_length && string.length <= max_length
     end
+
 end

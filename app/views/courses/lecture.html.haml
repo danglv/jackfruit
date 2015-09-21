@@ -180,3 +180,12 @@
                       %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
                       .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
       #lecture-tab-note.tab-pane.fade
+        .row.no-margin
+          %form.note
+            %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+            %textarea.form-control.note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
+        .row.no-margin
+          %span 0:06
+          %span ghi chú
+        .row.no-margin
+          %button.btn.btn-primary Tải ghi chú

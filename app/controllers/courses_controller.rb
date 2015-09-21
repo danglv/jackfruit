@@ -452,4 +452,5 @@ class CoursesController < ApplicationController
     render json: courses, root: false
     return
   end
+
 end
