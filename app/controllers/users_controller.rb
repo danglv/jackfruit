@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
-  before_filter :validate_course, only: [:select_course]
+  before_filter :validate_course, only: [:select_course, :set_course_for_user]
 
   def index
     learning
@@ -106,8 +106,38 @@ class UsersController < ApplicationController
     head :ok
   end
 
+  def set_course_for_user
+    user_id = params[:user_id]
+
+    if user_id.blank?
+      render json:{:message => "Thiếu user_id"}
+      return
+    end
+
+    current_user = User.where(:id => user_id).first
+
+    if current_user.blank?
+      render json:{:message => "Sai user_id"}
+      return
+    end
+
+    owned_course = current_user.courses.where(course_id: @course.id).first
+    if owned_course.blank?
+      owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
+      UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
+    end
+
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+    init_lectures_for_owned_course(owned_course, @course)
+    current_user.save
+
+    render json:{:message => "SUCCESS!!!"}
+    return
+  end
+
   def select_course
-    if @course.price == 0
+    if @course.price == 0 || @price == 0
       owned_course = current_user.courses.where(course_id: @course.id).first
       if owned_course.blank?
         owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
@@ -133,7 +163,9 @@ class UsersController < ApplicationController
         return
       end
     else
-      redirect_to root_url + "home/payment/#{@course.alias_name}"
+      url = root_url + "home/payment/#{@course.alias_name}"
+      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      redirect_to url
     end
   end
 
@@ -164,6 +196,51 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+    keywords = Utils.nomalize_string(keywords)
+
+    if keywords.include? '-'
+      keywords = keywords.gsub! '-', " "
+    end
+
+    pattern = /#{Regexp.escape(keywords)}/i
+
+    users = User.where(:name => pattern).map { |user|
+      UserSerializer.new(user).suggestion_search_hash
+    }
+
+    render json: users, root: false
+    return
+  end
+
+  # POST: API active course for user (mercury)
+  def active_course
+    course_id = params[:course_id]
+    user_id = params[:user_id]
+    user = User.find(user_id)
+
+    owned_course = user.courses.where(course_id: course_id).first
+    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+
+    if user.save
+      render json: {message: "Thành công!"}
+      return
+    else
+      render json: {message: "Thất bại!"}
+      return
+    end
+  end
+
+  # GET: API get user info & course of user
+  def get_user_detail
+    user_id = params[:id]
+    user = User.find(user_id)
+
+    render json: UserSerializer.new(user).profile_detail_hash
+  end
+
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
 
@@ -189,6 +266,43 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST: API create instructor for kelley
+  def create_instructor
+    instructor = params["instructor"]
+
+    if instructor.blank?
+      render json: {message: "Chưa truyền dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+
+    instructor = JSON.parse(instructor)
+
+    user = User.new(
+      name: instructor['name']
+    )
+
+    email = instructor['email'].blank? ? Utils.nomalize_string(instructor['name']).to_s + "@tudemy.vn" : instructor['email']
+    user.email = email
+    user.password = "12345678"
+
+    instructor_profile = User::InstructorProfile.new()
+    instructor_profile.academic_rank = instructor['instructor_profile']['academic_rank'] unless instructor['instructor_profile']['academic_rank'].blank?
+    instructor_profile.major = instructor['instructor_profile']['major'] unless instructor['instructor_profile']['major'].blank?
+    instructor_profile.function = instructor['instructor_profile']['function'] unless instructor['instructor_profile']['function'].blank?
+    instructor_profile.work_unit = instructor['instructor_profile']['work_unit'] unless instructor['instructor_profile']['work_unit'].blank?
+    instructor_profile.description = instructor['instructor_profile']['description'] unless instructor['instructor_profile']['description'].blank?
+    
+    user.instructor_profile = instructor_profile
+
+    if user.save
+      render json: {message: "Success"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+      return
+    end
+    
+  end
   private
     def set_user
       if params[:id] != nil

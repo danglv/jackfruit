@@ -13,6 +13,30 @@ module RailsAdmin
         end
       end
     end
+
+    module Actions
+      class Delete < RailsAdmin::Config::Actions::Base
+        register_instance_option :visible? do
+          if bindings[:object].class.to_s != 'Payment'
+            true
+          else
+            false
+          end
+        end
+      end
+
+      class Edit < RailsAdmin::Config::Actions::Base
+        register_instance_option :visible? do
+          if bindings[:object].class.to_s != 'Payment'
+            true
+          elsif bindings[:object].status == 'pending'
+            true
+          else
+            false
+          end
+        end
+      end
+    end
   end
 end
 
@@ -22,9 +46,11 @@ RailsAdmin.config do |config|
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :user
+    warden.authenticate! scope: :admin
   end
-  config.current_user_method(&:current_user)
+  # config.current_user_method(&:current_user)
+
+  config.current_user_method(&:current_admin)
 
   ## == Cancan ==
   config.authorize_with :cancan
@@ -43,7 +69,7 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    show_in_app
+    # show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
@@ -56,30 +82,49 @@ RailsAdmin.config do |config|
       field :updated_at
       field :user
       field :course
+      field :method
       field :status
+      field :money
+      field :coupons
     end
 
     show do
       field :status
+      field :cod_code
       field :user
       field :course
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :coupons
+      field :money
     end
 
     edit do
       field :status
+      field :cod_code do
+        visible do
+          bindings[:object].status == Constants::PaymentMethod::COD
+        end
+      end
       field :user
       field :course
       field :email
       field :mobile
       field :method
+      field :address
+      field :city
+      field :district
+      field :cod_code
     end
   end
 
   config.model 'User' do
     list do
+      field :created_at
       field :name
       field :email
       field :role
@@ -110,6 +155,7 @@ RailsAdmin.config do |config|
       field :labels
       field :instructor_profile
       field :courses
+      field :avatar
     end
   end
 
@@ -147,6 +193,10 @@ RailsAdmin.config do |config|
       field :lang
       field :price
       field :user
+    end
+
+    edit do
+      exclude_fields :reviews
     end
   end
 

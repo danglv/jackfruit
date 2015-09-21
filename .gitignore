@@ -16,3 +16,4 @@ mongoid.yml
 .idea/
 .DS_Store
 /public/*
+/vendor/assets/components/*

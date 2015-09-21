@@ -28,7 +28,7 @@
               .offset-s1.col.s2.left-align
                 %span Chi phí
               .col.s8.right-align.pending-price
-                %b.teal-text= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
+                %b.teal-text= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ".", :format => "%n%u")
             .row
               .offset-s1.col.s2.left-align
                 %span Trạng thái
@@ -42,7 +42,7 @@
                 %div.pending-phone
                   %i.material-icons.pending-phone-icon phone
                   %span Hotline:
-                  %b 01638533244
+                  %b 0961215368
             .row
               .col.s12
                 %div.pending-btn-other-course

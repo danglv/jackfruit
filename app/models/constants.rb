@@ -1,4 +1,14 @@
 module Constants
+  module AppVersion
+    VER_1 = "ver_1"
+  end
+
+  module TrackingTypes
+    PAYMENT = "payment"
+    COURSE_DETAILS = "course_details"
+    API = "api"
+  end
+
   module  CurriculumTypes
     CHAPTER = "chapter"
     LECTURE = "lecture"
@@ -22,6 +32,7 @@ module Constants
 
   module PaymentStatus
     SUCCESS = "success"
+    PROCESS = "process"
     PENDING = "pending"
     CANCEL = "cancel"
   end
@@ -102,11 +113,18 @@ module Constants
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"
+    CARD = "card"
+    DELIVERY = "delivery"
   end
 
   module CourseVersions
     TEST = "test"
     PUBLIC = "public"
+  end
+
+  module Seller
+    TOPICA = "topica"
+    INSTRUCTOR = "instructor"
   end
 
   class << self

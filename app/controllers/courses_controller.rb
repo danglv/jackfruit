@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
         condition[:version] = Constants::CourseVersions::PUBLIC
       end
 
-      @courses[label.to_sym] = [title, Course.where(condition).limit(12)]
+      @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12)]
     }
   end
 
@@ -130,23 +130,82 @@ class CoursesController < ApplicationController
     if current_user
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       if !current_user.courses.where(
-            :course_id => @course._id,
-            :payment_status => Constants::PaymentStatus::SUCCESS
-          ).first.blank?
+        :course_id => @course.id.to_s,
+        :payment_status => Constants::PaymentStatus::SUCCESS
+        ).last.blank?
         redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
+      else
+        @payment = Payment.where(
+          user_id: current_user.id.to_s,
+          course_id: @course.id.to_s
+        ).last
       end
     end
 
+    # Get Coupon
+    begin
+      coupon_code = params[:coupon_code]
+      @coupon = []
+      uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
+      response = Net::HTTP.get(uri)
+      data = JSON.parse(response)
+      data['coupons'].each {|coupon|
+        if coupon['expired_date'].to_time > Time.now()
+          @coupon << coupon
+          break
+        end
+      }
+      if !coupon_code.blank?
+        if !coupon_code.split(",").blank?
+          coupon_code.split(",").each {|coupon|
+            uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+            response = Net::HTTP.get(uri)
+            coupon = JSON.parse(response)
+            if coupon['expired_date'].to_time > Time.now()
+              @coupon << coupon
+              break
+            end
+          }
+        end
+      end
+    rescue Exception => e
+      @coupon = []
+      unless current_user.blank?
+        identity = current_user.id.to_s
+      else
+        identity = Tracking.generate_unique_str
+      end
+      Tracking.create_tracking(
+          :type => Constants::TrackingTypes::COURSE_DETAILS,
+          :content => {
+            :message => "die server coupon",
+            :status => "fail" },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :str_identity => identity,
+          :object => @course.id
+        )
+    end
+
     @courses = {}
-    condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    # Relative courses
+    # condition = {:enabled => true, :category_ids.in => @course.category_ids}
+    condition = {:enabled => true}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-
-    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Select three first courses in the same category
+    # @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+    # Select three first courses in relatives list
+    rids = @course.relative_ids[0..2]
+    rcourses = Course.where(:id.in => rids).where(condition).sort{|a,b| rids.index(a.id) <=> rids.index(b.id)}
+    @courses['related'] = [Course::Localization::TITLES["related".to_sym][I18n.default_locale], rcourses]
+    # Top paid
     condition = {:enabled => true, :label_ids.in => ["top_paid"]}
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
@@ -154,6 +213,40 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
+
+    # if ["55c3306344616e0ca600001f", "55b1c16f52696418a000001e"].include?(@course.id.to_s)
+    #   if params[:layout].to_i == 1
+    #     render :template => "courses/detail"
+    #     return
+    #   else
+        
+    #     if @course.id.to_s == "55c3306344616e0ca600001f"
+    #       @is_experiment_tund = 1
+    #     elsif @course.id.to_s == "55cb2d3044616e15ca000000"
+    #       @is_experiment_ngocntn = 1
+    #     end
+
+    #     render :template => "courses/excel_detail"
+    #     return
+    #   end
+    # elsif ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+    #     render :template => "courses/detail_v3"
+    #     return
+    # else
+    #   render :template => "courses/detail"
+    #   return
+    # end
+
+    if ["55b1c17152696418a000005b", "55c312f344616e0ca6000000","55cb2d3044616e15ca000000"].include?(@course.id.to_s)
+      render :template => "courses/detail_v3"
+      return
+    elsif @course.id.to_s == "55c3306344616e0ca600001f"
+      render :template => "courses/detail_combo_promo"
+      return
+    else
+      render :template => "courses/detail"
+      return
+    end
   end
 
   def learning
@@ -276,20 +369,20 @@ class CoursesController < ApplicationController
     @courses  = {}
   
     labels.each {|label|
-    title = if Course::Localization::TITLES[label.to_sym].blank?
-      label
-    else
-      Course::Localization::TITLES[label.to_sym][I18n.default_locale]
-    end
+      title = if Course::Localization::TITLES[label.to_sym].blank?
+        label
+      else
+        Course::Localization::TITLES[label.to_sym][I18n.default_locale]
+      end
 
-    condition = {:enabled => true, :label_ids.in => [label]}
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
-    else
-      condition[:version] = Constants::CourseVersions::PUBLIC
-    end
-    @courses[label.to_sym] = [title, Course.where(condition).limit(12)]
-   }
+      condition = {:enabled => true, :label_ids.in => [label]}
+      if current_user
+        condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+      else
+        condition[:version] = Constants::CourseVersions::PUBLIC
+      end
+      @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12)]
+    }
   end
 
   def add_discussion
@@ -319,5 +412,152 @@ class CoursesController < ApplicationController
       render json: {message: "Có lỗi xảy ra"}
       return
     end
+  end
+
+  # GET: API suggestion search for user by name
+  def suggestion_search
+    keywords = params[:q]
+    keywords = Utils.nomalize_string(keywords)
+    pattern = /#{Regexp.escape(keywords)}/i
+
+    courses = Course.where(:alias_name => pattern).map { |course|
+      CourseSerializer.new(course).suggestion_search_hash
+    }
+
+    render json: courses, root: false
+    return
+  end
+
+  # GET: API get price of course
+  def get_money
+    course_id = params[:course_id]
+    coupon_code = params[:coupon_code]
+
+    if course_id.blank?
+      render json: {message: "chưa truyền dữ course_id"}, status: :unprocessable_entity
+    end
+
+    course = Course.find(course_id)
+
+    if course_id.blank?
+      render json: {message: "course_id không chính xác"}, status: :unprocessable_entity
+    end
+
+    discount = 0
+    coupons = []
+    if !coupon_code.blank?
+      coupon_code.split(",").each {|coupon|
+        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+        response = Net::HTTP.get(uri)
+        data = JSON.parse(response)
+        if data['return_value'].to_i > 0 && data['expired_date'].to_datetime > Time.now()
+          discount += JSON.parse(response)['return_value'].to_f
+          coupons << coupon
+        end
+      }
+    end
+    price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
+
+    render json: {price: "#{price}"}
+  end
+
+  # POST: API create course for kelley
+  def upload_course
+    course = params['course']
+    course_id = params['course_id']
+    user_id = params['user_id']
+    if user_id.blank?
+      render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
+      return
+    else
+      user = User.find(user_id)
+      course = JSON.parse(course)
+      if !course_id.blank?
+        c = Course.find(course_id)
+      end
+      
+      c = Course.find_or_initialize_by(
+        alias_name: course['alias_name'],
+        name: course['name'],
+        sub_title: course['sub_title'],
+        description: course['description'],
+        requirement: course['requirement'],
+        benefit: course['benefit'],
+        audience: course['audience'],
+        level: course['level'],
+      ) if c.blank?
+      
+      c.price = course['price'] unless course['price'].blank?
+      c.image = course['image'] unless course['image'].blank?
+      c.intro_link = course['intro_link'] unless course['intro_link'].blank?
+      c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+      c.version = course['version'] unless course['version'].blank?
+      c.enabled = course['enabled'] unless course['enabled'].blank?
+
+      chapter_index = 0
+      lecture_index = 0
+
+      course['curriculums'].each_with_index {|curriculum, x|
+        course_curriculum = c.curriculums.find_or_initialize_by(
+          order: x,
+        )
+        course_curriculum.title = curriculum['title']
+        course_curriculum.description = curriculum['description']
+        course_curriculum.chapter_index = chapter_index
+        course_curriculum.lecture_index = lecture_index
+        course_curriculum.type = curriculum['type']
+        course_curriculum.asset_type = curriculum['asset_type']
+        course_curriculum.url = curriculum['url']
+        course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+        chapter_index += 1 if curriculum['type'] == "chapter"
+        lecture_index += 1 if curriculum['type'] == "lecture"
+      }
+
+      c.user = user
+
+      if c.save
+        render json: {message: "upload khoá học thành công"}
+        return
+      else
+        render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+        return
+      end
+    end
+  end
+
+  # POST: API approve course
+  def approve
+    course_id = params["id"]
+
+    course = Course.where(id: course_id).first
+
+    if course.blank?
+      render json: {message: "Course id Không chính xác!"}, status: :unprocessable_entity
+      return
+    end
+
+    course.enabled = true
+    course.version = "public"
+
+    if course.save
+      render json: {message: "Success!"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+  end
+
+  def check_alias_name
+    alias_name = params['alias_name']
+
+    if alias_name.blank?
+      render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(alias_name: alias_name).count
+
+    render json: {num_courses: course}
   end
 end

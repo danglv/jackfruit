@@ -35,6 +35,37 @@ module PaymentServices extend ActiveSupport::Concern
     end
   end
 
+  class BaoKimPaymentCard
+    BAOKIM_URL = 'https://www.baokim.vn/the-cao/restFul/send'
+    MERCHANT_ID = '18578'
+    API_USERNAME = 'tudemyvn'
+    API_PASSWORD = 'tudemyvn46346fhdh'
+    SECURE_PASS = '3aae0be2080c5744'
+    # CORE_API_HTTP_USR = 'merchant_18578'
+    # CORE_API_HTTP_PWD = '18578xzn5GkEoJXaQFP9r7syw8CTMS9flb3'
+
+    def create_request_url(params)
+      params['merchant_id'] = MERCHANT_ID
+      params['api_username'] = API_USERNAME
+      params['api_password'] = API_PASSWORD
+      params['algo_mode'] = 'hmac'
+      params = params.sort.to_h
+
+      data = data = params.map(&:last).join('')
+      data_sign = OpenSSL::HMAC.hexdigest('SHA1', SECURE_PASS, data)
+
+      params['data_sign'] = data_sign    
+
+      request = Net::HTTP.post_form(URI.parse("#{BAOKIM_URL}"), params)
+      
+      return request
+    end
+
+    def verify_response_url(params, payment)
+      DateTime.parse(params[:transaction_id]).to_i == payment.created_at.to_i
+    end
+  end
+  
   module BaoKimConstant
     EMAIL_BUSINESS = 'ngoc.phungba@gmail.com'
     MERCHANT_ID = 18578
@@ -58,6 +89,10 @@ module PaymentServices extend ActiveSupport::Concern
   end
 
   class BaoKimPaymentPro
+    def verify_response_url(params)
+      true
+    end
+
     def get_seller_info
       params = {
         'business' => BaoKimConstant::EMAIL_BUSINESS
@@ -144,5 +179,4 @@ module PaymentServices extend ActiveSupport::Concern
       end
     end
   end
-
 end

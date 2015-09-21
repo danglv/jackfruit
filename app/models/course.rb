@@ -5,6 +5,7 @@ class Course
   field :name, type: String, default: ""
   field :lang, type: String, default: "vi"
   field :price, type: Integer, default: 0
+  field :old_price, type: Integer, default: 0
 
   field :alias_name, type: String, default: ""
   field :sub_title, type: String, default: ""
@@ -35,11 +36,12 @@ class Course
   belongs_to :user
   has_and_belongs_to_many :categories, class_name: "Category"
   has_and_belongs_to_many :labels, class_name: "Label"
+  has_and_belongs_to_many :relatives, class_name: "Course"
 
   index({name: 1, created_at: 1})
   
   validates_presence_of :name
-  validates_numericality_of :price, :num_rate, only_integer: true, greater_than_or_equal: 0
+  validates_numericality_of :price, :old_price, :num_rate, only_integer: true, greater_than_or_equal: 0
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
   validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 

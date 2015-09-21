@@ -188,4 +188,23 @@ class PaymentControllerTest < ActionController::TestCase
     assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
     assert_response :missing
   end
+
+  test 'in payment/card, authenticated user will be redirected to baokim services' do
+    sign_in :user, @user
+    get 'card', {alias_name: 'test-course-1', p: 'baokim'}
+
+    course = Course.where(:id => @course.id).first
+    current_user = User.where(:id => @user.id).first
+    owned_course = current_user.courses.where(course_id: @course.id).first
+
+    assert_not owned_course.blank?
+    assert_equal 1, owned_course.lectures.size
+    assert_equal Constants::OwnedCourseTypes::LEARNING, owned_course.type
+    assert_equal Constants::PaymentStatus::PENDING, owned_course.payment_status
+
+    assert_equal 1, course.students
+    assert_equal 1, current_user.courses.size
+
+    assert_response :redirect
+  end
 end

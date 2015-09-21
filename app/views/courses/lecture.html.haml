@@ -11,25 +11,36 @@
      - if @lecture.lecture_index > 0
       %a.waves-effect.waves-light.btn.leture-header-back-leture{:href => '/courses/'+@course.alias_name+'/lecture/'+(@lecture.lecture_index-1).to_s}
        %i.material-icons.left.white-text{:style => "transform: rotate(-90deg);"} play_circle_filled
-       Bài giảng trước 
+       Bài giảng trước
    .row.no-margin{:style => "background-color: #1B1B1B"}
     .col.s10.offset-s1.leture-player
      
      - if @lecture.asset_type == "Video"
-      - if @lecture.url.index('v=').blank?
-       - @indexStart = @lecture.url.index('.be/') + 4
-       - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
+      - if !@lecture.url.index('cloudfront.net').blank?
+       / User video from cloudfront
+       /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
+       #video-container
+       :javascript
+        var jw_video_url = '#{@lecture.url}';
+        var jw_video_container = 'video-container';
+        var jw_should_load = true;
       - else
-       - @indexStart = @lecture.url.index('v=') + 2
-       - if @lecture.url['&']
-        - @indexEnd = @lecture.url.index('&')-1
-        - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+       / Use video from youtube
+       - if @lecture.url.index('v=').blank?
+        - @indexStart = @lecture.url.index('.be/') + 4
+        - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
        - else
-        - @indexEnd = @lecture.url.length
-        - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
-      - if @youtube_id
-       .row.media
-        %iframe{:width => '100%',:style => 'border : 0px', :height => '100%', :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'} 
+        - @indexStart = @lecture.url.index('v=') + 2
+        - if @lecture.url['&']
+         - @indexEnd = @lecture.url.index('&')-1
+         - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+        - else
+         - @indexEnd = @lecture.url.length
+         - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
+       - if @youtube_id
+        .row.media
+         %iframe{:width => '100%',:style => 'border : 0px', :height => '100%', :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'} 
+
      - else
       .row.document
        - if @lecture.description

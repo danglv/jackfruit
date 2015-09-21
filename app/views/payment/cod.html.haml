@@ -5,7 +5,7 @@
 %main.payment
   .row
     .col.s12.no-padding
-      = render :partial => 'payment/header_payment'
+      = render :partial => 'payment/header_payment', :locals => {:price => @price}
       .container-1140
         = render 'payment_method', method: 'cod'
         .row.payment-content.active
@@ -21,6 +21,7 @@
               .col.s4
                 .row
                   %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
+                  %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
                   .input-field
                     %input{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}/
                 .row
