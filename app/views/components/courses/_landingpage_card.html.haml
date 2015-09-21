@@ -16,4 +16,7 @@
             %span= course.students
           - else
             %span= course.students.to_s + ' Học viên'
-        %span.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+        - if course.price != 0
+          %span.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+        - else
+          %span.course-price Miễn phí
