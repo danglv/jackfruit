@@ -187,7 +187,7 @@ class CoursesController < ApplicationController
     sale_campaigns = Sale::Campaign.in_progress
     sale_campaigns.each { |campaign|
       package = campaign.packages.select { |p|
-        (p.courses.count == 1) && (p.courses.first.course.id == @course.id)
+        (p.courses.count == 1) && (p.courses.first.id == @course.id)
       }.first
 
       unless package.blank?
