@@ -10,19 +10,19 @@
       .row.no-margin.courses-result
         - @courses.each do |course|
           = render :partial => "components/courses/list_card", :locals => {:course => course}
-      .row.no-margin.courses-pagination
-        %ul.pagination.pagination-md
-          %li
-            %a{:href => "javascript:void(0)"} <
-          %li.active
-            %a{:href => "javascript:void(0)"} 1
-          %li
-            %a{:href => "javascript:void(0)"} 2
-          %li
-            %a{:href => "javascript:void(0)"} ...
-          %li
-            %a{:href => "javascript:void(0)"} 58
-          %li
-            %a{:href => "javascript:void(0)"} 59
-          %li
-            %a{:href => "javascript:void(0)"} >
+      / .row.no-margin.courses-pagination
+      /   %ul.pagination.pagination-md
+      /     %li
+      /       %a{:href => "javascript:void(0)"} <
+      /     %li.active
+      /       %a{:href => "javascript:void(0)"} 1
+      /     %li
+      /       %a{:href => "javascript:void(0)"} 2
+      /     %li
+      /       %a{:href => "javascript:void(0)"} ...
+      /     %li
+      /       %a{:href => "javascript:void(0)"} 58
+      /     %li
+      /       %a{:href => "javascript:void(0)"} 59
+      /     %li
+      /       %a{:href => "javascript:void(0)"} >

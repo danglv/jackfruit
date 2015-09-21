@@ -35,9 +35,7 @@
       $("#myCourse-studying").removeClass("in")
       $("#myCourse-favorite").addClass("active")
       $("#myCourse-favorite").addClass("in")
-    } else {
-      alert("not")
-    }
+    } 
   }
 
   $('.wishlist-heart').wishlist();
