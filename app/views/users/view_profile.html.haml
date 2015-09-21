@@ -8,7 +8,7 @@
         .row
           .col-lg-offset-1.col-lg-10.col-md-offset-1.col-md-10.col-sm-12.col-xs-12
             .header-title #{@current_user.name}
-            .header-text The world will be destroyed
+            .header-text #{@current_user.job}
     %section.profile-detail
       .container
         .row
@@ -37,7 +37,6 @@
             .profile-title 
               Thông tin học viên 
             .profile-description  
-              %p= current_user.name
               %p= current_user.biography 
         %ul.row.nav.nav-tabs.profile-view-tab{:style => 'margin-top:30px'}
           %li.col-lg-6.col-md-6.col-sm-6.col-xs-6.active
@@ -47,18 +46,12 @@
     %section.profile-course{:style => 'padding-top:20px'}
       .container.tab-content
         #studying.tab-pane.fade.active.in
-          / - (1..12).each do |a|
-          /   = render :partial => 'components/courses/learning_card'
           - @current_user.courses.each do |course|
             = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
         #favorite.tab-pane.fade
-          / - @current_user.courses.each do |course|
-          /   = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
-          - if !@wishlist.blank?
-            - @wishlist.each do |course|
+          - if !@owned_wishlist.blank?
+            - @owned_wishlist.each do |course|
               = render :partial => 'components/courses/course_card',:locals => {:course => course}
-          / - (1..8).each do |a|
-          /   = render :partial => 'components/courses/course_card'
     %section.profile-pagination
       .container.text-center
         %ul.pagination

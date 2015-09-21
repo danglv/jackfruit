@@ -254,6 +254,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def view_profile
+    @owned_wishlist = Course.in(:id => current_user.wishlist)
+  end
+
   # DELETE /users/:id.:format
   def destroy
     # authorize! :delete, @user
@@ -293,13 +297,4 @@ class UsersController < ApplicationController
     def check_valid_length(string, min_length, max_length)
       string.length >= min_length && string.length <= max_length
     end
-
-  def view_profile
-    learning = Constants::OwnedCourseTypes::LEARNING
-    course_ids = current_user.courses.where(
-      :type => learning,
-    ).map(&:course_id)
-    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
-    @owned_wishlist = Course.in(:id => wishlist_ids)
-  end
 end
