@@ -1,7 +1,7 @@
 require 'test_helper'
 
 feature 'Sale' do
-  scenario 'User visit a course detail' do
+  scenario 'User visit a course detail which is on sale' do
     visit '/courses/test-course-1/detail'
 
     if Capybara.current_session.driver.browser.respond_to? 'manage'
@@ -12,5 +12,14 @@ feature 'Sale' do
     page.must_have_content('199,000')
     page.must_have_content('98,000')
     page.must_have_content('50%')
+  end
+
+  scenario 'User visit a course detail which is not on sale' do
+    visit '/courses/test-course-2/detail'
+
+    page.must_have_content('Test Course 2')
+    page.must_have_content('199,000')
+    page.wont_have_content('98,000')
+    page.wont_have_content('50%')
   end
 end
