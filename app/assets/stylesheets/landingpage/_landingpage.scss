@@ -15,12 +15,18 @@
     border-bottom-right-radius: 10px;
   }
   @media (max-width: 1199px) {
+    .search-box {
+      position: relative;
+    }
     .btn-search {
-      right: 40px;
+      right: 0;
+      padding: 0;
+      margin: 0;
       .fa.fa-search {
         height: 40px;
         line-height: 40px;
         width: 40px;
+        position: static;
       }
     }
   }
