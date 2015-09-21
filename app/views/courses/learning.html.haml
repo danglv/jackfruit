@@ -125,15 +125,16 @@
               .col-md-4.col-lg-4.no-padding
                 %a.btn.btn-primary.add_comment.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                   Thảo luận mới
-                %ul.dropdown-menu{:style => "height: 500px; width: 500px; position: absolute; left: -300px; padding: 30px;"}
+                %ul.dropdown-menu{:style => "height: 250px; width: 500px; position: absolute; left: -300px; padding: 30px;"}
                   %form
                     %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                     %li
-                      %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+                      %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title", :style => "height: 50px; margin-bottom: 10px;"}
                     %li
-                      %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+                      %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription", :style => "height: 50px; margin-bottom: 20px;"}
                     %li
-                      %a.btn.btn-primary.discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
+                      %a.btn.btn-primary.discussion-submit{:href => "#",:type => "submit", :style => "width: 100%"} Đăng thảo luận
+            %h4.search-notice{:style => "display: none"} Không có kết quả được tìm thấy. Thử tìm kiếm tiếp hoặc bắt đầu một cuộc thảo luận.
             .row.no-margin.list-discussion
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?

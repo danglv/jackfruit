@@ -56,10 +56,18 @@ $(document).ready(function (){
         })
         if(!isFind){
           item_discussion.attr("style", "display: none");
+          $(".search-notice").attr("style", "display: block");
         }
         else{
           item_discussion.attr("style", "display: block");
+          $(".search-notice").attr("style", "display: none");
         }
+      })
+    } else {
+      $(".search-notice").attr("style", "display: none");
+      var list_discussion = $('.discussion-item');
+      list_discussion.each(function (){
+        $(this).attr("style", "display: block");
       })
     }
 	});
