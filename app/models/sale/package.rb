@@ -10,6 +10,6 @@ module Sale
 
     embedded_in :campaign, class_name: 'Sale::Campaign'
 
-    embeds_many :courses, class_name: 'Sale::Course'
+    has_and_belongs_to_many :courses, class_name: 'Course', inverse_of: nil
   end
 end
