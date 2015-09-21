@@ -4,7 +4,7 @@
     = render :partial => "components/banner/banner"
     
   %main.category
-    .row.no-margin.category-header
+    .row.no-margin.category-header{:style => "background-color: #{@category.background_color}"}
       .row.container
         %ul.no-padding.breadcrumb
           %li 
