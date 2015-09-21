@@ -183,18 +183,8 @@ class CoursesController < ApplicationController
     end
 
     # Check if course is in any sale campaign
-    @data = { discount: 0, discount_ratio: 0 }
-    sale_campaigns = Sale::Campaign.in_progress
-    sale_campaigns.each { |campaign|
-      package = campaign.packages.select { |p|
-        (p.courses.count == 1) && (p.courses.first.id == @course.id)
-      }.first
-
-      unless package.blank?
-        @data['discount'] = package.price
-        @data['discount_ratio'] = (package.price.to_f / @course.price.to_f * 100).ceil.to_i
-      end
-    }
+    sale_services = Sale::Services.new
+    @data = sale_services.get_price(@course)
 
     @courses = {}
     condition = {:enabled => true, :category_ids.in => @course.category_ids}

@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/rails/capybara'
 require 'capybara/rails'
+require "rack_session_access/capybara"
 
 ## Comment this when using Chrome/Firefox
 require 'capybara/poltergeist'

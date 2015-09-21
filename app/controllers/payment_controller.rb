@@ -7,6 +7,7 @@ class PaymentController < ApplicationController
   before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   # GET
   def index
+    sale_services = Sale::Services.new
     payment = Payment.where(
       :course_id => @course.id,
       :user_id => current_user.id,
@@ -19,6 +20,8 @@ class PaymentController < ApplicationController
     unless payment.blank?
       redirect_to :back
     end
+
+    @data = sale_services.get_price(@course)
   end
 
   def cancel_cod
