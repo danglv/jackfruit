@@ -14,19 +14,19 @@
             %h5.normal-text
               Số dư sau còn lại từ thẻ cào:
               = succeed "" do 
-                %b.warning-text 200.000 VNĐ
+                %b.warning-text 0 VNĐ
           .row.no-margin.center-align.pagination-row-1
             %ul.pagination.no-margin
-              %li
-                %a{:href => "javascript:void(0)"} <
+              / %li
+              /   %a{:href => "javascript:void(0)"} <
               %li.active
                 %a{:href => "javascript:void(0)"} 1
-              %li
-                %a{:href => "javascript:void(0)"} 2
-              %li
-                %a{:href => "javascript:void(0)"} 3
-              %li
-                %a{:href => "javascript:void(0)"} >
+              / %li
+              /   %a{:href => "javascript:void(0)"} 2
+              / %li
+              /   %a{:href => "javascript:void(0)"} 3
+              / %li
+              /   %a{:href => "javascript:void(0)"} >
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
@@ -34,62 +34,39 @@
                   %th.left-align Khóa học
                   %th.right-align Hóa đơn
               %tbody
-                %tr
+                - @payments.each_with_index do |payment, index|
+                  - course = @courses[index]
+                  %tr
                   %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
+                    %a.link-text= "#{course.name}"
                   %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
+                    %a.link-text{:href => "/home/payment/#{course.alias_name}/payment_bill"}= payment.id
           .row.no-margin.money-back-information
             %h4.center-align
               %b Thông tin hoàn tiền
           .row.no-margin.center-align.pagination-row-1
             %ul.pagination.no-margin
-              %li
-                %a{:href => "javascript:void(0)"} <
+              / %li
+              /   %a{:href => "javascript:void(0)"} <
               %li.active
                 %a{:href => "javascript:void(0)"} 1
-              %li
-                %a{:href => "javascript:void(0)"} 2
-              %li
-                %a{:href => "javascript:void(0)"} 3
-              %li
-                %a{:href => "javascript:void(0)"} > 
+              / %li
+              /   %a{:href => "javascript:void(0)"} 2
+              / %li
+              /   %a{:href => "javascript:void(0)"} 3
+              / %li
+              /   %a{:href => "javascript:void(0)"} > 
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
                 %tr
                   %th.left-align Khóa học
                   %th.right-align Số tiền
-              %tbody
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align 141.000 VNĐ       
+              / %tbody
+              /   %tr
+              /     %td.normal-text.left-align
+              /       %a.link-text Body Language of Love a
+              /     %td.normal-text.right-align 141.000 VNĐ       
 
     .layout-480-up.hidden-sm.hidden-md.hidden-lg 
       .payment.payment-history
@@ -103,57 +80,35 @@
               %h5.normal-text
                 Số dư sau còn lại từ thẻ cào:
                 = succeed "" do 
-                  %b.warning-text 200.000 VNĐ
+                  %b.warning-text 0 VNĐ
           .row.no-margin.center-align.pagination-row-1
             .col-xs-12.no-padding
               %ul.pagination.no-margin
-                %li
-                  %a{:href => "javascript:void(0)"} <
+                / %li
+                /   %a{:href => "javascript:void(0)"} <
                 %li.active
                   %a{:href => "javascript:void(0)"} 1
-                %li
-                  %a{:href => "javascript:void(0)"} 2
-                %li
-                  %a{:href => "javascript:void(0)"} 3
-                %li
-                  %a{:href => "javascript:void(0)"} >
+                / %li
+                /   %a{:href => "javascript:void(0)"} 2
+                / %li
+                /   %a{:href => "javascript:void(0)"} 3
+                / %li
+                /   %a{:href => "javascript:void(0)"} >
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
                 %tr
                   %th.left-align Khóa học
                   %th.right-align Hóa đơn
-              %tbody
-                %tr
+              %tbody                
+                - @payments.each_with_index do |payment, index|
+                  - course = @courses[index]
+                  %tr
                   %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
+                    %a.link-text= "#{course.name}"
                   %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
+                    - if payment.status == Constants::PaymentStatus::SUCCESS
+                      %a.link-text{:href => "/home/payment/#{course.alias_name}/payment_bill"}= "#{payment.id}"
           .row.no-margin.money-back-information
             .col-xs-12
               %h4.center-align
@@ -161,27 +116,27 @@
           .row.no-margin.center-align.pagination-row-1
             .col-xs-12
               %ul.pagination.no-margin
-                %li
-                  %a{:href => "javascript:void(0)"} <
+                / %li
+                /   %a{:href => "javascript:void(0)"} <
                 %li.active
                   %a{:href => "javascript:void(0)"} 1
-                %li
-                  %a{:href => "javascript:void(0)"} 2
-                %li
-                  %a{:href => "javascript:void(0)"} 3
-                %li
-                  %a{:href => "javascript:void(0)"} > 
+                / %li
+                /   %a{:href => "javascript:void(0)"} 2
+                / %li
+                /   %a{:href => "javascript:void(0)"} 3
+                / %li
+                /   %a{:href => "javascript:void(0)"} > 
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
                 %tr
                   %th.left-align Khóa học
                   %th.right-align Số tiền
-              %tbody
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text.right-align 141.000 VNĐ       
+              / %tbody
+              /   %tr
+              /     %td.normal-text.left-align
+              /       %a.link-text Body Language of Love a
+              /     %td.normal-text.right-align 141.000 VNĐ       
 
     .row.no-margin.hidden-xs.hidden-md.hidden-lg
       .col-sm-12.col-md-12.col-lg-12.no-padding 
@@ -196,20 +151,20 @@
                 %h5.normal-text
                   Số dư sau còn lại từ thẻ cào:
                   = succeed "" do 
-                    %b.warning-text 200.000 VNĐ
+                    %b.warning-text 0 VNĐ
             .row.no-margin.pill-left.pagination-row-1
               .col-xs-12.no-padding
                 %ul.pagination.no-margin
-                  %li
-                    %a{:href => "javascript:void(0)"} <
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} <
                   %li.active
                     %a{:href => "javascript:void(0)"} 1
-                  %li
-                    %a{:href => "javascript:void(0)"} 2
-                  %li
-                    %a{:href => "javascript:void(0)"} 3
-                  %li
-                    %a{:href => "javascript:void(0)"} >
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} 2
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} 3
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} >
             .row.no-margin
               %table.table.table-striped.table-hover
                 %thead
@@ -219,48 +174,15 @@
                     %th Trạng thái
                     %th.right-align Hóa đơn
                 %tbody
-                  %tr
+                  - @payments.each_with_index do |payment, index|
+                    - course = @courses[index]
+                    %tr
                     %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Thành công
+                      %a.link-text= "#{course.name}"
+                    %td.normal-text= "#{payment.money} VNĐ"
+                    %td.normal-text= "#{payment.status}"
                     %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Thành công
-                    %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Thất bại
-                    %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Thất bại
-                    %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Chờ xử lí
-                    %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text 300.000 VNĐ
-                    %td.normal-text Chờ xử lí
-                    %td.normal-text.right-align
-                      %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
+                      %a.link-text{:href => "/home/payment/#{course.alias_name}/payment_bill"}= "#{payment.id}"
             .row.no-margin.money-back-information
               .col-xs-12.no-padding
                 %h4.pill-left
@@ -268,16 +190,16 @@
             .row.no-margin.pill-left.pagination-row-1
               .col-xs-12.no-padding
                 %ul.pagination.no-margin
-                  %li
-                    %a{:href => "javascript:void(0)"} <
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} <
                   %li.active
                     %a{:href => "javascript:void(0)"} 1
-                  %li
-                    %a{:href => "javascript:void(0)"} 2
-                  %li
-                    %a{:href => "javascript:void(0)"} 3
-                  %li
-                    %a{:href => "javascript:void(0)"} > 
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} 2
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} 3
+                  / %li
+                  /   %a{:href => "javascript:void(0)"} > 
             .row.no-margin
               %table.table.table-striped.table-hover
                 %thead
@@ -286,19 +208,19 @@
                     %th Loại bỏ
                     %th Ngày hoàn tiền
                     %th.right-align Số tiền
-                %tbody
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text Toàn bộ       
-                    %td.normal-text 21-08-2015
-                    %td.normal-text.right-align 141.000 VNĐ
-                  %tr
-                    %td.normal-text.left-align
-                      %a.link-text Body Language of Love a
-                    %td.normal-text Một phần       
-                    %td.normal-text 21-08-2015
-                    %td.normal-text.right-align 141.000 VNĐ       
+                / %tbody
+                /   %tr
+                /     %td.normal-text.left-align
+                /       %a.link-text Body Language of Love a
+                /     %td.normal-text Toàn bộ       
+                /     %td.normal-text 21-08-2015
+                /     %td.normal-text.right-align 141.000 VNĐ
+                /   %tr
+                /     %td.normal-text.left-align
+                /       %a.link-text Body Language of Love a
+                /     %td.normal-text Một phần       
+                /     %td.normal-text 21-08-2015
+                /     %td.normal-text.right-align 141.000 VNĐ       
 
     .row.no-margin.hidden-xs.hidden-sm
       .payment.payment-history
@@ -312,20 +234,20 @@
               %h5.normal-text
                 Số dư sau còn lại từ thẻ cào:
                 = succeed "" do 
-                  %b.warning-text 200.000 VNĐ
+                  %b.warning-text 0 VNĐ
           .row.no-margin.pill-left.pagination-row-1
             .col-xs-12.no-padding
               %ul.pagination.no-margin
-                %li
-                  %a{:href => "javascript:void(0)"} <
+                / %li
+                /   %a{:href => "javascript:void(0)"} <
                 %li.active
                   %a{:href => "javascript:void(0)"} 1
-                %li
-                  %a{:href => "javascript:void(0)"} 2
-                %li
-                  %a{:href => "javascript:void(0)"} 3
-                %li
-                  %a{:href => "javascript:void(0)"} >
+                / %li
+                /   %a{:href => "javascript:void(0)"} 2
+                / %li
+                /   %a{:href => "javascript:void(0)"} 3
+                / %li
+                /   %a{:href => "javascript:void(0)"} >
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
@@ -336,54 +258,17 @@
                   %th Ngày thanh toán
                   %th.right-align Hóa đơn
               %tbody
-                %tr
+                - @payments.each_with_index do |payment, index|
+                  - course = @courses[index]
+                  %tr
                   %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Thành công
-                  %td.normal-text 21-08-2015
+                    %a.link-text= "#{course.name}"
+                  %td.normal-text= "#{payment.money} VNĐ"
+                  %td.normal-text= "#{payment.status}"
+                  %td.normal-text= "#{payment.updated_at.strftime("%d/%m/%Y")}"
                   %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Thành công
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Thất bại
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Thất bại
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Chờ xử lí
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text 300.000 VNĐ
-                  %td.normal-text Chờ xử lí
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align
-                    %a.link-text{:href => '/home/payment/cach-nhanh-nhat-de-hoc-va-nho-tu-vung-cua-mot-ngon-ngu-bat-ky/payment_bill'} No.001
+                    - if payment.status == Constants::PaymentStatus::SUCCESS
+                      %a.link-text{:href => "/home/payment/#{course.alias_name}/payment_bill"}= "#{payment.id}"
           .row.no-margin.money-back-information
             .col-xs-12.no-padding
               %h4.pill-left
@@ -391,16 +276,16 @@
           .row.no-margin.pill-left.pagination-row-1
             .col-xs-12.no-padding
               %ul.pagination.no-margin
-                %li
-                  %a{:href => "javascript:void(0)"} <
+                / %li
+                /   %a{:href => "javascript:void(0)"} <
                 %li.active
                   %a{:href => "javascript:void(0)"} 1
-                %li
-                  %a{:href => "javascript:void(0)"} 2
-                %li
-                  %a{:href => "javascript:void(0)"} 3
-                %li
-                  %a{:href => "javascript:void(0)"} > 
+                / %li
+                /   %a{:href => "javascript:void(0)"} 2
+                / %li
+                /   %a{:href => "javascript:void(0)"} 3
+                / %li
+                /   %a{:href => "javascript:void(0)"} > 
           .row.no-margin
             %table.table.table-striped.table-hover
               %thead
@@ -409,17 +294,17 @@
                   %th Loại bỏ
                   %th Ngày hoàn tiền
                   %th.right-align Số tiền
-              %tbody
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text Toàn bộ       
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align 141.000 VNĐ
-                %tr
-                  %td.normal-text.left-align
-                    %a.link-text Body Language of Love a
-                  %td.normal-text Một phần       
-                  %td.normal-text 21-08-2015
-                  %td.normal-text.right-align 141.000 VNĐ       
+              / %tbody
+              /   %tr
+              /     %td.normal-text.left-align
+              /       %a.link-text Body Language of Love a
+              /     %td.normal-text Toàn bộ       
+              /     %td.normal-text 21-08-2015
+              /     %td.normal-text.right-align 141.000 VNĐ
+              /   %tr
+              /     %td.normal-text.left-align
+              /       %a.link-text Body Language of Love a
+              /     %td.normal-text Một phần       
+              /     %td.normal-text 21-08-2015
+              /     %td.normal-text.right-align 141.000 VNĐ       
 = render :partial => 'components/footer/index'   
