@@ -1,5 +1,11 @@
 .detail {
   margin-bottom: 70px;
+  .layout-320{
+    min-width: 320px;
+  }
+  .layout-480-up {
+    min-width: 480px;
+  }
   .buy-button,.learning-button {
     background-color: #338abc !important;
   }
