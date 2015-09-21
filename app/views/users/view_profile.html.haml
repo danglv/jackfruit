@@ -8,35 +8,36 @@
         .row
           .col-lg-offset-1.col-lg-10.col-md-offset-1.col-md-10.col-sm-12.col-xs-12
             .header-title #{@current_user.name}
-            .header-text The world will be destroyed
+            .header-text #{@current_user.job}
     %section.profile-detail
       .container
         .row
           .col-lg-offset-1.col-lg-3.col-md-offset-1.col-md-4.col-sm-5.col-xs-12{:style => 'margin-bottom:20px'}
             .image-profile
               = image_tag 'http://thuvien.yeunhiepanh.net/Uploads/Picture/20116300577-MG_7889-1_resize.jpg',:style => 'width:100%;margin-bottom:10px'
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-globe.icon-social
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-facebook-official.icon-social
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-google.icon-social
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-twitter.icon-social
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-linkedin-square.icon-social
-              .col-xs-2.text-center.no-padding
-                %a{:href => ""} 
-                  %i.fa.fa-youtube-play.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-globe.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-facebook-official.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-google.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-twitter.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-linkedin-square.icon-social
+              / .col-xs-2.text-center.no-padding
+              /   %a{:href => ""} 
+              /     %i.fa.fa-youtube-play.icon-social
           .col-lg-7.col-md-6.col-sm-7.col-xs-12
             .profile-title 
               Thông tin học viên 
-            .profile-description Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing 
+            .profile-description  
+              %p= current_user.biography 
         %ul.row.nav.nav-tabs.profile-view-tab{:style => 'margin-top:30px'}
           %li.col-lg-6.col-md-6.col-sm-6.col-xs-6.active
             %a.pull-right{:href => "#studying","data-toggle" => 'tab',:style => 'border-bottom:5px solid #37b34a'} Đang học
@@ -45,15 +46,12 @@
     %section.profile-course{:style => 'padding-top:20px'}
       .container.tab-content
         #studying.tab-pane.fade.active.in
-          / - (1..12).each do |a|
-          /   = render :partial => 'components/courses/learning_card'
           - @current_user.courses.each do |course|
             = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
         #favorite.tab-pane.fade
-          - @current_user.courses.each do |course|
-            = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
-          / - (1..8).each do |a|
-          /   = render :partial => 'components/courses/course_card'
+          - if !@owned_wishlist.blank?
+            - @owned_wishlist.each do |course|
+              = render :partial => 'components/courses/course_card',:locals => {:course => course}
     %section.profile-pagination
       .container.text-center
         %ul.pagination
