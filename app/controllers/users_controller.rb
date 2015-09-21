@@ -269,24 +269,89 @@ class UsersController < ApplicationController
   end
 
   def create_note
+    course_id = params[:course_id]
     lecture_id = params[:lecture_id]
     time = params[:time]
     content = params[:content]
 
-    @note = Note.where(lecture_id: curriculum_id).first
+    if course_id && lecture_id && time && content
+      if course =  current_user.courses.find(:id => course_id)
+        if lecture = course.lectures.find(:id => lecture_id)
+          note = User::Note.new(:time => time, :content => content)
+          lecture.notes << note
+          if lecture.save
+            render json:{:result => true, :note => note.to_json}
+            return
+          end
+        end
+      end
+    end
 
+    render json:{:result => false}
   end
 
   def update_note
-    
+    course_id = params[:course_id]
+    lecture_id = params[:lecture_id]
+    note_id = params[:note_id]
+    time = params[:time]
+    content = params[:content]
+
+    if course_id && lecture_id && note_id
+      if course =  current_user.courses.find(:id => course_id)
+        if lecture = course.lectures.find(:id => lecture_id)
+          if note = lecture.notes.find(:id => note_id)
+            note.time = time
+            note.content = content
+            if note.save
+              render json:{:result => true, :note => note.to_json}
+              return
+            end
+          end
+        end
+      end
+    end
+
+    render json:{:result => false}
   end
 
   def delete_note
-    
+    course_id = params[:course_id]
+    lecture_id = params[:lecture_id]
+    note_id = params[:note_id]
+
+    if course_id && lecture_id && note_id
+      if course =  current_user.courses.find(:id => course_id)
+        if lecture = course.lectures.find(:id => lecture_id)
+          if note = lecture.notes.find(:id => note_id)
+            if lecture.notes.delete note
+              render json:{:result => true}
+              return
+            end
+          end
+        end
+      end
+    end
+
+    render json:{:result => false}
   end
 
-  def note
-    
+  def download_note
+    course_id = params[:course_id]
+    lecture_id = params[:lecture_id]
+
+    binding.pry
+    if course_id && lecture_id
+      if course =  current_user.courses.find(course_id)
+        if lecture = course.lectures.find(lecture_id)
+          data = lecture.notes.to_csv
+          lt = course.course.curriculums.where(:lecture_index => lecture.lecture_index).first
+          send_data data, :filename => "#{lt.title} - Ghi chú.csv"
+          return
+        end
+      end
+    end
+    render text: 'File note found', status: 404
   end
 
   private
