@@ -57,8 +57,7 @@ class ApplicationController < ActionController::Base
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses = Course.where(condition).desc(:students).limit(8)
-
+    @courses = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8)
     if current_user
       redirect_to root_url + "courses"
     end

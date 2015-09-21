@@ -10,6 +10,8 @@ class Category
   field :enabled, type: Boolean, default: true
   field :order, type: Integer
   field :alias_name, type: String, default: ""
+  field :description, type: String, default: ""
+  field :background_color, type: String, default: "#338abc"
 
   index({name: 1, created_at: 1, parent_category: 1})
   
