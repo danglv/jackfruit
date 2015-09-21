@@ -53,6 +53,7 @@ class User
   field :role, type: String, default: "user"
   field :name, type: String
   field :desination,type: String, default: ""
+  field :job,type: String, default: ""
   field :first_name,type: String, default: ""
   field :last_name,type: String, default: ""
   field :headline,type: String, default: ""
