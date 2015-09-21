@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
     end
 
     @courses = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8)
-    binding.pry
     if current_user
       redirect_to root_url + "courses"
     end
