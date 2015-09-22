@@ -1,0 +1,22 @@
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
+  %main.profile
+    .container
+      .row.main-profile
+        .col-lg-3.col-md-4.col-sm-12.col-xs-12.profile-top
+          .profile-left
+            .profile-image
+              = image_tag "#{@user.avatar}",:style => 'width:100%'
+            .profile-name.text-center.bold{:style => 'font-size:16px'} #{@user.name}
+            %ul.profile-nav.nav.nav-tabs.no-padding
+              %li.profile-item-nav{:class=> [tab_index == 0 && 'active'],:role => "presentation"}
+                %a{:href => "/users/edit_profile"} Thông tin cá nhân
+              %li.profile-item-nav{:class=> [tab_index == 1 && 'active'],:role => "presentation"}
+                %a{:href => "/users/edit_avatar"} Ảnh đại diện
+              %li.profile-item-nav{:class=> [tab_index == 2 && 'active'],:role => "presentation"}
+                %a{:href => "/users/edit_account"} Tài khoản
+        .col-lg-9.col-md-8.col-sm-12.col-xs-12.tab-content.profile-bot
+          = yield
+= render :partial => 'components/footer/index'

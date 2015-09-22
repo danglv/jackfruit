@@ -1,0 +1,39 @@
+= render :layout => 'components/edit_profile', :locals => {:tab_index => 1} do
+	.profile-right.tab-pane.active.in#avatar
+		.profile-label.text-center
+			.profile-title.bold Ảnh đại diện
+			.profiel-text Thêm một bức ảnh đẹp về bản thân bạn
+		.row.profile-avatar
+			%form.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3.col-xs-12{:action => '/users/edit_avatar',:'accept-charset' => 'UTF-8', :method => 'post', :enctype => 'multipart/form-data'}
+				- if flash[:success_changing_avatar]
+					.alert.alert-success{:role => 'alert', :style => "margin-top:10px;"}
+						= flash[:success_changing_avatar]
+				- elsif flash[:error_changing_avatar]
+					.alert.alert-warning{:role => 'alert', :style => "margin-top:10px;"}
+						= flash[:error_changing_avatar]
+				.avatar-title.bold Xem trước
+				.avatar-image
+					%img{:src => "#{@user.avatar}",:style => 'width:100%', :id => 'avatar-preview'}
+					.avatar-detail{:style => 'color:#212121;padding-top:10px'} Bức ảnh mà bạn chọn phải có phải có định dạng jpg hoặc png
+				= hidden_field_tag :authenticity_token, form_authenticity_token
+				= hidden_field_tag '_method', 'patch'
+				.avatar-action
+					.avatar-action-title.bold Thêm/Thay đổi ảnh
+					.avatar-action-choose.text-center
+						.file-upload.btn.btn-default.bold
+							%input.upload#upload-input{:type => 'file', :name => 'user[new_avatar]', :accept => '.png, .jpg'}
+							%span{:style => 'font-size:16px'} Chọn ảnh của bạn
+							
+					%input#file-path{:type => 'text', :disabled => '', :style => "width: 100%; display: none;"}
+					.avatar-action-save.text-center
+						%input.btn.btn-default.bold{:style => 'font-size:16px', :type => 'submit', :value => 'Lưu thay đổi'}
+	:javascript
+		document.getElementById("upload-input").onchange = function () {
+			elem = document.getElementById("file-path");
+			if (this.value && this.value.length > 0){
+				elem.value = this.value.split('\\').pop().split('/').pop();
+				elem.style.display = "block";
+			}else{
+				elem.style.display = "none";
+			}
+		};

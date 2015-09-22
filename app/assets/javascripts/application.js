@@ -13,6 +13,7 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery-validation
 //= require bootstrap-sass/assets/javascripts/bootstrap
 //= require bootstrap-material-design/dist/js/material
 //= require bootstrap-material-design/dist/js/ripples
@@ -32,6 +33,7 @@
 //= require components/preview
 //= require components/wishlist
 //= require components/popup_banner
+//= require components/validation
 
 $(document).ready(function () {
   $.material.init();
