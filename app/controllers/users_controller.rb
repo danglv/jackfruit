@@ -268,6 +268,46 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/edit_password
+  def edit_password
+    if request.patch?
+      info = change_password_params
+      if info[:current_password].blank? || info[:password].blank? || info[:password_confirmation].blank?
+        flash[:error_changing_password] = "Thông tin không đầy đủ"
+      else
+        @user = User.find(current_user.id)
+        if @user.update_with_password(info)
+          # Sign in the user by passing validation in case their password changed
+          sign_in @user, :bypass => true
+          flash[:success_changing_password] = "Đổi mật khẩu thành công"
+        else
+          messages = @user.errors.messages
+          if messages.include?(:current_password)
+            flash[:error_changing_password] = "Mật khẩu hiện tại không đúng"
+          elsif messages.include?(:password_confirmation)
+            flash[:error_changing_password] = "Xác nhận mật khẩu không đúng"
+          else
+            flash[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
+          end
+        end
+      end
+    end
+  end
+
+  def edit_avatar
+    if request.patch? && params[:user] && params[:user][:new_avatar]
+      file_io = params[:user][:new_avatar]
+      path = Rails.public_path.join("avatars")
+      path.mkpath unless path.exist?
+      File.open(path.join(file_io.original_filename), 'wb') do |file|
+        file.write(file_io.read)
+        @user.avatar = "/avatars/" + file_io.original_filename
+        @user.save
+        flash[:success] = "Thay đổi avatar thành công"
+      end
+    end
+  end
+
   private
     def set_user
       if params[:id] != nil
@@ -282,6 +322,10 @@ class UsersController < ApplicationController
       accessible = [ :name, :email ] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
       params.require(:user).permit(accessible)
+    end
+
+    def change_password_params
+      params.require(:user).permit(['current_password', 'password', 'password_confirmation'])
     end
 
     def init_lectures_for_owned_course(owned_course, course)
