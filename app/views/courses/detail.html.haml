@@ -295,15 +295,17 @@
           %h5.normal-text Chi tiết
           - course_reviews = @course.reviews
         - (1..5).each do |i|
+        - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
+        - progress = course_review.count/course_reviews.count
           .row{:style => 'margin:20px 0'}
             .col-xs-2.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-xs-8
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                .progress-bar{:style => "width: 60%;"}
+                .progress-bar{:style => "width:  #{progress}%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
+                %b= course_review.count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
@@ -637,15 +639,17 @@
           %h5.normal-text Chi tiết
           - course_reviews = @course.reviews
         - (1..5).each do |i|
+        - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
+        - progress = course_review.count/course_reviews.count
           .row{:style => 'margin:20px 0'}
             .col-xs-1.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-xs-6
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                .progress-bar{:style => "width: 60%;"}
+                .progress-bar{:style => "width: #{progress}%;"}
             .col-xs-2.no-padding
               .normal-text
-                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
+                %b= course_review.count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
@@ -981,15 +985,17 @@
           %h5.normal-text Chi tiết
           - course_reviews = @course.reviews
         - (1..5).each do |i|
+        - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
+        - progress = course_review.count/course_reviews.count
           .row{:style => 'margin:20px 0;'}
             .col-sm-1.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-sm-4
               .progress.progress-striped.active{:style => 'height:17px; margin:0 !important'}
-                .progress-bar{:style => "width: 60%;"}
+                .progress-bar{:style => "width: #{progress}%;"}
             .col-sm-2.no-padding
               .normal-text
-                %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
+                %b= course_review.count
       / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
       - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
         - user = User.where(:id => review.user_id.to_s).first
@@ -1332,15 +1338,17 @@
               %h5.normal-text Chi tiết
               - course_reviews = @course.reviews
             - (1..5).each do |i|
+            - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
+            - progress = course_review.count/course_reviews.count
               .row{:style => 'margin:20px 0'}
                 .col-md-1.no-padding
                   .normal-text.text-right #{6 - i} Sao
                 .col-md-6
                   .progress.progress-striped.active{:style => 'height: 17px;margin:0 !important'}
-                    .progress-bar{:style => "width: 60%;"}
+                    .progress-bar{:style => "width: #{progress}%;"}
                 .col-md-2.no-padding
                   .normal-text
-                    %b= course_reviews.where(:description.nin => "", :rate => (6-i)).count
+                    %b= course_review.count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
             - user = User.where(:id => review.user_id.to_s).first
@@ -1716,15 +1724,17 @@
               %h5.normal-text Chi tiết
               - course_reviews = @course.reviews
             - (1..5).each do |i|
+            - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
+            - progress = course_review.count/course_reviews.count
               .row{:style => 'margin: 20px 0;'}
                 .col-lg-1.no-padding
                   .normal-text.text-right #{6 - i} Sao
                 .col-lg-6
                   .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                    .progress-bar{:style => "width: 60%"}
+                    .progress-bar{:style => "width: #{progress}%;"}
                 .col-lg-2.no-padding
                   .normal-text
-                    %b= course_reviews.where(:description.nin => "", :rate => (6 - i)).count
+                    %b= course_review.count
           / - @course.reviews.where(:title.nin => [nil, ""]).each do |rv|
           - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
             - user = User.where(:id => review.user_id.to_s).first
