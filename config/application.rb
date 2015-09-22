@@ -48,5 +48,7 @@ module Jackfruit
         g.orm :active_record
         g.test_framework :minitest, spec: true
     end
+
+    Mongoid.raise_not_found_error = false
   end
 end
