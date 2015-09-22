@@ -308,16 +308,13 @@
           - course_reviews = @course.reviews
         - (1..5).each do |i|
         - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
-        - progress = course_review.count/course_reviews.count
+        - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
           .row{:style => 'margin:20px 0'}
             .col-xs-2.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-xs-8
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                - if course_reviews == 0
-                  .progress-bar{:style => "width: 0%;"}
-                - else
-                  .progress-bar{:style => "width:  #{progress}%;"}
+                .progress-bar{:style => "width:  #{progress}%;"}
             .col-xs-2.no-padding
               .normal-text
                 %b= course_review.count
@@ -679,16 +676,13 @@
           - course_reviews = @course.reviews
         - (1..5).each do |i|
         - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
-        - progress = course_review.count/course_reviews.count
+        - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
           .row{:style => 'margin:20px 0'}
             .col-xs-1.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-xs-6
               .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                - if course_reviews == 0
-                  .progress-bar{:style => "width: 0%;"}
-                - else
-                  .progress-bar{:style => "width: #{progress}%;"}
+                .progress-bar{:style => "width: #{progress}%;"}
             .col-xs-2.no-padding
               .normal-text
                 %b= course_review.count
@@ -1432,16 +1426,13 @@
               - course_reviews = @course.reviews
             - (1..5).each do |i|
             - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
-            - progress = course_review.count/course_reviews.count
+            - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
               .row{:style => 'margin:20px 0'}
                 .col-md-1.no-padding
                   .normal-text.text-right #{6 - i} Sao
                 .col-md-6
                   .progress.progress-striped.active{:style => 'height: 17px;margin:0 !important'}
-                    - if course_reviews == 0
-                      .progress-bar{:style => "width: 0%;"}
-                    - else
-                      .progress-bar{:style => "width: #{progress}%;"}
+                    .progress-bar{:style => "width: #{progress}%;"}
                 .col-md-2.no-padding
                   .normal-text
                     %b= course_review.count
@@ -1848,16 +1839,13 @@
               - course_reviews = @course.reviews
             - (1..5).each do |i|
             - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
-            - progress = course_review.count/course_reviews.count
+            - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
               .row{:style => 'margin: 20px 0;'}
                 .col-lg-1.no-padding
                   .normal-text.text-right #{6 - i} Sao
                 .col-lg-6
                   .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                    - if course_reviews == 0
-                      .progress-bar{:style => "width: 0%;"}
-                    - else
-                      .progress-bar{:style => "width: #{progress}%;"}
+                    .progress-bar{:style => "width: #{progress}%;"}
                 .col-lg-2.no-padding
                   .normal-text
                     %b= course_review.count
