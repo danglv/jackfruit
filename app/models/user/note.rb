@@ -4,6 +4,6 @@ class User::Note
   field :time, type: String, default: ""
   field :content, type: String, default: ""
 
-  embedded_in :lectures
+  embedded_in :lecture
 
 end

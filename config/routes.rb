@@ -86,6 +86,8 @@ Rails.application.routes.draw do
 
     collection do
       get :view_profile
+      post :create_note
+      get :get_notes
       get 'note/download', :to => 'users#download_note'
     end
   end

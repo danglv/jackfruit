@@ -269,25 +269,56 @@ class UsersController < ApplicationController
   end
 
   def create_note
-    course_id = params[:course_id]
+    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
+    owned_course_id = params[:owned_course_id]
     lecture_id = params[:lecture_id]
     time = params[:time]
     content = params[:content]
 
-    if course_id && lecture_id && time && content
-      if course =  current_user.courses.find(:id => course_id)
-        if lecture = course.lectures.find(:id => lecture_id)
-          note = User::Note.new(:time => time, :content => content)
-          lecture.notes << note
-          if lecture.save
-            render json:{:result => true, :note => note.to_json}
-            return
-          end
-        end
-      end
+    if content.blank?
+      render json: {:message => 'Note không có nội dung.'}, status: :unprocessable_entity
+      return
     end
 
-    render json:{:result => false}
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => lecture_id).first if !course.blank?
+
+    if (course && lecture)
+      note = lecture.notes.create(:time => time, :content => content)
+      if lecture.save
+        render json: User::NoteSerializer.new(note)
+        return
+      end
+    end
+    render json: {:message => 'Tạo note thất bại.'}, status: :unprocessable_entity
+  end
+
+  def get_notes
+    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
+    owned_course_id = params[:owned_course_id]
+    lecture_id = params[:lecture_id]
+
+    if (owned_course_id.blank? || lecture_id.blank?)
+      render json: {:message => 'Thiếu tham số truyền lên.'}, status: :unprocessable_entity
+      return
+    end
+
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => lecture_id).first if !course.blank?
+
+    if course && lecture
+      notes = []
+      lecture.notes.each{ |note|
+        notes << User::NoteSerializer.new(note)
+      }
+      render json: {:notes => notes}
+      return
+    end
+    render json: {message: 'Không get được notes'}, status: :unprocessable_entity
   end
 
   def update_note
