@@ -1,9 +1,10 @@
 .course-card
   %a{:href => "/courses/#{course.alias_name}/detail"}
     .course-info
-      .avatar 
-        - if course.user.avatar != ""
-          = image_tag course.user.avatar
+      .avatar
+        - author_avatar = course.user.avatar  
+        - if author_avatar != ""
+          = image_tag author_avatar
         - else 
           = image_tag 'author-avatar.png'
       %span= course.curriculums.where(:type => "lecture").count.to_s + " bài giảng"
