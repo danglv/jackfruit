@@ -326,14 +326,6 @@ class PaymentController < ApplicationController
   end
 
   # GET
-  def payment_history
-    @payments = Payment.where(:user_id => current_user.id)
-    @courses = Course.in(:id.in => @payments.map(&:course_id))
-
-    # render json: {:message => "Payment History"}
-  end
-
-  # GET
   def payment_bill
     @payment = Payment.where(:course_id => @course.id, :user_id => current_user.id).first
 
