@@ -88,7 +88,7 @@ Rails.application.routes.draw do
       post :create_note
       post :update_note
       post :delete_note
-      get 'note/download', :to: 'users#download_note'
+      get 'note/download', to: 'users#download_note'
       get 'payment_history', to: 'users#payment_history'
     end
   end
