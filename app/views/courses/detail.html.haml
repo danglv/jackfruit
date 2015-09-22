@@ -256,7 +256,7 @@
           .row.no-margin
             .col-xs-3.no-padding
               - if !@course.user.avatar.blank?
-                = image_tag 'http://tudemy.vn' + @course.user.avatar, :style => "width: 100%"
+                = image_tag @course.user.avatar, :style => "width: 100%"
               - else
                 = image_tag 'default-avatar.png', :style => "width: 100%"
             .col-xs-7
@@ -326,7 +326,10 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                %img{:alt => "", :src => "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/11215086_842526002451006_5806294280552896279_n.jpg?oh=d263a8b13e1acc3653665552644a4a9f&oe=567FABBD&__gda__=1449843809_7ba9384e162348fc09bdceb5410a8ddc", :style => "width: 70px; border-radius: 50%"}
+                - if !user.avatar.blank?
+                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - else
+                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
                 .row.no-margin
                   .col-xs-12
@@ -694,7 +697,10 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                %img{:alt => "", :src => "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/11215086_842526002451006_5806294280552896279_n.jpg?oh=d263a8b13e1acc3653665552644a4a9f&oe=567FABBD&__gda__=1449843809_7ba9384e162348fc09bdceb5410a8ddc", :style => "width: 70px; border-radius: 50%"}
+                - if !user.avatar.blank?
+                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - else
+                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
                 .row.no-margin
                   .col-xs-12
@@ -1064,7 +1070,10 @@
           .col-sm-12.no-padding
             .row.no-margin.discussion-top
               .col-sm-1.no-padding
-                %img{:alt => "", :src => "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/11215086_842526002451006_5806294280552896279_n.jpg?oh=d263a8b13e1acc3653665552644a4a9f&oe=567FABBD&__gda__=1449843809_7ba9384e162348fc09bdceb5410a8ddc", :style => "width: 70px; border-radius: 50%"}
+                - if !user.avatar.blank?
+                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - else
+                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-sm-10
                 .row.no-margin
                   .col-sm-12
@@ -1441,7 +1450,10 @@
               .col-md-12.no-padding
                 .row.no-margin.discussion-top
                   .col-md-2.no-padding
-                    %img{:alt => "", :src => "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/11215086_842526002451006_5806294280552896279_n.jpg?oh=d263a8b13e1acc3653665552644a4a9f&oe=567FABBD&__gda__=1449843809_7ba9384e162348fc09bdceb5410a8ddc", :style => "width: 70px; border-radius: 50%"}
+                    - if !user.avatar.blank?
+                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - else
+                      = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-md-10
                     .row.no-margin
                       .col-md-12
@@ -1854,7 +1866,10 @@
               .col-lg-12.no-padding
                 .row.no-margin.discussion-top
                   .col-lg-2.no-padding
-                    %img{:alt => "", :src => "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/11215086_842526002451006_5806294280552896279_n.jpg?oh=d263a8b13e1acc3653665552644a4a9f&oe=567FABBD&__gda__=1449843809_7ba9384e162348fc09bdceb5410a8ddc", :style => "width: 70px; border-radius: 50%"}
+                    - if !user.avatar.blank?
+                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - else
+                      = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-lg-10
                     .row.no-margin
                       .col-lg-12
