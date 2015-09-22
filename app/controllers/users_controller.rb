@@ -306,6 +306,13 @@ class UsersController < ApplicationController
         flash[:success] = "Thay đổi avatar thành công"
       end
     end
+
+  # GET
+  def payment_history
+    @payments = Payment.where(:user_id => current_user.id)
+    @courses = Course.in(:id.in => @payments.map(&:course_id))
+
+    # render json: {:message => "Payment History"}
   end
 
   private

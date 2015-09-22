@@ -18,7 +18,7 @@ class Course::Curriculum
   field :previewable, type: Boolean, default: false
 
   embeds_many :documents, class_name: "Course::Document"
-
+  accepts_nested_attributes_for :documents
   embedded_in :course
 
   validates_inclusion_of :type, :in => Constants.CurriculumTypesValues

@@ -42,7 +42,6 @@ class Course
   belongs_to :user
   has_and_belongs_to_many :categories, class_name: "Category"
   has_and_belongs_to_many :labels, class_name: "Label"
-  has_one :sale_course, class_name: 'Sale::Course'
 
   index({ name: 1, created_at: 1 })
 
