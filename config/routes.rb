@@ -84,7 +84,10 @@ Rails.application.routes.draw do
 
     collection do
       get :view_profile
-      get 'payment_history', to: 'users#payment_history'
+      get 'payment_history' , to: 'users#payment_history'
+      match '/edit_account', to: 'users#edit_account'   , via: [:get, :patch]
+      match '/edit_avatar'  , to: 'users#edit_avatar'     , via: [:get, :patch]
+      match '/edit_profile' , to: 'users#edit_profile'    , via: [:get, :patch]
     end
   end
 

@@ -268,26 +268,46 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/edit_password
-  def edit_password
+  # GET /users/edit_profile
+  def edit_profile
+    @user = User.find(current_user.id)
+    if request.patch?
+      profile_params = user_profile_params
+      profile_params[:lang] = Constants::UserLang::VI if profile_params[:lang].blank?
+      profile_params[:name] = profile_params[:first_name] + " " + profile_params[:last_name]
+      profile_params[:links].each do |key, value|
+        if !value.blank?
+          profile_params[:links][key].insert(0, Constants::PROFILE_LINK_PREFIX[key.to_sym])
+        end
+      end
+      if @user.update(profile_params)
+        flash.now[:sucess_changing_profile] = "Cập nhật thông tin thành công"
+      else
+        flash.now[:error_changing_profile] = "Thông tin chưa được cập nhật, vui lòng thử lại"
+      end
+    end
+  end
+
+  # GET /users/edit_account
+  def edit_account
     if request.patch?
       info = change_password_params
       if info[:current_password].blank? || info[:password].blank? || info[:password_confirmation].blank?
-        flash[:error_changing_password] = "Thông tin không đầy đủ"
+        flash.now[:error_changing_password] = "Thông tin không đầy đủ"
       else
         @user = User.find(current_user.id)
         if @user.update_with_password(info)
           # Sign in the user by passing validation in case their password changed
           sign_in @user, :bypass => true
-          flash[:success_changing_password] = "Đổi mật khẩu thành công"
+          flash.now[:success_changing_password] = "Đổi mật khẩu thành công"
         else
           messages = @user.errors.messages
           if messages.include?(:current_password)
-            flash[:error_changing_password] = "Mật khẩu hiện tại không đúng"
+            flash.now[:error_changing_password] = "Mật khẩu hiện tại không đúng"
           elsif messages.include?(:password_confirmation)
-            flash[:error_changing_password] = "Xác nhận mật khẩu không đúng"
+            flash.now[:error_changing_password] = "Xác nhận mật khẩu không đúng"
           else
-            flash[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
+            flash.now[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
           end
         end
       end
@@ -296,16 +316,24 @@ class UsersController < ApplicationController
 
   def edit_avatar
     if request.patch? && params[:user] && params[:user][:new_avatar]
-      file_io = params[:user][:new_avatar]
-      path = Rails.public_path.join("avatars")
-      path.mkpath unless path.exist?
-      File.open(path.join(file_io.original_filename), 'wb') do |file|
-        file.write(file_io.read)
-        @user.avatar = "/avatars/" + file_io.original_filename
-        @user.save
-        flash[:success] = "Thay đổi avatar thành công"
+      begin
+        file_io = params[:user][:new_avatar]
+        timestamp = Time.now.to_i
+        file_name = file_io.original_filename
+        file_name = file_name.sub(/\.(?=[^.]*$)/, "-#{timestamp}.")
+        path = Rails.public_path.join("avatars")
+        path.mkpath unless path.exist?
+        File.open(path.join(file_name), 'wb') do |file|
+          file.write(file_io.read)
+          @user.avatar = "/avatars/" + file_name
+          @user.save
+          flash.now[:success_changing_avatar] = "Thay đổi avatar thành công"
+        end
+      rescue
+        flash.now[:error_changing_avatar] = "Ảnh đại diện chưa cập nhật được, vui lòng thử lại"
       end
     end
+  end
 
   # GET
   def payment_history
@@ -328,6 +356,11 @@ class UsersController < ApplicationController
     def user_params
       accessible = [ :name, :email ] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+      params.require(:user).permit(accessible)
+    end
+
+    def user_profile_params
+      accessible = [:desination, :first_name, :last_name, :job, :biography, :lang, links: [ :website, :google, :facebook, :linkedin, :twitter, :youtube]]
       params.require(:user).permit(accessible)
     end
 

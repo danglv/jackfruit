@@ -77,4 +77,14 @@ module ApplicationHelper
 		end
 	end
 
+	def help_get_user_lang_list
+		list = Constants::UserLang.constants
+		langs = {}
+		list.each do |name|
+			lang = Constants::UserLang.const_get(name)
+			langs[lang] = Constants::USER_LANG_MAPPING[lang]
+		end
+		return langs
+	end
+
 end
