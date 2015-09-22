@@ -33,6 +33,7 @@ module Constants
   end
 
   module PaymentStatus
+    CREATED = "created"
     SUCCESS = "success"
     PROCESS = "process"
     PENDING = "pending"

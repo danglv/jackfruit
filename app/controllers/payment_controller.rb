@@ -7,6 +7,7 @@ class PaymentController < ApplicationController
   before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   # GET
   def index
+    sale_services = Sale::Services.new
     payment = Payment.where(
       :course_id => @course.id,
       :user_id => current_user.id,
@@ -18,7 +19,88 @@ class PaymentController < ApplicationController
 
     unless payment.blank?
       redirect_to :back
+    else
+      @data = sale_services.get_price(@course)
+      @payment = Payment.new(
+        course_id: @course.id,
+        user_id: current_user.id,
+        status: Constants::PaymentStatus::CREATED,
+        money: @data['discount'] > 0 ? @data['discount'] : @course.price
+      )
+      # @payment.save
     end
+  end
+
+  # GET, POST
+  # Cash-on-delivery
+  def cod
+    sale_services = Sale::Services.new
+    if request.method == 'POST'
+      name = params[:name]
+      email = params[:email]
+      mobile = params[:mobile]
+      address = params[:address]
+      city = params[:city]
+      district = params[:district]
+
+      data = @discount == 0 ? sale_services.get_price(@course) : false
+
+      unless data
+        payment = Payment.find_or_initialize_by(
+          :course_id => @course.id,
+          :user_id => current_user.id,
+          :method => Constants::PaymentMethod::COD,
+          :coupons => @coupons,
+          :money => @price
+        )
+      else
+        payment = Payment.find_or_initialize_by(
+          :course_id => @course.id,
+          :user_id => current_user.id,
+          :method => Constants::PaymentMethod::COD,
+          :coupons => @coupons,
+          :money => data['discount']
+        )
+      end
+
+      payment.name = name,
+      payment.email = email,
+      payment.mobile = mobile,
+      payment.address = address,
+      payment.city = city,
+      payment.district = district,
+
+      if payment.save
+        create_course_for_user()
+        begin
+          RestClient.post('http://internal.tudemy.vn:8000/notify',
+            {
+              :to => 'mercury',
+              :msg => "{type:'cod', msg: 'Có đơn COD mới'}"
+            }
+          )
+        rescue => e
+        end
+        redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+      else
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::COD,
+            :status => "fail"
+          },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+        )
+        render 'page_not_found', status: 404
+      end
+    end
+
+    @coupon_code = params[:coupon_code]
   end
 
   def cancel_cod
@@ -44,71 +126,23 @@ class PaymentController < ApplicationController
     end
   end
 
-  # GET, POST
-  # Cash-on-delivery
-  def cod
-    if request.method == 'POST'
-      name = params[:name]
-      email = params[:email]
-      mobile = params[:mobile]
-      address = params[:address]
-      city = params[:city]
-      district = params[:district]
-      
-      payment = Payment.find_or_initialize_by(
-        :course_id => @course.id,
-        :user_id => current_user.id,
-        :method => Constants::PaymentMethod::COD,
-        :coupons => @coupons,
-        :money => @price
-      )
-
-      payment.name = name,
-      payment.email = email,
-      payment.mobile = mobile,
-      payment.address = address,
-      payment.city = city,
-      payment.district = district,
-
-      if payment.save
-        create_course_for_user()
-        begin
-          RestClient.post 'http://internal.tudemy.vn:8000/notify', :to => 'mercury', :msg => "{type:'cod', msg: 'Có đơn COD mới'}}"
-        rescue => e
-        end
-        redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
-      else
-        Tracking.create_tracking(
-          :type => Constants::TrackingTypes::PAYMENT,
-          :content => {
-            :payment_method => Constants::PaymentMethod::COD,
-            :status => "fail" },
-          :ip => request.remote_ip,
-          :platform => {},
-          :device => {},
-          :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
-          :object => payment.id
-        )
-        render 'page_not_found', status: 404
-      end
-    end
-
-    @coupon_code = params[:coupon_code]
-  end
-
   def online_payment
     baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
 
     if request.method == 'GET'
       banks = baokim.get_seller_info()
-      @local_card_banks = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD}
-      @credit_cards = banks.select{|x| x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD}
+      @local_card_banks = banks.select{ |x|
+        x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_LOCAL_CARD
+      }
+      @credit_cards = banks.select{ |x|
+        x["payment_method_type"] == PaymentServices::BaoKimConstant::PAYMENT_METHOD_TYPE_CREDIT_CARD
+      }
     elsif request.method == 'POST'
-      # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
-      Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
-      
+      # Update all previous online payment(s) of the user, who has the course
+      Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id)
+             .update_all(status: "cancel")
+
       payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
@@ -134,8 +168,12 @@ class PaymentController < ApplicationController
       end
 
       if payment_service_provider == 'baokim'
+        sale_services = Sale::Services.new
+        data = @discount > 0 ? sale_services.get_price(@course) : false
+
         payment.coupons = @coupons
-        payment.money = @price
+        payment.money = !data ? @price : data['discount']
+
         payment.name = params['payer_name']
         payment.email = params['payer_email']
         payment.address = params['payer_address']
@@ -149,7 +187,7 @@ class PaymentController < ApplicationController
           'currency_code' => 'VND',
           'transaction_mode_id' => '1',
           'escrow_timeout' => 3,
-          'total_amount' => @price,
+          'total_amount' => payment.money,
           'shipping_fee' =>  0,
           'tax_fee' =>  0,
           'order_description' =>  @course.name,
@@ -231,6 +269,7 @@ class PaymentController < ApplicationController
 
   # GET
   def success
+    baokim = BaoKimPaymentPro.new
     payment_service_provider = params[:p]
     @course = Course.where(id: @payment.course_id).first
     owned_course = current_user.courses.where(course_id: @course.id).first
@@ -294,6 +333,7 @@ class PaymentController < ApplicationController
   end
 
   # POST
+  # COD API
   def import_code
     cod_code = params[:cod_code]
     if @payment.cod_code == cod_code
@@ -471,13 +511,18 @@ class PaymentController < ApplicationController
     end
 
     def process_card_payment
-      if current_user.money > @price
-        
-        current_user.money -= @price
+      sale_services = Sale::Services.new
+      data = @discount > 0 ? sale_services.get_price(@course) : false
+      price = !data ? @price : data['discount']
+
+      if current_user.money > price
+
+        current_user.money -= price
         create_course_for_user()
-        # Chuyển trạng thái những thằng payment của (course + user) trước sang fail
-        Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id).update_all(status: "cancel")
-      
+        # Update all previous online payment(s) of the user, who has the course
+        Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id)
+               .update_all(status: "cancel")
+
         payment = Payment.new(
           :course_id => @course.id,
           :user_id => current_user.id,
@@ -485,7 +530,7 @@ class PaymentController < ApplicationController
           :created_at => Time.now(),
           :status => Constants::PaymentStatus::SUCCESS,
           :coupons => @coupons,
-          :money => @price
+          :money => price
         )
 
         owned_course = current_user.courses.where(:course_id => @course.id.to_s).first

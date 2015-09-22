@@ -28,7 +28,7 @@
               %h5.normal-text.left-align Chi phí
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align.price-text
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row.no-margin{:style => "margin-bottom: 20px"}
             .col-xs-3.no-padding
               %h5.normal-text.left-align Trạng thái
@@ -78,7 +78,7 @@
               %h5.normal-text.left-align Chi phí
             .col-xs-8.col-xs-offset-2.no-padding
               %h5.right-align.price-text
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row.no-margin{:style => "margin-bottom: 20px"}
             .col-xs-2.no-padding
               %h5.left-align Trạng thái
@@ -99,56 +99,55 @@
               %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
   = render :partial => 'components/footer/index'   
 
-.row.no-margin
-  .header.hidden-xs
-    = render :partial => 'components/header/default'
-    .container-wrapper{:style => "overflow: hidden;"}
-      .banner
-        = render :partial => "components/banner/banner"  
-      .row.no-margin
-        .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
-          .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
+.row.no-margin.hidden-xs
+  = render :partial => 'components/header/default'
+  .container-wrapper{:style => "overflow: hidden;"}
+    .banner
+      = render :partial => "components/banner/banner"  
+    .row.no-margin
+      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
+        .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
+          .row.no-margin
+            .col-sm-12.col-md-12.col-lg-12.no-padding
+              .payment-header.pending
+                %span.title{:style => "font-size: 18px;"}
+                  %b Giao dịch của bạn đang được xử lý
+          .container.full-width
+            .row.no-margin{:style => "margin-bottom: 5px;"}
+              %h5.normal-text
+                Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
+                %a.link-text{:href => "/home/payment/#{@course.alias_name}/payment_history"} Lịch sử giao dịch
+                để được cập nhật thường xuyên.
             .row.no-margin
-              .col-sm-12.col-md-12.col-lg-12.no-padding
-                .payment-header.pending
-                  %span.title{:style => "font-size: 18px;"}
-                    %b Giao dịch của bạn đang được xử lý
-            .container.full-width
-              .row.no-margin{:style => "margin-bottom: 5px;"}
-                %h5.normal-text
-                  Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
-                  %a.link-text{:href => "/users/payment_history"} Lịch sử giao dịch
-                  để được cập nhật thường xuyên.
-              .row.no-margin
-                .content
-                  .content-left
-                    %h5.normal-text Khóa học
-                  .content-right
-                    %h5
-                      %b= @course.name
-              .row.no-margin
-                .content
-                  .content-left
-                    %h5.normal-text Chi phí
-                  .content-right
-                    %h5.price-text
-                      %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-              .row.no-margin{:style => "margin-bottom: 20px"}
-                .content
-                  .content-left
-                    %h5.normal-text Trạng thái
-                  .content-right
-                    %h5.pending-text
-                      %b Đang xử lý
-            .divider{:style => "margin-bottom: 15px"}
-            .container.full-width
-              .row.no-margin{:style => "margin-bottom: 25px;"}
-                .col-sm-10.col-md-10.col-lg-10.no-padding.hot-line
-                  %i.fa.fa-phone
-                  %span.normal-text Hotline: 
-                  = succeed "" do
-                    %b 0961215368
-              .row.no-margin
-                .payment-box-bottom
-                  %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
-    = render :partial => 'components/footer/index'   
+              .content
+                .content-left
+                  %h5.normal-text Khóa học
+                .content-right
+                  %h5
+                    %b= @course.name
+            .row.no-margin
+              .content
+                .content-left
+                  %h5.normal-text Chi phí
+                .content-right
+                  %h5.price-text
+                    %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .row.no-margin{:style => "margin-bottom: 20px"}
+              .content
+                .content-left
+                  %h5.normal-text Trạng thái
+                .content-right
+                  %h5.pending-text
+                    %b Đang xử lý
+          .divider{:style => "margin-bottom: 15px"}
+          .container.full-width
+            .row.no-margin{:style => "margin-bottom: 25px;"}
+              .col-sm-10.col-md-10.col-lg-10.no-padding.hot-line
+                %i.fa.fa-phone
+                %span.normal-text Hotline: 
+                = succeed "" do
+                  %b 0961215368
+            .row.no-margin
+              .payment-box-bottom
+                %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
+  = render :partial => 'components/footer/index'

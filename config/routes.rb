@@ -51,7 +51,6 @@ Rails.application.routes.draw do
       get '/:id/error', to: 'payment#error'
       get '/:alias_name/payment_bill', to: 'payment#payment_bill'
 
-      # Dựng router mới để test phần thanh toán Bảo Kim
       get '/test_online_payment/:alias_name', to: 'payment#test_online_payment'
 
       # get '/:id/update', to: 'payment#update'

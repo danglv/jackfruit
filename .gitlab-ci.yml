@@ -9,6 +9,10 @@ before_script:
   - cp config/mongoid.yml.tmpl config/mongoid.yml
   - bower install
 
-minitest:
+unit_test:
   script:
-    - bundle exec rake test
+    - bundle exec rake test:units
+
+acceptance_test:
+  script:
+    - bundle exec rake test:features

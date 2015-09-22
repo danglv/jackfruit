@@ -252,6 +252,9 @@ GEM
       rack (~> 1.1)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.2.3)
       actionmailer (= 4.2.3)
       actionpack (= 4.2.3)
@@ -412,6 +415,7 @@ DEPENDENCIES
   poltergeist
   pry (~> 0.10.1)
   pry-rails (~> 0.3.4)
+  rack_session_access
   rails (= 4.2.3)
   rails_admin (~> 0.6.8)
   rest-client (~> 1.8.0)
