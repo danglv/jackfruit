@@ -1,149 +1,31 @@
-= render :partial => 'components/header/default'
-.container-wrapper{:style => "overflow: hidden;"}
-  .banner
-    = render :partial => "components/banner/banner"  
-  %main.profile
-    .container
-      .row.main-profile
-        .col-lg-3.col-md-4.col-sm-12.col-xs-12.profile-top
-          .profile-left
-            .profile-image
-              = image_tag "#{@current_user.avatar}",:style => 'width:100%'
-            .profile-name.text-center.bold{:style => 'font-size:16px'} #{@current_user.name}
-            %ul.profile-nav.nav.nav-tabs.no-padding
-              %li.profile-item-nav.active{:role => "presentation"}
-                %a{:href => "#profile","data-toggle" => 'tab'} Thông tin cá nhân
-              %li.profile-item-nav{:role => "presentation"}
-                %a{:href => "#avatar","data-toggle" => 'tab'} Ảnh đại diện
-              %li.profile-item-nav{:role => "presentation"}
-                %a{:href => "#account","data-toggle" => 'tab'} Tài khoản
-        .col-lg-9.col-md-8.col-sm-12.col-xs-12.tab-content.profile-bot
-          .profile-right.tab-pane.fade.active.in#profile
-            .profile-label.text-center
-              .profile-title.bold Thông tin cá nhân
-              .profiel-text Thêm thông tin về bạn để chia sẻ trên trang cá nhân
-            .row.profile-form
-              .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
-                %form{:action => ""}
-                  .form-title.bold Cơ bản
-                  .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => "#{@current_user.desination.blank? ? 'Học hàm' : ''}", :value => "#{@current_user.desination}"}
-                  .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => "#{@current_user.last_name.blank? ? 'Họ' : ''}", :value => "#{@current_user.last_name}"}
-                  .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => "#{@current_user.first_name.blank? ? 'Tên' : ''}", :value => "#{@current_user.first_name}"}
-                  .group-profile-input.group-headline
-                    %input.form-control{:type => "text",:placeholder => 'Đơn vị công tác'}
-                  .form-title.bold Tiểu sử
-                  .group-profile-input
-                    %input.form-control{:type => "text",:placeholder => "#{@current_user.biography.blank? ? 'Thông tin' : ''}", :value => "#{@current_user.biography}"}
-                  .group-profile-input
-                    %select.form-control{:name => ""}
-                      %option{:value => "vi"} Lựa chọn ngôn ngữ
-                      - if @current_user.lang == "vi"
-                        %option{:value => "vi", :selected => ""} Tiếng Việt
-                      - else
-                        %option{:value => "vi"} Tiếng Việt
-                      - if @current_user.lang == "en"
-                        %option{:value => "en", :selected => ""} Tiếng Anh
-                      - else
-                        %option{:value => "en"} Tiếng Anh
-                      - if @current_user.lang == "fr"
-                        %option{:value => "fr", :selected => ""} Tiếng Pháp
-                      - else
-                        %option{:value => "fr"} Tiếng Pháp
-                  .form-title.bold Link
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:39px',:placeholder => 'Website'}
-                    .text-placeholder
-                      %span.pre-link http//
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:150px',:placeholder => 'Google+ Profile'}
-                    .text-placeholder
-                      %span.pre-link http://plus.google.com/
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:114px',:placeholder => 'Twitter Profile'}
-                    .text-placeholder
-                      %span.pre-link http://twiter.com/
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:136px',:placeholder => 'Facebook Profile'}
-                    .text-placeholder
-                      %span.pre-link http://facebook.com/
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:126px',:placeholder => 'Linkedin Profile'}
-                    .text-placeholder
-                      %span.pre-link http://linkedin.com/
-                  .group-profile-input
-                    %input.form-control{:type => "text",:style => 'text-indent:129px',:placeholder => 'Youtube Profile'}
-                    .text-placeholder
-                      %span.pre-link http://youtube.com/
-                  .group-profile-input.text-center
-                    %a.btn.btn-default.bold.profile-button-save Lưu thay đổi
-          .profile-right.tab-pane.fade#avatar
-            .profile-label.text-center
-              .profile-title.bold Ảnh đại diện
-              .profiel-text Thêm một bức ảnh đẹp về bản thân bạn
-            .row.profile-avatar
-              %form.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3.col-xs-12
-                .avatar-title.bold Xem trước
-                .avatar-image
-                  = image_tag "#{@current_user.avatar}",:style => 'width:100%'
-                  .avatar-detail{:style => 'color:#212121;padding-top:10px'} Bức ảnh mà bạn chọn phải có phải có định dạng jpeg hoặc png
-                .avatar-action
-                  .avatar-action-title.bold Thêm/Thay đổi ảnh
-                  .avatar-action-choose.text-center
-                    %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Chọn ảnh của bạn
-                  .avatar-action-save.text-center
-                    %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px'} Lưu thay đổi
-          .profile-right.tab-pane.fade#account
-            .profile-label.text-center
-              .profile-title.bold Tài khoản
-              .profiel-text Tùy chỉnh tài khoản và đổi mật khẩu của bạn
-            .row.profile-account
-              %form.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
-                .profile-account-title.bold{:style => 'font-size:16px;'} Email
-                .group-input-account.account-email
-                  %input.form-control{:type => "text",:placeholder => "#{@current_user.email.blank? ? 'yourname@gmail.com' : ''}", :value => "#{@current_user.email}", :disabled => ""}
-                .profile-account-title.bold{:style => 'font-size:16px;'} Mật khẩu
-                .group-input-account
-                  %input.form-control{:type => "password",:placeholder => 'Mật khẩu hiện tại'}/
-                .group-input-account
-                  %input.form-control{:type => "password",:placeholder => 'Mật khẩu mới'}/
-                .group-input-account
-                  %input.form-control{:type => "password",:placeholder => 'Xác nhận mật khẩu mới'}/
-                .password-save.text-center
-                  %a.btn.btn-default.bold{:href => "",:style => 'font-size:16px;'} Đổi mật khẩu
-= render :partial => 'components/footer/index'                     
-
-
-/ %h2
-/   Edit #{resource_name.to_s.humanize}
-/ = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-/   = devise_error_messages!
-/   .field
-/     = f.label :email
-/     %br/
-/     = f.email_field :email, autofocus: true
-/   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-/     %div
-/       Currently waiting confirmation for: #{resource.unconfirmed_email}
-/   .field
-/     = f.label :password
-/     %i (leave blank if you don't want to change it)
-/     %br/
-/     = f.password_field :password, autocomplete: "off"
-/   .field
-/     = f.label :password_confirmation
-/     %br/
-/     = f.password_field :password_confirmation, autocomplete: "off"
-/   .field
-/     = f.label :current_password
-/     %i (we need your current password to confirm your changes)
-/     %br/
-/     = f.password_field :current_password, autocomplete: "off"
-/   .actions
-/     = f.submit "Update"
-/ %h3 Cancel my account
-/ %p
-/   Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-/ = link_to "Back", :back
+%h2
+  Edit #{resource_name.to_s.humanize}
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = devise_error_messages!
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    %div
+      Currently waiting confirmation for: #{resource.unconfirmed_email}
+  .field
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+    %br/
+    = f.password_field :password, autocomplete: "off"
+  .field
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation, autocomplete: "off"
+  .field
+    = f.label :current_password
+    %i (we need your current password to confirm your changes)
+    %br/
+    = f.password_field :current_password, autocomplete: "off"
+  .actions
+    = f.submit "Update"
+%h3 Cancel my account
+%p
+  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+= link_to "Back", :back
