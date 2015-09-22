@@ -322,49 +322,48 @@ class UsersController < ApplicationController
   end
 
   def update_note
-    course_id = params[:course_id]
+    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
+    owned_course_id = params[:owned_course_id]
     lecture_id = params[:lecture_id]
     note_id = params[:note_id]
-    time = params[:time]
     content = params[:content]
 
-    if course_id && lecture_id && note_id
-      if course =  current_user.courses.find(:id => course_id)
-        if lecture = course.lectures.find(:id => lecture_id)
-          if note = lecture.notes.find(:id => note_id)
-            note.time = time
-            note.content = content
-            if note.save
-              render json:{:result => true, :note => note.to_json}
-              return
-            end
-          end
-        end
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => lecture_id).first if !course.blank? 
+
+    if course && lecture
+      note = lecture.notes.where(:id => note_id).first
+      note.content = content if ( !content.blank? && !note.blank? )
+      if note.save
+        render json: User::NoteSerializer.new(note)
+        return
       end
     end
-
-    render json:{:result => false}
+    render json:{:message => 'Update note thất bại'}, status: :unprocessable_entity
   end
 
   def delete_note
-    course_id = params[:course_id]
+    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
+    owned_course_id = params[:owned_course_id]
     lecture_id = params[:lecture_id]
     note_id = params[:note_id]
+    content = params[:content]
 
-    if course_id && lecture_id && note_id
-      if course =  current_user.courses.find(:id => course_id)
-        if lecture = course.lectures.find(:id => lecture_id)
-          if note = lecture.notes.find(:id => note_id)
-            if lecture.notes.delete note
-              render json:{:result => true}
-              return
-            end
-          end
-        end
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => lecture_id).first if !course.blank? 
+
+    if course && lecture
+      note = lecture.notes.where(:id => note_id).first
+      if (!note.blank? ? note.delete : false)
+        render json:{:message => 'Xoá note thành công'}
+        return
       end
     end
-
-    render json:{:result => false}
+    render json:{:message => 'Xoá note thất bại'}, status: :unprocessable_entity
   end
 
   def download_note
@@ -383,6 +382,13 @@ class UsersController < ApplicationController
       end
     end
     render text: 'File note found', status: 404
+  end
+  # GET
+  def payment_history
+    @payments = Payment.where(:user_id => current_user.id)
+    @courses = Course.in(:id.in => @payments.map(&:course_id))
+
+    # render json: {:message => "Payment History"}
   end
 
   private
