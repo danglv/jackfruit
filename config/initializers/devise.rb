@@ -8,7 +8,7 @@ Devise.setup do |config|
   config.omniauth :facebook, "781404068653965", "5efbc5ec7c0f4cd4ebd2a95aaca8636f", scope: 'email',
     info_fields: 'email,name,verified,about,address,age_range,bio,birthday,currency,devices,education,favorite_athletes,favorite_teams,first_name,gender,hometown,inspirational_people,install_type,languages,last_name,link,location,locale,meeting_for,middle_name,religion,sports,website,work'
   config.omniauth :twitter, "KEY", "SECRET"
-  config.omniauth :google_oauth2, "590436185497-pht12vaksov6c1fdl2cljamgq3od6gmm.apps.googleusercontent.com", "8lj_tq2XdSVsnmpaW0lF205l", { }
+  config.omniauth :google_oauth2, "474893221829-feh05oqmq2629sa8ncg7s7sb1k3bqejk.apps.googleusercontent.com", "_KDIpWezjE2iEdc-gHCdTLoc", { }
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
