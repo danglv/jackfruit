@@ -109,8 +109,8 @@
 }
 
 .dropdown-menu {
-  li:last-child {
-    border-bottom: none;
+  li:first-child {
+    border-bottom: 1px solid #ccc;
   }
   .category-item {
     border-radius: 0;
@@ -118,7 +118,6 @@
     text-transform: none;
     width: 240px;
     padding: 8px 12px;
-    border-bottom: 1px solid #ccc;
     > a {
       text-align: left;
       width: 100%;
