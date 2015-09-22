@@ -267,6 +267,13 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  # GET
+  def payment_history
+    @payments = Payment.where(:user_id => current_user.id)
+    @courses = Course.in(:id.in => @payments.map(&:course_id))
+
+    # render json: {:message => "Payment History"}
+  end
 
   def create_note
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
