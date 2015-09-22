@@ -376,8 +376,7 @@ class UsersController < ApplicationController
   def download_note
     course_id = params[:course_id]
     lecture_id = params[:lecture_id]
-
-    binding.pry
+    
     if course_id && lecture_id
       if course =  current_user.courses.find(course_id)
         if lecture = course.lectures.find(lecture_id)
