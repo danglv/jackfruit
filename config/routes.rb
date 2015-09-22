@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     collection do
       get :view_profile
       get 'payment_history', to: 'users#payment_history'
+      get 'note/download', :to => 'users#download_note'
     end
   end
 

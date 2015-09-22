@@ -1046,16 +1046,13 @@
           - course_reviews = @course.reviews
         - (1..5).each do |i|
         - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
-        - progress = course_review.count/course_reviews.count
+        - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
           .row{:style => 'margin:20px 0;'}
             .col-sm-1.no-padding
               .normal-text.text-right #{6 - i} Sao
             .col-sm-4
               .progress.progress-striped.active{:style => 'height:17px; margin:0 !important'}
-                - if course_reviews == 0
-                  .progress-bar{:style => "width: 0%;"}
-                - else
-                  .progress-bar{:style => "width: #{progress}%;"}
+                .progress-bar{:style => "width: #{progress}%;"}
             .col-sm-2.no-padding
               .normal-text
                 %b= course_review.count
