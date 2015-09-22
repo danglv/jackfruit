@@ -1,25 +1,6 @@
 require 'test_helper'
 
 feature 'Authentication' do
-  before do
-    # NOTE: better move to seed.rb
-    User.create([
-      {
-        email: 'nguyendanhtu@tudemy.vn',
-        password: '12345678',
-        password_confirmation: '12345678'
-      }
-    ])
-    
-    Category.create([{ name: 'Test Category 1' }])
-  end
-
-  after do
-    Capybara.reset_sessions!
-    User.destroy_all
-    Category.destroy_all
-  end
-
   scenario 'the first test' do
     visit '/'
 
