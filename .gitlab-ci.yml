@@ -9,15 +9,10 @@ before_script:
   - cp config/mongoid.yml.tmpl config/mongoid.yml
   - bower install
 
-stages:
-  - test
-
 unit_test:
-  stage: test
   script:
     - bundle exec rake test:units
 
 acceptance_test:
-  stage: test
   script:
     - bundle exec rake test:features
