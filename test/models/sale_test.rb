@@ -27,12 +27,4 @@ module Sale
       value(sale_package).must_be :valid?
     end
   end
-
-  describe 'Course' do
-    let(:sale_course) { Sale::Course.new }
-
-    it 'must be valid' do
-      value(sale_course).must_be :valid?
-    end
-  end
 end

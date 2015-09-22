@@ -24,11 +24,15 @@ feature 'Sale' do
   end
 
   scenario 'Athenticated user visits a course detail which is on sale and click buy' do
-    u = User.where(email: 'student1@tudemy.vn').first
-    page.set_rack_session(user_id: u.id)
 
-    visit '/courses/test-course-1/detail'
-    
+    visit '/home/payment/test-course-1'
+
+    within('#login-modal') do
+      fill_in('user[email]', with: 'nguyendanhtu@tudemy.vn')
+      fill_in('user[password]', with: '12345678')
+      find('.btn-login-submit').click
+    end
+
     page.must_have_content('Test Course 1')
     page.must_have_content('98,000')
     page.wont_have_content('199,000')
