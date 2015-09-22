@@ -101,5 +101,12 @@
       });
   })
 
+  $('.note-content').bind('keypress', function(e) {
+    if(e.which === 13){
+      alert("OK");
+      // Enter pressed... do anything here...
+    }
+  });
+
 
 }(jQuery));
