@@ -6,9 +6,9 @@
   %main.home
     .container
       .row
-        - @courses.to_a.each do |course_h|
-          - if course_h.last.last.count > 0
-            - course_data = course_h.last.last
+        - @courses.each do |course_h|
+          - course_data = course_h.last.last
+          - if course_data.count > 0
             .col-sm-12{:style => 'margin-top:10px;'}
               .category-title.pull-left= course_h.last.first
               .category-show-all.pull-right.visible-lg.visible-md
