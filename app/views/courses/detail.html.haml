@@ -60,6 +60,9 @@
             %h3.course-price.free.no-margin Miễn phí
           - else
             %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            - if @data['discount'] > 0
+              %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
       .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
         - if !current_user.blank?
           - if !@owned_course.blank?
@@ -397,6 +400,9 @@
                 %h3.course-price.free.no-margin Miễn phí
               - else
                 %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                - if @data['discount'] > 0
+                  %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
           .row.no-margin
             .col-xs-12.no-padding
               - if !current_user.blank?
@@ -740,6 +746,9 @@
                   %h3.course-price.free.no-margin Miễn phí
                 - else
                   %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  - if @data['discount'] > 0
+                    %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
             .row.no-margin
               .col-sm-12.no-padding
                 - if !current_user.blank?
@@ -1083,6 +1092,9 @@
                   %h3.course-price.free.no-margin Miễn phí
                 - else
                   %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  - if @data['discount'] > 0
+                    %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
             .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
               .col-md-12.no-padding
                 - if !current_user.blank?
@@ -1442,7 +1454,13 @@
                 - if @course.price == 0
                   %h3.course-price.free.no-margin Miễn phí
                 - else
-                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  - if @data['discount'] > 0
+                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
+                  - else
+                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+
             .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
               .col-lg-12.no-padding
                 - if !current_user.blank?
@@ -1769,4 +1787,5 @@
               .col-lg-12.no-padding.related-content
                 - @courses["related"].last.to_a.each do |course|
                   = render :partial => 'components/courses/list_card',:locals => {:course => course}
-= render :partial => 'components/footer/index'                                  
+
+= render :partial => 'components/footer/index'
