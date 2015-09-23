@@ -6,5 +6,5 @@ class Course::ChildDiscussion
   field :description, type: String, default: ""
 
   belongs_to :user
-  embedded_in :discussion, class_name: "Course::Discussion"
+  embedded_in :parent_discussion, class_name: "Course::Discussion"
 end
