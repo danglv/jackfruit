@@ -79,11 +79,11 @@
                 - if current_user.wishlist.include?(@course._id.to_s)
                   %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
                 - else
                   %a.btn.btn-raised.btn-lg.wishlist-button 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
               .col-xs-12.no-padding
                 %h5.normal-text 
                   %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
@@ -103,11 +103,11 @@
                 - if current_user.wishlist.include?(@course._id.to_s)
                   %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
                 - else
                   %a.btn.btn-raised.btn-lg.wishlist-button 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
           - else
             - if @course.price == 0
               .col-xs-12.no-padding
@@ -117,11 +117,11 @@
                 - if current_user.wishlist.include?(@course._id.to_s)
                   %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
                 - else
                   %a.btn.btn-raised.btn-lg.wishlist-button 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
             - else 
               .col-xs-12.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -130,11 +130,11 @@
                 - if current_user.wishlist.include?(@course._id.to_s)
                   %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
                 - else
                   %a.btn.btn-raised.btn-lg.wishlist-button 
                     %i.fa.fa-heart
-                    %span Ưa thích
+                    %span Quan tâm
               .col-xs-12.no-padding
                 %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                   %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -811,7 +811,7 @@
                           .col-sm-5
                             %a.btn.btn-raised.btn-lg.wishlist-button 
                               %i.fa.fa-heart
-                              %span Ưa thích 
+                              %span Quan tâm 
                           .col-sm-12.no-padding
                             %h5.normal-text 
                               %i Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
@@ -855,11 +855,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                     - else 
                       .col-sm-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -868,11 +868,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                       .col-sm-12.no-padding
                         %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -1185,11 +1185,11 @@
                             - if current_user.wishlist.include?(@course._id.to_s)
                               %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                                 %i.fa.fa-heart
-                                %span Ưa thích
+                                %span Quan tâm
                             - else
                               %a.btn.btn-raised.btn-lg.wishlist-button 
                                 %i.fa.fa-heart
-                                %span Ưa thích
+                                %span Quan tâm
                           .col-md-12
                             %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                           .col-md-12.no-padding
@@ -1235,11 +1235,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                     - else 
                       .col-md-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -1248,11 +1248,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                       .col-md-12.no-padding
                         %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
@@ -1580,11 +1580,11 @@
                             - if current_user.wishlist.include?(@course._id.to_s)
                               %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                                 %i.fa.fa-heart
-                                %span Ưa thích
+                                %span Quan tâm
                             - else
                               %a.btn.btn-raised.btn-lg.wishlist-button 
                                 %i.fa.fa-heart
-                                %span Ưa thích 
+                                %span Quan tâm 
                           .col-lg-12
                             %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                           .col-lg-12.no-padding
@@ -1630,11 +1630,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                     - else 
                       .col-lg-6.no-padding
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -1643,11 +1643,11 @@
                         - if current_user.wishlist.include?(@course._id.to_s)
                           %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                         - else
                           %a.btn.btn-raised.btn-lg.wishlist-button 
                             %i.fa.fa-heart
-                            %span Ưa thích
+                            %span Quan tâm
                       .col-lg-12.no-padding
                         %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
