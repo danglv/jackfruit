@@ -107,6 +107,7 @@ Rails.application.routes.draw do
   resources :support, only: %w[] do
     collection do
       post :index
+      post :send_report
     end
   end
 
