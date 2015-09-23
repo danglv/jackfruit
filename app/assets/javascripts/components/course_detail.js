@@ -83,7 +83,7 @@ $(document).ready(function () {
     var course_id = $(".course_id").val();
     var content = $(".txt-report-content").val();
     var type = "other"
-    if content == "" {
+    if (content == "") {
       return;
     }
     var params = {
@@ -98,7 +98,7 @@ $(document).ready(function () {
         url: URL,
         data: params,
         success: function(msg){
-          console.log(msg)
+          $(".txt-report-content").val("");
         }
       });
   });

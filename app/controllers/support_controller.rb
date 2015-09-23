@@ -23,7 +23,6 @@ class SupportController < ApplicationController
     )
     report.user = current_user
     report.course = course
-    binding.pry
     if report.save
       render json:{:messge => "Report thành công"}
       return
