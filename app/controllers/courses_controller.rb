@@ -156,36 +156,10 @@ class CoursesController < ApplicationController
 
     end
 
-    # Get Coupon
-    coupon_code = params[:coupon_code]
-    @coupon = []
-    uri = URI("http://code.pedia.vn/coupon/list_coupon?course_id=all")
-    response = Net::HTTP.get(uri)
-    data = JSON.parse(response)
-    data['coupons'].each {|coupon|
-      if coupon['expired_date'].to_time > Time.now()
-        @coupon << coupon
-        break
-      end
-    }
-
-    if !coupon_code.blank?
-      if !coupon_code.split(",").blank?
-        coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
-          coupon = JSON.parse(response)
-          if coupon['expired_date'].to_time > Time.now() && (@course.id.to_s == coupon['course_id'].to_s)
-            @coupon << coupon
-            break
-          end
-        }
-      end
-    end
-
     # Check if course is in any sale campaign
-    sale_services = Sale::Services.new
-    @data = sale_services.get_price(@course)
+    sale_input = {:course => @course}
+    sale_input[:coupon_code] = params[:coupon_code] unless params[:coupon_code].blank?
+    @sale_info = Sale::Services.get_price(sale_input)
 
     @courses = {}
     condition = {:enabled => true, :category_ids.in => @course.category_ids}
