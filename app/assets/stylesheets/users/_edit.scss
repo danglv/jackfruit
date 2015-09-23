@@ -55,22 +55,40 @@
           margin: 25px 0 20px 0;
         }
         .avatar-action-choose,.avatar-action-save{
-          a{
+          a, input, .file-upload{
             display: block;
-          }  
+          }
+          input {
+            width: 100%;
+          }
         }
         
         .avatar-action-choose {
-          a {
+          .file-upload {
             height: 50px;
             line-height: 35px;
             text-transform: none;
             background: #37b34a;
             color: white;
+            position: relative;
+            overflow: hidden;
+
+            input.upload{
+              position: absolute;
+              top: 0;
+              right: 0;
+              margin: 0;
+              padding: 0;
+              font-size: 20px;
+              cursor: pointer;
+              opacity: 0;
+              filter: alpha(opacity=0);
+            }
           }
         }
+
         .avatar-action-save {
-          a {
+          a, input{
             color: white;
             height: 50px;
             text-transform: none;
@@ -102,7 +120,6 @@
         .profile-button-save {
           background:#338abc;
           color:white;
-          height:50px;
           font-size:16px;
           text-transform:none;
           line-height: 25px;
@@ -113,11 +130,14 @@
       .profile-account-title {
         margin-top: 25px;
       }
+      .error{
+        color: red;
+      }
       .group-input-account {
         margin-bottom: 10px;
       }
       .password-save {
-        a {
+        a, input{
           height:50px;text-transform:none;background:#338abc;line-height:35px;color:white;
         }
         
@@ -164,7 +184,7 @@
   @media screen and (min-width: 992px) {
     .main-profile {
       display: flex;
-      height: 710px;
+      height: 810px;
       .profile-top {
         margin-left: 15px;
         border: 1px solid #b6b6b6;

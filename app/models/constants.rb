@@ -21,6 +21,21 @@ module Constants
     TIME = 1.minutes
   end
 
+  PROFILE_LINK_PREFIX = {
+    :website => "http://",
+    :facebook => "http://facebook.com/",
+    :google => "http://plus.google.com/",
+    :twitter => "http://twitter.com/",
+    :linkedin => "http://linkedin.com/",
+    :youtube => "http://youtube.com/"
+  }
+
+  USER_LANG_MAPPING = {
+    "vi" => "Tiếng Việt",
+    "en" => "Tiếng Anh",
+    "fr" => "Tiếng Pháp"
+  }
+
   module UserLang
     EN = "en"
     VI = "vi"
