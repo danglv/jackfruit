@@ -73,3 +73,21 @@ sale_packages = Sale::Package.create([
     courses: [courses[0]]
   }
 ])
+
+discussions = courses[0].discussions.create ([
+  {
+    title: "OK",
+    description: "OK"
+  }
+])
+
+c_discussions = discussions[0].child_discussions.create ([
+  {
+    description: "OK"
+  }
+])
+
+
+
+
+

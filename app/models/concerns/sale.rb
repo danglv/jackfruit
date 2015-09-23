@@ -19,4 +19,18 @@ module Sale
       data
     end
   end
+
+  class Coupon
+    def self.find_all
+     response = RestClient.get('http://code.pedia.vn/coupon/list_coupon?course_id=all')
+     data = JSON.parse(response)
+     data['coupons'].select { |coupon| coupon['expired_date'].to_time > Time.now() }
+    end
+
+    def self.find_one(coupon_code, course)
+      response = RestClient.get("http://code.pedia.vn/coupon?coupon=#{coupon_code}")
+      data = JSON.parse(response)
+      data['coupons'].select { |coupon| coupon['expired_date'].to_time > Time.now() && course.id.to_s == coupon['course_id'].to_s }
+    end
+  end
 end

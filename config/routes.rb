@@ -84,12 +84,15 @@ Rails.application.routes.draw do
 
     collection do
       get :view_profile
+      get :get_notes
+      post :create_note
+      post :update_note
+      post :delete_note
+      get 'note/download', to: 'users#download_note'
       get 'payment_history' , to: 'users#payment_history'
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
       match '/edit_avatar'  , to: 'users#edit_avatar', via: [:get, :patch]
       match '/edit_profile' , to: 'users#edit_profile', via: [:get, :patch]
-      get 'payment_history', to: 'users#payment_history'
-      get 'note/download', :to => 'users#download_note'
     end
   end
 
@@ -104,6 +107,7 @@ Rails.application.routes.draw do
   resources :support, only: %w[] do
     collection do
       post :index
+      post :send_report
     end
   end
 

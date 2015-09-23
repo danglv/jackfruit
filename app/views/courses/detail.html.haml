@@ -1,5 +1,18 @@
 = render :partial => 'components/header/default'
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+#complete-dialog.modal.fade{:tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Góp ý 
+      .modal-body
+        %form
+          %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+      .modal-footer
+        %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+        %button.btn{"data-dismiss" => "modal"} Đóng
+                                
 .container-wrapper.detail{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
@@ -152,8 +165,20 @@
                 /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                 /     %h5.normal-text.link-text Học thử miễn phí
               .col-xs-12.no-padding
-                %a.link-text{:href => ""}
+                %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                   %h5.normal-text.link-text Góp ý
+                #complete-dialog.modal.fade{:tabindex => "-1"}
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                        %h4.modal-title Góp ý 
+                      .modal-body
+                        %form
+                          %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                      .modal-footer
+                        %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                        %button.btn{"data-dismiss" => "modal"} Đóng
         - else
           - if @course.price == 0
             .col-xs-12.no-padding
@@ -172,8 +197,20 @@
               / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
               /   %h5.normal-text.link-text Học thử miễn phí
             .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
-              %a.link-text{:href => ""}
+              %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                 %h5.normal-text.link-text Góp ý
+              #complete-dialog.modal.fade{:tabindex => "-1"}
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h4.modal-title Góp ý 
+                    .modal-body
+                      %form
+                        %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                    .modal-footer
+                      %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                      %button.btn{"data-dismiss" => "modal"} Đóng
       .row.no-margin.detail-list-info{:style => 'margin: 10px 0 25px 0 !important'}
         .col-xs-7.courses.no-padding
           .row.no-margin
@@ -326,8 +363,11 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
@@ -474,8 +514,21 @@
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
                     .col-xs-8.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý
+                      #complete-dialog.modal.fade{:tabindex => "-1"}
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                              %h4.modal-title Góp ý 
+                            .modal-body
+                              %form
+                                %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                            .modal-footer
+                              %button.btn
+                                %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                                %button.btn{"data-dismiss" => "modal"} Đóng
                 - else
                   - if @course.price == 0
                     .col-xs-8.no-padding
@@ -512,8 +565,20 @@
                       /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /      %h5.normal-text.link-text Học thử miễn phí
                     .col-xs-8.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý
+                      #complete-dialog.modal.fade{:tabindex => "-1"}
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                              %h4.modal-title Góp ý 
+                            .modal-body
+                              %form
+                                %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                            .modal-footer
+                              %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                              %button.btn{"data-dismiss" => "modal"} Đóng
               - else
                 - if @course.price == 0
                   .col-xs-8.no-padding
@@ -537,8 +602,20 @@
                     / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                     /   %h5.normal-text.link-text Học thử miễn phí
                   .col-xs-8.no-padding
-                    %a.link-text{:href => ""}
+                    %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                       %h5.normal-text.link-text Góp ý
+                    #complete-dialog.modal.fade{:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                            %h4.modal-title Góp ý 
+                          .modal-body
+                            %form
+                              %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                          .modal-footer
+                            %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                            %button.btn{"data-dismiss" => "modal"} Đóng
         .col-xs-4.no-padding{:style => 'border-top:1px solid #cccccc'}
           .detail-list-info
             .row.no-margin
@@ -697,8 +774,11 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
@@ -838,7 +918,7 @@
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
                       .col-sm-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                   - else
                     - if @course.price == 0
@@ -884,7 +964,7 @@
                         /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /     %h5.normal-text.link-text Học thử miễn phí
                       .col-sm-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
@@ -909,8 +989,20 @@
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
                     .col-sm-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý
+                      #complete-dialog.modal.fade{:tabindex => "-1"}
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                              %h4.modal-title Góp ý 
+                            .modal-body
+                              %form
+                                %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                            .modal-footer
+                              %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                              %button.btn{"data-dismiss" => "modal"} Đóng
           .col-sm-5.no-padding{:style => 'border-top:1px solid #cccccc'}
             .detail-list-info
               .row.no-margin
@@ -1070,8 +1162,11 @@
           .col-sm-12.no-padding
             .row.no-margin.discussion-top
               .col-sm-1.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-sm-10
@@ -1215,7 +1310,7 @@
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
                       .col-md-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                   - else
                     - if @course.price == 0
@@ -1261,7 +1356,7 @@
                         /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /     %h5.normal-text.link-text Học thử miễn phí
                       .col-md-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
@@ -1286,8 +1381,20 @@
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
                     .col-md-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý
+                      #complete-dialog.modal.fade{:tabindex => "-1"}
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                              %h4.modal-title Góp ý 
+                            .modal-body
+                              %form
+                                %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                            .modal-footer
+                              %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                              %button.btn{"data-dismiss" => "modal"} Đóng
             .detail-list-info
               .row.no-margin
                 .col-md-4.no-padding
@@ -1450,8 +1557,11 @@
               .col-md-12.no-padding
                 .row.no-margin.discussion-top
                   .col-md-2.no-padding
-                    - if !user.avatar.blank?
-                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - if !user.blank?
+                      - if !user.avatar.blank?
+                        = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                      - else
+                        = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                     - else
                       = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-md-10
@@ -1607,7 +1717,7 @@
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
                       .col-lg-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                   - else
                     - if @course.price == 0
@@ -1653,7 +1763,7 @@
                         /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /     %h5.normal-text.link-text Học thử miễn phí
                       .col-lg-12.no-padding
-                        %a.link-text{:href => ""}
+                        %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
                 - else
                   - if @course.price == 0
@@ -1678,8 +1788,20 @@
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
                     .col-lg-12.no-padding
-                      %a.link-text{:href => ""}
+                      %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý
+                      #complete-dialog.modal.fade{:tabindex => "-1"}
+                        .modal-dialog
+                          .modal-content
+                            .modal-header
+                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                              %h4.modal-title Góp ý 
+                            .modal-body
+                              %form
+                                %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+                            .modal-footer
+                              %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+                              %button.btn{"data-dismiss" => "modal"} Đóng
             .detail-list-info
               .row.no-margin
                 .col-lg-4.no-padding
@@ -1866,8 +1988,11 @@
               .col-lg-12.no-padding
                 .row.no-margin.discussion-top
                   .col-lg-2.no-padding
-                    - if !user.avatar.blank?
-                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - if !user.blank?
+                      - if !user.avatar.blank?
+                        = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                      - else
+                        = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                     - else
                       = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-lg-10
