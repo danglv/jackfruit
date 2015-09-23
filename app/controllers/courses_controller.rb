@@ -367,7 +367,7 @@ class CoursesController < ApplicationController
   end
 
   def add_discussion
-    course_id = params[:course_id]
+    course_id = params[:id]
     curriculum_id = params[:curriculum_id]
     title = params[:title]
     description = params[:description]
@@ -378,27 +378,26 @@ class CoursesController < ApplicationController
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
     end
-    curriculum = @course.curriculums.where(id: curriculum_id).first
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
     discussion = nil
     if parent_discussion_obj.blank?
-      discussion = @course.discussions.create(
+      discussion = @course.discussions.new(
         title: title,
         description: description
       )
+      discussion.course = @course
     else
-      discussion = parent_discussion_obj.child_discussions.create(
-        title: title,
-        description: description,
-        parent_discussion: parent_discussion
+      discussion = parent_discussion_obj.child_discussions.new(
+        description: description
       )
+      discussion.parent_discussion = parent_discussion_obj if !parent_discussion_obj.blank?
     end
     
-    discussion.user = current_user
-    discussion.curriculum = curriculum if !curriculum.blank?
+    discussion.user = current_user 
+    discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
-    if @course.save
-      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar}
+    if discussion.save
+      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
       return
     else
       render json: {message: "Có lỗi xảy ra"}

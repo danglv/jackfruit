@@ -141,7 +141,7 @@
           %li
             %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
           %li
-            %a.btn.btn-primary#lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
+            %a.btn.btn-primary.lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
         .row.no-margin.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
           - lecture_discussions.reverse.each do |discussion|
@@ -170,7 +170,8 @@
                       .col-md-11.col-lg-11.no-padding.child-item-main
                         - @user = User.where(:id => child_discussion.user_id).first
                         %ul.child-item-title
-                          %li.bold #{@user.name} 
+                          - if @user
+                            %li.bold #{@user.name} 
                           %li đã đăng 1 thảo luận - 2 tháng trước 
                         %p.child-item-content
                           #{child_discussion.description}
