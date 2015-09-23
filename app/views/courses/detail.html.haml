@@ -1841,10 +1841,10 @@
         %ul.menu-fixed-right
           %li
             - if @course.price == 0
-              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:0 15px'}
+              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:5px 15px'}
                 Bắt đầu học ngay
             - else 
-              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:0 15px'}
+              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:5px 15px'}
                 Mua khóa học
           %li
             - if @course.price == 0
