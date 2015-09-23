@@ -112,6 +112,19 @@ Rails.application.routes.draw do
       post :update
     end
   end
+
+  resources :category, only: %w[] do
+    collection do
+      # API for kelley
+      post :create
+      
+    end
+
+    member do
+      # API for kelley
+      post :update
+    end
+  end
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'  
