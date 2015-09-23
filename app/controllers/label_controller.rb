@@ -1,6 +1,6 @@
 class LabelController < ApplicationController
 
-  # POST: API for kelley
+  # POST: API create label for kelley
   def create
     name = params[:name]
     description = params[:description]
@@ -15,6 +15,30 @@ class LabelController < ApplicationController
 
       label = Label.new(_id: label_id, name: name, description: description)
 
+
+      if label.save
+        render json: {message: "success!"}
+        return
+      else
+        render json: {message: "Không lưu được data!"}, status: :unprocessable_entity
+        return
+      end
+    end
+  end
+
+  # POST: API update label for kelley
+  def update
+    name = params[:name]
+    description = params[:description]
+    label_id = params[:id]
+    label = Label.where(id: label_id).first
+
+    if label.blank?
+      render json: {message: "label_id không đúng!"}, status: :unprocessable_entity
+      return
+    else
+      label.name = name unless name.blank?
+      label.description = description unless description.blank?
 
       if label.save
         render json: {message: "success!"}
