@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
     
     if !uri.query.blank?
       params = URI::decode_www_form(uri.query).to_h
-      course_id = params["tcode"]
+      course_id = params["course_id"]
     end
 
     if ((resource.is_a? User) && !course_id.blank?)
