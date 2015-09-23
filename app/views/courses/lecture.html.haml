@@ -196,7 +196,6 @@
             %textarea.form-control.note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
             %input.owned_course_id{:type => "hidden", :value => "#{@owned_course.id}"}
             %input.owned_lecture_id{:type => "hidden", :value => "#{@owned_lecture._id}"}
-        - binding.pry
         - @owned_lecture.notes.each do |note|
           .row.no-margin
             %span= "#{note.time}"
