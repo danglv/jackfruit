@@ -46,7 +46,7 @@ $(document).ready(function () {
 $(document).ajaxError(function (e, xhr, settings) {
   if (xhr.status == 401) {
     var course_id = gup('course_id', settings['url'])
-    window.location.replace("/users/sign_in?tcode=" + course_id)
+    window.location.replace("/users/sign_in?course_id=" + course_id)
   }
 });
 
