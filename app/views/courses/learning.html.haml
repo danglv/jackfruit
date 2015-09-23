@@ -138,14 +138,14 @@
             .row.no-margin.list-discussion
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
-                - @user = User.where(:id => discussion.user_id).first
+                - user = User.where(:id => discussion.user_id).first
                 - relative_time = TimeHelper.relative_time(discussion.created_at)
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                     %i.fa.fa-smile-o
                   .col-md-11.col-lg-11.no-padding.discussion-item-main
                     %ul.discussion-item-title
-                      %li.bold #{@user.name}
+                      %li.bold #{user.name} 
                       - if !curriculum.blank?
                         %li đã đăng 1 thảo luận trong 
                         = succeed "" do
@@ -172,7 +172,7 @@
                           .col-md-11.col-lg-11.no-padding.child-item-main
                             - @user = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
-                              %li.bold #{@user.name} 
+                              %li.bold #{user.name} 
                               %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
                             %p.child-item-content
                               #{child_discussion.description}
