@@ -79,6 +79,30 @@ $(document).ready(function () {
 
   });
 
+  $(".btn-submit-report").click(function (){
+    var course_id = $(".course_id").val();
+    var content = $(".txt-report-content").val();
+    var type = "other"
+    if content == "" {
+      return;
+    }
+    var params = {
+      'type' : type,
+      'course_id': course_id,
+      'content' : content
+    }
+
+    var URL = 'http://' + window.location.host + '/support/send_report';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          console.log(msg)
+        }
+      });
+  });
+
   $(".submit-cod-code").on("click", function () {
 
     var parent = $($(this).parent()).parent();
