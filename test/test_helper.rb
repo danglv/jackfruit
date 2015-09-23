@@ -8,7 +8,8 @@ require "rack_session_access/capybara"
 
 ## Comment this when using Chrome/Firefox
 require 'capybara/poltergeist'
-require "minitest/reporters"
+require 'minitest/reporters'
+require 'webmock/minitest'
 
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
@@ -23,6 +24,8 @@ Minitest::Reporters.use!(
 # require "minitest/pride"
 
 class ActiveSupport::TestCase
+  WebMock.disable_net_connect!(allow_localhost: true)
+
   # Rake::Task["db:test:prepare"].invoke
   # ActiveRecord::Migration.check_pending!
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -40,15 +43,15 @@ class ActiveSupport::TestCase
 
   ## Test with phantomjs
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {js_errors: false, phantomjs_options:['--proxy-type=none'], timeout:180})
+    Capybara::Poltergeist::Driver.new(app,
+      {
+        js_errors: false,
+        phantomjs_options:['--proxy-type=none'],
+        timeout:180
+      }
+    )
   end
   Capybara.default_driver = :poltergeist
-
-  ## Test with phantomjs and debug mode enabled
-  # Capybara.register_driver :poltergeist_debug do |app|
-  #   Capybara::Poltergeist::Driver.new(app, :inspector => true)
-  # end
-  # Capybara.default_driver = :poltergeist_debug
 
   Rake::Task["db:test:load"].invoke
 end
