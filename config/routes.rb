@@ -99,6 +99,13 @@ Rails.application.routes.draw do
       post :index
     end
   end
+
+  resources :label, only: %w[] do
+    collection do
+      # API for kelley
+      post :create
+    end
+  end
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'  
