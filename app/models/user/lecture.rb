@@ -8,5 +8,5 @@ class User::Lecture
   # belongs_to :curriculum, class_name: "Course::Curriculum"
   embedded_in :course, class_name: "User::Course"
   embeds_many :notes, class_name: "User::Note"
-
+  accepts_nested_attributes_for :notes
 end
