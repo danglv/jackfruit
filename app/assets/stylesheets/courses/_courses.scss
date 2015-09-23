@@ -95,12 +95,13 @@
         }
       }
     }
-    &-price {
+    &-price-text {
       font-weight: bold;
-      color: #44ba31;
+      color: #e75050;
+      font-size: 44px;
       margin: 10px 0 !important;
       &.free {
-        color: #ff4444 !important;
+        color: #e75050;
       }
     }
   }
@@ -108,15 +109,20 @@
     margin: 10px 0;
   }
   .buy-button, .learning-button {
-    width: 100%;
+    width: auto;
+    height: 50px;
+    font-size: 24px;
+    padding: 10px 15px;
     font-weight: 400;
     text-transform: none;
-    padding-left: 0;
-    padding-right: 0;
   }
   .pending-button {
-    width: 100%;
+    width: auto;
+    height: 50px;
+    font-size: 24px;
+    padding: 10px 15px;
     font-weight: 400;
+    text-transform: none;
     background-color: #ffbb33 !important;
     color: #fff !important;
   }
@@ -154,7 +160,7 @@
   .short_description {
     width: 100%;
     line-height: 24px;
-    height: 180px;
+    height: 155px;
     overflow: hidden;
   }
   .long_description {
