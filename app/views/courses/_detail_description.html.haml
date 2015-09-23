@@ -1,26 +1,34 @@
 / description
 - if @course['description'].count > 1
-	%h5= @course['description'].first
-	- (1..@course['description'].count-1).each do |i|
-		%p= @course['description'][i]
+  .description-first.short_description
+    %h5
+      %b= @course['description'].first
+    - (1..@course['description'].count-1).each do |i|
+      %p= @course['description'][i]
+  .col-xs-12.no-padding{:style => "margin: 10px 0 30px 0"}
+    %a.link-text.load-more{:style => "cursor: pointer"}
+      %b Xem chi tiết
 /requirement
 - if @course['requirement'].count > 1
-	%h5= @course['requirement'].first
-	%ul{:style => "list-style: none"}
-		- (1..@course['requirement'].count-1).each do |i|
-			%li
-				%p= @course['requirement'][i]
+  %h5
+    %b= @course['requirement'].first
+  %ul{:style => "list-style: none"}
+    - (1..@course['requirement'].count-1).each do |i|
+      %li
+        %p= @course['requirement'][i]
 /benefit
 - if @course['benefit'].count > 1
-	%h5= @course['benefit'].first
-	%ul{:style => "list-style: none"}
-		- (1..@course['benefit'].count-1).each do |i|
-			%li
-				%p= @course['benefit'][i]
+  %h5
+    %b= @course['benefit'].first
+  %ul{:style => "list-style: none"}
+    - (1..@course['benefit'].count-1).each do |i|
+      %li
+        %p= @course['benefit'][i]
 /audience
 - if @course['audience'].count > 1
-	%h5= @course['audience'].first
-	%ul{:style => "list-style: none"}
-		- (1..@course['audience'].count-1).each do |i|
-			%li
-				%p= @course['audience'][i]
+  %h5
+    %b= @course['audience'].first
+  %ul{:style => "list-style: none"}
+    - (1..@course['audience'].count-1).each do |i|
+      %li
+        %p= @course['audience'][i]

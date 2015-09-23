@@ -57,9 +57,9 @@
       .row.no-margin
         .col-xs-12.no-padding
           - if @course.price == 0
-            %h3.course-price.free.no-margin Miễn phí
+            %h3.course-price-text.free.no-margin Miễn phí
           - else
-            %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             - if @data['discount'] > 0
               %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
@@ -74,7 +74,7 @@
                   .col.xs-12.no-padding
                     %i.txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                   .col.xs-12.no-padding
-                    %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{} Kích hoạt mã COD
+                    %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
               .col-xs-6.no-padding
                 - if current_user.wishlist.include?(@course._id.to_s)
                   %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
@@ -209,11 +209,8 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-xs-12.no-padding
-          .description-content.short_description
+          .description-content
             = render 'detail_description', method: 'detail'
-        .col-xs-12.no-padding
-          %a.link-text.load-more{:style => "cursor: pointer;"}
-            %b Xem chi tiết
       .row.no-margin
         .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
@@ -414,9 +411,9 @@
           .row.no-margin
             .col-xs-12.no-padding
               - if @course.price == 0
-                %h3.course-price.free.no-margin Miễn phí
+                %h3.course-price-text.free.no-margin Miễn phí
               - else
-                %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                 - if @data['discount'] > 0
                   %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
@@ -430,7 +427,7 @@
                         .col.xs-10.no-padding
                           %input.form-control{:type => 'text', :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
                         .col-xs-8.no-padding
-                          %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px"} Kích hoạt mã COD
+                          %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                         .col-xs-2
                           - if current_user.wishlist.include?(@course._id.to_s)
                             %a.btn.btn-raised.btn-lg.wishlist-button.whislisted.no-text 
@@ -586,11 +583,8 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-xs-12.no-padding
-          .description-content.short_description
+          .d
             = render 'detail_description', method: 'detail'
-        .col-xs-12.no-padding
-          %a.link-text.load-more{:style => "cursor: pointer;"}
-            %b Xem chi tiết
       .row.no-margin
         .col-xs-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
@@ -789,9 +783,9 @@
             .row.no-margin
               .col-sm-12.no-padding
                 - if @course.price == 0
-                  %h3.course-price.free.no-margin Miễn phí
+                  %h3.course-price-text.free.no-margin Miễn phí
                 - else
-                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   - if @data['discount'] > 0
                     %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
@@ -802,10 +796,10 @@
                     - if @owned_course.payment_status == 'pending'
                       - if @payment.method == 'cod'
                         .cod-code-container.no-padding
-                          .col-sm-6.no-padding
+                          .col-sm-5.no-padding
                             %input.form-control{:placeholder => "Nhập mã COD tại đây", :type => "text", :style => "height: 48px",:payment_id => @payment.id}
                           .col-sm-6.no-padding
-                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px"} Kích hoạt mã COD
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                           .col-sm-12.no-padding
                             %i#txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                           .col-sm-5
@@ -961,11 +955,8 @@
           %h4.no-margin
             %b Mô tả về khóa học  
         .col-sm-12.no-padding
-          .description-content.short_description
+          .description-content
             = render 'detail_description', method: 'detail'
-        .col-sm-12.no-padding
-          %a.link-text.load-more{:style => "cursor: pointer;"}
-            %b Xem chi tiết
       .row.no-margin
         .col-sm-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
           %h4
@@ -1164,9 +1155,9 @@
             .row.no-margin
               .col-md-12.no-padding
                 - if @course.price == 0
-                  %h3.course-price.free.no-margin Miễn phí
+                  %h3.course-price-text.free.no-margin Miễn phí
                 - else
-                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   - if @data['discount'] > 0
                     %span.course-discount= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
@@ -1180,7 +1171,7 @@
                           .col-md-3.no-padding
                             %input.form-control{:type => 'text', :style => "height: 48px", :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
                           .col-xs-8.no-padding
-                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px; width: 100%"} Kích hoạt mã COD
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                           .col-md-6
                             - if current_user.wishlist.include?(@course._id.to_s)
                               %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
@@ -1342,11 +1333,8 @@
               %h4.no-margin
                 %b Mô tả về khóa học  
             .col-md-12.no-padding
-              .description-content.short_description
+              .description-content
                 = render 'detail_description', method: 'detail'
-            .col-md-12.no-padding
-              %a.link-text.load-more{:style => "cursor: pointer;"}
-                %b Xem chi tiết
           .row.no-margin
             .col-md-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %h4
@@ -1556,14 +1544,14 @@
             .row.no-margin
               .col-lg-12.no-padding
                 - if @course.price == 0
-                  %h3.course-price.free.no-margin Miễn phí
+                  %h3.course-price-text.free.no-margin Miễn phí
                 - else
                   - if @data['discount'] > 0
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@data['discount'], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @data['discount_ratio'].to_s + '%'
                   - else
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
 
             .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
               .col-lg-12.no-padding
@@ -1575,7 +1563,7 @@
                           .col-lg-4.no-padding
                             %input.form-control{:type => 'text', :style => "height: 48px", :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
                           .col-lg-6
-                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code{:style => "font-size: 16px; width: 100%"} Kích hoạt mã COD
+                            %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                           .col-lg-6
                             - if current_user.wishlist.include?(@course._id.to_s)
                               %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
@@ -1750,9 +1738,9 @@
                 Mua khóa học
           %li
             - if @course.price == 0
-              %h3.course-price.free Miễn phí
+              %h3.course-price-text.free Miễn phí
             - else
-              %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
     .container
       .row.no-margin
         .col-lg-8.no-padding
@@ -1761,11 +1749,8 @@
               %h4.no-margin
                 %b Mô tả về khóa học  
             .col-lg-12.no-padding
-              .description-content.short_description
+              .description-content
                 = render 'detail_description', method: 'detail'
-            .col-lg-12.no-padding
-              %a.link-text.load-more{:style => "cursor: pointer;"}
-                %b Xem chi tiết
           .row.no-margin
             .col-lg-12.no-padding{:style => 'border-bottom:1px solid #cccccc'}
               %h4
