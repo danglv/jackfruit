@@ -219,6 +219,7 @@ class CoursesController < ApplicationController
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
+    @owned_lecture = @owned_course.lectures[lecture_index.to_i]
     if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
