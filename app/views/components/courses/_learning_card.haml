@@ -1,5 +1,5 @@
 .learning-card
-  - @progress = if owned_course.lectures.count != 0 ? owned_course.lectures.where(:status => 2).count * 100/owned_course.lectures.count : 0
+  - @progress = owned_course.lectures.count != 0 ? owned_course.lectures.where(:status => 2).count * 100/owned_course.lectures.count : 0
   %a{:href => "/courses/#{course.alias_name}/learning"}
     .course-image.no-margin
       - if course.image != ""
