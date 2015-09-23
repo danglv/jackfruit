@@ -564,8 +564,7 @@ class PaymentController < ApplicationController
       @coupons = []
       if !@coupon_code.blank?
         @coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
+          response = RestClient.get("http://code.pedia.vn/coupons?coupon=#{coupon}")
           if JSON.parse(response)['return_value'].to_i > 0
             @discount += JSON.parse(response)['return_value'].to_f
             @coupons << coupon
