@@ -23,9 +23,9 @@
               %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
             .form-control-wrapper 
               %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
-          - if flash[:alert]
-            %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
-              = flash[:alert]
+            - if flash[:alert]
+              %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
+                = flash[:alert]
             = hidden_field_tag :authenticity_token, form_authenticity_token
             %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng ký'}
         %p.forgot-password-link

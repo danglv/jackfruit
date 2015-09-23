@@ -79,7 +79,8 @@ class CoursesController < ApplicationController
 
     @other_category = Category.where(
       :parent_category_id => @category.parent_category_id,
-      :id.ne => @category_id
+      :id.ne => @category_id,
+      :enabled => true
       )
   end
 
