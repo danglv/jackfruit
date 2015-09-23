@@ -326,8 +326,11 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
@@ -697,8 +700,11 @@
           .col-xs-12.no-padding
             .row.no-margin.discussion-top
               .col-xs-2.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-xs-10
@@ -1070,8 +1076,11 @@
           .col-sm-12.no-padding
             .row.no-margin.discussion-top
               .col-sm-1.no-padding
-                - if !user.avatar.blank?
-                  = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
                   = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .col-sm-10
@@ -1450,8 +1459,11 @@
               .col-md-12.no-padding
                 .row.no-margin.discussion-top
                   .col-md-2.no-padding
-                    - if !user.avatar.blank?
-                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - if !user.blank?
+                      - if !user.avatar.blank?
+                        = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                      - else
+                        = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                     - else
                       = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-md-10
@@ -1866,8 +1878,11 @@
               .col-lg-12.no-padding
                 .row.no-margin.discussion-top
                   .col-lg-2.no-padding
-                    - if !user.avatar.blank?
-                      = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                    - if !user.blank?
+                      - if !user.avatar.blank?
+                        = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                      - else
+                        = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                     - else
                       = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                   .col-lg-10
