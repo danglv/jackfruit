@@ -366,7 +366,6 @@ class CoursesController < ApplicationController
   end
 
   def add_discussion
-    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     course_id = params[:id]
     curriculum_id = params[:curriculum_id]
     title = params[:title]
@@ -381,23 +380,23 @@ class CoursesController < ApplicationController
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
     discussion = nil
     if parent_discussion_obj.blank?
-      discussion = @course.discussions.create(
+      discussion = @course.discussions.new(
         title: title,
         description: description
       )
       discussion.course = @course
     else
-      discussion = parent_discussion_obj.child_discussions.create(
+      discussion = parent_discussion_obj.child_discussions.new(
         description: description
       )
-      discussion.discussion = parent_discussion_obj if !parent_discussion_obj.blank?
+      discussion.parent_discussion = parent_discussion_obj if !parent_discussion_obj.blank?
     end
     
     discussion.user = current_user 
     discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
     if discussion.save
-      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar}
+      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
       return
     else
       render json: {message: "Có lỗi xảy ra"}

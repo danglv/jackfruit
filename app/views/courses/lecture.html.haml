@@ -144,7 +144,6 @@
             %a.btn.btn-primary.lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
         .row.no-margin.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
-          - binding.pry
           - lecture_discussions.reverse.each do |discussion|
             - @user = User.where(:id => discussion.user_id).first
             - relative_time = TimeHelper.relative_time(discussion.created_at)
