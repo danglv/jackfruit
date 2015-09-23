@@ -142,13 +142,13 @@ $(document).ready(function () {
   });
 
   $(".load-more").click(function () {
-    if ($(".description-content").hasClass("short_description")) {
-      $(".description-content").removeClass("short_description");
-      $(".description-content").addClass("long_description");
+    if ($(".description-first").hasClass("short_description")) {
+      $(".description-first").removeClass("short_description");
+      $(".description-first").addClass("long_description");
       $(this).text("Thu gọn");
     } else {
-      $(".description-content").removeClass("long_description");
-      $(".description-content").addClass("short_description");
+      $(".description-first").removeClass("long_description");
+      $(".description-first").addClass("short_description");
       $(this).text("Xem chi tiết");
     };
     
