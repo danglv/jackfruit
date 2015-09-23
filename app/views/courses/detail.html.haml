@@ -73,13 +73,13 @@
             %h3.course-price-text.free.no-margin Miễn phí
           - else
             - if @sale_info[:discount_price] > 0
-              %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
               - if @sale_info[:coupon_code]
                 %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
             - else
-              %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               - if @sale_info[:error]
                 %span.error= @sale_info[:error]
       .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
@@ -418,13 +418,13 @@
                 %h3.course-price-text.free.no-margin Miễn phí
               - else
                 - if @sale_info[:discount_price] > 0
-                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
                   - if @sale_info[:coupon_code]
                     %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
                 - else
-                  %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                  %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                   - if @sale_info[:error]
                     %span.error= @sale_info[:error]
           .row.no-margin
@@ -785,13 +785,13 @@
                   %h3.course-price-text.free.no-margin Miễn phí
                 - else
                   - if @sale_info[:discount_price] > 0
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
                     - if @sale_info[:coupon_code]
                       %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
                   - else
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     - if @sale_info[:error]
                       %span.error= @sale_info[:error]
             .row.no-margin
@@ -1155,13 +1155,13 @@
                   %h3.course-price-text.free.no-margin Miễn phí
                 - else
                   - if @sale_info[:discount_price] > 0
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
                     - if @sale_info[:coupon_code]
                       %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
                   - else
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     - if @sale_info[:error]
                       %span.error= @sale_info[:error]
             .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
@@ -1538,13 +1538,13 @@
                   %h3.course-price-text.free.no-margin Miễn phí
                 - else
                   - if @sale_info[:discount_price] > 0
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:discount_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
                     - if @sale_info[:coupon_code]
                       %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
                   - else
-                    %h3.course-price.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                    %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     - if @sale_info[:error]
                       %span.error= @sale_info[:error]
             .row.no-margin{:style => 'border-bottom:1px solid #cccccc'}
