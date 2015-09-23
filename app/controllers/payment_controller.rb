@@ -7,7 +7,6 @@ class PaymentController < ApplicationController
   before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   # GET
   def index
-    sale_services = Sale::Services.new
     payment = Payment.where(
       :course_id => @course.id,
       :user_id => current_user.id,
@@ -20,12 +19,12 @@ class PaymentController < ApplicationController
     unless payment.blank?
       redirect_to :back
     else
-      @data = sale_services.get_price(@course)
+      @data = Sale::Services.get_price({ course: @course })
       @payment = Payment.new(
         course_id: @course.id,
         user_id: current_user.id,
         status: Constants::PaymentStatus::CREATED,
-        money: @data['discount'] > 0 ? @data['discount'] : @course.price
+        money: @data[:discount_price] > 0 ? @data[:discount_price] : @course.price
       )
       # @payment.save
     end
@@ -34,7 +33,6 @@ class PaymentController < ApplicationController
   # GET, POST
   # Cash-on-delivery
   def cod
-    sale_services = Sale::Services.new
     if request.method == 'POST'
       name = params[:name]
       email = params[:email]
@@ -43,7 +41,7 @@ class PaymentController < ApplicationController
       city = params[:city]
       district = params[:district]
 
-      data = @discount == 0 ? sale_services.get_price(@course) : false
+      data = @discount == 0 ? Sale::Services.get_price({ course: @course }) : false
 
       unless data
         payment = Payment.find_or_initialize_by(
@@ -168,8 +166,7 @@ class PaymentController < ApplicationController
       end
 
       if payment_service_provider == 'baokim'
-        sale_services = Sale::Services.new
-        data = @discount > 0 ? sale_services.get_price(@course) : false
+        data = @discount > 0 ? Sale::Services.get_price({ course: @course }) : false
 
         payment.coupons = @coupons
         payment.money = !data ? @price : data['discount']
@@ -511,8 +508,7 @@ class PaymentController < ApplicationController
     end
 
     def process_card_payment
-      sale_services = Sale::Services.new
-      data = @discount > 0 ? sale_services.get_price(@course) : false
+      data = @discount > 0 ? Sale::Services.get_price({ course: @course }) : false
       price = !data ? @price : data['discount']
 
       if current_user.money > price
