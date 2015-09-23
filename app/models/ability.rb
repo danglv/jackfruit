@@ -10,6 +10,8 @@ class Ability
         can :manage, :all
         can :access, :rails_admin # needed to access RailsAdmin
         can :dashboard            # dashboard access
+        # includes
+        can :history, :all
       else
       end
   end

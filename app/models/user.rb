@@ -64,18 +64,16 @@ class User
   field :biography,type: String, default: ""
   # Language
   field :lang,type: String, default: "vi"
-  # Links 
-  # field :links, type: Hash, default: {
-  #   website: "http://",
-  #   google_plus: "https://plus.google.com/",
-  #   twitter_profile: "http://twitter.com/",
-  #   facebook_profile: "http://www.facebook.com/",
-  #   linkedin_profile: "http://www.linkedin.com/",
-  #   youtube_profile: "http://www.youtube.com/"
-  # }
-  # Avatar
 
-  #
+  # Links 
+  field :links, type: Hash, default: {
+    website: "",
+    google: "",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    youtube: ""
+  }
 
   # Money
   field :money, type: Integer, default: 0
