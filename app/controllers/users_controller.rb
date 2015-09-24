@@ -255,6 +255,10 @@ class UsersController < ApplicationController
   end
 
   def view_profile
+    owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
+    owned_course_ids_ignore_wishlist = owned_course_ids - current_user.wishlist
+
+    @owned_course = current_user.courses.in(:course_id => owned_course_ids_ignore_wishlist)
     @owned_wishlist = Course.in(:id => current_user.wishlist)
   end
 

@@ -49,7 +49,7 @@
     %section.profile-course{:style => 'padding-top:20px'}
       .container.tab-content
         #studying.tab-pane.fade.active.in
-          - @current_user.courses.each do |course|
+          - @owned_course.each do |course|
             = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
         #favorite.tab-pane.fade
           - if !@owned_wishlist.blank?
