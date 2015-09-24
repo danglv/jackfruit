@@ -71,28 +71,35 @@
 
     var course_id = $(".course_id").val();
     var name = $(".name-input").val();
-    var phone = $(".phone-input").val();
+    var mobile = $(".mobile-input").val();
 
     var params = {
       'course_id': course_id,
       'user_id': user_id,
       'name': name,
-      'phone': phone,
+      'mobile': mobile,
       'type' : 'course_page_support',
       'msg' : 'Có contact cần hỗ trợ'
     }
 
     var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
-    $.ajax({
-        type: 'POST',
+    var request = $.ajax({
         url: URL,
-        data: params,
-        success: function(msg){
-          $(".tele-sales-content").css("display", "none");
-          $(".tele-sales-content.success").css("display", "block");
-        },
-        timeout: 2000
-      });
+        type: "post",
+        data: params
+    });
+
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        $(".tele-sales-content").css("display", "none");
+        $(".tele-sales-extend .success").css("display", "block");
+    });
+
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // Log the error to the console
+    });
   });
 
 })(jQuery);
