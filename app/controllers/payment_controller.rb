@@ -296,11 +296,11 @@ class PaymentController < ApplicationController
         render json: {message: "Thành công!"}
         return
       else
-        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing
+        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :unprocessable_entity
         return
       end
     else
-      render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
+      render json: {message: "Mã COD code không hợp lệ!"}, status: :unprocessable_entity
       return
     end    
   end
@@ -425,11 +425,28 @@ class PaymentController < ApplicationController
       :money => money
     )
 
-    user = User.find(user_id)
-    course = Course.find(course_id)
+    user = User.where(id: user_id).first
+    course = Course.where(id: course_id).first
+
+    if course.blank? || user.blank?
+      Tracking.create_tracking(
+        :type => Constants::TrackingTypes::PAYMENT,
+        :content => {
+          :message => "user_id hoặc course_id truyền lên không đúng!",
+          :status => "fail" },
+        :ip => request.remote_ip,
+        :platform => {},
+        :device => {},
+        :version => Constants::AppVersion::VER_1,
+        :str_identity => user_id.to_s
+      )
+
+      render json: {message: "user_id hoặc course_id truyền lên không đúng!"}, status: :unprocessable_entity
+      return
+    end
+
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
-
     course.curriculums.where(
       :type => Constants::CurriculumTypes::LECTURE
     ).map{ |curriculum|
@@ -445,7 +462,19 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}, status: :missing
+      Tracking.create_tracking(
+        :type => Constants::TrackingTypes::PAYMENT,
+        :content => {
+          :message => payment.errors.full_messages.join(", "),
+          :status => "fail" },
+        :ip => request.remote_ip,
+        :platform => {},
+        :device => {},
+        :version => Constants::AppVersion::VER_1,
+        :str_identity => user_id.to_s
+      )
+
+      render json: {message: payment.errors.full_messages.join(", ")}, status: :unprocessable_entity
       return
     end
   end
