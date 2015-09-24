@@ -58,12 +58,18 @@ module Sale
   class Services::Coupon
     GET_API = "http://code.pedia.vn/coupon"
 
-    def self.request_by_code(coupon_code)
+    # Give course's id if want to specify coupon of the course
+    def self.request_by_code(coupon_code, course_id = nil)
       RestClient.get("#{GET_API}?coupon=#{coupon_code}"){ |response, request, result, &block|
         data = JSON.parse(response)
         case result.code
         when "200"
-          return true, data
+          # if course_id is given but not match with coupon's course_id
+          if course_id && course_id != data['course_id']
+            return false, "Mã coupon #{coupon_code} không áp dụng cho khóa học"
+          else
+            return true, data
+          end
         else
           return false, "Mã coupon #{coupon_code} không hợp lệ" # data['message']
         end
