@@ -99,7 +99,10 @@
       }
     }
     .payment-main-menthod {
+      @extend .row;
       display: block;
+      text-align: center;
+      margin: 0;
     }
   }
 }
@@ -119,8 +122,53 @@
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-sm-column(5);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-menthod {
+        @include make-sm-column(7);
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+      }
+    }
+  }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-md-column(4);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-menthod {
+        @include make-md-column(8);
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+      }
+    }
+  }
 }
 @media (min-width: 1200px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-lg-column(4);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-menthod {
+        @include make-lg-column(8);
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+      }
+    }
+  }
 }
