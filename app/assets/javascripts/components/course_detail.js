@@ -79,16 +79,28 @@
       'name': name,
       'mobile': mobile,
       'type' : 'course_page_support',
-      'msg' : 'Có contact cần hỗ trợ',
+      'msg' : name + ' cần hỗ trợ tại khóa học ' + course_name,
       // 'payment_id'
     }
-    $.ajax({
-      url: "http://flow.pedia.vn:8000/notify/course_page_support/create",
-      crossDomain: true,
-      type: 'POST'
-      data: params,
+
+    var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
+    var request = $.ajax({
+        url: URL,
+        type: "post",
+        data: params,
     });
 
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        $(".tele-sales-content").css("display", "none");
+        $(".tele-sales-extend .success").css("display", "block");
+    });
+
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // Log the error to the console
+    });
   });
 
 })(jQuery);
