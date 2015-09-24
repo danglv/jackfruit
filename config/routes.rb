@@ -96,6 +96,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sales do
+    collection do
+      get 'courses/combo/:combo_code', to: 'sales#combo_courses'
+    end
+  end
+
   resources :settings, only: %w[] do
     member do
     end

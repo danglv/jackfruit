@@ -129,4 +129,8 @@ class Course
       self.read_attribute(:num_rate)
     end
   end
+
+  def free?
+    self.price == 0
+  end
 end

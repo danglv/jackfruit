@@ -23,4 +23,12 @@ class User::Course
     self.type == Constants::OwnedCourseTypes::PREVIEW
   end
 
+  def payment_success?
+    self.payment_status == Constants::PaymentStatus::SUCCESS
+  end
+
+  def payment_pending?
+    self.payment_status == Constants::PaymentStatus::PENDING
+  end
+
 end

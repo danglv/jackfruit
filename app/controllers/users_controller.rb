@@ -131,44 +131,71 @@ class UsersController < ApplicationController
   end
 
   def select_course
-    is_preview = params[:type] == "preview"
+    expect_preview = params[:type] == "preview" # User wants to preview course
+    # User wants to learn course
+    expect_learning = ["learning", "learnning"].include? params[:type]
+    # It should be
+    # expect_learning = params[:type] == "learning"
+    # But there is a mistake of naming, learnning instead of learning
     owned_course = current_user.courses.where(course_id: @course.id).first
-    if @course.price == 0 || is_preview || (!owned_course.blank? ? (owned_course.payment_status == Constants::PaymentStatus::SUCCESS) : false)
-      # Haven't had course
-      if owned_course.blank?
-        owned_course = current_user.courses.create(course_id: @course.id, created_at: Time.now())
-        UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
-
-        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-
-        if is_preview
-          owned_course.type = Constants::OwnedCourseTypes::PREVIEW
-          owned_course.expired_at = Time.now + Constants::PreviewMode::TIME
-        else
-          owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    if owned_course # If user already has owned course
+      # Check owned course type
+      if owned_course.preview? # Preview course
+        if expect_learning # If user wants to buy preview course
+          redirect_to payment_url_for(@course, params)
+        else # User want to preview course
+          if owned_course.preview_expired?
+            redirect_to root_url + "courses/#{@course.alias_name}/detail"
+          else
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+          end
         end
+      else # Learning course
+        # Check payment status
+        if owned_course.payment_success? # Payment success then go to learning page
+          redirect_to root_url + "courses/#{@course.alias_name}/learning"
+          return
+        else # Payment is not success then go to payment page
+          redirect_to root_url + "courses/#{@course.alias_name}/detail"
+        end
+      end
+    else # User hasn't had owned course yet
+      # Check course price
+      if @course.free? || expect_preview # If course is free or user wants to preview this course
+        # We have to create owned course for the user
+        # Set course status
+        if expect_preview
+          # Preview course should has no payment status
+          payment_status = Constants::PaymentStatus::RESERVE
+          type = Constants::OwnedCourseTypes::PREVIEW
+          expired_at = Time.now + Constants::PreviewMode::TIME
+        else
+          payment_status = Constants::PaymentStatus::SUCCESS
+          type = Constants::OwnedCourseTypes::LEARNING
+          expired_at = nil
+        end
+        owned_course = current_user.courses.create(
+          :course_id => @course.id,
+          :created_at => Time.now(),
+          :payment_status => payment_status,
+          :type => type,
+          :expired_at => expired_at)
 
         init_lectures_for_owned_course(owned_course, @course)
 
+        UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
         if current_user.save
-          is_preview ?
+          # If course is preview then skip select page and go to learning page
+          expect_preview ?
             (redirect_to root_url + "courses/#{@course.alias_name}/learning") :
             (redirect_to root_url + "courses/#{@course.alias_name}/select")
         else
-          redirect_to root_url + "courses"
-        end
-      # Already has course
-      else
-        if owned_course.preview? && owned_course.preview_expired?
           redirect_to root_url + "courses/#{@course.alias_name}/detail"
-        else
-          redirect_to root_url + "courses/#{@course.alias_name}/learning"
         end
+      else # Course is not free and want to learn this course then
+        # Just go to payment page
+        redirect_to payment_url_for(@course, params)
       end
-    else
-      url = root_url + "home/payment/#{@course.alias_name}"
-      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
-      redirect_to url
     end
   end
 
@@ -508,4 +535,9 @@ class UsersController < ApplicationController
       string.length >= min_length && string.length <= max_length
     end
 
+    def payment_url_for(course, params)
+      url = root_url + "home/payment/#{course.alias_name}"
+      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      return url
+    end
 end
