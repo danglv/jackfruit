@@ -27,6 +27,9 @@ class Course
   # role for course
   field :version, type: String, default: "test"
 
+  # Field for searching
+  field :searchable_content, type: String
+
   # fake_field
   field :fake_average_rating, type: Float, default: 4
   field :fake_students, type: Integer, default: 0
@@ -50,7 +53,27 @@ class Course
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
   validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 
-  before_save :process_rate
+  before_save :process_rate, :update_search_content
+
+  def update_search_content
+    name = self.name
+    alias_name = self.alias_name
+    desc = self.description.join(".")
+    user_name = self.user.name    
+    teacher_profile_obj = self.user.instructor_profile
+    teacher_profile_str = ""
+    
+    if teacher_profile_obj
+      teacher_profile_str += teacher_profile_obj.academic_rank +
+        teacher_profile_obj.major + teacher_profile_obj.function +
+        teacher_profile_obj.work_unit + teacher_profile_obj.description.join(".")
+    end
+
+    searchable_content = name + " " + alias_name +  " " + desc +  " " + user_name +  " " + teacher_profile_str
+    searchable_content = Utils.nomalize_string(searchable_content)
+
+    self.searchable_content = searchable_content.downcase.gsub(/[^a-zA-Z 0-9]/, " ")
+  end
 
   def process_rate
     rates = self.reviews.map(&:rate)
