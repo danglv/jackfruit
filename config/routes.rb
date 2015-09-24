@@ -18,8 +18,8 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
-      get '/:category_id', to: 'courses#list_course_featured'
-      get '/:category_id/all_courses', to: 'courses#list_course_all'
+      get '/:category_alias_name', to: 'courses#list_course_featured'
+      get '/:category_alias_name/all_courses', to: 'courses#list_course_all'
       get '/:alias_name/detail', to: 'courses#detail'
       get '/:alias_name/learning', to: 'courses#learning'
       get '/:alias_name/select', to: 'courses#select'

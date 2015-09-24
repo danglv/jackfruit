@@ -5,6 +5,7 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}/
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
+    %script{:src => "http://tracking.pedia.vn/client-api/js/spymaster.js", :type => "text/javascript"}
     = favicon_link_tag 'favicon_pedia.png'
     %title= help_get_title
     = stylesheet_link_tag    'application', media: 'all'
@@ -40,20 +41,6 @@
           }
       }
     = csrf_meta_tags
-    - if @is_experiment_tund.blank?
-      :javascript
-        function utmx_section(){}function utmx(){}(function(){var
-          k='105414125-1',d=document,l=d.location,c=d.cookie;
-          if(l.search.indexOf('utm_expid='+k)>0)return;
-          function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-          indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-          length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-          '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-          '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-          '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-          valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-          '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-        utmx('url','A/B');
   %body
     = yield
     = javascript_include_tag 'application'
@@ -64,12 +51,14 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
       - if current_user && current_user.id
         :javascript
-          ga('create', 'UA-65260176-1', {'userId': "#{current_user.id}"});
+          ga('create', 'UA-68038326-1', {'userId': "#{current_user.id}"});
           ga('send', 'pageview');
+          Spymaster.setup("Pedia", "beta", "#{current_user.id}");
       - else
         :javascript
-          ga('create', 'UA-65260176-1', 'auto');
+          ga('create', 'UA-68038326-1', 'auto');
           ga('send', 'pageview');
-
+          Spymaster.setup("Pedia", "beta");
