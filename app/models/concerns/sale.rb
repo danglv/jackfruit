@@ -26,8 +26,8 @@ module Sale
       if (coupon_code = data[:coupon_code])
         success, data = Coupon.request_by_code(coupon_code)
         if success
-          result[:discount_price] = data['discount'].to_f * course.price
-          result[:discount_ratio] = data['discount'].to_i
+          result[:discount_price] = data['discount'].to_f * course.price / 100
+          result[:discount_ratio] = data['discount'].to_f.ceil
           result[:coupon_code] = coupon_code
           result[:applied] = true
         else
