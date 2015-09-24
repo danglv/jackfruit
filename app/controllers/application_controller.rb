@@ -1,5 +1,6 @@
-
 class ApplicationController < ActionController::Base
+  include CoursesHelper
+
   before_filter :list_category, :store_location, :set_current_user, :get_banner
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -49,6 +50,11 @@ class ApplicationController < ActionController::Base
 
   # action index để điều hướng đến trang landing page
   def index
+    if current_user
+      redirect_to root_url + "courses"
+      return
+    end
+
     condition = {:enabled => true}
 
     if current_user
@@ -57,11 +63,10 @@ class ApplicationController < ActionController::Base
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8)
-    if current_user
-      redirect_to root_url + "courses"
-    end
+    @courses = Course.where(condition).where(:label_ids.in => ["featured"]).desc(:students).limit(8)
 
+    # Get sale info for courses
+    @sale_info = help_sale_info_for_courses @courses
   end
 
   def list_category

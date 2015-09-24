@@ -44,14 +44,16 @@
           %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
       // an hien tuy theo co promotion hay khong
       - if course.price != 0
-        .row.no-margin.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
+        - if @sale_info && sale_info = @sale_info[course.id]
+          .row.promotion-price
+            %span.promotion-badge
+              = help_show_currency sale_info[:discount_price]
+            %span.old-price
+              = help_show_currency course.price
+        - else
+          .row.no-margin.course-price= help_show_currency course.price
       - else
         .row.no-margin.course-price Miễn phí
-      / .row.promotion-price
-      /   %span.promotion-badge
-      /     1,000,000 VND
-      /   %span.old-price
-      /     3,000,000 VND
   .course-wishlist
     %a.wishlist-heart{:val => "#{course._id.to_s}"}
       %svg{:height => "18", :preserveAspectRatio => "xMidYMid", :viewBox => "0 0 20 18", :width => "20", :xmlns => "http://www.w3.org/2000/svg", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
