@@ -90,4 +90,19 @@ module ApplicationHelper
 	def help_show_currency(price)
 		number_to_currency(price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
 	end
+
+		def self.pagination(sources, page = 0, number_element_of_page = 5)
+    return {:objects => [], :current_page => page, :total => 0} if (sources.count == 0)
+    number_element_of_page = number_element_of_page == 0 ? 5 : number_element_of_page 
+    total = sources.count / number_element_of_page
+    elements = []
+    if page <= 0
+    	elements = sources[0..(number_element_of_page - 1)]
+    elsif page >= total
+    	elements = sources[((total - 1) * number_element_of_page)..sources.last]
+    else
+    	elements = sources[(page * number_element_of_page)..(((page+1) * number_element_of_page) - 1)]
+    end
+    return {:elements => elements, :current_page => page, :total => total}
+	end
 end
