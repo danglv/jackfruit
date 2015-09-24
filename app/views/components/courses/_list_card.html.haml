@@ -9,10 +9,6 @@
       .row.ellipsis-2lines.course-title.no-margin= course.name
       .row.ellipsis-2lines.course-description= course.sub_title
       .row.no-margin.course-bottom
-        - if course.price != 0
-          %span.dn-480.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
-        - else 
-          %span.dn-480.course-price Miễn phí 
         .rating-container
           %ul
             - (1..5).each do |i|
@@ -22,7 +18,14 @@
                 - else
                   %i.fa.fa-star.star{:val => i}
           %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
-        - if course.price != 0
-          %span.dn.db-480.course-price= number_to_currency(course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u") 
-        - else 
-          %span.dn.db-480.course-price Miễn phí 
+      - if course.price != 0
+        - if @sale_info && sale_info = @sale_info[course.id]
+          .row.promotion-price
+            %span.promotion-badge
+              = help_show_currency sale_info[:discount_price]
+            %span.old-price
+              = help_show_currency course.price
+        - else
+          .row.no-margin.course-price= help_show_currency course.price
+      - else
+        %span.dn.db-480.course-price Miễn phí
