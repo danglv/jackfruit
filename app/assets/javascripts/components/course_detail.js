@@ -62,8 +62,37 @@
   });
 
   $(".send-form-support").click(function () {
-    $(".tele-sales-content").css("display", "none");
-    $(".tele-sales-content.success").css("display", "block");
+
+    if (!$(".user_id").val()) {
+      var user_id = "";
+    } else {
+      var user_id = $(".user_id").val();
+    };
+
+    var course_id = $(".course_id").val();
+    var name = $(".name-input").val();
+    var phone = $(".phone-input").val();
+
+    var params = {
+      'course_id': course_id,
+      'user_id': user_id,
+      'name': name,
+      'phone': phone,
+      'type' : 'course_page_support',
+      'msg' : 'Có contact cần hỗ trợ'
+    }
+
+    var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          $(".tele-sales-content").css("display", "none");
+          $(".tele-sales-content.success").css("display", "block");
+        },
+        timeout: 2000
+      });
   });
 
 })(jQuery);

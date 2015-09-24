@@ -55,6 +55,8 @@
     z-index: 999;
     background-color: #fff;
     color: #212121;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
     .tele-sales-top {
       background-color: #e75050;
@@ -76,8 +78,7 @@
       height: 200px;
       text-align: center;
       input {
-        height: 40px;
-        line-height: 50px;
+        height: 35px;
       }
       h5 {
         line-height: 20px;
