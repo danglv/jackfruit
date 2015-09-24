@@ -84,4 +84,17 @@ module Sale
     end
   end
 
+  class Services::Combo
+    def self.request_courses_by_code(combo_code)
+      # Find a campain
+      campaign = Sale::Campaign.in_progress.where(
+        :'packages.code' => combo_code
+      ).first
+      if campaign
+        package = campaign.packages.where(:code => combo_code).first
+        return package.courses
+      end
+      return []
+    end
+  end
 end
