@@ -347,7 +347,7 @@ class UsersController < ApplicationController
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
-    time = params[:time]
+    time = params[:time].blank? ? "0:01" : params[:time]
     content = params[:content]
 
     if content.blank?
@@ -359,14 +359,10 @@ class UsersController < ApplicationController
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
     lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
-
     if (course && lecture)
-      note = lecture.notes.new(:time => time, :content => content)
-      note.lecture = lecture
-      if note.save
-        render json: User::NoteSerializer.new(note)
-        return
-      end
+      note = lecture.notes.create(:time => time, :content => content)
+      render json: User::NoteSerializer.new(note)
+      return
     end
     render json: {:message => 'Tạo note thất bại.'}, status: :unprocessable_entity
   end
@@ -431,7 +427,7 @@ class UsersController < ApplicationController
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
     lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
-
+    binding.pry
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
       if (!note.blank? ? note.delete : false)

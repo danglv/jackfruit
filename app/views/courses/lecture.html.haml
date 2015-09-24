@@ -193,12 +193,12 @@
         .row.no-margin
           %form.note
             %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
-            %textarea.form-control.note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
+            %textarea.form-control.input-note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
             %input.owned_course_id{:type => "hidden", :value => "#{@owned_course.id}"}
             %input.owned_lecture_id{:type => "hidden", :value => "#{@owned_lecture._id}"}
         - @owned_lecture.notes.each do |note|
-          .row.no-margin
-            %span= "#{note.time}"
-            %span= "#{note.content}"
+          = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin
           %a.btn.btn-primary{:href => "/users/note/download?course_id=#{@owned_course.id}&lecture_id=#{@owned_lecture.id}"} Tải ghi chú
+
+
