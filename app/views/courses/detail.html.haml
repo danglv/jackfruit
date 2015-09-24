@@ -1,7 +1,10 @@
 = render :partial => 'components/header/default'
+
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+%input.course_name{:type => "hidden", :value => "#{@course.name}"}
 - if !current_user.blank?
   %input.user_id{:type => "hidden", :value => "#{current_user._id}"}
+  %input.user_email{:type => "hidden", :value => "#{current_user.email}"}
 #complete-dialog.modal.fade{:tabindex => "-1"}
   .modal-dialog
     .modal-content
@@ -33,7 +36,7 @@
             %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
             %form
               %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
-              %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
+              %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
               %a.btn.btn-success.send-form-support{} Gửi đi
           .tele-sales-content.success
             %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.

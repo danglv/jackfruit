@@ -406,6 +406,30 @@ namespace :seeds do
     puts "so luong : #{@count}"
   end
 
+  desc "Thêm searchable_content field for courses"
+  task update_searchable_content: :environment do
+    Course.all.each_with_index  do |course|
+      name = course.name
+      alias_name = course.alias_name
+      desc = course.description.join(".")
+      user_name = course.user.name    
+      teacher_profile_obj = course.user.instructor_profile
+      teacher_profile_str = ""
+
+      if teacher_profile_obj
+        teacher_profile_str += teacher_profile_obj.academic_rank +
+          teacher_profile_obj.major + teacher_profile_obj.function +
+          teacher_profile_obj.work_unit + teacher_profile_obj.description.join(".")
+      end
+
+      searchable_content = name + " " + alias_name +  " " + desc +  " " + user_name +  " " + teacher_profile_str
+      searchable_content = Utils.nomalize_string(searchable_content)
+      course.searchable_content = searchable_content.downcase.gsub(/[^a-zA-Z 0-9]/, " ")
+      course.save
+      puts "Course: #{name} is saved!"
+    end
+  end
+
   desc "rename images for courses"
   task rename_images_for_course: :environment do
     images = Dir["db/seeding_data/version1.0.3/mapping_image_course/images_detail/*"]

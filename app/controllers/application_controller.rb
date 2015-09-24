@@ -77,10 +77,10 @@ class ApplicationController < ActionController::Base
     categories_level_0 = Category.get_categories
 
     categories_level_0.each {|category|
-      sub_categories = categories_level_0.select {|c| c.parent_category_id == category.id}
-      parent_cate = [category.id, category.name, [], category.description]
+      sub_categories = categories_level_0.select {|c| c.parent_category_id == category.alias_name}
+      parent_cate = [category.alias_name, category.name, [], category.description]
       sub_categories.each {|sub_cate|
-        parent_cate[2] << [sub_cate.id, sub_cate.name]
+        parent_cate[2] << [sub_cate.alias_name, sub_cate.name]
       }
       @all_categories << parent_cate
     }

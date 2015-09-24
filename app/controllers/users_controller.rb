@@ -366,14 +366,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET
-  def payment_history
-    @payments = Payment.where(:user_id => current_user.id)
-    @courses = Course.in(:id.in => @payments.map(&:course_id))
-
-    # render json: {:message => "Payment History"}
-  end
-
   def create_note
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
@@ -491,9 +483,16 @@ class UsersController < ApplicationController
   end
   # GET
   def payment_history
-    @payments = Payment.where(:user_id => current_user.id)
-    @courses = Course.in(:id.in => @payments.map(&:course_id))
-
+    owned_payments = Payment.where(:user_id => current_user.id, :course_id.ne => nil).to_a
+    @courses = []
+    @payments = []
+    owned_payments.each do |payment|
+      course = Course.where(:id => payment.course_id).first
+      if !course.blank?
+        @payments << payment
+        @courses << course
+      end
+    end
     # render json: {:message => "Payment History"}
   end
 

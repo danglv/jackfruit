@@ -293,7 +293,7 @@ class CoursesController < ApplicationController
     condition[:enabled] = true
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
-    condition[:alias_name] = pattern
+    condition[:searchable_content] = pattern
 
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
@@ -303,7 +303,6 @@ class CoursesController < ApplicationController
 
     sort_by = ORDERING.first.last    
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
-
     @courses  = Course.where(condition).order(sort_by)
     @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
 
@@ -460,7 +459,7 @@ class CoursesController < ApplicationController
     keywords = Utils.nomalize_string(keywords)
     pattern = /#{Regexp.escape(keywords)}/
 
-    courses = Course.where(:alias_name => pattern).map { |course|
+    courses = Course.where(:searchable_content => pattern).map { |course|
       CourseSerializer.new(course).suggestion_search_hash
     }
 
