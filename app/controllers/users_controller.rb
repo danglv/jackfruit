@@ -131,14 +131,24 @@ class UsersController < ApplicationController
   end
 
   def select_course
+    expect_preview = params[:type] == "preview" # User wants to preview course
+    # User wants to learn course
+    expect_learning = ["learning", "learnning"].include? params[:type]
+    # It should be
+    # expect_learning = params[:type] == "learning"
+    # But there is a mistake of naming, learnning instead of learning
     owned_course = current_user.courses.where(course_id: @course.id).first
     if owned_course # If user already has owned course
       # Check owned course type
       if owned_course.preview? # Preview course
-        if owned_course.preview_expired?
-          redirect_to root_url + "courses/#{@course.alias_name}/detail"
-        else
-          redirect_to root_url + "courses/#{@course.alias_name}/learning"
+        if expect_learning # If user wants to buy preview course
+          redirect_to payment_url_for(@course, params)
+        else # User want to preview course
+          if owned_course.preview_expired?
+            redirect_to root_url + "courses/#{@course.alias_name}/detail"
+          else
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+          end
         end
       else # Learning course
         # Check payment status
@@ -150,14 +160,13 @@ class UsersController < ApplicationController
         end
       end
     else # User hasn't had owned course yet
-      expect_preview = params[:type] == "preview" # User wants to preview course
       # Check course price
       if @course.free? || expect_preview # If course is free or user wants to preview this course
         # We have to create owned course for the user
         # Set course status
         if expect_preview
           # Preview course should has no payment status
-          payment_status = nil
+          payment_status = Constants::PaymentStatus::RESERVE
           type = Constants::OwnedCourseTypes::PREVIEW
           expired_at = Time.now + Constants::PreviewMode::TIME
         else
@@ -175,7 +184,6 @@ class UsersController < ApplicationController
         init_lectures_for_owned_course(owned_course, @course)
 
         UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
-
         if current_user.save
           # If course is preview then skip select page and go to learning page
           expect_preview ?
@@ -186,9 +194,7 @@ class UsersController < ApplicationController
         end
       else # Course is not free and want to learn this course then
         # Just go to payment page
-        url = root_url + "home/payment/#{@course.alias_name}"
-        url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
-        redirect_to url
+        redirect_to payment_url_for(@course, params)
       end
     end
   end
@@ -526,4 +532,9 @@ class UsersController < ApplicationController
       string.length >= min_length && string.length <= max_length
     end
 
+    def payment_url_for(course, params)
+      url = root_url + "home/payment/#{course.alias_name}"
+      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      return url
+    end
 end

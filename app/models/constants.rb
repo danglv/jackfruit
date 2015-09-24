@@ -48,11 +48,12 @@ module Constants
   end
 
   module PaymentStatus
-    CREATED = "created"
-    SUCCESS = "success"
-    PROCESS = "process"
-    PENDING = "pending"
-    CANCEL = "cancel"
+    RESERVE = "reserve" # Not created yet, but expect to be created, apply for a preview course ...
+    CREATED = "created" # Created and waiting for further processing
+    PENDING = "pending" # Being pending, waiting for next processing
+    PROCESS = "process" # Being processing, waiting for result
+    SUCCESS = "success" # Success
+    CANCEL  = "cancel"  # Canceled
   end
 
   module OwnedCourseTypes

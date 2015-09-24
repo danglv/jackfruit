@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses = Course.where(condition).where(:label_ids.in => ["featured"]).desc(:students).limit(8)
+    @courses = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8)
 
     # Get sale info for courses
     @sale_info = help_sale_info_for_courses @courses
