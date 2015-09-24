@@ -1,37 +1,6 @@
 !!!
 %html
   %head
-    - unless @is_experiment_tund.blank?
-      :javascript
-        function utmx_section(){}function utmx(){}(function(){var
-          k='105414125-1',d=document,l=d.location,c=d.cookie;
-          if(l.search.indexOf('utm_expid='+k)>0)return;
-          function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-          indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-          length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-          '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-          '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-          '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-          valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-          '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-      :javascript
-        utmx('url','A/B');
-    - unless @is_experiment_ngocntn.blank?
-      :javascript
-        function utmx_section(){}function utmx(){}(function(){var
-          k='105414125-3',d=document,l=d.location,c=d.cookie;
-          if(l.search.indexOf('utm_expid='+k)>0)return;
-          function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-          indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-          length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-          '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-          '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-          '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-          valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-          '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-      :javascript
-        utmx('url','A/B');
-
     %title= help_get_title
     = favicon_link_tag 'favicon_pedia.png'
     / - if @course.image.blank?
@@ -63,6 +32,7 @@
     %link{:href => "//fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel => "stylesheet"}
     %script{:src => "http://content.jwplatform.com/libraries/zNiP4rLT.js", :type => "text/javascript"}
+    %script{:src => "http://tracking.pedia.vn/client-api/js/spymaster.js", :type => "text/javascript"}
     = stylesheet_link_tag    'application', media: 'all'
     / Facebook Pixel Code
     :javascript
@@ -77,6 +47,15 @@
     %noscript
       %img{:height => "1", :src => "https://www.facebook.com/tr?id=433950950110580&ev=PageView&noscript=1", :style => "display:none", :width => "1"}/
     / End Facebook Pixel Code
+
+    %noscript
+      %iframe{:height => "0", :src => "//www.googletagmanager.com/ns.html?id=GTM-NVZ64F", :style => "display:none;visibility:hidden", :width => "0"}
+    :javascript
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NVZ64F');
     
     :javascript
       if (window.location.hash && window.location.hash == '#_=_') {
@@ -107,9 +86,11 @@
 
       - if current_user && current_user.id
         :javascript
-          ga('create', 'UA-65260176-1', {'userId': "#{current_user.id}"});
+          ga('create', 'UA-68038326-1', {'userId': "#{current_user.id}"});
           ga('send', 'pageview');
+          Spymaster.setup("Pedia", "beta", "#{current_user.id}");
       - else
         :javascript
-          ga('create', 'UA-65260176-1', 'auto');
+          ga('create', 'UA-68038326-1', 'auto');
           ga('send', 'pageview');
+          Spymaster.setup("Pedia", "beta");          

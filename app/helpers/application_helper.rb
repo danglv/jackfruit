@@ -87,4 +87,7 @@ module ApplicationHelper
 		return langs
 	end
 
+	def help_show_currency(price)
+		number_to_currency(price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+	end
 end

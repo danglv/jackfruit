@@ -346,7 +346,7 @@ class UsersController < ApplicationController
   def create_note
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
-    lecture_id = params[:lecture_id]
+    owned_lecture_id = params[:owned_lecture_id]
     time = params[:time]
     content = params[:content]
 
@@ -358,11 +358,12 @@ class UsersController < ApplicationController
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => lecture_id).first if !course.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
 
     if (course && lecture)
-      note = lecture.notes.create(:time => time, :content => content)
-      if lecture.save
+      note = lecture.notes.new(:time => time, :content => content)
+      note.lecture = lecture
+      if note.save
         render json: User::NoteSerializer.new(note)
         return
       end
@@ -373,9 +374,9 @@ class UsersController < ApplicationController
   def get_notes
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
-    lecture_id = params[:lecture_id]
+    owned_lecture_id = params[:owned_lecture_id]
 
-    if (owned_course_id.blank? || lecture_id.blank?)
+    if (owned_course_id.blank? || owned_lecture_id.blank?)
       render json: {:message => 'Thiếu tham số truyền lên.'}, status: :unprocessable_entity
       return
     end
@@ -383,7 +384,7 @@ class UsersController < ApplicationController
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => lecture_id).first if !course.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
 
     if course && lecture
       notes = []
@@ -399,14 +400,14 @@ class UsersController < ApplicationController
   def update_note
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
-    lecture_id = params[:lecture_id]
+    owned_lecture_id = params[:owned_lecture_id]
     note_id = params[:note_id]
     content = params[:content]
 
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => lecture_id).first if !course.blank? 
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
 
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
@@ -422,14 +423,14 @@ class UsersController < ApplicationController
   def delete_note
     current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
-    lecture_id = params[:lecture_id]
+    owned_lecture_id = params[:owned_lecture_id]
     note_id = params[:note_id]
     content = params[:content]
 
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => lecture_id).first if !course.blank? 
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
 
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
@@ -443,11 +444,11 @@ class UsersController < ApplicationController
 
   def download_note
     course_id = params[:course_id]
-    lecture_id = params[:lecture_id]
+    owned_lecture_id = params[:owned_lecture_id]
     
-    if course_id && lecture_id
+    if course_id && owned_lecture_id
       if course =  current_user.courses.find(course_id)
-        if lecture = course.lectures.find(lecture_id)
+        if lecture = course.lectures.find(owned_lecture_id)
           data = lecture.notes.to_csv
           lt = course.course.curriculums.where(:lecture_index => lecture.lecture_index).first
           send_data data, :filename => "#{lt.title} - Ghi chú.csv"

@@ -20,7 +20,7 @@
             %li.active.disabled
               %a{:href => ""} Nổi bật   
             %li
-              %a{:href => "/courses/#{@category.id}/all_courses"} Tất cả khoá học 
+              %a{:href => "/courses/#{@category.alias_name}/all_courses"} Tất cả khoá học 
     .row.no-margin.category-feature-courses
       %style .other-category a {color:#{@category.background_color} !important}
       %style .other-category a:hover {font-weight:bold !important}
@@ -35,7 +35,7 @@
               - if category.last.last.count > 0
                 .row.no-margin.feature-title
                   %h4= category.last.first
-                  %a.btn.btn-default.btn-sm.load-more{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả
+                  %a.btn.btn-default.btn-sm.load-more{:href => "/courses/#{@category.alias_name}/all_courses"} Xem tất cả
                 .row.no-margin.feature-list-courses
                   %ul.card-container
                     - i = 1
@@ -47,7 +47,7 @@
                         %li.course-card-item
                           = render :partial => 'components/courses/course_card', :locals => {:course => course}
                       - i = i + 1
-                %a.load-more-bottom{:href => "/courses/#{@category.id}/all_courses"} Xem tất cả 
+                %a.load-more-bottom{:href => "/courses/#{@category.alias_name}/all_courses"} Xem tất cả 
           .row.related-category
             %label.related-category-title Chủ đề liên quan
             .row.no-margin
