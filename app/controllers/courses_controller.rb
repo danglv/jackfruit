@@ -138,29 +138,35 @@ class CoursesController < ApplicationController
   end
 
   def detail
+    # If has logged in user then check user's owned course
     if current_user
+      # Get user owned course
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
-      if @owned_course
-        # Course is learnable
-        if @owned_course.payment_status == Constants::PaymentStatus::SUCCESS
-          # Expired preview course
-          if @owned_course.preview? && @owned_course.preview_expired?
-            @owned_course = nil
-            @preview_disabled = true
-          # Learning course
-          else
+      # Check owned course
+      if @owned_course # If already has owned course
+        # Check course type
+        if @owned_course.preview? # If course is preview course
+          # Check if course is expired
+          if @owned_course.preview_expired? # Expired
+            @owned_course = nil # Expired course means has no owned course
+            @preview_disabled = true # Could not preview anymore
+          else # Available
             redirect_to root_url + "courses/#{@course.alias_name}/learning"
             return
           end
-        # Course is on payment
-        else
-          @payment = Payment.where(
-            user_id: current_user.id.to_s,
-            course_id: @course.id.to_s
-          ).last
+        else # Course is learning course
+          # Check course payment status
+          if @owned_course.payment_success? # If payment is success then go to learning page
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+            return
+          else # Course is on a payment then get payment
+            @payment = Payment.where(
+              user_id: current_user.id.to_s,
+              course_id: @course.id.to_s
+            ).last
+          end
         end
       end
-
     end
 
     # Check if course is in any sale campaign
@@ -191,57 +197,75 @@ class CoursesController < ApplicationController
   end
 
   def learning
+    # Get owned course: success payment course or preview course
     @owned_course = current_user.courses.where(
+      # Learning course
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
+    ).or(
+      # Preview course
+      :type => Constants::OwnedCourseTypes::PREVIEW
     ).first
 
-    payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
-
-    if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
-      redirect_to root_url + "courses/#{@course.alias_name}/detail"
-      return
-    end
-
+    # User doesn't have that course
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
-    # Redirect to success payment page if first learning and have payment
-    if (@owned_course.first_learning && !payment.blank?)
-      redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
-      return
-    end
 
-    # Update first learning if free course.
-    if @owned_course.first_learning == true
-      @owned_course.set(:first_learning => false)
-    end
+    # Check course type
+    if @owned_course.preview? # Preview course
+      # Check if course is expired
+      if @owned_course.preview_expired? # Go to detail if course is expired
+        redirect_to root_url + "courses/#{@course.alias_name}/detail"
+        return
+      end
+    else # Other course type (learning...)
+      # Check if this is the first time learning
+      if @owned_course.first_learning
+        @owned_course.set(:first_learning => false)
+        payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
+        # Redirect to success payment page if first learning and has payment
+        if !payment.blank?
+          redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
+          return
+        end
+      end
   end
 
   def lecture 
-    lecture_index = params[:lecture_index]
-    @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
+    # Get owned course: success payment course or preview course
     @owned_course = current_user.courses.where(
+      # Learning course
       :course_id => @course._id,
       :payment_status => Constants::PaymentStatus::SUCCESS
+    ).or(
+      # Preview course
+      :type => Constants::OwnedCourseTypes::PREVIEW
     ).first
-    if @owned_course && @owned_course.preview? && @owned_course.preview_expired?
-      redirect_to root_url + "courses/#{@course.alias_name}/detail"
-      return
-    end
+
+    # User doesn't have that course
     if @owned_course.blank?
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
+
+    # If course is preview course and it's expired
+    if @owned_course.preview? && @owned_course.preview_expired?
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
+      return
+    end
     
-    # set lecture ratio = 100(finish)
+    # Get the lecture of course
+    lecture_index = params[:lecture_index]
+    @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
+
+    # Get the owned lecture of the user
     @owned_lecture = @owned_course.lectures.where(lecture_index: lecture_index).first
-    
-    @owned_lecture.lecture_ratio = 100
+    # Update lecture status
+    @owned_lecture.lecture_ratio = 100 # 100 means finish
     @owned_lecture.status = 2
     @owned_course.save
-    current_user.save
   end
 
   def search
