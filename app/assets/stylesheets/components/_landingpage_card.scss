@@ -78,31 +78,43 @@
     .course-title {
       font-weight: 500;
       color: #212121;
-      margin: 14px 0px 14px 0px;
+      margin: 14px 0px 0px 0px;
     }
     .course-author {
       color: #999999;
       font-size: 14px;
     }
-    &-bottom {
-      position: absolute;
-      bottom: 15px;
-      left: 0px;
-      width: 100%;
-      padding: 0px 12px ;
-      .landing-card-users {
-        float: left;
-        color: #999999;
-        .fa-users {
-          color: #727272;
+    .course-price {
+      .promotion-price {
+        margin-left: 0px;
+        .promotion-badge {
+          background-color: #17aa1c;
+          display: block;
+          color: #fff;
+          float: left;
+          padding: 0 8px;
           font-size: 16px;
+          font-weight: 500;
+          line-height: 23px;
         }
       }
-      .course-price {
-        color: #009900;
-        font-weight: 500;
-        font-size: 14px;
-        float: right;
+      .old-price {
+        text-decoration: line-through;
+        font-size: 13px;
+        float: left;
+        color: #1A1A1A;
+        font-weight: 300;
+        margin: 0 10px;
+        line-height: 23px;
+        color: #17aa1c;
+      }
+    }
+    .landing-card-users {
+      color: #999999;
+      padding: 5px 0px;
+      .fa-users {
+        color: #727272;
+        font-size: 16px;
       }
     }
   }
@@ -120,6 +132,9 @@
   .landingpage-card {
     &-content {
       text-align: center;
+      .course-price{
+        display: inline-block;
+      }
     }
   }
 }

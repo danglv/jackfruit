@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  include CoursesHelper
+
   before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
@@ -34,6 +36,9 @@ class CoursesController < ApplicationController
       end
 
       @courses[label.to_sym] = [title, Course.where(condition).desc(:students).limit(12).to_a]
+
+      # Get sale info for courses
+      @sale_info = help_sale_info_for_course_set @courses
     }
   end
 
@@ -78,6 +83,9 @@ class CoursesController < ApplicationController
       :id.ne => @category_id,
       :enabled => true
       )
+
+    # Get sale info for courses
+    @sale_info = help_sale_info_for_course_set @courses
   end
 
   def list_course_all
@@ -124,6 +132,9 @@ class CoursesController < ApplicationController
       :id.ne => @category_id,
       :enabled => true
       )
+
+    # Get sale info for courses
+    @sale_info = help_sale_info_for_courses @courses
   end
 
   def detail

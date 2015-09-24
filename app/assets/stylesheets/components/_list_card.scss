@@ -57,6 +57,31 @@
       line-height: 30px;
       margin-right: 10px;
     }
+    .promotion-price {
+      margin-left: 0px;
+      margin-bottom: 10px;
+      padding-top: 3px;
+      .promotion-badge {
+        background-color: #17aa1c;
+        display: block;
+        color: #fff;
+        float: left;
+        padding: 0 8px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 23px;
+      }
+      .old-price {
+        text-decoration: line-through;
+        font-size: 13px;
+        float: left;
+        color: #1A1A1A;
+        font-weight: 300;
+        margin: 0 10px;
+        line-height: 23px;
+        color: #17aa1c;
+      }
+    }
     .rating-container {
       float: left;
       ul {
