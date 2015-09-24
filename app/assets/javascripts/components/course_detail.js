@@ -71,7 +71,9 @@
 
     var course_id = $(".course_id").val();
     var name = $(".name-input").val();
+    var email = $(".email-input").val();
     var mobile = $(".mobile-input").val();
+
 
     var params = {
       'course_id': course_id,
@@ -79,7 +81,10 @@
       'name': name,
       'mobile': mobile,
       'type' : 'course_page_support',
-      'msg' : 'Có contact cần hỗ trợ'
+      'msg' : 'Có contact cần hỗ trợ',
+      'emai' :
+      'course_name' :
+      // 'payment_id'
     }
 
     var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';

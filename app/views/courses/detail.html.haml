@@ -2,6 +2,7 @@
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
 - if !current_user.blank?
   %input.user_id{:type => "hidden", :value => "#{current_user._id}"}
+  %input.user_email{:type => "hidden", :value => "#{current_user._id}"}
 #complete-dialog.modal.fade{:tabindex => "-1"}
   .modal-dialog
     .modal-content
