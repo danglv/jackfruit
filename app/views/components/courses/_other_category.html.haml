@@ -1,6 +1,6 @@
 .row.no-margin.other-category
   - other_categories.each do |category|
-    %a.other-category-item{:href => "/courses/" + category.id}
+    %a.other-category-item{:href => "/courses/" + category.alias_name}
       %span= category.name
       
       

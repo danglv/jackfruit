@@ -87,8 +87,9 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_category
-    @category_id = params[:category_id]
-    @category = Category.where(id: @category_id).first
+    @category_alias_name = params[:category_alias_name]
+    @category = Category.where(alias_name: @category_alias_name).first
+    @category_id = @category.id.to_s
 
     if @category.blank?
       render 'page_not_found'
