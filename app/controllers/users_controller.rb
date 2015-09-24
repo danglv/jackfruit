@@ -178,7 +178,7 @@ class UsersController < ApplicationController
 
         if current_user.save
           # If course is preview then skip select page and go to learning page
-          is_preview ?
+          expect_preview ?
             (redirect_to root_url + "courses/#{@course.alias_name}/learning") :
             (redirect_to root_url + "courses/#{@course.alias_name}/select")
         else

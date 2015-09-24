@@ -199,12 +199,13 @@ class CoursesController < ApplicationController
   def learning
     # Get owned course: success payment course or preview course
     @owned_course = current_user.courses.where(
-      # Learning course
       :course_id => @course._id,
-      :payment_status => Constants::PaymentStatus::SUCCESS
     ).or(
       # Preview course
       :type => Constants::OwnedCourseTypes::PREVIEW
+    ).or(
+      # Learning course
+      :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
 
     # User doesn't have that course
@@ -231,17 +232,19 @@ class CoursesController < ApplicationController
           return
         end
       end
+    end
   end
 
   def lecture 
     # Get owned course: success payment course or preview course
     @owned_course = current_user.courses.where(
-      # Learning course
       :course_id => @course._id,
-      :payment_status => Constants::PaymentStatus::SUCCESS
     ).or(
       # Preview course
       :type => Constants::OwnedCourseTypes::PREVIEW
+    ).or(
+      # Learning course
+      :payment_status => Constants::PaymentStatus::SUCCESS
     ).first
 
     # User doesn't have that course
