@@ -22,6 +22,75 @@
       margin: 20px 0 5px 0 !important;
     }
   }
+  .tele-sales {
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    width: 240px;
+    height: 35px;
+    padding: 8px 10px;
+    background-color: #e75050;
+    color: #fff;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    z-index: 999;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    .fa-play-circle {
+      -webkit-transform:rotate(-90deg) ; 
+      transform:rotate(-90deg);
+      cursor: pointer;     
+      margin-right: 5px;  
+    }
+  }
+  .tele-sales-extend {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    width: 240px;
+    height: auto;
+    z-index: 999;
+    background-color: #fff;
+    color: #212121;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    .tele-sales-top {
+      background-color: #e75050;
+      color: #fff;
+      height: 35px;
+      padding: 8px;
+      font-size: 14px;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      cursor: pointer;
+      .fa-play-circle {
+        -webkit-transform:rotate(90deg) ; 
+        transform:rotate(90deg); 
+        margin-right: 5px;      
+      }
+    }
+    .tele-sales-content {
+      padding: 8px 10px;
+      height: 200px;
+      text-align: center;
+      input {
+        height: 40px;
+        line-height: 50px;
+      }
+      h5 {
+        line-height: 20px;
+      }
+      &.success {
+        display: none;
+      }
+    }
+    .tele-sales-bottom {
+      padding: 8px 10px;
+      color: #e75050;
+    }
+  }
   .menu-fixed {
     display: none;
     position: fixed;

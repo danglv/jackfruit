@@ -1,5 +1,7 @@
 = render :partial => 'components/header/default'
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+- if !current_user.blank?
+  %input.user_name{:type => "hidden", :value => "#{current_user.name}"}
 #complete-dialog.modal.fade{:tabindex => "-1"}
   .modal-dialog
     .modal-content
@@ -16,6 +18,29 @@
 .container-wrapper.detail{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
+
+  .row.no-margin
+    .col-xs-12.no-padding
+      .support-form
+        .tele-sales.show-form
+          %i.fa.fa-play-circle
+          Bạn cần thêm thông tin?
+        .tele-sales-extend
+          .tele-sales-top.hide-form
+            %i.fa.fa-play-circle
+            Bạn cần thêm thông tin?
+          .tele-sales-content
+            %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
+            %form
+              %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
+              %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
+              %a.btn.btn-success.send-form-support{} Gửi đi
+          .tele-sales-content.success
+            %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
+          .tele-sales-bottom
+            %span Hotline: 
+            = succeed "" do
+              %b 0961215368
 
   .layout-320
     .container{:style => "background-color: #fff;padding-bottom:20px;border-bottom:1px solid #cccccc"}

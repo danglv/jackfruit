@@ -51,6 +51,21 @@
 
   };
 
+  $(".show-form").click(function (){
+    $(".tele-sales").css("display", "none");
+    $(".tele-sales-extend").css("display", "block");
+  });
+
+  $(".hide-form").click(function (){
+    $(".tele-sales-extend").css("display", "none");
+    $(".tele-sales").css("display", "block");
+  });
+
+  $(".send-form-support").click(function () {
+    $(".tele-sales-content").css("display", "none");
+    $(".tele-sales-content.success").css("display", "block");
+  });
+
 })(jQuery);
 
 $(document).ready(function () {
