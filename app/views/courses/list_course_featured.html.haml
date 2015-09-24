@@ -20,7 +20,7 @@
             %li.active.disabled
               %a{:href => ""} Nổi bật   
             %li
-              %a{:href => "/courses/#{@category.id}/all_courses"} Tất cả khoá học 
+              %a{:href => "/courses/#{@category.alias_name}/all_courses"} Tất cả khoá học 
     .row.no-margin.category-feature-courses
       %style .other-category a {color:#{@category.background_color} !important}
       %style .other-category a:hover {font-weight:bold !important}
