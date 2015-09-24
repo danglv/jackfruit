@@ -141,15 +141,15 @@
                   #{document.title}
         - else
           %h5 Bài học không có tài liệu để tải
-      #lecture-tab-discussion.tab-pane.fade
+      #lecture-tab-discussion.tab-pane.fade{:style => "padding: 30px"}
         %form
           %input.course_id{:type => "hidden", :value => "#{@course._id}"}
           %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
-          %li
+          %li{:style => "list-style: none"}
             %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
-          %li
+          %li{:style => "list-style: none"}
             %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
-          %li
+          %li{:style => "list-style: none"}
             %a.btn.btn-primary.lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
         .row.no-margin.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
@@ -160,9 +160,9 @@
               .col-md-1.col-lg-1.no-padding.discussion-item-avatar
                 %i.fa.fa-smile-o
               .col-md-11.col-lg-11.no-padding.discussion-item-main
-                %ul.discussion-item-title
-                  %li.bold #{@user.name}
-                  %li= "đã đăng 1 thảo luận - #{relative_time}"
+                %ul.discussion-item-title.no-padding
+                  %li.bold{:style => "list-style: none"} #{@user.name}
+                  %li{:style => "list-style: none"}= "đã đăng 1 thảo luận - #{relative_time}"
                 %span.discussion-item-subject 
                   #{discussion.title}
                 %p.discussion-item-content
@@ -180,8 +180,8 @@
                         - @user = User.where(:id => child_discussion.user_id).first
                         %ul.child-item-title
                           - if @user
-                            %li.bold #{@user.name} 
-                          %li đã đăng 1 thảo luận - 2 tháng trước 
+                            %li.bold{:style => "list-style: none"} #{@user.name} 
+                          %li{:style => "list-style: none"} đã đăng 1 thảo luận - 2 tháng trước 
                         %p.child-item-content
                           #{child_discussion.description}
                   .row.no-margin 
