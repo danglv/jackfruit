@@ -64,18 +64,17 @@ $(document).ready(function () {
 
     var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: URL,
         data: params,
         success: function(msg){
+          if ($(".wishlist-button").hasClass("wishlisted")) {
+            $(".wishlist-button").removeClass("wishlisted");
+          } else {
+            $(".wishlist-button").addClass("wishlisted");
+          };
         }
       });
-
-    if ($(".wishlist-button").hasClass("wishlisted")) {
-      $(".wishlist-button").removeClass("wishlisted");
-    } else {
-      $(".wishlist-button").addClass("wishlisted");
-    };
 
   });
 

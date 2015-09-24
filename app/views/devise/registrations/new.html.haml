@@ -16,7 +16,7 @@
             %span.left Đăng ký bằng Google+
         .modal-body-right
           %p.hidden-xs.hidden-sm Đăng ký bằng email
-          %form{:method => "post",:action => "/users/sign_in"}
+          %form{:method => "post",:action => "/users"}
             .form-control-wrapper
               %input#name.form-control{:type => 'text', :required => 'true', :placeholder => 'Tên đầy đủ', :name => "user[name]"}
             .form-control-wrapper
