@@ -420,7 +420,7 @@ class CoursesController < ApplicationController
     keywords = Utils.nomalize_string(keywords)
     pattern = /#{Regexp.escape(keywords)}/i
 
-    courses = Course.where(:alias_name => pattern).map { |course|
+    courses = Course.or({:alias_name => pattern}, {:name => pattern}).map { |course|
       CourseSerializer.new(course).suggestion_search_hash
     }
 
