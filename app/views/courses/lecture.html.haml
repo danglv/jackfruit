@@ -37,9 +37,9 @@
         - if @youtube_id
           %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
     .row.lecture-player-footer.no-margin
-      %a.lecture-autoplay 
-        %span Tự động chạy:
-        %span.open Bật 
+      / %a.lecture-autoplay 
+      /   %span Tự động chạy:
+      /   %span.open Bật 
       - if @lecture.lecture_index.to_i != @owned_course.lectures.count-1 
         %ul.no-padding.no-margin.lecture-tools
           %li
@@ -193,12 +193,23 @@
         .row.no-margin
           %form.note
             %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
-            %textarea.form-control.note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
             %input.owned_course_id{:type => "hidden", :value => "#{@owned_course.id}"}
             %input.owned_lecture_id{:type => "hidden", :value => "#{@owned_lecture._id}"}
-        - @owned_lecture.notes.each do |note|
-          .row.no-margin
-            %span= "#{note.time}"
-            %span= "#{note.content}"
-        .row.no-margin
-          %a.btn.btn-primary{:href => "/users/note/download?course_id=#{@owned_course.id}&lecture_id=#{@owned_lecture.id}"} Tải ghi chú
+            %textarea.form-control.input-note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
+            %ul.list-note
+              - if @owned_notes.count > 0
+                - @owned_notes.each do |note|
+                  %li.row
+                    .time.pull-left
+                      .time-content= "#{note.time}"
+                    .note-item.pull-left
+                      %span= "#{note.content}"
+                      %input.note-id{:type => "hidden", :value =>"#{note.id}" }
+                      %textarea.edit-text.disable{:name => "edit_note"}
+                    %a.note-delete{:href => ""} x
+        / - @owned_lecture.notes.each do |note|
+        /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
+        .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
+          %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?course_id=#{@owned_course.id}&lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
+
+

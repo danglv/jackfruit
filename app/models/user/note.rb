@@ -1,5 +1,6 @@
 class User::Note
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :time, type: String, default: ""
   field :content, type: String, default: ""
