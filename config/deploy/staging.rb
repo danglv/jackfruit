@@ -36,7 +36,7 @@ role :db,  %w{rails@sgstaging1.tudemy.vn:22}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :rails_env, 'staging'
+set :rails_env, 'production'
 set :user, 'rails'
 set :deploy_to, '/home/rails/tudemy'
 set :branch, 'dev'
