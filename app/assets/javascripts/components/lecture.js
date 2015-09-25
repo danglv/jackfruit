@@ -103,10 +103,10 @@
       });
   })
 
-  $('.note-content').bind('keypress', function(e) {
+  $('.input-note-content').bind('keypress', function(e) {
     if(e.which === 13){
       var obj = this;
-      var content = $(".note-content").val();
+      var content = $(".input-note-content").val();
       var owned_course_id = $(".owned_course_id").val();
       var owned_lecture_id = $(".owned_lecture_id").val();
 
@@ -116,7 +116,7 @@
         'owned_lecture_id' : owned_lecture_id
       }
 
-      $(".note-content").val("");
+      $(".input-note-content").val("");
 
       var URL = 'http://' + window.location.host + '/users/create_note';
       $.ajax({

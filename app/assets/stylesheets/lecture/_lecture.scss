@@ -82,6 +82,74 @@
       }
     }
   }
+
+  .tab-content {
+    #lecture-tab-note {
+      height: calc(100vh - 40px);
+      .note {
+        height: calc(100vh - 76px);
+        overflow: auto;
+        .list-note {
+          overflow:auto;
+          height: calc(100vh - 126px);
+          list-style-type: none;
+          padding: 0;
+          li {
+            border-bottom: 1px solid #d6d6d6;
+            background: #e6e6e6;
+            text-indent: 7px;
+            padding: 5px 0;
+            margin: 5px 0;
+            position: relative;
+            .time {
+              width: 60px;
+              .time-content {
+                width: 50px;
+                margin: auto;
+                background: #a69e93;
+                font-weight: bold;
+                color: white;
+              }
+            }
+            .note-item {
+              width: calc(100% - 70px);
+              text-indent: 0;
+              position: relative;
+              .edit-text{
+                position: absolute;
+                z-index: 9;
+                width: 100%;
+                left: 0;
+              }
+            }
+            .delete {
+              position: absolute;
+              right: 0;
+              top: 50%;
+              transform:translateY(-50%);
+              display: none;
+            }
+            &:hover .delete {
+              display: inherit;
+            }
+          }
+        }
+      }
+      .wrap-btn-note {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        .btn-down-note {
+          width: 100%;
+          display: block;
+          bottom: 0;
+          background: #e6e6e6
+        }
+      }
+    }
+  }
+
+
   &-container-header {
     height: 40px; 
     background-color: #ffffff;
