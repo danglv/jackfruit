@@ -116,13 +116,14 @@
         'owned_lecture_id' : owned_lecture_id
       }
 
+      $(".note-content").val("");
+
       var URL = 'http://' + window.location.host + '/users/create_note';
       $.ajax({
         type: 'POST',
         url: URL,
         data: params,
         success: function(msg){
-          console.log(msg)
           var data = msg;
           // description.val("");
           // var childCommentItem = "<div class='row child-item no-margin'> <div class='col-md-1 col-lg-1 no-padding child-item-avatar'> <i class='fa fa-smile-o'></i> </div> <div class='col-md-11 col-lg-11 no-padding child-item-main'> <ul class='child-item-title'> <li class='bold'>"+data.name+"</li> <li>vừa đăng thảo luận</li> </ul> <p class='child-item-content'>"+data.description+" </p> </div> </div> ";
@@ -132,5 +133,31 @@
       });
     }
   });
+
+  $(".note-delete").click(function() {
+    var obj = this;
+    var note_id = $(".note-id").val();
+    var owned_course_id = $(".owned_course_id").val();
+    var owned_lecture_id = $(".owned_lecture_id").val();
+
+    var params = {
+      'note_id' : note_id,
+      'owned_course_id' : owned_course_id,
+      'owned_lecture_id' : owned_lecture_id
+    }
+
+    console.log(params)
+
+    var URL = 'http://' + window.location.host + '/users/delete_note';
+    $.ajax({
+      type: 'POST',
+      url: URL,
+      data: params,
+      success: function(msg){
+        console.log(msg)
+        var data = msg;
+      }
+    });
+  })
 
 }(jQuery));
