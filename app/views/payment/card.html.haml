@@ -1,148 +1,76 @@
-/ Màn hình từ 320px
-.layout-320
-  = render :partial => 'components/header/default'
-  .container-wrapper{:style => "overflow: hidden;"}  
-    .banner
-      = render :partial => "components/banner/banner"
-
-    %main.payment
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          = render :partial => 'payment/header_payment'
-      .container
-        = render 'payment_method', method: 'card'
-        .row.payment-content.active.no-margin
-          .col-xs-12.no-padding
-            %h4 2. Hoàn tất thanh toán
-        .row.no-margin
-          .col-xs-12.no-padding
-            %h5.no-margin Nạp tiền bằng thẻ cào điện thoại
-        .row.card-purchase.no-margin
-          .col-xs-12.no-padding
-            - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text= "Hiện tại trong ví của bạn đang có "
-            %span.normal-text.warning-text=money
-            %span.normal-text= ", bạn hãy nạp thêm " 
-            - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text.warning-text= money
-            = succeed "" do
-              %span.normal-text để thanh toán khóa học này
-        .row.card-purchase-guild.no-margin
-          .col-xs-12.no-padding
-            %h5.normal-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại, thẻ game:
-          .col-xs-12.no-padding
-            .row.no-margin
-              %ul.nav.nav-pills
-                %li
-                  %span.badge 1
-                  %span.normal-text Cào lớp tráng bạc để biết mã thẻ (Áp dụng cho Vinaphone, Viettel và Mobifone)
-                %li
-                  %span.badge 2
-                  %span.normal-text Chọn loại thẻ & nhập mã thẻ cùng số seri rồi ấn nút “Nạp ngay”. Lưu ý viết liền không khoảng trắng hoặc dấu “-”
-                %li
-                  %span.badge 3
-                  %span.normal-text Quay lại bước hai để nạp thẻ tiếp theo
-        .row.phone-cards.no-margin
-          .col-xs-6
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
-              = image_tag 'payment/mobifone'
-          .col-xs-6
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
-              = image_tag 'payment/vinaphone'
-          .col-xs-6
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
-              = image_tag 'payment/viettel'
-          .col-xs-6
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
-              = image_tag 'payment/gate'
-        .row.no-margin.card-input
-          %form.form-card{:method => "post",:action => ""}
-            %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
-            = hidden_field_tag :authenticity_token, form_authenticity_token
-            .col-xs-12.no-padding.code
-              %input.form-control{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
-            .col-xs-12.no-padding.seri
-              %input.form-control{:placeholder => "Số seri", :type => "text", :name => "seri_field"}
-            .col-xs-12.no-padding
-              - if @error
-                %p.red-text= @error
-            .row.no-margin
-              .col-xs-12.no-padding.payment-editor
-                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
-  = render :partial => 'components/footer/index'      
-   
-.layout-480-up 
-  = render :partial => 'components/header/default'
-  .container-wrapper{:style => "overflow: hidden;"}  
-    .banner
-      = render :partial => "components/banner/banner"
-    %main.payment
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          = render :partial => 'payment/header_payment', status: ''
-      .container
-        = render 'payment_method', method: 'card'
-        .row.payment-content.active.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            %h4 2. Hoàn tất thanh toán
-        .row.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            %h5.no-margin Nạp tiền bằng thẻ cào điện thoại
-        .row.card-purchase.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text= "Hiện tại trong ví của bạn đang có "
-            %span.normal-text.warning-text= money
-            %span.normal-text= ", bạn hãy nạp thêm " 
-            - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            %span.normal-text.warning-text= money
-            = succeed "" do
-              %span.normal-text để thanh toán khóa học này
-        .row.card-purchase-guild.no-margin
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            %h5.normal-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại, thẻ game:
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-            .row.no-margin
-              .no-padding{:style => "float:left; margin-right: 8px;"}
-                %p.badge 1
-              .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
-                %p.normal-text Cào lớp tráng bạc để biết mã thẻ (Áp dụng cho Vinaphone, Viettel và Mobifone)
-            .row.no-margin
-              .no-padding{:style => "float:left; margin-right: 8px;"}
-                %p.badge 2
-              .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
-                %p.normal-text Chọn loại thẻ & nhập mã thẻ cùng số seri rồi ấn nút “Nạp ngay”. Lưu ý viết liền không khoảng trắng hoặc dấu “-”
-            .row.no-margin
-              .no-padding{:style => "float:left; margin-right: 8px;"}
-                %p.badge 3
-              .col-xs-11.col-sm-11.col-md-11.col-lg-11.no-padding
-                %p.normal-text Quay lại bước hai để nạp thẻ tiếp theo
-        .row.phone-cards.no-margin
-          .col-xs-3.col-sm-3.col-md-2.col-md-offset-2.col-lg-2.col-lg-offset-2
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
-              = image_tag 'payment/mobifone'
-          .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
-              = image_tag 'payment/vinaphone'
-          .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
-              = image_tag 'payment/viettel'
-          .col-xs-3.col-sm-3.col-md-2.col-lg-2
-            %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
-              = image_tag 'payment/gate'
-        .row.no-margin.card-input
-          %form.form-card{:method => "post",:action => ""}
-            = hidden_field_tag :authenticity_token, form_authenticity_token
-            %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
-            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.code
-              %input.form-control{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
-            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding.seri
-              %input.form-control{:placeholder => "Số seri", :type => "text", :name => "seri_field"}
-            .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.col-lg-3.col-lg-offset-4.no-padding
-              - if @error
-                %p.red-text= @error
-            .row.no-margin
-              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.payment-editor
-                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
-  = render :partial => 'components/footer/index'   
-
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"}  
+  .banner
+    = render :partial => "components/banner/banner"
+    
+  .payment
+    .row.no-margin
+      .col-xs-12.no-padding
+        = render :partial => 'payment/header_payment'
+    .container
+      .payment-main
+        .payment-main-info
+          .info-title Thông tin thanh toán
+          .info-course
+            / .course-name= @course.name
+            .course-name Course_name
+            / .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .course-price Course_price
+          .info-coupon
+            .sale-text Giảm giá
+            .sale-price 
+          .info-cost
+            .cost-text Thành tiền
+            .total-pice
+        .payment-main-menthod
+          .menthod-title 2. Hoàn tất thanh toán
+          .menthod-description 
+            %h5.description-text Nạp tiền bằng thẻ điện thoại
+            .description-card-text
+              - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %span= "Hiện tại trong ví của bạn đang có "
+              %span.normal-text.red-text= money
+              %span.normal-text= ", bạn hãy nạp thêm " 
+              - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              %span.normal-text.red-text= money
+              = succeed "" do
+                %span.normal-text để thanh toán khóa học này
+            %h5.description-card-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại, thẻ game:
+            .card-guildline
+              .step-1
+                %span.badge 1
+                %span.guildline-text Cào lớp tráng bạc để biết mã thẻ (Áp dụng cho Vinaphone, Viettel và Mobifone)
+              .step-2
+                %span.badge 2
+                %span.guildline-text Chọn loại thẻ & nhập mã thẻ cùng số seri rồi ấn nút “Nạp ngay”. Lưu ý viết liền không khoảng trắng hoặc dấu “-”
+              .step-3
+                %span.badge 3
+                %span.guildline-text Quay lại bước hai để nạp thẻ tiếp theo
+          .card-form
+            .phone-cards
+              %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
+                = image_tag 'payment/mobifone'
+              %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
+                = image_tag 'payment/vinaphone'
+              %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
+                = image_tag 'payment/viettel'
+              %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
+                = image_tag 'payment/gate'
+            .card-input
+              %form.form-card{:method => "post",:action => ""}
+                = hidden_field_tag :authenticity_token, form_authenticity_token
+                %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
+                %input.form-control.code-input{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
+                %input.form-control.seri-input{:placeholder => "Số seri", :type => "text", :name => "seri_field"}
+                - if @error
+                  %p.red-text= @error
+                .card-button
+                  %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
+          .other-payment-menthod
+            %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
+          .menthod-progress
+            .progress-icon
+              %i.fa.fa-circle
+            .progress-icon.active
+              %i.fa.fa-circle
+= render :partial => 'components/footer/index'           

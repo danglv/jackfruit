@@ -3,28 +3,24 @@
   .banner
     = render :partial => "components/banner/banner"
     
-  %main.payment
+  .payment
     .row.no-margin
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
+      .col-xs-12.no-padding
         = render :partial => 'payment/header_payment'
     .container
-      .row.no-margin.course-price
-        .col-xs-8.col-sm-5.col-md-4.col-lg-3.no-padding
-          %span.normal-text= @course.name
-        .col-xs-3.col-xs-offset-1.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
-          %span.normal-text.pull-right= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-      .divider
-      .row.no-margin.coupon
-        .col-xs-7.col-sm-3.col-md-3.col-lg-2.no-padding
-          %input.form-control{:placeholder => "Nhập mã coupon ở đây", :type => "text"}
-      .row.no-margin.total-cost
-        .col-xs-3.col-sm-5.col-md-4.col-lg-3.no-padding
-          %span.normal-text Thành tiền
-        .col-xs-3.col-xs-offset-6.col-sm-2.col-sm-offset-5.col-md-2.col-md-offset-6.col-lg-1.col-lg-offset-8.no-padding
-          %span.normal-text.pull-right= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-      .row.no-margin
-        = render 'payment_method', method: ''
-      .row.payment-content.no-margin
-        %h4{:style => "font-weight: 500;"} 2. Hoàn tất thanh toán
-        .col-xs-12.normal-text Bạn chưa lựa chọn hình thức thanh toán nào
+      .payment-main
+        .payment-main-info
+          .info-title Thông tin thanh toán
+          .info-course
+            .course-name= @course.name
+            .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+          .info-coupon
+            .sale-text Giảm giá
+            .sale-price 
+          .info-cost
+            .cost-text Thành tiền
+            .total-pice
+        .payment-main-menthod
+          = render 'payment_method', method: ''
+
 = render :partial => 'components/footer/index'           
