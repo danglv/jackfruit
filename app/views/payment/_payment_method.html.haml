@@ -1,3 +1,69 @@
-.payment-content{:class => [('active' if method == '')]}
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-    %h4{:style => "font-weight: 400"} 1. Lựa chọn hình thức thanh toán
+.menthod-title 1. Lựa chọn hình thức thanh toán
+.menthod-card
+  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'cod')]}
+    .list-style-small
+      %i.fa.fa-shopping-cart.payment-menthod-icon
+      Giao khóa học và thu tiền tận nơi
+    .list-style-big
+      %i.fa.fa-shopping-cart.payment-menthod-icon
+      .menthod-text
+        Giao khóa học và thu tiền 
+        %br
+        tận nơi
+    .card-style
+      %i.fa.fa-shopping-cart.payment-menthod-icon
+      %h5 Giao khóa học
+      %h5 và thu tiền tận nơi
+  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [('active' if method == 'card')]}
+    .list-style-small
+      %i.fa.fa-credit-card.payment-menthod-icon{:style => "vertical-align: top;"}
+      .menthod-text
+        .two-line
+          Thanh toán bằng thẻ điện thoại,
+          %br
+          thẻ game
+        .one-line
+          Thanh toán bằng thẻ điện thoại, thẻ game
+    .list-style-big
+      %i.fa.fa-credit-card.payment-menthod-icon
+      .menthod-text
+        Thanh toán bằng thẻ 
+        %br
+        điện thoại, thẻ game
+    .card-style
+      %i.fa.fa-credit-card.payment-menthod-icon
+      %h5 Thanh toán bằng thẻ
+      %h5 điện thoại, thẻ game
+  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'transfer')]}
+    .list-style-small
+      %i.fa.fa-building.payment-menthod-icon
+      Chuyển khoản qua ngân hàng
+    .list-style-big
+      %i.fa.fa-building.payment-menthod-icon
+      .menthod-text
+        Chuyển khoản qua 
+        %br
+        ngân hàng
+    .card-style
+      %i.fa.fa-building.payment-menthod-icon
+      %h5 Chuyển khoản qua
+      %h5 ngân hàng
+  %a.btn.btn-default.btn-raised.no-padding{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
+    .list-style-small
+      %i.fa.fa-map-marker.payment-menthod-icon
+      Thanh toán tại văn phòng Pedia
+    .list-style-big
+      %i.fa.fa-map-marker.payment-menthod-icon
+      .menthod-text
+        Thanh toán trực tiếp
+        %br
+        tại văn phòng Pedia
+    .card-style
+      %i.fa.fa-map-marker.payment-menthod-icon
+      %h5 Thanh toán trực tiếp
+      %h5 tại văn phòng Pedia
+.menthod-progress
+  .progress-icon.active
+    %i.fa.fa-circle
+  .progress-icon
+    %i.fa.fa-circle

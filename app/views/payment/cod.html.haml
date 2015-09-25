@@ -1,33 +1,44 @@
-.layout-320
-  = render :partial => 'components/header/default'
-  .container-wrapper{:style => "overflow: hidden;"} 
-    .banner
-      = render :partial => "components/banner/banner" 
-    %main.payment
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          = render :partial => 'payment/header_payment'
-      .container
-        = render 'payment_method', method: 'cod'
-        .row.payment-content.active.no-margin
-          %h4 2. Hoàn tất thanh toán
-          .col-xs-12.no-padding{:style => "color: #727272; margin-bottom: 15px;"} Điền thông tin đăng ký đặt mua khóa học
-          %form{:method => "post",:action => "/home/payment/cod"}
-            .row.no-margin
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"}  
+  .banner
+    = render :partial => "components/banner/banner"
+    
+  .payment
+    .row.no-margin
+      .col-xs-12.no-padding
+        = render :partial => 'payment/header_payment'
+    .container
+      .payment-main
+        .payment-main-info
+          .info-title Thông tin thanh toán
+          .info-course
+            / .course-name= @course.name
+            .course-name Course_name
+            / .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .course-price Course_price
+          .info-coupon
+            .sale-text Giảm giá
+            .sale-price 
+          .info-cost
+            .cost-text Thành tiền
+            .total-pice
+        .payment-main-menthod
+          .menthod-title 2. Hoàn tất thanh toán
+          .menthod-description
+            %h5.description-text Điền thông tin đăng ký đặt mua khóa học
+          .cod-form
+            %form{:method => "post",:action => "/home/payment/cod"}
               %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
               %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
-            .row.no-margin
-              .col-xs-12.payment-editor
+              .payment-editor.left
                 %input.form-control{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}
-              .col-xs-12.payment-editor
+              .payment-editor.right
                 %input.form-control{:type => "email", :name => "email", :placeholder => "Email", :required => "required"}
-            .row.no-margin
-              .col-xs-12.payment-editor
+              .payment-editor.left
                 %input.form-control{:type => "number", :name => "mobile", :placeholder => "Số điện thoại", :required => "required"}
-              .col-xs-12.payment-editor
+              .payment-editor.right
                 %input.form-control{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}
-            .row.no-margin
-              .col-xs-12.payment-editor
+              .payment-editor.left
                 .form-group
                   %select#select.form-control.browser-default{:name => "city", :required => "required"}
                     %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
@@ -95,115 +106,16 @@
                     %option{:value => "Vĩnh Long"} Vĩnh Long
                     %option{:value => "Vĩnh Phúc"} Vĩnh Phúc
                     %option{:value => "Yên Bái"} Yên Bái
-              .col-xs-12.payment-editor
+              .payment-editor.right
                 %input.form-control{:type => "text", :name => "district", :placeholder => "Quận/huyện", :required => "required"}
-            .row.no-margin
-              .col-xs-12.no-padding.payment-editor
-                = hidden_field_tag :authenticity_token, form_authenticity_token
-                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
-  = render :partial => 'components/footer/index'   
-
-.layout-480-up 
-  = render :partial => 'components/header/default'
-  .container-wrapper{:style => "overflow: hidden;"} 
-    .banner
-      = render :partial => "components/banner/banner"  
-    %main.payment
-      .row.no-margin
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
-          = render :partial => 'payment/header_payment'
-      .container
-        = render 'payment_method', method: 'cod'
-        .row.payment-content.active.no-margin
-          %h4 2. Hoàn tất thanh toán
-          .col-xs-12.no-padding{:style => "color: #727272; margin-bottom: 15px;"} Điền thông tin đăng ký đặt mua khóa học
-          %form{:method => "post",:action => "/home/payment/cod"}
-            .row.no-margin
-              %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
-              %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
-            .row.no-margin
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                %input.form-control{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                %input.form-control{:type => "email", :name => "email", :placeholder => "Email", :required => "required"}
-            .row.no-margin
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                %input.form-control{:type => "number", :name => "mobile", :placeholder => "Số điện thoại", :required => "required"}
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                %input.form-control{:type => "text", :name => "address", :placeholder => "Địa chỉ", :required => "required"}
-            .row.no-margin
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                .form-group
-                  %select#select.form-control.browser-default{:name => "city", :required => "required"}
-                    %option{:disabled => "", :selected => "", :value => ""} Chọn Tỉnh / Thành phố
-                    %option{:value => "An Giang"} An Giang
-                    %option{:value => "Bà Rịa-Vũng Tàu"} Bà Rịa-Vũng Tàu
-                    %option{:value => "Bạc Liêu"} Bạc Liêu
-                    %option{:value => "Bắc Kạn"} Bắc Kạn
-                    %option{:value => "Bắc Giang"} Bắc Giang
-                    %option{:value => "Bắc Ninh"} Bắc Ninh
-                    %option{:value => "Bến Tre"} Bến Tre
-                    %option{:value => "Bình Dương"} Bình Dương
-                    %option{:value => "Bình Định"} Bình Định
-                    %option{:value => "Bình Phước"} Bình Phước
-                    %option{:value => "Bình Thuận"} Bình Thuận
-                    %option{:value => "Cà Mau"} Cà Mau
-                    %option{:value => "Cao Bằng"} Cao Bằng
-                    %option{:value => "Cần Thơ"} Cần Thơ
-                    %option{:value => "Đà Nẵng"} Đà Nẵng
-                    %option{:value => "Đắk Lắk"} Đắk Lắk
-                    %option{:value => "Đắk Nông"} Đắk Nông
-                    %option{:value => "Điện Biên"} Điện Biên
-                    %option{:value => "Đồng Nai"} Đồng Nai
-                    %option{:value => "Đồng Tháp"} Đồng Tháp
-                    %option{:value => "Gia Lai"} Gia Lai
-                    %option{:value => "Hà Giang"} Hà Giang
-                    %option{:value => "Hà Nam"} Hà Nam
-                    %option{:value => "Hà Nội"} Hà Nội
-                    %option{:value => "Hà Tây"} Hà Tây
-                    %option{:value => "Hà Tĩnh"} Hà Tĩnh
-                    %option{:value => "Hải Dương"} Hải Dương
-                    %option{:value => "Hải Phòng"} Hải Phòng
-                    %option{:value => "Hòa Bình"} Hòa Bình
-                    %option{:value => "Hồ Chí Minh"} Hồ Chí Minh
-                    %option{:value => "Hậu Giang"} Hậu Giang
-                    %option{:value => "Hưng Yên"} Hưng Yên
-                    %option{:value => "Khánh Hòa"} Khánh Hòa
-                    %option{:value => "Kiên Giang"} Kiên Giang
-                    %option{:value => "Kon Tum"} Kon Tum
-                    %option{:value => "Lai Châu"} Lai Châu
-                    %option{:value => "Lào Cai"} Lào Cai
-                    %option{:value => "Lạng Sơn"} Lạng Sơn
-                    %option{:value => "Lâm Đồng"} Lâm Đồng
-                    %option{:value => "Long An"} Long An
-                    %option{:value => "Nam Định"} Nam Định
-                    %option{:value => "Nghệ An"} Nghệ An
-                    %option{:value => "Ninh Bình"} Ninh Bình
-                    %option{:value => "Ninh Thuận"} Ninh Thuận
-                    %option{:value => "Phú Thọ"} Phú Thọ
-                    %option{:value => "Phú Yên"} Phú Yên
-                    %option{:value => "Quảng Bình"} Quảng Bình
-                    %option{:value => "Quảng Nam"} Quảng Nam
-                    %option{:value => "Quảng Ngãi"} Quảng Ngãi
-                    %option{:value => "Quảng Ninh"} Quảng Ninh
-                    %option{:value => "Quảng Trị"} Quảng Trị
-                    %option{:value => "Sóc Trăng"} Sóc Trăng
-                    %option{:value => "Sơn La"} Sơn La
-                    %option{:value => "Tây Ninh"} Tây Ninh
-                    %option{:value => "Thái Bình"} Thái Bình
-                    %option{:value => "Thái Nguyên"} Thái Nguyên
-                    %option{:value => "Thanh Hóa"} Thanh Hóa
-                    %option{:value => "Thừa Thiên - Huế"} Thừa Thiên - Huế
-                    %option{:value => "Tiền Giang"} Tiền Giang
-                    %option{:value => "Trà Vinh"} Trà Vinh
-                    %option{:value => "Tuyên Quang"} Tuyên Quang
-                    %option{:value => "Vĩnh Long"} Vĩnh Long
-                    %option{:value => "Vĩnh Phúc"} Vĩnh Phúc
-                    %option{:value => "Yên Bái"} Yên Bái
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3.payment-editor
-                %input.form-control{:type => "text", :name => "district", :placeholder => "Quận/huyện", :required => "required"}
-            .row.no-margin
-              .col-xs-12.col-sm-4.col-md-3.col-lg-3.payment-editor
-                = hidden_field_tag :authenticity_token, form_authenticity_token
-                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
-  = render :partial => 'components/footer/index'   
+            .cod-button
+              = hidden_field_tag :authenticity_token, form_authenticity_token
+              %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
+          .other-payment-menthod
+            %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
+          .menthod-progress
+            .progress-icon
+              %i.fa.fa-circle
+            .progress-icon.active
+              %i.fa.fa-circle
+= render :partial => 'components/footer/index'           
