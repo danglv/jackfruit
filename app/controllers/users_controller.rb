@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
-  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist]
+  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
 
   def index
@@ -368,10 +368,9 @@ class UsersController < ApplicationController
   end
 
   def create_note
-    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
-    time = params[:time]
+    time = params[:time].blank? ? "0:01" : params[:time]
     content = params[:content]
 
     if content.blank?
@@ -383,20 +382,15 @@ class UsersController < ApplicationController
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
     lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
-
     if (course && lecture)
-      note = lecture.notes.new(:time => time, :content => content)
-      note.lecture = lecture
-      if note.save
-        render json: User::NoteSerializer.new(note)
-        return
-      end
+      note = lecture.notes.create(:time => time, :content => content)
+      render json: User::NoteSerializer.new(note)
+      return
     end
     render json: {:message => 'Tạo note thất bại.'}, status: :unprocessable_entity
   end
 
   def get_notes
-    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
 
@@ -412,7 +406,7 @@ class UsersController < ApplicationController
 
     if course && lecture
       notes = []
-      lecture.notes.each{ |note|
+      lecture.notes.desc(:created_at).each{ |note|
         notes << User::NoteSerializer.new(note)
       }
       render json: {:notes => notes}
@@ -422,7 +416,6 @@ class UsersController < ApplicationController
   end
 
   def update_note
-    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
     note_id = params[:note_id]
@@ -445,7 +438,6 @@ class UsersController < ApplicationController
   end
 
   def delete_note
-    current_user = User.where(:email => "hoptq@topica.edu.vn").first if current_user.blank?
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
     note_id = params[:note_id]
@@ -455,7 +447,6 @@ class UsersController < ApplicationController
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
     lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
-
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
       if (!note.blank? ? note.delete : false)
