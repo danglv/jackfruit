@@ -52,7 +52,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).limit(4)]
+    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).limit(4).to_a]
 
     condition = {:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -60,7 +60,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4)]
+    @courses["top_paid"] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4).to_a]
 
     condition = {:price => 0,:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -68,7 +68,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4)]
+    @courses["top_free"] = [Course::Localization::TITLES["top_free".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4).to_a]
 
     condition = {:price.gt => 0,:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -76,7 +76,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(4)]
+    @courses["newest"] = [Course::Localization::TITLES["newest".to_sym][I18n.default_locale], Course.where(condition).desc(:created_at).limit(4).to_a]
 
     @other_category = Category.where(
       :parent_category_id => @category.parent_category_id,
@@ -89,8 +89,7 @@ class CoursesController < ApplicationController
   end
 
   def list_course_all
-    @page        = params[:page] || 1
-    @page = @page.to_i
+    @page = (params[:page] || 1).to_i
     @category_name = @category.name;
     # filter sort paginate course
 
@@ -131,7 +130,7 @@ class CoursesController < ApplicationController
       :parent_category_id => @category.parent_category_id,
       :id.ne => @category_id,
       :enabled => true
-      )
+      ).to_a
 
     # Get sale info for courses
     @sale_info = help_sale_info_for_courses @courses

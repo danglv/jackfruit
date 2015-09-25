@@ -99,7 +99,11 @@ header {
     > a {
       display: inline-block;
       line-height: 40px;
-      width: 140px;
+      width: 100px;
+      > img {
+        margin-left: -20px;
+        width: 140px;
+      }
     }
   }
 }
