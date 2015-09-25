@@ -65,6 +65,9 @@ gem 'net-http-digest_auth', '~> 1.4'
 # Http request
 gem 'rest-client', '~> 1.8.0'
 
+# Spymaster - Tracking System
+gem 'spymaster', git: 'git@git.pedia.vn:tcs/spymaster-gem.git', branch: 'master'
+
 group :test do
   gem 'capybara'
   gem 'poltergeist'
