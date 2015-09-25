@@ -197,20 +197,16 @@
             %input.owned_lecture_id{:type => "hidden", :value => "#{@owned_lecture._id}"}
             %textarea.form-control.input-note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
             %ul.list-note
-              / phan list note chua co logic
-              / %li.row
-              /   .time.pull-left
-              /     .time-content 03:30
-              /   .note-item.pull-left
-              /     %span note 1
-              /     //text edit
-              /     / %textarea.edit-text{:name => "edit_note", :cols => "30", :rows => "2"}
-              /   %a.delete{:href => "#"} x
-              / %li.row
-              /   .time.pull-left
-              /     .time-content 03:30
-              /   .note-item.pull-left note 1
-              /   %a.delete{:href => "#"} x
+              - if @owned_notes.count > 0
+                - @owned_notes.each do |note|
+                  %li.row
+                    .time.pull-left
+                      .time-content= "#{note.time}"
+                    .note-item.pull-left
+                      %span= "#{note.content}"
+                      %input.note-id{:type => "hidden", :value =>"#{note.id}" }
+                      %textarea.edit-text.disable{:name => "edit_note"}
+                    %a.note-delete{:href => ""} x
         / - @owned_lecture.notes.each do |note|
         /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}

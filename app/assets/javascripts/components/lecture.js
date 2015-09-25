@@ -98,10 +98,50 @@
           var childCommentItem = "<div class='row child-item no-margin'> <div class='col-md-1 col-lg-1 no-padding child-item-avatar'> <i class='fa fa-smile-o'></i> </div> <div class='col-md-11 col-lg-11 no-padding child-item-main'> <ul class='child-item-title'> <li class='bold'>"+data.name+"</li> <li>vừa đăng thảo luận</li> </ul> <p class='child-item-content'>"+data.description+" </p> </div> </div> ";
 
           $(obj).parent().parent().parent().prepend(childCommentItem);
-
         }
       });
   })
+  
+  $(".note-item").click(function(event) {
+    // $(".edit-text").addClass('disable');
+    var textarea_edit = $(this).children('.edit-text');
+    var text = $.trim($(this).children('span').html());
+    textarea_edit.removeClass('disable');
+    textarea_edit.focus();
+    textarea_edit.val(text);
+  });
+
+  $(".edit-text").blur(function(event) {
+    $(this).addClass('disable');
+  });
+
+  $(".edit-text").keypress(function(event) {
+    if (event.keyCode == 13) {
+      var that = $(this);
+      var note_id = $(this).prev(".note-id").val();
+      var content = $(this).val();
+      var owned_course_id = $(".owned_course_id").val();
+      var owned_lecture_id = $(".owned_lecture_id").val();
+      var params = {
+        'note_id' : note_id,
+        'owned_course_id' : owned_course_id,
+        'owned_lecture_id' : owned_lecture_id,
+        'content': content
+      }
+
+      var URL = 'http://' + window.location.host + '/users/update_note';
+      $.ajax({
+        type: 'POST',
+        url: URL,
+        data: params,
+        success: function(msg){
+          var data = msg;
+          that.prev().prev("span").html(content);
+        }
+      });
+      $(this).addClass('disable');
+    }
+  });
 
   $('.input-note-content').bind('keypress', function(e) {
     if(e.which === 13){
@@ -115,8 +155,9 @@
         'owned_course_id' : owned_course_id,
         'owned_lecture_id' : owned_lecture_id
       }
-
+      console.log(params);
       $(".input-note-content").val("");
+
 
       var URL = 'http://' + window.location.host + '/users/create_note';
       $.ajax({
@@ -125,6 +166,9 @@
         data: params,
         success: function(msg){
           var data = msg;
+          console.log(data);
+          var item_note = "<li class='row'><div class='time pull-left'><div class='time-content'>" + data.time + "</div></div><div class='note-item pull-left'><span>" + data.content + "</span><input class='note-id' type='hidden' value='" + data._id + "'></div><a class='note-delete' href='#'>x</a></li>";
+          $(".list-note").append(item_note);
           // description.val("");
           // var childCommentItem = "<div class='row child-item no-margin'> <div class='col-md-1 col-lg-1 no-padding child-item-avatar'> <i class='fa fa-smile-o'></i> </div> <div class='col-md-11 col-lg-11 no-padding child-item-main'> <ul class='child-item-title'> <li class='bold'>"+data.name+"</li> <li>vừa đăng thảo luận</li> </ul> <p class='child-item-content'>"+data.description+" </p> </div> </div> ";
 
@@ -134,9 +178,10 @@
     }
   });
 
-  $(".note-delete").click(function() {
+  $(".note-delete").click(function(e) {
+    e.preventDefault();
     var obj = this;
-    var note_id = $(".note-id").val();
+    var note_id = $(this).prev(".note-item").children('.note-id').val();
     var owned_course_id = $(".owned_course_id").val();
     var owned_lecture_id = $(".owned_lecture_id").val();
 
@@ -154,8 +199,10 @@
       url: URL,
       data: params,
       success: function(msg){
-        console.log(msg)
         var data = msg;
+        console.log(msg);
+        console.log(note_id);
+        $("input[value=" + note_id + "]").parent().parent().remove();
       }
     });
   })

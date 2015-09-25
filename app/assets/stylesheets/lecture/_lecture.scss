@@ -109,27 +109,33 @@
                 background: #a69e93;
                 font-weight: bold;
                 color: white;
+                text-align: center;
               }
             }
             .note-item {
               width: calc(100% - 70px);
               text-indent: 0;
               position: relative;
-              .edit-text{
+              .edit-text {
                 position: absolute;
                 z-index: 9;
                 width: 100%;
                 left: 0;
+                display: inherit;
+                top: 0;
+              }
+              .edit-text.disable {
+                display: none;
               }
             }
-            .delete {
+            .note-delete {
               position: absolute;
               right: 0;
               top: 50%;
               transform:translateY(-50%);
               display: none;
             }
-            &:hover .delete {
+            &:hover .note-delete {
               display: inherit;
             }
           }
