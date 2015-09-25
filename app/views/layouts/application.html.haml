@@ -10,7 +10,6 @@
     %title= help_get_title
     = stylesheet_link_tag    'application', media: 'all'
 
-    = javascript_include_tag 'application'
     - if Rails.env == 'production'
       :javascript
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,3 +70,4 @@
     = csrf_meta_tags
   %body
     = yield
+    = javascript_include_tag 'application'
