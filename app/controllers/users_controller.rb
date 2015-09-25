@@ -74,10 +74,11 @@ class UsersController < ApplicationController
     course_ids = current_user.courses.where(
       :type => learning,
     ).map(&:course_id)
-    @courses = Course.where(:id.in => course_ids)
-    # Wishlist inorge learned course. 
+
+    @courses = Course.where(:id.in => course_ids).to_a
+    @owned_courses = current_user.courses
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
-    @wishlist = Course.in(:id => wishlist_ids)
+    @wishlist = Course.in(:id => wishlist_ids).to_a
 
   end
 
@@ -283,10 +284,10 @@ class UsersController < ApplicationController
 
   def view_profile
     owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
-    owned_course_ids_ignore_wishlist = owned_course_ids - current_user.wishlist
+    wishlist_ids = current_user.wishlist - owned_course_ids 
 
-    @owned_course = current_user.courses.in(:course_id => owned_course_ids_ignore_wishlist)
-    @owned_wishlist = Course.in(:id => current_user.wishlist)
+    @owned_courses = current_user.courses.in(:course_id => owned_course_ids).to_a
+    @owned_wishlist = Course.in(:id => wishlist_ids).to_a
   end
 
   # DELETE /users/:id.:format
