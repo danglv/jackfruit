@@ -15,7 +15,7 @@ class PaymentSerializer < ActiveModel::Serializer
       course_id: object.course_id.to_s,
       course_alias_name: object.course.alias_name,
       course_name: object.course.name,
-      coupons: object.coupons.join(", "),
+      coupons: object.coupons.blank? ? "" : object.coupons.join(", "),
       mobile: object.mobile,
       email: object.email,
       address: object.address,
