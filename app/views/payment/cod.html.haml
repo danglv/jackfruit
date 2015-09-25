@@ -108,9 +108,9 @@
                     %option{:value => "Yên Bái"} Yên Bái
               .payment-editor.right
                 %input.form-control{:type => "text", :name => "district", :placeholder => "Quận/huyện", :required => "required"}
-            .cod-button
-              = hidden_field_tag :authenticity_token, form_authenticity_token
-              %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
+              .cod-button
+                = hidden_field_tag :authenticity_token, form_authenticity_token
+                %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
           .other-payment-menthod
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
           .menthod-progress

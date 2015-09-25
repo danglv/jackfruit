@@ -2,7 +2,7 @@
 .container-wrapper{:style => "overflow: hidden;"}  
   .banner
     = render :partial => "components/banner/banner"
-    
+  
   .payment
     .row.no-margin
       .col-xs-12.no-padding
@@ -48,7 +48,7 @@
             %form.form-support
               %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
               %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
-              %a.btn.btn-success.send-form-support{} Gửi đi
+              %a.btn.btn-success.send-form-support Gửi đi
           .other-payment-menthod
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
           .menthod-progress
