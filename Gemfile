@@ -62,19 +62,20 @@ gem "cancan"
 # net/http-digest_auth
 gem 'net-http-digest_auth', '~> 1.4'
 
-# Webmock
-# gem 'webmock', group: :test
-
 # Http request
 gem 'rest-client', '~> 1.8.0'
+
+# Spymaster - Tracking System
+gem 'spymaster', git: 'git@git.pedia.vn:tcs/spymaster-gem.git', branch: 'master'
 
 group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'selenium-webdriver'
-  gem "minitest-rails"
+  gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
+  gem 'webmock'
 end
 
 group :development, :test do

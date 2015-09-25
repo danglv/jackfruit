@@ -1,7 +1,10 @@
 = render :partial => 'components/header/default'
+
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+%input.course_name{:type => "hidden", :value => "#{@course.name}"}
 - if !current_user.blank?
   %input.user_id{:type => "hidden", :value => "#{current_user._id}"}
+  %input.user_email{:type => "hidden", :value => "#{current_user.email}"}
 #complete-dialog.modal.fade{:tabindex => "-1"}
   .modal-dialog
     .modal-content
@@ -33,7 +36,7 @@
             %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
             %form
               %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
-              %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
+              %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
               %a.btn.btn-success.send-form-support{} Gửi đi
           .tele-sales-content.success
             %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
@@ -133,27 +136,27 @@
                   và tiếp tục mua khóa học
             - else
               .col-xs-12.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
           - else
             - if @course.price == 0
               .col-xs-12.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                   Bắt đầu học ngay
             - else 
               .col-xs-12.no-padding
-                %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                   Mua khóa học
               .col-xs-12.no-padding
-                - if !@sale_info[:applied]
-                  %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                - if !@sale_info[:coupon_code]
+                  %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                     %h5.normal-text.link-text Nhập mã khuyến mãi
-                  %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                  %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                     %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                       %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                       %li
                         .row.no-margin
                           %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                          %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                          %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
               .col-xs-12.no-padding
                 / - if @preview_disabled
                 /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
@@ -166,23 +169,23 @@
         - else
           - if @course.price == 0
             .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                 Bắt đầu học ngay
           - else 
             .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                 Mua khóa học
             .col-xs-12.no-padding
-              - if !@sale_info[:applied]
-                %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+              - if !@sale_info[:coupon_code]
+                %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                   %h5.normal-text.link-text Nhập mã khuyến mãi
-                %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                   %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                     %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                     %li
                       .row.no-margin
                         %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                        %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                        %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
             .col-xs-12.no-padding
               / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
               /   %h5.normal-text.link-text Học thử miễn phí
@@ -479,18 +482,18 @@
                           và tiếp tục mua khóa học
                   - else
                     .col-xs-8.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
                     .col-xs-8.no-padding
-                      - if !@sale_info[:applied]
-                        %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                      - if !@sale_info[:coupon_code]
+                        %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
-                        %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                        %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                           %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                             %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                             %li
                               .row.no-margin
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-xs-8.no-padding
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
@@ -500,23 +503,23 @@
                 - else
                   - if @course.price == 0
                     .col-xs-8.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Bắt đầu học ngay
                   - else 
                     .col-xs-8.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Mua khóa học
                     .col-xs-8.no-padding
-                      - if !@sale_info[:applied]
-                        %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                      - if !@sale_info[:coupon_code]
+                        %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
-                        %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                        %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                           %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                             %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                             %li
                               .row.no-margin
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-xs-8.no-padding
                       / - if @preview_disabled
                       /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
@@ -529,23 +532,23 @@
               - else
                 - if @course.price == 0
                   .col-xs-8.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                       Bắt đầu học ngay
                 - else 
                   .col-xs-8.no-padding
-                    %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                    %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                       Mua khóa học
                   .col-xs-8.no-padding
-                    - if !@sale_info[:applied]
-                      %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                    - if !@sale_info[:coupon_code]
+                      %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                         %h5.normal-text.link-text Nhập mã khuyến mãi
-                      %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                      %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                         %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                           %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                           %li
                             .row.no-margin
                               %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                              %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                              %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                   .col-xs-8.no-padding
                     / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                     /   %h5.normal-text.link-text Học thử miễn phí
@@ -846,18 +849,18 @@
                               và tiếp tục mua khóa học
                     - else
                       .col-sm-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
                       .col-sm-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-sm-12.no-padding
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
@@ -867,23 +870,23 @@
                   - else
                     - if @course.price == 0
                       .col-sm-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Bắt đầu học ngay
                     - else 
                       .col-sm-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Mua khóa học
                       .col-sm-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-sm-12.no-padding
                         / - if @preview_disabled
                         /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
@@ -896,23 +899,23 @@
                 - else
                   - if @course.price == 0
                     .col-sm-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Bắt đầu học ngay
                   - else 
                     .col-sm-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Mua khóa học
                     .col-sm-12.no-padding
-                      - if !@sale_info[:applied]
-                        %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                      - if !@sale_info[:coupon_code]
+                        %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
-                        %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                        %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                           %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                             %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                             %li
                               .row.no-margin
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-sm-12.no-padding
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
@@ -1216,18 +1219,18 @@
                               và tiếp tục mua khóa học
                     - else
                       .col-md-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
                       .col-md-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-md-12.no-padding
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
@@ -1237,23 +1240,23 @@
                   - else
                     - if @course.price == 0
                       .col-md-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Bắt đầu học ngay
                     - else 
                       .col-md-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Mua khóa học
                       .col-md-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-md-12.no-padding
                         / - if @preview_disabled
                         /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
@@ -1266,23 +1269,23 @@
                 - else
                   - if @course.price == 0
                     .col-md-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Bắt đầu học ngay
                   - else 
                     .col-md-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Mua khóa học
                     .col-md-12.no-padding
-                      - if !@sale_info[:applied]
-                        %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                      - if !@sale_info[:coupon_code]
+                        %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                           %h5.normal-text.link-text Nhập mã khuyến mãi
-                        %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                        %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                           %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                             %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                             %li
                               .row.no-margin
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-md-12.no-padding
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
@@ -1599,18 +1602,18 @@
                               và tiếp tục mua khóa học
                     - else
                       .col-lg-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Mua khóa học này
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
                       .col-lg-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-lg-12.no-padding
                         / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                         /   %h5.normal-text.link-text Học thử miễn phí
@@ -1620,23 +1623,23 @@
                   - else
                     - if @course.price == 0
                       .col-lg-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Bắt đầu học ngay
                     - else 
                       .col-lg-6.no-padding
-                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                        %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Mua khóa học
                       .col-lg-12.no-padding
-                        - if !@sale_info[:applied]
-                          %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
+                        - if !@sale_info[:coupon_code]
+                          %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
-                          %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                          %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                             %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
                               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                               %li
                                 .row.no-margin
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                  %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                  %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-lg-12.no-padding
                         / - if @preview_disabled
                         /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
@@ -1649,23 +1652,22 @@
                 - else
                   - if @course.price == 0
                     .col-lg-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'background-color:#338abc'}
+                      %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'background-color:#338abc'}
                         Bắt đầu học ngay
                   - else 
                     .col-lg-6.no-padding
-                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
+                      %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Mua khóa học
                     .col-lg-12.no-padding
-                      - if !@sale_info[:applied]
-                        %a.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
-                          %h5.normal-text.link-text Nhập mã khuyến mãi
-                        %ul.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
+                      - if !@sale_info[:coupon_code]
+                        %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
+                          %h5.normal-text.link-text Nhập mã khuyến mãi current
+                        %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
                           %form{:method => 'GET', :action => "/courses/#{@course.alias_name}/detail"}
-                            %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                             %li
                               .row.no-margin
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
-                                %input.btn.btn-primary.discussion-submit{:type => "submit", :value => "Nhập"}
+                                %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-lg-12.no-padding
                       / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
                       /   %h5.normal-text.link-text Học thử miễn phí
@@ -1738,10 +1740,10 @@
         %ul.menu-fixed-right
           %li
             - if @course.price == 0
-              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:5px 15px'}
+              %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
                 Bắt đầu học ngay
             - else 
-              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning",:style => 'padding:5px 15px'}
+              %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
                 Mua khóa học
           %li
             - if @course.price == 0

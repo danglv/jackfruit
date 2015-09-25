@@ -4,7 +4,7 @@ class PaymentController < ApplicationController
   before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
-  before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+  # before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   # GET
   def index
     payment = Payment.where(
@@ -19,7 +19,8 @@ class PaymentController < ApplicationController
     unless payment.blank?
       redirect_to :back
     else
-      @data = Sale::Services.get_price({ course: @course })
+      coupon_code = params[:coupon_code]
+      @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
       @payment = Payment.new(
         course_id: @course.id,
         user_id: current_user.id,
@@ -558,20 +559,19 @@ class PaymentController < ApplicationController
       end
     end
 
-    def process_coupon
-      @coupon_code = params['coupon_code']
-      @discount = 0
-      @coupons = []
-      if !@coupon_code.blank?
-        @coupon_code.split(",").each {|coupon|
-          uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
-          response = Net::HTTP.get(uri)
-          if JSON.parse(response)['return_value'].to_i > 0
-            @discount += JSON.parse(response)['return_value'].to_f
-            @coupons << coupon
-          end
-        }
-      end
-      @price = ((@course.price * (100 - @discount) / 100) / 1000).to_i * 1000
-    end
+    # def process_coupon
+    #   @coupon_code = params['coupon_code']
+    #   @discount = 0
+    #   @coupons = []
+    #   if !@coupon_code.blank?
+    #     @coupon_code.split(",").each {|coupon|
+    #       response = RestClient.get("http://code.pedia.vn/coupons?coupon=#{coupon}")
+    #       if JSON.parse(response)['return_value'].to_i > 0
+    #         @discount += JSON.parse(response)['return_value'].to_f
+    #         @coupons << coupon
+    #       end
+    #     }
+    #   end
+    #   @price = ((@course.price * (100 - @discount) / 100) / 1000).to_i * 1000
+    # end
 end

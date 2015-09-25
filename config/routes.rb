@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: "application#index"
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
-  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations' }
 
   get '/home', to: redirect('/')
   
@@ -93,6 +93,12 @@ Rails.application.routes.draw do
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
       match '/edit_avatar'  , to: 'users#edit_avatar', via: [:get, :patch]
       match '/edit_profile' , to: 'users#edit_profile', via: [:get, :patch]
+    end
+  end
+
+  resources :sales do
+    collection do
+      get 'courses/combo/:combo_code', to: 'sales#combo_courses'
     end
   end
 
