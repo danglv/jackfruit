@@ -99,6 +99,18 @@ class PaymentController < ApplicationController
       end
     end
     @coupon_code = params[:coupon_code]
+    @discount = 0
+    if @coupon_code
+      url = URI.parse("http://code.pedia.vn/coupon?coupon=#{@coupon_code}")
+      req = Net::HTTP::Get.new(url.to_s)
+      res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)
+        http.request(req)
+      }
+      if res.code.to_i == 200
+        res_body = JSON.parse(res.body)
+        @discount = res_body['discount']
+      end
+    end
     @payment = Payment.where(
           :course_id => @course.id,
           :user_id => current_user.id
