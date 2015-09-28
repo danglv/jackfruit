@@ -6,7 +6,7 @@ module CoursesHelper
 			set.last.last.each do |course|
 				if course.price > 0
 					sale_info = Sale::Services.get_price(:course => course)
-					sale_infos[course.id] = sale_info if sale_info[:discount_price] > 0
+					sale_infos[course.id] = sale_info if sale_info[:final_price] > 0
 				end
 			end
 		end
@@ -18,7 +18,7 @@ module CoursesHelper
 		courses.each do |course|
 			if course.price > 0
 				sale_info = Sale::Services.get_price(:course => course)
-				sale_infos[course.id] = sale_info if sale_info[:discount_price] > 0
+				sale_infos[course.id] = sale_info if sale_info[:final_price] > 0
 			end
 		end
 		sale_infos
