@@ -267,6 +267,7 @@ class CoursesController < ApplicationController
     # Update lecture status
     @owned_lecture.lecture_ratio = 100 # 100 means finish
     @owned_lecture.status = 2
+    @owned_notes = @owned_lecture.notes.to_a
     @owned_course.save
   end
 
