@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       post :create_note
       post :update_note
       post :delete_note
+      get :download_note
       get 'note/download', to: 'users#download_note'
       get 'payment_history' , to: 'users#payment_history'
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
