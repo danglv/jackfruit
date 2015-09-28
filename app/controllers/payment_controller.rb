@@ -466,6 +466,21 @@ class PaymentController < ApplicationController
       end
     end
 
+    def get_discount_coupon(coupon_code)
+      if coupon_code
+        url = URI.parse("http://code.pedia.vn/coupon?coupon=#{@coupon_code}")
+        req = Net::HTTP::Get.new(url.to_s)
+        res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)
+          http.request(req)
+        }
+        if res.code.to_i == 200
+          res_body = JSON.parse(res.body)
+          return res_body['discount'].to_i
+        end
+      end
+      return 0
+    end
+
     # def process_coupon
     #   @coupon_code = params['coupon_code']
     #   @discount = 0
