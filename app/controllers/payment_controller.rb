@@ -145,9 +145,12 @@ class PaymentController < ApplicationController
             :identity => current_user.id.to_s,
             :object => payment.id
           )
+
           render 'page_not_found', status: 404
         end
       else
+        coupon_code = params[:coupon_code]
+        @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
         @error = data['errorMessage']
       end
     end
@@ -416,11 +419,10 @@ class PaymentController < ApplicationController
       coupon_code = params[:coupon_code]
       @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
 
-      if current_user.money > @data[:final_price]
-
+      if current_user.money >= @data[:final_price]
         current_user.money -= @data[:final_price]
         create_course_for_user()
-        
+
         # NOTE: Online payment is disabled
         # Update all previous online payment(s) of the user, who has the course
         # Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id)
@@ -439,7 +441,7 @@ class PaymentController < ApplicationController
         owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
 
-        # NOTE: bad code
+        # NOTE: bad cod
         if (owned_course.save && payment.save && current_user.save)
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
@@ -480,20 +482,4 @@ class PaymentController < ApplicationController
       end
       return 0
     end
-
-    # def process_coupon
-    #   @coupon_code = params['coupon_code']
-    #   @discount = 0
-    #   @coupons = []
-    #   if !@coupon_code.blank?
-    #     @coupon_code.split(",").each {|coupon|
-    #       response = RestClient.get("http://code.pedia.vn/coupons?coupon=#{coupon}")
-    #       if JSON.parse(response)['return_value'].to_i > 0
-    #         @discount += JSON.parse(response)['return_value'].to_f
-    #         @coupons << coupon
-    #       end
-    #     }
-    #   end
-    #   @price = ((@course.price * (100 - @discount) / 100) / 1000).to_i * 1000
-    # end
 end
