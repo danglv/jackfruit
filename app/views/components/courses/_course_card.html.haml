@@ -44,7 +44,7 @@
           %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
       // an hien tuy theo co promotion hay khong
       - if course.price != 0
-        - if @sale_info && sale_info = @sale_info[course.id]
+        - if @sale_info && sale_info = @sale_info[course.id] && @sale_info[course.id][:applied]
           .row.promotion-price
             %span.promotion-badge
               = help_show_currency sale_info[:final_price]
