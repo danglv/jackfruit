@@ -28,7 +28,7 @@ before_filter :configure_sign_up_params, only: [:create]
       @validatable = devise_mapping.validatable?
       if @validatable        
         @minimum_password_length = resource_class.password_length.min
-        set_flash_message :alert, :pass_min_length if is_flashing_format?
+        set_flash_message :alert, :invalid_email if is_flashing_format?
       end
       respond_with resource
     end
