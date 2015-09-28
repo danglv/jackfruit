@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       # get '/select', to: 'courses#select'
       post :add_discussion
       post :rating
+      post :approve
     end
     collection do
       get :search
@@ -27,6 +28,11 @@ Rails.application.routes.draw do
 
       # API for mercury
       get '/api/suggestion_search', to: 'courses#suggestion_search'
+      get '/api/get_money', to: 'courses#get_money'
+
+      # API for kelley
+      post :upload_course
+      post :check_alias_name
     end
   end
 
@@ -74,9 +80,14 @@ Rails.application.routes.draw do
       get :wishlist
       get :update_wishlist
       get :search
+
+      # API for mercury
       get '/api/suggestion_search', to: 'users#suggestion_search'
       post '/api/active_course', to: 'users#active_course'
       get '/api/:id/get_user_detail', to: 'users#get_user_detail'
+
+      #API create instructor for kelley
+      post '/api/create_instructor', to: 'users#create_instructor'
     end
   end 
   
@@ -122,6 +133,32 @@ Rails.application.routes.draw do
     collection do
       get '/embed/video/:course_id/(:lecture_id)', to: 'resources#embed_course_video'
       get 'lecture/doc/:doc_id', to: 'resources#lecture_doc', :as => :download_lecture_doc
+    end
+  end
+  
+  resources :label, only: %w[] do
+    collection do
+      # API for kelley
+      post :create
+      
+    end
+
+    member do
+      # API for kelley
+      post :update
+    end
+  end
+
+  resources :category, only: %w[] do
+    collection do
+      # API for kelley
+      post :create
+      
+    end
+
+    member do
+      # API for kelley
+      post :update
     end
   end
   

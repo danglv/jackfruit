@@ -2,13 +2,14 @@ module Sale
 
   class Services
 
-    # One interface for all
+    # One interface for all (sale price for a course)
     # Input
     # Hash{
-    # => course: required
+    # => course: required, except when combo_code is given
     # => coupon_code: optional
+    # => combo_code: optional
     # => ...
-    #}
+    # }
     # Ouput
     # Hash{
     # => discount_price: price after applying sale package
@@ -16,14 +17,26 @@ module Sale
     # => applied: true if there's a sale package applied on course, false otherwise
     # => error: message if any error, usually coupon code is not valid, should be checked first
     # => coupon_code: if there's a coupon code applying to this course
-    #}
+    # => combo_code: when get price for a combo
+    # }
     def self.get_price(data)
       # Default result
       result = {:discount_price => 0, :discount_ratio => 0, :applied => false}
 
       course = data[:course]
-      # Check coupon 
-      if (coupon_code = data[:coupon_code])
+      # Check combo
+      if (combo_code = data[:combo_code])
+        combo_package = get_combo(combo_code)
+        if combo_package
+          result[:final_price] = combo_package.price
+          result[:package_id]  = combo_package.id
+          result[:combo_code]  = combo_package.code
+          result[:applied] = true
+        else
+          result[:error] = "Mã combo #{combo_code} không hợp lệ"
+        end
+      # Check coupon
+      elsif (coupon_code = data[:coupon_code])
         success, data = Coupon.request_by_code(coupon_code)
         if success
           result[:discount_price] = data['discount'].to_f * course.price / 100
@@ -44,6 +57,7 @@ module Sale
           unless package.blank?
             result[:discount_price] = package.price || 0
             result[:discount_ratio] = (package.price.to_f / course.price.to_f * 100).ceil.to_i || 0
+            result[:package_id] = package.id
             result[:applied] = true
             break
           end
@@ -51,6 +65,11 @@ module Sale
       end
 
       result
+    end
+
+    # Get combo package by code
+    def self.get_combo(combo_code)
+      return Combo.request_package_by_code(combo_code)
     end
 
   end
@@ -64,8 +83,11 @@ module Sale
         data = JSON.parse(response)
         case result.code
         when "200"
+          # If coupon is expired
+          if data['expired_date'].to_time < Time.now()
+            return false, "Mã coupon #{coupon_code} không hợp lệ"
           # if course_id is given but not match with coupon's course_id
-          if course_id && course_id != data['course_id']
+          elsif course_id && course_id != data['course_id']
             return false, "Mã coupon #{coupon_code} không áp dụng cho khóa học"
           else
             return true, data
@@ -101,6 +123,16 @@ module Sale
         return package.courses
       end
       return []
+    end
+
+    def self.request_package_by_code(combo_code)
+      campaign = Sale::Campaign.in_progress.where(
+        :'packages.code' => combo_code
+      ).first
+      if campaign
+        return campaign.packages.where(:code => combo_code).first
+      end
+      return nil
     end
   end
 end
