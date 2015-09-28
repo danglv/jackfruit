@@ -173,7 +173,7 @@ class User
   end
 
   def role_enum
-    %w[admin user test]
+    %w[admin reviewer user test]
   end
 
   def lang_enum
