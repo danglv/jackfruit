@@ -25,7 +25,8 @@ class Tracking
     SecureRandom.urlsafe_base64
   end
 
-  def self.create_tracking data
-    Tracking.create data
+  def self.create_tracking(data)
+    binding.pry
+    Tracking.create(data)
   end
 end
