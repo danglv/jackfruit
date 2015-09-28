@@ -111,4 +111,9 @@ module ApplicationHelper
 
     url + (sale_info[:coupon_code] ? "&coupon_code=#{sale_info[:coupon_code]}" : '')
   end
+
+  def help_build_payment_method_url(link, data)
+    link += link.index('?').blank? ? '?' : ''
+    link + (data[:coupon_code] ? "&coupon_code=#{data[:coupon_code]}" : '')
+  end
 end
