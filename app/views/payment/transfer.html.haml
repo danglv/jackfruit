@@ -13,18 +13,16 @@
           .info-title Thông tin thanh toán
           .info-course
             .course-name= @course.name
-            / .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             .course-price= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .info-coupon
             .sale-text Giảm giá
-            - if @discount > 0
-              .sale-price= "#{@discount} %"
+            .sale-price= "#{@data[:discount_ratio]}%" if @data[:discount_ratio] > 0
           .info-cost
             .cost-text Thành tiền
-            .total-pice= number_to_currency((@course.price / 100)* (100 - @discount.to_i), :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-        .payment-main-menthod
-          .menthod-title 2. Hoàn tất thanh toán
-          .menthod-description
+            .total-price= number_to_currency(@data[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .payment-main-method
+          .method-title 2. Hoàn tất thanh toán
+          .method-description
             %h5.description-transfer-text.red-text Chuyển khoản ngân hàng
             %h5.description-transfer-text Bạn có thể đến bất kỳ ngân hàng nào ở Việt Nam (hoặc sử dụng Internet Banking) để chuyển tiền theo thông tin bên dưới:
             .description-transfer-text
@@ -56,9 +54,9 @@
               %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
               %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
               %a.btn.btn-success.send-form-support Gửi đi
-          .other-payment-menthod
+          .other-payment-method
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
-          .menthod-progress
+          .method-progress
             .progress-icon
               %i.fa.fa-circle
             .progress-icon.active

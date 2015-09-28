@@ -128,6 +128,19 @@ RailsAdmin.config do |config|
       field :role
     end
 
+    create do
+      field :name
+      field :email
+      field :password
+      field :password_confirmation
+      field :role
+      field :lang
+      field :labels
+      field :instructor_profile
+      field :courses
+      field :avatar
+    end 
+
     show do
       field :created_at
       field :name
@@ -148,6 +161,8 @@ RailsAdmin.config do |config|
     edit do
       field :name
       field :email
+      field :password
+      field :password_confirmation
       field :role
       field :lang
       field :labels

@@ -11,7 +11,7 @@
   &-box {
     background-color: #fff;
     margin-top: 30px !important;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     margin-bottom: 5px;
     .full-width {
       width: 100%;
@@ -190,19 +190,19 @@
         }
       }
     }
-    .payment-main-menthod {
+    .payment-main-method {
       @extend .row;
       display: block;
       text-align: center;
       margin: 0;
-      .menthod-title {
+      .method-title {
         padding-top: 10px;
         font-size: 16px;
         font-weight: bold;
         color: #338abc;
         text-align: left;
       }
-      .menthod-description {
+      .method-description {
         @extend .row;
         margin: 0;
         padding: 10px 0 0 0;
@@ -236,7 +236,7 @@
             margin-bottom: 5px;
             .badge {
               display: inline-block;
-              float:left; 
+              float: left;
               margin-right: 8px;
               width: 30px;
             }
@@ -342,14 +342,14 @@
           }
         }
       }
-      .other-payment-menthod {
+      .other-payment-method {
         @extend .row;
         margin: 0;
         text-align: center;
         font-size: 16px;
         font-weight: 400;
       }
-      .menthod-card {
+      .method-card {
         @extend .row;
         margin: 0;
         display: block;
@@ -368,7 +368,7 @@
           padding: 10px;
           text-transform: none;
           text-align: left;
-          .payment-menthod-icon {
+          .payment-method-icon {
             color: #727272;
             width: 30px;
             height: 30px;
@@ -377,7 +377,7 @@
             margin-right: 10px;
             vertical-align: middle;
           }
-          .menthod-text {
+          .method-text {
             display: inline-block;
             .one-line {
               display: none;
@@ -388,13 +388,13 @@
           }
           &:hover {
             background-color: #338abc;
-            box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15);
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
             color: #fff;
-            .payment-menthod-icon {
+            .payment-method-icon {
               color: #fff;
             }
           }
-          &.disable:hover{
+          &.disable:hover {
             background: none;
             color: #9e9e9e;
             cursor: default;
@@ -412,7 +412,7 @@
           padding: 15px 10px;
           text-transform: none;
           text-align: left;
-          .payment-menthod-icon {
+          .payment-method-icon {
             color: #727272;
             width: 30px;
             height: 30px;
@@ -421,18 +421,18 @@
             margin-right: 10px;
             vertical-align: top;
           }
-          .menthod-text {
+          .method-text {
             display: inline-block;
           }
           &:hover {
             background-color: #338abc;
-            box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15);
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
             color: #fff;
-            .payment-menthod-icon {
+            .payment-method-icon {
               color: #fff;
             }
           }
-          &.disable:hover{
+          &.disable:hover {
             background: none;
             color: #9e9e9e;
             cursor: default;
@@ -441,7 +441,7 @@
         .card-style {
           display: none;
           width: 160px;
-          height: 160px; 
+          height: 160px;
           padding: 30px 15px;
           border-radius: 2px;
           background-color: #fff;
@@ -449,7 +449,7 @@
           text-transform: none;
           font-size: 14px;
           font-weight: 400;
-          .payment-menthod-icon {
+          .payment-method-icon {
             color: #727272;
             font-size: 48px;
             display: block;
@@ -457,20 +457,20 @@
           }
           &:hover {
             background-color: #338abc;
-            box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.18),0px 4px 15px 0px rgba(0,0,0,0.15);
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
             color: #fff;
-            .payment-menthod-icon {
+            .payment-method-icon {
               color: #fff;
             }
           }
-          &.disable:hover{
+          &.disable:hover {
             background: none;
             color: #9e9e9e;
             cursor: default;
           }
         }
       }
-      .menthod-progress {
+      .method-progress {
         @extend .row;
         padding-top: 10px;
         display: block;
@@ -503,7 +503,7 @@
     font-weight: bold;
     color: #338abc;
     text-transform: uppercase;
-  } 
+  }
   .hot-line {
     .fa-phone {
       color: #338abc;
@@ -512,10 +512,10 @@
   }
 }
 
-@media (max-width: 320px) {
-}
-@media (min-width: 320px) and (max-width: 480px) {
-}
+@media (max-width: 320px) {}
+
+@media (min-width: 320px) and (max-width: 480px) {}
+
 @media (min-width: 480px) and (max-width: 768px) {
   .payment {
     .payment-main {
@@ -523,8 +523,8 @@
       margin: auto;
       padding: 0;
       float: none;
-      .payment-main-menthod {
-        .menthod-card {
+      .payment-main-method {
+        .method-card {
           a {
             width: 100%;
           }
@@ -550,6 +550,7 @@
     }
   }
 }
+
 @media (min-width: 768px) and (max-width: 992px) {
   .payment {
     .payment-main {
@@ -558,12 +559,12 @@
         display: inline-block;
         float: right !important;
       }
-      .payment-main-menthod {
+      .payment-main-method {
         @include make-sm-column(7);
         display: inline-block;
         float: left;
         border-right: 1px solid #acacac;
-        .menthod-title { 
+        .method-title {
           padding: 0;
         }
         .cod-form {
@@ -603,7 +604,7 @@
           }
           .card-input {
             .form-card {
-              .code-input, .seri-input { 
+              .code-input, .seri-input {
                 width: 290px;
                 margin: auto;
                 padding: 0;
@@ -617,7 +618,7 @@
             }
           }
         }
-        .menthod-card {
+        .method-card {
           margin: 0;
           a {
             width: 100%;
@@ -637,6 +638,7 @@
     }
   }
 }
+
 @media (min-width: 992px) and (max-width: 1200px) {
   .payment {
     .payment-main {
@@ -645,12 +647,12 @@
         display: inline-block;
         float: right !important;
       }
-      .payment-main-menthod {
+      .payment-main-method {
         @include make-md-column(8);
         display: inline-block;
         float: left;
         border-right: 1px solid #acacac;
-        .menthod-title { 
+        .method-title {
           padding: 0;
         }
         .cod-form {
@@ -690,7 +692,7 @@
           }
           .card-input {
             .form-card {
-              .code-input, .seri-input { 
+              .code-input, .seri-input {
                 width: 300px;
                 margin: auto;
                 padding: 0;
@@ -704,7 +706,7 @@
             }
           }
         }
-        .menthod-card {
+        .method-card {
           width: 528px;
           margin: auto;
           a {
@@ -721,6 +723,7 @@
     }
   }
 }
+
 @media (min-width: 1201px) {
   .payment {
     .payment-main {
@@ -729,13 +732,13 @@
         display: inline-block;
         float: right !important;
       }
-      .payment-main-menthod {
+      .payment-main-method {
         @include make-lg-column(8);
         padding: 0;
         display: inline-block;
         float: left;
         border-right: 1px solid #acacac;
-        .menthod-title { 
+        .method-title {
           padding: 0;
         }
         .cod-form {
@@ -776,7 +779,7 @@
           }
           .card-input {
             .form-card {
-              .code-input, .seri-input { 
+              .code-input, .seri-input {
                 width: 300px;
                 margin: auto;
                 padding: 0;
@@ -790,7 +793,7 @@
             }
           }
         }
-        .menthod-card {
+        .method-card {
           a {
             margin: 10px;
           }
