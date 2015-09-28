@@ -54,6 +54,7 @@
   $(".show-form").click(function (){
     $(".tele-sales").css("display", "none");
     $(".tele-sales-extend").css("display", "block");
+    $(".name-input").focus();
   });
 
   $(".hide-form").click(function (){
