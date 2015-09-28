@@ -137,16 +137,18 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     last_url = request.referer
-    uri = URI(last_url)
+    uri = URI(last_url) if !last_url.blank? || last_url.is_a?(String)
     course_id = nil
     
-    if !uri.query.blank?
-      params = URI::decode_www_form(uri.query).to_h
-      course_id = params["course_id"]
+    if uri != nil
+      if !uri.query.blank?
+        params = URI::decode_www_form(uri.query).to_h
+        course_id = params["course_id"]
+      end
     end
 
     if ((resource.is_a? User) && !course_id.blank?)
-      resource.wishlist << course_id if !(resource.wishlist.include? course_id)
+      resource.wishlist << course_id if !(resource.wishlist.include? course_id) && course_id != nil
       resource.save
     end
     request.env['omniauth.origin'] || stored_location_for(resource) || root_path

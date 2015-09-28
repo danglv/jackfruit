@@ -95,7 +95,7 @@
     request.done(function (response, textStatus, jqXHR){
         // Log a message to the console
         $(".tele-sales-content").css("display", "none");
-        $(".tele-sales-extend .success").css("display", "block");
+        $(".support-online-payment-form .success").css("display", "block");
     });
 
     // Callback handler that will be called on failure
