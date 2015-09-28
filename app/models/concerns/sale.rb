@@ -20,8 +20,10 @@ module Sale
     # => combo_code: when get price for a combo
     # }
     def self.get_price(data)
+      course = data[:course]
+
       # Default result
-      result = {:discount_price => 0, :discount_ratio => 0, :applied => false}
+      result = {:final_price => course.price, :discount_ratio => 0, :applied => false}
 
       course = data[:course]
       # Check combo
@@ -39,7 +41,7 @@ module Sale
       elsif (coupon_code = data[:coupon_code])
         success, data = Coupon.request_by_code(coupon_code)
         if success
-          result[:discount_price] = data['discount'].to_f * course.price / 100
+          result[:final_price] = course.price - (data['discount'].to_f * course.price / 100)
           result[:discount_ratio] = data['discount'].to_f.ceil
           result[:coupon_code] = coupon_code
           result[:applied] = true
@@ -55,7 +57,7 @@ module Sale
           }.first
 
           unless package.blank?
-            result[:discount_price] = package.price || 0
+            result[:final_price] = package.price
             result[:discount_ratio] = (package.price.to_f / course.price.to_f * 100).ceil.to_i || 0
             result[:package_id] = package.id
             result[:applied] = true
