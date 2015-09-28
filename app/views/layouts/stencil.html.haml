@@ -263,14 +263,12 @@
     .container
       = yield  
       = javascript_include_tag 'application'
-      :javascript
-        /*  */
-        var google_conversion_id = 945443627;
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-        var google_conversion_format = 3;
-        /*  */
-      %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
-      %noscript
-        %div{:style => "display:inline;"}
-          %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/
+    :javascript
+      var google_conversion_id = 945443627;
+      var google_custom_params = window.google_tag_params;
+      var google_remarketing_only = true;
+      
+    %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+    %noscript
+      %div{:style => "display:inline;"}
+        %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/
