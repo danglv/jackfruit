@@ -40,6 +40,7 @@ module Sale
       # Check coupon
       elsif (coupon_code = data[:coupon_code])
         success, data = Coupon.request_by_code(coupon_code)
+
         if success
           result[:final_price] = course.price - (data['discount'].to_f * course.price / 100)
           result[:discount_ratio] = data['discount'].to_f.ceil
