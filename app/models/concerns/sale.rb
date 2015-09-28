@@ -5,10 +5,11 @@ module Sale
     # One interface for all (sale price for a course)
     # Input
     # Hash{
-    # => course: required
+    # => course: required, except when combo_code is given
     # => coupon_code: optional
+    # => combo_code: optional
     # => ...
-    #}
+    # }
     # Ouput
     # Hash{
     # => discount_price: price after applying sale package
@@ -16,14 +17,26 @@ module Sale
     # => applied: true if there's a sale package applied on course, false otherwise
     # => error: message if any error, usually coupon code is not valid, should be checked first
     # => coupon_code: if there's a coupon code applying to this course
-    #}
+    # => combo_code: when get price for a combo
+    # }
     def self.get_price(data)
       # Default result
       result = {:discount_price => 0, :discount_ratio => 0, :applied => false}
 
       course = data[:course]
-      # Check coupon 
-      if (coupon_code = data[:coupon_code])
+      # Check combo
+      if (combo_code = data[:combo_code])
+        combo_package = get_combo(combo_code)
+        if combo_package
+          result[:final_price] = combo_package.price
+          result[:package_id]  = combo_package.id
+          result[:combo_code]  = combo_package.code
+          result[:applied] = true
+        else
+          result[:error] = "Mã combo #{combo_code} không hợp lệ"
+        end
+      # Check coupon
+      elsif (coupon_code = data[:coupon_code])
         success, data = Coupon.request_by_code(coupon_code)
         if success
           result[:discount_price] = data['discount'].to_f * course.price / 100
@@ -44,6 +57,7 @@ module Sale
           unless package.blank?
             result[:discount_price] = package.price || 0
             result[:discount_ratio] = (package.price.to_f / course.price.to_f * 100).ceil.to_i || 0
+            result[:package_id] = package.id
             result[:applied] = true
             break
           end
