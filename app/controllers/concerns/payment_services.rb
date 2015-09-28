@@ -54,10 +54,10 @@ module PaymentServices extend ActiveSupport::Concern
       data = data = params.map(&:last).join('')
       data_sign = OpenSSL::HMAC.hexdigest('SHA1', SECURE_PASS, data)
 
-      params['data_sign'] = data_sign    
+      params['data_sign'] = data_sign
 
       request = Net::HTTP.post_form(URI.parse("#{BAOKIM_URL}"), params)
-      
+
       return request
     end
 
