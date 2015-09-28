@@ -97,9 +97,11 @@
     = yield
     = javascript_include_tag 'application'
     :javascript
+      /* <![CDATA[ */
       var google_conversion_id = 945443627;
       var google_custom_params = window.google_tag_params;
       var google_remarketing_only = true;
+      /* ]]> */
       
     %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
     %noscript
