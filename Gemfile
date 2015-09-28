@@ -19,7 +19,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Mongoid
-gem "mongoid", "~> 4.0.0"
+gem "mongoid", "~> 5.0.0"
 gem "bson_ext"
 
 # Haml
@@ -48,7 +48,7 @@ gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 
 # Image
-gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick', '~> 3.8.1'
 gem "ImageResize"
