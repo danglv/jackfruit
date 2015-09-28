@@ -1,25 +1,267 @@
 .detail {
-  margin-bottom: 70px;
-  .layout-320{
-    min-width: 320px;
-  }
-  .layout-480-up {
-    min-width: 480px;
-  }
-  .buy-button,.learning-button {
-    background-color: #338abc !important;
-  }
-  .buy-button:hover,.learning-button:hover{
-    background: #0fb2fc !important;
-  }
-  .detail-course-title {
-    font-size: 18px;
-    font-weight: bold;
+  .detail-top {
+    background-color: #fff;
+    border-bottom: 1px solid #b6b6b6;
+    padding-top: 20px;
+    @extend .row;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
     color: #212121;
-    margin: 20px 0 5px 0 !important;
-    &-big {
-      font-size: 30px;
-      margin: 20px 0 5px 0 !important;
+    .course-title {
+      @include make-xs-column(12);
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .sub-title {
+      @include make-xs-column(12);
+      margin-bottom: 10px;
+    }
+    .course-rating {
+      @include make-xs-column(12);
+      margin-bottom: 5px;
+      .course-rating-point {
+        display: inline;
+        vertical-align: middle;
+        .fa {
+          color: #727272;
+          font-size: 20px;
+          width: 20px;
+          &.is-rated {
+            color: #ffbb33;
+          }
+        }
+      } 
+      .course-rating-people {
+        display: inline;
+        vertical-align: middle;
+      }
+    }
+    .course-author {
+      @include make-xs-column(12);
+      margin-bottom: 20px;
+    }
+    .course-detail {
+      display: block;
+      .course-player {
+        @include make-xs-column(12);
+        .video-container {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+  .detail-bottom {
+    @extend .row;
+    margin: 0;
+    padding-top: 20px; 
+    .bottom-left {
+      @include make-xs-column(12);
+      .description {
+        .description-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #212121;
+        }
+        .short_description {
+          width: 100%;
+          line-height: 24px;
+          height: 155px;
+          overflow: hidden;
+        }
+        .long_description {
+          width: 100%;
+          height:auto;
+        }
+      }
+      .curiculums {
+        @extend .row;
+        margin: 0;
+        padding-top: 10px; 
+        .curiculums-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #212121;
+          border-bottom: 1px solid #b6b6b6;
+          padding-bottom: 5px;
+          margin-bottom: 20px;
+        }
+        .curiculum {
+          .curiculum-title {
+            margin-top: 20px !important;
+            padding-bottom: 10px !important;
+          }
+          .curiculum-list {
+            border-bottom: 1px solid #cccccc;
+            .curiculum-content {
+              margin: 10px 0px !important;
+            }
+            .preview-button{
+              margin: 0 0 0 10px;
+              top: -2px;
+              padding: 5px;
+              font-size: 12px;
+              width: 100px;
+              height: 25px;
+            }
+          }
+        }
+      }
+      .author {
+        display: block;
+        @extend .row;
+        margin: 0;
+        padding-top: 20px; 
+        .author-title {
+          @include make-xs-column(12);
+          padding: 0;
+          font-size: 18px;
+          font-weight: bold;
+          color: #212121;
+        }
+        .author-content {
+          @include make-xs-column(12);
+          padding: 0;
+          margin-top: 10px;
+          .author-avatar {
+            @include make-xs-column(3);
+            padding: 0;
+          }
+          .author-description {
+            @include make-xs-column(9);
+            .social-button {
+              font-size: 24px;
+            }
+          }
+        }
+        .author-information {
+          @include make-xs-column(12);
+          padding: 0;
+          margin-top: 15px;
+          .information-text {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+          }
+        }
+      }
+      .rating {
+        @extend .row;
+        margin: 0;
+        padding: 10px 0 15px 0;
+        border-bottom: 1px solid #b6b6b6;
+        .rating-title {
+          @include make-xs-column(12);
+          padding: 0;
+          font-size: 18px;
+          font-weight: bold;
+          color: #212121;
+        }
+        .rating-point {
+          font-size: 60px;
+          font-weight: 400;
+          color: #ff4444;
+        }
+        .course-rating {
+          @extend .row;
+          margin: 0;
+          .rating-star {
+            display: inline;
+            .fa {
+              color: #727272;
+              font-size: 20px;
+              width: 20px;
+              &.is-rated {
+                color: #ffbb33;
+              }
+            }
+          }
+          .rating-people {
+            display: inline;
+            font-size: 16px;
+          }
+        }
+        .rating-detail {
+          @extend .row;
+          margin: 0;
+          .course_review {
+            @extend .row;
+            margin-bottom: 15px;
+            .star-review {
+              display: inline;
+              @include make-xs-column(2);
+              padding: 0;
+            }
+            .progress-review {
+              display: inline;
+              @include make-xs-column(8);
+              .progress {
+                margin: 20px 0 !important;
+                height: 6px;
+                .progress-bar {
+                  background-color: #ffbb33 !important;
+                }
+              }
+            }
+            .count-review {
+              display: inline;
+              @include make-xs-column(2);
+              padding: 0;
+            }
+          }
+        }
+      }
+      .discussion {
+        @extend .row;
+        margin: 0;
+        padding: 20px 0 15px 0; 
+        border-bottom:1px solid #b6b6b6;
+        .discussion-top {
+          @extend .row;
+          margin: 0;
+          .avatar {
+            @include make-xs-column(3);
+            padding: 0;
+          }
+          .content {
+            @include make-xs-column(9);
+            margin-bottom: 5px;
+            .user-name {
+              font-size: 16px;
+              font-weight: bold;
+              color: #212121;
+            }
+            .time-review {
+              font-size: 14px;
+              font-weight: 400;
+              color: #212121;
+            }
+            .course-rating-point {
+              .fa {
+                color: #727272;
+                font-size: 20px;
+                width: 20px;
+                &.is-rated {
+                  color: #ffbb33;
+                }
+              }
+            }
+          }
+        }
+        .review {
+          @extend .row;
+          margin: 0;
+          font-size: 14px;
+          font-weight: 400;
+          color: #212121;
+          .review-title {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .bottom-right {
+      display: none;
     }
   }
   .tele-sales {
@@ -90,222 +332,6 @@
     .tele-sales-bottom {
       padding: 8px 10px;
       color: #e75050;
-    }
-  }
-  .menu-fixed {
-    display: none;
-    position: fixed;
-    z-index: 2;
-    top: 0px;
-    background-color: #fff;
-    width: 100%;
-    box-shadow: 0px 1px 1px  #888888;
-    a {
-      color: #333333;
-      font-size: 18px;
-    }
-    .container {
-      position: relative;
-      height: 60px;
-    }
-    .nav-pills {
-      position: absolute;
-      bottom: 0px;
-    }
-    .nav-pills li.active {
-      border-bottom: 4px solid #338abc;
-      a {
-        color: #333333;
-        background-color: transparent;
-
-      }
-    } 
-    .nav-pills a:hover {
-      background-color: transparent;
-    }
-    &-right{
-      list-style: none;
-      position: absolute;
-      right: 0px;
-      bottom: 10px;
-      margin: 0px 23px 0px 0px;
-      padding: 0px;
-      li {
-        float: left;
-        margin-right: 20px;
-        .btn {
-          background-color: #338abc;
-        }
-        h3 {
-          font-size: 20px;
-        }
-        a, h3 {
-          line-height: 40px;
-          padding-top: 0px;
-          padding-bottom: 0px;
-          margin-bottom: 0px !important;
-        }
-      }
-    }
-  }
-  .sub_title {
-    line-height: 20px;
-  }
-  .course {
-    &-rating {
-      margin: 10px 0 !important;
-      &-point {
-        .fa {
-          color: #727272;
-          font-size: 20px;
-          width: 20px;
-          &.is-rated {
-            color: #ffbb33;
-          }
-        }
-      }
-    }
-    &-price-text {
-      font-weight: bold;
-      color: #e75050;
-      font-size: 44px;
-      margin: 10px 0 !important;
-      &.free {
-        color: #e75050;
-      }
-    }
-  }
-  .video-container {
-    margin: 10px 0;
-  }
-  .buy-button, .learning-button {
-    width: auto;
-    height: 50px;
-    font-size: 24px;
-    padding: 10px 15px;
-    font-weight: 400;
-    text-transform: none;
-  }
-  .pending-button {
-    width: auto;
-    height: 50px;
-    font-size: 24px;
-    padding: 10px 15px;
-    font-weight: 400;
-    text-transform: none;
-    background-color: #ffbb33 !important;
-    color: #fff !important;
-  }
-  .wishlist-button {
-    width: auto;
-    height: 50px;
-    padding: 12px 10px;
-    font-weight: bold;
-    background-color: #727272 !important;
-    color: #fff !important;
-    text-transform: none !important;
-    &.wishlisted {
-      background-color: #fff !important;
-      color: #333 !important;
-      border: 1px solid #ccc;
-      .fa-heart {
-        color: #d23837 !important;
-      }
-      &:hover{
-        background: #353535;
-        color: #fff;
-      }
-    }
-    &.no-text {
-      width: 65px !important;
-      padding: 8px !important;
-    }
-  }
-  .detail-list-info {
-    h5 {
-      margin-bottom: 0;
-    }
-  }
-  .description {
-    margin: 20px 0 25px 0 !important;
-  }
-  .short_description {
-    width: 100%;
-    line-height: 24px;
-    height: 155px;
-    overflow: hidden;
-  }
-  .long_description {
-    width: 100%;
-    height:auto;
-  }
-  .curiculums {
-    margin-bottom: 25px !important;
-    .curiculum {
-      .curiculum-title {
-        margin-top: 20px !important;
-        padding-bottom: 10px !important;
-      }
-      .curiculum-list {
-        border-bottom: 1px solid #cccccc;
-        .curiculum-content {
-          margin: 10px 0px !important;
-        }
-        .preview-button{
-          margin: 0 0 0 10px;
-          top: -2px;
-          padding: 5px;
-          font-size: 12px;
-          width: 100px;
-          height: 25px;
-        }
-      }
-    }
-  }
-  .author {
-    margin-bottom: 15px !important;
-    .social-button {
-      font-size: 24px;
-    }
-  }
-  .rating {
-    margin-bottom: 25px !important;
-    .rating-text {
-      font-size: 18px;
-    }
-    .rating-point {
-      font-size: 60px;
-      color: #ff4444;
-    }
-    .course-rating-people {
-      font-size: 16px;
-    }
-    .progress {
-      margin: 20px 0 !important;
-      height: 6px;
-      .progress-bar {
-        background-color: #ffbb33 !important;
-      }
-    }
-  }
-  .discussion {
-    margin: 20px 0 !important;
-  }
-  .related-box {
-    background-color: #fff;
-    border: 1px solid #cccccc;
-    .related-content {
-      padding: 20px 10px !important;
-      .list-card {
-        margin-bottom: 20px;
-        border-bottom: 1px solid #cccccc;
-      }
-      .list-card:last-child{
-        border-bottom: none;
-      }
-      img {
-        width: 100%;
-      }
     }
   }
 }
@@ -444,6 +470,22 @@
       margin: 30px auto;
     }
   }
+  .detail {
+    .detail-top {
+    }
+    .detail-bottom {
+      .bottom-left {
+        .author {
+          .author-content {
+            .author-avatar {
+              @include make-xs-column(3);
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media (min-width: 768px) and (max-width: 992px) {
   #preview_lecture_modal{
@@ -451,6 +493,25 @@
       width: 640px;
       height: 360px;
       margin: 30px auto;
+    }
+  }
+  .detail {
+    .detail-top {
+      .course-title {
+        font-size: 30px;
+      }
+    }
+    .detail-bottom {
+      .bottom-left {
+        .author {
+          .author-content {
+            .author-avatar {
+              @include make-sm-column(2);
+              padding: 0;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -462,6 +523,25 @@
       margin: 50px auto;
     }
   }
+  .detail {
+    .detail-top {
+      .course-title {
+        font-size: 30px;
+      }
+    }
+    .detail-bottom {
+      .bottom-left {
+        .author {
+          .author-content {
+            .author-avatar {
+              @include make-md-column(2);
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 @media (min-width: 1200px) {
   #preview_lecture_modal{
@@ -469,6 +549,25 @@
       width: 640px;
       height: 360px;
       margin: 70px auto;
+    }
+  }
+  .detail {
+    .detail-top {
+      .course-title {
+        font-size: 30px;
+      }
+    }
+    .detail-bottom {
+      .bottom-left {
+        .author {
+          .author-content {
+            .author-avatar {
+              @include make-lg-column(2);
+              padding: 0;
+            }
+          }
+        }
+      }
     }
   }
 }

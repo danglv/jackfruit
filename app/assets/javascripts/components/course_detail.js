@@ -18,38 +18,38 @@
     });
   };
 
-  $.fn.documentScroll = function () {
-    // get hash url and set active
-    var hash = window.location.hash;
-    if (hash.trim() != "") {
-      $(".active").removeClass("active");
-      $(".menu-fixed a[href=" + hash + "]").parent().addClass("active");
-    }
+  // $.fn.documentScroll = function () {
+  //   // get hash url and set active
+  //   var hash = window.location.hash;
+  //   if (hash.trim() != "") {
+  //     $(".active").removeClass("active");
+  //     $(".menu-fixed a[href=" + hash + "]").parent().addClass("active");
+  //   }
 
-    if ($(document).scrollTop() >= $($(".description")[4]).offset().top - 100) {
-      $(".menu-fixed").css("display", "block");
-    }
+  //   if ($(document).scrollTop() >= $($(".description")[4]).offset().top - 100) {
+  //     $(".menu-fixed").css("display", "block");
+  //   }
 
-    this.scroll(function () {
+  //   this.scroll(function () {
 
-      var scrollTop = $(document).scrollTop();
-      if (scrollTop >= $($(".description")[4]).offset().top - 100) {
-        $(".menu-fixed").css("display", "block");
-      } else {
-        $(".menu-fixed").css("display", "none");
-      }
-      $(".active").removeClass("active");
-      $(".menu-fixed a[href=" + getCurrentElement(scrollTop) + "]").parent().addClass("active");
-    });
+  //     var scrollTop = $(document).scrollTop();
+  //     if (scrollTop >= $($(".description")[4]).offset().top - 100) {
+  //       $(".menu-fixed").css("display", "block");
+  //     } else {
+  //       $(".menu-fixed").css("display", "none");
+  //     }
+  //     $(".active").removeClass("active");
+  //     $(".menu-fixed a[href=" + getCurrentElement(scrollTop) + "]").parent().addClass("active");
+  //   });
 
-  };
+  // };
   // check to active handle for scroll
-  if ($(".detail").length != 0) {
+  // if ($(".detail").length != 0) {
 
-    $(document).documentScroll();
-    $(".menu-fixed li").setActive();
+  //   $(document).documentScroll();
+  //   $(".menu-fixed li").setActive();
 
-  };
+  // };
 
   $(".show-form").click(function (){
     $(".tele-sales").css("display", "none");
