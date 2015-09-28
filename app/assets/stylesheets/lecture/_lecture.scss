@@ -8,6 +8,9 @@
   }
   .lecture-player {
     background-color: #2C2F37;
+    #video-container {
+      height: 100% !important;
+    }
     .lecture-back {
       color: #ffffff;
       font-size: 14px;
