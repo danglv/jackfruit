@@ -26,7 +26,9 @@ feature 'Payment' do
   end
 
   after do
-    User.where(email: 'student1@tudemy.vn').first.courses.destroy_all
+    user = User.where(email: 'student1@tudemy.vn').first
+    user.courses.destroy_all
+    Payment.where(user_id: user.id).destroy_all
   end
 
   scenario '[JPA001]' do
@@ -85,7 +87,7 @@ feature 'Payment' do
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'nguyendanhtu@tudemy.vn')
+      fill_in('user[email]', with: 'student1@tudemy.vn')
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -108,7 +110,7 @@ feature 'Payment' do
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'nguyendanhtu@tudemy.vn')
+      fill_in('user[email]', with: 'student1@tudemy.vn')
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
