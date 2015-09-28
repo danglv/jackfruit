@@ -14,7 +14,7 @@
             .dn-480.course-price
               .row.promotion-price
                 %span.promotion-badge
-                  = help_show_currency sale_info[:discount_price]
+                  = help_show_currency sale_info[:final_price]
                 %span.old-price
                   = help_show_currency course.price
           - else
@@ -35,7 +35,7 @@
             .dn.db-480.course-price
               .row.promotion-price
                 %span.promotion-badge
-                  = help_show_currency sale_info[:discount_price]
+                  = help_show_currency sale_info[:final_price]
                 %span.old-price
                   = help_show_currency course.price
           - else
