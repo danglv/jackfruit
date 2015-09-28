@@ -24,7 +24,7 @@
           .method-title 2. Hoàn tất thanh toán
           .method-description
             %h5.description-cih-text.red-text
-              %b Thanh toán tại văn phòng Tudemy
+              %b Thanh toán tại văn phòng Pedia
             %h5.description-cih-text Địa chỉ văn phòng
             %h5.description-cih-text Tầng 3, Số 75 Phương Mai, Phường Phương Mai, Quận Đống Đa, Hà Nội
             %h5.description-cih-text (Thời gian làm việc: từ 8:30 - 17:30 , từ Thứ 2 đến Thứ 7 hàng tuần)
@@ -41,8 +41,9 @@
               %input.payment_id{:type => "hidden", :value => ""}
 
               %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
-              %input.form-control.phone-input{:type => "text", :placeholder => "Số điện thoại"}
+              %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
               %a.btn.btn-success.send-form-support Gửi đi
+          .support-online-payment-form-success Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
           .other-payment-method
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
           .method-progress
