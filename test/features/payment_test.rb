@@ -13,9 +13,8 @@ feature 'Payment' do
                  :body => [
                     '{"_id": "56027caa8e62a475a4000023"',
                     '"coupon": "A_VALID_COUPON"',
-                    '"created_at": "2015-09-23T10:19:22.973Z"',
-                    '"expired_date": "2015-09-23T17:00:00.000Z"',
-                    '"course_id": "55cb2d3044616e15ca000000"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
                     '"used": 0',
                     '"enabled": true',
                     '"max_used": 1',
