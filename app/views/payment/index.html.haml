@@ -1,8 +1,8 @@
 = render :partial => 'components/header/default'
-.container-wrapper{:style => "overflow: hidden;"}  
+.container-wrapper{:style => "overflow: hidden;"}
   .banner
-    = render :partial => "components/banner/banner"
-    
+    =render :partial => "components/banner/banner"
+
   .payment
     .row.no-margin
       .col-xs-12.no-padding
@@ -13,14 +13,14 @@
           .info-title Thông tin thanh toán
           .info-course
             .course-name= @course.name
-            .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            .course-price= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .info-coupon
             .sale-text Giảm giá
-            .sale-price 
+            .sale-price= "#{@data[:discount_ratio]}%" if @data[:discount_ratio] > 0
           .info-cost
             .cost-text Thành tiền
-            .total-pice
-        .payment-main-menthod
+            .total-price= number_to_currency(@data[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .payment-main-method
           = render 'payment_method', method: ''
 
-= render :partial => 'components/footer/index'           
+= render :partial => 'components/footer/index'

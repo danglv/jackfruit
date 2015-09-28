@@ -1,23 +1,23 @@
-.menthod-title 1. Lựa chọn hình thức thanh toán
-.menthod-card
-  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'cod')]}
+.method-title 1. Lựa chọn hình thức thanh toán
+.method-card
+  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/cod/#{@course.alias_name}", @data), :class => [('active' if method == 'cod')]}
     .list-style-small
-      %i.fa.fa-shopping-cart.payment-menthod-icon
+      %i.fa.fa-shopping-cart.payment-method-icon
       Giao khóa học và thu tiền tận nơi
     .list-style-big
-      %i.fa.fa-shopping-cart.payment-menthod-icon
-      .menthod-text
-        Giao khóa học và thu tiền 
+      %i.fa.fa-shopping-cart.payment-method-icon
+      .method-text
+        Giao khóa học và thu tiền
         %br
         tận nơi
     .card-style
-      %i.fa.fa-shopping-cart.payment-menthod-icon
+      %i.fa.fa-shopping-cart.payment-method-icon
       %h5 Giao khóa học
       %h5 và thu tiền tận nơi
-  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [('active' if method == 'card')]}
+  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/card/#{@course.alias_name}?p=baokim_card", @data), :class => [('active' if method == 'card')]}
     .list-style-small
-      %i.fa.fa-credit-card.payment-menthod-icon{:style => "vertical-align: top;"}
-      .menthod-text
+      %i.fa.fa-credit-card.payment-method-icon{:style => "vertical-align: top;"}
+      .method-text
         .two-line
           Thanh toán bằng thẻ điện thoại,
           %br
@@ -25,44 +25,44 @@
         .one-line
           Thanh toán bằng thẻ điện thoại, thẻ game
     .list-style-big
-      %i.fa.fa-credit-card.payment-menthod-icon
-      .menthod-text
-        Thanh toán bằng thẻ 
+      %i.fa.fa-credit-card.payment-method-icon
+      .method-text
+        Thanh toán bằng thẻ
         %br
         điện thoại, thẻ game
     .card-style
-      %i.fa.fa-credit-card.payment-menthod-icon
+      %i.fa.fa-credit-card.payment-method-icon
       %h5 Thanh toán bằng thẻ
       %h5 điện thoại, thẻ game
-  %a.btn.btn-default.btn-raised.no-padding{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [('active' if method == 'transfer')]}
+  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/transfer/#{@course.alias_name}", @data), :class => [('active' if method == 'transfer')]}
     .list-style-small
-      %i.fa.fa-building.payment-menthod-icon
+      %i.fa.fa-building.payment-method-icon
       Chuyển khoản qua ngân hàng
     .list-style-big
-      %i.fa.fa-building.payment-menthod-icon
-      .menthod-text
-        Chuyển khoản qua 
+      %i.fa.fa-building.payment-method-icon
+      .method-text
+        Chuyển khoản qua
         %br
         ngân hàng
     .card-style
-      %i.fa.fa-building.payment-menthod-icon
+      %i.fa.fa-building.payment-method-icon
       %h5 Chuyển khoản qua
       %h5 ngân hàng
-  %a.btn.btn-default.btn-raised.no-padding{:href => '/home/payment/cih/' + @course.alias_name, :class => [('active' if method == 'cih')]}
+  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/cih/#{@course.alias_name}", @data), :class => [('active' if method == 'cih')]}
     .list-style-small
-      %i.fa.fa-map-marker.payment-menthod-icon
+      %i.fa.fa-map-marker.payment-method-icon
       Thanh toán tại văn phòng Pedia
     .list-style-big
-      %i.fa.fa-map-marker.payment-menthod-icon
-      .menthod-text
+      %i.fa.fa-map-marker.payment-method-icon
+      .method-text
         Thanh toán trực tiếp
         %br
         tại văn phòng Pedia
     .card-style
-      %i.fa.fa-map-marker.payment-menthod-icon
+      %i.fa.fa-map-marker.payment-method-icon
       %h5 Thanh toán trực tiếp
       %h5 tại văn phòng Pedia
-.menthod-progress
+.method-progress
   .progress-icon.active
     %i.fa.fa-circle
   .progress-icon
