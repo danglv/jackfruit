@@ -98,8 +98,11 @@ class PaymentController < ApplicationController
         render 'page_not_found', status: 404
       end
     end
-
     @coupon_code = params[:coupon_code]
+    @payment = Payment.where(
+          :course_id => @course.id,
+          :user_id => current_user.id
+        ).first
   end
 
   def cancel_cod

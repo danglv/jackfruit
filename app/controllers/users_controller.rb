@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
+
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
 
@@ -267,6 +268,43 @@ class UsersController < ApplicationController
     render json: UserSerializer.new(user).profile_detail_hash
   end
 
+  # POST: API create instructor for kelley
+  def create_instructor
+    instructor = params["instructor"]
+
+    if instructor.blank?
+      render json: {message: "Chưa truyền dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+
+    instructor = JSON.parse(instructor)
+
+    user = User.new(
+      name: instructor['name']
+    )
+
+    email = instructor['email'].blank? ? Utils.nomalize_string(instructor['name']).to_s + "@tudemy.vn" : instructor['email']
+    user.email = email
+    user.password = "12345678"
+
+    instructor_profile = User::InstructorProfile.new()
+    instructor_profile.academic_rank = instructor['instructor_profile']['academic_rank'] unless instructor['instructor_profile']['academic_rank'].blank?
+    instructor_profile.major = instructor['instructor_profile']['major'] unless instructor['instructor_profile']['major'].blank?
+    instructor_profile.function = instructor['instructor_profile']['function'] unless instructor['instructor_profile']['function'].blank?
+    instructor_profile.work_unit = instructor['instructor_profile']['work_unit'] unless instructor['instructor_profile']['work_unit'].blank?
+    instructor_profile.description = instructor['instructor_profile']['description'] unless instructor['instructor_profile']['description'].blank?
+    
+    user.instructor_profile = instructor_profile
+
+    if user.save
+      render json: {message: "Success"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+      return
+    end
+  end
+
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
 
@@ -458,15 +496,22 @@ class UsersController < ApplicationController
   end
 
   def download_note
-    course_id = params[:course_id]
+    owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
-    
-    if course_id && owned_lecture_id
-      if course =  current_user.courses.find(course_id)
-        if lecture = course.lectures.find(owned_lecture_id)
-          data = lecture.notes.to_csv
-          lt = course.course.curriculums.where(:lecture_index => lecture.lecture_index).first
-          send_data data, :filename => "#{lt.title} - Ghi chú.csv"
+    if owned_course_id && owned_lecture_id
+      owned_course = current_user.courses.where(:id => owned_course_id).first
+      if owned_course
+        owned_lecture = owned_course.lectures.where(:id => owned_lecture_id).first
+        if owned_lecture
+          lt = owned_course.course.curriculums.where(:lecture_index => owned_lecture.lecture_index).first
+          csv_content = CSV.generate do |csv|
+            csv.add_row ['Time', 'Note']
+            owned_lecture.notes.each do |note|
+              values = [note.time, note.content]
+              csv.add_row values
+            end
+          end
+          send_data csv_content, :filename => "#{lt.title} - Ghi chú.csv"
           return
         end
       end
