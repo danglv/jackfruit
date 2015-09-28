@@ -479,6 +479,7 @@ class CoursesController < ApplicationController
         end
         
         c = Course.find_or_initialize_by(
+          _id: course_id,
           alias_name: course['alias_name'],
           name: course['name'],
           sub_title: course['sub_title'],
@@ -489,11 +490,11 @@ class CoursesController < ApplicationController
           level: course['level'],
         ) if c.blank?
 
+        c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
         c.intro_link = course['intro_link'] unless course['intro_link'].blank?
         c.intro_image = course['intro_image'] unless course['intro_image'].blank?
-        c.version = course['version'] unless course['version'].blank?
         c.enabled = course['enabled'] unless course['enabled'].blank?
 
         chapter_index = 0
