@@ -279,7 +279,7 @@
           line-height: 24px;
           text-align: left;
         }
-        .name-input, .phone-input {
+        .name-input, .mobile-input {
           height: 30px;
         }
         .send-form-support {
@@ -292,6 +292,14 @@
           padding: 15px;
           text-transform: none;
           margin: 20px 0;
+        }
+        &-success {
+          display: none;
+          color: #37b34a;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 24px;
+          margin: 15px 0;
         }
       }
       .card-form {
@@ -586,7 +594,7 @@
           }
         }
         .support-online-payment-form {
-          .name-input, .phone-input {
+          .name-input, .mobile-input {
             width: 290px;
             margin: auto;
             padding: 0;
@@ -674,7 +682,7 @@
           }
         }
         .support-online-payment-form {
-          .name-input, .phone-input {
+          .name-input, .mobile-input {
             width: 300px;
             margin: auto;
             padding: 0;
@@ -761,7 +769,7 @@
           }
         }
         .support-online-payment-form {
-          .name-input, .phone-input {
+          .name-input, .mobile-input {
             width: 300px;
             margin: auto;
             padding: 0;

@@ -139,6 +139,20 @@ class CoursesController < ApplicationController
   def detail
     # If has logged in user then check user's owned course
     if current_user
+      # Go to learning with user who has role is reviewer
+      if current_user.role == "reviewer"
+        owned_course = current_user.courses.find_or_create_by(:course_id => @course.id)
+        @course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+        owned_course.first_learning = false
+        owned_course.type = Constants::OwnedCourseTypes::LEARNING
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+        owned_course.save
+      end
+
       # Get user owned course
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       # Check owned course
