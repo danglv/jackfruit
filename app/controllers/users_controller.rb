@@ -408,7 +408,7 @@ class UsersController < ApplicationController
   def create_note
     owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
-    time = params[:time].blank? ? "0:01" : params[:time]
+    time = params[:time].blank? ? "00:00" : params[:time]
     content = params[:content]
 
     if content.blank?
