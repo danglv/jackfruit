@@ -458,15 +458,22 @@ class UsersController < ApplicationController
   end
 
   def download_note
-    course_id = params[:course_id]
+    owned_course_id = params[:owned_course_id]
     owned_lecture_id = params[:owned_lecture_id]
-    
-    if course_id && owned_lecture_id
-      if course =  current_user.courses.find(course_id)
-        if lecture = course.lectures.find(owned_lecture_id)
-          data = lecture.notes.to_csv
-          lt = course.course.curriculums.where(:lecture_index => lecture.lecture_index).first
-          send_data data, :filename => "#{lt.title} - Ghi chú.csv"
+    if owned_course_id && owned_lecture_id
+      owned_course = current_user.courses.where(:id => owned_course_id).first
+      if owned_course
+        owned_lecture = owned_course.lectures.where(:id => owned_lecture_id).first
+        if owned_lecture
+          lt = owned_course.course.curriculums.where(:lecture_index => owned_lecture.lecture_index).first
+          csv_content = CSV.generate do |csv|
+            csv.add_row ['Time', 'Note']
+            owned_lecture.notes.each do |note|
+              values = [note.time, note.content]
+              csv.add_row values
+            end
+          end
+          send_data csv_content, :filename => "#{lt.title} - Ghi chú.csv"
           return
         end
       end
