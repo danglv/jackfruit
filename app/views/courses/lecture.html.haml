@@ -210,6 +210,6 @@
         / - @owned_lecture.notes.each do |note|
         /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
-          %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?course_id=#{@owned_course.id}&lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
+          %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?owned_course_id=#{@owned_course.id}&owned_lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
 
 
