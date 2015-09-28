@@ -53,6 +53,10 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick', '~> 3.8.1'
 gem "ImageResize"
 
+# ElasticSearch
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
+
 # Rails Admin
 gem 'rails_admin', '~> 0.6.8'
 gem 'devise-i18n'
