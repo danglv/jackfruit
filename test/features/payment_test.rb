@@ -43,8 +43,8 @@ feature 'Payment' do
 
     page.must_have_content('Test Course 1')
     page.must_have_content('99,500')
-    page.wont_have_content('199,000')
-    page.wont_have_content('50%')
+    page.must_have_content('199,000')
+    page.must_have_content('50%')
   end
 
   scenario '[JPA001.1]' do
@@ -64,8 +64,8 @@ feature 'Payment' do
 
     page.must_have_content('Test Course 1')
     page.must_have_content('99,500')
-    page.wont_have_content('199,000')
-    page.wont_have_content('50%')
+    page.must_have_content('199,000')
+    page.must_have_content('50%')
   end
 
   scenario '[JPA002]' do
@@ -92,7 +92,7 @@ feature 'Payment' do
 
     page.must_have_content('Test Course 1')
     page.must_have_content('99,500')
-    page.wont_have_content('199,000')
-    page.wont_have_content('50%')
+    page.must_have_content('199,000')
+    page.must_have_content('50%')
   end
 end
