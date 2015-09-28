@@ -2,7 +2,7 @@ module Sale
 
   class Services
 
-    # One interface for all
+    # One interface for all (sale price for a course)
     # Input
     # Hash{
     # => course: required
@@ -53,6 +53,11 @@ module Sale
       result
     end
 
+    # Get combo package by code
+    def self.get_combo(combo_code)
+      return Combo.request_package_by_code(combo_code)
+    end
+
   end
 
   class Services::Coupon
@@ -64,8 +69,11 @@ module Sale
         data = JSON.parse(response)
         case result.code
         when "200"
+          # If coupon is expired
+          if data['expired_date'].to_time < Time.now()
+            return false, "Mã coupon #{coupon_code} không hợp lệ"
           # if course_id is given but not match with coupon's course_id
-          if course_id && course_id != data['course_id']
+          elsif course_id && course_id != data['course_id']
             return false, "Mã coupon #{coupon_code} không áp dụng cho khóa học"
           else
             return true, data
@@ -101,6 +109,16 @@ module Sale
         return package.courses
       end
       return []
+    end
+
+    def self.request_package_by_code(combo_code)
+      campaign = Sale::Campaign.in_progress.where(
+        :'packages.code' => combo_code
+      ).first
+      if campaign
+        return campaign.packages.where(:code => combo_code).first
+      end
+      return nil
     end
   end
 end
