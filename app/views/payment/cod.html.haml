@@ -16,13 +16,13 @@
             .course-price= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .info-coupon
             .sale-text Giảm giá
-            .sale-price 
+            .sale-price= "#{@data[:discount_ratio]}%" if @data[:discount_ratio] > 0
           .info-cost
             .cost-text Thành tiền
-            .total-pice
-        .payment-main-menthod
-          .menthod-title 2. Hoàn tất thanh toán
-          .menthod-description
+            .total-price= number_to_currency(@data[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .payment-main-method
+          .method-title 2. Hoàn tất thanh toán
+          .method-description
             %h5.description-text Điền thông tin đăng ký đặt mua khóa học
           .cod-form
             %form{:method => "post",:action => "/home/payment/cod"}
@@ -109,9 +109,9 @@
               .cod-button
                 = hidden_field_tag :authenticity_token, form_authenticity_token
                 %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => 'submit', :value => 'Đặt mua khóa học'}
-          .other-payment-menthod
+          .other-payment-method
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
-          .menthod-progress
+          .method-progress
             .progress-icon
               %i.fa.fa-circle
             .progress-icon.active
