@@ -293,8 +293,10 @@ class CoursesController < ApplicationController
     level    = params[:level]
     ordering = params[:ordering]
 
-    @keywords = Utils.nomalize_string(@keywords)
-    pattern  = /#{Regexp.escape(@keywords)}/i
+    binding.pry
+
+    @normalize_keywords = Utils.nomalize_string(@keywords)
+    pattern  = /#{Regexp.escape(@normalize_keywords)}/i
 
     condition = {}
 

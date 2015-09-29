@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"jackfruit.categories"},{"v":1,"key":{"name":1,"created_at":1,"parent_category_id":1},"name":"name_1_created_at_1_parent_category_id_1","ns":"jackfruit.categories"}]}

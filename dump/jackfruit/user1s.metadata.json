@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"jackfruit.user1s"},{"v":1,"key":{"created_at":1},"name":"created_at_1","ns":"jackfruit.user1s"}]}
