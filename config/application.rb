@@ -50,6 +50,11 @@ module Jackfruit
         g.test_framework :minitest, spec: true
     end
 
+    config.action_dispatch.default_headers.merge!({
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Request-Method' => '*'
+    })
+    
     Mongoid.raise_not_found_error = false
   end
 end
