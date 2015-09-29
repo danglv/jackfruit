@@ -1,5 +1,52 @@
 (function ($) {
 
+  function saleCoundownter(duration, ondisplay, ontimeout) {
+    var timer = duration, days, hours, minutes, seconds;
+    console.debug("Start timer");
+    var interval = setInterval(function () {
+      if (--timer < 0) {
+        ontimeout ? ontimeout() : null
+        clearInterval(interval);
+        return;
+      }
+
+      days    = parseInt(timer / 60 / 60  / 24, 10)
+      hours   = parseInt(timer / 60 / 60 % 24, 10)
+      minutes = parseInt(timer / 60 % 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      days    = days    < 10 ? "0" + days    : days;
+      hours   = hours   < 10 ? "0" + hours   : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      ondisplay(days, hours, minutes, seconds);
+
+    }, 1000);
+  };
+
+  // Start countdown if there is a sale
+  if (tag = $("#sale-expired-time")[0]){
+    stop_time = new Date(tag.value).getTime();
+    console.debug(stop_time);
+    var tag_day     = $("#countdown-day")[0];
+    var tag_hour    = $("#countdown-hour")[0];
+    var tag_minute  = $("#countdown-minute")[0];
+    var tag_second  = $("#countdown-second")[0];
+    saleCoundownter(
+      (stop_time - Date.now()) / 1000,
+      function(days, hours, minutes, seconds){
+        tag_day.textContent = days;
+        tag_hour.textContent = hours;
+        tag_minute.textContent = minutes;
+        tag_second.textContent = seconds;
+      },
+      function(){
+        alert("Hết thời gian sale");
+      });
+  }else{
+    console.debug("Not found sale countdown");
+  };
   var getCurrentElement = function (top) {
 
     var lstDetect = $(".menu-fixed .nav-pills a");
