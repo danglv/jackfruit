@@ -254,11 +254,11 @@
                   %span Quan tâm
     .detail-bottom
       .bottom-left
-        .description
+        #description
           .description-title Mô tả về khóa học  
           .description-content
             = render 'detail_description', method: 'detail'
-        .curiculums
+        #curiculums
           .curiculums-title Giáo trình
           - @course.curriculums.each do |curi|
             .curiculum
@@ -276,7 +276,7 @@
                             %i.fa.fa-play-circle
                           - else
                             %i.fa.fa-file
-                        .detail-curi-lecture.pull-left{:style => 'margin-right:25px;width:60px'}
+                        .detail-curi-lecture.pull-left
                           %h5.normal-text.no-margin{:style => 'line-height:1.5'}= 'Bài số ' + (curi.lecture_index + 1 ).to_s
                         .detail-curi-title.pull-left
                           %h5.normal-text.no-margin{:style => 'line-height:1.5'} #{curi.title}
@@ -284,7 +284,10 @@
                           .detail-curi-leacture.pull-left
                             %a.btn.btn-primary.preview-button{:onclick => "let_me_preview_this_video('#{help_get_youtube_url(curi)}');"}
                               %b Xem thử
-        .author
+                        .detail-curi-leacture.pull-right
+                          %h5.normal-text.no-margin
+                            %b #{curi.description}
+        #author
           .author-title Tiểu sử tác giả
           .author-content
             .author-avatar
@@ -318,7 +321,7 @@
             - if @course.user.instructor_profile.description.count > 0
               - @course.user.instructor_profile.description.each do |i|
                 %h5.information-text= i  
-        .rating
+        #rating
           .rating-title Đánh giá
           .rating-point= @course.average_rating
           .course-rating

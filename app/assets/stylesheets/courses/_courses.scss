@@ -33,7 +33,7 @@
     list-style: none;
     position: absolute;
     right: 0px;
-    bottom: 10px;
+    bottom: 5px;
     margin: 0px 23px 0px 0px;
     padding: 0px;
     li {
@@ -242,7 +242,7 @@
     padding-top: 20px; 
     .bottom-left {
       @include make-xs-column(12);
-      .description {
+      #description {
         .description-title {
           font-size: 18px;
           font-weight: bold;
@@ -259,7 +259,7 @@
           height:auto;
         }
       }
-      .curiculums {
+      #curiculums {
         @extend .row;
         margin: 0;
         padding-top: 10px; 
@@ -280,6 +280,16 @@
             border-bottom: 1px solid #cccccc;
             .curiculum-content {
               margin: 10px 0px !important;
+              .detail-curi-lecture {
+                margin-right: 25px;
+                width: 60px;
+              }
+              .detail-curi-title {
+                width: 130px;
+              }
+              .detail-curi-leacture {
+                display: none;
+              }
             }
             .preview-button{
               margin: 0 0 0 10px;
@@ -292,7 +302,7 @@
           }
         }
       }
-      .author {
+      #author {
         display: block;
         @extend .row;
         margin: 0;
@@ -316,6 +326,12 @@
             @include make-xs-column(9);
             .social-button {
               font-size: 24px;
+              .fa-linkedin-square {
+                color: #4875b4;
+              }
+              .fa-facebook-square {
+                color: #3b5998;
+              }
             }
           }
         }
@@ -330,7 +346,7 @@
           }
         }
       }
-      .rating {
+      #rating {
         @extend .row;
         margin: 0;
         padding: 10px 0 15px 0;
@@ -698,7 +714,22 @@
     }
     .detail-bottom {
       .bottom-left {
-        .author {
+        #curiculums {
+          .curiculum {
+            .curiculum-list {
+              .curiculum-content {
+                .detail-curi-lecture {
+                  margin-right: 25px;
+                  width: 60px;
+                }
+                .detail-curi-title {
+                  width: 270px;
+                }
+              }
+            }
+          }
+        }    
+        #author {
           .author-content {
             .author-avatar {
               @include make-xs-column(3);
@@ -741,7 +772,25 @@
     }
     .detail-bottom {
       .bottom-left {
-        .author {
+        #curiculums {
+          .curiculum {
+            .curiculum-list {
+              .curiculum-content {
+                .detail-curi-lecture {
+                  margin-right: 30px;
+                  width: 60px;
+                }
+                .detail-curi-title {
+                  width: 530px;
+                }
+                .detail-curi-leacture {
+                  display: block;
+                }
+              }
+            }
+          }
+        }  
+        #author {
           .author-content {
             .author-avatar {
               @include make-sm-column(2);
@@ -778,7 +827,25 @@
     .detail-bottom {
       .bottom-left {
         @include make-md-column(8);
-        .author {
+        #curiculums {
+          .curiculum {
+            .curiculum-list {
+              .curiculum-content {
+                .detail-curi-lecture {
+                  margin-right: 30px;
+                  width: 60px;
+                }
+                .detail-curi-title {
+                  width: 440px;
+                }
+                .detail-curi-leacture {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+        #author {
           .author-content {
             .author-avatar {
               @include make-md-column(2);
@@ -823,7 +890,25 @@
       margin: auto;
       .bottom-left {
         @include make-lg-column(8);
-        .author {
+        #curiculums {
+          .curiculum {
+            .curiculum-list {
+              .curiculum-content {
+                .detail-curi-lecture {
+                  margin-right: 40px;
+                  width: 60px;
+                }
+                .detail-curi-title {
+                  width: 450px;
+                }
+                .detail-curi-leacture {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+        #author {
           .author-content {
             .author-avatar {
               @include make-lg-column(2);
