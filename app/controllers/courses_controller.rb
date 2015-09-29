@@ -537,6 +537,7 @@ class CoursesController < ApplicationController
           level: course['level'],
         ) if c.blank?
 
+        c.name = course['name'] unless course['name'].blank?
         c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
@@ -617,14 +618,23 @@ class CoursesController < ApplicationController
 
   def check_alias_name
     alias_name = params['alias_name']
+    course_id = params['course_id']
 
     if alias_name.blank?
       render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
       return
     end
 
-    course = Course.where(alias_name: alias_name).count
-
-    render json: {num_courses: course}
+    if course_id.blank?
+      course = Course.where(alias_name: alias_name).count
+      render json: {num_courses: course}
+      return
+    else
+      course = Course.where(
+        :alias_name => alias_name,
+        :id.ne => course_id.to_s).count
+      render json: {num_courses: course}
+      return
+    end
   end
 end
