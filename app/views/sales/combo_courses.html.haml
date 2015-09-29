@@ -5,7 +5,7 @@
 	%main.category
 		.home
 			.container
-				- if @courses.blank?
+				- if @combo_package.blank?
 					.row{:style => "height: 80%; font-size:1.5em; margin: 40px 0px;"}
 						%center
 							%span Không có chương trình khuyến mãi combo với mã 
@@ -20,10 +20,14 @@
 								%span Chương trình khuyến mãi combo khóa học
 							.row
 								%b #{@combo_code}
+							.row{:style => "margin-top: 10px;"}
+								%span Giá trọn gói
+							.row
+								%b= help_show_currency @combo_package.price
 					.col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
 						.row.no-margin.courses-result
 							.list-course-card
-								- @courses.each do |course|
+								- @combo_package.courses.each do |course|
 									= render :partial => 'components/courses/course_card', :locals => {:course => course}
 					.row.no-margin{:style => "text-align:center; margin-top: 30px;"}
 						.col-xs-12.col-sm-12.col-md-12.no-padding

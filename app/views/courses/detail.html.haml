@@ -51,30 +51,30 @@
           %button.btn{"data-dismiss" => "modal"} Đóng
 
   / Menu fix
-  / .row.no-margin.menu-fixed{:style => 'border-bottom:1px solid #cccccc'}
-  /   .container
-  /     %ul.nav.nav-pills
-  /       %li.active
-  /         %a{:href => "#description"} Mô tả chi tiết
-  /       %li
-  /         %a{:href => "#curiculums"} Giáo trình
-  /       %li
-  /         %a{:href => "#author"} Giảng viên
-  /       %li
-  /         %a{:href => "#rating"} Đánh giá
-  /     %ul.menu-fixed-right
-  /       %li
-  /         - if @course.price == 0
-  /           %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
-  /             Bắt đầu học ngay
-  /         - else 
-  /           %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
-  /             Mua khóa học
-  /       %li
-  /         - if @course.price == 0
-  /           %h3.course-price-text.free Miễn phí
-  /         - else
-  /           %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+  .row.no-margin.menu-fixed{:style => 'border-bottom:1px solid #cccccc'}
+    .container
+      %ul.nav.nav-pills
+        %li.active
+          %a{:href => "#description"} Mô tả chi tiết
+        %li
+          %a{:href => "#curiculums"} Giáo trình
+        %li
+          %a{:href => "#author"} Giảng viên
+        %li
+          %a{:href => "#rating"} Đánh giá
+      %ul.menu-fixed-right
+        %li
+          - if @course.price == 0
+            %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
+              Bắt đầu học ngay
+          - else 
+            %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
+              Mua khóa học
+        %li
+          - if @course.price == 0
+            %h3.course-price-text.free Miễn phí
+          - else
+            %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
 
   / + Detail content
   .detail

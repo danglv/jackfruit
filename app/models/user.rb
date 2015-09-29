@@ -76,15 +76,15 @@ class User
   }
 
   # Money
-  field :money, type: Integer, default: 0
+  field :money, type: Float, default: 0.0
 
-  # Tỉ lệ chia tiền cho thầy: thầy bán, mình 
+  # Tỉ lệ chia tiền cho thầy: thầy bán, mình
   field :allot_ratio_default, type: Float, default: 0
   field :allot_ratio_instructor, type: Float, default: 0
 
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
-  validates_numericality_of :money, only_integer: true, greater_than_or_equal: 0
+  validates_numericality_of :money, greater_than_or_equal: 0
   validates_uniqueness_of :email
 
   embeds_one :instructor_profile, class_name: "User::InstructorProfile"
@@ -173,7 +173,7 @@ class User
   end
 
   def role_enum
-    %w[admin user test]
+    %w[admin reviewer user test]
   end
 
   def lang_enum

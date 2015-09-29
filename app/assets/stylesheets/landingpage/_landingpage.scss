@@ -439,6 +439,9 @@
   }
 }
 @media (min-width: 1200px) {
+  .header-landingpage {
+    background:linear-gradient(to bottom,rgba(0,0,0,.65) 0,rgba(0,0,0,.15) 65%,rgba(0,0,0,.05) 85%,rgba(0,0,0,0) 100%) !important;
+  }
   .landingpage {
     .home-top {
       position: absolute;
@@ -455,16 +458,16 @@
               height: 100%;
             }
             .image-1 {
-              background-image: image-url('landingpage-1.jpg');
+              background-image: image-url('landingpage-new-1.jpg');
             }
             .image-2 {
-              background-image: image-url('landingpage-2.jpg'); 
+              background-image: image-url('landingpage-new-2.jpg'); 
             }
             .image-3 {
-              background-image: image-url('landingpage-3.jpg'); 
+              background-image: image-url('landingpage-new-3.jpg'); 
             }
             .image-4 {
-              background-image: image-url('landingpage-4.jpg'); 
+              background-image: image-url('landingpage-new-4.jpg'); 
             }
           }
           .item,

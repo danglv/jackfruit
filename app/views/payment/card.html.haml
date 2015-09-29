@@ -12,30 +12,28 @@
         .payment-main-info
           .info-title Thông tin thanh toán
           .info-course
-            / .course-name= @course.name
-            .course-name Course_name
-            / .course-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-            .course-price Course_price
+            .course-name= @course.name
+            .course-price= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .info-coupon
             .sale-text Giảm giá
-            .sale-price 
+            .sale-price= "#{@data[:discount_ratio]}%" if @data[:discount_ratio] > 0
           .info-cost
             .cost-text Thành tiền
-            .total-pice
-        .payment-main-menthod
-          .menthod-title 2. Hoàn tất thanh toán
-          .menthod-description 
+            .total-price= number_to_currency(@data[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .payment-main-method
+          .method-title 2. Hoàn tất thanh toán
+          .method-description 
             %h5.description-text Nạp tiền bằng thẻ điện thoại
             .description-card-text
               - money = number_to_currency(current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               %span= "Hiện tại trong ví của bạn đang có "
               %span.normal-text.red-text= money
               %span.normal-text= ", bạn hãy nạp thêm " 
-              - money = number_to_currency(@course.price - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+              - money = number_to_currency(@data[:final_price] - current_user.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
               %span.normal-text.red-text= money
               = succeed "" do
                 %span.normal-text để thanh toán khóa học này
-            %h5.description-card-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại, thẻ game:
+            %h5.description-card-text Hướng dẫn nạp tiền bằng thẻ cào điện thoại:
             .card-guildline
               .step-1
                 %span.badge 1
@@ -49,15 +47,15 @@
           .card-form
             .phone-cards
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
-                = image_tag 'payment/mobifone'
+                = image_tag 'payment/mobifone.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
-                = image_tag 'payment/vinaphone'
+                = image_tag 'payment/vinaphone.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
-                = image_tag 'payment/viettel'
+                = image_tag 'payment/viettel.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
-                = image_tag 'payment/gate'
+                = image_tag 'payment/gate.png'
             .card-input
-              %form.form-card{:method => "post",:action => ""}
+              %form.form-card{:method => "post", :action => ""}
                 = hidden_field_tag :authenticity_token, form_authenticity_token
                 %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
                 %input.form-control.code-input{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
@@ -66,9 +64,9 @@
                   %p.red-text= @error
                 .card-button
                   %input.btn.btn-success.btn-raised.btn-lg.purchase-button{:type => "submit", :value => "Đặt mua khóa học"}
-          .other-payment-menthod
+          .other-payment-method
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
-          .menthod-progress
+          .method-progress
             .progress-icon
               %i.fa.fa-circle
             .progress-icon.active

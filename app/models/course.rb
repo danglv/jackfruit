@@ -1,6 +1,7 @@
 class Course
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Searchable
 
   field :name, type: String, default: ""
   field :lang, type: String, default: "vi"

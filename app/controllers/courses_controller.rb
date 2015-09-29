@@ -139,6 +139,20 @@ class CoursesController < ApplicationController
   def detail
     # If has logged in user then check user's owned course
     if current_user
+      # Go to learning with user who has role is reviewer
+      if current_user.role == "reviewer"
+        owned_course = current_user.courses.find_or_create_by(:course_id => @course.id)
+        @course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+        owned_course.first_learning = false
+        owned_course.type = Constants::OwnedCourseTypes::LEARNING
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+        owned_course.save
+      end
+
       # Get user owned course
       @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
       # Check owned course
@@ -467,4 +481,147 @@ class CoursesController < ApplicationController
     return
   end
 
+  # GET: API get price of course
+  def get_money
+    course_id = params[:course_id]
+    coupon_code = params[:coupon_code]
+
+    if course_id.blank?
+      render json: {message: "chưa truyền dữ course_id"}, status: :unprocessable_entity
+    end
+
+    course = Course.find(course_id)
+
+    if course_id.blank?
+      render json: {message: "course_id không chính xác"}, status: :unprocessable_entity
+    end
+
+    discount = 0
+    coupons = []
+    if !coupon_code.blank?
+      coupon_code.split(",").each {|coupon|
+        uri = URI("http://code.pedia.vn/coupon?coupon=#{coupon}")
+        response = Net::HTTP.get(uri)
+        data = JSON.parse(response)
+        if data['return_value'].to_i > 0 && data['expired_date'].to_datetime > Time.now()
+          discount += JSON.parse(response)['return_value'].to_f
+          coupons << coupon
+        end
+      }
+    end
+    price = ((course.price * (100 - discount) / 100) / 1000).to_i * 1000
+
+    render json: {price: "#{price}"}
+  end
+
+  # POST: API create course for kelley
+  def upload_course
+    begin
+      course = params['course']
+      course_id = params['course_id']
+      user_id = params['user_id']
+
+      if user_id.blank?
+        render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
+        return
+      else
+        user = User.find(user_id)
+
+        if !course_id.blank?
+          c = Course.where(:id => course_id).first
+        end
+        
+        c = Course.find_or_initialize_by(
+          alias_name: course['alias_name'],
+          name: course['name'],
+          sub_title: course['sub_title'],
+          description: course['description'],
+          requirement: course['requirement'],
+          benefit: course['benefit'],
+          audience: course['audience'],
+          level: course['level'],
+        ) if c.blank?
+
+        c.price = course['price'] unless course['price'].blank?
+        c.image = course['image'] unless course['image'].blank?
+        c.intro_link = course['intro_link'] unless course['intro_link'].blank?
+        c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+        c.version = course['version'] unless course['version'].blank?
+        c.enabled = course['enabled'] unless course['enabled'].blank?
+
+        chapter_index = 0
+        lecture_index = 0
+
+        if !course['curriculums'].blank?
+          course['curriculums'].each_with_index {|curriculum, x|
+            course_curriculum = c.curriculums.find_or_initialize_by(
+              order: x,
+            )
+            course_curriculum.title = curriculum['title']
+            course_curriculum.description = curriculum['description']
+            course_curriculum.chapter_index = chapter_index
+            course_curriculum.lecture_index = lecture_index
+            course_curriculum.type = curriculum['type']
+            course_curriculum.asset_type = curriculum['asset_type']
+            course_curriculum.url = curriculum['url']
+            course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+            chapter_index += 1 if curriculum['type'] == "chapter"
+            lecture_index += 1 if curriculum['type'] == "lecture"
+          }
+        else
+          render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
+          return
+        end
+        c.user = user
+
+        if c.save
+          render json: c.as_json
+          return
+        else
+          render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+          return
+        end
+      end
+    rescue Exception => e
+      render json: {message: e.message}, status: :unprocessable_entity
+    end
+
+  end
+
+  # POST: API approve course
+  def approve
+    course_id = params["id"]
+
+    course = Course.where(id: course_id).first
+
+    if course.blank?
+      render json: {message: "Course id Không chính xác!"}, status: :unprocessable_entity
+      return
+    end
+
+    course.enabled = true
+    course.version = "public"
+
+    if course.save
+      render json: {message: "Success!"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+  end
+
+  # POST: API check alias name of course for kelley
+  def check_alias_name
+    alias_name = params['alias_name']
+
+    if alias_name.blank?
+      render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(alias_name: alias_name).count
+
+    render json: {num_courses: course}
+  end
 end

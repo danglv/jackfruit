@@ -52,18 +52,7 @@
           ga('create', 'UA-68038326-1', 'auto');
           ga('send', 'pageview');
           Spymaster.setup("Pedia", "beta");
-
-      :javascript
-        /*  */
-        var google_conversion_id = 945443627;
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-        var google_conversion_format = 3;
-        /*  */
-      %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
-      %noscript
-        %div{:style => "display:inline;"}
-          %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/    
+      
       / Facebook Pixel Code
       :javascript
         !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -107,3 +96,14 @@
   %body
     = yield
     = javascript_include_tag 'application'
+    :javascript
+      /* <![CDATA[ */
+      var google_conversion_id = 945443627;
+      var google_custom_params = window.google_tag_params;
+      var google_remarketing_only = true;
+      /* ]]> */
+      
+    %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+    %noscript
+      %div{:style => "display:inline;"}
+        %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/
