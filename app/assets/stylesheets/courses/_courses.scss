@@ -1,3 +1,59 @@
+.menu-fixed {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 0px;
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0px 1px 1px  #888888;
+  a {
+    color: #333333;
+    font-size: 18px;
+  }
+  .container {
+    position: relative;
+    height: 60px;
+  }
+  .nav-pills {
+    position: absolute;
+    bottom: 0px;
+  }
+  .nav-pills li.active {
+    border-bottom: 4px solid #338abc;
+    a {
+      color: #333333;
+      background-color: transparent;
+
+    }
+  } 
+  .nav-pills a:hover {
+    background-color: transparent;
+  }
+  &-right{
+    list-style: none;
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    margin: 0px 23px 0px 0px;
+    padding: 0px;
+    li {
+      float: left;
+      margin-right: 20px;
+      .btn {
+        background-color: #338abc;
+      }
+      h3 {
+        font-size: 20px;
+      }
+      a, h3 {
+        line-height: 40px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-bottom: 0px !important;
+      }
+    }
+  }
+}
 .detail {
   .detail-top {
     background-color: #fff;
@@ -48,6 +104,135 @@
         .video-container {
           margin: 10px 0;
         }
+      }
+      .course-detail-bottom {
+        @extend .row;
+        margin: 0;
+        .course-detail-bottom-left {
+          display: block;
+          .course-price {
+            @include make-xs-column(12);
+            .course-price-text {
+              font-weight: bold;
+              color: #e75050;
+              font-size: 44px;
+              margin: 10px 0 !important;
+              &.free {
+                color: #e75050;
+              }
+            }
+          }
+          .course-purchase {
+            @include make-xs-column(12);
+            padding-bottom: 20px;
+            .cod-code-container {
+              .cod-input, .cod-error, .cod-active {
+                @include make-xs-column(12);
+                padding: 0;
+              }
+              .cod-active {
+                .pending-button {
+                  width: auto;
+                  height: 50px;
+                  font-size: 24px;
+                  padding: 10px 15px;
+                  font-weight: 400;
+                  text-transform: none;
+                  background-color: #ffbb33 !important;
+                  color: #fff !important;
+                }
+              }
+            }
+            .cod-notice {
+              @include make-xs-column(12);
+              padding: 0;
+              .notice-text {
+                font-size: 14px;
+                font-weight: 400;
+                color: #212121;
+                font-style: italic;
+              }
+            }
+            .cod-cancel{
+              @include make-xs-column(12);
+              padding: 0;
+              .cancel-text {
+                font-size: 14px;
+                font-weight: 400;
+                color: #212121;
+                font-style: italic;
+              }
+            }
+            .purchase-submit {
+              @include make-xs-column(12);
+              padding: 0;
+              .buy-button {
+                width: auto;
+                height: 50px;
+                font-size: 24px;
+                padding: 10px 15px;
+                font-weight: 400;
+                text-transform: none;
+              }
+            } 
+            .sale-submit {
+              @include make-xs-column(12);
+              padding: 0;
+            }    
+            .report {
+              @include make-xs-column(12);
+              padding: 0;
+            } 
+          }
+        }
+        .course-detail-bottom-right {
+          display: block;
+          .course-info {
+            @include make-xs-column(12);
+            border-top:1px solid #cccccc;
+            padding-top: 10px;
+            margin-bottom: 10px;
+            h5 {
+              margin-bottom: 0;
+            }
+            .course-info-left {
+              @include make-xs-column(7);
+              padding: 0;
+            }
+            .course-info-right {
+              @include make-xs-column(5);
+              padding: 0;
+            }
+          }
+          .course-wishlist {
+            @include make-xs-column(12);
+            .wishlist-button {
+              width: auto;
+              height: 50px;
+              padding: 12px 10px;
+              font-weight: bold;
+              background-color: #727272 !important;
+              color: #fff !important;
+              text-transform: none !important;
+              &.wishlisted {
+                background-color: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc;
+                .fa-heart {
+                  color: #d23837 !important;
+                }
+                &:hover{
+                  background: #353535;
+                  color: #fff;
+                }
+              }
+              &.no-text {
+                width: 65px !important;
+                padding: 8px !important;
+              }
+            }
+          }
+        }  
       }
     }
   }
@@ -262,6 +447,29 @@
     }
     .bottom-right {
       display: none;
+      .related-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+      }
+      .related-box {
+        background-color: #fff;
+        border: 1px solid #cccccc;
+        .related-content {
+          padding: 20px 10px !important;
+          .list-card {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #cccccc;
+          }
+          .list-card:last-child{
+            border-bottom: none;
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
     }
   }
   .tele-sales {
@@ -472,6 +680,21 @@
   }
   .detail {
     .detail-top {
+      .course-detail {
+        .course-detail-bottom {
+          .course-detail-bottom-left {
+            @include make-xs-column(8);
+            padding: 0;
+          }
+          .course-detail-bottom-right {
+            @include make-xs-column(4);
+            padding: 0 15px 0 0;
+            .course-info, .course-wishlist {
+              padding: 0;
+            }
+          }  
+        }
+      }
     }
     .detail-bottom {
       .bottom-left {
@@ -499,6 +722,21 @@
     .detail-top {
       .course-title {
         font-size: 30px;
+      }
+      .course-detail {
+        .course-detail-bottom {
+          .course-detail-bottom-left {
+            @include make-sm-column(7);
+            padding: 0;
+          }
+          .course-detail-bottom-right {
+            @include make-sm-column(5);
+            padding: 0 15px 0 0;
+            .course-info, .course-wishlist {
+              padding: 0;
+            }
+          }  
+        }
       }
     }
     .detail-bottom {
@@ -528,9 +766,18 @@
       .course-title {
         font-size: 30px;
       }
+      .course-detail {
+        .course-player {
+          @include make-md-column(7);
+        }
+        .course-detail-bottom {
+          @include make-md-column(5);
+        }
+      }
     }
     .detail-bottom {
       .bottom-left {
+        @include make-md-column(8);
         .author {
           .author-content {
             .author-avatar {
@@ -539,6 +786,10 @@
             }
           }
         }
+      }
+      .bottom-right {
+        display: block;
+        @include make-md-column(4);
       }
     }
   }
@@ -553,12 +804,25 @@
   }
   .detail {
     .detail-top {
+      width: 1030px;
+      margin: auto;
       .course-title {
         font-size: 30px;
       }
+      .course-detail {
+        .course-player {
+          @include make-md-column(7);
+        }
+        .course-detail-bottom {
+          @include make-md-column(5);
+        }
+      }
     }
     .detail-bottom {
+      width: 1030px;
+      margin: auto;
       .bottom-left {
+        @include make-lg-column(8);
         .author {
           .author-content {
             .author-avatar {
@@ -567,6 +831,10 @@
             }
           }
         }
+      }
+      .bottom-right {
+        display: block;
+        @include make-lg-column(4);
       }
     }
   }
