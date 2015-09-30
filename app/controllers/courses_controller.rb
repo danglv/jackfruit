@@ -315,6 +315,9 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
+    # fix nóng lỗi sv
+    condition[:version] = "public"
+
     @condition = condition
     _query = { "multi_match" => {
         "query" => @keywords,
