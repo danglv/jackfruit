@@ -293,8 +293,8 @@ class CoursesController < ApplicationController
     level    = params[:level]
     ordering = params[:ordering]
 
-    #@keywords = Utils.nomalize_string(@keywords)
-    pattern  = /#{Regexp.escape(@keywords)}/i
+    @normalize_keywords = Utils.nomalize_string(@keywords)
+    pattern  = /#{Regexp.escape(@normalize_keywords)}/i
 
     condition = {}
 
@@ -330,6 +330,7 @@ class CoursesController < ApplicationController
         "version" => condition[:version] }
       }
     ]
+
     if @condition[:lang] != nil
       _must.push({
         "term" => {
@@ -337,6 +338,7 @@ class CoursesController < ApplicationController
         }
       });
     end
+
     if @condition[:level] != nil
       _must.push({
         "term" => {
@@ -344,6 +346,7 @@ class CoursesController < ApplicationController
         }
       });
     end
+
     if budget == Constants::BudgetTypes::FREE
       _must.push({
         "term" => {
@@ -351,6 +354,7 @@ class CoursesController < ApplicationController
         }
       });
     end
+
     if budget == Constants::BudgetTypes::PAID
       _must.push({
         "range" => {
@@ -365,25 +369,32 @@ class CoursesController < ApplicationController
       "query" => {
         "filtered" => {
           "query" => _query,
-          "filter" => {
-            "and" => _must
-          }
+          "filter" =>
+            {
+              "and" => _must
+            }
         }
-      }
+      },
+      "from" => 0, "size" => 20
     }
-    
-    sort_by = ORDERING.first.last    
-    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
-    @courses  = Course.where(condition).order(sort_by)
-    @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
 
-    if @courses.count == 0
-      condition.delete(:name)
-      condition[:description] = pattern  
-      @courses  = Course.where(condition).order(sort_by)
-    end
+    c = Course.search body
+    @courses = c.results.map {|r|
+      r._source
+    } and true
 
-    @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
+    # sort_by = ORDERING.first.last    
+    # sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
+    # @courses  = Course.where(condition).order(sort_by)
+    # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
+
+    # if @courses.count == 0
+    #   condition.delete(:name)
+    #   condition[:description] = pattern  
+    #   @courses  = Course.where(condition).order(sort_by)
+    # end
+
+    # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @courses.count == 0
       @courses = {}
