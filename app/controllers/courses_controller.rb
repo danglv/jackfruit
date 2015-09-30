@@ -464,16 +464,10 @@ class CoursesController < ApplicationController
   # GET: API suggestion search for user by name
   def suggestion_search
     keywords = params[:q]
-
-    if keywords.blank?
-      render json: {}
-      return
-    end
-
     keywords = Utils.nomalize_string(keywords)
-    pattern = /#{Regexp.escape(keywords)}/
+    pattern = /#{Regexp.escape(keywords)}/i
 
-    courses = Course.where(:searchable_content => pattern).map { |course|
+    courses = Course.or({:alias_name => pattern}, {:name => pattern}).map { |course|
       CourseSerializer.new(course).suggestion_search_hash
     }
 
@@ -532,6 +526,7 @@ class CoursesController < ApplicationController
         end
         
         c = Course.find_or_initialize_by(
+          _id: course_id,
           alias_name: course['alias_name'],
           name: course['name'],
           sub_title: course['sub_title'],
@@ -542,12 +537,22 @@ class CoursesController < ApplicationController
           level: course['level'],
         ) if c.blank?
 
+        c.name = course['name'] unless course['name'].blank?
+        c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
         c.intro_link = course['intro_link'] unless course['intro_link'].blank?
         c.intro_image = course['intro_image'] unless course['intro_image'].blank?
-        c.version = course['version'] unless course['version'].blank?
         c.enabled = course['enabled'] unless course['enabled'].blank?
+        c.description = course['description'] unless course['description'].blank?
+        c.requirement = course['requirement'] unless course['requirement'].blank?
+        c.benefit = course['benefit'] unless course['benefit'].blank?
+        c.audience = course['audience'] unless course['audience'].blank?
+        c.sub_title = course['sub_title'] unless course['sub_title'].blank?
+        c.level = course['level'] unless course['level'].blank?
+        c.category_ids = course['category_ids'] unless course['category_ids'].blank?
+        c.label_ids = course['label_ids'] unless course['label_ids'].blank?
+        c.lang = course['lang'] unless course['lang'].blank?
 
         chapter_index = 0
         lecture_index = 0
@@ -611,17 +616,25 @@ class CoursesController < ApplicationController
     end
   end
 
-  # POST: API check alias name of course for kelley
   def check_alias_name
     alias_name = params['alias_name']
+    course_id = params['course_id']
 
     if alias_name.blank?
       render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
       return
     end
 
-    course = Course.where(alias_name: alias_name).count
-
-    render json: {num_courses: course}
+    if course_id.blank?
+      course = Course.where(alias_name: alias_name).count
+      render json: {num_courses: course}
+      return
+    else
+      course = Course.where(
+        :alias_name => alias_name,
+        :id.ne => course_id.to_s).count
+      render json: {num_courses: course}
+      return
+    end
   end
 end

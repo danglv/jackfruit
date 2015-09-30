@@ -4,6 +4,15 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}/
     = favicon_link_tag 'favicon_pedia.png'
+    %meta{:property => "fb:app_id", :content => "1592966984299237"}/
+    %meta{:content => "ooqFBmKzAls9A-WF1rbiU085sT1SpPPCaN6clpu-eJw", :name => "google-site-verification"}/
+    %meta{:content => "en_US", :property => "og:locale"}/
+    %meta{:content => "https://www.facebook.com/profile.php?id=100009617780315", :property => "article:publisher", :property => "article:author"}/
+    %meta{:content => "https://www.facebook.com/pages/Pedia/1460650207589951"}/
+    %meta{:property => "og:image", :content => "http://pedia.vn/uploads/images/course-image.png"}/
+    %meta{:content => "image/jpeg", :property => "og:image:type"}/
+    %meta{:content => "600", :property => "og:image:width"}/
+    %meta{:content => "315", :property => "og:image:height"}/
     %title= help_get_title
     %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css", :rel => "stylesheet"}/
     %script{:src => "http://tracking.pedia.vn/client-api/js/spymaster.js", :type => "text/javascript"}
@@ -27,17 +36,6 @@
           ga('send', 'pageview');
           Spymaster.setup("Pedia", "beta");
 
-      :javascript
-        /*  */
-        var google_conversion_id = 945443627;
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-        var google_conversion_format = 3;
-        /*  */
-      %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
-      %noscript
-        %div{:style => "display:inline;"}
-          %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/    
       / Facebook Pixel Code
       :javascript
         !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -274,3 +272,14 @@
     .container
       = yield  
       = javascript_include_tag 'application'
+    :javascript
+      /* <![CDATA[ */
+      var google_conversion_id = 945443627;
+      var google_custom_params = window.google_tag_params;
+      var google_remarketing_only = true;
+      /* ]]> */
+      
+    %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+    %noscript
+      %div{:style => "display:inline;"}
+        %img{:alt => "", :height => "1", :src => "//googleads.g.doubleclick.net/pagead/viewthroughconversion/945443627/?value=0&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/

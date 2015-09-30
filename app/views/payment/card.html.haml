@@ -47,15 +47,15 @@
           .card-form
             .phone-cards
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "MOBI"}
-                = image_tag 'payment/mobifone'
+                = image_tag 'payment/mobifone.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VINA"}
-                = image_tag 'payment/vinaphone'
+                = image_tag 'payment/vinaphone.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "VIETEL"}
-                = image_tag 'payment/viettel'
+                = image_tag 'payment/viettel.png'
               %a.phone-card.select-card{:href => "javascript:void(0)", :val => "GATE"}
-                = image_tag 'payment/gate'
+                = image_tag 'payment/gate.png'
             .card-input
-              %form.form-card{:method => "post",:action => ""}
+              %form.form-card{:method => "post", :action => ""}
                 = hidden_field_tag :authenticity_token, form_authenticity_token
                 %input.card-id{:type => "hidden", :name => "card_id", :value => "MOBI"}
                 %input.form-control.code-input{:placeholder => "Mã số thẻ", :type => "text", :name => "pin_field"}
