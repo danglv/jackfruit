@@ -234,7 +234,7 @@ class UsersController < ApplicationController
     keywords = Utils.nomalize_string(keywords)
     pattern = /#{Regexp.escape(keywords)}/
 
-    users = User.where(:name => pattern).map { |user|
+    users = User.or({:name => pattern}, {:email => pattern}).map { |user|
       UserSerializer.new(user).suggestion_search_hash
     }
 
@@ -531,6 +531,19 @@ class UsersController < ApplicationController
       end
     end
     # render json: {:message => "Payment History"}
+  end
+
+  # Get : API for mercury
+  def get_course_of_instructor
+    instructor_id = params[:instructor_id]
+
+    course_ids = if instructor_id.blank?
+      []
+    else
+      Course.where(:user_id => instructor_id).map(&:id).map(&:to_s)
+    end
+    
+    render json: {:course_ids => course_ids} 
   end
 
   private

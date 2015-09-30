@@ -57,6 +57,9 @@ module Jackfruit
       'Access-Control-Allow-Credentials' => 'true',
       'X-Frame-Options' => 'ALLOWALL'
     })
+
+    Mongoid.logger.level = Logger::WARN
+    Mongo::Logger.logger.level = Logger::WARN
     
     Mongoid.raise_not_found_error = false
   end

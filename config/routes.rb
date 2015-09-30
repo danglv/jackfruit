@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       get '/api/suggestion_search', to: 'users#suggestion_search'
       post '/api/active_course', to: 'users#active_course'
       get '/api/:id/get_user_detail', to: 'users#get_user_detail'
+      get '/api/get_course_of_instructor', to: 'users#get_course_of_instructor'
 
       #API create instructor for kelley
       post '/api/create_instructor', to: 'users#create_instructor'
