@@ -151,6 +151,6 @@ class ApplicationController < ActionController::Base
       resource.wishlist << course_id if !(resource.wishlist.include? course_id) && course_id != nil
       resource.save
     end
-    request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+    session[:previous_url] || request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 end
