@@ -35,7 +35,7 @@ module Sale
           result[:combo_code] = combo_package.code
           result[:participant_count] = combo_package.participant_count
           result[:max_participant_count] = combo_package.max_participant_count
-          result[:end_date] = combo_package.end_date ? combo_package.end_date.utc : Time.now().utc
+          result[:end_date] = (combo_package.end_date ? combo_package.end_date : Time.now()).utc.to_f * 1000
           result[:applied] = true
         else
           result[:error] = "Mã combo #{combo_code} không hợp lệ"
@@ -66,7 +66,7 @@ module Sale
             result[:package_id] = package.id
             result[:participant_count] = package.participant_count
             result[:max_participant_count] = package.max_participant_count
-            result[:end_date] = package.end_date ? package.end_date.utc : Time.now().utc
+            result[:end_date] = (package.end_date ? package.end_date : Time.now()).utc.to_f * 1000
             result[:applied] = true
             break
           end
