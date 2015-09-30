@@ -72,7 +72,7 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    # Traking U8
+    # Tracking U8
     params = {
       Constants::TrackingParams::CATEGORY => "U8",
       Constants::TrackingParams::TARGET => resource.id,
@@ -98,7 +98,7 @@ before_filter :configure_sign_up_params, only: [:create]
       course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
       last_component_url = URI.parse(previous_url).path.split('/').last
       if (["select_course", "detail"].include? last_component_url) && !course.blank?
-        # Traking L3a
+        # Tracking L3a
         params = {
           Constants::TrackingParams::CATEGORY => "L3a",
           Constants::TrackingParams::TARGET => course.id,

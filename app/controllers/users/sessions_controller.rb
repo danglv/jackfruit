@@ -46,7 +46,7 @@ before_filter :configure_sign_in_params, only: [:create]
       course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
       last_component_url = URI.parse(previous_url).path.split('/').last
       if (["select_course", "detail"].include? last_component_url) && !course.blank?
-        # Traking L3b
+        # Tracking L3b
         params = {
           Constants::TrackingParams::CATEGORY => "L3b",
           Constants::TrackingParams::TARGET => course.id,
