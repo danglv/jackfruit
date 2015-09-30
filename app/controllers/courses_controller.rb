@@ -684,6 +684,29 @@ class CoursesController < ApplicationController
     end
   end
 
+  #POST: API UPLOAD INTRO_IMAGE 
+
+  def upload_thumbnail
+    begin
+      
+      file = params[:intro_image]
+      file_name = params[:file_name]
+      
+      path = Rails.public_path.join("uploads/images/courses/")
+      path.mkpath unless path.exist?
+
+      File.open(path.join(file_name), 'wb') do |f|
+        f.write(file.read)
+      end
+
+      render json: {'intro_image' => "uploads/images/courses/#{file_name}"}
+      return
+
+    rescue
+      render json: {:error => "Có lỗi xảy ra"}
+    end
+  end
+
   def check_alias_name
     alias_name = params['alias_name']
     course_id = params['course_id']
