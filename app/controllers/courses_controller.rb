@@ -369,16 +369,13 @@ class CoursesController < ApplicationController
       "query" => {
         "filtered" => {
           "query" => _query,
-          "filter" => [
+          "filter" =>
             {
               "and" => _must
-            },
-            "limit" => {
-              "value" => 2
             }
-          ]
         }
-      }
+      },
+      "from" => 0, "size" => 20
     }
 
     c = Course.search body
@@ -391,11 +388,11 @@ class CoursesController < ApplicationController
     # @courses  = Course.where(condition).order(sort_by)
     # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
 
-    if @courses.count == 0
-      condition.delete(:name)
-      condition[:description] = pattern  
-      @courses  = Course.where(condition).order(sort_by)
-    end
+    # if @courses.count == 0
+    #   condition.delete(:name)
+    #   condition[:description] = pattern  
+    #   @courses  = Course.where(condition).order(sort_by)
+    # end
 
     # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 

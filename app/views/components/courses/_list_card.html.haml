@@ -1,4 +1,3 @@
-- binding.pry
 .list-card
   %a{:href => "/courses/#{course.alias_name}/detail"}
     .course-image.no-margin
@@ -30,7 +29,10 @@
                   %i.fa.fa-star.star.rated{:val => i}
                 - else
                   %i.fa.fa-star.star{:val => i}
-          %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
+          - if course.reviews != nil
+            %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
+          - else
+            %span.course-people-rating= 0
         - if course.price != 0
           - if @sale_info && sale_info = @sale_info[course.id] && @sale_info[course.id][:applied]
             .dn.db-480.course-price
