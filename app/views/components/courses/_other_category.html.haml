@@ -1,6 +1,7 @@
 .row.no-margin.other-category
   - other_categories.each do |category|
     %a.other-category-item{:href => "/courses/" + category.alias_name}
+      %i.icons{:class => "#{category.icon}", :style => 'padding-right:6px'}
       %span= category.name
       
       

@@ -12,6 +12,7 @@ class Category
   field :alias_name, type: String, default: ""
   field :description, type: String, default: ""
   field :background_color, type: String, default: "#338abc"
+  field :icon, type: String, default: ""
 
   index({name: 1, created_at: 1, parent_category: 1})
   

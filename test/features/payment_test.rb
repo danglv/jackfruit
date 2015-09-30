@@ -107,7 +107,7 @@ feature 'Payment' do
                  :body => '{"errorMessage": "Error", "transaction_id": 1}',
                  :headers => {})
 
-    visit '/home/payment/card/test-course-1?p=baokim_card'
+    visit '/home/payment/card/test-course-3?p=baokim_card'
 
     within('#login-modal') do
       fill_in('user[email]', with: 'student1@tudemy.vn')

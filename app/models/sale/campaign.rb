@@ -10,6 +10,7 @@ module Sale
     field :end_date, type: Time
 
     embeds_many :packages, class_name: 'Sale::Package'
+    accepts_nested_attributes_for :packages
 
     index(start_date: 1, end_date: 1)
 
