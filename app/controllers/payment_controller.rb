@@ -361,7 +361,7 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data:#{payment.errors.join(',')}, #{owned_course.errors.join(',')}, #{user.errors.join(',')}, #{course.errors.join(',')}"}, status: :unprocessable_entity
       return
     end
   end
