@@ -717,7 +717,4 @@ class CoursesController < ApplicationController
       return
     end
   end
-
-
-
 end
