@@ -54,6 +54,9 @@ module Jackfruit
       'Access-Control-Allow-Origin' => '*',
       'Access-Control-Request-Method' => '*'
     })
+
+    Mongoid.logger.level = Logger::WARN
+    Mongo::Logger.logger.level = Logger::WARN
     
     Mongoid.raise_not_found_error = false
   end
