@@ -58,9 +58,8 @@ module Jackfruit
       'X-Frame-Options' => 'ALLOWALL'
     })
 
+    Mongoid.raise_not_found_error = false
     Mongoid.logger.level = Logger::WARN
     Mongo::Logger.logger.level = Logger::WARN
-    
-    Mongoid.raise_not_found_error = false
   end
 end

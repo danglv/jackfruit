@@ -1,8 +1,8 @@
 (function ($) {
 
   function saleCoundownter(duration, ondisplay, ontimeout) {
-    var timer = duration, days, hours, minutes, seconds;
-    console.debug("Start timer");
+    var timer = duration,
+      days, hours, minutes, seconds;
     var interval = setInterval(function () {
       if (--timer < 0) {
         ontimeout ? ontimeout() : null
@@ -10,13 +10,13 @@
         return;
       }
 
-      days    = parseInt(timer / 60 / 60  / 24, 10)
-      hours   = parseInt(timer / 60 / 60 % 24, 10)
+      days = parseInt(timer / 60 / 60 / 24, 10)
+      hours = parseInt(timer / 60 / 60 % 24, 10)
       minutes = parseInt(timer / 60 % 60, 10);
       seconds = parseInt(timer % 60, 10);
 
-      days    = days    < 10 ? "0" + days    : days;
-      hours   = hours   < 10 ? "0" + hours   : hours;
+      days = days < 10 ? "0" + days : days;
+      hours = hours < 10 ? "0" + hours : hours;
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
 
@@ -26,25 +26,25 @@
   };
 
   // Start countdown if there is a sale
-  if (tag = $("#sale-expired-time")[0]){
-    stop_time = new Date(tag.value).getTime();
-    console.debug(stop_time);
-    var tag_day     = $("#countdown-day")[0];
-    var tag_hour    = $("#countdown-hour")[0];
-    var tag_minute  = $("#countdown-minute")[0];
-    var tag_second  = $("#countdown-second")[0];
+  if (tag = $("#sale-expired-time")[0]) {
+    stop_time = (new Date(Number(tag.value))).getTime();
+
+    var tag_day = $("#countdown-day")[0];
+    var tag_hour = $("#countdown-hour")[0];
+    var tag_minute = $("#countdown-minute")[0];
+    var tag_second = $("#countdown-second")[0];
     saleCoundownter(
       (stop_time - Date.now()) / 1000,
-      function(days, hours, minutes, seconds){
+      function (days, hours, minutes, seconds) {
         tag_day.textContent = days;
         tag_hour.textContent = hours;
         tag_minute.textContent = minutes;
         tag_second.textContent = seconds;
       },
-      function(){
+      function () {
         alert("Hết thời gian sale");
       });
-  }else{
+  } else {
     console.debug("Not found sale countdown");
   };
   var getCurrentElement = function (top) {
@@ -98,13 +98,13 @@
 
   };
 
-  $(".show-form").click(function (){
+  $(".show-form").click(function () {
     $(".tele-sales").css("display", "none");
     $(".tele-sales-extend").css("display", "block");
     $(".name-input").focus();
   });
 
-  $(".hide-form").click(function (){
+  $(".hide-form").click(function () {
     $(".tele-sales-extend").css("display", "none");
     $(".tele-sales").css("display", "block");
   });
@@ -118,36 +118,35 @@
     var name = $(".name-input").val();
     var mobile = $(".mobile-input").val();
 
-
     var params = {
       'course_id': course_id,
-      'course_name' : course_name,
+      'course_name': course_name,
       'user_id': user_id,
-      'email' : user_email,
+      'email': user_email,
       'name': name,
       'mobile': mobile,
-      'type' : 'course_page_support',
-      'msg' : name + ' cần hỗ trợ tại khóa học ' + course_name,
+      'type': 'course_page_support',
+      'msg': name + ' cần hỗ trợ tại khóa học ' + course_name,
       // 'payment_id'
     }
 
     var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
     var request = $.ajax({
-        url: URL,
-        type: "post",
-        data: params,
+      url: URL,
+      type: "post",
+      data: params,
     });
 
     // Callback handler that will be called on success
-    request.done(function (response, textStatus, jqXHR){
-        // Log a message to the console
-        $(".tele-sales-content").css("display", "none");
-        $(".support-online-payment-form .success").css("display", "block");
+    request.done(function (response, textStatus, jqXHR) {
+      // Log a message to the console
+      $(".tele-sales-content").css("display", "none");
+      $(".support-online-payment-form .success").css("display", "block");
     });
 
     // Callback handler that will be called on failure
-    request.fail(function (jqXHR, textStatus, errorThrown){
-        // Log the error to the console
+    request.fail(function (jqXHR, textStatus, errorThrown) {
+      // Log the error to the console
     });
   });
 
@@ -155,7 +154,7 @@
 
 $(document).ready(function () {
 
-  $(".wishlist-button").click(function (){
+  $(".wishlist-button").click(function () {
     var course_id = $(".course_id").val();
 
     var params = {
@@ -164,21 +163,21 @@ $(document).ready(function () {
 
     var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
     $.ajax({
-        type: 'GET',
-        url: URL,
-        data: params,
-        success: function(msg){
-          if ($(".wishlist-button").hasClass("wishlisted")) {
-            $(".wishlist-button").removeClass("wishlisted");
-          } else {
-            $(".wishlist-button").addClass("wishlisted");
-          };
-        }
-      });
+      type: 'GET',
+      url: URL,
+      data: params,
+      success: function (msg) {
+        if ($(".wishlist-button").hasClass("wishlisted")) {
+          $(".wishlist-button").removeClass("wishlisted");
+        } else {
+          $(".wishlist-button").addClass("wishlisted");
+        };
+      }
+    });
 
   });
 
-  $(".btn-submit-report").click(function (){
+  $(".btn-submit-report").click(function () {
     var course_id = $(".course_id").val();
     var content = $(".txt-report-content").val();
     var type = "other"
@@ -186,20 +185,20 @@ $(document).ready(function () {
       return;
     }
     var params = {
-      'type' : type,
+      'type': type,
       'course_id': course_id,
-      'content' : content
+      'content': content
     }
 
     var URL = 'http://' + window.location.host + '/support/send_report';
     $.ajax({
-        type: 'POST',
-        url: URL,
-        data: params,
-        success: function(msg){
-          $(".txt-report-content").val("");
-        }
-      });
+      type: 'POST',
+      url: URL,
+      data: params,
+      success: function (msg) {
+        $(".txt-report-content").val("");
+      }
+    });
   });
 
   $(".submit-cod-code").on("click", function () {
@@ -250,7 +249,7 @@ $(document).ready(function () {
       $(".description-first").addClass("short_description");
       $(this).text("Xem chi tiết");
     };
-    
+
   });
 
   function number_to_currency(price, unit, delimiter) {

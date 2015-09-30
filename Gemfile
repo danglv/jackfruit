@@ -58,7 +58,7 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 # Rails Admin
-gem 'rails_admin', '~> 0.6.8'
+gem 'rails_admin'
 gem 'devise-i18n'
 # Add permission
 gem "cancan"
