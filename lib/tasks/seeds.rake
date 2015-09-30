@@ -528,13 +528,14 @@ namespace :seeds do
 
   desc "seeds one course"
   task seed_one_course_paid: :environment do
-    csv_file_name = "public/08-09-2015/goi5/TA03 - Dev.Upload - Sheet1"
+    csv_file_name = "public/30-09-2015/LTD01 - Pedia.Upload - 2"
     data = load_csv_file(csv_file_name) and true
     @curriculums = []
     @description = []
     @requirement = []
     @benefit = []
     @audience = []
+    @instructor_profile_description = []
 
     Course.where(alias_name: data[1][0]).destroy_all
     @course = Course.find_or_initialize_by(alias_name: data[1][0])
@@ -573,6 +574,10 @@ namespace :seeds do
       if !row[6].blank?
         @audience << row[6]
       end
+
+      if !row[12].blank? && index > 1
+        @instructor_profile_description << row[12]
+      end
     }
     chapter_index = 0
     lecture_index = 0
@@ -602,7 +607,7 @@ namespace :seeds do
     binding.pry if @user.blank?
     unless @user
       @user = User.new(name: @username, password:"12345678", email: "#{@username}@tudemy.vn")
-      @user.instructor_profile = User::InstructorProfile.new()
+      @user.instructor_profile = User::InstructorProfile.new(description: @instructor_profile_description)
       @user.save      
     end
 

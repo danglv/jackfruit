@@ -533,6 +533,19 @@ class UsersController < ApplicationController
     # render json: {:message => "Payment History"}
   end
 
+  # Get : API for mercury
+  def get_course_of_instructor
+    instructor_id = params[:instructor_id]
+
+    course_ids = if instructor_id.blank?
+      []
+    else
+      Course.where(:user_id => instructor_id).map(&:id).map(&:to_s)
+    end
+    
+    render json: {:course_ids => course_ids} 
+  end
+
   private
     def set_user
       if params[:id] != nil

@@ -1,5 +1,52 @@
 (function ($) {
 
+  function saleCoundownter(duration, ondisplay, ontimeout) {
+    var timer = duration, days, hours, minutes, seconds;
+    console.debug("Start timer");
+    var interval = setInterval(function () {
+      if (--timer < 0) {
+        ontimeout ? ontimeout() : null
+        clearInterval(interval);
+        return;
+      }
+
+      days    = parseInt(timer / 60 / 60  / 24, 10)
+      hours   = parseInt(timer / 60 / 60 % 24, 10)
+      minutes = parseInt(timer / 60 % 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      days    = days    < 10 ? "0" + days    : days;
+      hours   = hours   < 10 ? "0" + hours   : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      ondisplay(days, hours, minutes, seconds);
+
+    }, 1000);
+  };
+
+  // Start countdown if there is a sale
+  if (tag = $("#sale-expired-time")[0]){
+    stop_time = new Date(tag.value).getTime();
+    console.debug(stop_time);
+    var tag_day     = $("#countdown-day")[0];
+    var tag_hour    = $("#countdown-hour")[0];
+    var tag_minute  = $("#countdown-minute")[0];
+    var tag_second  = $("#countdown-second")[0];
+    saleCoundownter(
+      (stop_time - Date.now()) / 1000,
+      function(days, hours, minutes, seconds){
+        tag_day.textContent = days;
+        tag_hour.textContent = hours;
+        tag_minute.textContent = minutes;
+        tag_second.textContent = seconds;
+      },
+      function(){
+        alert("Hết thời gian sale");
+      });
+  }else{
+    console.debug("Not found sale countdown");
+  };
   var getCurrentElement = function (top) {
 
     var lstDetect = $(".menu-fixed .nav-pills a");
@@ -26,14 +73,14 @@
       $(".menu-fixed a[href=" + hash + "]").parent().addClass("active");
     }
 
-    if ($(document).scrollTop() >= $($(".description")[4]).offset().top - 100) {
+    if ($(document).scrollTop() >= $("#description").offset().top - 100) {
       $(".menu-fixed").css("display", "block");
     }
 
     this.scroll(function () {
 
       var scrollTop = $(document).scrollTop();
-      if (scrollTop >= $($(".description")[4]).offset().top - 100) {
+      if (scrollTop >= $("#description").offset().top - 100) {
         $(".menu-fixed").css("display", "block");
       } else {
         $(".menu-fixed").css("display", "none");
@@ -205,69 +252,6 @@ $(document).ready(function () {
     };
     
   });
-
-  // $("#submit-coupon-code").on("click", function () {
-  //   var input_code = $("#coupon-code-container input[type=text]")
-  //   var coupon_code = input_code.val();
-  //   var course_id = input_code.attr("course_id");
-  //   var price = input_code.attr("price");
-  //   var discount = input_code.attr("discount");
-
-  //   if (coupon_code.trim() == "") {
-  //     input_code.focus();
-  //     return;
-  //   }
-  //   if (course_id.trim() == "") {
-  //     return;
-  //   }
-
-  //   var URL = "http://code.pedia.vn/coupon";
-  //   var params = {coupon: coupon_code, q: Math.random()}
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: URL,
-  //     data: params,
-  //     success: function (data, textStatus, xhr) {
-  //       // if (xhr.responseJSON.course_id == course_id) {
-  //       //   discount = parseFloat(discount) + parseFloat(xhr.responseJSON.return_value);
-  //       //   price = (parseInt(price) * (100 - discount) / 100 / 1000) * 1000;
-  //       //   $(".course-price").text(number_to_currency(price, "đ", ","));
-  //       //   $(".discount").text("(Giảm giá: " + discount + "%)");
-
-  //       //   var coupon_code_param = getParameterByName("coupon_code", $("#btn-buy").attr("href"));
-  //       //   if (coupon_code_param == "") {
-  //       //     $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "&coupon_code=" + coupon_code);
-  //       //   } else if (coupon_code_param.split(",").indexOf(coupon_code) < 0) {
-  //       //     $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "," + coupon_code);
-  //       //   };
-  //       // } else {
-  //       //   $("#coupon-code-container input[type=text]").val("Mã coupon không tồn tại");
-  //       // };
-  //     },
-  //     complete: function (xhr, textStatus) {
-  //       if (xhr.responseJSON.course_id == course_id) {
-  //         discount = parseFloat(discount) + parseFloat(xhr.responseJSON.return_value);
-  //         price = parseInt((parseInt(price) * (100 - discount) / 100 / 1000)) * 1000;
-  //         $(".course-price").text(number_to_currency(price, "đ", ","));
-  //         $(".discount").text("(Giảm giá: " + discount + "%)");
-
-  //         var coupon_code_param = getParameterByName("coupon_code", $("#btn-buy").attr("href"));
-  //         if (coupon_code_param == "") {
-  //           $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "&coupon_code=" + coupon_code);
-  //         } else if (coupon_code_param.split(",").indexOf(coupon_code) < 0) {
-  //           $("#btn-buy").attr("href", $("#btn-buy").attr("href") + "," + coupon_code);
-  //         };
-  //         d = new Date(xhr.responseJSON.expired_date);
-          
-  //         $("#expired_date").text("Ngày hết hạn: " + d.getDate() + "/" +(d.getMonth() + 1) + "/" + d.getFullYear());
-  //         $("#coupon-code-container").remove();
-  //         $("#line-through-price").css("display", "block");
-  //       } else {
-  //         $("#coupon-code-container input[type=text]").val("Mã coupon không tồn tại");
-  //       };
-  //     }
-  //   });
-  // });
 
   function number_to_currency(price, unit, delimiter) {
     unit = unit || "đ";
