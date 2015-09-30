@@ -30,5 +30,4 @@ class User::Course
   def payment_pending?
     self.payment_status == Constants::PaymentStatus::PENDING
   end
-
 end

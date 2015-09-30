@@ -71,12 +71,23 @@ before_filter :configure_sign_up_params, only: [:create]
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    #Traking U8
+    params = {
+      Constants::TrackingParams::CATEGORY => "U8",
+      Constants::TrackingParams::TARGET => resource.id,
+      Constants::TrackingParams::BEHAVIOR => "submit",
+      Constants::TrackingParams::USER => resource.id,
+      Constants::TrackingParams::EXTRAS => {
+        :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+      }
+    }
+    track = Spymaster.track(params, request.blank? ? nil : request)
+    super(resource)
+  end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    super(resource)
+  end
 end

@@ -11,6 +11,7 @@ require "action_view/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 require 'csv'
+require 'spymaster'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -48,7 +49,7 @@ module Jackfruit
         g.orm :active_record
         g.test_framework :minitest, spec: true
     end
-
+    Spymaster.setup('Pedia', '1.0.0', 'http://localhost:3000/api/global/track')
     Mongoid.raise_not_found_error = false
   end
 end

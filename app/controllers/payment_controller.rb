@@ -201,6 +201,34 @@ class PaymentController < ApplicationController
     else
       @course = Course.where(id: @payment.course_id.to_s).first
     end
+    #Tracking U8p
+    if current_user.courses.count == 1
+      params = {
+        Constants::TrackingParams::CATEGORY => "U8p",
+        Constants::TrackingParams::TARGET => @course.id,
+        Constants::TrackingParams::BEHAVIOR => "click",
+        Constants::TrackingParams::USER => current_user.id,
+        Constants::TrackingParams::EXTRAS => {
+          :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+        }
+      }
+      track = Spymaster.track(params, request.blank? ? nil : request)
+    elsif current_user.courses.count > 1
+      #Tracking U8fp
+      payments_count = Payment.where(:user_id => current_user.id, :status => Constants::PaymentStatus::SUCCESS).count
+      if payments_count == 1
+        params = {
+          Constants::TrackingParams::CATEGORY => "U8fp",
+          Constants::TrackingParams::TARGET => @course.id,
+          Constants::TrackingParams::BEHAVIOR => "click",
+          Constants::TrackingParams::USER => current_user.id,
+          Constants::TrackingParams::EXTRAS => {
+            :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+          }
+        }
+        track = Spymaster.track(params, request.blank? ? nil : request)         
+      end
+    end
     # If the first learning, display success page.
     owned_course.set(:first_learning => false) if !owned_course.blank?
   end
