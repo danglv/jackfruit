@@ -525,11 +525,17 @@
         height: 50px;
         margin-bottom: 30px;
       }
-      .fa-search {
-        position: absolute;
-        top: 20px;
-        left: 95%;
-        color: #fff;
+      .search-box {
+        position: relative;
+        .btn-search {
+          position: absolute;
+          right: 0;
+          padding: 0;
+          margin: 0;
+          .fa-search {
+            color: #fff;
+          }
+        }
       }
       .hooks {
         .hook {

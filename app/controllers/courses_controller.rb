@@ -293,8 +293,6 @@ class CoursesController < ApplicationController
     level    = params[:level]
     ordering = params[:ordering]
 
-    binding.pry
-
     @normalize_keywords = Utils.nomalize_string(@keywords)
     pattern  = /#{Regexp.escape(@normalize_keywords)}/i
 
@@ -309,7 +307,7 @@ class CoursesController < ApplicationController
     condition[:enabled] = true
     condition[:lang] = lang if Constants.CourseLangValues.include?(lang)
     condition[:level] = level if Constants.CourseLevelValues.include?(level)
-    condition[:searchable_content] = pattern
+    #condition[:searchable_content] = pattern
 
     if current_user
       condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
@@ -317,10 +315,81 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    sort_by = ORDERING.first.last    
-    sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
-    @courses  = Course.where(condition).order(sort_by)
-    @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
+    @condition = condition
+    _query = { "multi_match" => {
+        "query" => @keywords,
+        "type" => "best_fields",
+        "fields" => ["name^5","benefit^2","description^3","sub_title^2","curriculums.title","user.name","user.instructor_profile","user.biography"]
+      }
+    }
+    _must = [
+      { "term"=>{
+        "enabled" => condition[:enabled] }
+      },
+      { "term"=>{ 
+        "version" => condition[:version] }
+      }
+    ]
+
+    if @condition[:lang] != nil
+      _must.push({
+        "term" => {
+          "lang" => @condition[:lang]  
+        }
+      });
+    end
+
+    if @condition[:level] != nil
+      _must.push({
+        "term" => {
+          "level" => @condition[:level] 
+        }
+      });
+    end
+
+    if budget == Constants::BudgetTypes::FREE
+      _must.push({
+        "term" => {
+          "price" => 0  
+        }
+      });
+    end
+
+    if budget == Constants::BudgetTypes::PAID
+      _must.push({
+        "range" => {
+          "price" => {
+            "gt" => 10
+          }
+        }
+      });
+    end
+    
+    body = {
+      "query" => {
+        "filtered" => {
+          "query" => _query,
+          "filter" => [
+            {
+              "and" => _must
+            },
+            "limit" => {
+              "value" => 2
+            }
+          ]
+        }
+      }
+    }
+
+    c = Course.search body
+    @courses = c.results.map {|r|
+      r._source
+    } and true
+
+    # sort_by = ORDERING.first.last    
+    # sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
+    # @courses  = Course.where(condition).order(sort_by)
+    # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
 
     if @courses.count == 0
       condition.delete(:name)
@@ -328,7 +397,7 @@ class CoursesController < ApplicationController
       @courses  = Course.where(condition).order(sort_by)
     end
 
-    @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
+    # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @courses.count == 0
       @courses = {}
