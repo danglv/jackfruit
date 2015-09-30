@@ -348,11 +348,11 @@
                 .row.no-margin
                   .col-xs-12.no-padding
                     %h5.normal-text= 'Đơn vị công tác: ' + @course.user.instructor_profile.work_unit
-              .row.no-margin
-                %a.social-button{:href => "#"}
-                  %i.fa.fa-linkedin-square
-                %a.social-button{:href => "#"}
-                  %i.fa.fa-facebook-square
+              / .row.no-margin
+              /   %a.social-button{:href => "#"}
+              /     %i.fa.fa-linkedin-square
+              /   %a.social-button{:href => "#"}
+              /     %i.fa.fa-facebook-square
           .author-information
             - if @course.user.instructor_profile.description.count > 0
               - @course.user.instructor_profile.description.each do |i|
