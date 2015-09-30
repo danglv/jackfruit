@@ -103,3 +103,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 # serializer
 gem 'active_model_serializers', '~> 0.9.3'
+
+# Simple line icons
+gem 'simple-line-icons-rails'
