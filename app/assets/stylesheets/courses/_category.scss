@@ -157,7 +157,17 @@
         }
         .relate-item {
           text-align: center; 
-          color: #009688;
+          .icon-category {
+            color: inherit;
+            .icons {
+              color: inherit;
+              font-size: 60px;
+            }
+          }
+          .name-course {
+            color: inherit;
+            font-size: 14px;
+          }
           a:hover {
             text-decoration: none;
           }
