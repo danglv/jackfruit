@@ -395,7 +395,8 @@ class PaymentController < ApplicationController
       :name => name,
       :email => email,
       :address => address,
-      :mobile => mobile
+      :mobile => mobile,
+      :status => 'success'
     )
 
     user = User.find(user_id)
@@ -419,7 +420,7 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data:"}, status: :unprocessable_entity
       return
     end
   end

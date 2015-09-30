@@ -54,7 +54,10 @@ module Jackfruit
     end
     config.action_dispatch.default_headers.merge!({
       'Access-Control-Allow-Origin' => '*',
-      'Access-Control-Request-Method' => '*'
+      'Access-Control-Request-Method' => 'OPTIONS, PUT, GET, POST',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Allow-Credentials' => 'true',
+      'X-Frame-Options' => 'ALLOWALL'
     })
 
     Mongoid.logger.level = Logger::WARN
