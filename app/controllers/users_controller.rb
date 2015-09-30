@@ -185,7 +185,7 @@ class UsersController < ApplicationController
 
         init_lectures_for_owned_course(owned_course, @course)
         
-        #Tracking U8f
+        # Tracking U8f
         if current_user.courses.count == 1
           params = {
             Constants::TrackingParams::CATEGORY => "U8f",
@@ -198,7 +198,7 @@ class UsersController < ApplicationController
           }
           track = Spymaster.track(params, request.blank? ? nil : request)
         else current_user.courses.count > 1
-          #Tracking U8pf
+          # Tracking U8pf
           payment_count = Payment.where(:user_id => current_user.id, :status => Constants::PaymentStatus::SUCCESS).count
           if current_user.courses.count - 1 == payment_count
             params = {
