@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: "application#index"
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
-  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations' }
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations', sessions: "users/sessions"}
 
   get '/home', to: redirect('/')
   
