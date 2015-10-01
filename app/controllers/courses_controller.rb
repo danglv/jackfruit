@@ -195,6 +195,9 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
+    #fixed condition for Oct2015 campaign
+    condition = {:enabled => true, :label_ids.in => ["sale-oct-2015"], :id.ne => @course[:id]}
+    
     @courses['related'] = [
       Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)
     ]
@@ -371,6 +374,9 @@ class CoursesController < ApplicationController
         }
       }
     }
+
+    @c = Course.search body
+    binding.pry
     
     sort_by = ORDERING.first.last    
     sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
