@@ -109,7 +109,7 @@
                     - @indexEnd = @course.intro_link.length
                     - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
                 - elsif @course.intro_link['youtu.be']
-                  - pattern = /youtu.be\/(.*)\?/
+                  - pattern = /youtu.be\/(.*)/
                   - @youtube_id = pattern.match(@course.intro_link)[1]
                 %iframe{:allowfullscreen => "", :frameborder => "0", :height => "100%", :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :width => "100%"}
               - elsif @course.image && @course.image != ''
