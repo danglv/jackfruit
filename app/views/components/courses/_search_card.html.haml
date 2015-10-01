@@ -13,7 +13,7 @@
           - if !course.user.instructor_profile.major.blank?
             %span= course.user.instructor_profile.major
         .info-course.row.no-margin
-          .real-price.info-item.pull-left
+          .real-price.info-item.pull-left{:style => "color:#009900"}
             - if course.price == 0
               Miễn phí
             - else

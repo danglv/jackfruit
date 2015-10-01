@@ -2,7 +2,6 @@
 .container-wrapper{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
-
   .row.learning.no-margin
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding.no-margin.learning-header
       .container.no-padding
@@ -105,14 +104,14 @@
               %a{:href => "#tab1"}
                 %i.fa.fa-comments
                 %span Thảo luận 
-            .col-md-4.col-lg-4.learning_tab{:val => "noti"}
-              %a{:href => "#tab2"}
-                %i.fa.fa-bullhorn
-                %span Thông báo 
+            / .col-md-4.col-lg-4.learning_tab{:val => "noti"}
+            /   %a{:href => "#tab2"}
+            /     %i.fa.fa-bullhorn
+            /     %span Thông báo 
             .col-md-4.col-lg-4.learning_tab{:val => "student"}
               %a
                 %i.fa.fa-users
-                %span 9999 Học viên 
+                %span= @course.students.to_s + " Học viên" 
             .col-md-12.col-lg-12.no-padding.progress
               .col-md-4.col-lg-4.progress-actived
               .col-md-4.col-lg-4
@@ -183,12 +182,25 @@
                           .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
+              - if @course.user.id == @current_user.id
+                .row.alert-author
+                  %a.dropdown-toggle.btn.btn-primary.alert-dropdown#alert-dropdown{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :id => "", :role => "button"} Thêm thông báo
+                  %ul.dropdown-menu.alert-box{"aria-labelledby" => "alert-dropdown"}
+                    %li
+                      .form-group
+                        %textarea.form-control{:name => "title",:placeholder => 'Nhập tiên đề'}
+                    %li
+                      .form-group
+                        %textarea.form-control{:name => "title",:placeholder => 'Nhập thông báo'}
+                    %li
+                      .form-group
+                        %a.btn.btn-primary{:href => "#", :style => 'width:100%'} Tạo thông báo mới                    
               .row.noti-item.no-margin
                 .col-md-1.col-lg-1.no-padding.noti-item-avatar
                   %i.fa.fa-smile-o
                 .col-md-11.col-lg-11.no-padding.noti-item-main
                   %ul.noti-item-title
-                    %li.bold ThanhNguyễn
+                    %li.bold Duongnguyen
                     %li đã đăng 1 thông báo - 2 tháng trước 
                   %span.noti-item-subject 
                     Please do something

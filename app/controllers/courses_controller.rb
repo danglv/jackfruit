@@ -383,9 +383,6 @@ class CoursesController < ApplicationController
       },
       "from" => 0, "size" => 20
     }
-
-    @c = Course.search body
-    binding.pry
     
     c = Course.search body
     @courses = c.results.map {|r|
