@@ -35,6 +35,26 @@ $(document).ready(function () {
     var name = $(".name-input").val();
     var mobile = $(".mobile-input").val();
 
+    var error_msg = null;
+    if (name.length == 0)
+      error_msg = "Hãy nhập tên của bạn để chúng tôi có thể liên hệ";
+    else if (mobile.length == 0)
+      error_msg = "Hãy nhập số điện thoại để chúng tôi có thể liên hệ với bạn";
+    else if (mobile.length < 9)
+      error_msg = "Số điện thoại không đúng, vui lòng kiểm tra lại";
+    else{
+      var phone_pattern = /^([0-9\(\)\/\+ \-]*)$/;
+      if (!mobile.match(phone_pattern))
+        error_msg = "Số điện thoại không hợp lệ, vui lòng kiểm tra lại";
+    }
+    if (error_msg){
+      $("#payment-support-form > #validate-message").text(error_msg);
+      $("#payment-support-form > #validate-message").css("display", "block");
+      return;
+    }else{
+      $("#payment-support-form > #validate-message").css("display", "none");
+    }
+
     var params = {
       'course_id': course_id,
       'course_name': course_name,

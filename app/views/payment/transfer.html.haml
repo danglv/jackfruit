@@ -43,15 +43,16 @@
                 %li.list-note.normal-text Ví dụ: 0909090909 - Nguyen Thi Huong Lan - lannguyen@gmail.com - Ky nang quan ly cam xuc   
           .support-online-payment-form
             %h5.support-description Để lại thông tin để đội ngũ hỗ trợ của Pedia có thế giúp bạn trong việc mua các khóa học trong thời gian sớm nhất!
-            %form.form-support
+            %form.form-support#payment-support-form
               / Get information user for tele_sales 
               %input.course_id{:type => "hidden", :value => "#{@course._id}"}
               %input.course_name{:type => "hidden", :value => "#{@course.name}"}
               %input.user_id{:type => "hidden", :value => "#{current_user._id}"}
               %input.user_email{:type => "hidden", :value => "#{current_user.email}"}
               %input.payment_id{:type => "hidden", :value => ""}
-              %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ", :value => help_get_user_name}
-              %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
+              %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ", :value => help_get_user_name, :name => "name"}
+              %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại", :name => "mobile"}
+              #validate-message
               %a.btn.btn-success.send-form-support Gửi đi
           = render :partial => 'payment/success_support_modal'
           .other-payment-method

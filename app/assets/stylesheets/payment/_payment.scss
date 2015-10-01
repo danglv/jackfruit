@@ -300,6 +300,11 @@
           line-height: 24px;
           margin: 15px 0;
         }
+        #validate-message{
+          display: none;
+          color: red;
+          margin-top: 10px;
+        }
       }
       .card-form {
         .phone-cards {
