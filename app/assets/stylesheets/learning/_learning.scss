@@ -433,6 +433,19 @@
         }
         .list-noti {
           margin-top: 20px;
+          .alert-author {
+            position: relative;
+            margin: 0;
+            .alert-dropdown {
+              width: 100%;              
+            }
+            .alert-box {
+              position: absolute;
+              left: 0;
+              width: 100%;
+              padding: 20px;
+            }
+          }
         }
         &-item {
           

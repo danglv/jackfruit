@@ -130,6 +130,7 @@ module Constants
   end
 
   module PaymentMethod
+    NONE = 'none'
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"

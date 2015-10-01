@@ -10,7 +10,8 @@
             .payment-header.success
               %span.title
                 %b Chúc mừng bạn đã thanh toán thành công
-        .container
+        - unless (@payment.money == 0 && @payment.coupons.size > 0)
+          .container
           .row.no-margin{:style => "margin-bottom: 5px;"}
             .col-xs-12.no-padding
               %h5.normal-text
@@ -28,13 +29,26 @@
               %h5.normal-text.left-align Chi phí
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align.price-text
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .row.no-margin{:style => "margin-bottom: 20px"}
             .col-xs-3.no-padding
               %h5.normal-text.left-align Trạng thái
             .col-xs-7.col-xs-offset-2.no-padding
               %h5.right-align.success-text
                 %b Thành công
+        - else
+          .container.select
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-3
+                .select-header-image
+                  = image_tag @course.image,:style => 'width:100%'
+              .col-xs-12.col-sm-8.col-md-9.select-header-content
+                .select-header-text
+                  .text-congratulations Chúc mừng, bạn đã tham gia vào khóa học
+                  .text-name-course.bold #{@course.name}
+                  .test-author 
+                    được hướng dẫn bởi
+                    %span.bold #{@course.user.name}
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
@@ -64,7 +78,8 @@
             .payment-header.success
               %span.title
                 %b Chúc mừng bạn đã thanh toán thành công
-        .container
+        - unless (@payment.money == 0 && @payment.coupons.size > 0)
+          .container
           .row.no-margin{:style => "margin-bottom: 5px;"}
             .col-xs-12.no-padding
               %h5.normal-text
@@ -89,6 +104,19 @@
             .col-xs-8.col-xs-offset-2.no-padding
               %h5.right-align.success-text
                 %b Thành công
+        - else
+          .container.select
+            .row.no-margin
+              .col-xs-12.col-sm-4.col-md-3
+                .select-header-image
+                  = image_tag @course.image,:style => 'width:100%'
+              .col-xs-12.col-sm-8.col-md-9.select-header-content
+                .select-header-text
+                  .text-congratulations Chúc mừng, bạn đã tham gia vào khóa học
+                  .text-name-course.bold #{@course.name}
+                  .test-author 
+                    được hướng dẫn bởi
+                    %span.bold #{@course.user.name}
         .divider{:style => "margin-bottom: 15px"}
         .container
           .row.no-margin{:style => "margin-bottom: 25px;"}
@@ -119,7 +147,8 @@
               .payment-header.success
                 %span.title{:style => "font-size: 18px;"}
                   %b Chúc mừng bạn đã thanh toán thành công
-          .container.full-width
+          - unless (@payment.money == 0 && @payment.coupons.size > 0)
+            .container.full-width
             .row.no-margin{:style => "margin-bottom: 5px;"}
               %h5.normal-text
                 Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
@@ -147,6 +176,19 @@
                   .content-right
                     %h5.success-text
                       %b Thành công
+          - else
+            .container.select
+              .row.no-margin
+                .col-xs-12.col-sm-4.col-md-3
+                  .select-header-image
+                    = image_tag @course.image,:style => 'width:100%'
+                .col-xs-12.col-sm-8.col-md-9.select-header-content
+                  .select-header-text
+                    .text-congratulations Chúc mừng, bạn đã tham gia vào khóa học
+                    .text-name-course.bold #{@course.name}
+                    .test-author 
+                      được hướng dẫn bởi
+                      %span.bold #{@course.user.name}
           .divider{:style => "margin-bottom: 15px"}
           .container.full-width
             .row.no-margin{:style => "margin-bottom: 25px;"}
