@@ -204,4 +204,6 @@
               .payment-box-bottom
                 %a{:href => "/courses", :style => "text-decoration: none;"}
                   %span.other-course-text khám phá các khóa học khác
-    = render :partial => 'components/footer/index'   
+    = render :partial => 'components/footer/index'
+:javascript
+  ga('send', 'event', 'payment', 'success', "#{@course.name}")
