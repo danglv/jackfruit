@@ -39,11 +39,10 @@
               %input.user_id{:type => "hidden", :value => "#{current_user._id}"}
               %input.user_email{:type => "hidden", :value => "#{current_user.email}"}
               %input.payment_id{:type => "hidden", :value => ""}
-
-              %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
+              %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ", :value => help_get_user_name}
               %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
               %a.btn.btn-success.send-form-support Gửi đi
-          .support-online-payment-form-success Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
+          = render :partial => 'payment/success_support_modal'
           .other-payment-method
             %a.link-text{:href => "/home/payment/#{@course.alias_name.to_s}"} Chọn hình thức thanh toán khác
           .method-progress

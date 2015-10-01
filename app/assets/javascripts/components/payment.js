@@ -57,8 +57,10 @@ $(document).ready(function () {
     // Callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR) {
       // Log a message to the console
-      $(".support-online-payment-form").css("display", "none");
-      $(".support-online-payment-form-success").css("display", "block");
+      // $(".support-online-payment-form").css("display", "none");
+      // $(".support-online-payment-form-success").css("display", "block");
+      // Show popup
+      $('#support_success_modal').modal('show');
     });
 
     // Callback handler that will be called on failure
