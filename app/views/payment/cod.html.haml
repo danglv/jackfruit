@@ -29,9 +29,9 @@
               %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
               %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
               .payment-editor.left
-                %input.form-control{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}"}
+                %input.form-control{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}", :value => help_get_user_name}
               .payment-editor.right
-                %input.form-control{:type => "email", :name => "email", :placeholder => "Email", :required => "required"}
+                %input.form-control{:type => "email", :name => "email", :placeholder => "Email", :required => "required", :value => help_get_user_email}
               .payment-editor.left
                 %input.form-control{:type => "number", :name => "mobile", :placeholder => "Số điện thoại", :required => "required"}
               .payment-editor.right
