@@ -208,9 +208,9 @@ RailsAdmin.config do |config|
       field :user
     end
 
-    # edit do
-      # exclude_fields :reviews
-    # end
+    edit do
+      exclude_fields :reviews
+    end
   end
 
   config.model 'Banner' do
