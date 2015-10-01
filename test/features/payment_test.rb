@@ -157,8 +157,10 @@ feature 'Payment' do
       find('.btn-login-submit').click
     end
 
+    page.must_have_content('Chúc mừng, bạn đã tham gia vào khóa học')
     page.must_have_content('Test Course 3')
     page.wont_have_content('199,000')
-    page.wont_have_content('100%')
+    page.wont_have_content('Chi phí')
+    page.wont_have_content('Trạng thái')
   end
 end
