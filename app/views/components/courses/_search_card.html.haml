@@ -19,6 +19,8 @@
             - else
               #{course.price} đ
           .rating.info-item.pull-left
+            - if course.average_rating.blank?
+              - course.average_rating = 0
             - (1..5).each do |i|
               - if i <= course.average_rating
                 %i.fa.fa-star.rated
@@ -26,9 +28,11 @@
                 %i.fa.fa-star
           / .review.info-item.pull-left{:style => 'padding-right:10px'}
           .lecture.info-item.pull-left
-            = course.curriculums.count
-            bài học            
+            - if !course.curriculums.blank?
+              = course.curriculums.count
+              bài học            
           / .leng-video.info-item.pull-left
           .level.info-item.pull-left
-            Level:
-            = Course::Localization::LEVELS[course.level.to_sym][:vi]
+            - if !course.level.blank?
+              Level:
+              = Course::Localization::LEVELS[course.level.to_sym][:vi]
