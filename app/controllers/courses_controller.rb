@@ -184,7 +184,7 @@ class CoursesController < ApplicationController
             redirect_to root_url + "courses/#{@course.alias_name}/learning"
             return
           else # Course is on a payment then get payment
-            # Tracking L3c
+            # Tracking L3c. Case pending
             params = {
               Constants::TrackingParams::CATEGORY => "L3c",
               Constants::TrackingParams::TARGET => @course.id,
@@ -203,7 +203,7 @@ class CoursesController < ApplicationController
           end
         end
       else
-        # Tracking L3c
+        # Tracking L3c. Case not has course.
         params = {
           Constants::TrackingParams::CATEGORY => "L3c",
           Constants::TrackingParams::TARGET => @course.id,
@@ -214,12 +214,14 @@ class CoursesController < ApplicationController
           }
         }
         track = Spymaster.track(params, request.blank? ? nil : request)
-      end
+      end      
     end
 
     # Check if course is in any sale campaign
     sale_input = {:course => @course}
-    sale_input[:coupon_code] = params[:coupon_code] unless params[:coupon_code].blank?
+    if !params.blank?
+      sale_input[:coupon_code] = params[:coupon_code] unless params[:coupon_code].blank?
+    end
     @sale_info = Sale::Services.get_price(sale_input)
 
     @courses = {}

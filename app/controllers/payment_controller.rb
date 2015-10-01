@@ -126,7 +126,6 @@ class PaymentController < ApplicationController
         Constants::TrackingParams::BEHAVIOR => "submit",
         Constants::TrackingParams::USER => current_user.id,
         Constants::TrackingParams::EXTRAS => {
-          :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source']),
           :payment_id => payment.id,
           :payment_method => payment.method
         }
@@ -226,7 +225,7 @@ class PaymentController < ApplicationController
           :device => {},
           :version => Constants::AppVersion::VER_1,
           :identity => current_user.id.to_s,
-          :object => payment.id
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
       end
@@ -243,7 +242,7 @@ class PaymentController < ApplicationController
         Constants::TrackingParams::BEHAVIOR => "click",
         Constants::TrackingParams::USER => current_user.id,
         Constants::TrackingParams::EXTRAS => {
-          :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+          :payment_id => @payment.id
         }
       }
       track = Spymaster.track(params, request.blank? ? nil : request)
@@ -257,12 +256,28 @@ class PaymentController < ApplicationController
           Constants::TrackingParams::BEHAVIOR => "click",
           Constants::TrackingParams::USER => current_user.id,
           Constants::TrackingParams::EXTRAS => {
-            :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+            :payment_id => @payment.id
           }
         }
         track = Spymaster.track(params, request.blank? ? nil : request)         
       end
     end
+
+    # Tracking L8ga
+    if @payment
+      params = {
+        Constants::TrackingParams::CATEGORY => "L8ga",
+        Constants::TrackingParams::TARGET => @course.id,
+        Constants::TrackingParams::BEHAVIOR => "open",
+        Constants::TrackingParams::USER => current_user.id,
+        Constants::TrackingParams::EXTRAS => {
+          :payment_id => @payment.id,
+          :payment_method => @payment.method
+        }
+      }
+      track = Spymaster.track(params, request.blank? ? nil : request)
+    end
+
     # If the first learning, display success page.
     owned_course.set(:first_learning => false) if !owned_course.blank?
   end
@@ -442,7 +457,7 @@ class PaymentController < ApplicationController
           :device => {},
           :version => Constants::AppVersion::VER_1,
           :identity => current_user.id.to_s,
-          :object => payment.id
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
         return

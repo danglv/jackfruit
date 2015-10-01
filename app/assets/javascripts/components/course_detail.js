@@ -1,4 +1,20 @@
 (function ($) {
+  $(document).ready(function() {
+    if (window.location.href.match('/detail') != null) {
+      var course_id = $(".course_id").val();
+      var utm_source = getParameterByName('utm_source');
+      // Tracking L2
+      var params = {
+        'category': 'L2',
+        'behaviour': 'view',
+        'target': course_id,
+        'extras': {
+          'chanel': utm_source == undefined ?  document.referrer : utm_source
+        }
+      };
+      Spymaster.track(params);
+    } 
+  });
 
   function saleCoundownter(duration, ondisplay, ontimeout) {
     var timer = duration,
@@ -175,6 +191,21 @@ $(document).ready(function () {
       }
     });
 
+  });
+
+  $(".buy-button").click(function () {
+    var course_id = $(".course_id").val();
+    var utm_source = getParameterByName('utm_source');
+    // Tracking L7a
+    var params = {
+      'category': 'L7a',
+      'behaviour': 'click',
+      'target': course_id,
+      'extras': {
+        'chanel': utm_source == undefined ?  document.referrer : utm_source 
+      }
+    };
+    Spymaster.track(params);
   });
 
   $(".btn-submit-report").click(function () {

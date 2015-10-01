@@ -42,6 +42,19 @@ $(document).ready(function () {
   $.material.input();
   $('.active-nav-1').sliderDropdown();
   $('.active-nav-2').sliderDropdown();
+
+  var utm_source = getParameterByName('utm_source');
+  // Tracking U2
+  var params = {
+    'category': 'U2',
+    'behaviour': 'open',
+    'target': document.URL,
+    'extras': {
+      'chanel': utm_source == undefined ?  document.referrer : utm_source 
+    }
+  };
+  // console.log(params);
+  Spymaster.track(params);
 });
 
 $(document).ajaxError(function (e, xhr, settings) {
@@ -68,3 +81,10 @@ function gup(name, url) {
   js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=1592966984299237";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

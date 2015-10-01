@@ -67,4 +67,63 @@ $(document).ready(function () {
     });
   });
 
+  $(".btn-cod").click(function () {
+    var course_id = $(".course_id").val();
+    // Tracking L7b
+    var params = {
+      'category': 'L7b',
+      'behaviour': 'click',
+      'target': course_id,
+      'extras': {
+        'chanel': document.referrer,
+        'payment_method': 'cod'
+      }
+    };
+    Spymaster.track(params);
+  });
+
+  $(".btn-transfer").click(function () {
+    var course_id = $(".course_id").val();
+    // Tracking L7b
+    var params = {
+      'category': 'L7b',
+      'behaviour': 'click',
+      'target': course_id,
+      'extras': {
+        'chanel': document.referrer,
+        'payment_method': 'transfer'
+      }
+    };
+    Spymaster.track(params);
+  });
+
+  $(".btn-card").click(function () {
+    var course_id = $(".course_id").val();
+    // Tracking L7b
+    var params = {
+      'category': 'L7b',
+      'behaviour': 'click',
+      'target': course_id,
+      'extras': {
+        'chanel': document.referrer,
+        'payment_method': 'card'
+      }
+    };
+    Spymaster.track(params);
+  });
+
+  $(".btn-cih").click(function () {
+    var course_id = $(".course_id").val();
+    // Tracking L7b
+    var params = {
+      'category': 'L7b',
+      'behaviour': 'click',
+      'target': course_id,
+      'extras': {
+        'chanel': document.referrer,
+        'payment_method': 'cih'
+      }
+    };
+    Spymaster.track(params);
+  });
 });
