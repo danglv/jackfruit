@@ -9,7 +9,7 @@
       = render :partial => 'components/courses/sorting'
       .row.no-margin.courses-result
         - @courses.each do |course|
-          = render :partial => "components/courses/list_card", :locals => {:course => course}
+          = render :partial => "components/courses/search_card", :locals => {:course => course}
       / .row.no-margin.courses-pagination
       /   %ul.pagination.pagination-md
       /     %li
