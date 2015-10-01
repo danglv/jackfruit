@@ -107,7 +107,7 @@ feature 'Payment' do
                  :body => '{"errorMessage": "Error", "transaction_id": 1}',
                  :headers => {})
 
-    visit '/home/payment/card/test-course-3?p=baokim_card'
+    visit '/home/payment/card/test-course-2?p=baokim_card'
 
     within('#login-modal') do
       fill_in('user[email]', with: 'student1@tudemy.vn')
@@ -122,5 +122,43 @@ feature 'Payment' do
     end
 
     page.must_have_content('Error')
+  end
+
+  scenario '[JPA005] zero amount payment' do
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_ZERO_AMOUNT_COUPON")
+      .with(:headers => {
+        'Accept'=>'*/*; q=0.5, application/xml',
+        'Accept-Encoding'=>'gzip, deflate',
+        'User-Agent'=>'Ruby'
+        }
+      )
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "A_ZERO_AMOUNT_COUPON"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"discount": 100',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
+
+    visit '/courses/test-course-3/detail?coupon_code=A_ZERO_AMOUNT_COUPON'      
+
+    find('.buy-button').click
+
+    within('#login-modal') do
+      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[password]', with: '12345678')
+      find('.btn-login-submit').click
+    end
+
+    page.must_have_content('Test Course 3')
+    page.wont_have_content('199,000')
+    page.wont_have_content('100%')
   end
 end
