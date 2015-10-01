@@ -10,7 +10,7 @@
       .row.ellipsis-2lines.course-description= course.sub_title
       .row.no-margin.course-bottom
         - if course.price != 0
-          - if @sale_info && sale_info = @sale_info[course.id] && @sale_info[course.id][:applied]
+          - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
             .dn-480.course-price
               .row.promotion-price
                 %span.promotion-badge
@@ -34,7 +34,7 @@
           - else
             %span.course-people-rating= 0
         - if course.price != 0
-          - if @sale_info && sale_info = @sale_info[course.id] && @sale_info[course.id][:applied]
+          - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
             .dn.db-480.course-price
               .row.promotion-price
                 %span.promotion-badge

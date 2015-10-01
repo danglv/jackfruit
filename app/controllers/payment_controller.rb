@@ -30,6 +30,40 @@ class PaymentController < ApplicationController
       status: Constants::PaymentStatus::CREATED,
       money: @data[:final_price]
     )
+
+    if @data[:final_price] == 0
+      @payment.status = Constants::PaymentStatus::SUCCESS
+      @payment.method = Constants::PaymentMethod::NONE
+      @payment.coupons = [].push(@data[:coupon_code]) if @data[:coupon_code]
+      
+      unless @payment.save
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::NONE,
+            :status => "fail"
+          },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+          )
+
+        render 'page_not_found', status: 404
+        return
+      end
+
+      create_course_for_user()
+
+      owned_course = current_user.courses.where(course_id: @course.id).first
+      owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+      owned_course.save
+
+      redirect_to root_url + "/home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
+      return
+    end
   end
 
   # GET, POST

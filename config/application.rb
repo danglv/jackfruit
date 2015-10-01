@@ -59,7 +59,7 @@ module Jackfruit
     })
 
     Mongoid.raise_not_found_error = false
-    Mongoid.logger.level = Logger::WARN
-    Mongo::Logger.logger.level = Logger::WARN
+    Mongoid.logger.level = Logger::ERROR
+    Mongo::Logger.logger.level = Logger::ERROR
   end
 end
