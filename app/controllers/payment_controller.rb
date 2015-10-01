@@ -301,7 +301,7 @@ class PaymentController < ApplicationController
     condition[:method] = method unless method.blank?
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
-    payments = Payment.where(condition)
+    payments = Payment.where(condition).desc(:created_at)
 
     total_pages = (payments.count.to_f / per_page).ceil
     next_page = page >= total_pages ? 0 : page + 1

@@ -30,6 +30,9 @@
       line-height: 24px;
     }
     .info-course {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       .info-item {
         color: #212121;
         padding-right: 10px;
