@@ -1,0 +1,38 @@
+.search-card
+  %a{:href => "/courses/#{course.alias_name}/detail"}
+    .row.no-margin
+      .image-course.pull-left
+        - if course.image != ""
+          = image_tag course.image
+        - else
+          = image_tag 'http://tudemy.vn/assets/course-image-5e755c0910ca7b35381f2ea00091ed03bd786afecdf16714e5aa08a46d211b7e.png'
+      .content-course.pull-leff
+        .name-course= course.name
+        .about-author
+          %span= course.user.name
+          - if !course.user.instructor_profile.major.blank?
+            %span= course.user.instructor_profile.major
+        .info-course.row.no-margin
+          .real-price.info-item.pull-left
+            - if course.price == 0
+              Miễn phí
+            - else
+              #{course.price} đ
+          .rating.info-item.pull-left
+            - if course.average_rating.blank?
+              - course.average_rating = 0
+            - (1..5).each do |i|
+              - if i <= course.average_rating
+                %i.fa.fa-star.rated
+              - else
+                %i.fa.fa-star
+          / .review.info-item.pull-left{:style => 'padding-right:10px'}
+          .lecture.info-item.pull-left
+            - if !course.curriculums.blank?
+              = course.curriculums.count
+              bài học            
+          / .leng-video.info-item.pull-left
+          .level.info-item.pull-left
+            - if !course.level.blank?
+              Level:
+              = Course::Localization::LEVELS[course.level.to_sym][:vi]

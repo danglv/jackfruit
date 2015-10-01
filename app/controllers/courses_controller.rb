@@ -195,6 +195,9 @@ class CoursesController < ApplicationController
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
+    #fixed condition for Oct2015 campaign
+    condition = {:enabled => true, :label_ids.in => ["sale-oct-2015"], :id.ne => @course[:id]}
+    
     @courses['related'] = [
       Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)
     ]
@@ -381,6 +384,9 @@ class CoursesController < ApplicationController
       "from" => 0, "size" => 20
     }
 
+    @c = Course.search body
+    binding.pry
+    
     c = Course.search body
     @courses = c.results.map {|r|
       r._source
