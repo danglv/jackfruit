@@ -616,8 +616,8 @@ class CoursesController < ApplicationController
         c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
-        c.intro_link = course['intro_link'] unless course['intro_link'].blank?
-        c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+        c.intro_link = course['intro_link']
+        c.intro_image = course['intro_image']
         c.enabled = course['enabled'] unless course['enabled'].blank?
         c.description = course['description'] unless course['description'].blank?
         c.requirement = course['requirement'] unless course['requirement'].blank?
