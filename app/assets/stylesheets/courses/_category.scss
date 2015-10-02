@@ -57,9 +57,6 @@
           font-weight: 500;
           margin-top: 25px;
         }
-        .other-category {
-          padding-left: 24px;
-        }
       }
     }
     &-main {
@@ -97,9 +94,6 @@
           color: #212121;
           font-weight: 500;
           margin-top: 29px;
-        }
-        .other-category {
-          padding-left: 24px;
         }
       }
     }
@@ -157,7 +151,17 @@
         }
         .relate-item {
           text-align: center; 
-          color: #009688;
+          .icon-category {
+            color: inherit;
+            .icons {
+              color: inherit;
+              font-size: 60px;
+            }
+          }
+          .name-course {
+            color: inherit;
+            font-size: 14px;
+          }
           a:hover {
             text-decoration: none;
           }

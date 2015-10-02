@@ -58,7 +58,7 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 # Rails Admin
-gem 'rails_admin', '~> 0.6.8'
+gem 'rails_admin'
 gem 'devise-i18n'
 # Add permission
 gem "cancan"
@@ -103,3 +103,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 # serializer
 gem 'active_model_serializers', '~> 0.9.3'
+
+# Simple line icons
+gem 'simple-line-icons-rails'

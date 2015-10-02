@@ -30,6 +30,40 @@ class PaymentController < ApplicationController
       status: Constants::PaymentStatus::CREATED,
       money: @data[:final_price]
     )
+
+    if @data[:final_price] == 0
+      @payment.status = Constants::PaymentStatus::SUCCESS
+      @payment.method = Constants::PaymentMethod::NONE
+      @payment.coupons = [].push(@data[:coupon_code]) if @data[:coupon_code]
+      
+      unless @payment.save
+        Tracking.create_tracking(
+          :type => Constants::TrackingTypes::PAYMENT,
+          :content => {
+            :payment_method => Constants::PaymentMethod::NONE,
+            :status => "fail"
+          },
+          :ip => request.remote_ip,
+          :platform => {},
+          :device => {},
+          :version => Constants::AppVersion::VER_1,
+          :identity => current_user.id.to_s,
+          :object => payment.id
+          )
+
+        render 'page_not_found', status: 404
+        return
+      end
+
+      create_course_for_user()
+
+      owned_course = current_user.courses.where(course_id: @course.id).first
+      owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+      owned_course.save
+
+      redirect_to root_url + "/home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
+      return
+    end
   end
 
   # GET, POST
@@ -301,7 +335,7 @@ class PaymentController < ApplicationController
     condition[:method] = method unless method.blank?
     condition[:created_at] = payment_date.to_date.beginning_of_day..payment_date.to_date.end_of_day unless payment_date.blank?
     
-    payments = Payment.where(condition)
+    payments = Payment.where(condition).desc(:created_at)
 
     total_pages = (payments.count.to_f / per_page).ceil
     next_page = page >= total_pages ? 0 : page + 1
@@ -337,7 +371,8 @@ class PaymentController < ApplicationController
       :name => name,
       :email => email,
       :address => address,
-      :mobile => mobile
+      :mobile => mobile,
+      :status => 'success'
     )
 
     user = User.find(user_id)
@@ -361,7 +396,7 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data:"}, status: :unprocessable_entity
       return
     end
   end

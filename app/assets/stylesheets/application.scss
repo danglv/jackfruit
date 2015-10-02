@@ -1,12 +1,14 @@
 @charset "UTF-8";
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,700italic,400italic,500italic,900,900italic&subset=latin,vietnamese);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,700italic,400italic,500italic,900,900italic&subset=latin,latin-ext,vietnamese);
+
 $icon-font-path: "bootstrap-material-design/dist/fonts/";
 
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootstrap-material-design/dist/css/material";
 @import "bootstrap-material-design/dist/css/ripples";
+@import "simple-line-icons";
 
 // setting
 @import "settings";
@@ -31,13 +33,14 @@ body {
   min-height: 100%;
   overflow-x: hidden;
 }
-iframe[name='google_conversion_frame'] { 
-    height: 0 !important;
-    width: 0 !important; 
-    line-height: 0 !important; 
-    font-size: 0 !important;
-    margin-top: -13px;
-    float: left;
+
+iframe[name='google_conversion_frame'] {
+  height: 0 !important;
+  width: 0 !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  margin-top: -13px;
+  float: left;
 }
 
 @import "components/header";
@@ -48,6 +51,7 @@ iframe[name='google_conversion_frame'] {
 @import "components/course_card";
 @import "components/list_card";
 @import "components/learning_card";
+@import "components/search_card";
 @import "components/landingpage_card";
 @import "components/sorting";
 @import "components/filter";
@@ -67,6 +71,7 @@ iframe[name='google_conversion_frame'] {
 @import "learning/learning";
 @import "lecture/lecture";
 @import "payment/payment";
+@import "payment/payment-new";
 @import "courses/courses";
 @import "courses/search";
 @import "courses/category";

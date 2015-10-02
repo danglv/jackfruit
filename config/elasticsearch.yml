@@ -1,5 +1,5 @@
 config = {
-  host: "http://localhost:9200/", #change to production setting
+  host: "http://128.199.70.101:9200/", #change to production setting
   transport_options: {
     request: { timeout: 5 }
   },

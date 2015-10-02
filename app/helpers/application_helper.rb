@@ -116,4 +116,21 @@ module ApplicationHelper
     link += link.index('?').blank? ? '?' : ''
     link + (data[:coupon_code] ? "&coupon_code=#{data[:coupon_code]}" : '')
   end
+
+  def help_get_user_name
+    if current_user
+      if !current_user.first_name.blank? && !current_user.last_name.blank?
+        return current_user.first_name + " " + current_user.last_name
+      else
+        return current_user.name || ""
+      end
+    end
+    return ""
+  end
+
+  def help_get_user_email
+    if current_user
+      return current_user.email
+    end
+  end
 end

@@ -54,8 +54,16 @@ courses = Course.create([
     version: Constants::CourseVersions::PUBLIC,
     enabled: true,
     user: users[0]
+  },
+  {
+    name: 'Test Course 3',
+    price: 199000,
+    alias_name: 'test-course-3',
+    version: Constants::CourseVersions::PUBLIC,
+    enabled: true,
+    user: users[0]
   }
-])
+])  
 
 sale_campaigns = Sale::Campaign.create([
   {
@@ -70,7 +78,21 @@ sale_packages = Sale::Package.create([
     title: 'Test Sale Package 1',
     price: 98000,
     campaign: sale_campaigns[0],
-    courses: [courses[0]]
+    courses: [courses[0]],
+    participant_count: 2,
+    max_participant_count: 10,
+    start_date: Time.now,
+    end_date: Time.now + 2.days
+  },
+  {
+    title: 'Test Sale Package 2',
+    price: 98000,
+    campaign: sale_campaigns[0],
+    courses: [courses[2]],
+    participant_count: 2,
+    max_participant_count: 10,
+    start_date: Time.now,
+    end_date: Time.now + 2.days
   }
 ])
 

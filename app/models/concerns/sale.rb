@@ -31,8 +31,11 @@ module Sale
         combo_package = get_combo(combo_code)
         if combo_package
           result[:final_price] = combo_package.price
-          result[:package_id]  = combo_package.id
-          result[:combo_code]  = combo_package.code
+          result[:package_id] = combo_package.id
+          result[:combo_code] = combo_package.code
+          result[:participant_count] = combo_package.participant_count
+          result[:max_participant_count] = combo_package.max_participant_count
+          result[:end_date] = (combo_package.end_date ? combo_package.end_date : Time.now()).utc.to_f * 1000
           result[:applied] = true
         else
           result[:error] = "Mã combo #{combo_code} không hợp lệ"
@@ -59,8 +62,11 @@ module Sale
 
           unless package.blank?
             result[:final_price] = package.price
-            result[:discount_ratio] = (package.price.to_f / course.price.to_f * 100).ceil.to_i || 0
+            result[:discount_ratio] = (100 - (package.price.to_f / course.price.to_f * 100).ceil.to_i) || 0
             result[:package_id] = package.id
+            result[:participant_count] = package.participant_count
+            result[:max_participant_count] = package.max_participant_count
+            result[:end_date] = (package.end_date ? package.end_date : Time.now()).utc.to_f * 1000
             result[:applied] = true
             break
           end

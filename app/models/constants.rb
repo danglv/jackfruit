@@ -130,10 +130,12 @@ module Constants
   end
 
   module PaymentMethod
+    NONE = 'none'
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"
     CARD = "card"
+    DELIVERY = "delivery"
   end
 
   module CourseVersions
