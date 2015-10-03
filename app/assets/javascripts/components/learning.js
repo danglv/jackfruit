@@ -228,5 +228,74 @@ $(document).ready(function (){
     tabActions[tabValue]();
 
   });
+  
+  $(".btn-add-announcement").click(function(){
+    var title = $(".an-title").val();
+    if (title == "") {
+      alert("phai nhap truong tieu de");
+      $(".an-title").focus();
+      return false;
+    }
+    var description = $(".an-description").val();
+    if (description == "") {
+      alert("nhap truong noi dung thong bao")
+      $(".an-description").focus();
+      return false;
+    }
+    var course_id = $(".course_id").val();
+
+    params = {
+      'title': title,
+      'description': description,
+      'course_id': course_id
+    };
+
+    console.log(params);
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_announcement';
+
+    $.ajax({
+      type: 'POST',
+      url: URL,
+      data: params,
+      success: function(msg){
+        console.log(msg);
+      }
+    });
+    location.reload();
+  });
+
+  $(".child-announcement").click(function(event) {
+    var that = $(this);
+    var description = that.prev(".child-announcement-desciption").val();
+    if (description == "") {
+      alert("ban phai nhap noi dung binh luan");
+      that.prev(".child-announcement-desciption").focus();
+      return false;
+    };
+    var parent_announcement_id = that.prev().prev().val();
+
+    var course_id = $(".course_id").val();
+    console.log(course_id);
+    params = {
+      'course_id': course_id,
+      'description': description,
+      'parent_announcement_id': parent_announcement_id
+    }
+
+    var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_child_announcement';
+
+    $.ajax({
+      type: 'POST',
+      url: URL,
+      data: params,
+      success: function(msg){
+        console.log(msg);
+        that.parent().parent().parent().before(msg);
+        that.prev().val("");
+      }
+    });
+
+  });
 
 })
