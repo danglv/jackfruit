@@ -180,7 +180,7 @@ class CoursesController < ApplicationController
                 :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
               }
             }
-            track = Spymaster.track(params, request.blank? ? nil : request)
+            Spymaster.track(params, request.blank? ? nil : request)
             redirect_to root_url + "courses/#{@course.alias_name}/learning"
             return
           else # Course is on a payment then get payment
@@ -194,7 +194,7 @@ class CoursesController < ApplicationController
                 :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
               }
             }
-            track = Spymaster.track(params, request.blank? ? nil : request)
+            Spymaster.track(params, request.blank? ? nil : request)
 
             @payment = Payment.where(
               user_id: current_user.id.to_s,
@@ -213,7 +213,7 @@ class CoursesController < ApplicationController
             :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)
+        Spymaster.track(params, request.blank? ? nil : request)
       end      
     end
 
