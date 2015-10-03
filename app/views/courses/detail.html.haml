@@ -75,7 +75,6 @@
             %h3.course-price-text.free{:style => "margin-top: 15px;"} Miễn phí
           - else
             %h3.course-price-text.no-margin{:style => 'margin: 0; padding-top: 15px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-
   / + Detail content
   .detail
     .detail-top
@@ -89,7 +88,10 @@
                 %i.fa.fa-star.is-rated 
               - else
                 %i.fa.fa-star
-          .course-rating-people= @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+          - if !@course.fake_enabled
+            .course-rating-people= @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+          - else
+            .course-rating-people= @course.fake_num_rate.to_s + ' đánh giá, ' + @course.fake_students.to_s + ' người tham gia'
         .course-author
           - if @course.user
             Giảng dạy bởi 
@@ -369,7 +371,10 @@
                 %h5.information-text= i  
         #rating
           .rating-title Đánh giá
-          .rating-point= @course.average_rating
+          - if !@course.fake_enabled
+            .rating-point= @course.average_rating
+          - else
+            .rating-point= @course.fake_average_rating
           .course-rating
             .rating-star
               - (1..5).each do |i|
@@ -377,7 +382,10 @@
                   %i.fa.fa-star.is-rated 
                 - else
                   %i.fa.fa-star
-            .rating-people= @course.reviews.count.to_s + ' đánh giá' 
+            - if !@course.fake_enabled
+              .rating-people= @course.reviews.count.to_s + ' đánh giá' 
+            - else
+              .rating-people= @course.fake_num_rate.to_s + ' đánh giá' 
           .rating-detail
             %h5.normal-text Chi tiết
             - course_reviews = @course.reviews

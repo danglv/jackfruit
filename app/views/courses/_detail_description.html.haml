@@ -12,7 +12,7 @@
 - if @course['requirement'].count > 1
   %h5
     %b= @course['requirement'].first
-  %ul{:style => "list-style: none"}
+  %ul.no-padding{:style => "list-style: none"}
     - (1..@course['requirement'].count-1).each do |i|
       %li
         %p= @course['requirement'][i]
@@ -20,7 +20,7 @@
 - if @course['benefit'].count > 1
   %h5
     %b= @course['benefit'].first
-  %ul{:style => "list-style: none"}
+  %ul.no-padding{:style => "list-style: none"}
     - (1..@course['benefit'].count-1).each do |i|
       %li
         %p= @course['benefit'][i]
@@ -28,7 +28,7 @@
 - if @course['audience'].count > 1
   %h5
     %b= @course['audience'].first
-  %ul{:style => "list-style: none"}
+  %ul.no-padding{:style => "list-style: none"}
     - (1..@course['audience'].count-1).each do |i|
       %li
         %p= @course['audience'][i]
