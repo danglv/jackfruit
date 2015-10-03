@@ -1,4 +1,4 @@
-class Course::ChildAlert
+class Course::ChildAnnouncement
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -6,5 +6,5 @@ class Course::ChildAlert
   field :description, type: String, default: ""
 
   belongs_to :user
-  embedded_in :parent_alert, class_name: "Course::Alert"
+  embedded_in :parent_announcement, class_name: "Course::Announcement"
 end

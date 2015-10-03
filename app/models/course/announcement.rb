@@ -1,4 +1,4 @@
-class Course::Alert
+class Course::Announcement
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -7,10 +7,10 @@ class Course::Alert
   field :title, type: String, default: ""
   field :description, type: String, default: ""
 
-  embeds_many :child_alert, class_name: "Course::ChildAlert"
+  embeds_many :child_announcements, class_name: "Course::ChildAnnouncement"
   embedded_in :course
   belongs_to :user
 
-  accepts_nested_attributes_for :child_alert
+  accepts_nested_attributes_for :child_announcements
 
 end
