@@ -40,8 +40,9 @@ class Course
   embeds_many :curriculums, class_name: "Course::Curriculum"
   embeds_many :discussions, class_name: "Course::Discussion"
   embeds_many :reviews, class_name: "Course::Review"
+  embeds_many :announcements, class_name: "Course::Announcement"
 
-  accepts_nested_attributes_for :curriculums, :discussions, :reviews
+  accepts_nested_attributes_for :curriculums, :discussions, :reviews, :announcements
 
   belongs_to :user
   has_and_belongs_to_many :categories, class_name: "Category"

@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   include CoursesHelper
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion, :add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
   skip_before_filter :verify_authenticity_token, only: [:upload_course]
@@ -771,5 +771,46 @@ class CoursesController < ApplicationController
       render json: {num_courses: course}
       return
     end
+  end
+
+  def add_announcement
+    course_id = params[:course_id]
+    title = params[:title]
+    description = params[:description]
+
+    @course = Course.where(:id => course_id).first
+    announcement = Course::Announcement.new(
+      title: title,
+      description: description,
+      user: @current_user,
+      course: @course
+      )    
+    @course.announcements << announcement
+    @course.save
+    render json: {message: "success"} 
+    return
+  end
+
+  def add_child_announcement
+    description = params[:description]
+    parent_announcement_id = params[:parent_announcement_id]
+    course_id = params[:course_id]
+
+    @course = Course.where(:id => course_id).first
+    parent_announcement = @course.announcements.where(:id => parent_announcement_id).first
+
+    child_announcement = Course::ChildAnnouncement.new(
+      description: description,
+      user: @current_user
+      )
+    parent_announcement.child_announcements << child_announcement
+    @course.save
+    if @course.save
+      render plain: '<div class="row child-item no-margin"><div class="col-md-1 col-lg-1 no-padding child-item-avatar"><i class="fa fa-smile-o"></i></div><div class="col-md-11 col-lg-11 no-padding child-item-main"><ul class="child-item-title"><li class="bold">'+@current_user.name+'</li><li>'+TimeHelper.relative_time(child_announcement.created_at)+'</li></ul><p class="child-item-content">'+description+'</p></div></div>'
+    else
+      render json: {message: "false"}
+    end
+
+    return
   end
 end

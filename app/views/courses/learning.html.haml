@@ -104,10 +104,10 @@
               %a{:href => "#tab1"}
                 %i.fa.fa-comments
                 %span Thảo luận 
-            / .col-md-4.col-lg-4.learning_tab{:val => "noti"}
-            /   %a{:href => "#tab2"}
-            /     %i.fa.fa-bullhorn
-            /     %span Thông báo 
+            .col-md-4.col-lg-4.learning_tab{:val => "noti"}
+              %a{:href => "#tab2"}
+                %i.fa.fa-bullhorn
+                %span Thông báo 
             .col-md-4.col-lg-4.learning_tab{:val => "student"}
               %a
                 %i.fa.fa-users
@@ -169,9 +169,9 @@
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o
                           .col-md-11.col-lg-11.no-padding.child-item-main
-                            - @user = User.where(:id => child_discussion.user_id).first
+                            - user_discussion = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
-                              %li.bold #{user.name} 
+                              %li.bold #{user_discussion.name} 
                               %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
                             %p.child-item-content
                               #{child_discussion.description}
@@ -183,57 +183,52 @@
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               - if @course.user.id == @current_user.id
-                .row.alert-author
-                  %a.dropdown-toggle.btn.btn-primary.alert-dropdown#alert-dropdown{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :id => "", :role => "button"} Thêm thông báo
-                  %ul.dropdown-menu.alert-box{"aria-labelledby" => "alert-dropdown"}
-                    %li
-                      .form-group
-                        %textarea.form-control{:name => "title",:placeholder => 'Nhập tiên đề'}
-                    %li
-                      .form-group
-                        %textarea.form-control{:name => "title",:placeholder => 'Nhập thông báo'}
-                    %li
-                      .form-group
-                        %a.btn.btn-primary{:href => "#", :style => 'width:100%'} Tạo thông báo mới                    
-              .row.noti-item.no-margin
-                .col-md-1.col-lg-1.no-padding.noti-item-avatar
-                  %i.fa.fa-smile-o
-                .col-md-11.col-lg-11.no-padding.noti-item-main
-                  %ul.noti-item-title
-                    %li.bold Duongnguyen
-                    %li đã đăng 1 thông báo - 2 tháng trước 
-                  %span.noti-item-subject 
-                    Please do something
-                  %p.noti-item-content
-                    The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
-                  %a.noti-item-reply Bình luận (1)
-                  .row.no-margin.list-children.collapsed
-                    .row.child-item.no-margin
-                      .col-md-1.col-lg-1.no-padding.child-item-avatar
-                        %i.fa.fa-smile-o
-                      .col-md-11.col-lg-11.no-padding.child-item-main
-                        %ul.child-item-title
-                          %li.bold ThanhNguyễn
-                          %li - 2 tháng trước 
-                        %span.child-item-subject 
-                          Please do something
-                        %p.child-item-content
-                          The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
-                    .row.child-item.no-margin
-                      .col-md-1.col-lg-1.no-padding.child-item-avatar
-                        %i.fa.fa-smile-o
-                      .col-md-11.col-lg-11.no-padding.child-item-main
-                        %ul.child-item-title
-                          %li.bold ThanhNguyễn
-                          %li - 2 tháng trước 
-                        %span.child-item-subject 
-                          Please do something
-                        %p.child-item-content
-                          The videos are not working and I try everything but still nothing is working,please at least send a link to watch them on YouTube if u can't fix it,many thanks!!!
-                    .row.no-margin 
-                      .col-md-1.col-lg-1.no-padding.child-item-avatar
-                        %i.fa.fa-smile-o
-                      .col-md-11.col-lg-11.no-padding.send-reply
-                        %input.form-control{:placeholder => "Bình luận của bạn"}       
-                        .btn.btn-primary Gửi bình luận 
+                %form.an-form{:action => "", :method => 'POST'}
+                  .row.alert-author
+                    %a.dropdown-toggle.btn.btn-primary.alert-dropdown#alert-dropdown{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :id => "", :role => "button"} Thêm thông báo
+                    %ul.dropdown-menu.alert-box{"aria-labelledby" => "alert-dropdown"}
+                      %li
+                        / %input{:type => "hidden", :name => 'course_id', :value => "#{@course._id}"}/
+                        .form-group
+                          %textarea.form-control.an-title{:name => "title",:placeholder => 'Nhập tiên đề', :required => 'required'}
+                      %li
+                        .form-group
+                          %textarea.form-control.an-description{:name => "description",:placeholder => 'Nhập thông báo', :required => 'required'}
+                      %li
+                        .form-group
+                          %a.btn.btn-primary.btn-add-announcement{:href => "#", :style => 'width:100%', :type => 'submit'} Tạo thông báo mới                    
+              - @course.announcements.each do |announcement|
+                .row.noti-item.no-margin
+                  .col-md-1.col-lg-1.no-padding.noti-item-avatar
+                    %i.fa.fa-smile-o
+                  .col-md-11.col-lg-11.no-padding.noti-item-main
+                    %ul.noti-item-title
+                      %li.bold=announcement.user.name
+                      %li đã đăng 1 thông báo - #{TimeHelper.relative_time(announcement.created_at)}
+                    %span.noti-item-subject 
+                      #{announcement.title}
+                    %p.noti-item-content
+                      #{announcement.description}
+                    %a.noti-item-reply Bình luận (#{announcement.child_announcements.count})
+                    .row.no-margin.list-children.collapsed
+                      - announcement.child_announcements.each do |child_announcement|
+                        .row.child-item.no-margin
+                          .col-md-1.col-lg-1.no-padding.child-item-avatar
+                            %i.fa.fa-smile-o
+                          .col-md-11.col-lg-11.no-padding.child-item-main
+                            %ul.child-item-title
+                              %li.bold= child_announcement.user.name
+                              %li - #{TimeHelper.relative_time(child_announcement.created_at)}
+                            / %span.child-item-subject 
+                            /   Please do something
+                            %p.child-item-content
+                              #{child_announcement.description}
+                      .row.no-margin{:style => 'margin-top:20px !important;'}
+                        .col-md-1.col-lg-1.no-padding.child-item-avatar
+                          %i.fa.fa-smile-o
+                        .col-md-11.col-lg-11.no-padding.send-reply
+                          %form
+                            %input.announcement_id{:type => "hidden", :name => 'announcement', :value => "#{announcement.id}"}
+                            %textarea.form-control.child-announcement-desciption{:name => "description", :placeholder => "Bình luận của bạn", :style => 'background-color:white'}
+                            .btn.btn-primary.child-announcement Gửi bình luận 
 = render :partial => 'components/footer/index'

@@ -114,7 +114,7 @@ class PaymentController < ApplicationController
             :payment_status => payment.status
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)
+        Spymaster.track(params, request.blank? ? nil : request)
 
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
@@ -164,7 +164,7 @@ class PaymentController < ApplicationController
           :payment_method => payment.method
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     end
 
     redirect_to :back
@@ -279,7 +279,7 @@ class PaymentController < ApplicationController
           :payment_id => @payment.id
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     elsif current_user.courses.count > 1
       # Tracking U8fp
       payments_count = Payment.where(:user_id => current_user.id, :status => Constants::PaymentStatus::SUCCESS).count
@@ -293,7 +293,7 @@ class PaymentController < ApplicationController
             :payment_id => @payment.id
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)         
+        Spymaster.track(params, request.blank? ? nil : request)         
       end
     end
 
@@ -309,7 +309,7 @@ class PaymentController < ApplicationController
           :payment_method => @payment.method
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     end
 
     # If the first learning, display success page.
@@ -379,19 +379,25 @@ class PaymentController < ApplicationController
     email = params[:email]
     address = params[:address]
     status = params[:status]
+    city = params[:city]
+    district = params[:district]
+    cod_code = params[:cod_code]
 
     @payment.update({
       mobile: mobile.blank? ? @payment.mobile : mobile,
       email: email.blank? ? @payment.email : email,
       address: address.blank? ? @payment.address : address,
-      status: status.blank? ? @payment.status : status
+      status: status.blank? ? @payment.status : status,
+      city: city.blank? ? @payment.city : city,
+      district: district.blank? ? @payment.district : district,
+      cod_code: cod_code.blank? ? @payment.cod_code : cod_code
     })
 
     if @payment.save
       render json: PaymentSerializer.new(@payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data! #{@payment.errors.as_json}"}
     end
   end
 
@@ -565,7 +571,7 @@ class PaymentController < ApplicationController
               :payment_status => payment.status
             }
           }
-          track = Spymaster.track(params, request.blank? ? nil : request)          
+          Spymaster.track(params, request.blank? ? nil : request)          
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else

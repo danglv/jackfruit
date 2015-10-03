@@ -3,7 +3,6 @@ before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   def new
-    # binding.pry
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
     respond_with(resource, serialize_options(resource))
@@ -11,7 +10,6 @@ before_filter :configure_sign_in_params, only: [:create]
 
   # POST /resource/sign_in
   def create
-    # binding.pry
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
