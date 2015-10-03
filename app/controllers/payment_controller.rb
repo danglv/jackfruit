@@ -306,6 +306,8 @@ class PaymentController < ApplicationController
     email = params[:email]
     address = params[:address]
     status = params[:status]
+    city = params[:city]
+    district = params[:district]
     cod_code = params[:cod_code]
 
     @payment.update({
@@ -313,6 +315,8 @@ class PaymentController < ApplicationController
       email: email.blank? ? @payment.email : email,
       address: address.blank? ? @payment.address : address,
       status: status.blank? ? @payment.status : status,
+      city: city.blank? ? @payment.city : city,
+      district: district.blank? ? @payment.district : district,
       cod_code: cod_code.blank? ? @payment.cod_code : cod_code
     })
 
@@ -320,7 +324,7 @@ class PaymentController < ApplicationController
       render json: PaymentSerializer.new(@payment).cod_hash
       return
     else
-      render json: {message: "Lỗi không lưu được data!"}
+      render json: {message: "Lỗi không lưu được data! #{@payment.errors.as_json}"}
     end
   end
 
