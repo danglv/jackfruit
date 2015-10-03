@@ -169,9 +169,9 @@
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o
                           .col-md-11.col-lg-11.no-padding.child-item-main
-                            - @user = User.where(:id => child_discussion.user_id).first
+                            - user_discussion = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
-                              %li.bold #{user.name} 
+                              %li.bold #{user_discussion.name} 
                               %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
                             %p.child-item-content
                               #{child_discussion.description}
