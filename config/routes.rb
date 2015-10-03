@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :add_announcement
+      post :add_child_announcement
       post :rating
       post :approve
     end
