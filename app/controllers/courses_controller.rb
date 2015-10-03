@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
+  skip_before_filter :verify_authenticity_token, only: [:upload_course]
 
   NUMBER_COURSE_PER_PAGE = 10
   ORDERING = {
@@ -652,8 +653,8 @@ class CoursesController < ApplicationController
         c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
-        c.intro_link = course['intro_link'] unless course['intro_link'].blank?
-        c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+        c.intro_link = course['intro_link']
+        c.intro_image = course['intro_image']
         c.enabled = course['enabled'] unless course['enabled'].blank?
         c.description = course['description'] unless course['description'].blank?
         c.requirement = course['requirement'] unless course['requirement'].blank?
@@ -727,12 +728,12 @@ class CoursesController < ApplicationController
     end
   end
 
-  #POST: API UPLOAD INTRO_IMAGE 
+  #POST: API UPLOAD Image 
 
-  def upload_thumbnail
+  def upload_image
     begin
       
-      file = params[:intro_image]
+      file = params[:image]
       file_name = params[:file_name]
       
       path = Rails.public_path.join("uploads/images/courses/")
@@ -742,7 +743,7 @@ class CoursesController < ApplicationController
         f.write(file.read)
       end
 
-      render json: {'intro_image' => "uploads/images/courses/#{file_name}"}
+      render json: {'image' => "uploads/images/courses/#{file_name}"}
       return
 
     rescue

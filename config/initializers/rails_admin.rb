@@ -209,7 +209,7 @@ RailsAdmin.config do |config|
     end
 
     # edit do
-      # exclude_fields :reviews
+    #   exclude_fields :reviews
     # end
   end
 
