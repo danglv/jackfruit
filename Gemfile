@@ -72,6 +72,11 @@ gem 'rest-client', '~> 1.8.0'
 # Spymaster - Tracking System
 gem 'spymaster', git: 'git@git.pedia.vn:tcs/spymaster-gem.git', branch: 'master'
 
+group :production do
+  # Unicorn worker killer
+  gem 'unicorn-worker-killer'
+end
+
 group :test do
   gem 'capybara'
   gem 'poltergeist'
