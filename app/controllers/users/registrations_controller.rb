@@ -9,7 +9,6 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
-    # binding.pry
     build_resource(sign_up_params)
     resource_saved = resource.save
     yield resource if block_given?
@@ -63,7 +62,6 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params
-    binding.pry
     devise_parameter_sanitizer.for(:sign_up) << :attribute
   end
 
