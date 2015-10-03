@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post :add_child_announcement
       post :rating
       post :approve
+      post :unpublish
     end
     collection do
       get :search
