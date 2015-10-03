@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
         request.path != "/users/confirmation" &&
         request.path != "/users/sign_out" &&
         !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath 
+      session[:previous_url] = request.fullpath
+      # Add referer to session, for tracking L3
+      session[:referer_url] = request.referer
     end
   end
 

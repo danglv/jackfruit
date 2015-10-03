@@ -3,7 +3,7 @@ before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   def new
-    binding.pry
+    # binding.pry
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
     respond_with(resource, serialize_options(resource))
@@ -11,7 +11,7 @@ before_filter :configure_sign_in_params, only: [:create]
 
   # POST /resource/sign_in
   def create
-    binding.pry
+    # binding.pry
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
@@ -33,9 +33,13 @@ before_filter :configure_sign_in_params, only: [:create]
   def configure_sign_in_params
     devise_parameter_sanitizer.for(:sign_in) << :attribute
   end
+
   def after_sign_in_path_for(resource)
+    # Track L3b, from detail, sign in, and hasn't had course
+    
     previous_url = nil
     previous_url = session[:previous_url] if !session.blank?
+
     if previous_url
       course_alias = nil
       uri = URI.parse(previous_url)
