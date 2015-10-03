@@ -332,7 +332,15 @@
                               %b Xem thử
                         .detail-curi-leacture.pull-right
                           %h5.normal-text.no-margin
-                            %b #{curi.description}
+                            - arr = curi.description.split(":")
+                            - if arr.length == 3
+                              - if arr[0].to_i == 0
+                                - arr.delete_at(0)
+                                %b= arr.join(":")
+                              - else
+                                %b= curi.description
+                            - else 
+                              %b= curi.description
         #author
           .author-title Tiểu sử tác giả
           .author-content
@@ -378,7 +386,8 @@
                 - else
                   %i.fa.fa-star
             .rating-people= @course.reviews.count.to_s + ' đánh giá' 
-          .rating-detail
+          - unless @course.fake_enabled == true
+            .rating-detail
             %h5.normal-text Chi tiết
             - course_reviews = @course.reviews
             - (1..5).each do |i|
