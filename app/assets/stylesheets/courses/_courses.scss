@@ -497,6 +497,11 @@
             font-size: 16px;
           }
         }
+        .course_review {
+          .star-review,.progress-review {
+            margin-right: 10px;
+          }
+        }
         .rating-detail {
           @extend .row;
           margin: 0;
