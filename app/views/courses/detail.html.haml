@@ -378,7 +378,8 @@
                 - else
                   %i.fa.fa-star
             .rating-people= @course.reviews.count.to_s + ' đánh giá' 
-          .rating-detail
+          - unless @course.fake_enabled == true
+            .rating-detail
             %h5.normal-text Chi tiết
             - course_reviews = @course.reviews
             - (1..5).each do |i|
