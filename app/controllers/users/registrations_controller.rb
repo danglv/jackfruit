@@ -9,7 +9,7 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
-    binding.pry
+    # binding.pry
     build_resource(sign_up_params)
     resource_saved = resource.save
     yield resource if block_given?
@@ -84,7 +84,7 @@ before_filter :configure_sign_up_params, only: [:create]
         :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
       }
     }
-    track = Spymaster.track(params, request.blank? ? nil : request)
+    Spymaster.track(params, request.blank? ? nil : request)
 
     previous_url = nil
     previous_url = session[:previous_url] if !session.blank?
@@ -110,7 +110,7 @@ before_filter :configure_sign_up_params, only: [:create]
             :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)
+        Spymaster.track(params, request.blank? ? nil : request)
       end
     end
 
