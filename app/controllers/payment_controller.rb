@@ -114,7 +114,7 @@ class PaymentController < ApplicationController
             :payment_status => payment.status
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)
+        Spymaster.track(params, request.blank? ? nil : request)
 
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
@@ -164,7 +164,7 @@ class PaymentController < ApplicationController
           :payment_method => payment.method
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     end
 
     redirect_to :back
@@ -279,7 +279,7 @@ class PaymentController < ApplicationController
           :payment_id => @payment.id
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     elsif current_user.courses.count > 1
       # Tracking U8fp
       payments_count = Payment.where(:user_id => current_user.id, :status => Constants::PaymentStatus::SUCCESS).count
@@ -293,7 +293,7 @@ class PaymentController < ApplicationController
             :payment_id => @payment.id
           }
         }
-        track = Spymaster.track(params, request.blank? ? nil : request)         
+        Spymaster.track(params, request.blank? ? nil : request)         
       end
     end
 
@@ -309,7 +309,7 @@ class PaymentController < ApplicationController
           :payment_method => @payment.method
         }
       }
-      track = Spymaster.track(params, request.blank? ? nil : request)
+      Spymaster.track(params, request.blank? ? nil : request)
     end
 
     # If the first learning, display success page.
@@ -565,7 +565,7 @@ class PaymentController < ApplicationController
               :payment_status => payment.status
             }
           }
-          track = Spymaster.track(params, request.blank? ? nil : request)          
+          Spymaster.track(params, request.blank? ? nil : request)          
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else
