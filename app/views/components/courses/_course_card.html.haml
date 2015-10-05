@@ -41,7 +41,11 @@
               - else
                 %li
                   %i.fa.fa-star.star{:val => i}
-          %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
+          - if !course.fake_enabled
+            %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
+          - else
+            %span.course-people-rating= "(" + course.fake_num_rate.to_s + ")"
+
       // an hien tuy theo co promotion hay khong
       - if course.price != 0
         - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]

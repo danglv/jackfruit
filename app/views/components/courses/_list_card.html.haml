@@ -29,10 +29,12 @@
                   %i.fa.fa-star.star.rated{:val => i}
                 - else
                   %i.fa.fa-star.star{:val => i}
-          - if course.reviews != nil
+
+          - if !course.fake_enabled
             %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
           - else
-            %span.course-people-rating= 0
+            %span.course-people-rating= "(" + course.fake_num_rate.to_s + ")"
+         
         - if course.price != 0
           - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
             .dn.db-480.course-price
