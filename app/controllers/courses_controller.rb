@@ -152,6 +152,9 @@ class CoursesController < ApplicationController
         owned_course.type = Constants::OwnedCourseTypes::LEARNING
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
+
+        redirect_to root_url + "courses/#{@course.alias_name}/learning"
+        return
       end
 
       # Get user owned course
