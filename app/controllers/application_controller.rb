@@ -113,6 +113,9 @@ class ApplicationController < ActionController::Base
       render 'page_not_found', status: 404
       return
     end
+    # sort curriculums
+    sort_curriculums
+    
   end
 
   def get_banner
@@ -153,4 +156,15 @@ class ApplicationController < ActionController::Base
     end
     request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
+
+  private
+    def sort_curriculums
+      cus = []
+      chapters = @course.curriculums.where(:type => "chapter")
+      chapters.each do |chap|
+        lecture_of_chap = @course.curriculums.where(:type => "lecture", :chapter_index => chap.chapter_index)
+        cus +=(chap.to_a + lecture_of_chap.to_a.sort_by{|lec| lec.lecture_index})
+      end
+      @course.curriculums = cus
+    end
 end

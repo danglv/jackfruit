@@ -212,6 +212,8 @@ class CoursesController < ApplicationController
 
     @reviews = @course.reviews.where(:title.nin => ["", nil], :description.nin => ["", nil], :user.nin => ["", nil]).limit(5).to_a
 
+    sort_curriculums
+
     render :template => "courses/detail"
   end
 
@@ -633,26 +635,25 @@ class CoursesController < ApplicationController
 
         c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
         c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-
-        chapter_index = 0
-        lecture_index = 0
+        c.curriculums = []
 
         if !course['curriculums'].blank?
-          course['curriculums'].each_with_index {|curriculum, x|
-            course_curriculum = c.curriculums.find_or_initialize_by(
-              order: x,
-            )
+          lecture_index = 0
+          course['curriculums'].each do |curriculum|
+            course_curriculum = Course::Curriculum.new()
             course_curriculum.title = curriculum['title']
             course_curriculum.description = curriculum['description']
-            course_curriculum.chapter_index = chapter_index
+            course_curriculum.chapter_index = curriculum['chapter_index']
             course_curriculum.lecture_index = lecture_index
             course_curriculum.type = curriculum['type']
             course_curriculum.asset_type = curriculum['asset_type']
             course_curriculum.url = curriculum['url']
             course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
-            chapter_index += 1 if curriculum['type'] == "chapter"
-            lecture_index += 1 if curriculum['type'] == "lecture"
-          }
+            c.curriculums.push(course_curriculum)
+            if curriculum['type'] == 'lecture'
+              lecture_index += 1
+            end
+          end
         else
           render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
           return
