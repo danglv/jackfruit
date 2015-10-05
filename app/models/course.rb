@@ -29,9 +29,6 @@ class Course
   # role for course
   field :version, type: String, default: "test"
 
-  # Field for searching
-  field :searchable_content, type: String
-
   # fake_field
   field :fake_average_rating, type: Float, default: 4
   field :fake_students, type: Integer, default: 0
@@ -56,7 +53,7 @@ class Course
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
   validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 
-  before_save :process_rate, :update_search_content
+  before_save :process_rate
 
   def update_search_content
     name = self.name
