@@ -15,6 +15,7 @@ class Course
   field :benefit, type: Array, default: []
   field :audience, type: Array, default: []
   
+  field :logo, type: Boolean, default: true
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"
   
