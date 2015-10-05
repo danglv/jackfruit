@@ -140,8 +140,8 @@ class CoursesController < ApplicationController
   def detail
     # If has logged in user then check user's owned course
     if current_user
-      # Go to learning with user who has role is reviewer
-      if current_user.role == "reviewer"
+      # Go to learning with user who has role is reviewer or owned this course
+      if current_user.role == "reviewer" || @course.user.id.to_s == current_user.id.to_s
         owned_course = current_user.courses.find_or_create_by(:course_id => @course.id)
         @course.curriculums
         .where(:type => Constants::CurriculumTypes::LECTURE)
