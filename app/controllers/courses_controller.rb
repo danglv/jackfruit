@@ -737,8 +737,8 @@ class CoursesController < ApplicationController
       render json: {'image' => "uploads/images/courses/#{file_name}"}
       return
 
-    rescue
-      render json: {:error => "Có lỗi xảy ra"}
+    rescue Exception => e
+      render json: {:error => "Có lỗi xảy ra #{e.message}"}
     end
   end
 
