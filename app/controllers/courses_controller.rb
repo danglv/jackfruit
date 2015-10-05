@@ -610,14 +610,13 @@ class CoursesController < ApplicationController
           audience: course['audience'],
           level: course['level'],
         ) if c.blank?
-
         c.name = course['name'] unless course['name'].blank?
         c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
         c.intro_link = course['intro_link'] unless course['intro_link'].blank?
         c.intro_image = course['intro_image'] unless course['intro_image'].blank?
-        c.enabled_logo = course['enabled_logo'] unless course['enabled_logo'].blank?
+        c.enabled_logo = course['enabled_logo']
         c.enabled = course['enabled'] unless course['enabled'].blank?
         c.description = course['description'] unless course['description'].blank?
         c.requirement = course['requirement'] unless course['requirement'].blank?
