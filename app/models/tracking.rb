@@ -26,7 +26,6 @@ class Tracking
   end
 
   def self.create_tracking(data)
-    binding.pry
     Tracking.create(data)
   end
 end
