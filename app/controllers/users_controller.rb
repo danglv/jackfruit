@@ -1,11 +1,45 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor]
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
 
   def index
     learning
+  end
+
+  def create 
+    begin 
+      user = params[:user]
+
+      if !user.blank?
+
+        user_new = User.new()
+        user_new.id = user[:id] unless user[:id].blank?
+        user_new.name = user[:name] unless user[:name].blank?
+        user_new.email = user[:email] unless user[:email].blank?
+        user_new.avatar = user[:avatar] unless user[:avatar].blank?
+        user_new.password = user[:password].blank? ? '12345678' : user[:password]
+
+        instructor_profile = User::InstructorProfile.new()
+        instructor_profile.description = user[:instructor_profile][:description] unless user[:instructor_profile][:description].blank?  
+        instructor_profile.major = user[:instructor_profile][:major] unless user[:instructor_profile][:major].blank? 
+        instructor_profile.function = user[:instructor_profile][:function] unless user[:instructor_profile][:function].blank? 
+        user_new.instructor_profile = instructor_profile
+
+        if user_new.save
+          render json: user_new.as_json
+          return
+        else
+          render json: {:error => user_new.errors}
+          return
+        end
+      else
+      
+      end 
+    rescue Exception => e
+      render json: {:error => e.message}
+    end
   end
 
   def sign_up_with_email

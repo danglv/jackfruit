@@ -44,7 +44,7 @@
         Hotline: 
         %b 0961215368
       - if @payment.status == 'success'
-        %a.btn.btn-info.btn-lg.btn-to-course{href: "home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Vào học ngay
+        %a.btn.btn-info.btn-lg.btn-to-course{href: "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"} Vào học ngay
         %a.btn.btn-link.link-to-course-list{href: '/courses'} Khám phá các khóa học khác
       - else
         %a.btn.btn-info.btn-raised.link-to-course-list{href: '/courses'} Khám phá các khóa học khác

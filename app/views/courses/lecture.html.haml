@@ -18,7 +18,7 @@
         / User video from cloudfront
         /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
         #video-container
-          - if @course.logo
+          - if @course.enabled_logo
             :javascript
               var jw_video_url = '#{@lecture.url}';
               var jw_video_container = 'video-container';
