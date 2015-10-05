@@ -210,6 +210,8 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
+    @reviews = @course.reviews.where(:title.nin => ["", nil], :description.nin => ["", nil], :user.nin => ["", nil]).limit(5).to_a
+
     render :template => "courses/detail"
   end
 

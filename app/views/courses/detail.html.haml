@@ -75,7 +75,6 @@
             %h3.course-price-text.free{:style => "margin-top: 15px;"} Miễn phí
           - else
             %h3.course-price-text.no-margin{:style => 'margin: 0; padding-top: 15px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-
   / + Detail content
   .detail
     .detail-top
@@ -89,7 +88,10 @@
                 %i.fa.fa-star.is-rated 
               - else
                 %i.fa.fa-star
-          .course-rating-people= @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+          - if !@course.fake_enabled
+            .course-rating-people= @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
+          - else
+            .course-rating-people= @course.fake_num_rate.to_s + ' đánh giá, ' + @course.fake_students.to_s + ' người tham gia'
         .course-author
           - if @course.user
             Giảng dạy bởi 
@@ -377,7 +379,10 @@
                 %h5.information-text= i  
         #rating
           .rating-title Đánh giá
-          .rating-point= @course.average_rating
+          - if !@course.fake_enabled
+            .rating-point= @course.average_rating
+          - else
+            .rating-point= @course.fake_average_rating
           .course-rating
             .rating-star
               - (1..5).each do |i|
@@ -385,7 +390,10 @@
                   %i.fa.fa-star.is-rated 
                 - else
                   %i.fa.fa-star
-            .rating-people= @course.reviews.count.to_s + ' đánh giá' 
+            - if !@course.fake_enabled
+              .rating-people= @course.reviews.count.to_s + ' đánh giá' 
+            - else
+              .rating-people= @course.fake_num_rate.to_s + ' đánh giá' 
           - unless @course.fake_enabled == true
             .rating-detail
             %h5.normal-text Chi tiết
@@ -393,38 +401,40 @@
             - (1..5).each do |i|
             - course_review = course_reviews.where(:description.nin => "", :rate => (6-i))
             - progress = course_reviews.count != 0 ? course_review.count/course_reviews.count : 0
-              .course_review
-                .star-review
+              .course_review.row.no-margin
+                .star-review.pull-left
                   .normal-text.text-right #{6 - i} Sao
-                .progress-review
-                  .progress.progress-striped.active{:style => 'height:17px;margin:0 !important'}
-                    .progress-bar{:style => "width:  #{progress}%;"}
+                .progress-review.pull-left
+                  .progress.progress-striped.active{:style => 'height:17px;margin:0 !important;width:300px'}
+                    .progress-bar.pull-left{:style => "width:  #{progress}%;"}
                 .count-review= course_review.count
-        / - @course.reviews.where(:title.nin => "", :description.nin => "").each do |review|
-        /   - user = User.where(:id => review.user_id.to_s).first
-        /   - relative_time = TimeHelper.relative_time(review.created_at)
-        /   .discussion
-        /     .discussion-top
-        /       .avatar
-        /         - if !user.blank?
-        /           - if !user.avatar.blank?
-        /             = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
-        /           - else
-        /             = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
-        /         - else
-        /           = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%" 
-        /       .content
-        /         .user-name= "#{user.name}"
-        /         .time-review= relative_time
-        /         .course-rating-point
-        /           - (1..5).each do |i|
-        /             - if i <= @course.average_rating
-        /               %i.fa.fa-star.is-rated 
-        /             - else
-        /               %i.fa.fa-star
-        /     .review
-        /       .review-title= "#{review.title}"
-        /       .review-description= "#{review.description}"
+        - @reviews.each do |review|
+          - user = review.user
+          - relative_time = TimeHelper.relative_time(review.created_at)
+          .discussion
+            .discussion-top
+              .avatar
+                - if !user.blank?
+                  - if !user.avatar.blank?
+                    = image_tag user.avatar, :style => "width: 70px; border-radius: 50%"
+                  - else
+                    = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
+                - else
+                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%" 
+              .content
+                .user-name= "#{user.name}"
+                .time-review= relative_time
+                .course-rating-point
+                  - (1..5).each do |i|
+                    - if i <= @course.average_rating
+                      %i.fa.fa-star.is-rated 
+                    - else
+                      %i.fa.fa-star
+                .review
+                  .review-title= "#{review.title}"
+                  .review-description= "#{review.description}"
+        / .view-all{:style => 'padding-left:10px;margin-top:10px;'} 
+        /   %a.bold{:href => "#",:style => 'color:#337ab7'} Xem thêm các bình luận khác 
       .bottom-right
         - if @courses['related'].last.count > 0    
           .row.no-margin
