@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
   include CoursesHelper
 
+  layout 'courses', except: [:learning, :lecture]
+
   before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion, :add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
@@ -212,7 +214,7 @@ class CoursesController < ApplicationController
 
     @reviews = @course.reviews.where(:title.nin => ["", nil], :description.nin => ["", nil], :user.nin => ["", nil]).limit(5).to_a
 
-    render :template => "courses/detail"
+    render template: "courses/detail"
   end
 
   def learning
@@ -252,6 +254,8 @@ class CoursesController < ApplicationController
         end
       end
     end
+
+    render layout: 'lecture'
   end
 
   def lecture 
@@ -289,6 +293,8 @@ class CoursesController < ApplicationController
     @owned_lecture.status = 2
     @owned_notes = @owned_lecture.notes.to_a
     @owned_course.save
+
+    render layout: 'lecture'
   end
 
   def search
@@ -391,19 +397,6 @@ class CoursesController < ApplicationController
     @courses = c.results.map {|r|
       r._source
     } and true
-
-    # sort_by = ORDERING.first.last    
-    # sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
-    # @courses  = Course.where(condition).order(sort_by)
-    # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
-
-    # if @courses.count == 0
-    #   condition.delete(:name)
-    #   condition[:description] = pattern  
-    #   @courses  = Course.where(condition).order(sort_by)
-    # end
-
-    # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @courses.count == 0
       @courses = {}
