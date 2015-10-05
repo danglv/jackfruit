@@ -83,11 +83,18 @@
         .sub-title= @course.sub_title
         .course-rating
           .course-rating-point
-            - (1..5).each do |i|
-              - if i <= @course.average_rating
-                %i.fa.fa-star.is-rated 
-              - else
-                %i.fa.fa-star
+            #percent-rating.pull-left
+              - ra = @course.average_rating
+              - (1..5).each do |i|
+                - if i < ra
+                  %i.fa.fa-star.rated
+                - elsif ra%i!=0
+                  %span.rating-percent
+                    %i.fa.fa-star
+                    %i.fa.fa-star.percent{:style => "width: #{ra%1*100}%"}
+                  - ra = 0
+                - else
+                  %i.fa.fa-star
           - if !@course.fake_enabled
             .course-rating-people= @course.reviews.count.to_s + ' đánh giá, ' + @course.students.to_s + ' người tham gia'
           - else
@@ -386,11 +393,18 @@
             .rating-point= @course.fake_average_rating
           .course-rating
             .rating-star
-              - (1..5).each do |i|
-                - if i <= @course.average_rating
-                  %i.fa.fa-star.is-rated 
-                - else
-                  %i.fa.fa-star
+              #percent-rating.pull-left
+                - ra = @course.average_rating
+                - (1..5).each do |i|
+                  - if i < ra
+                    %i.fa.fa-star.rated
+                  - elsif ra%i!=0
+                    %span.rating-percent
+                      %i.fa.fa-star
+                      %i.fa.fa-star.percent{:style => "width: #{ra%1*100}%"}
+                    - ra = 0
+                  - else
+                    %i.fa.fa-star
             - if !@course.fake_enabled
               .rating-people= @course.reviews.count.to_s + ' đánh giá' 
             - else

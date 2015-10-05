@@ -127,6 +127,26 @@
 .detail {
   min-width: 320px;
   position: relative;
+  #percent-rating {
+    margin-right: 10px;
+    .fa-star {
+      color: #b6b6b6;
+    }
+    .rating-percent {
+      position: relative;
+      display: inline-block;
+      .fa-star.percent {
+        color: #ffbb33 !important;
+        position: absolute;
+        left: 0;
+        overflow: hidden;
+        top: 0;
+      }
+    }    
+    .fa-star.rated {
+      color: #ffbb33 !important;
+    }    
+  }
   .detail-top {
     background-color: #fff;
     border-bottom: 1px solid #b6b6b6;
