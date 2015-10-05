@@ -127,7 +127,7 @@
                 - if @course.price == 0
                   %h3.course-price-text.free.no-margin Miễn phí
                 - else
-                  - if @sale_info[:applied] && !@sale_info[:coupon_code]
+                  - if @sale_info[:applied]
                     .old-price
                       %span giá gốc:
                       %s= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
@@ -135,39 +135,40 @@
                     .sale-price
                       %span ưu đãi:
                       %span.course-price-text.free.no-margin= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                    .sale-count
-                      %span Chỉ còn
-                      %span.badge= @sale_info[:max_participant_count] - @sale_info[:participant_count]
-                      %span cơ hội
-                    .sale-count-down#sale-count-down
-                      %input#sale-expired-time{:type => 'hidden', :value => "#{@sale_info[:end_date]}"}
-                      .count-down-content
-                        %span.top#countdown-day= 00
-                        %br
-                        %span.bottom ngày
-                      .count-down-divider
-                        %span.text-divider :
-                      .count-down-content
-                        %span.top#countdown-hour= 00
-                        %br
-                        %span.bottom giờ
-                      .count-down-divider
-                        %span.text-divider :
-                      .count-down-content
-                        %span.top#countdown-minute= 00
-                        %br
-                        %span.bottom phút
-                      .count-down-divider
-                        %span.text-divider :
-                      .count-down-content
-                        %span.top#countdown-second= 00
-                        %br
-                        %span.bottom giây
-                    / %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                    / %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-                    / %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
-                    / - if @sale_info[:coupon_code]
-                    /   %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
+                    - if !@sale_info[:coupon_code]
+                      .sale-count
+                        %span Chỉ còn
+                        %span.badge= @sale_info[:max_participant_count] - @sale_info[:participant_count]
+                        %span cơ hội
+                      .sale-count-down#sale-count-down
+                        %input#sale-expired-time{:type => 'hidden', :value => "#{@sale_info[:end_date]}"}
+                        .count-down-content
+                          %span.top#countdown-day= 00
+                          %br
+                          %span.bottom ngày
+                        .count-down-divider
+                          %span.text-divider :
+                        .count-down-content
+                          %span.top#countdown-hour= 00
+                          %br
+                          %span.bottom giờ
+                        .count-down-divider
+                          %span.text-divider :
+                        .count-down-content
+                          %span.top#countdown-minute= 00
+                          %br
+                          %span.bottom phút
+                        .count-down-divider
+                          %span.text-divider :
+                        .count-down-content
+                          %span.top#countdown-second= 00
+                          %br
+                          %span.bottom giây
+                      / %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                      / %span.course-discount= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+                      / %span.course-distcount-ratio= @sale_info[:discount_ratio].to_s + '%'
+                      / - if @sale_info[:coupon_code]
+                      /   %p.msg.using-coupon= "Bạn đang dùng coupon code #{@sale_info[:coupon_code]}"
                   - else
                     %h3.course-price-text.no-margin{:style => 'margin: 0'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
                     - if @sale_info[:error]
