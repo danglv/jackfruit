@@ -1,11 +1,17 @@
 function setup_jwplayer(container, url){
   var player = jwplayer(container);
+  var logo = "";
+
+  if( is_logo ) {
+    logo = "<%= asset_path('water_mark_player.png') %>"; 
+  }
+
   player.setup({
     skin: 'seven',
     file: url,
     image: '',
     logo: {
-      file: "<%= asset_path('water_mark_player.png') %>",
+      file: logo,
       link: 'http://pedia.vn'
     },
     width: '100%',
