@@ -4,7 +4,7 @@ feature 'Authentication' do
   scenario 'home page test' do
     visit '/'
 
-    page.must_have_content('Hỗ trợ')
+    page.must_have_content('Facebook')
   end
 
   scenario 'the first test' do
