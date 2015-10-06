@@ -40,6 +40,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :contactc3, only: %w[] do
+    collection do
+      post :insert
+    end
+  end
+
   resources :payment, :path => 'home/payment', only: %w[create] do
     collection do
       get '/:alias_name', to: 'payment#index'
