@@ -175,32 +175,19 @@ class CoursesController < ApplicationController
           end
         else # Course is learning course
           # Check course payment status
-          if @owned_course.payment_success? # If payment is success then go to learning page
-            # Tracking L3d
-            params = {
-              Constants::TrackingParams::CATEGORY => "L3d",
-              Constants::TrackingParams::TARGET => @course.id,
-              Constants::TrackingParams::BEHAVIOR => "view",
-              Constants::TrackingParams::USER => current_user.id,
-              Constants::TrackingParams::EXTRAS => {
-                :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-              }
-            }
-            Spymaster.track(params, request.blank? ? nil : request)
-            redirect_to root_url + "courses/#{@course.alias_name}/learning"
-            return
-          else # Course is on a payment then get payment
+          if !@owned_course.payment_success?
             # Tracking L3c. Case pending
-            params = {
-              Constants::TrackingParams::CATEGORY => "L3c",
-              Constants::TrackingParams::TARGET => @course.id,
-              Constants::TrackingParams::BEHAVIOR => "view",
-              Constants::TrackingParams::USER => current_user.id,
-              Constants::TrackingParams::EXTRAS => {
-                :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-              }
-            }
-            Spymaster.track(params, request.blank? ? nil : request)
+            Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+            # params = {
+            #   Constants::TrackingParams::CATEGORY => "L3c",
+            #   Constants::TrackingParams::TARGET => @course.id,
+            #   Constants::TrackingParams::BEHAVIOR => "view",
+            #   Constants::TrackingParams::USER => current_user.id,
+            #   Constants::TrackingParams::EXTRAS => {
+            #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+            #   }
+            # }
+            # Spymaster.track(params, request.blank? ? nil : request)
 
             @payment = Payment.where(
               user_id: current_user.id.to_s,
@@ -210,16 +197,17 @@ class CoursesController < ApplicationController
         end
       else
         # Tracking L3c. Case not has course.
-        params = {
-          Constants::TrackingParams::CATEGORY => "L3c",
-          Constants::TrackingParams::TARGET => @course.id,
-          Constants::TrackingParams::BEHAVIOR => "view",
-          Constants::TrackingParams::USER => current_user.id,
-          Constants::TrackingParams::EXTRAS => {
-            :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-          }
-        }
-        Spymaster.track(params, request.blank? ? nil : request)
+        Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+        # params = {
+        #   Constants::TrackingParams::CATEGORY => "L3c",
+        #   Constants::TrackingParams::TARGET => @course.id,
+        #   Constants::TrackingParams::BEHAVIOR => "view",
+        #   Constants::TrackingParams::USER => current_user.id,
+        #   Constants::TrackingParams::EXTRAS => {
+        #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+        #   }
+        # }
+        # Spymaster.track(params, request.blank? ? nil : request)
       end      
     end
 

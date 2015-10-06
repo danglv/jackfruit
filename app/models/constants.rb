@@ -159,6 +159,7 @@ module Constants
 
   # Query keys for handling marketing sources
   UTM_SOURCE = ['utm_source', 'utm_medium', 'utm_term', 'utm_content', 'utm_campaign']
+  
 
   class << self
     Constants.constants.each {|module_name|

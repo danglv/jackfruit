@@ -218,35 +218,6 @@ class UsersController < ApplicationController
           :expired_at => expired_at)
 
         init_lectures_for_owned_course(owned_course, @course)
-        
-        # Tracking U8f
-        if current_user.courses.count == 1
-          params = {
-            Constants::TrackingParams::CATEGORY => "U8f",
-            Constants::TrackingParams::TARGET => @course.id,
-            Constants::TrackingParams::BEHAVIOR => "click",
-            Constants::TrackingParams::USER => current_user.id,
-            Constants::TrackingParams::EXTRAS => {
-              :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-            }
-          }
-          track = Spymaster.track(params, request.blank? ? nil : request)
-        else current_user.courses.count > 1
-          # Tracking U8pf
-          payment_count = Payment.where(:user_id => current_user.id, :status => Constants::PaymentStatus::SUCCESS).count
-          if current_user.courses.count - 1 == payment_count
-            params = {
-              Constants::TrackingParams::CATEGORY => "U8pf",
-              Constants::TrackingParams::TARGET => @course.id,
-              Constants::TrackingParams::BEHAVIOR => "click",
-              Constants::TrackingParams::USER => current_user.id,
-              Constants::TrackingParams::EXTRAS => {
-                :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-              }
-            }
-            track = Spymaster.track(params, request.blank? ? nil : request)     
-          end
-        end
 
         UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
         if current_user.save

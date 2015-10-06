@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   # Tested: 0.0 of excuting time
   def handle_utm_source
     # Check utm source from the request
+    return unless request.get?
     utm_source = {}
     Constants::UTM_SOURCE.each do |key|
       utm_source[key] = params[key] if params[key]
@@ -44,7 +45,7 @@ class ApplicationController < ActionController::Base
     else
       # Clear utm source if user does something other than signin, signup, payment
       if session[:utm_source]
-        if !params[:action].in?(['sign_in', 'sign_up']) || !params[:controller].in?(['payment'])
+        if !params[:action].in?(['sign_in', 'sign_up', 'select_course', 'new']) && !params[:controller].in?(['payment'])
           session[:utm_source] = nil
         end
       end
