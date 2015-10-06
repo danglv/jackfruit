@@ -1,4 +1,4 @@
-class Contactc3Controller < ApplicationController
+class Contactc3sController < ApplicationController
 
   def insert
     Contactc3.insert_contactc3(
