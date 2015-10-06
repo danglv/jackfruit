@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
   include CoursesHelper
 
+  layout 'courses', except: [:learning, :lecture]
+
   before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion, :add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
@@ -140,8 +142,8 @@ class CoursesController < ApplicationController
   def detail
     # If has logged in user then check user's owned course
     if current_user
-      # Go to learning with user who has role is reviewer
-      if current_user.role == "reviewer"
+      # Go to learning with user who has role is reviewer or owned this course
+      if current_user.role == "reviewer" || @course.user.id.to_s == current_user.id.to_s
         owned_course = current_user.courses.find_or_create_by(:course_id => @course.id)
         @course.curriculums
         .where(:type => Constants::CurriculumTypes::LECTURE)
@@ -152,6 +154,9 @@ class CoursesController < ApplicationController
         owned_course.type = Constants::OwnedCourseTypes::LEARNING
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
+
+        redirect_to root_url + "courses/#{@course.alias_name}/learning"
+        return
       end
 
       # Get user owned course
@@ -247,7 +252,10 @@ class CoursesController < ApplicationController
     end
     @courses['top_paid'] = [Course::Localization::TITLES["top_paid".to_sym][I18n.default_locale], Course.where(condition).limit(3)]
 
-    render :template => "courses/detail"
+    @reviews = @course.reviews.where(:title.nin => ["", nil], :description.nin => ["", nil], :user.nin => ["", nil]).limit(5).to_a
+
+    sort_curriculums
+    render template: "courses/detail"
   end
 
   def learning
@@ -287,6 +295,8 @@ class CoursesController < ApplicationController
         end
       end
     end
+
+    render layout: 'lecture'
   end
 
   def lecture 
@@ -324,6 +334,8 @@ class CoursesController < ApplicationController
     @owned_lecture.status = 2
     @owned_notes = @owned_lecture.notes.to_a
     @owned_course.save
+
+    render layout: 'lecture'
   end
 
   def search
@@ -426,19 +438,6 @@ class CoursesController < ApplicationController
     @courses = c.results.map {|r|
       r._source
     } and true
-
-    # sort_by = ORDERING.first.last    
-    # sort_by = ORDERING[ordering.to_s] if ORDERING.map(&:first).include?(ordering)
-    # @courses  = Course.where(condition).order(sort_by)
-    # @total_page = (@courses.count.to_f / NUMBER_COURSE_PER_PAGE.to_f).ceil;
-
-    # if @courses.count == 0
-    #   condition.delete(:name)
-    #   condition[:description] = pattern  
-    #   @courses  = Course.where(condition).order(sort_by)
-    # end
-
-    # @courses = @courses.paginate(page: @page, per_page: NUMBER_COURSE_PER_PAGE)
 
     if @courses.count == 0
       @courses = {}
@@ -648,13 +647,13 @@ class CoursesController < ApplicationController
           audience: course['audience'],
           level: course['level'],
         ) if c.blank?
-
         c.name = course['name'] unless course['name'].blank?
         c.alias_name = course['alias_name'] unless course['alias_name'].blank?
         c.price = course['price'] unless course['price'].blank?
         c.image = course['image'] unless course['image'].blank?
-        c.intro_link = course['intro_link']
-        c.intro_image = course['intro_image']
+        c.intro_link = course['intro_link'] unless course['intro_link'].blank?
+        c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+        c.enabled_logo = course['enabled_logo']
         c.enabled = course['enabled'] unless course['enabled'].blank?
         c.description = course['description'] unless course['description'].blank?
         c.requirement = course['requirement'] unless course['requirement'].blank?
@@ -666,25 +665,27 @@ class CoursesController < ApplicationController
         c.label_ids = course['label_ids'] unless course['label_ids'].blank?
         c.lang = course['lang'] unless course['lang'].blank?
 
-        chapter_index = 0
-        lecture_index = 0
+        c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
+        c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
+        c.curriculums = []
 
         if !course['curriculums'].blank?
-          course['curriculums'].each_with_index {|curriculum, x|
-            course_curriculum = c.curriculums.find_or_initialize_by(
-              order: x,
-            )
+          lecture_index = 0
+          course['curriculums'].each do |curriculum|
+            course_curriculum = Course::Curriculum.new()
             course_curriculum.title = curriculum['title']
             course_curriculum.description = curriculum['description']
-            course_curriculum.chapter_index = chapter_index
+            course_curriculum.chapter_index = curriculum['chapter_index']
             course_curriculum.lecture_index = lecture_index
             course_curriculum.type = curriculum['type']
             course_curriculum.asset_type = curriculum['asset_type']
             course_curriculum.url = curriculum['url']
             course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
-            chapter_index += 1 if curriculum['type'] == "chapter"
-            lecture_index += 1 if curriculum['type'] == "lecture"
-          }
+            c.curriculums.push(course_curriculum)
+            if curriculum['type'] == 'lecture'
+              lecture_index += 1
+            end
+          end
         else
           render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
           return
@@ -769,8 +770,8 @@ class CoursesController < ApplicationController
       render json: {'image' => "uploads/images/courses/#{file_name}"}
       return
 
-    rescue
-      render json: {:error => "Có lỗi xảy ra"}
+    rescue Exception => e
+      render json: {:error => "Có lỗi xảy ra #{e.message}"}
     end
   end
 

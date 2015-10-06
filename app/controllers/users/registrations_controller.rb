@@ -72,46 +72,79 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
+    # # Tracking U8
+    # params = {
+    #   Constants::TrackingParams::CATEGORY => "U8",
+    #   Constants::TrackingParams::TARGET => resource.id,
+    #   Constants::TrackingParams::BEHAVIOR => "submit",
+    #   Constants::TrackingParams::USER => resource.id,
+    #   Constants::TrackingParams::EXTRAS => {
+    #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+    #   }
+    # }
+    # Spymaster.track(params, request.blank? ? nil : request)
+
+    # previous_url = nil
+    # previous_url = session[:previous_url] if !session.blank?
+    # if previous_url
+    #   course_alias = nil
+    #   uri = URI.parse(previous_url)
+    #   if uri.query
+    #     uri_params = CGI.parse(uri.query)
+    #     course_alias = uri_params["alias_name"].first if uri_params["alias_name"].count > 0
+    #   else
+    #     course_alias = URI.parse(previous_url).path.split('/').last(2).first
+    #   end
+    #   course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
+    #   last_component_url = URI.parse(previous_url).path.split('/').last
+    #   if (["select_course", "detail"].include? last_component_url) && !course.blank?
+    #     # Tracking L3a
+    #     params = {
+    #       Constants::TrackingParams::CATEGORY => "L3a",
+    #       Constants::TrackingParams::TARGET => course.id,
+    #       Constants::TrackingParams::BEHAVIOR => "register",
+    #       Constants::TrackingParams::USER => resource.id,
+    #       Constants::TrackingParams::EXTRAS => {
+    #         :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+    #       }
+    #     }
+    #     Spymaster.track(params, request.blank? ? nil : request)
+    #   end
+    # end
+
     # Tracking U8
-    params = {
+    u8_params = {
       Constants::TrackingParams::CATEGORY => "U8",
       Constants::TrackingParams::TARGET => resource.id,
       Constants::TrackingParams::BEHAVIOR => "submit",
-      Constants::TrackingParams::USER => resource.id,
-      Constants::TrackingParams::EXTRAS => {
-        :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
-      }
+      Constants::TrackingParams::USER => resource.id
     }
-    Spymaster.track(params, request.blank? ? nil : request)
 
-    previous_url = nil
+    referer_url = session[:referer_url] if !session.blank?
     previous_url = session[:previous_url] if !session.blank?
-    if previous_url
-      course_alias = nil
-      uri = URI.parse(previous_url)
-      if uri.query
-        uri_params = CGI.parse(uri.query)
-        course_alias = uri_params["alias_name"].first if uri_params["alias_name"].count > 0
-      else
-        course_alias = URI.parse(previous_url).path.split('/').last(2).first
-      end
-      course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
-      last_component_url = URI.parse(previous_url).path.split('/').last
-      if (["select_course", "detail"].include? last_component_url) && !course.blank?
-        # Tracking L3a
-        params = {
-          Constants::TrackingParams::CATEGORY => "L3a",
-          Constants::TrackingParams::TARGET => course.id,
-          Constants::TrackingParams::BEHAVIOR => "register",
-          Constants::TrackingParams::USER => resource.id,
-          Constants::TrackingParams::EXTRAS => {
-            :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source'])
+    if (referer_url || previous_url)
+      last_component_uri_referer = URI.parse(referer_url).path.split('/').last if !referer_url.blank?
+      last_component_uri_previous = URI.parse(previous_url).path.split('/').last if !previous_url.blank?
+      if (last_component_uri_referer == "detail" || last_component_uri_previous == "detail")
+        url_pass_params = (last_component_uri_referer == "detail") ? referer_url : previous_url
+        uri = URI.parse(url_pass_params)
+        u8_params[Constants::TrackingParams::EXTRAS] = !uri.query.blank? ? (Rack::Utils.parse_nested_query uri.query) : {}
+        course_alias = URI.parse(url_pass_params).path.split('/').last(2).first
+        course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
+        if !course.blank?
+          # Tracking L3a
+          params = {
+            Constants::TrackingParams::CATEGORY => "L3a",
+            Constants::TrackingParams::TARGET => course.id,
+            Constants::TrackingParams::BEHAVIOR => "register",
+            Constants::TrackingParams::USER => resource.id,
+            Constants::TrackingParams::EXTRAS => !uri.query.blank? ? (Rack::Utils.parse_nested_query uri.query) : {}
           }
-        }
-        Spymaster.track(params, request.blank? ? nil : request)
+          Spymaster.track(params, request)
+        end
       end
     end
-
+    Spymaster.track(u8_params, request)
     super(resource)
   end
 

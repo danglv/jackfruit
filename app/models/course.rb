@@ -15,6 +15,7 @@ class Course
   field :benefit, type: Array, default: []
   field :audience, type: Array, default: []
   
+  field :enabled_logo, type: Boolean, default: true
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"
   
@@ -27,9 +28,6 @@ class Course
   field :intro_image, type: String, default: "course-image-intro.png"
   # role for course
   field :version, type: String, default: "test"
-
-  # Field for searching
-  field :searchable_content, type: String
 
   # fake_field
   field :fake_average_rating, type: Float, default: 4
@@ -55,7 +53,7 @@ class Course
   validates_inclusion_of :lang, :in => Constants.CourseLangValues
   validates_inclusion_of :version, :in => Constants.CourseVersionsValues
 
-  before_save :process_rate, :update_search_content
+  before_save :process_rate
 
   def update_search_content
     name = self.name

@@ -18,10 +18,19 @@
         / User video from cloudfront
         /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
         #video-container
-        :javascript
-          var jw_video_url = '#{@lecture.url}';
-          var jw_video_container = 'video-container';
-          var jw_should_load = true;
+          - if @course.enabled_logo
+            :javascript
+              var jw_video_url = '#{@lecture.url}';
+              var jw_video_container = 'video-container';
+              var jw_should_load = true;
+              var is_logo = true;
+          - else
+            :javascript
+              var jw_video_url = '#{@lecture.url}';
+              var jw_video_container = 'video-container';
+              var jw_should_load = true;
+              var is_logo = false;
+
       - else
         - if @lecture.url.index('v=').blank?
           - @indexStart = @lecture.url.index('.be/') + 4

@@ -110,6 +110,8 @@ Rails.application.routes.draw do
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
       match '/edit_avatar'  , to: 'users#edit_avatar', via: [:get, :patch]
       match '/edit_profile' , to: 'users#edit_profile', via: [:get, :patch]
+
+      post '/create', to: 'users#create'
     end
   end
 

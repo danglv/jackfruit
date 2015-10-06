@@ -35,16 +35,26 @@ before_filter :configure_sign_in_params, only: [:create]
     referer_url = session[:referer_url] if !session.blank?
     previous_url = session[:previous_url] if !session.blank?
     if (referer_url || previous_url)
-      last_component_uri_referer = URI.parse(referer_url).path.split('/').last
-      last_component_uri_previous = URI.parse(previous_url).path.split('/').last
+      last_component_uri_referer = URI.parse(referer_url).path.split('/').last if !referer_url.blank?
+      last_component_uri_previous = URI.parse(previous_url).path.split('/').last if !previous_url.blank?
       if (last_component_uri_referer == "detail" || last_component_uri_previous == "detail")
-        url_pass_params = last_component_uri_referer == "detail" ? last_component_uri_referer : last_component_uri_previous
+        url_pass_params = (last_component_uri_referer == "detail") ? referer_url : previous_url
         uri = URI.parse(url_pass_params)
-        course_alias = URI.parse(referer_url).path.split('/').last(2).first
+        course_alias = URI.parse(url_pass_params).path.split('/').last(2).first
         course = Course.where(:alias_name => course_alias).first if !course_alias.blank?
         if !course.blank?
-          have_owned_course = resource.courses.map(&:course_id).include? course.id
-          if !have_owned_course
+          owned_course = resource.courses.where(:course_id => course.id, :payment_success => Constants::PaymentStatus::SUCCESS).first
+          if owned_course
+            # Tracking L3d
+            params = {
+              Constants::TrackingParams::CATEGORY => "L3d",
+              Constants::TrackingParams::TARGET => course.id,
+              Constants::TrackingParams::BEHAVIOR => "login",
+              Constants::TrackingParams::USER => resource.id,
+              Constants::TrackingParams::EXTRAS => !uri.query.blank? ? (Rack::Utils.parse_nested_query uri.query) : {}  
+            }
+            Spymaster.track(params, request)
+          else
             # Tracking L3b
             params = {
               Constants::TrackingParams::CATEGORY => "L3b",
@@ -53,17 +63,7 @@ before_filter :configure_sign_in_params, only: [:create]
               Constants::TrackingParams::USER => resource.id,
               Constants::TrackingParams::EXTRAS => !uri.query.blank? ? (Rack::Utils.parse_nested_query uri.query) : {}  
             }
-            track = Spymaster.track(params, request)
-          else
-            # Tracking L3b
-            params = {
-              Constants::TrackingParams::CATEGORY => "L3d",
-              Constants::TrackingParams::TARGET => course.id,
-              Constants::TrackingParams::BEHAVIOR => "login",
-              Constants::TrackingParams::USER => resource.id,
-              Constants::TrackingParams::EXTRAS => !uri.query.blank? ? (Rack::Utils.parse_nested_query uri.query) : {}  
-            }
-            track = Spymaster.track(params, request)
+            Spymaster.track(params, request)
           end
         end
       end
