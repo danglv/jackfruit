@@ -625,7 +625,7 @@ class CoursesController < ApplicationController
         c.sub_title = course['sub_title'] unless course['sub_title'].blank?
         c.level = course['level'] unless course['level'].blank?
         c.category_ids = course['category_ids'] unless course['category_ids'].blank?
-        c.label_ids = course['label_ids'] unless course['label_ids'].blank?
+        c.label_ids = course['label_ids'] 
         c.lang = course['lang'] unless course['lang'].blank?
 
         c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
