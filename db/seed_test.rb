@@ -28,6 +28,11 @@ users = User.create([
     email: 'student1@tudemy.vn',
     password: '12345678',
     password_confirmation: '12345678'
+  },
+  {
+    email: 'student2@tudemy.vn',
+    password: '12345678',
+    password_confirmation: '12345678'
   }
 ])
 
