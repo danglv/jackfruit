@@ -53,7 +53,6 @@ $(document).ready(function () {
       'chanel': utm_source == undefined ?  document.referrer : utm_source 
     }
   };
-  // console.log(params);
   Spymaster.track(params);
 });
 
