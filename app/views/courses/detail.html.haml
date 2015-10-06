@@ -184,7 +184,7 @@
                 - if !current_user.blank?
                   - if !@owned_course.blank?
                     - if @owned_course.payment_status == 'pending' || @owned_course.payment_status == 'process'
-                      - if @payment.method == 'cod'
+                      - if !@payment.blank? && @payment.method == 'cod'
                         .cod-code-container
                           .cod-input
                             %input.form-control{:type => 'text', :placeholder => 'Nhập mã COD tại đây',:payment_id => @payment.id}
