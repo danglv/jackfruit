@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include CoursesHelper
 
-  before_filter :list_category, :store_location, :set_current_user, :get_banner
+  before_filter :list_category, :store_location, :set_current_user, :get_banner, :handle_utm_source
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -26,6 +26,28 @@ class ApplicationController < ActionController::Base
         !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
       session[:referer_url] = request.referer
+    end
+  end
+
+  # Handling marketing chanel
+  # How long this stuff will take, be very careful of this kind of work
+  # Tested: 0.0 of excuting time
+  def handle_utm_source
+    # Check utm source from the request
+    utm_source = {}
+    Constants::UTM_SOURCE.each do |key|
+      utm_source[key] = params[key] if params[key]
+    end
+    # Save utm_source if has any
+    unless utm_source.blank?
+      session[:utm_source] = utm_source
+    else
+      # Clear utm source if user does something other than signin, signup, payment
+      if session[:utm_source]
+        if !params[:action].in?(['sign_in', 'sign_up']) || !params[:controller].in?(['payment'])
+          session[:utm_source] = nil
+        end
+      end
     end
   end
 
