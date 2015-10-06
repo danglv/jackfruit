@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :contactc3, only: %w[] do
+  resources :contactc3s, only: %w[] do
     collection do
       post :insert
     end
