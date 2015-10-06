@@ -58,9 +58,10 @@
               /     %a{:href => "#"}= image_tag "topic-bg-excel.png"
               .row.no-margin.courses
                 - if @courses
-                  - @courses.each do |c|
-                    .course
-                      = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
+                  - cache do
+                    - @courses.each do |c|
+                      .course
+                        = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
               .row.no-margin.register
                 .col-xs-12.col-sm-12.col-md-12.no-padding
                   %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses", :style => "font-size: 16px"} Khám phá các khóa học khác
