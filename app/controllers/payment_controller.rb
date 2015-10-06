@@ -91,13 +91,12 @@ class PaymentController < ApplicationController
       if payment.save
         create_course_for_user()
         begin
-          RestClient.post 'http://flow.pedia.vn:8000/notify/cod/create', :timeout => 2000, :type => 'cod', :payment => payment.as_json, :msg => 'Có đơn COD cần xử lý '
-          # RestClient.post('http://internal.tudemy.vn:8000/notify',
-          #   {
-          #     :to => 'mercury',
-          #     :msg => "{type:'cod', msg: 'Có đơn COD mới'}"
-          #   }
-          # )
+          RestClient.post('http://flow.pedia.vn:8000/notify/cod/create',
+            timeout: 2000,
+            type: 'cod',
+            payment: payment.as_json,
+            msg: 'Có đơn COD cần xử lý'
+          )
         rescue => e
         end
 

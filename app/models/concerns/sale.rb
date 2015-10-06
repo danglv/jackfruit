@@ -41,7 +41,8 @@ module Sale
           result[:error] = "Mã combo #{combo_code} không hợp lệ"
         end
       # Check coupon
-      elsif (coupon_code = data[:coupon_code])
+      elsif (!data[:coupon_code].blank?)
+        coupon_code = data[:coupon_code]
         success, data = Coupon.request_by_code(coupon_code)
 
         if success
