@@ -55,7 +55,7 @@ class CoursesController < ApplicationController
     else
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
-    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).limit(4).to_a]
+    @courses["featured"] = [Course::Localization::TITLES["featured".to_sym][I18n.default_locale], Course.where(condition).desc(:students).limit(4).to_a]
 
     condition = {:category_ids.in => [@category.id], :enabled => true}
     if current_user
@@ -670,7 +670,7 @@ class CoursesController < ApplicationController
         c.sub_title = course['sub_title'] unless course['sub_title'].blank?
         c.level = course['level'] unless course['level'].blank?
         c.category_ids = course['category_ids'] unless course['category_ids'].blank?
-        c.label_ids = course['label_ids'] unless course['label_ids'].blank?
+        c.label_ids = course['label_ids'] 
         c.lang = course['lang'] unless course['lang'].blank?
 
         c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
