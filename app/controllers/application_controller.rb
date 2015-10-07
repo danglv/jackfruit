@@ -189,6 +189,14 @@ class ApplicationController < ActionController::Base
     
   end
 
+  def page_not_found
+
+  end
+
+  def server_error
+    
+  end
+
   private
     def sort_curriculums
       cus = []
