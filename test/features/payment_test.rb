@@ -52,7 +52,7 @@ feature 'Payment' do
     end
 
     page.must_have_content('Test Course 1')
-    page.must_have_content('99,500')
+    page.must_have_content('99,000')
     page.must_have_content('199,000')
     page.must_have_content('50%')
   end
@@ -80,7 +80,7 @@ feature 'Payment' do
     end
 
     page.must_have_content('Test Course 1')
-    page.must_have_content('99,500')
+    page.must_have_content('99,000')
     page.must_have_content('199,000')
     page.must_have_content('50%')
   end
