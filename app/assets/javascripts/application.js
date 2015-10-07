@@ -47,7 +47,7 @@ $(document).ready(function () {
   // Tracking U2
   var params = {
     'category': 'U2',
-    'behaviour': 'open',
+    'behavior': 'open',
     'target': document.URL,
     'extras': {
       'chanel': utm_source == undefined ?  document.referrer : utm_source 

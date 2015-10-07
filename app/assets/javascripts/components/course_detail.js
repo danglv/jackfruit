@@ -6,7 +6,7 @@
       // Tracking L2
       var params = {
         'category': 'L2',
-        'behaviour': 'view',
+        'behavior': 'view',
         'target': course_id,
         'extras': {
           'chanel': utm_source == undefined ?  document.referrer : utm_source
@@ -199,7 +199,7 @@ $(document).ready(function () {
     // Tracking L7a
     var params = {
       'category': 'L7a',
-      'behaviour': 'click',
+      'behavior': 'click',
       'target': course_id,
       'extras': {
         'chanel': utm_source == undefined ?  document.referrer : utm_source 

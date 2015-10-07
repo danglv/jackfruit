@@ -94,7 +94,7 @@ $(document).ready(function () {
     // Tracking L7b
     var params = {
       'category': 'L7b',
-      'behaviour': 'click',
+      'behavior': 'click',
       'target': course_id,
       'extras': {
         'chanel': document.referrer,
@@ -109,7 +109,7 @@ $(document).ready(function () {
     // Tracking L7b
     var params = {
       'category': 'L7b',
-      'behaviour': 'click',
+      'behavior': 'click',
       'target': course_id,
       'extras': {
         'chanel': document.referrer,
@@ -124,7 +124,7 @@ $(document).ready(function () {
     // Tracking L7b
     var params = {
       'category': 'L7b',
-      'behaviour': 'click',
+      'behavior': 'click',
       'target': course_id,
       'extras': {
         'chanel': document.referrer,
@@ -139,7 +139,7 @@ $(document).ready(function () {
     // Tracking L7b
     var params = {
       'category': 'L7b',
-      'behaviour': 'click',
+      'behavior': 'click',
       'target': course_id,
       'extras': {
         'chanel': document.referrer,
