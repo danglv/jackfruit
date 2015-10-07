@@ -4,15 +4,7 @@
       var course_id = $(".course_id").val();
       var utm_source = getParameterByName('utm_source');
       // Tracking L2
-      var params = {
-        'category': 'L2',
-        'behavior': 'view',
-        'target': course_id,
-        'extras': {
-          'chanel': utm_source == undefined ?  document.referrer : utm_source
-        }
-      };
-      Spymaster.track(params);
+      Spymaster.track({category: 'L2', behavior: 'view', target: course_id});
     } 
   });
 
@@ -195,17 +187,8 @@ $(document).ready(function () {
 
   $(".buy-button").click(function () {
     var course_id = $(".course_id").val();
-    var utm_source = getParameterByName('utm_source');
     // Tracking L7a
-    var params = {
-      'category': 'L7a',
-      'behavior': 'click',
-      'target': course_id,
-      'extras': {
-        'chanel': utm_source == undefined ?  document.referrer : utm_source 
-      }
-    };
-    Spymaster.track(params);
+    Spymaster.track({category: 'L7a', behavior: 'click', target: course_id});
   });
 
   $(".btn-submit-report").click(function () {

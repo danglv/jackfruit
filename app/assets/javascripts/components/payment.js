@@ -92,60 +92,24 @@ $(document).ready(function () {
   $(".btn-cod").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    var params = {
-      'category': 'L7b',
-      'behavior': 'click',
-      'target': course_id,
-      'extras': {
-        'chanel': document.referrer,
-        'payment_method': 'cod'
-      }
-    };
-    Spymaster.track(params);
+    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'cod'}});
   });
 
   $(".btn-transfer").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    var params = {
-      'category': 'L7b',
-      'behavior': 'click',
-      'target': course_id,
-      'extras': {
-        'chanel': document.referrer,
-        'payment_method': 'transfer'
-      }
-    };
-    Spymaster.track(params);
+    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'transfer'}});
   });
 
   $(".btn-card").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    var params = {
-      'category': 'L7b',
-      'behavior': 'click',
-      'target': course_id,
-      'extras': {
-        'chanel': document.referrer,
-        'payment_method': 'card'
-      }
-    };
-    Spymaster.track(params);
+    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'card'}});
   });
 
   $(".btn-cih").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    var params = {
-      'category': 'L7b',
-      'behavior': 'click',
-      'target': course_id,
-      'extras': {
-        'chanel': document.referrer,
-        'payment_method': 'cih'
-      }
-    };
-    Spymaster.track(params);
+    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'cih'}});
   });
 });
