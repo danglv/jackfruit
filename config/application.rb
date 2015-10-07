@@ -21,7 +21,7 @@ Bundler.require(:default, Rails.env)
 module Jackfruit
   class Application < Rails::Application
     # Tracking setup.
-    Spymaster.setup('Pedia', '1.0.0', 'http://localhost:3000/api/global/track')
+    Spymaster.setup('Pedia', '1.0.0')
     config.autoload_paths << Rails.root.join('lib')
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
