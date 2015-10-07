@@ -17,7 +17,14 @@
             - if course.price == 0
               Miễn phí
             - else
-              #{course.price} đ
+              - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
+                .promotion-price
+                  %span.promotion-badge.bold
+                    = help_show_currency sale_info[:final_price]
+                  %span.old-price
+                    = help_show_currency course.price
+              - else
+                = help_show_currency course.price
           .rating.info-item.pull-left
             - if course.average_rating.blank?
               - course.average_rating = 0
