@@ -37,6 +37,18 @@
         color: #212121;
         padding-right: 10px;
         line-height: 24px;
+        .promotion-price {
+          .promotion-badge {
+            background: #17aa1c;
+            color: white;
+            font-size: 16px;
+            padding: 0 8px;
+            margin-right: 10px;
+          }
+          .old-price {
+            text-decoration: line-through;
+          }
+        }
       }
       .rating {
         .fa-star {
