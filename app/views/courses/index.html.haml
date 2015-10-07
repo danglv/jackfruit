@@ -17,11 +17,9 @@
                   %i.fa.fa-plus-circle
               .clearfix
               .list-course-card
-                - cache do
-                  - course_data.each do |course|
-                    = render :partial => 'components/courses/course_card', :locals => {:course => course}
+                - course_data.each do |course|
+                  = render :partial => 'components/courses/course_card', :locals => {:course => course}
               .list-course-list
-                - cache do
-                  - course_data.each do |course|
-                    = render :partial => 'components/courses/list_card', :locals => {:course => course}
+                - course_data.each do |course|
+                  = render :partial => 'components/courses/list_card', :locals => {:course => course}
 = render :partial => 'components/footer/index'
