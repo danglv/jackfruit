@@ -46,7 +46,7 @@ module Sale
         success, data = Coupon.request_by_code(coupon_code)
 
         if success
-          result[:final_price] = course.price - (data['discount'].to_f * course.price / 100)
+          result[:final_price] = ((100 - data['discount'].to_f) * course.price / 100000).floor * 1000
           result[:discount_ratio] = data['discount'].to_f.ceil
           result[:coupon_code] = coupon_code
           result[:applied] = true
