@@ -154,7 +154,6 @@ class CoursesController < ApplicationController
         owned_course.type = Constants::OwnedCourseTypes::LEARNING
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
-
         redirect_to root_url + "courses/#{@course.alias_name}/learning"
         return
       end
@@ -175,9 +174,16 @@ class CoursesController < ApplicationController
           end
         else # Course is learning course
           # Check course payment status
-          if !@owned_course.payment_success?
+          if @owned_course.payment_success? # If payment is success then go to learning page
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+            return
+          else # Course is on a payment then get payment
             # Tracking L3c. Case pending
             Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+            @payment = Payment.where(
+              user_id: current_user.id.to_s,
+              course_id: @course.id.to_s
+            ).last
             @payment = Payment.where(
               user_id: current_user.id.to_s,
               course_id: @course.id.to_s
