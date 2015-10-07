@@ -188,4 +188,7 @@ Rails.application.routes.draw do
   #   end    
   # end
 
+  # Public page
+  get "/404", :to => "application#page_not_found"
+  get "/500", :to => "application#server_error"
 end
