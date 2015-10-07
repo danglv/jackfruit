@@ -51,7 +51,7 @@ feature 'Sale' do
     visit '/courses/test-course-2/detail?coupon_code=A_VALID_COUPON'
 
     page.must_have_content('Test Course 2')
-    page.must_have_content('39,800')
+    page.must_have_content('39,000')
     page.must_have_content('80%')
   end
 end
