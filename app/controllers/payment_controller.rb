@@ -99,14 +99,13 @@ class PaymentController < ApplicationController
           )
         rescue => e
         end
-
-        utm_source = session[:utm_source]
-        utm_source[:payment_id] = payment.id
+        utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
+        utm_source[:payment_id] = payment.id.to_s
         utm_source[:payment_method] = payment.method
         # Tracking L7c1
         Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
 
-        binding.pry
+        # binding.pry
         # params = {
         #   Constants::TrackingParams::CATEGORY => "L7c1",
         #   Constants::TrackingParams::TARGET => @course.id,
@@ -538,7 +537,7 @@ class PaymentController < ApplicationController
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
 
         if (owned_course.save && payment.save && current_user.save)
-          utm_source = session[:utm_source]
+          utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
           utm_source[:payment_id] = payment.id
           utm_source[:payment_method] = payment.method
           # Tracking L7c1

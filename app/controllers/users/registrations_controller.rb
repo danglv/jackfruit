@@ -115,7 +115,7 @@ before_filter :configure_sign_up_params, only: [:create]
       course_alias_name = url_components[1] if url_components
       course = Course.where(:alias_name => course_alias_name).first if !course_alias_name.blank?
       if !course.blank?
-        binding.pry
+        # binding.pry
         # Tracking L3a
         Spymaster.params.cat('L3a').beh('register').tar(course.id).user(resource.id).ext(utm_source).track(request)
       end

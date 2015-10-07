@@ -37,7 +37,7 @@ before_filter :configure_sign_in_params, only: [:create]
     previous_url = session[:previous_url] if !session.blank?
     referer_url = previous_url if referer_url.blank?
     utm_source = session[:utm_source] if !session.blank?
-    binding.pry
+    # binding.pry
     if (referer_url)
       url_components = referer_url.match(/([^\/]*)\/detail/)
       course_alias_name = url_components[1] if url_components
@@ -47,7 +47,7 @@ before_filter :configure_sign_in_params, only: [:create]
         if owned_course
           # Tracking L3d
           Spymaster.params.cat('L3d').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
-          binding.pry
+          # binding.pry
           # params = {
           #   Constants::TrackingParams::CATEGORY => "L3d",
           #   Constants::TrackingParams::TARGET => course.id,
@@ -59,7 +59,7 @@ before_filter :configure_sign_in_params, only: [:create]
         else
           # Tracking L3b
           Spymaster.params.cat('L3b').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
-          binding.pry
+          # binding.pry
           # params = {
           #   Constants::TrackingParams::CATEGORY => "L3b",
           #   Constants::TrackingParams::TARGET => course.id,
