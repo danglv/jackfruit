@@ -43,17 +43,8 @@ $(document).ready(function () {
   $('.active-nav-1').sliderDropdown();
   $('.active-nav-2').sliderDropdown();
 
-  var utm_source = getParameterByName('utm_source');
   // Tracking U2
-  var params = {
-    'category': 'U2',
-    'behavior': 'open',
-    'target': document.URL,
-    'extras': {
-      'chanel': utm_source == undefined ?  document.referrer : utm_source 
-    }
-  };
-  Spymaster.track(params);
+  Spymaster.track({category: 'U2', behavior: 'open', target: document.URL});
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

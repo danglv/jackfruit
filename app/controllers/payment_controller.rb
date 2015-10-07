@@ -144,17 +144,6 @@ class PaymentController < ApplicationController
       # Tracking L7c3
       Spymaster.params.cat('L7c3').beh('submit').tar(owned_course.course_id).user(current_user.id).ext({:payment_id => payment.id,
           :payment_method => payment.method}).track(request)
-      # params = {
-      #   Constants::TrackingParams::CATEGORY => "L7c3",
-      #   Constants::TrackingParams::TARGET => owned_course.course_id,
-      #   Constants::TrackingParams::BEHAVIOR => "submit",
-      #   Constants::TrackingParams::USER => current_user.id,
-      #   Constants::TrackingParams::EXTRAS => {
-      #     :payment_id => payment.id,
-      #     :payment_method => payment.method
-      #   }
-      # }
-      # Spymaster.track(params, request.blank? ? nil : request)
     end
 
     redirect_to :back
@@ -263,17 +252,6 @@ class PaymentController < ApplicationController
       # Tracking L8ga
       Spymaster.params.cat('L8ga').beh('open').tar(@course.id).user(current_user.id).ext({:payment_id => @payment.id,
           :payment_method => @payment.method}).track(request)
-      # params = {
-      #   Constants::TrackingParams::CATEGORY => "L8ga",
-      #   Constants::TrackingParams::TARGET => @course.id,
-      #   Constants::TrackingParams::BEHAVIOR => "open",
-      #   Constants::TrackingParams::USER => current_user.id,
-      #   Constants::TrackingParams::EXTRAS => {
-      #     :payment_id => @payment.id,
-      #     :payment_method => @payment.method
-      #   }
-      # }
-      # Spymaster.track(params, request.blank? ? nil : request)
     end
 
     # If the first learning, display success page.
@@ -551,21 +529,7 @@ class PaymentController < ApplicationController
           utm_source[:payment_id] = payment.id
           utm_source[:payment_method] = payment.method
           # Tracking L7c1
-          Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
-
-          # params = {
-          #   Constants::TrackingParams::CATEGORY => "L7c1",
-          #   Constants::TrackingParams::TARGET => @course.id,
-          #   Constants::TrackingParams::BEHAVIOR => "submit",
-          #   Constants::TrackingParams::USER => current_user.id,
-          #   Constants::TrackingParams::EXTRAS => {
-          #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source']),
-          #     :payment_id => payment.id,
-          #     :payment_method => payment.method,
-          #     :payment_status => payment.status
-          #   }
-          # }
-          # Spymaster.track(params, request.blank? ? nil : request)          
+          Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)         
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else
