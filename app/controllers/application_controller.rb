@@ -157,6 +157,14 @@ class ApplicationController < ActionController::Base
     request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 
+  def page_not_found
+
+  end
+
+  def server_error
+    
+  end
+
   private
     def sort_curriculums
       cus = []

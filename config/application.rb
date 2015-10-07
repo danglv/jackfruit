@@ -61,5 +61,8 @@ module Jackfruit
     Mongoid.raise_not_found_error = false
     Mongoid.logger.level = Logger::ERROR
     Mongo::Logger.logger.level = Logger::ERROR
+
+    # Use custom error pages
+    config.exceptions_app = self.routes
   end
 end
