@@ -12,6 +12,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 require 'rails/mongoid'
 require 'csv'
+require 'spymaster'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,6 +20,8 @@ Bundler.require(:default, Rails.env)
 
 module Jackfruit
   class Application < Rails::Application
+    # Tracking setup.
+    Spymaster.setup('Pedia', '1.0.0')
     config.autoload_paths << Rails.root.join('lib')
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -49,7 +52,6 @@ module Jackfruit
         g.orm :active_record
         g.test_framework :minitest, spec: true
     end
-
     config.action_dispatch.default_headers.merge!({
       'Access-Control-Allow-Origin' => '*',
       'Access-Control-Request-Method' => 'OPTIONS, PUT, GET, POST',

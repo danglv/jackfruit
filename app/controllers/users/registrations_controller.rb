@@ -71,12 +71,25 @@ before_filter :configure_sign_up_params, only: [:create]
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    referer_url = session[:referer_url] if !session.blank?
+    utm_source = session[:utm_source] if !session.blank?
+    # Tracking U8
+    Spymaster.params.cat('U8').beh('submit').tar(resource.id).user(resource.id).ext(utm_source).track(request)
+    if (referer_url)
+      url_components = referer_url.match(/([^\/]*)\/detail/)
+      course_alias_name = url_components[1] if url_components
+      course = Course.where(:alias_name => course_alias_name).first if !course_alias_name.blank?
+      if !course.blank?
+        # Tracking L3a
+        Spymaster.params.cat('L3a').beh('register').tar(course.id).user(resource.id).ext(utm_source).track(request)
+      end
+    end
+    super(resource)
+  end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    super(resource)
+  end
 end

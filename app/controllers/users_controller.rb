@@ -341,7 +341,6 @@ class UsersController < ApplicationController
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
-
     # authorize! :update, @user 
     if request.patch? && params[:user] #&& params[:user][:email]
       if @user.update(user_params)
@@ -621,7 +620,9 @@ class UsersController < ApplicationController
 
     def payment_url_for(course, params)
       url = root_url + "home/payment/#{course.alias_name}"
-      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      if !params.blank?
+        url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      end
       return url
     end
 end

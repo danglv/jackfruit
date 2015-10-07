@@ -148,6 +148,19 @@ module Constants
     INSTRUCTOR = "instructor"
   end
 
+  module TrackingParams
+    CATEGORY = "category"
+    BEHAVIOR = "behavior"
+    TARGET = "target"
+    EXTRAS = "extras"
+    USER = "user"
+    CHANEL = "chanel"
+  end
+
+  # Query keys for handling marketing sources
+  UTM_SOURCE = ['utm_source', 'utm_medium', 'utm_term', 'utm_content', 'utm_campaign']
+  
+
   class << self
     Constants.constants.each {|module_name|
       sub_module = Constants.const_get(module_name)

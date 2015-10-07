@@ -99,6 +99,11 @@ class PaymentController < ApplicationController
           )
         rescue => e
         end
+        utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
+        utm_source[:payment_id] = payment.id.to_s
+        utm_source[:payment_method] = payment.method
+        # Tracking L7c1
+        Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
         Tracking.create_tracking(
@@ -135,6 +140,21 @@ class PaymentController < ApplicationController
       owned_course = current_user.courses.where(course_id: params[:course_id]).first
       owned_course.payment_status = Constants::PaymentStatus::CANCEL
       owned_course.save
+
+      # Tracking L7c3
+      Spymaster.params.cat('L7c3').beh('submit').tar(owned_course.course_id).user(current_user.id).ext({:payment_id => payment.id,
+          :payment_method => payment.method}).track(request)
+      # params = {
+      #   Constants::TrackingParams::CATEGORY => "L7c3",
+      #   Constants::TrackingParams::TARGET => owned_course.course_id,
+      #   Constants::TrackingParams::BEHAVIOR => "submit",
+      #   Constants::TrackingParams::USER => current_user.id,
+      #   Constants::TrackingParams::EXTRAS => {
+      #     :payment_id => payment.id,
+      #     :payment_method => payment.method
+      #   }
+      # }
+      # Spymaster.track(params, request.blank? ? nil : request)
     end
 
     redirect_to :back
@@ -229,7 +249,7 @@ class PaymentController < ApplicationController
           :device => {},
           :version => Constants::AppVersion::VER_1,
           :identity => current_user.id.to_s,
-          :object => payment.id
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
       end
@@ -238,6 +258,24 @@ class PaymentController < ApplicationController
     else
       @course = Course.where(id: @payment.course_id.to_s).first
     end
+
+    if @payment
+      # Tracking L8ga
+      Spymaster.params.cat('L8ga').beh('open').tar(@course.id).user(current_user.id).ext({:payment_id => @payment.id,
+          :payment_method => @payment.method}).track(request)
+      # params = {
+      #   Constants::TrackingParams::CATEGORY => "L8ga",
+      #   Constants::TrackingParams::TARGET => @course.id,
+      #   Constants::TrackingParams::BEHAVIOR => "open",
+      #   Constants::TrackingParams::USER => current_user.id,
+      #   Constants::TrackingParams::EXTRAS => {
+      #     :payment_id => @payment.id,
+      #     :payment_method => @payment.method
+      #   }
+      # }
+      # Spymaster.track(params, request.blank? ? nil : request)
+    end
+
     # If the first learning, display success page.
     owned_course.set(:first_learning => false) if !owned_course.blank?
   end
@@ -423,7 +461,7 @@ class PaymentController < ApplicationController
           :device => {},
           :version => Constants::AppVersion::VER_1,
           :identity => current_user.id.to_s,
-          :object => payment.id
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
         return
@@ -482,8 +520,26 @@ class PaymentController < ApplicationController
         owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
 
-        # NOTE: bad cod
         if (owned_course.save && payment.save && current_user.save)
+          utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
+          utm_source[:payment_id] = payment.id
+          utm_source[:payment_method] = payment.method
+          # Tracking L7c1
+          Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
+
+          # params = {
+          #   Constants::TrackingParams::CATEGORY => "L7c1",
+          #   Constants::TrackingParams::TARGET => @course.id,
+          #   Constants::TrackingParams::BEHAVIOR => "submit",
+          #   Constants::TrackingParams::USER => current_user.id,
+          #   Constants::TrackingParams::EXTRAS => {
+          #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source']),
+          #     :payment_id => payment.id,
+          #     :payment_method => payment.method,
+          #     :payment_status => payment.status
+          #   }
+          # }
+          # Spymaster.track(params, request.blank? ? nil : request)          
           redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
           return
         else

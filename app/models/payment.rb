@@ -2,6 +2,8 @@ class Payment
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  after_update :payment_to_success
+
   belongs_to :user, class_name: "User"
   belongs_to :course, class_name: "Course"
 
@@ -128,5 +130,23 @@ class Payment
     self.set(cod_code: cod_code)
 
     cod_code
+  end
+  def payment_to_success
+    if self.status == Constants::PaymentStatus::SUCCESS
+      # Tracking L8s
+      a = Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
+          :payment_method => self.method}).track(new)
+      # params = {
+      #   Constants::TrackingParams::CATEGORY => "L8s",
+      #   Constants::TrackingParams::TARGET => self.course.id,
+      #   Constants::TrackingParams::BEHAVIOR => "submit",
+      #   Constants::TrackingParams::USER => self.user.id,
+      #   Constants::TrackingParams::EXTRAS => {
+      #     :payment_id => self.id,
+      #     :payment_method => self.method
+      #   }
+      # }
+      # track = Spymaster.track(params)
+    end
   end
 end

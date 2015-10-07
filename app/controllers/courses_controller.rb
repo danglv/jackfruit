@@ -175,22 +175,25 @@ class CoursesController < ApplicationController
           end
         else # Course is learning course
           # Check course payment status
-          if @owned_course.payment_success? # If payment is success then go to learning page
-            redirect_to root_url + "courses/#{@course.alias_name}/learning"
-            return
-          else # Course is on a payment then get payment
+          if !@owned_course.payment_success?
+            # Tracking L3c. Case pending
+            Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
             @payment = Payment.where(
               user_id: current_user.id.to_s,
               course_id: @course.id.to_s
             ).last
           end
         end
-      end
+      else
+        # Tracking L3c. Case not has course.
+        Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+      end      
     end
-
     # Check if course is in any sale campaign
     sale_input = {:course => @course}
-    sale_input[:coupon_code] = params[:coupon_code] unless params[:coupon_code].blank?
+    if !params.blank?
+      sale_input[:coupon_code] = params[:coupon_code] unless params[:coupon_code].blank?
+    end
     @sale_info = Sale::Services.get_price(sale_input)
 
     @courses = {}
@@ -250,8 +253,28 @@ class CoursesController < ApplicationController
       # Check if this is the first time learning
       if @owned_course.first_learning
         @owned_course.set(:first_learning => false)
-        payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
+
+        # Tracking U8x
+        if @course.free? # Free course
+          if current_user.courses.count == 1
+            # Tracking U8f: User has the first course is free course
+            Spymaster.params.cat('U8f').beh('click').tar(@course.id).user(current_user.id).track(request)
+          elsif Course.where(:id.in => current_user.courses.map(&:course_id), :price => 0).count == 1
+            # Tracking U8pf: User had a paid course before and now has a new free course
+            Spymaster.params.cat('U8pf').beh('click').tar(@course.id).user(current_user.id).track(request)
+          end
+        else # Paid course
+          if current_user.courses.count == 1
+            # Tracking U8p: User has the first course is paid course
+            Spymaster.params.cat('U8p').beh('click').tar(@course.id).user(current_user.id).track(request)
+          elsif Course.where(:id.in => current_user.courses.map(&:course_id), :price.gt => 0).count == 1
+            # Tracking U8fp: User had a free course before and now has a new paid course
+            Spymaster.params.cat('U8fp').beh('click').tar(@course.id).user(current_user.id).track(request)
+          end
+        end
+
         # Redirect to success payment page if first learning and has payment
+        payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
         if !payment.blank?
           redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
           return

@@ -1,6 +1,6 @@
 .method-title 1. Lựa chọn hình thức thanh toán
 .method-card
-  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/cod/#{@course.alias_name}", @data), :class => [('active' if method == 'cod')]}
+  %a.btn.btn-default.btn-raised.btn-cod.no-padding{:href => help_build_payment_method_url("/home/payment/cod/#{@course.alias_name}", @data), :class => [('active' if method == 'cod')]}
     .list-style-small
       %i.fa.fa-shopping-cart.payment-method-icon
       Giao khóa học và thu tiền tận nơi
@@ -14,7 +14,7 @@
       %i.fa.fa-shopping-cart.payment-method-icon
       %h5 Giao khóa học
       %h5 và thu tiền tận nơi
-  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/card/#{@course.alias_name}?p=baokim_card", @data), :class => [('active' if method == 'card')]}
+  %a.btn.btn-default.btn-raised.btn-card.no-padding{:href => help_build_payment_method_url("/home/payment/card/#{@course.alias_name}?p=baokim_card", @data), :class => [('active' if method == 'card')]}
     .list-style-small
       %i.fa.fa-credit-card.payment-method-icon{:style => "vertical-align: top;"}
       .method-text
@@ -32,7 +32,7 @@
       %i.fa.fa-credit-card.payment-method-icon
       %h5 Thanh toán bằng thẻ
       %h5 điện thoại
-  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/transfer/#{@course.alias_name}", @data), :class => [('active' if method == 'transfer')]}
+  %a.btn.btn-default.btn-raised.btn-transfer.no-padding{:href => help_build_payment_method_url("/home/payment/transfer/#{@course.alias_name}", @data), :class => [('active' if method == 'transfer')]}
     .list-style-small
       %i.fa.fa-building.payment-method-icon
       Chuyển khoản qua ngân hàng
@@ -46,7 +46,7 @@
       %i.fa.fa-building.payment-method-icon
       %h5 Chuyển khoản qua
       %h5 ngân hàng
-  %a.btn.btn-default.btn-raised.no-padding{:href => help_build_payment_method_url("/home/payment/cih/#{@course.alias_name}", @data), :class => [('active' if method == 'cih')]}
+  %a.btn.btn-default.btn-raised.btn-cih.no-padding{:href => help_build_payment_method_url("/home/payment/cih/#{@course.alias_name}", @data), :class => [('active' if method == 'cih')]}
     .list-style-small
       %i.fa.fa-map-marker.payment-method-icon
       Thanh toán tại văn phòng Pedia
