@@ -134,8 +134,8 @@ class Payment
   def payment_to_success
     if self.status == Constants::PaymentStatus::SUCCESS
       # Tracking L8s
-      Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
-          :payment_method => self.method}).track(request)
+      a = Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
+          :payment_method => self.method}).track(new)
       # params = {
       #   Constants::TrackingParams::CATEGORY => "L8s",
       #   Constants::TrackingParams::TARGET => self.course.id,

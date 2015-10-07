@@ -104,22 +104,6 @@ class PaymentController < ApplicationController
         utm_source[:payment_method] = payment.method
         # Tracking L7c1
         Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
-
-        # binding.pry
-        # params = {
-        #   Constants::TrackingParams::CATEGORY => "L7c1",
-        #   Constants::TrackingParams::TARGET => @course.id,
-        #   Constants::TrackingParams::BEHAVIOR => "submit",
-        #   Constants::TrackingParams::USER => current_user.id,
-        #   Constants::TrackingParams::EXTRAS => {
-        #     :chanel => (request.params['utm_source'].blank? ? request.referer : request.params['utm_source']),
-        #     :payment_id => payment.id,
-        #     :payment_method => payment.method,
-        #     :payment_status => payment.status
-        #   }
-        # }
-        # Spymaster.track(params, request.blank? ? nil : request)
-
         redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
       else
         Tracking.create_tracking(
