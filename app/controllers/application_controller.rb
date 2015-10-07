@@ -182,7 +182,6 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-    labels   = Constants.LabelsValues
     @courses = Course.all.desc(:students).limit(4).to_a
   end
 
