@@ -43,10 +43,10 @@ module Sale
       # Check coupon
       elsif (!data[:coupon_code].blank?)
         coupon_code = data[:coupon_code]
-        success, data = Coupon.request_by_code(coupon_code)
+        success, data = Coupon.request_by_code(coupon_code, course.id)
 
         if success
-          result[:final_price] = course.price - (data['discount'].to_f * course.price / 100)
+          result[:final_price] = ((100 - data['discount'].to_f) * course.price / 100000).floor * 1000
           result[:discount_ratio] = data['discount'].to_f.ceil
           result[:coupon_code] = coupon_code
           result[:applied] = true
@@ -91,20 +91,13 @@ module Sale
     def self.request_by_code(coupon_code, course_id = nil)
       RestClient.get("#{GET_API}?coupon=#{coupon_code}"){ |response, request, result, &block|
         data = JSON.parse(response)
-        case result.code
-        when "200"
-          # If coupon is expired
-          if data['expired_date'].to_time < Time.now()
-            return false, "Mã coupon #{coupon_code} không hợp lệ"
-          # if course_id is given but not match with coupon's course_id
-          elsif course_id && course_id != data['course_id']
-            return false, "Mã coupon #{coupon_code} không áp dụng cho khóa học"
-          else
-            return true, data
-          end
-        else
-          return false, "Mã coupon #{coupon_code} không hợp lệ" # data['message']
-        end
+
+        return [false,  "Mã coupon #{coupon_code} không hợp lệ"] unless result.code == '200' # data['message']]
+        # If coupon is expired
+        return [false, "Mã coupon #{coupon_code} không hợp lệ"] if data['expired_date'].to_time < Time.now()
+        # if course_id is given but not match with coupon's course_id
+        return [false, "Mã coupon #{coupon_code} không áp dụng cho khóa học"] if course_id && course_id.to_s != data['course_id']
+        return [true, data]
       }
     end
 

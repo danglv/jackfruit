@@ -26,6 +26,8 @@ feature 'Sale' do
   end
 
   scenario 'User visits a course with a coupon' do
+    course = Course.where(alias_name: 'test-course-2').first
+
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
       .with(:headers => {
         'Accept'=>'*/*; q=0.5, application/xml',
@@ -41,6 +43,7 @@ feature 'Sale' do
                     '"expired_date": ' + (Time.now() + 2.days).to_json,
                     '"used": 0',
                     '"enabled": true',
+                    '"course_id": "' + course.id + '"',
                     '"max_used": 1',
                     '"discount": 80',
                     '"return_value": "50"',
@@ -51,7 +54,7 @@ feature 'Sale' do
     visit '/courses/test-course-2/detail?coupon_code=A_VALID_COUPON'
 
     page.must_have_content('Test Course 2')
-    page.must_have_content('39,800')
+    page.must_have_content('39,000')
     page.must_have_content('80%')
   end
 end

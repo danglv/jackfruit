@@ -194,15 +194,18 @@ class ApplicationController < ActionController::Base
   end
 
   def page_not_found
-
-  end
-
-  def server_error
+    condition = {}
+    condition[:enabled] = true
+    condition[:label_ids.in] = ["featured"]
     
-  end
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
 
-  def page_not_found
-
+    @courses = Course.where(condition).desc(:students).limit(4).to_a
+    @sale_info = help_sale_info_for_courses @courses
   end
 
   def server_error
