@@ -43,7 +43,7 @@ module Sale
       # Check coupon
       elsif (!data[:coupon_code].blank?)
         coupon_code = data[:coupon_code]
-        success, data = Coupon.request_by_code(coupon_code)
+        success, data = Coupon.request_by_code(coupon_code, @course.id)
 
         if success
           result[:final_price] = ((100 - data['discount'].to_f) * course.price / 100000).floor * 1000
