@@ -18,3 +18,4 @@ mongoid.yml
 /public/*
 /vendor/assets/components/*
 Gemfile.lock
+/dump/
