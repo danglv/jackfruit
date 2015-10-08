@@ -4,7 +4,7 @@ class PaymentController < ApplicationController
   before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
-  # before_action :process_coupon, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+
   # GET
   def index
     cod_payments = Payment.where(
@@ -345,7 +345,7 @@ class PaymentController < ApplicationController
 
   # GET: API list payment for mercury
   def list_payment
-    
+
     status = params[:status]
     method = params[:method]
     from = params[:from]
@@ -553,20 +553,5 @@ class PaymentController < ApplicationController
           return
         end
       end
-    end
-
-    def get_discount_coupon(coupon_code)
-      if coupon_code
-        url = URI.parse("http://code.pedia.vn/coupon?coupon=#{@coupon_code}")
-        req = Net::HTTP::Get.new(url.to_s)
-        res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)
-          http.request(req)
-        }
-        if res.code.to_i == 200
-          res_body = JSON.parse(res.body)
-          return res_body['discount'].to_i
-        end
-      end
-      return 0
     end
 end
