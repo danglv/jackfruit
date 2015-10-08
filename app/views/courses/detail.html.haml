@@ -77,7 +77,7 @@
           - if @course.price == 0
             %h3.course-price-text.free{:style => "margin-top: 15px;"} Miễn phí
           - else
-            %h3.course-price-text.no-margin{:style => 'margin: 0; padding-top: 15px;'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %h3.course-price-text.no-margin{:style => 'margin: 0; padding-top: 15px;'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
   / + Detail content
   .detail
     .detail-top
