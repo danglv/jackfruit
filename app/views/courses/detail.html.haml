@@ -15,26 +15,29 @@
     %input.user_email{:type => "hidden", :value => "#{current_user.email}"}
 
   / + Support form
-  .support-form
-    .tele-sales.show-form
-      %i.fa.fa-play-circle
-      Bạn cần thêm thông tin?
-    .tele-sales-extend
-      .tele-sales-top.hide-form
+
+  / Tạm tắt support form cho khoá Lê Thẩm Dương
+  - if @course.id.to_s != "560b4e96eb5d8904c1000002"
+    .support-form
+      .tele-sales.show-form
         %i.fa.fa-play-circle
         Bạn cần thêm thông tin?
-      .tele-sales-content
-        %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
-        %form
-          %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
-          %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
-          %a.btn.btn-success.send-form-support{} Gửi đi
-      .tele-sales-content.success
-        %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
-      .tele-sales-bottom
-        %span Hotline: 
-        = succeed "" do
-          %b 0961215368
+      .tele-sales-extend
+        .tele-sales-top.hide-form
+          %i.fa.fa-play-circle
+          Bạn cần thêm thông tin?
+        .tele-sales-content
+          %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
+          %form
+            %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
+            %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
+            %a.btn.btn-success.send-form-support{} Gửi đi
+        .tele-sales-content.success
+          %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
+        .tele-sales-bottom
+          %span Hotline: 
+          = succeed "" do
+            %b 0961215368
 
   / + Report modal 
   #complete-dialog.modal.fade{:tabindex => "-1"}

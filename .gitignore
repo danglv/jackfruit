@@ -17,4 +17,4 @@ mongoid.yml
 .DS_Store
 /public/*
 /vendor/assets/components/*
-Gemfile.lock
+/dump/
