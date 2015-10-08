@@ -43,6 +43,7 @@ module Sale
             '"used": 0',
             '"enabled": true',
             '"max_used": 1',
+            '"course_id":"' + course.id.to_s + '"',
             '"discount": 80',
             '"return_value": "50"',
             '"issued_by": "hailn"}'].join(','),
