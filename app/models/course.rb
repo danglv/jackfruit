@@ -114,21 +114,21 @@ class Course
     end
   end
 
-  def students
-    if self.fake_enabled == true
-      self.fake_students
-    else
-      self.read_attribute(:students)
-    end
-  end
+  # def students
+  #   if self.fake_enabled == true
+  #     self.fake_students
+  #   else
+  #     self.read_attribute(:students)
+  #   end
+  # end
 
-  def num_rate
-    if self.fake_enabled == true
-      self.fake_num_rate
-    else
-      self.read_attribute(:num_rate)
-    end
-  end
+  # def num_rate
+  #   if self.fake_enabled == true
+  #     self.fake_num_rate
+  #   else
+  #     self.read_attribute(:num_rate)
+  #   end
+  # end
 
   def free?
     self.price == 0
