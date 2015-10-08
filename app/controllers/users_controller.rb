@@ -114,7 +114,6 @@ class UsersController < ApplicationController
     @owned_courses = current_user.courses
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @wishlist = Course.in(:id => wishlist_ids).to_a
-
   end
 
   def teaching
