@@ -72,68 +72,77 @@
     .tab-content
       #lecture-tab-list.tab-pane.fade.active.in
         .row.no-margin.list-lecture-container
-          - @owned_lectures = @owned_course.lectures
-          - @course.curriculums.each do |curriculum|
-            - if curriculum.type == 'chapter'
-              .row.chap-title #{curriculum.title}
-            - elsif curriculum.lecture_index == @index_lecture
-              .row.chap-item.active
-                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
-                  .row.item-container
-                    .chap-item-status
-                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
-                        .status-container.none
-                          %i.fa.fa-check
-                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
-                        .status-container.learning
-                          %i.fa.fa-pencil
-                      - else
-                        .status-container.completed
-                          %i.fa.fa-check
-                    .chap-item-content
-                      .row.no-margin
-                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
-                      .row.no-margin
-                        .row.type-document
-                          %ul.no-padding
-                            %li 
-                              %i.fa.fa-play-circle
-                            %li
-                              %span #{curriculum.description}
-                            - if curriculum.documents.count > 0
+          - begin
+            - @owned_lectures = @owned_course.lectures
+            - count_lecture = @owned_lectures.count
+            - @course.curriculums.each do |curriculum|
+              - if curriculum.type == 'chapter'
+                .row.chap-title #{curriculum.title}
+              - elsif curriculum.lecture_index == @index_lecture
+                - if count_lecture <= 0
+                  - break
+                - count_lecture -= 1
+                .row.chap-item.active
+                  %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                    .row.item-container
+                      .chap-item-status
+                        - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                          .status-container.none
+                            %i.fa.fa-check
+                        - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                          .status-container.learning
+                            %i.fa.fa-pencil
+                        - else
+                          .status-container.completed
+                            %i.fa.fa-check
+                      .chap-item-content
+                        .row.no-margin
+                          %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                        .row.no-margin
+                          .row.type-document
+                            %ul.no-padding
+                              %li 
+                                %i.fa.fa-play-circle
                               %li
-                                %i.fa.fa-download
-                            %li
-                              %i.fa.fa-comments
-            - else
-              .row.chap-item
-                %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
-                  .row.item-container
-                    .chap-item-status
-                      - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
-                        .status-container.none
-                          %i.fa.fa-check
-                      - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
-                        .status-container.learning
-                          %i.fa.fa-pencil
-                      - else
-                        .status-container.completed
-                          %i.fa.fa-check
-                    .chap-item-content
-                      .row.no-margin
-                        %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
-                      .row.no-margin
-                        .row.type-document
-                          %ul.no-padding
-                            %li 
-                              %i.fa.fa-play-circle
-                            %li
-                              %span #{curriculum.description}
-                            - if curriculum.documents.count > 0
+                                %span #{curriculum.description}
+                              - if curriculum.documents.count > 0
+                                %li
+                                  %i.fa.fa-download
                               %li
-                                %i.fa.fa-download
-                            %li
-                              %i.fa.fa-comments
+                                %i.fa.fa-comments
+              - else
+                - if count_lecture <= 0
+                  - break
+                - count_lecture -= 1
+                .row.chap-item
+                  %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                    .row.item-container
+                      .chap-item-status
+                        - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                          .status-container.none
+                            %i.fa.fa-check
+                        - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                          .status-container.learning
+                            %i.fa.fa-pencil
+                        - else
+                          .status-container.completed
+                            %i.fa.fa-check
+                      .chap-item-content
+                        .row.no-margin
+                          %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                        .row.no-margin
+                          .row.type-document
+                            %ul.no-padding
+                              %li 
+                                %i.fa.fa-play-circle
+                              %li
+                                %span #{curriculum.description}
+                              - if curriculum.documents.count > 0
+                                %li
+                                  %i.fa.fa-download
+                              %li
+                                %i.fa.fa-comments
+          - rescue    
       #lecture-tab-download.tab-pane.fade
         / Short description of lecture
         / - if @lecture.description
