@@ -656,12 +656,19 @@ class CoursesController < ApplicationController
         c.category_ids = course['category_ids'] unless course['category_ids'].blank?
         c.label_ids = course['label_ids'] 
         c.lang = course['lang'] unless course['lang'].blank?
-
         c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
         c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-        c.curriculums = []
 
         if !course['curriculums'].blank?
+
+          lectures_old = []
+          lectures_new = []
+
+          c.curriculums.where(type: 'lecture').map{ |cu| 
+            lectures_old << [cu.url, cu.lecture_index]
+          }
+
+          c.curriculums = []
           lecture_index = 0
           course['curriculums'].each do |curriculum|
             course_curriculum = Course::Curriculum.new()
@@ -678,6 +685,21 @@ class CoursesController < ApplicationController
               lecture_index += 1
             end
           end
+
+          #get different of lecture_old and lecture new
+          c.curriculums.where(type: 'lecture').each do |cu|
+            lectures_new << [cu.url, cu.lecture_index]
+          end
+
+          diff_lectures = diff(lectures_new, lectures_old)
+
+          if diff_lectures != [-1, -1]
+            users = User.where('courses.course_id' => c.id)
+            users.each do |user| 
+              CourseWorker.perform_async(diff_lectures, c.id.to_s, user.id.to_s)
+            end
+          end
+
         else
           render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
           return
@@ -829,4 +851,15 @@ class CoursesController < ApplicationController
 
     return
   end
+
+  private
+    def diff(lectures_new, lectures_old)
+      lectures_diff = lectures_new.map{ |lec| lec[0]} & lectures_old.map{ |lec| lec[0]}
+      lectures_index_old = lectures_diff.map{ |diff| lectures_old.to_h[diff]}
+      lectures_index_new = lectures_diff.map{ |diff| lectures_new.to_h[diff]}
+      if lectures_index_old == lectures_index_new && lectures_new.length == lectures_old.length
+        return [-1, -1]
+      end
+      return lectures_index_old.zip(lectures_index_new)
+    end
 end

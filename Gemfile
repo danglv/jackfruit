@@ -47,6 +47,13 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 
+#sidekiq
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+
+#sidekiq-cron setup cron for sidekiq
+# gem "sidekiq-cron", "~> 0.3.0"
+
 # Image
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

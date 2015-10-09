@@ -79,10 +79,11 @@
                     %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                       .row.item-container
                         .chap-item-status
-                          - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                          - lecture = @owned_lectures.detect{|owned| owned.lecture_index == curriculum.lecture_index}
+                          - if lecture.status.to_i == 0
                             .status-container.none
                               %i.fa.fa-check
-                          - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                          - elsif lecture.status.to_i == 1
                             .status-container.learning
                               %i.fa.fa-pencil
                           - else
@@ -103,7 +104,8 @@
                                     %i.fa.fa-download
                                 %li
                                   %i.fa.fa-comments  
-            - rescue
+            - rescue Exception => e
+              - binding.pry
         .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.lecture-discussion
           .row.no-margin
             .col-md-4.col-lg-4.learning_tab.tab-actived{:val => "discussion"}
