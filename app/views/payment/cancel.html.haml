@@ -3,141 +3,52 @@
   .container-wrapper{:style => "overflow: hidden;"}
     .banner
     = render :partial => "components/banner/banner"
-    
-    .layout-320  
-      .payment.white-background
-        .row.no-margin
-          .col-xs-12.no-padding
-            .payment-header.fail
-              %span.title
-                %b Rất tiếc! Giao dịch của bạn chưa thành công
-        .container
-          .row.no-margin{:style => "margin-bottom: 5px;"}
-            .col-xs-12.no-padding
-              %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin
-          .row.no-margin
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Khóa học
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align
-                %b= @course.name
-          .row.no-margin
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Chi phí
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align.price-text
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin{:style => "margin-bottom: 20px"}
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Trạng thái
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align.fail-text
-                %b Thất bại
-        .divider{:style => "margin-bottom: 15px"}
-        .container
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding.hot-line
-              %i.fa.fa-phone
-              %span.normal-text Hotline: 
-              = succeed "" do
-                %b 0961215368
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button Thử lại
-          .row.no-margin
-            .col-xs-12.no-padding.center-align
-              %a{:href => "/courses", :style => "text-decoration: none;"}
-                %span.other-course-text khám phá các khóa học khác
-      
-    .layout-480-up.hidden-sm.hidden-md.hidden-lg 
-      .payment.white-background
-        .row.no-margin
-          .col-xs-12.no-padding
-            .payment-header.fail
-              %span.title
-                %b Rất tiếc! Giao dịch của bạn chưa thành công
-        .container
-          .row.no-margin{:style => "margin-bottom: 5px;"}
-            .col-xs-12.no-padding
-              %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
-          .row.no-margin
-            .col-xs-2.no-padding
-              %h5.left-align Khóa học
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align
-                %b= @course.name
-          .row.no-margin
-            .col-xs-2.no-padding
-              %h5.left-align Chi phí
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align.price-text
-                %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin{:style => "margin-bottom: 20px"}
-            .col-xs-2.no-padding
-              %h5.left-align Trạng thái
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align.fail-text
-                %b Thất bại
-        .divider{:style => "margin-bottom: 15px"}
-        .container
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding.hot-line
-              %i.fa.fa-phone
-              %span.normal-text Hotline: 
-              = succeed "" do
-                %b 0961215368
-          .row.no-margin
-            .col-xs-4.no-padding.center-align{:style => "margin-top: 10px;"}
-              %a{:href => "/courses", :style => "text-decoration: none;"}
-                %span.other-course-text khám phá các khóa học khác
-            .col-xs-6.col-xs-offset-2.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/home/payment/#{@course.alias_name}"} Thử lại
 
-    .row.no-margin.hidden-xs
-      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding
-        .payment.payment-box.hidden-xs
+    .row.no-margin
+      .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding
+        .payment.payment-box
           .row.no-margin
-            .col-sm-12.col-md-12.col-lg-12.no-padding
+            .col-xs-12.no-padding
               .payment-header.fail
                 %span.title{:style => "font-size: 18px;"}
                   %b Rất tiếc! Giao dịch của bạn chưa thành công
           .container.full-width
             .row.no-margin{:style => "margin-bottom: 30px;"}
-              .col-sm-12.col-md-12.col-lg-12.no-padding
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding
                 %h5.warning-text Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
             .row.no-margin
               .content
-                .content-left
+                .content-left.col-xs-3.no-padding
                   %h5.normal-text Khóa học
-                .content-right
+                .content-right.col-xs-7.no-padding
                   %h5
                     %b= @course.name
             .row.no-margin
               .content
-                .content-left
+                .content-left.col-xs-3.no-padding
                   %h5.normal-text Chi phí
                 .content-right
-                  %h5.price-text
+                  %h5.price-text.col-xs-7.no-padding
                     %b= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
             .row.no-margin{:style => "margin-bottom: 20px"}
               .content
-                .content-left
+                .content-left.col-xs-3.no-padding
                   %h5.normal-text Trạng thái
-                .content-right
+                .content-right.col-xs-7.no-padding
                   %h5.fail-text
                     %b Thất bại
           .divider{:style => "margin-bottom: 15px"}
           .container.full-width
             .row.no-margin{:style => "margin-bottom: 25px;"}
-              .col-sm-10.col-md-10.col-lg-10.no-padding.hot-line
+              .col-xs-12.col-sm-10.col-md-10.col-lg-10.no-padding.hot-line
                 %i.fa.fa-phone
                 %span.normal-text Hotline: 
                 = succeed "" do
                   %b 0961215368
             .row.no-margin
-              .col-sm-5.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.no-padding.center-align{:style => "margin-top: 18px;"}
+              .col-xs-12.col-sm-5.col-md-5.col-md-offset-1.col-lg-5.col-lg-offset-1.no-padding.center-align{:style => "margin-top: 18px;"}
                 %a{:href => "/courses", :style => "text-decoration: none;"}
                   %span.other-course-text khám phá các khóa học khác
-              .col-sm-6.col-sm-offset-1.col-md-4.col-lg-3.no-padding
+              .col-xs-12.col-sm-6.col-sm-offset-1.col-md-4.col-lg-3.no-padding
                 %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/home/payment/#{@course.alias_name}"} Thử lại
 = render :partial => 'components/footer/index'   
