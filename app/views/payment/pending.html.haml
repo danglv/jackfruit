@@ -1,112 +1,11 @@
-.layout-320
-  .header
-    = render :partial => 'components/header/default'
-    .container-wrapper{:style => "overflow: hidden;"}  
-      .banner
-        = render :partial => "components/banner/banner"
-      .payment.white-background
-        .row.no-margin
-          .col-xs-12.no-padding
-            .payment-header.pending
-              %span.title
-                %b Giao dịch của bạn đang được xử lý
-        .container
-          .row.no-margin{:style => "margin-bottom: 5px;"}
-            .col-xs-12.no-padding
-              %h5.normal-text
-                Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
-                %a.link-text{:href => "/users/payment_history"} Lịch sử giao dịch
-                để được cập nhật thường xuyên.
-          .row.no-margin
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Khóa học
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align
-                %b= @course.name
-          .row.no-margin
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Chi phí
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align.price-text
-                %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin{:style => "margin-bottom: 20px"}
-            .col-xs-3.no-padding
-              %h5.normal-text.left-align Trạng thái
-            .col-xs-7.col-xs-offset-2.no-padding
-              %h5.right-align.pending-text
-                %b Đang xử lý
-        .divider{:style => "margin-bottom: 15px"}
-        .container
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding.hot-line
-              %i.fa.fa-phone
-              %span.normal-text Hotline: 
-              = succeed "" do
-                %b 0961215368
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
-  = render :partial => 'components/footer/index'   
-
-.layout-480-up.hidden-sm.hidden-md.hidden-lg
-  .header
-    = render :partial => 'components/header/default'
-    .container-wrapper{:style => "overflow: hidden;"}
-      .banner
-        = render :partial => "components/banner/banner"  
-      .payment.white-background
-        .row.no-margin
-          .col-xs-12.no-padding
-            .payment-header.pending
-              %span.title
-                %b Giao dịch của bạn đang được xử lý
-        .container
-          .row.no-margin{:style => "margin-bottom: 5px;"}
-            .col-xs-12.no-padding
-              %h5.normal-text
-                Giao dịch của bạn đang được xử lý, hãy hoàn thành các thủ tục thanh toán và kiểm tra trang
-                %a.link-text{:href => "/users/payment_history"} Lịch sử giao dịch
-                để được cập nhật thường xuyên.
-          .row.no-margin
-            .col-xs-2.no-padding
-              %h5.normal-text.left-align Khóa học
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align
-                %b= @course.name
-          .row.no-margin
-            .col-xs-2.no-padding
-              %h5.normal-text.left-align Chi phí
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align.price-text
-                %b= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-          .row.no-margin{:style => "margin-bottom: 20px"}
-            .col-xs-2.no-padding
-              %h5.left-align Trạng thái
-            .col-xs-8.col-xs-offset-2.no-padding
-              %h5.right-align.pending-text
-                %b Đang xử lý
-              / %h5 = number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
-        .divider{:style => "margin-bottom: 15px"}
-        .container
-          .row.no-margin{:style => "margin-bottom: 25px;"}
-            .col-xs-12.no-padding.hot-line
-              %i.fa.fa-phone
-              %span.normal-text Hotline: 
-              = succeed "" do
-                %b 0961215368
-          .row.no-margin
-            .col-xs-12.no-padding
-              %a.btn.btn-info.btn-raised.btn-lg.refresh-button{:href => "/courses"} khám phá các khóa học khác
-  = render :partial => 'components/footer/index'   
-
-.row.no-margin.hidden-xs
+.row.no-margin
   = render :partial => 'components/header/default'
   .container-wrapper{:style => "overflow: hidden;"}
     .banner
       = render :partial => "components/banner/banner"  
     .row.no-margin
-      .col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding     
-        .payment.payment-box.hidden-xs{:style => "margin-top: 30px;"}
+      .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.no-padding
+        .payment.payment-box
           .row.no-margin
             .col-sm-12.col-md-12.col-lg-12.no-padding
               .payment-header.pending
