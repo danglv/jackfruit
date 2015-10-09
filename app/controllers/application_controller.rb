@@ -162,24 +162,36 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def after_sign_in_path_for(resource)
-  #   last_url = request.referer
-  #   uri = URI(last_url) if !last_url.blank? || last_url.is_a?(String)
-  #   course_id = nil
-    
-  #   if uri != nil
-  #     if !uri.query.blank?
-  #       params = URI::decode_www_form(uri.query).to_h
-  #       course_id = params["course_id"]
-  #     end
-  #   end
+  def handle_after_signin(resource)
+    referer_url = session[:referer_url] if !session.blank?
+    previous_url = session[:previous_url] if !session.blank?
+    referer_url = previous_url if referer_url.blank?
+    utm_source = session[:utm_source] if !session.blank?
 
-  #   if ((resource.is_a? User) && !course_id.blank?)
-  #     resource.wishlist << course_id if !(resource.wishlist.include? course_id) && course_id != nil
-  #     resource.save
-  #   end
-  #   session[:previous_url] || request.env['omniauth.origin'] || stored_location_for(resource) || root_path
-  # end
+    # Update wishlist
+    wishlist_params = request.referer.blank? ? {} : (Rack::Utils.parse_query URI(request.referer).query)
+    if !wishlist_params["course_id"].blank?
+      course_id = wishlist_params["course_id"]
+      resource.wishlist << course_id if (!(resource.wishlist.include? course_id) && !course_id.blank?)
+      resource.save
+    end
+
+    if (!referer_url.blank?)
+      url_components = referer_url.match(/([^\/]*)\/detail/)
+      course_alias_name = url_components[1] if url_components
+      course = Course.where(:alias_name => course_alias_name).first if !course_alias_name.blank?
+      if !course.blank?
+        owned_course = resource.courses.where(:course_id => course.id, :payment_status => Constants::PaymentStatus::SUCCESS).first
+        if owned_course
+          # Tracking L3d
+          a = Spymaster.params.cat('L3d').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
+        else
+          # Tracking L3b
+          b =Spymaster.params.cat('L3b').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
+        end
+      end
+    end
+  end
 
   def page_not_found
     condition = {}
