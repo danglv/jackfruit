@@ -74,6 +74,15 @@ before_filter :configure_sign_up_params, only: [:create]
   def after_sign_up_path_for(resource)
     referer_url = session[:referer_url] if !session.blank?
     utm_source = session[:utm_source] if !session.blank?
+
+    # Update wishlist
+    wishlist_params = request.referer.blank? ? {} : (Rack::Utils.parse_query URI(request.referer).query)
+    if !wishlist_params["course_id"].blank?
+      course_id = wishlist_params["course_id"]
+      resource.wishlist << course_id if (!(resource.wishlist.include? course_id) && !course_id.blank?)
+      resource.save
+    end
+
     # Tracking U8
     Spymaster.params.cat('U8').beh('submit').tar(resource.id).user(resource.id).ext(utm_source).track(request)
     if (referer_url)

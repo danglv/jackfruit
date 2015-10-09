@@ -33,25 +33,7 @@ before_filter :configure_sign_in_params, only: [:create]
   end
 
   def after_sign_in_path_for(resource)
-    referer_url = session[:referer_url] if !session.blank?
-    previous_url = session[:previous_url] if !session.blank?
-    referer_url = previous_url if referer_url.blank?
-    utm_source = session[:utm_source] if !session.blank?
-    if (referer_url)
-      url_components = referer_url.match(/([^\/]*)\/detail/)
-      course_alias_name = url_components[1] if url_components
-      course = Course.where(:alias_name => course_alias_name).first if !course_alias_name.blank?
-      if !course.blank?
-        owned_course = resource.courses.where(:course_id => course.id, :payment_status => Constants::PaymentStatus::SUCCESS).first
-        if owned_course
-          # Tracking L3d
-          Spymaster.params.cat('L3d').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
-        else
-          # Tracking L3b
-          Spymaster.params.cat('L3b').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
-        end
-      end
-    end
+    handle_after_signin(resource)
     super(resource)
   end
 end

@@ -11,8 +11,8 @@
           %span Pedia
       .row.no-margin.landing-card-users
         %i.fa.fa-users
-        - if course.students == 0
-          %span= course.students
+        - if course.fake_enabled
+          %span= course.fake_students.to_s + 'Học viên'
         - else
           %span= course.students.to_s + ' Học viên'
       .row.no-margin.course-price

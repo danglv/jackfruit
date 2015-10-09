@@ -130,6 +130,7 @@ feature 'Payment' do
   end
 
   scenario '[JPA005] zero amount payment' do
+    course = Course.where(alias_name: 'test-course-3').first
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_ZERO_AMOUNT_COUPON")
       .with(:headers => {
         'Accept'=>'*/*; q=0.5, application/xml',
@@ -146,6 +147,7 @@ feature 'Payment' do
                     '"used": 0',
                     '"enabled": true',
                     '"max_used": 1',
+                    '"course_id": "' + course.id + '"', 
                     '"discount": 100',
                     '"return_value": "50"',
                     '"issued_by": "hailn"}'].join(','),

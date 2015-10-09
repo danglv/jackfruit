@@ -119,7 +119,10 @@
             .col-md-4.col-lg-4.learning_tab{:val => "student"}
               %a
                 %i.fa.fa-users
-                %span= @course.students.to_s + " Học viên" 
+                - if @course.fake_enabled
+                  %span= @course.fake_students.to_s + " Học viên" 
+                - else 
+                  %span= @course.students.to_s + " Học viên" 
             .col-md-12.col-lg-12.no-padding.progress
               .col-md-4.col-lg-4.progress-actived
               .col-md-4.col-lg-4
