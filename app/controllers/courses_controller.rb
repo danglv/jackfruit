@@ -621,98 +621,98 @@ class CoursesController < ApplicationController
       if user_id.blank?
         render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
         return
+      end
+
+      user = User.find(user_id)
+
+      if !course_id.blank?
+        c = Course.where(:id => course_id).first
+      end
+
+      c = Course.find_or_initialize_by(
+        _id: course_id,
+        alias_name: course['alias_name'],
+        name: course['name'],
+        sub_title: course['sub_title'],
+        description: course['description'],
+        requirement: course['requirement'],
+        benefit: course['benefit'],
+        audience: course['audience'],
+        level: course['level'],
+      ) if c.blank?
+
+      c.name = course['name'] unless course['name'].blank?
+      c.alias_name = course['alias_name'] unless course['alias_name'].blank?
+      c.price = course['price'] unless course['price'].blank?
+      c.image = course['image'] unless course['image'].blank?
+      c.intro_link = course['intro_link'] unless course['intro_link'].blank?
+      c.intro_image = course['intro_image'] unless course['intro_image'].blank?
+      c.enabled_logo = course['enabled_logo']
+      c.enabled = course['enabled'] unless course['enabled'].blank?
+      c.description = course['description'] unless course['description'].blank?
+      c.requirement = course['requirement'] unless course['requirement'].blank?
+      c.benefit = course['benefit'] unless course['benefit'].blank?
+      c.audience = course['audience'] unless course['audience'].blank?
+      c.sub_title = course['sub_title'] unless course['sub_title'].blank?
+      c.level = course['level'] unless course['level'].blank?
+      c.category_ids = course['category_ids'] unless course['category_ids'].blank?
+      c.label_ids = course['label_ids'] 
+      c.lang = course['lang'] unless course['lang'].blank?
+      c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
+      c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
+
+      if !course['curriculums'].blank?
+
+        lectures_old = []
+        lectures_new = []
+
+        lectures_old = c.curriculums.where(type: 'lecture').map { |cu| 
+          [cu.url, cu.lecture_index]
+        }
+
+        c.curriculums = []
+        lecture_index = 0
+        course['curriculums'].each do |curriculum|
+          course_curriculum = Course::Curriculum.new()
+          course_curriculum.title = curriculum['title']
+          course_curriculum.description = curriculum['description']
+          course_curriculum.chapter_index = curriculum['chapter_index']
+          course_curriculum.lecture_index = lecture_index
+          course_curriculum.type = curriculum['type']
+          course_curriculum.asset_type = curriculum['asset_type']
+          course_curriculum.url = curriculum['url']
+          course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+          c.curriculums.push(course_curriculum)
+          if curriculum['type'] == 'lecture'
+            lecture_index += 1
+          end
+        end
+
+        lectures_new = c.curriculums.where(type: 'lecture').map { |cu|
+          [cu.url, cu.lecture_index]
+        }
+
+        diff_lectures = diff(lectures_old, lectures_new)
+
+        if diff_lectures != []
+          users = User.where('courses.course_id' => c.id)
+          users.each do |user| 
+            CourseWorker.perform_async(diff_lectures, c.id.to_s, user.id.to_s)
+          end
+        end
+
       else
-        user = User.find(user_id)
+        render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
+        return
+      end
+      c.user = user
 
-        if !course_id.blank?
-          c = Course.where(:id => course_id).first
-        end
-        
-        c = Course.find_or_initialize_by(
-          _id: course_id,
-          alias_name: course['alias_name'],
-          name: course['name'],
-          sub_title: course['sub_title'],
-          description: course['description'],
-          requirement: course['requirement'],
-          benefit: course['benefit'],
-          audience: course['audience'],
-          level: course['level'],
-        ) if c.blank?
-        c.name = course['name'] unless course['name'].blank?
-        c.alias_name = course['alias_name'] unless course['alias_name'].blank?
-        c.price = course['price'] unless course['price'].blank?
-        c.image = course['image'] unless course['image'].blank?
-        c.intro_link = course['intro_link'] unless course['intro_link'].blank?
-        c.intro_image = course['intro_image'] unless course['intro_image'].blank?
-        c.enabled_logo = course['enabled_logo']
-        c.enabled = course['enabled'] unless course['enabled'].blank?
-        c.description = course['description'] unless course['description'].blank?
-        c.requirement = course['requirement'] unless course['requirement'].blank?
-        c.benefit = course['benefit'] unless course['benefit'].blank?
-        c.audience = course['audience'] unless course['audience'].blank?
-        c.sub_title = course['sub_title'] unless course['sub_title'].blank?
-        c.level = course['level'] unless course['level'].blank?
-        c.category_ids = course['category_ids'] unless course['category_ids'].blank?
-        c.label_ids = course['label_ids'] 
-        c.lang = course['lang'] unless course['lang'].blank?
-        c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
-        c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-
-        if !course['curriculums'].blank?
-
-          lectures_old = []
-          lectures_new = []
-
-          c.curriculums.where(type: 'lecture').map{ |cu| 
-            lectures_old << [cu.url, cu.lecture_index]
-          }
-
-          c.curriculums = []
-          lecture_index = 0
-          course['curriculums'].each do |curriculum|
-            course_curriculum = Course::Curriculum.new()
-            course_curriculum.title = curriculum['title']
-            course_curriculum.description = curriculum['description']
-            course_curriculum.chapter_index = curriculum['chapter_index']
-            course_curriculum.lecture_index = lecture_index
-            course_curriculum.type = curriculum['type']
-            course_curriculum.asset_type = curriculum['asset_type']
-            course_curriculum.url = curriculum['url']
-            course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
-            c.curriculums.push(course_curriculum)
-            if curriculum['type'] == 'lecture'
-              lecture_index += 1
-            end
-          end
-
-          #get different of lecture_old and lecture new
-          c.curriculums.where(type: 'lecture').each do |cu|
-            lectures_new << [cu.url, cu.lecture_index]
-          end
-
-          diff_lectures = diff(lectures_new, lectures_old)
-
-          if diff_lectures != [-1, -1]
-            users = User.where('courses.course_id' => c.id)
-            users.each do |user| 
-              CourseWorker.perform_async(diff_lectures, c.id.to_s, user.id.to_s)
-            end
-          end
-
-        else
-          render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
-          return
-        end
-        c.user = user
-
-        if c.save
-          render json: c.as_json
-          return
-        else
-          render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
-          return
-        end
+      if c.save
+        render json: c.as_json
+        return
+      else
+        render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+        return
       end
     rescue Exception => e
       render json: {message: e.message}, status: :unprocessable_entity
@@ -853,12 +853,16 @@ class CoursesController < ApplicationController
   end
 
   private
-    def diff(lectures_new, lectures_old)
-      lectures_diff = lectures_new.map{ |lec| lec[0]} & lectures_old.map{ |lec| lec[0]}
-      lectures_index_old = lectures_diff.map{ |diff| lectures_old.to_h[diff]}
-      lectures_index_new = lectures_diff.map{ |diff| lectures_new.to_h[diff]}
-      if lectures_index_old == lectures_index_new && lectures_new.length == lectures_old.length
-        return [-1, -1]
+    def diff(lectures_old, lectures_new)
+      old_lectures_hash = lectures_old.to_h
+      new_lecture_hash = lectures_new.to_h
+
+      lectures_diff = old_lectures_hash.keys & new_lecture_hash.keys 
+      lectures_index_old = lectures_diff.map{ |diff| old_lectures_hash[diff]}
+      lectures_index_new = lectures_diff.map{ |diff| new_lecture_hash[diff]}
+
+      if lectures_new.length == lectures_old.length && lectures_index_old == lectures_index_new
+        return []
       end
       return lectures_index_old.zip(lectures_index_new)
     end
