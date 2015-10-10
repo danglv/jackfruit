@@ -79,6 +79,8 @@
               - if curriculum.type == 'chapter'
                 .row.chap-title #{curriculum.title}
               - elsif curriculum.lecture_index == @index_lecture
+                - lecture = @owned_lectures.detect{|owned| owned.lecture_index == curriculum.lecture_index}
+                - next if lecture.blank?
                 - if count_lecture <= 0
                   - break
                 - count_lecture -= 1
@@ -86,10 +88,10 @@
                   %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                     .row.item-container
                       .chap-item-status
-                        - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        - if lecture.status.to_i == 0
                           .status-container.none
                             %i.fa.fa-check
-                        - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        - elsif lecture.status.to_i == 1
                           .status-container.learning
                             %i.fa.fa-pencil
                         - else
@@ -111,6 +113,8 @@
                               %li
                                 %i.fa.fa-comments
               - else
+                - lecture = @owned_lectures.detect{|owned| owned.lecture_index == curriculum.lecture_index}
+                - next if lecture.blank?
                 - if count_lecture <= 0
                   - break
                 - count_lecture -= 1
@@ -118,10 +122,10 @@
                   %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
                     .row.item-container
                       .chap-item-status
-                        - if @owned_lectures[curriculum.lecture_index].status.to_i == 0
+                        - if lecture.status.to_i == 0
                           .status-container.none
                             %i.fa.fa-check
-                        - elsif @owned_lectures[curriculum.lecture_index].status.to_i == 1
+                        - elsif lecture.status.to_i == 1
                           .status-container.learning
                             %i.fa.fa-pencil
                         - else

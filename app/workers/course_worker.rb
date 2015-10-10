@@ -4,19 +4,19 @@ class CourseWorker
   sidekiq_options :retry => 1
 
   def perform(diff, course_id, user_id)
-    course_new = Course.where(id: course_id).first
+    course = Course.where(id: course_id).first
     user = User.where(id: user_id).first
-    course_user = user.courses.where(:course_id => course_new.id).first
+    owned_course = user.courses.where(:course_id => course.id).first
 
     lectures_user = []
-    course_new.curriculums.where(type: 'lecture').map{|lecture| 
+    course.curriculums.where(type: 'lecture').each do |lecture| 
       lectures_user.push(User::Lecture.new(
           lecture_index: lecture.lecture_index
         )
       )
-    }
+    end
 
-    course_user.lectures.each do |lecture_old|
+    owned_course.lectures.each do |lecture_old|
       diff_index = diff.detect{|d| d[0] == lecture_old.lecture_index}
 
       if !diff_index.blank?
@@ -39,8 +39,8 @@ class CourseWorker
         end
       end
     end
-    course_user.lectures = []
-    course_user.lectures.push(lectures_user)
-    course_user.save
+    owned_course.lectures = []
+    owned_course.lectures.push(lectures_user)
+    owned_course.save
   end
 end
