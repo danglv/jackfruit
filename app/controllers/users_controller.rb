@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     user.password = password
 
     if user.save
-      a = Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
+      Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
       render json: {user_id: user.id.to_s, :status => 'Create user'}
       return
     end
