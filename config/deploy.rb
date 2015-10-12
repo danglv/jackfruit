@@ -5,7 +5,7 @@ set :rvm_type, :system
 set :rvm_ruby_version, 'ruby-2.2.2@rails422'
 set :application, 'pedia'
 
-set :repo_url, 'git@git.memo.edu.vn:tcs/jackfruit.git'
+set :repo_url, 'git@git.pedia.vn:tcs/jackfruit.git'
 set :stages, %w[staging production]
 set :default_stage, 'staging'
 
@@ -41,16 +41,22 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w{public/uploads public/avatars log
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
-namespace :deploy do
-  before "assets:precompile", :get_bower_dependencies
-  desc 'Get bower dependencies'
-  task :get_bower_dependencies do
+namespace :sidekiq do
+  task :quiet do
     on roles(:app) do
-      within release_path do
-        execute :bower, "install"
-      end
+      # Horrible hack to get PID without having to use terrible PID files
+      puts capture("kill -USR1 $(sudo initctl status sidekiq index=1 | grep /running | awk '{print $NF}') || :") 
     end
   end
+
+  task :restart do
+    on roles(:app), in: :groups, wait: 3 do
+      execute :sudo, 'service sidekiq restart index=1'
+    end
+  end
+end
+
+namespace :deploy do
 
   desc 'Restart application'
   task :restart do
@@ -59,14 +65,31 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+  desc 'Clear cache'
+  task :clear_cache do
+    on roles(:app), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within release_path do
         execute :rake, 'tmp:cache:clear'
       end
     end
   end
-
 end
+
+namespace :assets do
+  desc 'Get bower dependencies'
+  task :get_bower_dependencies do
+    on roles(:app) do
+      within release_path do
+        execute :bower, 'install'
+      end
+    end
+  end
+end  
+
+# after 'deploy:starting', 'sidekiq:quiet'
+before 'deploy:assets:precompile', 'assets:get_bower_dependencies'
+after 'deploy:publishing', 'deploy:restart'
+after 'deploy:restart', 'deploy:clear_cache'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'
