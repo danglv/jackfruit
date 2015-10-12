@@ -464,6 +464,15 @@
         }
       }
       .carousel-fade {
+        .carousel-indicators {
+          bottom:0;
+          li {
+            background:#727272;
+          }
+          li.active {
+            background:#38b34a;
+          }
+        }
         .carousel-inner {
           .wrapper-sublan {
             position:absolute;bottom:0;width:100%;
