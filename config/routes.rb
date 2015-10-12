@@ -2,7 +2,6 @@ require 'sidekiq/web'
 Rails.application.routes.draw do  
 
   mount Sidekiq::Web => '/sidekiq'
-  
   get 'stencil/index'
 
   root to: "application#index"
@@ -115,6 +114,7 @@ Rails.application.routes.draw do
       post :update_note
       post :delete_note
       get :download_note
+      post :create_user_for_mercury
       get 'note/download', to: 'users#download_note'
       get 'payment_history' , to: 'users#payment_history'
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]

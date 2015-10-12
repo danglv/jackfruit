@@ -42,6 +42,42 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_user_for_mercury
+    email = params[:email]
+    name = params[:name]
+    phone = params[:phone]
+    password = params[:password].blank? ? '12345678' : params[:password]
+    utm_source = params[:utm_source].blank? ? {} : JSON.parse(params[:utm_source])
+
+    if email.blank?
+      render json: {message: "Email is empty"}, status: :unprocessable_entity
+      return  
+    end
+    
+    user = User.where(:email => email).first
+    # Check exist email user
+    if user
+      render json: {user_id: user.id.to_s, :status => 'Exist email'}
+      return
+    end
+
+    # Create user
+    user = User.new()
+    user.email = email unless email.blank?
+    user.name = name unless name.blank?
+    user.phone = phone unless phone.blank?
+    user.password = password
+
+    if user.save
+      Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
+      render json: {user_id: user.id.to_s, :status => 'Create user'}
+      return
+    end
+
+    render json: {message: "Can not save"}, status: :unprocessable_entity
+    return
+  end
+
   def sign_up_with_email
     email = params[:email]
     password = params[:password]
@@ -114,6 +150,7 @@ class UsersController < ApplicationController
     @owned_courses = current_user.courses
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @wishlist = Course.in(:id => wishlist_ids).to_a
+
   end
 
   def teaching
