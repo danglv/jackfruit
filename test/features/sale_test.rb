@@ -12,7 +12,6 @@ feature 'Sale' do
     page.must_have_content('199,000')
     page.must_have_content('98,000')
     page.must_have_content('50%')
-    # page.must_have_content('8 cơ hội')
     page.wont_have_content('NaN')
   end
 

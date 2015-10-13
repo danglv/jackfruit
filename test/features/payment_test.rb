@@ -1,7 +1,7 @@
 require 'test_helper'
 
 feature 'Payment' do
-  before do
+  before :each do
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
       .with(:headers => {
         'Accept'=>'*/*; q=0.5, application/xml',
@@ -30,9 +30,15 @@ feature 'Payment' do
     stub_request(:get, /.*tracking.pedia.vn.*/)
       .to_return(:status => 200, :body => '')
 
+    @student = User.create(
+      email: 'student3@pedia.vn',
+      password: '12345678',
+      password_confirmation: '12345678'
+    )
   end
 
-  after do
+  after :each do
+    @student.destroy
     Payment.destroy_all
   end
 
@@ -46,7 +52,7 @@ feature 'Payment' do
     find('.buy-button').click
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -74,7 +80,7 @@ feature 'Payment' do
     find('.buy-button').click
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -92,7 +98,7 @@ feature 'Payment' do
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -104,6 +110,7 @@ feature 'Payment' do
     end
 
     page.must_have_content('Thành công')
+    @student.courses.destroy_all
   end
 
   scenario '[JPA004] phone card payment fail' do
@@ -112,10 +119,10 @@ feature 'Payment' do
                  :body => '{"errorMessage": "Error", "transaction_id": 1}',
                  :headers => {})
 
-    visit '/home/payment/card/test-course-2?p=baokim_card'
+    visit '/home/payment/card/test-course-1?p=baokim_card'
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -159,7 +166,7 @@ feature 'Payment' do
     find('.buy-button').click
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student1@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
@@ -177,7 +184,7 @@ feature 'Payment' do
     find('.buy-button').click
 
     within('#login-modal') do
-      fill_in('user[email]', with: 'student2@tudemy.vn')
+      fill_in('user[email]', with: @student.email)
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
