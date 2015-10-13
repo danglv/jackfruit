@@ -1,7 +1,7 @@
 class PaymentController < ApplicationController
   include PaymentServices
 
-  before_filter :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
+  before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
   before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
@@ -10,14 +10,12 @@ class PaymentController < ApplicationController
     cod_payments = Payment.where(
       :course_id => @course.id,
       :user_id => current_user.id,
-      :method => Constants::PaymentMethod::COD
-    ).or(
-      {:status => "pending"},
-      {:status => "process"}
-    ).all.to_a
+      :method => Constants::PaymentMethod::COD,
+      :status.in => ['pending', 'process']
+    ).to_a
 
     if cod_payments.size > 0
-      redirect_to :back
+      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
       return
     end
 
@@ -69,14 +67,27 @@ class PaymentController < ApplicationController
   # GET, POST
   # Cash-on-delivery
   def cod
+    cod_payments = Payment.where(
+      :course_id => @course.id,
+      :user_id => current_user.id,
+      :method => Constants::PaymentMethod::COD,
+      :status.in => ['pending', 'process']
+    ).to_a
+
+    if cod_payments.size > 0
+      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
+      return
+    end
+
     coupon_code = params[:coupon_code]
     @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
 
     if request.method == 'POST'
-      payment = Payment.find_or_initialize_by(
+      payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
-        :method => Constants::PaymentMethod::COD
+        :method => Constants::PaymentMethod::COD,
+        :status => 'pending'
       )
 
       payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
