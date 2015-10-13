@@ -2,8 +2,6 @@ class Payment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  after_update :payment_to_success
-
   belongs_to :user, class_name: "User"
   belongs_to :course, class_name: "Course"
 
@@ -37,6 +35,11 @@ class Payment
   validate :check_method_cod
   validate :unique_user_course
 
+  before_save :update_status
+  before_destroy :check_owned_course
+  after_update :payment_to_success
+
+
   def unique_user_course
     payment = Payment.where(
       :user_id => self.user_id,
@@ -61,9 +64,6 @@ class Payment
 
     errors.add(:user_id, "cod for this user has been booked, can't cancel") unless cod_payment.blank?
   end
-
-  before_save :update_status
-  before_destroy :check_owned_course
 
   def status_enum
     Constants.PaymentStatusValues

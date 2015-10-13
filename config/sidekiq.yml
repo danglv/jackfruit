@@ -10,6 +10,6 @@ production:
   :concurrency: 15
   :logfile: ./log/sidekiq_production.log
 :queues:
-  - hight
+  - high
   - default
   - low
