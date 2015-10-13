@@ -113,12 +113,11 @@ class ApplicationController < ActionController::Base
   def validate_category
     @category_alias_name = params[:category_alias_name]
     @category = Category.where(alias_name: @category_alias_name).first
-    @category_id = @category.id.to_s
-
     if @category.blank?
       render 'page_not_found'
       return
     end
+    @category_id = @category.id.to_s
   end
 
   def validate_course
