@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
 
   before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
-  before_action :validate_course, :except => [:status, :success, :cancel, :error, :import_code, :cancel_cod, :detail, :update, :list_payment, :create]
+  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :pending, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
   # GET
