@@ -220,6 +220,7 @@
                           Mua khóa học
                       .sale-submit
                         - if !@sale_info[:coupon_code]
+                          - binding.pry
                           %a#coupon-dropdown-button.link-text.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => "", style: 'display: inline-block;'}
                             %h5.normal-text.link-text Nhập mã khuyến mãi
                           %ul#coupon-dropdown.dropdown-menu{:style => "height: 80px; width: 332px; position: absolute; left: 0; padding: 20px;"}
