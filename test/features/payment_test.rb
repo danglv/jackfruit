@@ -232,6 +232,27 @@ feature 'Payment' do
 
     page.must_have_content('Mua khóa học')
     page.wont_have_content('Kích hoạt mã COD')
+
+    find('.buy-button').click
+
+    find('.fa-shopping-cart').click
+
+    within('.cod-form') do
+      fill_in('mobile', with: '123456')
+      fill_in('address', with: 'Sahara')
+      select('Hà Nội', from: 'city')
+      fill_in('district', with: 'HK')
+      find('.purchase-button').click
+    end
+
+    visit '/courses/test-course-1/detail'
+
+    within('.cancel-text') do
+      find('a').click
+    end
+
+    page.must_have_content('Mua khóa học')
+    page.wont_have_content('Kích hoạt mã COD')
   end
 
   scenario '[JPA008] User input expired coupon' do
