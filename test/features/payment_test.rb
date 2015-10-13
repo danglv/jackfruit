@@ -43,9 +43,9 @@ feature 'Payment' do
   end
 
   scenario '[JPA001]' do
-    if Capybara.current_session.driver.browser.respond_to? 'manage'
-      Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
-    end
+    # if Capybara.current_session.driver.browser.respond_to? 'manage'
+    #   Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
+    # end
 
     visit '/courses/test-course-1/detail?coupon_code=A_VALID_COUPON'
 
@@ -232,5 +232,30 @@ feature 'Payment' do
 
     page.must_have_content('Mua khóa học')
     page.wont_have_content('Kích hoạt mã COD')
+  end
+
+  scenario '[JPA008] User input expired coupon' do
+    course = Course.where(alias_name: 'test-course-1').first
+
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=AN_EXPIRED_COUPON")
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "AN_EXPIRED_COUPON"',
+                    '"created_at": ' + (Time.now() - 2.days).to_json,
+                    '"expired_date": ' + (Time.now() - 1.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"course_id": "' + course.id + '"', 
+                    '"discount": 100',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
+
+    visit '/courses/test-course-1/detail?coupon_code=AN_EXPIRED_COUPON'
+
+    page.must_have_content("Mã coupon AN_EXPIRED_COUPON không hợp lệ")
   end
 end
