@@ -37,7 +37,7 @@ class Payment
 
   before_save :update_status
   before_destroy :check_owned_course
-  after_update :payment_to_success
+  after_save :payment_to_success
 
 
   def unique_user_course
@@ -131,22 +131,12 @@ class Payment
 
     cod_code
   end
+
   def payment_to_success
     if self.status == Constants::PaymentStatus::SUCCESS
       # Tracking L8s
-      a = Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
-          :payment_method => self.method}).track(new)
-      # params = {
-      #   Constants::TrackingParams::CATEGORY => "L8s",
-      #   Constants::TrackingParams::TARGET => self.course.id,
-      #   Constants::TrackingParams::BEHAVIOR => "submit",
-      #   Constants::TrackingParams::USER => self.user.id,
-      #   Constants::TrackingParams::EXTRAS => {
-      #     :payment_id => self.id,
-      #     :payment_method => self.method
-      #   }
-      # }
-      # track = Spymaster.track(params)
+      Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
+          :payment_method => self.method}).track(nil)
     end
   end
 end
