@@ -94,6 +94,9 @@ feature 'Payment' do
   scenario '[JPA003] phone card payment success' do
     stub_request(:post, "https://www.baokim.vn/the-cao/restFul/send")
       .to_return(:status => 200, :body => '{"amount": 199000}', :headers => {})
+      
+    stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
+      .to_return(:status => 200, body: '', headers: {})  
 
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
@@ -160,6 +163,8 @@ feature 'Payment' do
                     '"issued_by": "hailn"}'].join(','),
                   :headers => {}
                 )
+    stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
+      .to_return(:status => 200, body: '', headers: {})
 
     visit '/courses/test-course-3/detail?coupon_code=A_ZERO_AMOUNT_COUPON'      
 
