@@ -7,8 +7,9 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server 'sgserv1.pedia.vn', user: 'rails', roles: %w{web app db}, port: 22
-
+server 'sgstatic1.pedia.vn', user: 'rails', roles: %w{app}, port: 22
+server 'sgserv1.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
+# server 'sgserv2.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
 
 # role-based syntax
 # ==================
@@ -22,9 +23,9 @@ server 'sgserv1.pedia.vn', user: 'rails', roles: %w{web app db}, port: 22
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-role :app, %w{rails@sgserv1.pedia.vn:22}
-role :web, %w{rails@sgserv1.pedia.vn:22}
-role :db,  %w{rails@sgserv1.pedia.vn:22}
+# role :app, %w{rails@sgserv1.pedia.vn:22}
+# role :web, %w{rails@sgserv1.pedia.vn:22}
+# role :db,  %w{rails@sgserv1.pedia.vn:22}
 
 
 

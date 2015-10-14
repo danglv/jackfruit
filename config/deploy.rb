@@ -50,7 +50,7 @@ namespace :sidekiq do
   end
 
   task :restart do
-    on roles(:app), in: :groups, wait: 3 do
+    on roles(:sidekiq), in: :groups, wait: 3 do
       execute :sudo, 'service sidekiq restart index=1'
     end
   end
@@ -67,7 +67,7 @@ namespace :deploy do
 
   desc 'Clear cache'
   task :clear_cache do
-    on roles(:app), in: :groups, limit: 3, wait: 10 do
+    on roles(:app, :web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within release_path do
         execute :rake, 'tmp:cache:clear'
@@ -79,7 +79,7 @@ end
 namespace :assets do
   desc 'Get bower dependencies'
   task :get_bower_dependencies do
-    on roles(:app) do
+    on roles(:app, :web) do
       within release_path do
         execute :bower, 'install'
       end
