@@ -37,7 +37,7 @@ class Payment
 
   before_save :update_status
   before_destroy :check_owned_course
-  after_save :payment_to_success
+  # after_save :payment_to_success
 
 
   def unique_user_course
@@ -133,19 +133,19 @@ class Payment
   end
 
   def payment_to_success
-    if self.status == Constants::PaymentStatus::SUCCESS
-      # Push message
-      begin
-        RestClient.post('http://flow.pedia.vn:8000/notify/message/create',
-          timeout: 2000,
-          type: 'L8s',
-          msg: 'Có L8 khóa ' + self.course.name
-        )
-      rescue => e
-      end
-      # Tracking L8s
-      Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
-          :payment_method => self.method}).track(nil)
-    end
+    # if self.status == Constants::PaymentStatus::SUCCESS
+    #   # Push message
+    #   begin
+    #     RestClient.post('http://flow.pedia.vn:8000/notify/message/create',
+    #       timeout: 2000,
+    #       type: 'L8s',
+    #       msg: 'Có L8 khóa ' + self.course.name
+    #     )
+    #   rescue => e
+    #   end
+    #   # Tracking L8s
+    #   Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
+    #       :payment_method => self.method}).track(nil)
+    # end
   end
 end
