@@ -134,6 +134,15 @@ class Payment
 
   def payment_to_success
     if self.status == Constants::PaymentStatus::SUCCESS
+      # Push message
+      begin
+        RestClient.post('http://flow.pedia.vn:8000/notify/message/create',
+          timeout: 2000,
+          type: 'L8s',
+          msg: 'Có L8 khóa ' + self.course.name
+        )
+      rescue => e
+      end
       # Tracking L8s
       Spymaster.params.cat('L8s').beh('submit').tar(self.course.id).user(self.user.id).ext({:payment_id => self.id,
           :payment_method => self.method}).track(nil)
