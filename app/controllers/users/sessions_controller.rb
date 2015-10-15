@@ -14,7 +14,20 @@ before_filter :configure_sign_in_params, only: [:create]
     set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?
+
+    if request.referer && resource
+  		last_component_referer_url = URI(request.referer).path.split('/').last
+  		if last_component_referer_url == "hoc_thu.html"
+				RestClient.post('http://crm.pedia.topica.vn/admin/api/UpLevel/UpLevelAuto',
+          timeout: 2000,
+          email: resource.email
+        )
+        redirect_to "http://pedia.vn/courses/tu-duy-lam-chu-se-thay-doi-cuoc-doi-ban-nhu-the-nao/detail" and return
+  		end
+  	end
+
     respond_with resource, location: after_sign_in_path_for(resource)
+    return
   end
 
   # DELETE /resource/sign_out
