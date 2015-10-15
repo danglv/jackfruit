@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     user = User.new()
     user.email = email unless email.blank?
     user.name = name unless name.blank?
-    user.phone = phone unless phone.blank?
+    # user.mobile = phone unless phone.blank?
     user.password = password
 
     if user.save
