@@ -27,7 +27,7 @@
           .cod-form
             %form{:method => "post",:action => "/home/payment/cod"}
               %input{:type => "hidden", :name => "alias_name", :placeholder => "Tên đầy đủ", :value => @course.alias_name}
-              %input{:type => "hidden", :name => "coupon_code", :value => @coupon_code}
+              %input{:type => "hidden", :name => "coupon_code", :value => params[:coupon_code]}
               .payment-editor.left
                 %input.form-control{:type => "text", :name => "name", :placeholder => "Tên đầy đủ", :required => "required", :pattern => ".{6,}", :value => help_get_user_name}
               .payment-editor.right

@@ -94,6 +94,12 @@ feature 'Payment' do
   scenario '[JPA003] phone card payment success' do
     stub_request(:post, "https://www.baokim.vn/the-cao/restFul/send")
       .to_return(:status => 200, :body => '{"amount": 199000}', :headers => {})
+      
+    stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
+      .to_return(:status => 200, body: '', headers: {})  
+
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+      .to_return(:status => 200, body: '', headers: {})
 
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
@@ -161,6 +167,12 @@ feature 'Payment' do
                   :headers => {}
                 )
 
+    stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
+      .to_return(:status => 200, body: '', headers: {})
+
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+      .to_return(:status => 200, body: '', headers: {})
+
     visit '/courses/test-course-3/detail?coupon_code=A_ZERO_AMOUNT_COUPON'      
 
     find('.buy-button').click
@@ -204,6 +216,9 @@ feature 'Payment' do
   end
 
   scenario '[JPA007] User can cancel a COD payment' do
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+      .to_return(:status => 200, body: '', headers: {})
+
     visit '/courses/test-course-1/detail'
 
     find('.buy-button').click
@@ -278,5 +293,55 @@ feature 'Payment' do
     visit '/courses/test-course-1/detail?coupon_code=AN_EXPIRED_COUPON'
 
     page.must_have_content("Mã coupon AN_EXPIRED_COUPON không hợp lệ")
+  end
+
+  scenario '[JPA009] cod payment success' do
+    course = Course.where(alias_name: 'test-course-2').first
+
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON_1")
+      .with(:headers => {
+        'Accept'=>'*/*; q=0.5, application/xml',
+        'Accept-Encoding'=>'gzip, deflate',
+        'User-Agent'=>'Ruby'
+        }
+      )
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "A_VALID_COUPON"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"course_id": "' + course.id + '"',
+                    '"discount": 60',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
+
+    visit '/courses/test-course-2/detail?coupon_code=A_VALID_COUPON_1'
+
+    find('.buy-button').click
+
+    within('#login-modal') do
+      fill_in('user[email]', with: @student.email)
+      fill_in('user[password]', with: '12345678')
+      find('.btn-login-submit').click
+    end
+
+    find('.fa-shopping-cart').click
+
+    within('.cod-form') do
+      fill_in('mobile', with: '123456')
+      fill_in('address', with: 'Sahara')
+      select('Hà Nội', from: 'city')
+      fill_in('district', with: 'HK')
+      find('.purchase-button').click
+    end
+
+    page.must_have_content('Đang xử lý')
+    page.must_have_content('79,000')
   end
 end
