@@ -98,6 +98,9 @@ feature 'Payment' do
     stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
       .to_return(:status => 200, body: '', headers: {})  
 
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+      .to_return(:status => 200, body: '', headers: {})
+
     visit '/home/payment/card/test-course-1?p=baokim_card'
 
     within('#login-modal') do
@@ -163,7 +166,11 @@ feature 'Payment' do
                     '"issued_by": "hailn"}'].join(','),
                   :headers => {}
                 )
+
     stub_request(:post, 'http://flow.pedia.vn:8000/notify/message/create')
+      .to_return(:status => 200, body: '', headers: {})
+
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
       .to_return(:status => 200, body: '', headers: {})
 
     visit '/courses/test-course-3/detail?coupon_code=A_ZERO_AMOUNT_COUPON'      
@@ -209,6 +216,9 @@ feature 'Payment' do
   end
 
   scenario '[JPA007] User can cancel a COD payment' do
+    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+      .to_return(:status => 200, body: '', headers: {})
+
     visit '/courses/test-course-1/detail'
 
     find('.buy-button').click
