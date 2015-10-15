@@ -342,6 +342,6 @@ feature 'Payment' do
     end
 
     page.must_have_content('Đang xử lý')
-    page.must_have_content('119,000')
+    page.must_have_content('79,000')
   end
 end
