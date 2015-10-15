@@ -80,7 +80,7 @@
           %ol.carousel-indicators
             %li.active{"data-slide-to" => "0", "data-target" => "#carousel"}
             %li{"data-slide-to" => "1", "data-target" => "#carousel"}
-            %li{"data-slide-to" => "2", "data-target" => "#carousel"}
+            / %li{"data-slide-to" => "2", "data-target" => "#carousel"}
           .carousel-inner
             .active.item
               .fill.image-1.img-responsive{:style => 'background-repeat:no-repeat'}
@@ -92,11 +92,11 @@
               .wrapper-sublan{:style => 'bottom:2px'}
                 .sublan-inner
                   .col-lg-12= image_tag "sublan-1.png"
-            .item
-              .fill.image-3.img-responsive{:style => 'background-repeat:no-repeat'}
-              .wrapper-sublan{:style => 'bottom:30px'}
-                .sublan-inner
-                  .col-lg-12= image_tag "sublan-3.png"
+            / .item
+            /   .fill.image-3.img-responsive{:style => 'background-repeat:no-repeat'}
+            /   .wrapper-sublan{:style => 'bottom:30px'}
+            /     .sublan-inner
+            /       .col-lg-12= image_tag "sublan-3.png"
         .wrapper-register
           .register-inner
             .register-landingpage.col-lg-4.col-md-4
