@@ -141,11 +141,23 @@ class Payment
           type: 'L8s',
           msg: 'Có L8 khóa ' + self.course.name
         )
+        RestClient.post('http://mercury.pedia.vn/api/issue/close',{
+          :payment_id => self.id,
+          :status => self.status
+        })
       rescue => e
       end
       # Tracking L8s
       Spymaster.params.cat('L8s').beh('submit').tar(self.course.id.to_s).user(self.user.id.to_s).ext(
         {:payment_id => self.id.to_s, :payment_method => self.method}).track(nil)
+    elsif self.status == Constants::PaymentStatus::CANCEL
+      begin
+        RestClient.post('http://mercury.pedia.vn/api/issue/close',{
+          :payment_id => self.id,
+          :status => self.status
+        })
+      rescue => e
+      end
     end
   end
 end

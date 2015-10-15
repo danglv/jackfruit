@@ -43,6 +43,12 @@ iframe[name='google_conversion_frame'] {
   float: left;
 }
 
+.home .clearfix{
+  @media(max-width: 479px){
+    display: none;
+  }
+}
+
 @import "components/header";
 @import "components/buttons";
 @import "components/dropdowns";

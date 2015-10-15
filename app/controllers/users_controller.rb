@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
+  skip_before_filter :verify_authenticity_token, only: [:create_user_for_mercury]
 
   def index
     learning
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
     user = User.new()
     user.email = email unless email.blank?
     user.name = name unless name.blank?
-    user.phone = phone unless phone.blank?
+    # user.mobile = phone unless phone.blank?
     user.password = password
 
     if user.save
