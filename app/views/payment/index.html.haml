@@ -25,6 +25,11 @@
           = render 'payment_method', method: ''
 
 = render :partial => 'components/footer/index'
+
+:javascript
+  // Tracking L7a
+  Spymaster.track({category: 'L7a', behavior: 'open', target: '#{@course._id}'});
+
 / Google Code for PPT01 Conversion Page
 
 - if @course.id.to_s == "560925f0d8b7312c50000000"
