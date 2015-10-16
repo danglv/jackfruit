@@ -79,6 +79,9 @@ class UsersController < ApplicationController
     return
   end
 
+  def hoc_thu
+  end
+
   def sign_up_with_email
     email = params[:email]
     password = params[:password]
