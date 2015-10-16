@@ -9,7 +9,7 @@
 
 server 'sgstatic1.pedia.vn', user: 'rails', roles: %w{app}, port: 22
 server 'sgserv1.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
-# server 'sgserv2.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
+server 'sgserv2.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
 
 # role-based syntax
 # ==================

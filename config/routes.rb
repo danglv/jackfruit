@@ -115,6 +115,7 @@ Rails.application.routes.draw do
       post :delete_note
       get :download_note
       post :create_user_for_mercury
+      get :hoc_thu
       get 'note/download', to: 'users#download_note'
       get 'payment_history' , to: 'users#payment_history'
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
