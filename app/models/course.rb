@@ -14,7 +14,7 @@ class Course
   field :requirement, type: Array, default: []
   field :benefit, type: Array, default: []
   field :audience, type: Array, default: []
-  
+  field :labels_order, type: Array, default: []
   field :enabled_logo, type: Boolean, default: true
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"

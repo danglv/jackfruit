@@ -87,7 +87,8 @@ class ApplicationController < ActionController::Base
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8)
+    courses_homepage = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8).to_a
+    @courses = order_course_of_label('homepage', courses_homepage)
 
     # Get sale info for courses
     @sale_info = help_sale_info_for_courses @courses
@@ -158,6 +159,28 @@ class ApplicationController < ActionController::Base
       end
     else
       @banner = Banner.where(condition).first
+    end
+  end
+
+  def order_course_of_label(label_id, courses)
+    begin
+      courses.each do |c| 
+        if !c['labels_order'].blank?
+          order = c['labels_order'].detect{|label| 
+            label['id'] == label_id
+          }
+          if !order.blank? 
+            c['order'] = order['order'].to_i
+          else
+            c['order'] = 999
+          end
+        else
+          c['order'] = 999
+        end
+      end
+      courses.sort_by{|c| c['order']}
+    rescue
+      courses
     end
   end
 
