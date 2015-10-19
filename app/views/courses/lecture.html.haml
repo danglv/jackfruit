@@ -23,12 +23,14 @@
               var jw_video_url = '#{@lecture.url}';
               var jw_video_container = 'video-container';
               var jw_should_load = true;
+              var jw_media_id = '#{@lecture.id}';
               var is_logo = true;
           - else
             :javascript
               var jw_video_url = '#{@lecture.url}';
               var jw_video_container = 'video-container';
               var jw_should_load = true;
+              var jw_media_id = '#{@lecture.id}';
               var is_logo = false;
 
       - else

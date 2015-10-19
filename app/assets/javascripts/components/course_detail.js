@@ -187,8 +187,8 @@ $(document).ready(function () {
 
   $(".buy-button").click(function () {
     var course_id = $(".course_id").val();
-    // Tracking L7a
-    Spymaster.track({category: 'L7a', behavior: 'click', target: course_id});
+    // Tracking L2Click
+    Spymaster.track({category: 'L2Click', behavior: 'click', target: course_id});
   });
 
   $(".btn-submit-report").click(function () {

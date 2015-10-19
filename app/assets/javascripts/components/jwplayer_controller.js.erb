@@ -1,4 +1,4 @@
-function setup_jwplayer(container, url){
+function setup_jwplayer(container, url, mediaid){
   var player = jwplayer(container);
   var logo = "";
 
@@ -9,6 +9,7 @@ function setup_jwplayer(container, url){
   player.setup({
     skin: 'seven',
     file: url,
+    mediaid: mediaid,
     image: '',
     logo: {
       file: logo,
@@ -32,6 +33,18 @@ function setup_jwplayer(container, url){
     Spymaster.track("video", "complete", player.getPlaylist()[player.getPlaylistIndex()].file)
   });
 
+  player.onBuffer(function(){
+    Spymaster.track("video", "buffer", player.getPlaylist()[player.getPlaylistIndex()].file);
+  });
+
+  player.onPause(function(){
+    Spymaster.track("video", "pause", player.getPlaylist()[player.getPlaylistIndex()].file);
+  });
+
+  player.onError(function(message){
+    Spymaster.track("video", "error", player.getPlaylist()[player.getPlaylistIndex()].file, {message: message});
+  });
+
   window.addEventListener('beforeunload', function() {
     var label = player.getPlaylist()[player.getPlaylistIndex()].file;
     var value = Math.round(1000 * player.getPosition());
@@ -44,6 +57,6 @@ function setup_jwplayer(container, url){
 
 (function(){
   if (typeof(jw_should_load) !== 'undefined' && jw_should_load){
-    setup_jwplayer(jw_video_container, jw_video_url);
+    setup_jwplayer(jw_video_container, jw_video_url, jw_media_id);
   }
 })()
