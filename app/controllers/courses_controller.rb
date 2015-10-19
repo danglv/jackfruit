@@ -217,8 +217,7 @@ class CoursesController < ApplicationController
     end
 
     #fixed condition for Oct2015 campaign
-    condition = {:enabled => true, :label_ids.in => ["sale-oct-2015"], :id.ne => @course[:id]}
-    
+    condition = {:enabled => true, :id.in => @course.related.map{|c| c['id']}}
     @courses['related'] = [
       Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)
     ]
