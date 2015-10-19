@@ -666,7 +666,7 @@ class CoursesController < ApplicationController
       c.lang = course['lang'] unless course['lang'].blank?
       c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
       c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-      c.related = course['related']
+      c.related = course['related'].map{|r| r['id']} 
 
       if !course['curriculums'].blank?
 
