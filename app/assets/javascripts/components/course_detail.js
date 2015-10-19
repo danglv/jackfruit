@@ -117,7 +117,7 @@
     $(".tele-sales").css("display", "block");
   });
 
-  $(".send-form-support").click(function () {
+  $(".send-form-support-detail").click(function () {
 
     var course_id = $(".course_id").val();
     var course_name = $(".course_name").val();
@@ -138,7 +138,7 @@
       // 'payment_id'
     }
 
-    var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
+    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",
