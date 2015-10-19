@@ -67,7 +67,7 @@ $(document).ready(function () {
       // 'payment_id'
     }
 
-    var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
+    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",

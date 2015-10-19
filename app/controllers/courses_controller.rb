@@ -859,6 +859,24 @@ class CoursesController < ApplicationController
     return
   end
 
+  def send_form_suppot_detail
+
+    uri = URI('http://flow.pedia.vn:8000/notify/course_page_support/create')
+    req = Net::HTTP::Post.new(uri)
+    req.set_form_data(params)
+    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(req)
+    end
+    case res
+    when Net::HTTPSuccess, Net::HTTPRedirection
+      # OK
+    else
+      res.value
+    end
+
+    head :ok
+  end
+
   private
     def diff(lectures_old, lectures_new)
       old_lectures_hash = lectures_old.to_h

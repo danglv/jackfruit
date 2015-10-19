@@ -117,7 +117,7 @@
     $(".tele-sales").css("display", "block");
   });
 
-  $(".send-form-support").click(function () {
+  $(".send-form-support-detail").click(function () {
 
     var course_id = $(".course_id").val();
     var course_name = $(".course_name").val();
@@ -138,7 +138,7 @@
       // 'payment_id'
     }
 
-    var URL = 'http://flow.pedia.vn:8000/notify/course_page_support/create';
+    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",
@@ -187,8 +187,8 @@ $(document).ready(function () {
 
   $(".buy-button").click(function () {
     var course_id = $(".course_id").val();
-    // Tracking L7a
-    Spymaster.track({category: 'L7a', behavior: 'click', target: course_id});
+    // Tracking L2Click
+    Spymaster.track({category: 'L2Click', behavior: 'click', target: course_id});
   });
 
   $(".btn-submit-report").click(function () {

@@ -40,6 +40,9 @@ Rails.application.routes.draw do
       # API for kelley
       post :upload_course
       post :check_alias_name
+
+      # API support form detail
+      post '/api/send_form-support_detail', to: 'courses#send_form_suppot_detail'
     end
   end
 
