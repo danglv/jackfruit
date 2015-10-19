@@ -121,6 +121,8 @@ Rails.application.routes.draw do
       match '/edit_account', to: 'users#edit_account', via: [:get, :patch]
       match '/edit_avatar'  , to: 'users#edit_avatar', via: [:get, :patch]
       match '/edit_profile' , to: 'users#edit_profile', via: [:get, :patch]
+      match '/reset_password' , to: 'users#reset_password', via: [:get, :patch]
+      match '/forgot_password' , to: 'users#forgot_password', via: [:post]
 
       post '/create', to: 'users#create'
     end
