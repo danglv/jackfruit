@@ -234,6 +234,10 @@ class ApplicationController < ActionController::Base
     
   end
 
+  def reset_password
+    
+  end
+
   private
     def sort_curriculums
       cus = []

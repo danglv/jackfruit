@@ -1,0 +1,16 @@
+#fogot-password-dialog.modal.fade{:tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-body
+        .forgot-password
+          .forgot-password-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h5.title.no-margin Quên mật khẩu
+          .forgot-password-content
+            .form-group
+              %input.form-control#email-reset{:type => 'email', :name => "email", :required => 'true', :placeholder => 'Email đăng nhập'}
+            %a.btn.btn-success.reset-password-button Đặt lại mật khẩu
+            %span hoặc
+            %a.link-text.login{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"} Đăng nhập
+          .forgot-password-content-success
+            %h5.text-success Vui lòng kiểm tra email để đặt lại mật khẩu

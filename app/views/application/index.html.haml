@@ -1,5 +1,6 @@
 = render :partial => "devise/registrations/new"
 = render :partial => "devise/sessions/new"
+= render :partial => "components/forgot_password/index"
 / Màn hình từ 320px đến 992px
 .hidden-lg.hidden-md
   .row.no-margin
@@ -151,7 +152,8 @@
                     = hidden_field_tag :authenticity_token, form_authenticity_token
                     %input.btn.btn-login.btn-block.bold.btn-login-submit{:type => 'submit', :style => 'background:#38b34a', :value => 'Đăng nhập'}
                   %p.forgot-password-link.text-center
-                    %a.btn-link{:href => "#", :style => 'color:#009688'} Quên mật khẩu?
+                    %a.btn-link{:href => "#", :style => 'color:#009688', "data-target" => "#fogot-password-dialog", "data-toggle" => "modal"} Quên mật khẩu?
+                    / %button.btn.btn-primary{"data-target" => "#simple-dialog", "data-toggle" => "modal"} Open dialog
                   .login-social-title.text-center Đăng nhập với tài khoản mạng xã hội
                   .row.no-margin
                     .col-lg-6.col-md-6
