@@ -113,10 +113,9 @@ class UsersController < ApplicationController
     end
   
     User.new(
-      # :name => name,
-      # :email => email,
-      # :password => password,
-      # :password_confirmation => password
+      :email => email,
+      :password => password,
+      :password_confirmation => password
     )
 
     head :ok
