@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       render json: {message: "Email này đã được sử dụng!"}
       return
     end
-
+  
     User.new(
       :email => email,
       :password => password,
