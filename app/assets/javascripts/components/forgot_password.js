@@ -1,6 +1,10 @@
 'use strict';
 
 $(document).ready(function() {
+  $('#forgot-password-button').click(function() {
+    $('#login-modal').modal('hide');
+  })
+
   $('.reset-password-button').click(function(event) {
     var email = $("#email-reset").val();
     var URL = "/users/forgot_password?email=" + email;
@@ -19,6 +23,7 @@ $(document).ready(function() {
       }
     });
   });
+
   $('.login').click(function() {
     $('#fogot-password-dialog').modal('hide');
   })
