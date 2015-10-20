@@ -418,6 +418,11 @@ class PaymentController < ApplicationController
       cod_code: cod_code.blank? ? @payment.cod_code : cod_code
     })
 
+    if (@payment.status == Constants::PaymentStatus::SUCCESS)
+      render json: PaymentSerializer.new(@payment).cod_hash
+      return
+    end
+
     if @payment.save
       render json: PaymentSerializer.new(@payment).cod_hash
       return
@@ -492,7 +497,7 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
-    payment_status = params[:payment_status]
+    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS 
 
     payment = Payment.new(
       :user_id => user_id,
@@ -503,7 +508,7 @@ class PaymentController < ApplicationController
       :email => email,
       :address => address,
       :mobile => mobile,
-      :status => (payment_status.blank? ? Constants::PaymentStatus::SUCCESS : payment_status)
+      :status => payment_status
     )
 
     user = User.find(user_id)
@@ -525,7 +530,6 @@ class PaymentController < ApplicationController
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = payment.status
-
     if payment.save && owned_course.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
