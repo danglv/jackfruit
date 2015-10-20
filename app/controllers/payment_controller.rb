@@ -1,8 +1,9 @@
 class PaymentController < ApplicationController
   include PaymentServices
+  include ApplicationHelper
 
-  before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
-  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :pending, :payment_bill]
+  before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create, :onepay_respone_deal]
+  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :pending, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
   # GET
@@ -52,7 +53,6 @@ class PaymentController < ApplicationController
         render 'page_not_found', status: 404
         return
       end
-
       create_course_for_user()
 
       owned_course = current_user.courses.where(course_id: @course.id).first
@@ -220,6 +220,78 @@ class PaymentController < ApplicationController
   def cih
     coupon_code = params[:coupon_code]
     @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
+  end
+
+  def online_payment
+    coupon_code = params[:coupon_code]
+    @deal_info = {}
+    @payment = Payment.where(:course_id => @course.id, :user_id => current_user.id).first
+    if @payment.blank?
+      @payment = Payment.create(
+        course_id: @course.id,
+        user_id: current_user.id,
+        status: Constants::PaymentStatus::CREATED,
+        coupons: (coupon_code.blank? ? [] : [coupon_code])
+        )
+    else
+      @payment.coupons = (coupon_code.blank? ? [] : [coupon_code])
+      @payment.save
+    end
+    
+    @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
+
+    # Check hash_code from Onepay respone.
+    secure_hash_onepay = params[:vpc_SecureHash]
+    if !secure_hash_onepay.blank?
+      is_entirety, is_success_code = help_onepay_check_secure_hash(secure_hash_onepay, params)
+      is_success = (is_entirety == true && is_success_code == true)
+      
+      @deal_info[:payment_id] = params[:vpc_MerchTxnRef]
+      @deal_info[:status_code] = params[:vpc_TxnResponseCode]
+      @deal_info[:status_description] = ONEPAY_RESPONSE_CODE[params[:vpc_TxnResponseCode]]
+      @deal_info[:price] = (params[:vpc_Amount].to_i / 100)
+      if is_success
+        # Update payment and course when success.
+        @payment.method = Constants::PaymentMethod::ONLINE_PAYMENT
+        @payment.status = Constants::PaymentStatus::SUCCESS
+        @payment.money = @deal_info[:price]
+        @payment.save
+
+        create_course_for_user()
+
+        owned_course = current_user.courses.where(course_id: @course.id).first
+        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+        owned_course.save
+        redirect_to root_url + "courses/#{@course.alias_name}/learning"
+      else
+        # Update payment when failure.
+        @payment.method = Constants::PaymentMethod::ONLINE_PAYMENT
+        @payment.status = Constants::PaymentStatus::CANCEL
+        @payment.money = @deal_info[:price]
+        @payment.save
+      end
+    end
+  end
+
+  # API nhận dữ liệu từ Onepay(IPN).
+  def onepay_respone_deal
+    secure_hash_onepay = params[:vpc_SecureHash]
+    if !secure_hash_onepay.blank?
+      # Kiểm tra tính toàn vẹn dữ liệu và trạng thái của giao dịch(Nếu = 0 là gd thành công).
+      is_entirety, is_success_code = help_onepay_check_secure_hash(secure_hash_onepay, params)
+      is_success = (is_entirety == true && is_success_code == true)
+      # Nếu check hash_code đúng và respone_code = 0 => giao dịch thành công.
+      if (is_success == true && is_entirety == true)
+        # Update payment.
+        payment_id = params[:vpc_OrderInfo]
+        payment = Payment.where(:id => payment_id).first
+        if !payment.blank?
+          # Chuyển trạng thái payment sang success.
+        end
+      end
+    end
+    # Trả về phản hồi confirm đã nhận được IPN cho Onepay.
+    render :text => (is_entirety == true ? "responsecode=0&desc=confirm-success" : "responsecode=1&desc=confirm-success")
   end
 
   # GET
@@ -420,6 +492,7 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
+    payment_status = params[:payment_status]
 
     payment = Payment.new(
       :user_id => user_id,
@@ -430,7 +503,7 @@ class PaymentController < ApplicationController
       :email => email,
       :address => address,
       :mobile => mobile,
-      :status => 'success'
+      :status => (payment_status.blank? ? Constants::PaymentStatus::SUCCESS : payment_status)
     )
 
     user = User.find(user_id)
@@ -438,17 +511,20 @@ class PaymentController < ApplicationController
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
 
-    course.curriculums.where(
-      :type => Constants::CurriculumTypes::LECTURE
-    ).map{ |curriculum|
-      owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-    }
+    # Create lecture for user
+    if (payment.status == Constants::PaymentStatus::SUCCESS)
+      course.curriculums.where(
+        :type => Constants::CurriculumTypes::LECTURE
+      ).map{ |curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
 
-    total_student = course.students + 1
-    course["students"] = total_student
+      total_student = course.students + 1
+      course["students"] = total_student
+    end
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
-    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
+    owned_course.payment_status = payment.status
 
     if payment.save && owned_course.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
