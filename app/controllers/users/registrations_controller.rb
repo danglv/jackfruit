@@ -10,6 +10,7 @@ before_filter :configure_sign_up_params, only: [:create]
   # POST /resource
   def create
     build_resource(sign_up_params)
+    resource.name = params[:user][:name] if not params[:user][:name].blank?
     resource_saved = resource.save
     yield resource if block_given?
     if resource_saved
