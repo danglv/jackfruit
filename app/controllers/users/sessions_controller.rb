@@ -22,7 +22,7 @@ before_filter :configure_sign_in_params, only: [:create]
           timeout: 2000,
           email: resource.email
         )
-        redirect_to "http://pedia.vn/courses/tu-duy-lam-chu-se-thay-doi-cuoc-doi-ban-nhu-the-nao/detail" and return
+        redirect_to "http://tuduylamchu.pedia.vn/hocthu.html" and return
   		end
   	end
 
