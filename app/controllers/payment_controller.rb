@@ -1,8 +1,9 @@
 class PaymentController < ApplicationController
   include PaymentServices
+  include ApplicationHelper
 
   before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
-  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :pending, :payment_bill]
+  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :pending, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
   # GET
@@ -52,7 +53,6 @@ class PaymentController < ApplicationController
         render 'page_not_found', status: 404
         return
       end
-
       create_course_for_user()
 
       owned_course = current_user.courses.where(course_id: @course.id).first
@@ -222,6 +222,10 @@ class PaymentController < ApplicationController
     @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
   end
 
+  def online_payment
+
+  end
+
   # GET
   def status
   end
@@ -346,6 +350,11 @@ class PaymentController < ApplicationController
       cod_code: cod_code.blank? ? @payment.cod_code : cod_code
     })
 
+    if (@payment.status == Constants::PaymentStatus::SUCCESS)
+      render json: PaymentSerializer.new(@payment).cod_hash
+      return
+    end
+
     if @payment.save
       render json: PaymentSerializer.new(@payment).cod_hash
       return
@@ -420,6 +429,7 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
+    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS 
 
     payment = Payment.new(
       :user_id => user_id,
@@ -430,7 +440,7 @@ class PaymentController < ApplicationController
       :email => email,
       :address => address,
       :mobile => mobile,
-      :status => 'success'
+      :status => payment_status
     )
 
     user = User.find(user_id)
@@ -438,18 +448,20 @@ class PaymentController < ApplicationController
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
 
-    course.curriculums.where(
-      :type => Constants::CurriculumTypes::LECTURE
-    ).map{ |curriculum|
-      owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-    }
+    # Create lecture for user
+    if (payment.status == Constants::PaymentStatus::SUCCESS)
+      course.curriculums.where(
+        :type => Constants::CurriculumTypes::LECTURE
+      ).map{ |curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
 
-    total_student = course.students + 1
-    course["students"] = total_student
+      total_student = course.students + 1
+      course["students"] = total_student
+    end
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
-    owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-
+    owned_course.payment_status = payment.status
     if payment.save && owned_course.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
