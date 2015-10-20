@@ -83,7 +83,6 @@ class UsersController < ApplicationController
   end
 
   def sign_up_with_email
-    name = params[:name]
     email = params[:email]
     password = params[:password]
     platform   = params[:platform]
