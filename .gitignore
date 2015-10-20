@@ -18,3 +18,4 @@ mongoid.yml
 /public/*
 /vendor/assets/components/*
 /dump/
+/unuse_code/
