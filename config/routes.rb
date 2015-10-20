@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get '/api/suggestion_search', to: 'courses#suggestion_search'
       get '/api/get_money', to: 'courses#get_money'
       post 'upload_image', to: 'courses#upload_image'
+      post 'upload_document', to: 'courses#upload_document'
 
       # API for kelley
       post :upload_course

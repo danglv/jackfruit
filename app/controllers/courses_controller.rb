@@ -666,7 +666,7 @@ class CoursesController < ApplicationController
       c.lang = course['lang'] unless course['lang'].blank?
       c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
       c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-      c.related = course['related'].map{|r| r['id']} 
+      c.related = course['related'] == nil ? [] : course['related'].map{|r| r['id']} 
 
       if !course['curriculums'].blank?
 
@@ -689,6 +689,16 @@ class CoursesController < ApplicationController
           course_curriculum.asset_type = curriculum['asset_type']
           course_curriculum.url = curriculum['url']
           course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+          if !curriculum['documents'].blank?
+            curriculum['documents'].each do |d|
+              doc = Course::Document.new(
+                :title => d['title'],
+                :link => d['link'],
+                :type => d['type']
+              )
+              course_curriculum.documents.push(doc)
+            end
+          end
           c.curriculums.push(course_curriculum)
           if curriculum['type'] == 'lecture'
             lecture_index += 1
@@ -792,6 +802,27 @@ class CoursesController < ApplicationController
       return
 
     rescue Exception => e
+      render json: {:error => "Có lỗi xảy ra #{e.message}"}
+    end
+  end
+
+  # API UPLOAD DOCUMENTS FOR KELLEY
+
+  def upload_document
+    begin
+      file = params[:file]
+      file_name = params[:file_name]
+
+      path = Rails.public_path.join("uploads/documents/")
+      path.mkpath unless path.exist?
+
+      File.open(path.join(file_name), 'wb') do |f|
+        f.write(file.read)
+      end
+
+      render json: {'document' => "uploads/documents/#{file_name}"}
+      return
+    rescue Exception => e 
       render json: {:error => "Có lỗi xảy ra #{e.message}"}
     end
   end
