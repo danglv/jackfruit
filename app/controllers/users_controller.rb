@@ -83,6 +83,7 @@ class UsersController < ApplicationController
   end
 
   def sign_up_with_email
+    name = params[:name]
     email = params[:email]
     password = params[:password]
     platform   = params[:platform]
@@ -110,11 +111,12 @@ class UsersController < ApplicationController
       render json: {message: "Email này đã được sử dụng!"}
       return
     end
-
+  
     User.new(
-      :email => email,
-      :password => password,
-      :password_confirmation => password
+      # :name => name,
+      # :email => email,
+      # :password => password,
+      # :password_confirmation => password
     )
 
     head :ok
