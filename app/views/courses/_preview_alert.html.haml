@@ -17,11 +17,11 @@
 				Giá gốc
 			.row.no-margin
 				%span.bold.italic #{@course.price}
-		.col-lg-2
-			.row.no-margin
-				Giá khuyến mại
-			.row.no-margin
-				%span.bold 99.000
+		/ .col-lg-2
+		/ 	.row.no-margin
+		/ 		Giá khuyến mại
+		/ 	.row.no-margin
+		/ 		%span.bold 99.000
 		.col-lg-1
 			.row.no-margin
 				%a.btn.btn-primary{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning"}
@@ -38,11 +38,11 @@
 						Hãy mua khóa học
 						%b #{@course.name}
 						để tiếp tục học
-					%h4
-						Với giá ưu đãi
-						%b 99.000
-						%b
-							%s #{@course.price}
+					/ %h4
+					/ 	Với giá ưu đãi
+					/ 	%b 99.000
+					/ 	%b
+					/ 		%s #{@course.price}
 				.modal-footer
 					%a.btn.btn-default{:type => "button", :href => "/courses/#{@course.alias_name.to_s}/detail", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Không, cảm ơn
 					%a.btn.btn-primary{:type => "button", :href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=learnning", :onclick => "$('#disable_preview_modal').modal('hide'); return true;"} Mua khóa học
