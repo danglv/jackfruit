@@ -161,8 +161,11 @@
           %ul{:style => "margin-top:10px;"}
             - @lecture.documents.each do |document|
               %li
-                %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :doc_id => document.id}"}
-                  #{document.title}
+                / 
+                / %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :doc_id => document.id}"}
+                /   #{document.title}
+                / temp...........
+                %a.normal-text.link-text{:href => "https://static.pedia.vn/#{document.link}", :download => ""}#{document.title}
         - else
           %h5 Bài học không có tài liệu để tải
       #lecture-tab-discussion.tab-pane.fade{:style => "padding: 30px"}
