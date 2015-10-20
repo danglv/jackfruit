@@ -230,11 +230,11 @@
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
                                   %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-xs-12.no-padding
-                        / - if @preview_disabled
-                        /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
-                        / - else
-                        /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                        /     %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .report
                         %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
@@ -259,8 +259,8 @@
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
                                 %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-xs-12.no-padding
-                      / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                      /   %h5.normal-text.link-text Học thử miễn phí
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                        %h5.normal-text.link-text Học thử miễn phí
                     .report
                       %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý          

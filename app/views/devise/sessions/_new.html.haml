@@ -1,3 +1,4 @@
+= render :partial => "components/forgot_password/index"
 #login-modal.modal.fade
   .modal-dialog
     .modal-content
@@ -26,7 +27,8 @@
             = hidden_field_tag :authenticity_token, form_authenticity_token
             %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
         %p.forgot-password-link
-          %a.btn-link{:href => "#"} Quên mật khẩu?
+          / %a.btn-link{:href => "#"} Quên mật khẩu?
+          %a.btn-link#forgot-password-button{:href => "#", :style => 'color:#009688', "data-target" => "#fogot-password-dialog", "data-toggle" => "modal"} Quên mật khẩu?
       .modal-footer
         Chưa có tài khoản?
         %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal", :style => "cursor: pointer"} Đăng ký

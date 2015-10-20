@@ -53,7 +53,6 @@
         alert("Hết thời gian sale");
       });
   } else {
-    console.debug("Not found sale countdown");
   };
   var getCurrentElement = function (top) {
 

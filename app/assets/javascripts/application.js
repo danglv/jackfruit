@@ -35,6 +35,7 @@
 //= require components/popup_banner
 //= require components/validation
 //= require components/jwplayer_controller
+//= require components/forgot_password
 
 $(document).ready(function () {
   $.material.init();
