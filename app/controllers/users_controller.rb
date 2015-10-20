@@ -473,9 +473,9 @@ class UsersController < ApplicationController
     @user.reset_password_sent_at = Time.now
     @user.save
 
-    link = "https://localhost:3000/users/reset_password?token=#{@user.reset_password_token}"
+    link = "https://pedia.vn/users/reset_password?token=#{@user.reset_password_token}"
     # Send email
-    RestClient.post('https://email.pedia.vn/email_services/send_email',
+    RestClient.post('http://email.pedia.vn/email_services/send_email',
       email: email,
       str_html: "<div style='background: #fff;font: 14px sans-serif;color: #737373;border-top: 4px solid #17aa1c;margin-bottom: 20px;font-family: arial,sans-serif'> <div class='header' style='border-bottom: 1px solid #f4f4f4;padding-bottom: 20px;padding-left: 30px;padding-top: 20px;display: block'> <img src='http://i.imgur.com/GminBIY.png' style='width: 150px;display: block;max-width: 100%;' /> </div> <div class='content' style='padding: 30px 20px;line-height: 1.5em;color: #737373;;display: block'> <p>Xin chào " + @user.name + "</p> <p style='border-bottom:1px solid #f4f4f4;padding-bottom:20px;margin-bottom:20px;color:#737373'>Nhấn vào nút bên dưới để thay đổi mật khẩu của bạn.</p> <a href='" + link + "' style='display:inline-block;font-size:15px;color:#ffffff;padding:10px 15px;text-decoration:none;background-color:#1376d7;border-radius:3px' target='_blank'>Thay đổi mật khẩu của bạn</a> </div> </div>",
       sender: 'Pedia<mecury@pedia.vn>',
