@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create]
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create, :reset_password, :forgot_password]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
   skip_before_filter :verify_authenticity_token, only: [:create_user_for_mercury]
@@ -457,6 +457,77 @@ class UsersController < ApplicationController
     end
   end
 
+
+  # /users/request_reset_password?email=sfdsfsf
+  def forgot_password
+    # Check email
+    email = params[:email]
+    @user = User.where(:email => email).first
+    if not @user
+      render json: {message: "Email không tồn tại, vui lòng kiểm tra lại"}, status: 402
+      return
+    end
+
+    # Generate reset password token & expired time
+    @user.reset_password_token = new_reset_password_token(email)
+    @user.reset_password_sent_at = Time.now
+    @user.save
+
+    link = "https://pedia.vn/users/reset_password?token=#{@user.reset_password_token}"
+    # Send email
+    RestClient.post('http://email.pedia.vn/email_services/send_email',
+      email: email,
+      str_html: "<div style='background: #fff;font: 14px sans-serif;color: #737373;border-top: 4px solid #17aa1c;margin-bottom: 20px;font-family: arial,sans-serif'> <div class='header' style='border-bottom: 1px solid #f4f4f4;padding-bottom: 20px;padding-left: 30px;padding-top: 20px;display: block'> <img src='http://i.imgur.com/GminBIY.png' style='width: 150px;display: block;max-width: 100%;' /> </div> <div class='content' style='padding: 30px 20px;line-height: 1.5em;color: #737373;;display: block'> <p>Xin chào " + @user.name + "</p> <p style='border-bottom:1px solid #f4f4f4;padding-bottom:20px;margin-bottom:20px;color:#737373'>Nhấn vào nút bên dưới để thay đổi mật khẩu của bạn.</p> <a href='" + link + "' style='display:inline-block;font-size:15px;color:#ffffff;padding:10px 15px;text-decoration:none;background-color:#1376d7;border-radius:3px' target='_blank'>Thay đổi mật khẩu của bạn</a> </div> </div>",
+      sender: 'Pedia<mecury@pedia.vn>',
+      subj: 'Đặt lại mật khẩu Pedia'
+    )
+
+    render json: {message: "Vui lòng kiểm tra email để tiếp tục"}, status: 200
+  end
+
+  def new_reset_password_token(email)
+    Digest::SHA1.hexdigest([Time.now, rand, email].join)
+  end
+
+  def reset_password
+    token = params[:token]
+    if token.blank?
+      render 'invalid_reset_request'
+      return
+    end
+    @user = User.where(:reset_password_token => token).first
+    if not @user
+      render 'invalid_reset_request'
+      return
+    end
+    valid = @user.reset_password_sent_at >= Time.now - 30.minutes
+    if not valid
+      render 'invalid_reset_request'
+      return
+    end
+
+    if request.patch?
+      info = reset_password_params
+      if info[:password].blank? || info[:password_confirmation].blank?
+        flash.now[:error_changing_password] = "Thông tin không đầy đủ"
+      else
+        if @user.update(info)
+          # Sign in the user by passing validation in case their password changed
+          flash.now[:success_changing_password] = "Đổi mật khẩu thành công"
+          redirect_to "/"
+          return
+        else
+          messages = @user.errors.messages
+          if messages.include?(:password_confirmation)
+            flash.now[:error_changing_password] = "Xác nhận mật khẩu không đúng"
+          else
+            flash.now[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
+          end
+        end
+      end
+    end
+  end
+
   def edit_avatar
     if request.patch? && params[:user] && params[:user][:new_avatar]
       begin
@@ -642,6 +713,10 @@ class UsersController < ApplicationController
 
     def change_password_params
       params.require(:user).permit(['current_password', 'password', 'password_confirmation'])
+    end
+
+    def reset_password_params
+      params.require(:user).permit(['password', 'password_confirmation'])
     end
 
     def init_lectures_for_owned_course(owned_course, course)
