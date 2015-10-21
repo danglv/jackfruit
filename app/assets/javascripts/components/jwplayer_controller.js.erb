@@ -3,7 +3,7 @@ function setup_jwplayer(container, url, mediaid){
   var logo = "";
 
   if( is_logo ) {
-    logo = "<%= asset_path('water_mark_player.png') %>"; 
+    logo = <%= asset_path('water_mark_player.png') %>; 
   }
 
   player.setup({

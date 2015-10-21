@@ -528,11 +528,6 @@ class PaymentController < ApplicationController
         current_user.money -= @data[:final_price]
         create_course_for_user()
 
-        # NOTE: Online payment is disabled
-        # Update all previous online payment(s) of the user, who has the course
-        # Payment.where(:method => 'online_payment', user_id: current_user.id, course_id: @course.id)
-        #        .update_all(status: "cancel")
-
         payment = Payment.new(
           :course_id => @course.id,
           :user_id => current_user.id,

@@ -76,8 +76,6 @@ Rails.application.routes.draw do
 
       get '/test_online_payment/:alias_name', to: 'payment#test_online_payment'
 
-      # get '/:id/update', to: 'payment#update'
-
       # api for mercury
       get '/api/:id/detail', to: 'payment#detail'
       post '/api/:id/update', to: 'payment#update'
@@ -134,7 +132,7 @@ Rails.application.routes.draw do
 
   resources :sales do
     collection do
-      get 'courses/combo/:combo_code', to: 'sales#combo_courses'
+      get '/combo/:combo_code/detail', to: 'sales#detail'
     end
   end
 

@@ -27,7 +27,8 @@ module Sale
 
       course = data[:course]
       # Check combo
-      if (combo_code = data[:combo_code])
+      if (data[:combo_code])
+        combo_code = data[:combo_code]
         combo_package = get_combo(combo_code)
         if combo_package
           result[:final_price] = combo_package.price
@@ -81,10 +82,9 @@ module Sale
     def self.get_combo(combo_code)
       return Combo.request_package_by_code(combo_code)
     end
-
   end
 
-  class Services::Coupon
+  class Coupon
     GET_API = "http://code.pedia.vn/coupon"
 
     # Give course's id if want to specify coupon of the course
@@ -106,7 +106,7 @@ module Sale
         data = JSON.parse(response)
         case result.code
         when "200"
-          coupons = data['coupons'].select { |coupon| coupon['expired_date'].to_time > Time.now()}
+          coupons = data['coupons'].select { |coupon| coupon['expired_date'].to_time > Time.now() }
           return true, coupons
         else
           return false, "Yêu cầu coupon thất bại"
@@ -115,9 +115,9 @@ module Sale
     end
   end
 
-  class Services::Combo
+  class Combo
     def self.request_courses_by_code(combo_code)
-      # Find a campain
+      # Find a campaign
       campaign = Sale::Campaign.in_progress.where(
         :'packages.code' => combo_code
       ).first
