@@ -28,10 +28,78 @@ module Sale
     end
   end
 
-  describe 'Coupon' do
-    let(:course) { Course.new }
+  describe 'Services' do
+    before :each do
+      @users = User.create([
+        {
+          email: 'instructor@pedia.vn',
+          password: '12345678',
+          password_confirmation: '12345678'
+        },
+        {
+          email: 'student@pedia.vn',
+          password: '12345678',
+          password_confirmation: '12345678'
+        }
+      ])
 
-    it 'must round down price in k-base' do
+      @courses = Course.create([
+        {
+          name: 'Test combo 1',
+          price: 199000,
+          alias_name: 'test-combo-course-1',
+          version: Constants::CourseVersions::PUBLIC,
+          enabled: true,
+          user: @users[0]
+        },
+        {
+          name: 'Test combo 2',
+          price: 599000,
+          alias_name: 'test-combo-course-2',
+          version: Constants::CourseVersions::PUBLIC,
+          enabled: true,
+          user: @users[0]
+        },
+        {
+          name: 'Test combo 3',
+          price: 199000,
+          alias_name: 'test-combo-course-3',
+          version: Constants::CourseVersions::PUBLIC,
+          enabled: true,
+          user: @users[0]
+        }
+      ])
+    
+      @campaign = Sale::Campaign.create(
+        title: 'Test Sale Campaign',
+        start_date: Time.now,
+        end_date: Time.now + 2.days
+      )
+
+      @packages = Sale::Package.create([
+        {
+          title: 'Test Sale Package 1',
+          price: 79000,
+          campaign: @campaign,
+          courses: @courses,
+          participant_count: 2,
+          max_participant_count: 10,
+          start_date: Time.now,
+          end_date: Time.now + 2.days,
+          code: 'A_COMBO_CODE'
+        }
+      ])
+    end            
+
+    after :each do
+      @users.each { |x| x.destroy }
+      @courses.each { |x| x.destroy }
+      @campaign.destroy
+      @packages.each { |x| x.destroy }
+    end
+
+    it 'should round down price in k-base' do
+      course = @courses[1]
       stub_request(:get, 'http://code.pedia.vn/coupon?coupon=A_VALID_COUPON')
         .to_return(
           :status => 200,
@@ -53,6 +121,19 @@ module Sale
       sale_info = Sale::Services.get_price({ course: course, coupon_code: 'A_VALID_COUPON' })
 
       value(sale_info[:final_price]).must_equal(119000)
+    end
+
+    it 'should return a valid package if combo_code exists and package is open' do
+      combo_package = Sale::Services.get_combo('A_COMBO_CODE')
+
+      assert_equal(79000, combo_package.price)
+      assert_equal(3, combo_package.courses.size)
+    end
+
+    it 'should return nil if combo_code doesnt exists' do
+      combo_package = Sale::Services.get_combo('INVALID_COMBO_CODE')
+
+      assert_nil(combo_package)
     end
   end
 end
