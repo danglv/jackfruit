@@ -11,7 +11,7 @@
   }
   $.fn.ratingPopup = function () {
 
-    this.click( function () { 
+    this.click( function () {
 
       handleClose();
     });
@@ -31,8 +31,8 @@
         'description' : ratingContent,
         'rate' : ratingNumber
       }
-      
-      var URL = 'http://' + window.location.host + '/courses/' + course_id + '/rating';
+
+      var URL = '//' + window.location.host + '/courses/' + course_id + '/rating';
       $.ajax({
           type: 'POST',
           url: URL,
@@ -52,7 +52,7 @@
 
       var bg = "<div class='rating-popup-background'></div>"
       var htmlPopup = "<div class='col-xs-12 col-sm-8 col-md-6 col-lg-4 no-padding rating-popup'> <div class='row rating-popup-title'> <span>Đánh giá khoá học</span> <i class='fa fa-times rating-popup-close'></i> </div> <div class='row rating-popup-main'> <div class='row no-margin'> <span>Đánh giá :</span> <ul class='no-padding rating'>";
-     
+
       // get default value for popup rating
       var num_rate = $(this).attr("data-rate");
       var title = $(this).attr("data-title");
@@ -69,7 +69,7 @@
         }
       }
       htmlPopup += "</ul> </div> <div class='row no-margin'> <input name='star' type='hidden' value='5'><input class='form-control' id='rating-title' placeholder='Tiêu đề'> <textarea class='form-control' id='rating-content' placeholder='Nội dung'></textarea> <button class='btn btn-primary' id='rating-submit'>Đánh giá</button> </div> </div> </div> "
-   
+
       // append popup to dom
       $("body").append(bg);
       $("body").append(htmlPopup);

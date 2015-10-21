@@ -1,13 +1,13 @@
 $(document).ready(function (){
 	$('#comment-dropdown').click(function (e){
-	  	e.stopPropagation(); 
+	  	e.stopPropagation();
 		});
 	// close popup
 	$('#close-send-comment').click(function (){
     $('#comment-dropdown').fadeOut(225);
 		$('#comment-dropdown').removeClass('active');
 	})
-	// send request to add comment 
+	// send request to add comment
 	$('#send-comment').click(function (){
 
 		var course_id = $("#course-id").val();
@@ -43,7 +43,6 @@ $(document).ready(function (){
 	// search comment when typing
 	$('#search-comment').on('input', function (){
 		var key_words = $(this).val();
-		console.log(key_words)
     if(key_words.trim() != ''){
       var list_discussion = $('.discussion-item');
       list_discussion.each(function (){
@@ -228,7 +227,7 @@ $(document).ready(function (){
     tabActions[tabValue]();
 
   });
-  
+
   $(".btn-add-announcement").click(function(){
     var title = $(".an-title").val();
     if (title == "") {
@@ -250,8 +249,6 @@ $(document).ready(function (){
       'course_id': course_id
     };
 
-    console.log(params);
-
     var URL = 'http://' + window.location.host + '/courses/' + course_id + '/add_announcement';
 
     $.ajax({
@@ -259,7 +256,6 @@ $(document).ready(function (){
       url: URL,
       data: params,
       success: function(msg){
-        console.log(msg);
       }
     });
     location.reload();
@@ -276,7 +272,6 @@ $(document).ready(function (){
     var parent_announcement_id = that.prev().prev().val();
 
     var course_id = $(".course_id").val();
-    console.log(course_id);
     params = {
       'course_id': course_id,
       'description': description,
@@ -290,7 +285,6 @@ $(document).ready(function (){
       url: URL,
       data: params,
       success: function(msg){
-        console.log(msg);
         that.parent().parent().parent().before(msg);
         that.prev().val("");
       }

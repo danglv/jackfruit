@@ -1,5 +1,5 @@
 (function ($) {
-  
+
   $.fn.wishlist = function () {
     this.click( function () {
       var course_id = $(this).attr('val');
@@ -11,10 +11,10 @@
       if (heart.classList.contains("wishlist")){
         heart.classList.remove("wishlist");
       }else{
-        heart.classList.add("wishlist"); 
+        heart.classList.add("wishlist");
       }
 
-      var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
+      var URL = '//' + window.location.host + '/home/my-course/update_wishlist';
       $.ajax({
           type: 'GET',
           url: URL,
@@ -28,14 +28,13 @@
   if(window.location.hash) {
     var hash = window.location.hash.substring(1);
     if(hash == "wishlist") {
-      console.log($("#learning-tab"))
       $("#learning-tab").removeClass("active")
       $("#wishlist-tab").addClass("active")
       $("#myCourse-studying").removeClass("active")
       $("#myCourse-studying").removeClass("in")
       $("#myCourse-favorite").addClass("active")
       $("#myCourse-favorite").addClass("in")
-    } 
+    }
   }
 
   $('.wishlist-heart').wishlist();

@@ -1,10 +1,10 @@
 (function ($) {
- 
+
  $.fn.fullScreen = function () {
 
   this.click(function () {
     if( $(this).hasClass("rotate") ) {
-  
+
       $(this).removeClass("rotate");
       var container = $(".lecture").width();
       var widthPlayer = 0;
@@ -101,7 +101,7 @@
         }
       });
   })
-  
+
   $(".note-item").click(function(event) {
     // $(".edit-text").addClass('disable');
     var textarea_edit = $(this).children('.edit-text');
@@ -155,7 +155,6 @@
         'owned_course_id' : owned_course_id,
         'owned_lecture_id' : owned_lecture_id
       }
-      console.log(params);
       $(".input-note-content").val("");
 
 
@@ -166,7 +165,6 @@
         data: params,
         success: function(msg){
           var data = msg;
-          console.log(data);
           var item_note = "<li class='row'><div class='time pull-left'><div class='time-content'>" + data.time + "</div></div><div class='note-item pull-left'><span>" + data.content + "</span><input class='note-id' type='hidden' value='" + data._id + "'></div><a class='note-delete' href='#'>x</a></li>";
           $(".list-note").append(item_note);
           // description.val("");
@@ -191,7 +189,6 @@
       'owned_lecture_id' : owned_lecture_id
     }
 
-    console.log(params)
 
     var URL = 'http://' + window.location.host + '/users/delete_note';
     $.ajax({
@@ -200,8 +197,6 @@
       data: params,
       success: function(msg){
         var data = msg;
-        console.log(msg);
-        console.log(note_id);
         $("input[value=" + note_id + "]").parent().parent().remove();
       }
     });
