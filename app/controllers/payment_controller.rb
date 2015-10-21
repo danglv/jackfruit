@@ -165,7 +165,6 @@ class PaymentController < ApplicationController
     if request.method == 'GET'
       process_card_payment()
     elsif request.method == 'POST'
-      create_course_for_user()
       baokim = BaoKimPaymentCard.new
 
       receive_data = baokim.create_request_url({
