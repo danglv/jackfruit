@@ -80,6 +80,9 @@ class UsersController < ApplicationController
   end
 
   def hoc_thu
+    if !current_user.blank?
+      redirect_to "http://tuduylamchu.pedia.vn/hocthu.html" and return
+    end
   end
 
   def sign_up_with_email
