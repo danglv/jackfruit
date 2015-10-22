@@ -22,7 +22,9 @@ before_filter :configure_sign_in_params, only: [:create]
           timeout: 2000,
           email: resource.email
         )
-        redirect_to "http://tuduylamchu.pedia.vn/hocthu.html" and return
+        redirect_to "http://tuduylamchu.pedia.vn/hocthu.html"
+        sign_out current_user
+        return
   		end
   	end
 
