@@ -25,7 +25,7 @@ $(document).ready(function () {
         'title': _title,
         'description': _description
       }
-      var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+      var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
       $.ajax({
         type: 'POST',
         url: URL,
@@ -89,7 +89,7 @@ $(document).ready(function () {
       'course_id': course_id
     }
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
     $.ajax({
       type: 'POST',
       url: URL,
@@ -124,7 +124,7 @@ $(document).ready(function () {
       'course_id': course_id
     }
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
     $.ajax({
       type: 'POST',
       url: URL,
@@ -261,7 +261,7 @@ $(document).ready(function () {
 
     console.log(params);
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_announcement';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_announcement';
 
     $.ajax({
       type: 'POST',
@@ -292,7 +292,7 @@ $(document).ready(function () {
       'parent_announcement_id': parent_announcement_id
     }
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_child_announcement';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_child_announcement';
 
     $.ajax({
       type: 'POST',
