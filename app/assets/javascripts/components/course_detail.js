@@ -137,7 +137,7 @@
       // 'payment_id'
     }
 
-    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
+    var URL = 'https://' + window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",
@@ -168,7 +168,7 @@ $(document).ready(function () {
       'course_id': course_id,
     }
 
-    var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
+    var URL = 'https://' + window.location.host + '/home/my-course/update_wishlist';
     $.ajax({
       type: 'GET',
       url: URL,
@@ -203,7 +203,7 @@ $(document).ready(function () {
       'content': content
     }
 
-    var URL = 'http://' + window.location.host + '/support/send_report';
+    var URL = 'https://' + window.location.host + '/support/send_report';
     $.ajax({
       type: 'POST',
       url: URL,
