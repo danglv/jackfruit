@@ -61,7 +61,7 @@
       'curriculum_id': curriculum_id
     }
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
     $.ajax({
       type: 'POST',
       url: URL,
@@ -94,7 +94,7 @@
       'course_id': course_id
     }
 
-    var URL = 'https://' + window.location.host + '/courses/' + course_id + '/add_discussion';
+    var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
     $.ajax({
       type: 'POST',
       url: URL,
@@ -141,7 +141,7 @@
         'content': content
       }
 
-      var URL = 'https://' + window.location.host + '/users/update_note';
+      var URL = '//' + window.location.host + '/users/update_note';
       $.ajax({
         type: 'POST',
         url: URL,
@@ -170,7 +170,7 @@
       console.log(params);
       $(".input-note-content").val("");
 
-      var URL = 'https://' + window.location.host + '/users/create_note';
+      var URL = '//' + window.location.host + '/users/create_note';
       $.ajax({
         type: 'POST',
         url: URL,
@@ -207,7 +207,7 @@
 
     console.log(params)
 
-    var URL = 'https://' + window.location.host + '/users/delete_note';
+    var URL = '//' + window.location.host + '/users/delete_note';
     $.ajax({
       type: 'POST',
       url: URL,

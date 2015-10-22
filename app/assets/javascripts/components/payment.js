@@ -67,7 +67,7 @@ $(document).ready(function () {
       // 'payment_id'
     }
 
-    var URL = 'https://' + window.location.host + '/courses/api/send_form-support_detail';
+    var URL = '//' + window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",

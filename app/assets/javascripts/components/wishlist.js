@@ -14,7 +14,7 @@
         heart.classList.add("wishlist");
       }
 
-      var URL = 'https://' + window.location.host + '/home/my-course/update_wishlist';
+      var URL = '//' + window.location.host + '/home/my-course/update_wishlist';
       $.ajax({
         type: 'GET',
         url: URL,

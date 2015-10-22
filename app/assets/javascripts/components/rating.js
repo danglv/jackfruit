@@ -31,7 +31,7 @@
         'rate': ratingNumber
       }
 
-      var URL = 'https://' + window.location.host + '/courses/' + course_id + '/rating';
+      var URL = '//' + window.location.host + '/courses/' + course_id + '/rating';
       $.ajax({
         type: 'POST',
         url: URL,
