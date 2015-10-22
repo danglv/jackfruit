@@ -30,15 +30,89 @@ feature 'Payment' do
     stub_request(:get, /.*tracking.pedia.vn.*/)
       .to_return(:status => 200, :body => '')
 
+    @instructor = User.create(
+      email: 'nguyendanhtu@pedia.vn',
+      password: '12345678',
+      password_confirmation: '12345678'
+    )
+
+    instructor_profiles = User::InstructorProfile.create([
+      {
+        academic_rank: 'Doctor',
+        user: @instructor
+      }
+    ])
+
     @student = User.create(
       email: 'student3@pedia.vn',
       password: '12345678',
       password_confirmation: '12345678'
     )
+
+    @courses = Course.create([
+      {
+        name: 'Test Course 1',
+        price: 199000,
+        alias_name: 'test-course-1',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      },
+      {
+        name: 'Test Course 2',
+        price: 199000,
+        alias_name: 'test-course-2',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      },
+      {
+        name: 'Test Course 3',
+        price: 199000,
+        alias_name: 'test-course-3',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      }
+    ])
+
+    @campaign = Sale::Campaign.create(
+      title: 'Test Sale Campaign 1',
+      start_date: Time.now,
+      end_date: Time.now + 2.days
+    )
+
+    @sale_packages = Sale::Package.create([
+      {
+        title: 'Test Sale Package 1',
+        price: 98000,
+        campaign: @campaign,
+        courses: [@courses[0]],
+        participant_count: 2,
+        max_participant_count: 10,
+        start_date: Time.now,
+        end_date: Time.now + 2.days
+      },
+      {
+        title: 'Test Sale Package 2',
+        price: 98000,
+        campaign: @campaign,
+        courses: [@courses[2]],
+        participant_count: 2,
+        max_participant_count: 10,
+        start_date: Time.now,
+        end_date: Time.now + 2.days
+      }
+    ])
   end
 
   after :each do
+    @instructor.destroy
     @student.destroy
+    @courses.each { |x| x.destroy }
+    @campaign.destroy
+    @sale_packages.each { |x| x.destroy }
+
     Payment.destroy_all
   end
 
