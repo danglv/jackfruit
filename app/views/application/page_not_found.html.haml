@@ -9,9 +9,10 @@
       Vui lòng quay lại vào lúc khác hoặc
       %a.btn.btn-lg.btn-primary.bold{:href => "/courses/", :style => 'padding-top:30px;padding-bottom:30px;margin-left:10px'}
         KHÁM PHÁ CÁC KHÓA HỌC KHÁC
-  .row.text-left
-    .col-xs-12.bold{:style => 'font-size:24px;margin-bottom:10px'} Một số khóa học nổi bật
-  .row.text-left{:style => 'width:1040px;margin:auto'}
-    - @courses.each do |course|
-      .col-xs-3{:style => 'margin-bottom:15px'}
-        = render :partial => 'components/courses/course_card', :locals => {:course => course}
+  - if @courses != nil
+    .row.text-left
+      .col-xs-12.bold{:style => 'font-size:24px;margin-bottom:10px'} Một số khóa học nổi bật
+    .row.text-left{:style => 'width:1040px;margin:auto'}
+      - @courses.each do |course|
+        .col-xs-3{:style => 'margin-bottom:15px'}
+          = render :partial => 'components/courses/course_card', :locals => {:course => course}
