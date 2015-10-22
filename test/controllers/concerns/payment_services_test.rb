@@ -13,8 +13,4 @@ class FakePaymentControllerTest < ActionController::TestCase
   def teardown
     @baokim = nil
   end
-  
-  test 'should have BaoKimPayment declared' do
-    assert @baokim
-  end
 end
