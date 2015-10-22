@@ -19,19 +19,21 @@
       %i.fa.fa-credit-card.payment-method-icon{:style => "vertical-align: top;"}
       .method-text
         .two-line
-          Thanh toán bằng thẻ điện thoại
+          Thẻ điện thoại
+          .bold (Ví có: #{help_show_currency(current_user.money)})
         .one-line
-          Thanh toán bằng thẻ điện thoại
+          Thẻ điện thoại
+          .bold (Ví có: #{help_show_currency(current_user.money)})
     .list-style-big
       %i.fa.fa-credit-card.payment-method-icon
       .method-text
-        Thanh toán bằng thẻ
+        Thẻ điện thoại
         %br
-        điện thoại
+        .bold (Ví có: #{help_show_currency(current_user.money)})
     .card-style
       %i.fa.fa-credit-card.payment-method-icon
-      %h5 Thanh toán bằng thẻ
-      %h5 điện thoại
+      %h5 Thẻ điện thoại
+      %h5.bold (Ví có: #{help_show_currency(current_user.money)})
   %a.btn.btn-default.btn-raised.btn-transfer.no-padding{:href => help_build_payment_method_url("/home/payment/transfer/#{@course.alias_name}", @data), :class => [('active' if method == 'transfer')]}
     .list-style-small
       %i.fa.fa-building.payment-method-icon
