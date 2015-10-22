@@ -60,16 +60,16 @@
   .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
     %ul.nav.nav-tabs.lecture-container-header
       %li.active
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-list"} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-list",:title => 'Danh sách bài học'} 
           %i.fa.fa-list
       %li
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-download"}
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-download",:title => 'Download tài liệu'}
           %i.fa.fa-download
       %li
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion"} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion",:title => 'Thảo luận bài học'} 
           %i.fa.fa-comments
       %li
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-note"} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-note",:title => 'Ghi chú cho bài học'} 
           %i.fa.fa-file-text
     .tab-content
       #lecture-tab-list.tab-pane.fade.active.in
