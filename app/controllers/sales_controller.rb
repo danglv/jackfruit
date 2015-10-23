@@ -7,7 +7,7 @@ class SalesController < ApplicationController
 
     if request.headers['Accept'] == 'json'
       result = @combo_package.blank? \
-                ? {'error': "Mã combo #{combo_code} không hợp lệ"} \
+                ? {'error' => "Mã combo #{combo_code} không hợp lệ"} \
                 : SalePackageSerializer.new(@combo_package)
       render json: result
       return
