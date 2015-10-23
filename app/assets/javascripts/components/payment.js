@@ -42,16 +42,16 @@ $(document).ready(function () {
       error_msg = "Hãy nhập số điện thoại để chúng tôi có thể liên hệ với bạn";
     else if (mobile.length < 9)
       error_msg = "Số điện thoại không đúng, vui lòng kiểm tra lại";
-    else{
+    else {
       var phone_pattern = /^([0-9\(\)\/\+ \-]*)$/;
       if (!mobile.match(phone_pattern))
         error_msg = "Số điện thoại không hợp lệ, vui lòng kiểm tra lại";
     }
-    if (error_msg){
+    if (error_msg) {
       $("#payment-support-form > #validate-message").text(error_msg);
       $("#payment-support-form > #validate-message").css("display", "block");
       return;
-    }else{
+    } else {
       $("#payment-support-form > #validate-message").css("display", "none");
     }
 
@@ -67,7 +67,7 @@ $(document).ready(function () {
       // 'payment_id'
     }
 
-    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
+    var URL = '//' + window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",
@@ -92,24 +92,52 @@ $(document).ready(function () {
   $(".btn-cod").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'cod'}});
+    Spymaster.track({
+      category: 'L7b',
+      behavior: 'click',
+      target: course_id,
+      extras: {
+        payment_method: 'cod'
+      }
+    });
   });
 
   $(".btn-transfer").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'transfer'}});
+    Spymaster.track({
+      category: 'L7b',
+      behavior: 'click',
+      target: course_id,
+      extras: {
+        payment_method: 'transfer'
+      }
+    });
   });
 
   $(".btn-card").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'card'}});
+    Spymaster.track({
+      category: 'L7b',
+      behavior: 'click',
+      target: course_id,
+      extras: {
+        payment_method: 'card'
+      }
+    });
   });
 
   $(".btn-cih").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L7b
-    Spymaster.track({category: 'L7b', behavior: 'click', target: course_id, extras: {payment_method: 'cih'}});
+    Spymaster.track({
+      category: 'L7b',
+      behavior: 'click',
+      target: course_id,
+      extras: {
+        payment_method: 'cih'
+      }
+    });
   });
 });
