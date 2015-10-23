@@ -204,7 +204,7 @@
                             %b Hủy giao dịch COD
                           tại
                           = succeed "" do
-                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
+                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", onclick: "return confirm('Bạn có chắc chắn muốn huỷ giao dịch cod này?');"} ĐÂY
                           và tiếp tục mua khóa học
                     - else
                       .purchase-submit
