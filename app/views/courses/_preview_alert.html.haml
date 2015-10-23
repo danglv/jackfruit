@@ -1,4 +1,4 @@
-%input#preview_expired_time_alway_unique{:type => "hidden", :value => "#{@owned_course.expired_at.utc}"}
+%input#preview_expired_time_alway_unique{:type => "hidden", :value => "#{(@owned_course.expired_at.utc.to_f * 1000).to_i}"}
 .col-xs-12.text-center{:style => 'background-color: #38B34A; margin: 10px 0px; padding: 5px 0px; color: white;'}
 	.col-xs-12.no-margin.center{:style => 'width: 80%;'}
 		.col-lg-2
