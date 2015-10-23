@@ -8,8 +8,8 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 server 'sgstatic1.pedia.vn', user: 'rails', roles: %w{app web}, port: 22
-server 'sgserv1.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
-server 'sgserv2.pedia.vn', user: 'rails', roles: %w{app sidekiq}, port: 22
+server 'sgserv1.pedia.vn', user: 'rails', roles: %w{app web sidekiq}, port: 22
+server 'sgserv2.pedia.vn', user: 'rails', roles: %w{app web sidekiq}, port: 22
 
 # role-based syntax
 # ==================
