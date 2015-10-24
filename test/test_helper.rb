@@ -6,8 +6,10 @@ require 'minitest/rails/capybara'
 require 'capybara/rails'
 require "rack_session_access/capybara"
 
-## Comment this when using Chrome/Firefox
-# require 'capybara/poltergeist'
+# Test driver
+TEST_DRIVER = 'chrome' # chrome or phantonjs
+
+require 'capybara/poltergeist' if TEST_DRIVER == 'phantonjs'
 require 'minitest/reporters'
 require 'webmock/minitest'
 
@@ -25,6 +27,7 @@ Minitest::Reporters.use!(
 
 class ActiveSupport::TestCase
 
+  # Redirect sources from /upload/images to pedia.vn
   Rails.application.routes.disable_clear_and_finalize = true
   Rails.application.routes.draw do
     get '/uploads/images/:path', to: redirect("https://pedia.vn/uploads/images/%{path}")
@@ -42,22 +45,24 @@ class ActiveSupport::TestCase
   # Capybara.default_driver = :selenium
 
   # Test with Chrome/Chromium
-  Capybara.register_driver :chrome do |app|
-    Capybara::Selenium::Driver.new(app, {:browser => :chrome})
+  if TEST_DRIVER == 'chrome'
+    Capybara.register_driver :chrome do |app|
+      Capybara::Selenium::Driver.new(app, {:browser => :chrome})
+    end
+    Capybara.default_driver = :chrome
+  else
+    # Test with phantomjs
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app,
+        {
+          js_errors: false,
+          phantomjs_options:['--proxy-type=none'],
+          timeout:180
+        }
+      )
+    end
+    Capybara.default_driver = :poltergeist
   end
-  Capybara.default_driver = :chrome
-
-  ## Test with phantomjs
-  # Capybara.register_driver :poltergeist do |app|
-  #   Capybara::Poltergeist::Driver.new(app,
-  #     {
-  #       js_errors: false,
-  #       phantomjs_options:['--proxy-type=none'],
-  #       timeout:180
-  #     }
-  #   )
-  # end
-  # Capybara.default_driver = :poltergeist
 
   Rake::Task["db:test:load"].invoke
 end
