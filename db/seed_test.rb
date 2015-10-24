@@ -107,7 +107,7 @@ c_discussions = discussions[0].child_discussions.create ([
 ])
 
 # Load a full course
-data = File.read('/db/test_course/thiet-ke-web.json')
+data = File.read('db/test_course/thiet-ke-web.json')
 json = JSON.parse(data) if not data.blank?
 if not json.blank?
   json.delete('discussions')
