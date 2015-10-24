@@ -23,78 +23,70 @@ feature 'Coupon Flow' do
     Payment.destroy_all
   end
 
-  # scenario 'Keep coupon when user jumps to courses page and goes back' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Keep coupon when user jumps to courses page and goes back' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_courses_page
+    visit_courses_page
 
-  #   visit_detail_without_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
-  # end
+    visit_detail_without_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
+  end
 
-  # scenario 'Saved coupon never be used for other course' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Saved coupon never be used for other courses' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_detail_without_coupon('test-course-1')
-  #   must_have_contents('Test Course 1')
-  #   # Suppose that Test course 1 and Test course 2 have the same price
-  #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
-  # end
+    visit_detail_without_coupon('test-course-1')
+    must_have_contents('Test Course 1')
+    # Suppose that Test course 1 and Test course 2 have the same price
+    wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
+  end
 
-  # scenario 'Coupon lost when user visits other course' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Coupon lost when user visits other course' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_detail_without_coupon('test-course-1')
-  #   must_have_contents('Test Course 1')
-  #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
+    visit_detail_without_coupon('test-course-1')
+    must_have_contents('Test Course 1')
+    wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
 
-  #   visit_detail_without_coupon('test-course-2')
-  #   must_have_contents('Test Course 2')
-  #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
-  # end
+    visit_detail_without_coupon('test-course-2')
+    must_have_contents('Test Course 2')
+    wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
+  end
 
-  # scenario 'Coupon should be presented in payment without coupon in url' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Coupon should be presented in payment without coupon in url' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_payment_page('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
-  # end
+    visit_payment_page('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
+  end
 
-  # scenario 'Coupon never be presented in payment of other course' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Coupon never be presented in payment of other course' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_payment_page('test-course-1')
-  #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
-  # end
+    visit_payment_page('test-course-1')
+    wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
+  end
 
-  # scenario 'Make a success payment with saved coupon' do
-  #   visit_detail_with_coupon('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+  scenario 'Make a success payment with saved coupon' do
+    visit_detail_with_coupon('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   visit_card_payment_page('test-course-2')
-  #   must_have_contents('Test Course 2', '39,000', '80%')
+    visit_card_payment_page('test-course-2')
+    must_have_contents('Test Course 2', '39,000', '80%')
 
-  #   stub_card_request_with_amount(10000)
-  #   submit_payment_by_card
-  #   must_have_contents("Bạn đã nạp thành công 10000đ")
+    stub_card_request_with_amount(10000)
+    submit_payment_by_card
+    must_have_contents("Bạn đã nạp thành công 10000đ")
 
-  #   stub_card_request_with_amount(29000)
-  #   submit_payment_by_card
-  #   must_have_contents('Test Course 2', 'thanh toán thành công', '39,000')
-  # end
-
-  # scenario 'Visit learning page' do
-  #   visit_detail_without_coupon('full-free-course')
-  #   find('.learning-button').click
-  #   do_login
-  #   find('.select-button').click
-  #   must_have_contents('Bài giảng')
-  # end
+    stub_card_request_with_amount(29000)
+    submit_payment_by_card
+    must_have_contents('Test Course 2', 'thanh toán thành công', '39,000')
+  end
 
   scenario 'User previews course and then makes a success payment' do
     stub_coupon_request_with('full-paid-course', 80)
