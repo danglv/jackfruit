@@ -117,6 +117,7 @@ RailsAdmin.config do |config|
       field :city
       field :district
       field :cod_code
+      field :money
     end
   end
 

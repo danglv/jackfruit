@@ -17,11 +17,11 @@ require 'spymaster'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
 module Jackfruit
   class Application < Rails::Application
     # Tracking setup.
-    Spymaster.setup('Pedia', '1.0.0', 'http://localhost:3001/api/global/track')
+    Spymaster.setup('Pedia', '1.0.0')
     config.autoload_paths << Rails.root.join('lib')
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -55,8 +55,9 @@ module PaymentServices extend ActiveSupport::Concern
       data_sign = OpenSSL::HMAC.hexdigest('SHA1', SECURE_PASS, data)
 
       params['data_sign'] = data_sign
-      http = Net::HTTP.Proxy('127.0.0.1', 8888)
-      request = http.post_form(URI.parse("#{BAOKIM_URL}"), params)
+
+      request = Net::HTTP.post_form(URI.parse("#{BAOKIM_URL}"), params)
+
       return request
     end
 

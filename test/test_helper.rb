@@ -43,8 +43,6 @@ class ActiveSupport::TestCase
 
   # Test with Chrome/Chromium
   Capybara.register_driver :chrome do |app|
-    client = Selenium::WebDriver::Remote::Http::Default.new
-    client.timeout = 5 * 60 # Page load timeout in seconds
     Capybara::Selenium::Driver.new(app, {:browser => :chrome})
   end
   Capybara.default_driver = :chrome
