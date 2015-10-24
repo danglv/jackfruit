@@ -8,7 +8,7 @@ feature 'Coupon Flow' do
 
     stub_request(:get, /.*tracking.pedia.vn.*/)
       .to_return(:status => 200, :body => '')
-      
+
     @student = User.create(
       email: 'student3@pedia.vn',
       password: '12345678',
@@ -51,7 +51,6 @@ feature 'Coupon Flow' do
   #   must_have_contents('Test Course 1')
   #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
 
-
   #   visit_detail_without_coupon('test-course-2')
   #   must_have_contents('Test Course 2')
   #   wont_have_contents('39,000', '80%', 'Mã coupon', 'không hợp lệ')
@@ -79,7 +78,7 @@ feature 'Coupon Flow' do
 
   #   visit_card_payment_page('test-course-2')
   #   must_have_contents('Test Course 2', '39,000', '80%')
-    
+
   #   stub_card_request_with_amount(10000)
   #   submit_payment_by_card
   #   must_have_contents("Bạn đã nạp thành công 10000đ")
@@ -104,7 +103,7 @@ feature 'Coupon Flow' do
 
     find('a', :text => 'Học thử miễn phí').click
     do_login
-    
+
     find('a', :text => 'MUA KHÓA HỌC').click
     must_have_contents('Full paid course', '39,000', '80%')
 
@@ -113,7 +112,7 @@ feature 'Coupon Flow' do
     stub_card_request_with_amount(39000)
     submit_payment_by_card
     must_have_contents('Full paid course', 'thanh toán thành công', '39,000')
-    
+
     find('.btn-to-course').click
     must_have_contents('Full paid course', 'Bài giảng')
   end
