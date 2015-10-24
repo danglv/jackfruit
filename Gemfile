@@ -87,7 +87,7 @@ end
 group :test do
   gem 'capybara'
   gem 'poltergeist'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.48.1'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
