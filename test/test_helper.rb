@@ -5,13 +5,12 @@ require 'minitest/rails'
 require 'minitest/rails/capybara'
 require 'capybara/rails'
 require "rack_session_access/capybara"
-
-# Test driver
-TEST_DRIVER = 'phantomjs' # chrome or phantomjs
-
-require 'capybara/poltergeist' if TEST_DRIVER == 'phantomjs'
 require 'minitest/reporters'
 require 'webmock/minitest'
+
+# Test driver
+TEST_DRIVER = ENV['TEST_DRIVER'] || 'poltergeist'
+require 'capybara/poltergeist' if TEST_DRIVER == 'poltergeist'
 
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
@@ -41,28 +40,23 @@ class ActiveSupport::TestCase
   # fixtures :all
   # Add more helper methods to be used by all tests here...
 
-  ## Test with Firefox
-  # Capybara.default_driver = :selenium
-
   # Test with Chrome/Chromium
-  if TEST_DRIVER == 'chrome'
-    Capybara.register_driver :chrome do |app|
-      Capybara::Selenium::Driver.new(app, {:browser => :chrome})
-    end
-    Capybara.default_driver = :chrome
-  else
-    # Test with phantomjs
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app,
-        {
-          js_errors: false,
-          phantomjs_options:['--proxy-type=none'],
-          timeout:180
-        }
-      )
-    end
-    Capybara.default_driver = :poltergeist
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, {:browser => :chrome})
   end
+
+  # Test with phantomjs
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app,
+      {
+        js_errors: false,
+        phantomjs_options:['--proxy-type=none'],
+        timeout: 180
+      }
+    )
+  end
+
+  Capybara.default_driver = TEST_DRIVER.to_sym
 
   Rake::Task["db:test:load"].invoke
 end
