@@ -184,6 +184,11 @@ class PaymentController < ApplicationController
         current_user.money += data['amount'].to_i
         if current_user.save
           @error = "Bạn đã nạp thành công #{data['amount'].to_s}đ"
+          # Tracking card deposit success
+          Spymaster.params.cat('card_deposit').beh('success') \
+            .user(current_user.id.to_s).tar(@course.id.to_s) \
+            .ext({amount: data['amount'].to_i, pin: params[:pin_field], seri: params[:seri_field]}) \
+            .track(request)
           process_card_payment()
         else
           Tracking.create_tracking(
@@ -198,13 +203,22 @@ class PaymentController < ApplicationController
             :identity => current_user.id.to_s,
             :object => payment.id
           )
-
+          # Tracking card deposit error from system
+          Spymaster.params.cat('card_deposit').beh('fail') \
+            .user(current_user.id.to_s).tar(@course.id.to_s) \
+            .ext({reason: 'Could not save user', pin: params[:pin_field], seri: params[:seri_field]}) \
+            .track(request)
           render 'page_not_found', status: 404
         end
       else
         coupon_code = params[:coupon_code]
         @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
         @error = data['errorMessage']
+        # Tracking card deposit failure from user or provider
+        Spymaster.params.cat('card_deposit').beh('fail') \
+          .user(current_user.id.to_s).tar(@course.id.to_s) \
+          .ext({reason: @error, pin: params[:pin_field], seri: params[:seri_field]}) \
+          .track(request)
       end
     end
   end
