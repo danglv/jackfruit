@@ -488,7 +488,7 @@ class PaymentController < ApplicationController
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
 
-  # Create lecture for user
+    # Create lecture for user
     course.curriculums.where(
       :type => Constants::CurriculumTypes::LECTURE
     ).map{ |curriculum|
