@@ -7,9 +7,9 @@ require 'capybara/rails'
 require "rack_session_access/capybara"
 
 # Test driver
-TEST_DRIVER = 'chrome' # chrome or phantonjs
+TEST_DRIVER = 'phantomjs' # chrome or phantomjs
 
-require 'capybara/poltergeist' if TEST_DRIVER == 'phantonjs'
+require 'capybara/poltergeist' if TEST_DRIVER == 'phantomjs'
 require 'minitest/reporters'
 require 'webmock/minitest'
 
