@@ -442,7 +442,7 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
-    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS,
+    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS
     money = params[:money]
     cod_code = params[:cod_code]
 
