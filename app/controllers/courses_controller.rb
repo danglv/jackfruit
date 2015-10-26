@@ -189,7 +189,7 @@ class CoursesController < ApplicationController
             @payment = Payment.where(
               user_id: current_user.id.to_s,
               course_id: @course.id.to_s
-            )to_a.last
+            ).to_a.last
           end
         end
       else

@@ -1,6 +1,23 @@
 require 'test_helper'
 
 feature 'Authentication' do
+  before do
+    User.create([
+      {
+        email: 'nguyendanhtu@tudemy.vn',
+        password: '12345678',
+        password_confirmation: '12345678'
+      }
+    ])
+
+    Category.create([{ name: 'Test Category 1' }])
+  end
+
+  after do
+    User.destroy_all
+    Category.destroy_all
+  end
+
   scenario 'home page test' do
     visit '/'
 
