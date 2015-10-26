@@ -2,28 +2,6 @@ require 'test_helper'
 
 feature 'Payment' do
   before :each do
-    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
-      .with(:headers => {
-        'Accept'=>'*/*; q=0.5, application/xml',
-        'Accept-Encoding'=>'gzip, deflate',
-        'User-Agent'=>'Ruby'
-        }
-      )
-      .to_return(:status => 200,
-                 :body => [
-                    '{"_id": "56027caa8e62a475a4000023"',
-                    '"coupon": "A_VALID_COUPON"',
-                    '"created_at": ' + Time.now().to_json,
-                    '"expired_date": ' + (Time.now() + 2.days).to_json,
-                    '"used": 0',
-                    '"enabled": true',
-                    '"max_used": 1',
-                    '"discount": 50',
-                    '"return_value": "50"',
-                    '"issued_by": "hailn"}'].join(','),
-                  :headers => {}
-                )
-
     stub_request(:post, 'http://flow.pedia.vn:8000/notify/cod/create')
       .to_return(:status => 200, :body => '')
 
@@ -117,6 +95,22 @@ feature 'Payment' do
   end
 
   scenario '[JPA001]' do
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "A_VALID_COUPON"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"course_id": "' + @courses[0].id.to_s + '"',
+                    '"discount": 50',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
     # if Capybara.current_session.driver.browser.respond_to? 'manage'
     #   Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
     # end
@@ -138,9 +132,22 @@ feature 'Payment' do
   end
 
   scenario '[JPA002]' do
-    # if Capybara.current_session.driver.browser.respond_to? 'manage'
-    #   Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
-    # end
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "A_VALID_COUPON"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"course_id": "' + @courses[0].id.to_s + '"',
+                    '"discount": 50',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
 
     visit '/courses/test-course-1/detail'
 
