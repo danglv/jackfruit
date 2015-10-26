@@ -93,7 +93,7 @@ feature 'Coupon Flow' do
     visit_detail_with_coupon('full-paid-course')
     must_have_contents('Full paid course', '39,000', '80%')
 
-    find('a', :text => 'Học thử miễn phí').click
+    find('a', :text => 'Học thử miễn phí').trigger('click')
     do_login
 
     find('a', :text => 'MUA KHÓA HỌC').click
