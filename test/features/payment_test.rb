@@ -2,13 +2,100 @@ require 'test_helper'
 
 feature 'Payment' do
   before :each do
+    stub_request(:post, 'http://flow.pedia.vn:8000/notify/cod/create')
+      .to_return(:status => 200, :body => '')
+
+    stub_request(:get, /.*tracking.pedia.vn.*/)
+      .to_return(:status => 200, :body => '')
+
+    @instructor = User.create(
+      email: 'nguyendanhtu@pedia.vn',
+      password: '12345678',
+      password_confirmation: '12345678'
+    )
+
+    instructor_profiles = User::InstructorProfile.create([
+      {
+        academic_rank: 'Doctor',
+        user: @instructor
+      }
+    ])
+
+    @student = User.create(
+      email: 'student3@pedia.vn',
+      password: '12345678',
+      password_confirmation: '12345678'
+    )
+
+    @courses = Course.create([
+      {
+        name: 'Test Course 1',
+        price: 199000,
+        alias_name: 'test-course-1',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      },
+      {
+        name: 'Test Course 2',
+        price: 199000,
+        alias_name: 'test-course-2',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      },
+      {
+        name: 'Test Course 3',
+        price: 199000,
+        alias_name: 'test-course-3',
+        version: Constants::CourseVersions::PUBLIC,
+        enabled: true,
+        user: @instructor
+      }
+    ])
+
+    @campaign = Sale::Campaign.create(
+      title: 'Test Sale Campaign 1',
+      start_date: Time.now,
+      end_date: Time.now + 2.days
+    )
+
+    @sale_packages = Sale::Package.create([
+      {
+        title: 'Test Sale Package 1',
+        price: 98000,
+        campaign: @campaign,
+        courses: [@courses[0]],
+        participant_count: 2,
+        max_participant_count: 10,
+        start_date: Time.now,
+        end_date: Time.now + 2.days
+      },
+      {
+        title: 'Test Sale Package 2',
+        price: 98000,
+        campaign: @campaign,
+        courses: [@courses[2]],
+        participant_count: 2,
+        max_participant_count: 10,
+        start_date: Time.now,
+        end_date: Time.now + 2.days
+      }
+    ])
+  end
+
+  after :each do
+    @instructor.destroy
+    @student.destroy
+    @courses.each { |x| x.destroy }
+    @campaign.destroy
+    @sale_packages.each { |x| x.destroy }
+
+    Payment.destroy_all
+  end
+
+  scenario '[JPA001]' do
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
-      .with(:headers => {
-        'Accept'=>'*/*; q=0.5, application/xml',
-        'Accept-Encoding'=>'gzip, deflate',
-        'User-Agent'=>'Ruby'
-        }
-      )
       .to_return(:status => 200,
                  :body => [
                     '{"_id": "56027caa8e62a475a4000023"',
@@ -18,31 +105,12 @@ feature 'Payment' do
                     '"used": 0',
                     '"enabled": true',
                     '"max_used": 1',
+                    '"course_id": "' + @courses[0].id.to_s + '"',
                     '"discount": 50',
                     '"return_value": "50"',
                     '"issued_by": "hailn"}'].join(','),
                   :headers => {}
                 )
-
-    stub_request(:post, 'http://flow.pedia.vn:8000/notify/cod/create')
-      .to_return(:status => 200, :body => '')
-
-    stub_request(:get, /.*tracking.pedia.vn.*/)
-      .to_return(:status => 200, :body => '')
-
-    @student = User.create(
-      email: 'student3@pedia.vn',
-      password: '12345678',
-      password_confirmation: '12345678'
-    )
-  end
-
-  after :each do
-    @student.destroy
-    Payment.destroy_all
-  end
-
-  scenario '[JPA001]' do
     # if Capybara.current_session.driver.browser.respond_to? 'manage'
     #   Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
     # end
@@ -64,9 +132,22 @@ feature 'Payment' do
   end
 
   scenario '[JPA002]' do
-    # if Capybara.current_session.driver.browser.respond_to? 'manage'
-    #   Capybara.current_session.driver.browser.manage.window.resize_to(1280, 800)
-    # end
+    stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON")
+      .to_return(:status => 200,
+                 :body => [
+                    '{"_id": "56027caa8e62a475a4000023"',
+                    '"coupon": "A_VALID_COUPON"',
+                    '"created_at": ' + Time.now().to_json,
+                    '"expired_date": ' + (Time.now() + 2.days).to_json,
+                    '"used": 0',
+                    '"enabled": true',
+                    '"max_used": 1',
+                    '"course_id": "' + @courses[0].id.to_s + '"',
+                    '"discount": 50',
+                    '"return_value": "50"',
+                    '"issued_by": "hailn"}'].join(','),
+                  :headers => {}
+                )
 
     visit '/courses/test-course-1/detail'
 

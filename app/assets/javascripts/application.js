@@ -45,7 +45,11 @@ $(document).ready(function () {
   $('.active-nav-2').sliderDropdown();
 
   // Tracking U2
-  Spymaster.track({category: 'U2', behavior: 'open', target: document.URL});
+  Spymaster.track({
+    category: 'U2',
+    behavior: 'open',
+    target: document.URL
+  });
 });
 
 $(document).ajaxError(function (e, xhr, settings) {
@@ -64,18 +68,9 @@ function gup(name, url) {
   return results == null ? null : results[1];
 }
 
-(function (d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=1592966984299237";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
 function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
