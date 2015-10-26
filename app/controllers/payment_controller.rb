@@ -442,7 +442,9 @@ class PaymentController < ApplicationController
     address = params[:address]
     name = params[:name]
     mobile = params[:mobile]
-    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS 
+    payment_status = (method == Constants::PaymentMethod::COD) ? Constants::PaymentStatus::PENDING : Constants::PaymentStatus::SUCCESS,
+    money = params[:money]
+    cod_code = params[:cod_code]
 
     payment = Payment.new(
       :user_id => user_id,
@@ -453,7 +455,9 @@ class PaymentController < ApplicationController
       :email => email,
       :address => address,
       :mobile => mobile,
-      :status => payment_status
+      :status => payment_status,
+      :money => money,
+      :cod_code => cod_code
     )
 
     user = User.find(user_id)
@@ -461,20 +465,21 @@ class PaymentController < ApplicationController
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
 
-    # Create lecture for user
-    if (payment.status == Constants::PaymentStatus::SUCCESS)
-      course.curriculums.where(
-        :type => Constants::CurriculumTypes::LECTURE
-      ).map{ |curriculum|
-        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
-      }
+  # Create lecture for user
+    course.curriculums.where(
+      :type => Constants::CurriculumTypes::LECTURE
+    ).map{ |curriculum|
+      owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+    }
 
+    if (payment.status == Constants::PaymentStatus::SUCCESS)
       total_student = course.students + 1
       course["students"] = total_student
     end
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = payment.status
+    
     if payment.save && owned_course.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
