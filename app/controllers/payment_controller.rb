@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
   include PaymentServices
   include ApplicationHelper
 
-  before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
+  before_action :authenticate_user!, :except => [:detail, :update, :list_payment, :create]
   before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
@@ -16,7 +16,7 @@ class PaymentController < ApplicationController
     ).to_a
 
     if cod_payments.size > 0
-      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
 
@@ -59,7 +59,7 @@ class PaymentController < ApplicationController
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
       owned_course.save
 
-      redirect_to root_url + "/home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
+      redirect_to root_url + "home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
       return
     end
   end
