@@ -51,19 +51,6 @@ describe 'PaymentController' do
       end_date: Time.now + 2.days
     )
 
-    # @sale_packages = Sale::Package.create([
-    #   {
-    #     title: 'Test Sale Package 1',
-    #     price: 0,
-    #     campaign: @campaign,
-    #     courses: [@courses[0]],
-    #     participant_count: 2,
-    #     max_participant_count: 10,
-    #     start_date: Time.now,
-    #     end_date: Time.now + 2.days
-    #   }
-    # ])
-
     # Sign-in user
     sign_in @users[1]
   end
@@ -112,7 +99,32 @@ describe 'PaymentController' do
       assert_response :redirect
       assert_redirected_to "/home/my-course/select_course?alias_name=#{@courses[0].alias_name}&type=learning"
     end
-    
+
+    it 'should return 404 if user is unable to make a zero amount payment' do
+      payment = Payment.create(
+        user_id: @users[1].id,
+        course_id: @courses[0].id,
+        status: Constants::PaymentStatus::SUCCESS
+      )
+
+      packages = Sale::Package.create([
+        {
+          title: 'Test Sale Package 1',
+          price: 0,
+          campaign: @campaign,
+          courses: [@courses[0]],
+          participant_count: 2,
+          max_participant_count: 10,
+          start_date: Time.now,
+          end_date: Time.now + 2.days
+        }
+      ])
+
+      get :index, alias_name: @courses[0].alias_name
+
+      assert_response :missing
+    end
+
     it 'should display index page successfully' do
       get :index, alias_name: @courses[0].alias_name
 
