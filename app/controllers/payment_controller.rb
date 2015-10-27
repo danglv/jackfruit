@@ -257,14 +257,9 @@ class PaymentController < ApplicationController
   # GET
   def status
     @course = Course.find(@payment.course_id)
-  end
-
-  # GET
-  def success
-    @course = Course.where(id: @payment.course_id).first
     owned_course = current_user.courses.where(course_id: @course.id).first
 
-    if @payment
+    if @payment.status == Constants::PaymentStatus::SUCCESS
       # Tracking L8ga
       Spymaster.params.cat('L8ga')
                       .beh('open')
@@ -272,10 +267,10 @@ class PaymentController < ApplicationController
                       .user(current_user.id)
                       .ext({:payment_id => @payment.id, :payment_method => @payment.method})
                       .track(request)
-    end
 
-    # If the first learning, display success page.
-    owned_course.set(:first_learning => false) if !owned_course.blank?
+      # If the first learning, display success page.
+      owned_course.set(first_learning: false) if !owned_course.blank?
+    end
   end
 
   # GET
