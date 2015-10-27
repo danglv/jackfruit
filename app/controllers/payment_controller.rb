@@ -446,6 +446,25 @@ class PaymentController < ApplicationController
     money = params[:money]
     cod_code = params[:cod_code]
 
+    # Sử dụng cho combo courses.
+    # Chuyển trạng thái payment từ pending sang cancel đối với những khoá thuộc combo. Và tạo 1 payment mới.
+    is_combo_courses = params[:is_combo_courses]
+
+    if (!is_combo_courses.blank? && method == Constants::PaymentMethod::COD) 
+      payment = Payment.where(
+        :course_id => course_id, 
+        :user_id => user_id,
+        :status.nin => [Constants::PaymentStatus::CANCEL]
+      ).to_a.last
+      unless payment.blank?
+        if (payment.status == Constants::PaymentStatus::PENDING)
+          payment.status = Constants::PaymentStatus::CANCEL
+          payment.save
+        end
+      end
+    end
+    # =================================================
+
     payment = Payment.new(
       :user_id => user_id,
       :course_id => course_id,
