@@ -3,7 +3,7 @@ class PaymentController < ApplicationController
   include ApplicationHelper
 
   before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
-  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :pending, :payment_bill]
+  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
   # GET
@@ -114,12 +114,20 @@ class PaymentController < ApplicationController
           )
         rescue => e
         end
+
         utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
         utm_source[:payment_id] = payment.id.to_s
         utm_source[:payment_method] = payment.method
+
         # Tracking L7c1
-        Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
-        redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+        Spymaster.params.cat('L7c1')
+                        .beh('submit')
+                        .tar(@course.id)
+                        .user(current_user.id)
+                        .ext(utm_source)
+                        .track(request)
+        
+        redirect_to root_url + "home/payment/#{payment.id.to_s}/status"
       else
         Tracking.create_tracking(
           :type => Constants::TrackingTypes::PAYMENT,
@@ -157,8 +165,12 @@ class PaymentController < ApplicationController
       owned_course.save
 
       # Tracking L7c3
-      Spymaster.params.cat('L7c3').beh('submit').tar(owned_course.course_id).user(current_user.id).ext({:payment_id => payment.id,
-          :payment_method => payment.method}).track(request)
+      Spymaster.params.cat('L7c3')
+                      .beh('submit')
+                      .tar(owned_course.course_id)
+                      .user(current_user.id)
+                      .ext({:payment_id => payment.id, :payment_method => payment.method})
+                      .track(request)
     end
 
     redirect_to :back
@@ -240,50 +252,26 @@ class PaymentController < ApplicationController
   end
 
   def online_payment
-
   end
 
   # GET
   def status
+    @course = Course.find(@payment.course_id)
   end
 
   # GET
   def success
-    baokim = BaoKimPaymentPro.new
-    payment_service_provider = params[:p]
     @course = Course.where(id: @payment.course_id).first
     owned_course = current_user.courses.where(course_id: @course.id).first
-    if payment_service_provider == 'baokim'
-      if baokim.verify_response_url(params)
-        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-        owned_course.save
-      else
-        Tracking.create_tracking(
-          :type => Constants::TrackingTypes::PAYMENT,
-          :content => {
-            :payment_page => Constants::PaymentStatus::SUCCESS,
-            :status => "fail",
-            :baokim => "verify_response_url"
-          },
-          :ip => request.remote_ip,
-          :platform => {},
-          :device => {},
-          :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
-          :object => @payment.id
-        )
-        render 'page_not_found', status: 404
-      end
-    elsif payment_service_provider == 'baokim_card'
-      @course = Course.where(id: @payment.course_id.to_s).first
-    else
-      @course = Course.where(id: @payment.course_id.to_s).first
-    end
 
     if @payment
       # Tracking L8ga
-      Spymaster.params.cat('L8ga').beh('open').tar(@course.id).user(current_user.id).ext({:payment_id => @payment.id,
-          :payment_method => @payment.method}).track(request)
+      Spymaster.params.cat('L8ga')
+                      .beh('open')
+                      .tar(@course.id)
+                      .user(current_user.id)
+                      .ext({:payment_id => @payment.id, :payment_method => @payment.method})
+                      .track(request)
     end
 
     # If the first learning, display success page.
@@ -291,32 +279,8 @@ class PaymentController < ApplicationController
   end
 
   # GET
-  def cancel
-    payment_service_provider = params[:p]
-    if payment_service_provider == 'baokim'
-      @course = Course.where(id: @payment.course_id).first
-      
-      owned_course = current_user.courses.where(course_id: @course.id).first
-      owned_course.payment_status = Constants::PaymentStatus::CANCEL
-      owned_course.save
-    else
-      @course = Course.last
-    end
-  end
-
-  # GET
-  def pending
-  end
-
-  # GET
-  def error
-  end
-
-  # GET
   def payment_bill
     @payment = Payment.where(:course_id => @course.id, :user_id => current_user.id).first
-
-    # render json: {:message => "Payment History"}
   end
 
   # POST
@@ -382,7 +346,6 @@ class PaymentController < ApplicationController
 
   # GET: API list payment for mercury
   def list_payment
-
     status = params[:status]
     method = params[:method]
     from = params[:from]
@@ -606,7 +569,7 @@ class PaymentController < ApplicationController
           utm_source[:payment_method] = payment.method
           # Tracking L7c1
           Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)         
-          redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/status"
           return
         else
           Tracking.create_tracking(
