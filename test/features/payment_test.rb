@@ -224,7 +224,7 @@ feature 'Payment' do
   end
 
   scenario '[JPA005] zero amount payment' do
-    course = Course.where(alias_name: 'test-course-3').first
+    course = @courses[2]
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_ZERO_AMOUNT_COUPON")
       .with(:headers => {
         'Accept'=>'*/*; q=0.5, application/xml',
@@ -361,7 +361,7 @@ feature 'Payment' do
   # end
 
   scenario '[JPA008] User input expired coupon' do
-    course = Course.where(alias_name: 'test-course-1').first
+    course = @courses[0]
 
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=AN_EXPIRED_COUPON")
       .to_return(:status => 200,
