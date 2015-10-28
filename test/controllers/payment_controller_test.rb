@@ -247,4 +247,19 @@ describe 'PaymentController' do
       assert_redirected_to 'original_url'
     end
   end
+
+  describe 'GET #status' do
+    it 'should render payment status page successfully' do
+      payment = Payment.create(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        money: @courses[0].price,
+        status: Constants::PaymentStatus::PENDING
+      )
+
+      get :status, id: payment.id.to_s
+
+      assert_response :success
+    end
+  end
 end
