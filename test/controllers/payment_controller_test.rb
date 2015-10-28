@@ -207,4 +207,17 @@ describe 'PaymentController' do
       assert_redirected_to "/home/payment/#{payment.id.to_s}/status"
     end
   end
+
+  describe 'GET #cancel_cod' do
+    before do
+      @request.env['HTTP_REFERER'] = 'original_url'
+    end
+
+    it 'should redirect user to the previous page if no COD payment is found' do
+      get :cancel_cod, course_id: @courses[0].id.to_s
+
+      assert_response :redirect
+      assert_redirected_to 'original_url'
+    end
+  end
 end
