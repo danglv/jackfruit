@@ -194,5 +194,17 @@ describe 'PaymentController' do
 
       assert_response :missing
     end
+
+    it 'should redirect to payment status page when user successfully made a COD payment' do
+      stub_request(:post, 'http://flow.pedia.vn:8000/notify/cod/create')
+        .to_return(:status => 200, :body => '', :headers => {})
+
+      post :cod, alias_name: @courses[0].alias_name, name: @users[1].name
+
+      payment = assigns(:payment)
+
+      assert_response :redirect
+      assert_redirected_to "/home/payment/#{payment.id.to_s}/status"
+    end
   end
 end
