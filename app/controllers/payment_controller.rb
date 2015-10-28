@@ -148,18 +148,16 @@ class PaymentController < ApplicationController
   end
 
   def cancel_cod
-    payment = Payment.where(
+    @payment = Payment.where(
       :course_id => params[:course_id],
       :user_id => current_user.id,
-      :method => Constants::PaymentMethod::COD
-    ).or(
-      {:status => "pending"},
-      {:status => "process"}
+      :method => Constants::PaymentMethod::COD,
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).first
 
-    unless payment.blank?
-      payment.status = "cancel"
-      payment.save
+    unless @payment.blank?
+      @payment.status = "cancel"
+      @payment.save
       owned_course = current_user.courses.where(course_id: params[:course_id]).first
       owned_course.payment_status = Constants::PaymentStatus::CANCEL
       owned_course.save
@@ -169,7 +167,7 @@ class PaymentController < ApplicationController
                       .beh('submit')
                       .tar(owned_course.course_id)
                       .user(current_user.id)
-                      .ext({:payment_id => payment.id, :payment_method => payment.method})
+                      .ext({:payment_id => @payment.id, :payment_method => @payment.method})
                       .track(request)
     end
 
