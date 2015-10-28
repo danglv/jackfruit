@@ -166,4 +166,20 @@ describe 'PaymentController' do
       assert_response :success
     end
   end
+
+  describe 'POST #cod' do
+    it 'should redirect to course detail if user already has a pending payment' do
+      payment = Payment.create(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        method: Constants::PaymentMethod::COD,
+        status: Constants::PaymentStatus::PENDING
+      )
+
+      post :cod, alias_name: @courses[0].alias_name
+
+      assert_response :redirect
+      assert_redirected_to "/courses/#{@courses[0].alias_name}/detail"
+    end
+  end
 end
