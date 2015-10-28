@@ -60,6 +60,7 @@ describe 'PaymentController' do
     @courses.each { |x| x.destroy }
     @campaign.destroy
     Payment.destroy_all
+    Tracking.destroy_all
   end
 
   describe 'GET #index' do
@@ -180,6 +181,18 @@ describe 'PaymentController' do
 
       assert_response :redirect
       assert_redirected_to "/courses/#{@courses[0].alias_name}/detail"
+    end
+
+    it 'should return 404 if user is unable to make a COD payment' do
+      payment = Payment.create(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        status: Constants::PaymentStatus::SUCCESS
+      )
+
+      post :cod, alias_name: @courses[0].alias_name
+
+      assert_response :missing
     end
   end
 end
