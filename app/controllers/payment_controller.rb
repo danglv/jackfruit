@@ -12,7 +12,7 @@ class PaymentController < ApplicationController
       :course_id => @course.id,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::COD,
-      :status.in => ['pending', 'process']
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).to_a
 
     if cod_payments.size > 0
@@ -71,11 +71,11 @@ class PaymentController < ApplicationController
       :course_id => @course.id,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::COD,
-      :status.in => ['pending', 'process']
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).to_a
 
     if cod_payments.size > 0
-      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
 
@@ -87,7 +87,7 @@ class PaymentController < ApplicationController
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
-        :status => 'pending'
+        :status => Constants::PaymentStatus::PENDING
       )
 
       payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
