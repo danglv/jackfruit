@@ -296,4 +296,13 @@ describe 'PaymentController' do
       assert_not User.find(@users[1].id).courses.first.first_learning
     end
   end
+
+  describe 'POST #create' do
+    it 'should render 422 with error message when payment cannot be saved' do
+      post :create, user_id: @users[1].id, course_id: @courses[0].id
+
+      assert_response 422
+      assert_equal 'Lỗi không lưu được data:', JSON.parse(@response.body)['message']
+    end
+  end
 end
