@@ -219,5 +219,32 @@ describe 'PaymentController' do
       assert_response :redirect
       assert_redirected_to 'original_url'
     end
+
+    it 'should redirect user to the previous page after cancelling the current COD payment' do
+      stub_request(:post, "http://mercury.pedia.vn/api/issue/close")
+        .to_return(:status => 200, :body => '', :headers => {})
+
+      payment = Payment.create(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        method: Constants::PaymentMethod::COD,
+        status: Constants::PaymentStatus::PROCESS
+      )
+
+      @users[1].courses.create(
+        course_id: @courses[0].id,
+        type: Constants::OwnedCourseTypes::LEARNING,
+        payment_status: Constants::PaymentStatus::PENDING,
+        created_at: Time.now()
+      )
+
+      get :cancel_cod, course_id: @courses[0].id.to_s
+
+      payment = assigns(:payment)
+
+      assert_equal Constants::PaymentStatus::CANCEL, payment.status
+      assert_response :redirect
+      assert_redirected_to 'original_url'
+    end
   end
 end
