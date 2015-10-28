@@ -83,41 +83,41 @@ class PaymentController < ApplicationController
     @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
 
     if request.method == 'POST'
-      payment = Payment.new(
+      @payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
         :status => Constants::PaymentStatus::PENDING
       )
 
-      payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
-      payment.name = params[:name]
-      payment.email = params[:email]
-      payment.mobile = params[:mobile]
-      payment.address = params[:address]
-      payment.city = params[:city]
-      payment.district = params[:district]
-      payment.money = @data[:final_price]
+      @payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
+      @payment.name = params[:name]
+      @payment.email = params[:email]
+      @payment.mobile = params[:mobile]
+      @payment.address = params[:address]
+      @payment.city = params[:city]
+      @payment.district = params[:district]
+      @payment.money = @data[:final_price]
 
       # Create new COD
       cod_code = create_single_cod(@course.id, "pedia")
       payment.cod_code = cod_code if !cod_code.blank?
 
-      if payment.save
+      if @payment.save
         create_course_for_user()
         begin
           RestClient.post('http://flow.pedia.vn:8000/notify/cod/create',
             timeout: 2000,
             type: 'cod',
-            payment: payment.as_json,
+            payment: @payment.as_json,
             msg: 'Có đơn COD cần xử lý'
           )
         rescue => e
         end
 
         utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
-        utm_source[:payment_id] = payment.id.to_s
-        utm_source[:payment_method] = payment.method
+        utm_source[:payment_id] = @payment.id.to_s
+        utm_source[:payment_method] = @payment.method
 
         # Tracking L7c1
         Spymaster.params.cat('L7c1')
@@ -127,7 +127,7 @@ class PaymentController < ApplicationController
                         .ext(utm_source)
                         .track(request)
         
-        redirect_to root_url + "home/payment/#{payment.id.to_s}/status"
+        redirect_to root_url + "home/payment/#{@payment.id.to_s}/status"
       else
         Tracking.create_tracking(
           :type => Constants::TrackingTypes::PAYMENT,
@@ -140,7 +140,7 @@ class PaymentController < ApplicationController
           :device => {},
           :version => Constants::AppVersion::VER_1,
           :str_identity => current_user.id.to_s,
-          :object => payment.id
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
       end
