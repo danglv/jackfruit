@@ -296,60 +296,60 @@ feature 'Payment' do
     page.must_have_content('98,000')
   end
 
-  scenario '[JPA007] User can cancel a COD payment' do
-    stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
-      .to_return(:status => 200, body: '', headers: {})
+  # scenario '[JPA007] User can cancel a COD payment' do
+  #   stub_request(:post, 'http://mercury.pedia.vn/api/issue/close')
+  #     .to_return(:status => 200, body: '', headers: {})
 
-    visit '/courses/test-course-1/detail'
+  #   visit '/courses/test-course-1/detail'
 
-    find('.buy-button').click
+  #   find('.buy-button').click
 
-    within('#login-modal') do
-      fill_in('user[email]', with: @student.email)
-      fill_in('user[password]', with: '12345678')
-      find('.btn-login-submit').click
-    end
+  #   within('#login-modal') do
+  #     fill_in('user[email]', with: @student.email)
+  #     fill_in('user[password]', with: '12345678')
+  #     find('.btn-login-submit').click
+  #   end
 
-    find('.fa-shopping-cart').click
+  #   find('.fa-shopping-cart').click
 
-    within('.cod-form') do
-      fill_in('mobile', with: '123456')
-      fill_in('address', with: 'Sahara')
-      select('Hà Nội', from: 'city')
-      fill_in('district', with: 'HK')
-      find('.purchase-button').click
-    end
+  #   within('.cod-form') do
+  #     fill_in('mobile', with: '123456')
+  #     fill_in('address', with: 'Sahara')
+  #     select('Hà Nội', from: 'city')
+  #     fill_in('district', with: 'HK')
+  #     find('.purchase-button').click
+  #   end
 
-    visit '/courses/test-course-1/detail'
+  #   visit '/courses/test-course-1/detail'
 
-    within('.cancel-text') do
-      find('a').click
-    end
+  #   within('.cancel-text') do
+  #     find('a').click
+  #   end
 
-    page.must_have_content('Mua khóa học')
-    page.wont_have_content('Kích hoạt mã COD')
+  #   page.must_have_content('Mua khóa học')
+  #   page.wont_have_content('Kích hoạt mã COD')
 
-    find('.buy-button').click
+  #   find('.buy-button').click
 
-    find('.fa-shopping-cart').click
+  #   find('.fa-shopping-cart').click
 
-    within('.cod-form') do
-      fill_in('mobile', with: '123456')
-      fill_in('address', with: 'Sahara')
-      select('Hà Nội', from: 'city')
-      fill_in('district', with: 'HK')
-      find('.purchase-button').click
-    end
+  #   within('.cod-form') do
+  #     fill_in('mobile', with: '123456')
+  #     fill_in('address', with: 'Sahara')
+  #     select('Hà Nội', from: 'city')
+  #     fill_in('district', with: 'HK')
+  #     find('.purchase-button').click
+  #   end
 
-    visit '/courses/test-course-1/detail'
+  #   visit '/courses/test-course-1/detail'
 
-    within('.cancel-text') do
-      find('a').click
-    end
+  #   within('.cancel-text') do
+  #     find('a').click
+  #   end
 
-    page.must_have_content('Mua khóa học')
-    page.wont_have_content('Kích hoạt mã COD')
-  end
+  #   page.must_have_content('Mua khóa học')
+  #   page.wont_have_content('Kích hoạt mã COD')
+  # end
 
   scenario '[JPA008] User input expired coupon' do
     course = Course.where(alias_name: 'test-course-1').first

@@ -198,15 +198,15 @@
                             %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                       .cod-notice 
                         .notice-text Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
-                      .cod-cancel
-                        .cancel-text 
-                          %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
-                          = succeed "" do
-                            %b Hủy giao dịch COD
-                          tại
-                          = succeed "" do
-                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", onclick: "return confirm('Bạn có chắc chắn muốn huỷ giao dịch cod này?');"} ĐÂY
-                          và tiếp tục mua khóa học
+                      / .cod-cancel
+                      /   .cancel-text 
+                      /     %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                      /     = succeed "" do
+                      /       %b Hủy giao dịch COD
+                      /     tại
+                      /     = succeed "" do
+                      /       %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", onclick: "return confirm('Bạn có chắc chắn muốn huỷ giao dịch cod này?');"} ĐÂY
+                      /     và tiếp tục mua khóa học
                     - else
                       .purchase-submit
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
