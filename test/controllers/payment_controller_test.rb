@@ -262,6 +262,19 @@ describe 'PaymentController' do
       assert_response :success
     end
 
+    it 'should render payment status page successfully even when user doesnt have the course' do
+      payment = Payment.create(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        money: @courses[0].price,
+        status: Constants::PaymentStatus::SUCCESS
+      )
+
+      get :status, id: payment.id.to_s
+
+      assert_response :success
+    end
+
     it 'should render payment status page successfully and user course first_learning is false' do
       payment = Payment.create(
         course_id: @courses[0].id,
