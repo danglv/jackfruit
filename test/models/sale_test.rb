@@ -60,10 +60,9 @@ describe 'Sale' do
   end            
 
   after :each do
-    @users.each { |x| x.destroy }
-    @courses.each { |x| x.destroy }
-    @campaign.destroy
-    @packages.each { |x| x.destroy }
+    User.delete_all
+    Course.delete_all
+    Sale::Campaign.delete_all
   end
 
   describe 'Campaign' do
@@ -74,6 +73,7 @@ describe 'Sale' do
     end
 
     it 'must have in_progress scope' do
+      binding.pry
       value(Sale::Campaign.in_progress.all.to_a[0].title).must_equal @campaign.title
     end
 
