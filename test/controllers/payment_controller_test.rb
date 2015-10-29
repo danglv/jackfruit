@@ -322,5 +322,58 @@ describe 'PaymentController' do
       assert_response 422
       assert_equal 'Lỗi không lưu được data:', JSON.parse(@response.body)['message']
     end
+
+    it 'should render payment in JSON format successfully when it is not a COD payment' do
+      post :create, {
+        user_id: @users[1].id,
+        course_id: @courses[0].id,
+        method: Constants::PaymentMethod::NONE
+      }
+
+      p = JSON.parse(@response.body)
+
+      assert_response :success
+      assert_equal Constants::PaymentStatus::SUCCESS, p['status']
+      assert_equal 1, Course.find(@courses[0].id).students
+    end
+
+    it 'should render payment in JSON format successfully when it is a COD payment' do
+      post :create, {
+        user_id: @users[1].id,
+        course_id: @courses[0].id,
+        method: Constants::PaymentMethod::COD
+      }
+
+      p = JSON.parse(@response.body)
+
+      assert_response :success
+      assert_equal Constants::PaymentStatus::PENDING, p['status']
+      assert_equal 0, Course.find(@courses[0].id).students
+    end
+
+    it 'should render payment in JSON format successfully when it is a combo' do
+      stub_request(:post, "http://mercury.pedia.vn/api/issue/close")
+        .to_return(status: 200, body: '', headers: {})
+
+      payment = Payment.create!(
+        course_id: @courses[0].id,
+        user_id: @users[1].id,
+        status: Constants::PaymentStatus::PENDING
+      )
+
+      post :create, {
+        user_id: @users[1].id,
+        course_id: @courses[0].id,
+        method: Constants::PaymentMethod::COD,
+        is_combo_courses: true
+      }
+
+      p = JSON.parse(@response.body)
+
+      assert_response :success
+      assert_equal Constants::PaymentStatus::PENDING, p['status']
+      assert_equal 0, Course.find(@courses[0].id).students
+      assert_equal Constants::PaymentStatus::CANCEL, Payment.find(payment.id).status
+    end
   end
 end
