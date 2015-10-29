@@ -224,7 +224,7 @@ feature 'Payment' do
   end
 
   scenario '[JPA005] zero amount payment' do
-    course = Course.where(alias_name: 'test-course-3').first
+    course = @courses[2]
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_ZERO_AMOUNT_COUPON")
       .with(:headers => {
         'Accept'=>'*/*; q=0.5, application/xml',
@@ -272,6 +272,15 @@ feature 'Payment' do
   end
 
   scenario '[JPA006] cod payment' do
+    stub_request(:post, 'http://code.pedia.vn/cod/create_cod')
+      .to_return(
+        status: 200,
+        body: [
+          '{"cod_codes": "[abcdef]"}'
+        ].join,
+        headers: {}
+      )
+
     visit '/courses/test-course-1/detail'
 
     find('.buy-button').click
@@ -352,7 +361,7 @@ feature 'Payment' do
   # end
 
   scenario '[JPA008] User input expired coupon' do
-    course = Course.where(alias_name: 'test-course-1').first
+    course = @courses[0]
 
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=AN_EXPIRED_COUPON")
       .to_return(:status => 200,
@@ -377,15 +386,18 @@ feature 'Payment' do
   end
 
   scenario '[JPA009] cod payment success' do
-    course = Course.where(alias_name: 'test-course-2').first
+    course = @courses[1]
+
+    stub_request(:post, 'http://code.pedia.vn/cod/create_cod')
+      .to_return(
+        status: 200,
+        body: [
+          '{"cod_codes": "[abcdef]"}'
+        ].join,
+        headers: {}
+      )
 
     stub_request(:get, "http://code.pedia.vn/coupon?coupon=A_VALID_COUPON_1")
-      .with(:headers => {
-        'Accept'=>'*/*; q=0.5, application/xml',
-        'Accept-Encoding'=>'gzip, deflate',
-        'User-Agent'=>'Ruby'
-        }
-      )
       .to_return(:status => 200,
                  :body => [
                     '{"_id": "56027caa8e62a475a4000023"',

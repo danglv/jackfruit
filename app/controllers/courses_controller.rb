@@ -283,7 +283,7 @@ class CoursesController < ApplicationController
         # Redirect to success payment page if first learning and has payment
         payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
         if !payment.blank?
-          redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
+          redirect_to root_url + "home/payment/#{payment.id}/status"
           return
         end
       end

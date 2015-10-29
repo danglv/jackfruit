@@ -58,7 +58,15 @@ class ActiveSupport::TestCase
 
   Capybara.default_driver = TEST_DRIVER.to_sym
 
-  Rake::Task["db:test:load"].invoke
+  def accept_alert
+    if TEST_DRIVER == 'chrome'
+      page.driver.browser.switch_to.alert.accept
+    else
+      page.driver.browser.accept_confirm
+    end
+  end
+
+  # Rake::Task["db:test:load"].invoke
 end
 
 class ActionController::TestCase

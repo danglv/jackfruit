@@ -13,6 +13,10 @@ unit_test:
   script:
     - bundle exec rake test:units
 
+functional_test:
+  script:
+    - bundle exec rake test:functionals
+
 acceptance_test:
   script:
     - bundle exec rake test:features

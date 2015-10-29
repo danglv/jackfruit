@@ -68,10 +68,7 @@ Rails.application.routes.draw do
       post '/card/:alias_name', to: 'payment#card'
 
       get '/:id/status', to: 'payment#status'
-      get '/:id/success', to: 'payment#success'
-      get '/:id/pending', to: 'payment#pending'
-      get '/:id/cancel', to: 'payment#cancel'
-      get '/:id/error', to: 'payment#error'
+      post '/:id/status', to: 'payment#status'
       get '/:alias_name/payment_bill', to: 'payment#payment_bill'
 
       get '/test_online_payment/:alias_name', to: 'payment#test_online_payment'
