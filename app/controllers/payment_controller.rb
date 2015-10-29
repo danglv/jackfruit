@@ -414,7 +414,7 @@ class PaymentController < ApplicationController
       payment = Payment.where(
         :course_id => course_id, 
         :user_id => user_id,
-        :status.nin => [Constants::PaymentStatus::CANCEL]
+        :status.ne => Constants::PaymentStatus::CANCEL
       ).to_a.last
 
       unless payment.blank?
@@ -458,7 +458,7 @@ class PaymentController < ApplicationController
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = payment.status
-    
+
     if payment.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
