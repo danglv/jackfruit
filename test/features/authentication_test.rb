@@ -27,7 +27,7 @@ feature 'Authentication' do
   scenario 'the first test' do
     visit '/'
 
-    find('.link-exist-account').click
+    find('.link-dont-account').click
 
     within('.form-login') do
       fill_in('user[email]', with: 'nguyendanhtu@tudemy.vn')
