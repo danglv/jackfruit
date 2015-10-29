@@ -184,6 +184,15 @@ describe 'PaymentController' do
     end
 
     it 'should return 404 if user is unable to make a COD payment' do
+      stub_request(:post, "http://code.pedia.vn/cod/create_cod")
+        .to_return(
+          status: 200,
+          body: [
+            '{"cod_codes": "[abcdef]"}'
+          ].join,
+          headers: {}
+        )
+
       payment = Payment.create(
         course_id: @courses[0].id,
         user_id: @users[1].id,
@@ -198,6 +207,15 @@ describe 'PaymentController' do
     it 'should redirect to payment status page when user successfully made a COD payment' do
       stub_request(:post, 'http://flow.pedia.vn:8000/notify/cod/create')
         .to_return(:status => 200, :body => '', :headers => {})
+
+      stub_request(:post, 'http://code.pedia.vn/cod/create_cod')
+        .to_return(
+          status: 200,
+          body: [
+            '{"cod_codes": "[abcdef]"}'
+          ].join,
+          headers: {}
+        )
 
       post :cod, alias_name: @courses[0].alias_name, name: @users[1].name
 
