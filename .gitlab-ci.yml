@@ -13,7 +13,7 @@ unit_test:
   script:
     - bundle exec rake test:units
 
-functional_test
+functional_test:
   script:
     - bundle exec rake test:functionals
 
