@@ -101,7 +101,7 @@ class PaymentController < ApplicationController
 
       # Create new COD
       cod_code = create_single_cod(@course.id, "pedia")
-      payment.cod_code = cod_code if !cod_code.blank?
+      @payment.cod_code = cod_code if !cod_code.blank?
 
       if @payment.save
         create_course_for_user()
