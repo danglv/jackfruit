@@ -2,8 +2,8 @@ class PaymentController < ApplicationController
   include PaymentServices
   include ApplicationHelper
 
-  before_action :authenticate_user!, :except => [:error, :detail, :update, :list_payment, :create]
-  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :pending, :payment_bill]
+  before_action :authenticate_user!, :except => [:detail, :update, :list_payment, :create]
+  before_action :validate_course, :only => [:index, :cod, :card, :transfer, :cih, :online_payment, :payment_bill]
   before_action :validate_payment, :only => [:status, :success, :cancel, :pending, :import_code, :detail, :update]
 
   # GET
@@ -12,11 +12,11 @@ class PaymentController < ApplicationController
       :course_id => @course.id,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::COD,
-      :status.in => ['pending', 'process']
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).to_a
 
     if cod_payments.size > 0
-      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
 
@@ -46,8 +46,8 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
-          :object => payment.id
+          :str_identity => current_user.id.to_s,
+          :object => @payment.id
           )
 
         render 'page_not_found', status: 404
@@ -59,7 +59,7 @@ class PaymentController < ApplicationController
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
       owned_course.save
 
-      redirect_to root_url + "/home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
+      redirect_to root_url + "home/my-course/select_course?alias_name=#{@course.alias_name}&type=learning"
       return
     end
   end
@@ -71,11 +71,11 @@ class PaymentController < ApplicationController
       :course_id => @course.id,
       :user_id => current_user.id,
       :method => Constants::PaymentMethod::COD,
-      :status.in => ['pending', 'process']
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).to_a
 
     if cod_payments.size > 0
-      redirect_to root_url + "/courses/#{@course.alias_name}/detail"
+      redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
 
@@ -83,43 +83,51 @@ class PaymentController < ApplicationController
     @data = Sale::Services.get_price({ course: @course, coupon_code: coupon_code })
 
     if request.method == 'POST'
-      payment = Payment.new(
+      @payment = Payment.new(
         :course_id => @course.id,
         :user_id => current_user.id,
         :method => Constants::PaymentMethod::COD,
-        :status => 'pending'
+        :status => Constants::PaymentStatus::PENDING
       )
 
-      payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
-      payment.name = params[:name]
-      payment.email = params[:email]
-      payment.mobile = params[:mobile]
-      payment.address = params[:address]
-      payment.city = params[:city]
-      payment.district = params[:district]
-      payment.money = @data[:final_price]
+      @payment.coupons = @data[:coupon_code] ? [].push(@data[:coupon_code]) : []
+      @payment.name = params[:name]
+      @payment.email = params[:email]
+      @payment.mobile = params[:mobile]
+      @payment.address = params[:address]
+      @payment.city = params[:city]
+      @payment.district = params[:district]
+      @payment.money = @data[:final_price]
 
       # Create new COD
       cod_code = create_single_cod(@course.id, "pedia")
-      payment.cod_code = cod_code if !cod_code.blank?
+      @payment.cod_code = cod_code if !cod_code.blank?
 
-      if payment.save
+      if @payment.save
         create_course_for_user()
         begin
           RestClient.post('http://flow.pedia.vn:8000/notify/cod/create',
             timeout: 2000,
             type: 'cod',
-            payment: payment.as_json,
+            payment: @payment.as_json,
             msg: 'Có đơn COD cần xử lý'
           )
         rescue => e
         end
+
         utm_source = session[:utm_source].blank? ? {} : session[:utm_source]
-        utm_source[:payment_id] = payment.id.to_s
-        utm_source[:payment_method] = payment.method
+        utm_source[:payment_id] = @payment.id.to_s
+        utm_source[:payment_method] = @payment.method
+
         # Tracking L7c1
-        Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)
-        redirect_to root_url + "/home/payment/#{payment.id.to_s}/pending?alias_name=#{@course.alias_name}"
+        Spymaster.params.cat('L7c1')
+                        .beh('submit')
+                        .tar(@course.id)
+                        .user(current_user.id)
+                        .ext(utm_source)
+                        .track(request)
+        
+        redirect_to root_url + "home/payment/#{@payment.id.to_s}/status"
       else
         Tracking.create_tracking(
           :type => Constants::TrackingTypes::PAYMENT,
@@ -131,8 +139,8 @@ class PaymentController < ApplicationController
           :platform => {},
           :device => {},
           :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
-          :object => payment.id
+          :str_identity => current_user.id.to_s,
+          :object => @payment.id
         )
         render 'page_not_found', status: 404
       end
@@ -140,25 +148,27 @@ class PaymentController < ApplicationController
   end
 
   def cancel_cod
-    payment = Payment.where(
+    @payment = Payment.where(
       :course_id => params[:course_id],
       :user_id => current_user.id,
-      :method => Constants::PaymentMethod::COD
-    ).or(
-      {:status => "pending"},
-      {:status => "process"}
+      :method => Constants::PaymentMethod::COD,
+      :status.in => [Constants::PaymentStatus::PENDING, Constants::PaymentStatus::PROCESS]
     ).first
 
-    unless payment.blank?
-      payment.status = "cancel"
-      payment.save
+    unless @payment.blank?
+      @payment.status = "cancel"
+      @payment.save
       owned_course = current_user.courses.where(course_id: params[:course_id]).first
       owned_course.payment_status = Constants::PaymentStatus::CANCEL
       owned_course.save
 
       # Tracking L7c3
-      Spymaster.params.cat('L7c3').beh('submit').tar(owned_course.course_id).user(current_user.id).ext({:payment_id => payment.id,
-          :payment_method => payment.method}).track(request)
+      Spymaster.params.cat('L7c3')
+                      .beh('submit')
+                      .tar(owned_course.course_id)
+                      .user(current_user.id)
+                      .ext({:payment_id => @payment.id, :payment_method => @payment.method})
+                      .track(request)
     end
 
     redirect_to :back
@@ -240,83 +250,30 @@ class PaymentController < ApplicationController
   end
 
   def online_payment
-
   end
 
   # GET
   def status
-  end
-
-  # GET
-  def success
-    baokim = BaoKimPaymentPro.new
-    payment_service_provider = params[:p]
-    @course = Course.where(id: @payment.course_id).first
+    @course = Course.find(@payment.course_id)
     owned_course = current_user.courses.where(course_id: @course.id).first
-    if payment_service_provider == 'baokim'
-      if baokim.verify_response_url(params)
-        owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-        owned_course.save
-      else
-        Tracking.create_tracking(
-          :type => Constants::TrackingTypes::PAYMENT,
-          :content => {
-            :payment_page => Constants::PaymentStatus::SUCCESS,
-            :status => "fail",
-            :baokim => "verify_response_url"
-          },
-          :ip => request.remote_ip,
-          :platform => {},
-          :device => {},
-          :version => Constants::AppVersion::VER_1,
-          :identity => current_user.id.to_s,
-          :object => @payment.id
-        )
-        render 'page_not_found', status: 404
-      end
-    elsif payment_service_provider == 'baokim_card'
-      @course = Course.where(id: @payment.course_id.to_s).first
-    else
-      @course = Course.where(id: @payment.course_id.to_s).first
-    end
 
-    if @payment
+    if @payment.status == Constants::PaymentStatus::SUCCESS
       # Tracking L8ga
-      Spymaster.params.cat('L8ga').beh('open').tar(@course.id).user(current_user.id).ext({:payment_id => @payment.id,
-          :payment_method => @payment.method}).track(request)
+      Spymaster.params.cat('L8ga')
+                      .beh('open')
+                      .tar(@course.id)
+                      .user(current_user.id)
+                      .ext({:payment_id => @payment.id, :payment_method => @payment.method})
+                      .track(request)
+
+      # If the first learning, display success page.
+      owned_course.set(first_learning: false) if !owned_course.blank?
     end
-
-    # If the first learning, display success page.
-    owned_course.set(:first_learning => false) if !owned_course.blank?
-  end
-
-  # GET
-  def cancel
-    payment_service_provider = params[:p]
-    if payment_service_provider == 'baokim'
-      @course = Course.where(id: @payment.course_id).first
-      
-      owned_course = current_user.courses.where(course_id: @course.id).first
-      owned_course.payment_status = Constants::PaymentStatus::CANCEL
-      owned_course.save
-    else
-      @course = Course.last
-    end
-  end
-
-  # GET
-  def pending
-  end
-
-  # GET
-  def error
   end
 
   # GET
   def payment_bill
     @payment = Payment.where(:course_id => @course.id, :user_id => current_user.id).first
-
-    # render json: {:message => "Payment History"}
   end
 
   # POST
@@ -339,7 +296,7 @@ class PaymentController < ApplicationController
     else
       render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
       return
-    end    
+    end
   end
 
   # GET: API get cod payment for mercury
@@ -382,7 +339,6 @@ class PaymentController < ApplicationController
 
   # GET: API list payment for mercury
   def list_payment
-
     status = params[:status]
     method = params[:method]
     from = params[:from]
@@ -458,8 +414,9 @@ class PaymentController < ApplicationController
       payment = Payment.where(
         :course_id => course_id, 
         :user_id => user_id,
-        :status.nin => [Constants::PaymentStatus::CANCEL]
+        :status.ne => Constants::PaymentStatus::CANCEL
       ).to_a.last
+
       unless payment.blank?
         if (payment.status == Constants::PaymentStatus::PENDING)
           payment.status = Constants::PaymentStatus::CANCEL
@@ -467,7 +424,6 @@ class PaymentController < ApplicationController
         end
       end
     end
-    # =================================================
 
     payment = Payment.new(
       :user_id => user_id,
@@ -488,7 +444,7 @@ class PaymentController < ApplicationController
     owned_course = user.courses.find_or_initialize_by(course_id: course_id)
     owned_course.created_at = Time.now() if owned_course.created_at.blank?
 
-  # Create lecture for user
+    # Create lecture for user
     course.curriculums.where(
       :type => Constants::CurriculumTypes::LECTURE
     ).map{ |curriculum|
@@ -502,8 +458,8 @@ class PaymentController < ApplicationController
     
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = payment.status
-    
-    if payment.save && owned_course.save && user.save && course.save
+
+    if payment.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else
@@ -606,7 +562,7 @@ class PaymentController < ApplicationController
           utm_source[:payment_method] = payment.method
           # Tracking L7c1
           Spymaster.params.cat('L7c1').beh('submit').tar(@course.id).user(current_user.id).ext(utm_source).track(request)         
-          redirect_to root_url + "home/payment/#{payment.id.to_s}/success?p=baokim_card"
+          redirect_to root_url + "home/payment/#{payment.id.to_s}/status"
           return
         else
           Tracking.create_tracking(
