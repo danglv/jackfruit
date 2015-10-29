@@ -296,7 +296,7 @@ class PaymentController < ApplicationController
     else
       render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
       return
-    end    
+    end
   end
 
   # GET: API get cod payment for mercury
@@ -416,6 +416,7 @@ class PaymentController < ApplicationController
         :user_id => user_id,
         :status.nin => [Constants::PaymentStatus::CANCEL]
       ).to_a.last
+
       unless payment.blank?
         if (payment.status == Constants::PaymentStatus::PENDING)
           payment.status = Constants::PaymentStatus::CANCEL
@@ -423,7 +424,6 @@ class PaymentController < ApplicationController
         end
       end
     end
-    # =================================================
 
     payment = Payment.new(
       :user_id => user_id,
@@ -459,7 +459,7 @@ class PaymentController < ApplicationController
     owned_course.type = Constants::OwnedCourseTypes::LEARNING
     owned_course.payment_status = payment.status
     
-    if payment.save && owned_course.save && user.save && course.save
+    if payment.save && user.save && course.save
       render json: PaymentSerializer.new(payment).cod_hash
       return
     else

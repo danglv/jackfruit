@@ -56,9 +56,9 @@ describe 'PaymentController' do
   end
 
   after do
-    @users.each { |x| x.destroy }
-    @courses.each { |x| x.destroy }
     @campaign.destroy
+    User.delete_all
+    Course.delete_all
     Payment.destroy_all
     Tracking.destroy_all
   end
