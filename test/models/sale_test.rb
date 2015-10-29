@@ -73,7 +73,6 @@ describe 'Sale' do
     end
 
     it 'must have in_progress scope' do
-      binding.pry
       value(Sale::Campaign.in_progress.all.to_a[0].title).must_equal @campaign.title
     end
 
