@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include CoursesHelper
 
-  before_filter :list_category, :store_location, :set_current_user, :get_banner, :handle_utm_source
+  before_filter :list_category, :store_location, :set_current_user, :get_banner, :handle_utm_source, :handle_coupon_code
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -52,6 +52,33 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Keep coupon code within a course's flow
+  # Save coupon code to session on course detail
+  # Clear coupon code if out of that course
+  # Put coupon code to params if it doesn't has
+  def handle_coupon_code
+    # Coupon code always comes from detail page
+    if params[:controller] == 'courses' && params[:action] == 'detail'
+      if !params[:coupon_code].blank?
+        session[:coupon_code] = {
+          course_alias: params[:alias_name],
+          code: params[:coupon_code]
+        }
+        return
+      end
+    end
+
+    # Clear coupon code when ever user visits an other course
+    should_delete = !params[:alias_name].blank? && !session[:coupon_code].blank?
+    should_delete &&= session[:coupon_code]['course_alias'] != params[:alias_name]
+    session.delete(:coupon_code) if should_delete
+
+    # Put coupon code into params, because, could not be sure where it'll be used
+    if params[:coupon_code].blank? && !session[:coupon_code].blank?
+      params[:coupon_code] = session[:coupon_code]['code']
+    end
+  end
+
   def ensure_signup_complete
     # Ensure we don't go into an infinite loop
     return if action_name == 'finish_signup'
@@ -62,10 +89,6 @@ class ApplicationController < ActionController::Base
       redirect_to finish_signup_path(current_user)
     end
   end
-
-  # def authenticate_user
-  #   current_user = User.where(auth_token: params[:auth_token]).first
-  # end
 
   def validate_content_type_param
     @content_type = params[:content_type]

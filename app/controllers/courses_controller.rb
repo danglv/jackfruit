@@ -189,11 +189,7 @@ class CoursesController < ApplicationController
             @payment = Payment.where(
               user_id: current_user.id.to_s,
               course_id: @course.id.to_s
-            ).last
-            @payment = Payment.where(
-              user_id: current_user.id.to_s,
-              course_id: @course.id.to_s
-            ).last
+            ).to_a.last
           end
         end
       else
@@ -217,7 +213,7 @@ class CoursesController < ApplicationController
     end
 
     #fixed condition for Oct2015 campaign
-    condition = {:enabled => true, :id.in => @course.related.map{|c| c['id']}}
+    condition = {:enabled => true, :id.in => @course.related}
     @courses['related'] = [
       Course::Localization::TITLES["related".to_sym][I18n.default_locale], Course.where(condition).limit(3)
     ]
@@ -287,7 +283,7 @@ class CoursesController < ApplicationController
         # Redirect to success payment page if first learning and has payment
         payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
         if !payment.blank?
-          redirect_to root_url + "home/payment/#{payment.id}/success?p=#{payment.method}"
+          redirect_to root_url + "home/payment/#{payment.id}/status"
           return
         end
       end
@@ -666,7 +662,7 @@ class CoursesController < ApplicationController
       c.lang = course['lang'] unless course['lang'].blank?
       c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
       c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-      c.related = course['related'].map{|r| r['id']} 
+      c.related = course['related'] == nil ? [] : course['related'].map{|r| r['id']} 
 
       if !course['curriculums'].blank?
 
@@ -689,6 +685,16 @@ class CoursesController < ApplicationController
           course_curriculum.asset_type = curriculum['asset_type']
           course_curriculum.url = curriculum['url']
           course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
+          if !curriculum['documents'].blank?
+            curriculum['documents'].each do |d|
+              doc = Course::Document.new(
+                :title => d['title'],
+                :link => d['link'],
+                :type => d['type']
+              )
+              course_curriculum.documents.push(doc)
+            end
+          end
           c.curriculums.push(course_curriculum)
           if curriculum['type'] == 'lecture'
             lecture_index += 1
@@ -792,6 +798,27 @@ class CoursesController < ApplicationController
       return
 
     rescue Exception => e
+      render json: {:error => "Có lỗi xảy ra #{e.message}"}
+    end
+  end
+
+  # API UPLOAD DOCUMENTS FOR KELLEY
+
+  def upload_document
+    begin
+      file = params[:file]
+      file_name = params[:file_name]
+
+      path = Rails.public_path.join("uploads/documents/")
+      path.mkpath unless path.exist?
+
+      File.open(path.join(file_name), 'wb') do |f|
+        f.write(file.read)
+      end
+
+      render json: {'document' => "uploads/documents/#{file_name}"}
+      return
+    rescue Exception => e 
       render json: {:error => "Có lỗi xảy ra #{e.message}"}
     end
   end

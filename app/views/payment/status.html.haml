@@ -5,14 +5,22 @@
     = render :partial => "components/banner/banner"
   .payment-box-new{class: @payment.status}
     .payment-box-header
-      .payment-box-title Chúc mừng bạn đã thanh toán thành công
- 
+      .payment-box-title
+        - if @payment.status == 'success'
+          Chúc mừng bạn đã thanh toán thành công
+        - elsif ['pending', 'process'].include?(@payment.status)
+          Giao dịch của bạn đang được xử lý
+        - else
+          Rất tiếc! Giao dịch của bạn chưa thành công
     - unless (@payment.money == 0 && @payment.coupons.size > 0)
       .payment-box-content
         %p.payment-box-notice
-          %span Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
-          %a{href: '/users/payment_history'} Lịch sử giao dịch
-          %span để được cập nhật thường xuyên.
+          - unless @payment.status == 'cancel'
+            %span Giao dịch của bạn đang được xử lý, hãy kiểm tra trang
+            %a{href: '/users/payment_history'} Lịch sử giao dịch
+            %span để được cập nhật thường xuyên.
+          - else
+            %span Đã có lỗi xảy ra trong giao dịch thanh toán của bạn, vui lòng thử lại với các thông tin đúng.
         .payment-box-table
           .payment-box-table-row
             .payment-box-table-col-left Khóa học
@@ -22,7 +30,13 @@
             .payment-box-table-col-right.payment-price= number_to_currency(@payment.money, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
           .payment-box-table-row
             .payment-box-table-col-left Trạng thái
-            .payment-box-table-col-right.payment-status Thành công
+            .payment-box-table-col-right.payment-status
+              - if @payment.status == 'success'
+                Thành công
+              - elsif ['pending', 'process'].include?(@payment.status)
+                Đang xử lý
+              - else
+                Thất bại
     - else
       .payment-box-content.zero-amount
         %p.payment-box-notice

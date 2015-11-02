@@ -16,28 +16,29 @@
 
   / + Support form
 
+  / Tạm tắt support
   / Tạm tắt support form cho khoá Lê Thẩm Dương
-  - if @course.id.to_s != "560b4e96eb5d8904c1000002"
-    .support-form
-      .tele-sales.show-form
-        %i.fa.fa-play-circle
-        Bạn cần thêm thông tin?
-      .tele-sales-extend
-        .tele-sales-top.hide-form
-          %i.fa.fa-play-circle
-          Bạn cần thêm thông tin?
-        .tele-sales-content
-          %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
-          %form
-            %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
-            %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
-            %a.btn.btn-success.send-form-support-detail{} Gửi đi
-        .tele-sales-content.success
-          %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
-        .tele-sales-bottom
-          %span Hotline: 
-          = succeed "" do
-            %b 0961215368
+  / - if @course.id.to_s != "560b4e96eb5d8904c1000002"
+  /   .support-form
+  /     .tele-sales.show-form
+  /       %i.fa.fa-play-circle
+  /       Bạn cần thêm thông tin?
+  /     .tele-sales-extend
+  /       .tele-sales-top.hide-form
+  /         %i.fa.fa-play-circle
+  /         Bạn cần thêm thông tin?
+  /       .tele-sales-content
+  /         %h5 Vui lòng để lại thông tin cá nhân. Chúng tôi sẽ liên hệ trực tiếp.
+  /         %form
+  /           %input.form-control.name-input{:type => "text", :placeholder => "Tên đầy đủ"}
+  /           %input.form-control.mobile-input{:type => "text", :placeholder => "Số điện thoại"}
+  /           %a.btn.btn-success.send-form-support-detail{} Gửi đi
+  /       .tele-sales-content.success
+  /         %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
+  /       .tele-sales-bottom
+  /         %span Hotline: 
+  /         = succeed "" do
+  /           %b 0961215368
 
   / + Report modal 
   #complete-dialog.modal.fade{:tabindex => "-1"}
@@ -77,7 +78,7 @@
           - if @course.price == 0
             %h3.course-price-text.free{:style => "margin-top: 15px;"} Miễn phí
           - else
-            %h3.course-price-text.no-margin{:style => 'margin: 0; padding-top: 15px;'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %h3.course-price-text.no-margin.bold{:style => 'margin: 0; padding-top: 15px;color:red'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
   / + Detail content
   .detail
     .detail-top
@@ -197,15 +198,15 @@
                             %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
                       .cod-notice 
                         .notice-text Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
-                      .cod-cancel
-                        .cancel-text 
-                          %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
-                          = succeed "" do
-                            %b Hủy giao dịch COD
-                          tại
-                          = succeed "" do
-                            %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}"} ĐÂY
-                          và tiếp tục mua khóa học
+                      / .cod-cancel
+                      /   .cancel-text 
+                      /     %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
+                      /     = succeed "" do
+                      /       %b Hủy giao dịch COD
+                      /     tại
+                      /     = succeed "" do
+                      /       %a{:href => "/home/payment/cancel_cod/#{@course.id.to_s}", onclick: "return confirm('Bạn có chắc chắn muốn huỷ giao dịch cod này?');"} ĐÂY
+                      /     và tiếp tục mua khóa học
                     - else
                       .purchase-submit
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)} Mua khóa học này
@@ -230,11 +231,11 @@
                                   %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
                                   %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                       .col-xs-12.no-padding
-                        / - if @preview_disabled
-                        /   %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
-                        / - else
-                        /   %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                        /     %h5.normal-text.link-text Học thử miễn phí
+                        - if @preview_disabled
+                          %h5.normal-text{:style => "color:gray;"} Bạn đã học thử khoá học này
+                        - else
+                          %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                            %h5.normal-text.link-text Học thử miễn phí
                       .report
                         %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                           %h5.normal-text.link-text Góp ý
@@ -259,8 +260,8 @@
                                 %input.form-control.coupon_code{:type => "text", :placeholder => "Nhập mã khuyến mại" , :value => "", :style => "height: 40px; width: 178px; margin-right:10px; display: inline", :name => "coupon_code"}
                                 %input.btn.btn-primary.coupon-submit{:type => "submit", :value => "Nhập"}
                     .col-xs-12.no-padding
-                      / %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
-                      /   %h5.normal-text.link-text Học thử miễn phí
+                      %a.link-text{:href => "/home/my-course/select_course?alias_name=#{@course.alias_name.to_s}&type=preview"}
+                        %h5.normal-text.link-text Học thử miễn phí
                     .report
                       %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                         %h5.normal-text.link-text Góp ý          

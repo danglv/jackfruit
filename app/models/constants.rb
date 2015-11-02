@@ -18,7 +18,7 @@ module Constants
   end
 
   module PreviewMode
-    TIME = 1.minutes
+    TIME = 5.minutes
   end
 
   PROFILE_LINK_PREFIX = {

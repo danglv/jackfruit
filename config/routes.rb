@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get '/api/suggestion_search', to: 'courses#suggestion_search'
       get '/api/get_money', to: 'courses#get_money'
       post 'upload_image', to: 'courses#upload_image'
+      post 'upload_document', to: 'courses#upload_document'
 
       # API for kelley
       post :upload_course
@@ -67,15 +68,10 @@ Rails.application.routes.draw do
       post '/card/:alias_name', to: 'payment#card'
 
       get '/:id/status', to: 'payment#status'
-      get '/:id/success', to: 'payment#success'
-      get '/:id/pending', to: 'payment#pending'
-      get '/:id/cancel', to: 'payment#cancel'
-      get '/:id/error', to: 'payment#error'
+      post '/:id/status', to: 'payment#status'
       get '/:alias_name/payment_bill', to: 'payment#payment_bill'
 
       get '/test_online_payment/:alias_name', to: 'payment#test_online_payment'
-
-      # get '/:id/update', to: 'payment#update'
 
       # api for mercury
       get '/api/:id/detail', to: 'payment#detail'
@@ -133,7 +129,7 @@ Rails.application.routes.draw do
 
   resources :sales do
     collection do
-      get 'courses/combo/:combo_code', to: 'sales#combo_courses'
+      get '/combo/:combo_code/detail', to: 'sales#detail'
     end
   end
 

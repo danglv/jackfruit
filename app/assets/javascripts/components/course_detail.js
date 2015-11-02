@@ -1,11 +1,15 @@
 (function ($) {
-  $(document).ready(function() {
+  $(document).ready(function () {
     if (window.location.href.match('/detail') != null) {
       var course_id = $(".course_id").val();
       var utm_source = getParameterByName('utm_source');
       // Tracking L2
-      Spymaster.track({category: 'L2', behavior: 'view', target: course_id});
-    } 
+      Spymaster.track({
+        category: 'L2',
+        behavior: 'view',
+        target: course_id
+      });
+    }
   });
 
   function saleCoundownter(duration, ondisplay, ontimeout) {
@@ -52,8 +56,7 @@
       function () {
         alert("Hết thời gian sale");
       });
-  } else {
-  };
+  } else {};
   var getCurrentElement = function (top) {
 
     var lstDetect = $(".menu-fixed .nav-pills a");
@@ -137,7 +140,7 @@
       // 'payment_id'
     }
 
-    var URL = 'http://' +  window.location.host + '/courses/api/send_form-support_detail';
+    var URL = '//' + window.location.host + '/courses/api/send_form-support_detail';
     var request = $.ajax({
       url: URL,
       type: "post",
@@ -168,7 +171,7 @@ $(document).ready(function () {
       'course_id': course_id,
     }
 
-    var URL = 'http://' + window.location.host + '/home/my-course/update_wishlist';
+    var URL = '//' + window.location.host + '/home/my-course/update_wishlist';
     $.ajax({
       type: 'GET',
       url: URL,
@@ -187,7 +190,11 @@ $(document).ready(function () {
   $(".buy-button").click(function () {
     var course_id = $(".course_id").val();
     // Tracking L2Click
-    Spymaster.track({category: 'L2Click', behavior: 'click', target: course_id});
+    Spymaster.track({
+      category: 'L2Click',
+      behavior: 'click',
+      target: course_id
+    });
   });
 
   $(".btn-submit-report").click(function () {
@@ -203,7 +210,7 @@ $(document).ready(function () {
       'content': content
     }
 
-    var URL = 'http://' + window.location.host + '/support/send_report';
+    var URL = '//' + window.location.host + '/support/send_report';
     $.ajax({
       type: 'POST',
       url: URL,
