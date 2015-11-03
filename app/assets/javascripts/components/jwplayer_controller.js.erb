@@ -17,6 +17,7 @@ function setup_jwplayer(container, url, mediaid){
     },
     width: '100%',
     height: '100%',
+    plugins: {}, // Disable jwplayer default plugin
     ga: {}
   });
 
@@ -53,6 +54,8 @@ function setup_jwplayer(container, url, mediaid){
     return "Tracked";
   });
 
+  // This should be called after Spymaster.setup
+  Spymaster.handle_player(player);
 }
 
 (function(){
