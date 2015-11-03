@@ -66,27 +66,27 @@ describe 'CoursesController' do
     Course.delete_all
   end
 
-  describe 'POST #get_money' do 
+  describe 'GET #get_money' do 
     it 'should render 422 and message when course_id is blank' do 
       get :get_money
       res = JSON.parse(response.body)
       
       assert_response :unprocessable_entity
-      assert_equal 'course_id không chính xác', res['message']
+      assert_equal 'chưa truyền dữ course_id', res['message']
     end
 
     it 'should render 422 and message when course not found' do
       stub_request(:get, "http://code.pedia.vn/coupon?coupon=#{@coupon_code}").
-        to_return(:status => 200, :body => @res_coupon) 
+        to_return(:status => 200, :body => @res_coupon)
+
       get :get_money, {
         course_id: 'blabla',
         coupon_code: @coupon_code
       }
-
       res = JSON.parse(response.body)
 
       assert_response :unprocessable_entity
-      assert_equal 'Chưa truyền dữ liệu', res['message']
+      assert_equal 'course_id không chính xác', res['message']
     end
 
     it 'should render success and price' do 
