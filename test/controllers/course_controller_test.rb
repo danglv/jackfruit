@@ -4,6 +4,7 @@ describe 'CoursesController' do
   before :each do 
     @coupon_code = 'KHANHDN'
     @res_coupon = '{"_id":"56363fe48e62a4142f0000a3","coupon":"KHANHDN","created_at":"2015-11-01T16:37:56.232Z","expired_date":"2015-12-30T17:00:00.000Z","course_id":"560b4e96eb5d8904c1000002","used":0,"enabled":true,"max_used":1,"discount":100.0,"return_value":"100","issued_by":"560b4e95eb5d8904c1000000"}'
+    @res_coupon_invalid = '{"message":"Mã coupon không tồn tại"}'
     @users = User.create([
       {
         _id: '56122655df52b90f8a000012',
@@ -57,13 +58,118 @@ describe 'CoursesController' do
             "url"=>""
           }
         ]
+      }, 
+      {
+        name: 'Test Course Version 1',
+        alias_name: 'test_course_version_1',
+        price: 699000,
+        enabled: true,
+        version: 'test'
+      },
+      {
+        name: 'Free Course 1',
+        alias_name: 'free_course_1',
+        price: 0,
+        enabled: true,
+        version: 'public'
       }
     ])
+    
+    @category = Category.create(
+      _id: 'test-category',
+      name: 'Test Category',
+      alias_name: 'test-category',
+      enabled: true
+    )
   end
 
   after :each do 
     User.delete_all
     Course.delete_all
+    Category.delete_all
+  end
+
+  describe 'GET #index' do
+    it 'success when visit courses/index' do
+      get :index
+
+      assert_response :success
+    end
+  end
+
+  describe 'GET #list_course_feature' do
+    it 'success when visit courses/list_course_featured' do
+      get :list_course_featured, {
+        :category_alias_name => @category.id
+      }
+
+      assert_response :success
+    end
+  end
+
+  describe 'GET #list_course_all' do
+    it 'success when visit courses/list_course_all' do
+      get :list_course_all, {
+        :category_alias_name => @category.id
+      }
+
+      assert_response :success
+    end
+
+    it 'show all public course have category_id == test-category' do
+      @courses.each do |course|
+        course.category_ids = [@category.id]
+        course.save
+      end
+
+      get :list_course_all, {
+        :category_alias_name => @category.id
+      }
+
+      courses = assigns(:courses)
+
+      assert_response :success
+      assert courses.include?(@courses[0])
+      assert !courses.include?(@courses[1])
+    end
+
+    it 'show all public course have category_id == test-category and free if budget if price is 0' do
+      @courses.each do |course|
+        course.category_ids = [@category.id]
+        course.save
+      end
+
+      get :list_course_all, {
+        :category_alias_name => @category.id,
+        :budget => Constants::BudgetTypes::FREE
+      }
+
+      courses = assigns(:courses)
+
+      assert_response :success
+      assert !courses.include?(@courses[0])
+      assert !courses.include?(@courses[1])
+      assert courses.include?(@courses[2])
+    end
+
+    it 'show all public course have category_id == test-category and paid if budget if price is greater than 0' do
+      @courses.each do |course|
+        course.category_ids = [@category.id]
+        course.save
+      end
+
+      get :list_course_all, {
+        :category_alias_name => @category.id,
+        :budget => Constants::BudgetTypes::PAID
+      }
+
+      courses = assigns(:courses)
+
+      assert_response :success
+      assert courses.include?(@courses[0])
+      assert !courses.include?(@courses[1])
+      assert !courses.include?(@courses[2])
+    end
   end
 
   describe 'GET #get_money' do 
@@ -89,7 +195,7 @@ describe 'CoursesController' do
       assert_equal 'course_id không chính xác', res['message']
     end
 
-    it 'should render success and price' do 
+    it 'should render success and price is 0 when check coupon_code has discount 100%' do 
       stub_request(:get, "http://code.pedia.vn/coupon?coupon=#{@coupon_code}").
         to_return(:status => 200, :body => @res_coupon) 
       get :get_money, {
@@ -101,7 +207,24 @@ describe 'CoursesController' do
 
       assert_response :success
       assert_match 'price', res.to_s
+      assert_match '0', res.to_s
     end
+
+    it 'should render success and price is current price when invalid coupon_code' do 
+      stub_request(:get, /code.pedia.vn/).
+        to_return(:status => 422, :body => @res_coupon_invalid) 
+      get :get_money, {
+        course_id: @courses[0]['id'],
+        coupon_code: @coupon_code
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :success
+      assert_match 'price', res.to_s
+      assert_match "#{@courses[0].price}", res.to_s
+    end
+
   end
 
   describe 'POST #upload_course' do
