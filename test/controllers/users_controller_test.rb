@@ -6,11 +6,11 @@ describe 'UsersController' do
     email = 'test9001@gmail.com'
     token = '9890fc4da44e6a569397d80738f875872adfaafc'
     @link = 'https://pedia.vn/users/reset_password?token=9890fc4da44e6a569397d80738f875872adfaafc'
-    @user = User.create(
+    @user = User.create!(
       email: 'test9001@gmail.com',
       password: '12345678',
       reset_password_token: token,
-      reset_password_sent_at: Time.now
+      reset_password_sent_at: Time.now,
     )
 
     @course = Course.create(
@@ -21,7 +21,9 @@ describe 'UsersController' do
       user: @user,
     )
 
-
+    instructor_profile = User::InstructorProfile.create(
+      user: @user
+    )
   end
 
   after :each do
@@ -32,14 +34,6 @@ describe 'UsersController' do
   end
 
   describe 'POST #create' do
-    it 'should create user when params user not blank ' do
-      @user_new = @user
-
-      post :create, user: @user_new
-    end
-
-    it 'should return message when user not save' do
-    end
 
     it 'should return message when not have user' do
 
@@ -49,10 +43,69 @@ describe 'UsersController' do
       assert_equal 'Thiếu param user', JSON.parse(@response.body)['error']
     end
 
-    it 'should return message when exception' do
+    it 'should return message when user not save' do
+      post :create, user: @user.as_json
+
+      assert_response 200
+      assert_match 'error', response.body
+      assert_match 'email', response.body
+    end
+
+    it 'should return message when have' do
       post :create, user: 'abcxyz'
 
       assert_match 'error', response.body
+    end
+
+    it 'should return error when user is not a hash' do
+      user_data = "An invalid hash object"
+      post :create, user: user_data
+
+      assert_response 200
+      assert_match 'error', response.body
+    end
+
+    it 'should save valid instructor profile' do
+      user_data = {
+        email: 'test03@gmail.com',
+        instructor_profile: {
+          function: 'This is a function'
+        }
+      }
+
+      post :create, user: user_data
+
+      assert_response 200
+      assert_match 'test03@gmail.com', response.body
+      assert_match 'This is a function', response.body
+    end
+
+    it 'should ignore invalid instructor profile' do
+      user_data = {
+        email: 'test03@gmail.com',
+        instructor_profile: "Not a valid hash"
+      }
+
+      post :create, user: user_data
+
+      assert_response 200
+      assert_match 'test03@gmail.com', response.body
+      assert_match '"function":""', response.body
+    end
+
+    it 'should return message when user can save' do
+      user_new = User.new(
+        email: 'test02@gmail.com'
+      )
+      instructor_profile_new = User::InstructorProfile.new(
+        user: user_new
+      )
+
+      post :create, user: user_new.as_json
+
+      assert_response 200
+      assert_match 'test02@gmail.com', response.body
+      assert_equal 0, JSON.parse(response.body)['money']
     end
   end
 
@@ -149,6 +202,11 @@ describe 'UsersController' do
 
       assert_response :unprocessable_entity
       assert_equal 'Chưa truyền dữ liệu!', JSON.parse(@response.body)['message']
+    end
+  end
+
+  describe 'GET #edit_profile' do
+    it '' do
     end
   end
 
