@@ -7,7 +7,7 @@ $(document).ready(function () {
       $('#comment-dropdown').fadeOut(225);
       $('#comment-dropdown').removeClass('active');
     })
-    // send request to add comment 
+    // send request to add comment
   $('#send-comment').click(function () {
 
       var course_id = $("#course-id").val();
@@ -285,7 +285,6 @@ $(document).ready(function () {
     var parent_announcement_id = that.prev().prev().val();
 
     var course_id = $(".course_id").val();
-    console.log(course_id);
     params = {
       'course_id': course_id,
       'description': description,

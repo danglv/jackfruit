@@ -167,7 +167,6 @@
         'owned_course_id': owned_course_id,
         'owned_lecture_id': owned_lecture_id
       }
-      console.log(params);
       $(".input-note-content").val("");
 
       var URL = '//' + window.location.host + '/users/create_note';
@@ -177,6 +176,7 @@
         data: params,
         success: function (msg) {
           var data = msg;
+
           console.log(data);
           var item_note = "<li class='row'><div class='time pull-left'><div class='time-content'>" + data.time +
             "</div></div><div class='note-item pull-left'><span>" + data.content +
@@ -205,7 +205,6 @@
       'owned_lecture_id': owned_lecture_id
     }
 
-    console.log(params)
 
     var URL = '//' + window.location.host + '/users/delete_note';
     $.ajax({
@@ -214,8 +213,6 @@
       data: params,
       success: function (msg) {
         var data = msg;
-        console.log(msg);
-        console.log(note_id);
         $("input[value=" + note_id + "]").parent().parent().remove();
       }
     });

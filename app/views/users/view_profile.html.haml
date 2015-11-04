@@ -1,5 +1,5 @@
 = render :partial => 'components/header/default'
-.container-wrapper{:style => "overflow: hidden;"}  
+.container-wrapper{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
   %main.profile-view
@@ -19,28 +19,28 @@
               - else
                 = image_tag "avatar.png", :class => "user-avatar-small",:style => 'width:100%;margin-bottom:10px'
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-globe.icon-social
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-facebook-official.icon-social
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-google.icon-social
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-twitter.icon-social
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-linkedin-square.icon-social
               / .col-xs-2.text-center.no-padding
-              /   %a{:href => ""} 
+              /   %a{:href => ""}
               /     %i.fa.fa-youtube-play.icon-social
           .col-lg-7.col-md-6.col-sm-7.col-xs-12
-            .profile-title 
-              Thông tin học viên 
-            .profile-description  
-              %p= current_user.biography 
+            .profile-title
+              Thông tin học viên
+            .profile-description
+              %p= current_user.biography
         %ul.row.nav.nav-tabs.profile-view-tab{:style => 'margin-top:30px'}
           %li.col-lg-6.col-md-6.col-sm-6.col-xs-6.active
             %a.pull-right{:href => "#studying","data-toggle" => 'tab',:style => 'border-bottom:5px solid #37b34a'} Đang học
@@ -49,9 +49,9 @@
     %section.profile-course{:style => 'padding-top:20px'}
       .container.tab-content
         #studying.tab-pane.fade.active.in
-          - @owned_courses.each do |course|
-            - unless course.course.blank?
-              = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
+          - @owned_courses.each do |owned_course|
+            - unless owned_course.course.blank?
+              = render :partial => 'components/courses/course_card',:locals => {:course => owned_course.course}
         #favorite.tab-pane.fade
           - if !@owned_wishlist.blank?
             - @owned_wishlist.each do |course|
@@ -73,5 +73,5 @@
         /     %a{:href => "javascript:void(0)"} 46
         /   %li
         /     %a{:href => "javascript:void(0)"} >
-        
-= render :partial => 'components/footer/index'           
+
+= render :partial => 'components/footer/index'
