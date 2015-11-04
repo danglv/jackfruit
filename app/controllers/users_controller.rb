@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     learning
   end
 
-  def create 
-    begin 
+  def create
+    begin
       user = params[:user]
 
       if !user.blank?
@@ -23,9 +23,9 @@ class UsersController < ApplicationController
         user_new.password = user[:password].blank? ? '12345678' : user[:password]
 
         instructor_profile = User::InstructorProfile.new()
-        instructor_profile.description = user[:instructor_profile][:description] unless user[:instructor_profile][:description].blank?  
-        instructor_profile.major = user[:instructor_profile][:major] unless user[:instructor_profile][:major].blank? 
-        instructor_profile.function = user[:instructor_profile][:function] unless user[:instructor_profile][:function].blank? 
+        instructor_profile.description = user[:instructor_profile][:description] unless user[:instructor_profile][:description].blank?
+        instructor_profile.major = user[:instructor_profile][:major] unless user[:instructor_profile][:major].blank?
+        instructor_profile.function = user[:instructor_profile][:function] unless user[:instructor_profile][:function].blank?
         user_new.instructor_profile = instructor_profile
 
         if user_new.save
@@ -36,8 +36,9 @@ class UsersController < ApplicationController
           return
         end
       else
-      
-      end 
+        render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+        return
+      end
     rescue Exception => e
       render json: {:error => e.message}
     end
@@ -52,9 +53,9 @@ class UsersController < ApplicationController
 
     if email.blank?
       render json: {message: "Email is empty"}, status: :unprocessable_entity
-      return  
+      return
     end
-    
+
     user = User.where(:email => email).first
     # Check exist email user
     if user
@@ -105,17 +106,17 @@ class UsersController < ApplicationController
     end
 
     unless check_valid_length(password, 6, 32)
-      render json: {message: "Vui lòng nhập đủ ký tự cho password!"}, status: :unprocessable_entity  
+      render json: {message: "Vui lòng nhập đủ ký tự cho password!"}, status: :unprocessable_entity
       return
     end
 
     user = User.only(:email).where(email: email).first
 
-    unless user 
+    unless user
       render json: {message: "Email này đã được sử dụng!"}
       return
     end
-  
+
     User.new(
       :email => email,
       :password => password,
@@ -130,11 +131,11 @@ class UsersController < ApplicationController
   # end
 
   # def login_with_facebook
-    
+
   # end
 
   # def login_with_google
-    
+
   # end
 
   # def logout
@@ -142,11 +143,11 @@ class UsersController < ApplicationController
   # end
 
   # def edit_profile
-    
+
   # end
 
   # def upload_avatar
-    
+
   # end
 
   def learning
@@ -175,7 +176,7 @@ class UsersController < ApplicationController
     course_ids = current_user.courses.where(
       :type => learning,
     ).map(&:course_id)
-    # Wishlist inorge learned course. 
+    # Wishlist inorge learned course.
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @owned_wishlist = Course.in(:id => wishlist_ids)
   end
@@ -292,21 +293,6 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # PATCH/PUT /users/:id.:format
-  def update
-    # authorize! :update, @user
-    respond_to do |format|
-      if @user.update(user_params)
-        sign_in(@user == current_user ? @user : current_user, :bypass => true)
-        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # GET: API suggestion search for user by name
   def suggestion_search
     keywords = params[:q]
@@ -372,7 +358,7 @@ class UsersController < ApplicationController
     instructor_profile.function = instructor['instructor_profile']['function'] unless instructor['instructor_profile']['function'].blank?
     instructor_profile.work_unit = instructor['instructor_profile']['work_unit'] unless instructor['instructor_profile']['work_unit'].blank?
     instructor_profile.description = instructor['instructor_profile']['description'] unless instructor['instructor_profile']['description'].blank?
-    
+
     user.instructor_profile = instructor_profile
 
     if user.save
@@ -384,36 +370,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET/PATCH /users/:id/finish_signup
-  def finish_signup
-    # authorize! :update, @user 
-    if request.patch? && params[:user] #&& params[:user][:email]
-      if @user.update(user_params)
-        @user.skip_reconfirmation!
-        sign_in(@user, :bypass => true)
-        redirect_to @user, notice: 'Your profile was successfully updated.'
-      else
-        @show_errors = true
-      end
-    end
-  end
-
   def view_profile
     owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
-    wishlist_ids = current_user.wishlist - owned_course_ids 
+    wishlist_ids = current_user.wishlist - owned_course_ids
 
     @owned_courses = current_user.courses.in(:course_id => owned_course_ids).to_a
     @owned_wishlist = Course.in(:id => wishlist_ids).to_a
-  end
-
-  # DELETE /users/:id.:format
-  def destroy
-    # authorize! :delete, @user
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
-    end
   end
 
   # GET /users/edit_profile
@@ -611,7 +573,7 @@ class UsersController < ApplicationController
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
 
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
@@ -633,7 +595,7 @@ class UsersController < ApplicationController
     course = nil
     lecture = nil
     course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
-    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank? 
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
     if course && lecture
       note = lecture.notes.where(:id => note_id).first
       if (!note.blank? ? note.delete : false)
@@ -691,14 +653,14 @@ class UsersController < ApplicationController
     else
       Course.where(:user_id => instructor_id).map(&:id).map(&:to_s)
     end
-    
-    render json: {:course_ids => course_ids} 
+
+    render json: {:course_ids => course_ids}
   end
 
   private
     def set_user
       if params[:id] != nil
-        @user = User.find(params[:id]) 
+        @user = User.find(params[:id])
       else
         @user = current_user
       end
