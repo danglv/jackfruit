@@ -1,19 +1,71 @@
 require 'test_helper'
 
 describe 'CoursesController' do
-  before :each do 
+  before :each do
+
+    stub_request(:get, /.*tracking.pedia.vn.*/)
+      .to_return(:status => 200, :body => '')
+
     @coupon_code = 'KHANHDN'
     @res_coupon = '{"_id":"56363fe48e62a4142f0000a3","coupon":"KHANHDN","created_at":"2015-11-01T16:37:56.232Z","expired_date":"2015-12-30T17:00:00.000Z","course_id":"560b4e96eb5d8904c1000002","used":0,"enabled":true,"max_used":1,"discount":100.0,"return_value":"100","issued_by":"560b4e95eb5d8904c1000000"}'
     @res_coupon_invalid = '{"message":"Mã coupon không tồn tại"}'
     @users = User.create([
       {
         _id: '56122655df52b90f8a000012',
-        email: 'thanh_it@hotmail.com',
+        email: 'test_account_1@gmail.com',
         password: '12345678',
-        password_confirmation: '12345678'
+        password_confirmation: '12345678',
+        role: 'user'
+      },
+      {
+        email: 'test_account_2@gmail.com',
+        password: '12345678',
+        password_confirmation: '12345678',
+        role: 'test'
+      },
+      {
+        email: 'test_account_3@gmail.com',
+        password: '12345678',
+        password_confirmation: '12345678',
+        role: 'reviewer'
       }
     ])
-        @params = {
+
+    @instructor_user = User.create(
+      email: 'nguyendanhtu@pedia.vn',
+      password: '12345678',
+      password_confirmation: '12345678'
+    )
+    instructor_profiles = User::InstructorProfile.create([
+      {
+        academic_rank: 'Doctor',
+        user: @instructor_user
+      }
+    ])
+
+    @user_role_user = User.create(
+      _id: '56122655df52b90f8a000012',
+      email: 'test_account_1@gmail.com',
+      password: '12345678',
+      password_confirmation: '12345678',
+      role: 'user'
+    )
+
+    @test_role_user = User.create(
+      email: 'test_role_user@gmail.com',
+      password: '12345678',
+      password_confirmation: '12345678',
+      role: 'test'
+    )
+
+    @reviewer_role_user = User.create(
+      email: 'reviewer_role_user@gmail.com',
+      password: '12345678',
+      password_confirmation: '12345678',
+      role: 'reviewer'
+    )
+
+    @params = {
       user_id: '56122655df52b90f8a000012',
       course_id: '5613bae6df52b91d11000007',
       course: ''
@@ -40,7 +92,7 @@ describe 'CoursesController' do
         intro_link: '', 
         intro_image: '/uploads/images/courses/thumbnail_sale.png', 
         version: 'public', 
-        user_id: '56122655df52b90f8a000012', 
+        user_id: @instructor_user.id, 
         category_ids: [], 
         label_ids: [],
         curriculums: [
@@ -60,18 +112,28 @@ describe 'CoursesController' do
         ]
       }, 
       {
-        name: 'Test Course Version 1',
-        alias_name: 'test_course_version_1',
+        name: 'Test Course Version',
+        alias_name: 'test_course',
         price: 699000,
         enabled: true,
-        version: 'test'
+        version: 'test', 
+        user_id: @instructor_user.id
       },
       {
-        name: 'Free Course 1',
-        alias_name: 'free_course_1',
+        name: 'Free Course',
+        alias_name: 'free_course',
         price: 0,
         enabled: true,
-        version: 'public'
+        version: 'public', 
+        user_id: @instructor_user.id
+      },
+      {
+        name: 'Disable Course',
+        alias_name: 'disable_course',
+        price: 0,
+        enabled: false,
+        version: 'public', 
+        user_id: @instructor_user.id
       }
     ])
     
@@ -131,6 +193,8 @@ describe 'CoursesController' do
       assert_response :success
       assert courses.include?(@courses[0])
       assert !courses.include?(@courses[1])
+      assert courses.include?(@courses[2])
+      assert !courses.include?(@courses[3])
     end
 
     it 'show all public course have category_id == test-category and free if budget if price is 0' do
@@ -150,6 +214,7 @@ describe 'CoursesController' do
       assert !courses.include?(@courses[0])
       assert !courses.include?(@courses[1])
       assert courses.include?(@courses[2])
+      assert !courses.include?(@courses[3])
     end
 
     it 'show all public course have category_id == test-category and paid if budget if price is greater than 0' do
@@ -169,6 +234,79 @@ describe 'CoursesController' do
       assert courses.include?(@courses[0])
       assert !courses.include?(@courses[1])
       assert !courses.include?(@courses[2])
+      assert !courses.include?(@courses[3])
+    end
+  end
+
+  describe 'GET #detail' do
+    it 'not authenticated, success when go to public courses' do
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :success
+    end
+
+    it 'not authenticated, missing when go to test courses' do
+      get :detail, {
+        :alias_name => @courses[1].alias_name
+      }
+      assert_response :missing
+    end
+
+    it 'not authenticated, missing when go to disable courses' do
+      get :detail, {
+        :alias_name => @courses[3].alias_name
+      }
+      assert_response :missing
+    end
+
+    it 'authenticated, success when go to test course detail if course has enabled, role user is test' do
+      sign_in @test_role_user
+      get :detail, {
+        :alias_name => 'test_course'
+      }
+      assert_response :success
+    end
+
+    it 'authenticated, missing when go to test course detail if course is disable, role user is user' do     
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => 'disable_course'
+      }
+      assert_response :missing
+    end
+
+    it 'authenticated, missing when go to test course detail if course has enabled, role user is user' do     
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => 'test_course'
+      }
+      assert_response :missing
+    end
+
+    it 'authenticated, redirect to learning if role user is reviewer' do
+      sign_in @reviewer_role_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :redirect
+      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
+    end
+
+    it 'authenticated, redirect to learning if user is author this course' do
+      sign_in @instructor_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :redirect
+      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
   end
 
@@ -224,7 +362,6 @@ describe 'CoursesController' do
       assert_match 'price', res.to_s
       assert_match "#{@courses[0].price}", res.to_s
     end
-
   end
 
   describe 'POST #upload_course' do
@@ -243,7 +380,7 @@ describe 'CoursesController' do
       course['curriculums'] = []
 
       post :upload_course, {
-        user_id: @users[0]['id'].to_s,
+        user_id: @user_role_user['id'].to_s,
         course_id: @courses[0]['id'].to_s,
         course: course
       }
@@ -258,7 +395,7 @@ describe 'CoursesController' do
       course = @courses[0].as_json
       course['price'] = 'test'
       post :upload_course, {
-        user_id: @users[0]['id'].to_s,
+        user_id: @user_role_user['id'].to_s,
         course_id: @courses[0]['id'].to_s,
         course: course
       }
@@ -272,7 +409,7 @@ describe 'CoursesController' do
     it 'should render 200 and json when course can save' do 
       
       post :upload_course, {
-        user_id: @users[0]['id'].to_s,
+        user_id: @user_role_user['id'].to_s,
         course_id: @courses[0]['id'].to_s,
         course: @courses[0].as_json
       }
@@ -285,7 +422,7 @@ describe 'CoursesController' do
 
     it 'should render 422 and message when received exception' do     
       post :upload_course, {
-        user_id: @users[0]['id'].to_s,
+        user_id: @user_role_user['id'].to_s,
         course_id: @courses[0]['id'].to_s,
         course: @courses[0].to_json
       }

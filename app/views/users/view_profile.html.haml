@@ -50,7 +50,8 @@
       .container.tab-content
         #studying.tab-pane.fade.active.in
           - @owned_courses.each do |course|
-            = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
+            - unless course.course.blank?
+              = render :partial => 'components/courses/course_card',:locals => {:course => course.course}
         #favorite.tab-pane.fade
           - if !@owned_wishlist.blank?
             - @owned_wishlist.each do |course|
