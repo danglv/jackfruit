@@ -44,8 +44,7 @@ describe 'CoursesController' do
     ])
 
     @user_role_user = User.create(
-      _id: '56122655df52b90f8a000012',
-      email: 'test_account_1@gmail.com',
+      email: 'user_role_user@gmail.com',
       password: '12345678',
       password_confirmation: '12345678',
       role: 'user'
@@ -307,6 +306,71 @@ describe 'CoursesController' do
 
       assert_response :redirect
       assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
+    end
+
+    it 'authenticated, not redirect to learning if preview is expired' do
+      @user_role_user.courses.create(
+        :type => Constants::OwnedCourseTypes::PREVIEW,
+        :course_id => @courses[0].id,
+        :expired_at => Time.now - 1.minutes,
+        :payment_status => Constants::PaymentStatus::PENDING
+      )
+
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :success
+    end
+
+    it 'authenticated, redirect to learning if preview is not expired' do
+      @user_role_user.courses.create(
+        :type => Constants::OwnedCourseTypes::PREVIEW,
+        :course_id => @courses[0].id,
+        :expired_at => Time.now + 5.minutes,
+        :payment_status => Constants::PaymentStatus::PENDING
+      )
+
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :redirect
+      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
+    end
+
+    it 'authenticated, redirect to learning if user bought course' do
+      @user_role_user.courses.create(
+        :type => Constants::OwnedCourseTypes::LEARNING,
+        :course_id => @courses[0].id,
+        :payment_status => Constants::PaymentStatus::SUCCESS
+      )
+
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :redirect
+      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"      
+    end
+
+    it 'authenticated, not redirect to learning if user not has course' do
+      @user_role_user.courses = []
+      @user_role_user.save
+
+      sign_in @user_role_user
+
+      get :detail, {
+        :alias_name => @courses[0].alias_name
+      }
+
+      assert_response :success
     end
   end
 
