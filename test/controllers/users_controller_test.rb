@@ -61,7 +61,7 @@ describe 'UsersController' do
       user_data = "An invalid hash object"
       post :create, user: user_data
 
-      assert_response 200
+      assert_response :unprocessable_entity
       assert_match 'error', response.body
     end
 
@@ -123,12 +123,22 @@ describe 'UsersController' do
       assert_equal 'Exist email', JSON.parse(@response.body)['status']
     end
 
-    it 'should return status create user when user saved' do
+    it 'should return message when user can not save' do
+      post :create_user_for_mercury, email: 123
+
+      assert_response :unprocessable_entity
+      assert_equal 'Can not save', JSON.parse(@response.body)['message']
+    end
+
+    it 'should tracking when user can save' do
       stub_request(:get, /tracking.pedia.vn/).to_return(:status => 'Create user', :body => '', :headers => {})
 
-      post :create_user_for_mercury, email: 'test9002@gmail', name: 'mercury_user', phone: '0918261892', password: '135792468'
+      post :create_user_for_mercury, email: 'test04@gmail.com', name: 'test04', phone: '0986103650'
 
+      assert_response 200
       assert_equal 'Create user', JSON.parse(@response.body)['status']
+      assert_match 'user_id', response.body
+
     end
   end
 
