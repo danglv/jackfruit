@@ -35,7 +35,7 @@ describe 'UsersController' do
 
   describe 'POST #create' do
 
-    it 'should return message when not have user' do
+    it '[JU201] should return message when not have user' do
 
       post :create
 
@@ -43,21 +43,22 @@ describe 'UsersController' do
       assert_equal 'Thiếu param user', JSON.parse(@response.body)['error']
     end
 
-    it 'should return message when user not save' do
+    it '[JU202] should return message when user not save' do
       post :create, user: @user.as_json
 
       assert_response 200
+      binding.pry
       assert_match 'error', response.body
       assert_match 'email', response.body
     end
 
-    it 'should return message when have' do
+    it '[JU203] should return message when have' do
       post :create, user: 'abcxyz'
 
       assert_match 'error', response.body
     end
 
-    it 'should return error when user is not a hash' do
+    it '[JU204] should return error when user is not a hash' do
       user_data = "An invalid hash object"
       post :create, user: user_data
 
@@ -65,7 +66,7 @@ describe 'UsersController' do
       assert_match 'error', response.body
     end
 
-    it 'should save valid instructor profile' do
+    it '[JU205] should save valid instructor profile' do
       user_data = {
         email: 'test03@gmail.com',
         instructor_profile: {
@@ -80,7 +81,7 @@ describe 'UsersController' do
       assert_match 'This is a function', response.body
     end
 
-    it 'should ignore invalid instructor profile' do
+    it '[JU206] should ignore invalid instructor profile' do
       user_data = {
         email: 'test03@gmail.com',
         instructor_profile: "Not a valid hash"
@@ -93,7 +94,7 @@ describe 'UsersController' do
       assert_match '"function":""', response.body
     end
 
-    it 'should return message when user can save' do
+    it '[JU207] should return message when user can save' do
       user_new = User.new(
         email: 'test02@gmail.com'
       )
@@ -110,27 +111,27 @@ describe 'UsersController' do
   end
 
   describe 'POST #create_user_for_mercury' do
-    it 'should return message when email blank' do
+    it '[JU301] Should return message when email blank' do
       post :create_user_for_mercury
 
       assert_response :unprocessable_entity
       assert_equal 'Email is empty', JSON.parse(@response.body)['message']
     end
 
-    it 'should return message when email exist' do
+    it '[JU302] Should return message when email exist' do
       post :create_user_for_mercury, email: @user.email
 
       assert_equal 'Exist email', JSON.parse(@response.body)['status']
     end
 
-    it 'should return message when user can not save' do
+    it '[JU303] Should return message when user can not save' do
       post :create_user_for_mercury, email: 123
 
       assert_response :unprocessable_entity
       assert_equal 'Can not save', JSON.parse(@response.body)['message']
     end
 
-    it 'should tracking when user can save' do
+    it '[JU304] Should tracking when user can save' do
       stub_request(:get, /tracking.pedia.vn/).to_return(:status => 'Create user', :body => '', :headers => {})
 
       post :create_user_for_mercury, email: 'test04@gmail.com', name: 'test04', phone: '0986103650'
@@ -143,13 +144,13 @@ describe 'UsersController' do
   end
 
   describe 'GET #hocthu' do
-    it 'when user do not sign in' do
+    it '[JU401] When user do not sign in' do
       get :hoc_thu
 
       assert_response :success
     end
 
-    it 'should redirect to landingpage if user sign in success' do
+    it '[JU402] Should redirect to landingpage if user sign in success' do
       @current_user = @user
       sign_in @current_user
 
