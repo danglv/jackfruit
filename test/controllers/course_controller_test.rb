@@ -9,6 +9,7 @@ describe 'CoursesController' do
     @coupon_code = 'KHANHDN'
     @res_coupon = '{"_id":"56363fe48e62a4142f0000a3","coupon":"KHANHDN","created_at":"2015-11-01T16:37:56.232Z","expired_date":"2015-12-30T17:00:00.000Z","course_id":"560b4e96eb5d8904c1000002","used":0,"enabled":true,"max_used":1,"discount":100.0,"return_value":"100","issued_by":"560b4e95eb5d8904c1000000"}'
     @res_coupon_invalid = '{"message":"Mã coupon không tồn tại"}'
+    
     @users = User.create([
       {
         _id: '56122655df52b90f8a000012',
@@ -151,8 +152,64 @@ describe 'CoursesController' do
   end
 
   describe 'GET #index' do
-    it 'success when visit courses/index' do
+    # labels = Label.create([
+    #   {
+    #     _id: Constants::Labels::FEATURED,
+    #     name: Constants::Labels::FEATURED
+    #   }, 
+    #   {
+    #     _id: Constants::Labels::TOP_PAID,
+    #     name: Constants::Labels::TOP_PAID
+    #   }, 
+    #   {
+    #     _id: Constants::Labels::TOP_FREE,
+    #     name: Constants::Labels::TOP_FREE
+    #   }
+    # ])
+
+    # courses = Course.create([
+    #   {
+    #     name: 'Course Label Featured',
+    #     alias_name: 'course_label_featured',
+    #     price: 699000,
+    #     enabled: true,
+    #     version: 'public',
+    #     user_id: @instructor_user.id,
+    #     label_ids: [labels[0].id]
+    #   }, 
+    #   {
+    #     name: 'Course Label TOP PAID',
+    #     alias_name: 'course_label_top_paid',
+    #     price: 699000,
+    #     enabled: true,
+    #     version: 'public', 
+    #     user_id: @instructor_user.id,
+    #     label_ids: [labels[1].id]     
+    #   }, 
+    #   {
+    #     name: 'Course Label TOP Free',
+    #     alias_name: 'course_label_top_free',
+    #     price: 0,
+    #     enabled: true,
+    #     version: 'public', 
+    #     user_id: @instructor_user.id,
+    #     label_ids: [labels[2].id]
+    #   }, 
+    #   {
+    #     name: 'Course Label Featured',
+    #     alias_name: 'course_label_featured',
+    #     price: 699000,
+    #     enabled: true,
+    #     version: 'test', 
+    #     user_id: @instructor_user.id,
+    #     label_ids: [labels[0].id]
+    #   }
+    # ])
+
+    it '[JC101] not authenticated, should has all public courses follow labels' do
       get :index
+
+      result_courses = assigns(:courses)
 
       assert_response :success
     end
@@ -238,7 +295,7 @@ describe 'CoursesController' do
   end
 
   describe 'GET #detail' do
-    it 'not authenticated, success when go to public courses' do
+    it '[JC401] not authenticated, success when go to public courses' do
       get :detail, {
         :alias_name => @courses[0].alias_name
       }
@@ -246,21 +303,21 @@ describe 'CoursesController' do
       assert_response :success
     end
 
-    it 'not authenticated, missing when go to test courses' do
+    it '[JC402] not authenticated, missing when go to test courses' do
       get :detail, {
         :alias_name => @courses[1].alias_name
       }
       assert_response :missing
     end
 
-    it 'not authenticated, missing when go to disable courses' do
+    it '[JC403] not authenticated, missing when go to disable courses' do
       get :detail, {
         :alias_name => @courses[3].alias_name
       }
       assert_response :missing
     end
 
-    it 'authenticated, success when go to test course detail if course has enabled, role user is test' do
+    it '[JC404] authenticated, success when go to test course detail if course has enabled, role user is test' do
       sign_in @test_role_user
       get :detail, {
         :alias_name => 'test_course'
@@ -268,7 +325,7 @@ describe 'CoursesController' do
       assert_response :success
     end
 
-    it 'authenticated, missing when go to test course detail if course is disable, role user is user' do     
+    it '[JC405] authenticated, missing when go to public course detail if course is disable, role user is user' do     
       sign_in @user_role_user
 
       get :detail, {
@@ -277,7 +334,7 @@ describe 'CoursesController' do
       assert_response :missing
     end
 
-    it 'authenticated, missing when go to test course detail if course has enabled, role user is user' do     
+    it '[JC406] authenticated, missing when go to test course detail if course has enabled, role user is user' do     
       sign_in @user_role_user
 
       get :detail, {
@@ -286,7 +343,7 @@ describe 'CoursesController' do
       assert_response :missing
     end
 
-    it 'authenticated, redirect to learning if role user is reviewer' do
+    it '[JC407] authenticated, redirect to learning if role user is reviewer' do
       sign_in @reviewer_role_user
 
       get :detail, {
@@ -297,7 +354,7 @@ describe 'CoursesController' do
       assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
 
-    it 'authenticated, redirect to learning if user is author this course' do
+    it '[JC408] authenticated, redirect to learning if user is author this course' do
       sign_in @instructor_user
 
       get :detail, {
@@ -308,7 +365,7 @@ describe 'CoursesController' do
       assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
 
-    it 'authenticated, not redirect to learning if preview is expired' do
+    it '[JC409] authenticated, not redirect to learning if preview is expired' do
       @user_role_user.courses.create(
         :type => Constants::OwnedCourseTypes::PREVIEW,
         :course_id => @courses[0].id,
@@ -325,7 +382,7 @@ describe 'CoursesController' do
       assert_response :success
     end
 
-    it 'authenticated, redirect to learning if preview is not expired' do
+    it '[JC410] authenticated, redirect to learning if preview is not expired' do
       @user_role_user.courses.create(
         :type => Constants::OwnedCourseTypes::PREVIEW,
         :course_id => @courses[0].id,
@@ -343,7 +400,7 @@ describe 'CoursesController' do
       assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
 
-    it 'authenticated, redirect to learning if user bought course' do
+    it '[JC411] authenticated, redirect to learning if user bought course' do
       @user_role_user.courses.create(
         :type => Constants::OwnedCourseTypes::LEARNING,
         :course_id => @courses[0].id,
@@ -360,7 +417,7 @@ describe 'CoursesController' do
       assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"      
     end
 
-    it 'authenticated, not redirect to learning if user not has course' do
+    it '[JC412] authenticated, not redirect to learning if user not has course' do
       @user_role_user.courses = []
       @user_role_user.save
 
