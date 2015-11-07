@@ -47,7 +47,6 @@ describe 'UsersController' do
       post :create, user: @user.as_json
 
       assert_response 200
-      binding.pry
       assert_match 'error', response.body
       assert_match 'email', response.body
     end
