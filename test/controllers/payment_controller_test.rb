@@ -148,6 +148,8 @@ describe 'PaymentController' do
         method: Constants::PaymentMethod::COD,
         status: Constants::PaymentStatus::PENDING
       )
+
+      sign_in @users[1]
       
       get :cod, alias_name: @courses[0].alias_name
 

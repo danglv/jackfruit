@@ -151,19 +151,24 @@ class UsersController < ApplicationController
 
   def learning
     learning = Constants::OwnedCourseTypes::LEARNING
+    @courses = []
+    @owned_courses = []
+
     course_ids = current_user.courses.where(
       :type => learning,
     ).map(&:course_id)
 
-    @courses = []
     course_ids.each do |course_id|
       course = Course.where(:id => course_id).first
-      @courses << course
+      unless course.blank?
+        @courses << course
+        owned_course = current_user.courses.where(:course_id => course_id).first
+        @owned_courses << owned_course
+      end
     end
-    @owned_courses = current_user.courses
+
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @wishlist = Course.in(:id => wishlist_ids).to_a
-
   end
 
   def teaching
