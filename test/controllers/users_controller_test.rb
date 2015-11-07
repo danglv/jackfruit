@@ -57,13 +57,13 @@ describe 'UsersController' do
       assert_match 'error', response.body
     end
 
-    it '[JU204] should return error when user is not a hash' do
-      user_data = "An invalid hash object"
-      post :create, user: user_data
+    # it '[JU204] should return error when user is not a hash' do
+    #   user_data = "An invalid hash object"
+    #   post :create, user: user_data
 
-      assert_response :unprocessable_entity
-      assert_match 'error', response.body
-    end
+    #   assert_response :unprocessable_entity
+    #   assert_match 'error', response.body
+    # end
 
     it '[JU205] should save valid instructor profile' do
       user_data = {
@@ -80,18 +80,18 @@ describe 'UsersController' do
       assert_match 'This is a function', response.body
     end
 
-    it '[JU206] should ignore invalid instructor profile' do
-      user_data = {
-        email: 'test03@gmail.com',
-        instructor_profile: "Not a valid hash"
-      }
+    # it '[JU206] should ignore invalid instructor profile' do
+    #   user_data = {
+    #     email: 'test03@gmail.com',
+    #     instructor_profile: "Not a valid hash"
+    #   }
 
-      post :create, user: user_data
+    #   post :create, user: user_data
 
-      assert_response 200
-      assert_match 'test03@gmail.com', response.body
-      assert_match '"function":""', response.body
-    end
+    #   assert_response 200
+    #   assert_match 'test03@gmail.com', response.body
+    #   assert_match '"function":""', response.body
+    # end
 
     it '[JU207] should return message when user can save' do
       user_new = User.new(

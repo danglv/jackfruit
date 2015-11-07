@@ -62,7 +62,7 @@ class UsersController < ApplicationController
           return
         end
       else
-
+        render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
       end
     rescue Exception => e
       render json: {:error => e.message}
