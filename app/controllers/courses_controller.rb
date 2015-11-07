@@ -586,12 +586,14 @@ class CoursesController < ApplicationController
 
     if course_id.blank?
       render json: {message: "chưa truyền dữ course_id"}, status: :unprocessable_entity
+      return
     end
 
     course = Course.find(course_id)
 
-    if course_id.blank?
+    if course.blank?
       render json: {message: "course_id không chính xác"}, status: :unprocessable_entity
+      return
     end
 
     discount = 0

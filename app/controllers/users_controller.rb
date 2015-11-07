@@ -10,6 +10,32 @@ class UsersController < ApplicationController
   end
 
   def create
+
+    # user = params[:user]
+    # if !user.blank? && user.is_a?(Hash)
+    #   user_new = User.new()
+    #   user_new.id = user[:id] unless user[:id].blank?
+    #   user_new.name = user[:name] unless user[:name].blank?
+    #   user_new.email = user[:email] unless user[:email].blank?
+    #   user_new.avatar = user[:avatar] unless user[:avatar].blank?
+    #   user_new.password = user[:password].blank? ? '12345678' : user[:password]
+
+    #   instructor_profile = {}
+    #   if !user[:instructor_profile].blank? && user[:instructor_profile].is_a?(Hash)
+    #     instructor_profile = user[:instructor_profile]
+    #       .permit(:function, :academic_rank, :major, :work_unit, :description)
+    #       .delete_if{|k, v| v.blank?}
+    #   end
+    #   user_new.instructor_profile = User::InstructorProfile.new(instructor_profile)
+
+    #   if user_new.save
+    #     render json: user_new.as_json
+    #   else
+    #     render json: {:error => user_new.errors}
+    #   end
+    # else
+    #   render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+
     begin
       user = params[:user]
 
@@ -36,7 +62,7 @@ class UsersController < ApplicationController
           return
         end
       else
-
+        render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
       end
     rescue Exception => e
       render json: {:error => e.message}
@@ -151,19 +177,24 @@ class UsersController < ApplicationController
 
   def learning
     learning = Constants::OwnedCourseTypes::LEARNING
+    @courses = []
+    @owned_courses = []
+
     course_ids = current_user.courses.where(
       :type => learning,
     ).map(&:course_id)
 
-    @courses = []
     course_ids.each do |course_id|
       course = Course.where(:id => course_id).first
-      @courses << course
+      unless course.blank?
+        @courses << course
+        owned_course = current_user.courses.where(:course_id => course_id).first
+        @owned_courses << owned_course
+      end
     end
-    @owned_courses = current_user.courses
+
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @wishlist = Course.in(:id => wishlist_ids).to_a
-
   end
 
   def teaching
@@ -296,21 +327,6 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # PATCH/PUT /users/:id.:format
-  def update
-    # authorize! :update, @user
-    respond_to do |format|
-      if @user.update(user_params)
-        sign_in(@user == current_user ? @user : current_user, :bypass => true)
-        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # GET: API suggestion search for user by name
   def suggestion_search
     keywords = params[:q]
@@ -408,16 +424,6 @@ class UsersController < ApplicationController
 
     @owned_courses = current_user.courses.in(:course_id => owned_course_ids).to_a
     @owned_wishlist = Course.in(:id => wishlist_ids).to_a
-  end
-
-  # DELETE /users/:id.:format
-  def destroy
-    # authorize! :delete, @user
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
-    end
   end
 
   # GET /users/edit_profile
