@@ -10,30 +10,62 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = params[:user]
-    if !user.blank? && user.is_a?(Hash)
-      user_new = User.new()
-      user_new.id = user[:id] unless user[:id].blank?
-      user_new.name = user[:name] unless user[:name].blank?
-      user_new.email = user[:email] unless user[:email].blank?
-      user_new.avatar = user[:avatar] unless user[:avatar].blank?
-      user_new.password = user[:password].blank? ? '12345678' : user[:password]
 
-      instructor_profile = {}
-      if !user[:instructor_profile].blank? && user[:instructor_profile].is_a?(Hash)
-        instructor_profile = user[:instructor_profile]
-          .permit(:function, :academic_rank, :major, :work_unit, :description)
-          .delete_if{|k, v| v.blank?}
-      end
-      user_new.instructor_profile = User::InstructorProfile.new(instructor_profile)
+    # user = params[:user]
+    # if !user.blank? && user.is_a?(Hash)
+    #   user_new = User.new()
+    #   user_new.id = user[:id] unless user[:id].blank?
+    #   user_new.name = user[:name] unless user[:name].blank?
+    #   user_new.email = user[:email] unless user[:email].blank?
+    #   user_new.avatar = user[:avatar] unless user[:avatar].blank?
+    #   user_new.password = user[:password].blank? ? '12345678' : user[:password]
 
-      if user_new.save
-        render json: user_new.as_json
+    #   instructor_profile = {}
+    #   if !user[:instructor_profile].blank? && user[:instructor_profile].is_a?(Hash)
+    #     instructor_profile = user[:instructor_profile]
+    #       .permit(:function, :academic_rank, :major, :work_unit, :description)
+    #       .delete_if{|k, v| v.blank?}
+    #   end
+    #   user_new.instructor_profile = User::InstructorProfile.new(instructor_profile)
+
+    #   if user_new.save
+    #     render json: user_new.as_json
+    #   else
+    #     render json: {:error => user_new.errors}
+    #   end
+    # else
+    #   render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+
+    begin
+      user = params[:user]
+
+      if !user.blank?
+
+        user_new = User.new()
+        user_new.id = user[:id] unless user[:id].blank?
+        user_new.name = user[:name] unless user[:name].blank?
+        user_new.email = user[:email] unless user[:email].blank?
+        user_new.avatar = user[:avatar] unless user[:avatar].blank?
+        user_new.password = user[:password].blank? ? '12345678' : user[:password]
+
+        instructor_profile = User::InstructorProfile.new()
+        instructor_profile.description = user[:instructor_profile][:description] unless user[:instructor_profile][:description].blank?
+        instructor_profile.major = user[:instructor_profile][:major] unless user[:instructor_profile][:major].blank?
+        instructor_profile.function = user[:instructor_profile][:function] unless user[:instructor_profile][:function].blank?
+        user_new.instructor_profile = instructor_profile
+
+        if user_new.save
+          render json: user_new.as_json
+          return
+        else
+          render json: {:error => user_new.errors}
+          return
+        end
       else
-        render json: {:error => user_new.errors}
+
       end
-    else
-      render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+    rescue Exception => e
+      render json: {:error => e.message}
     end
   end
 
@@ -149,7 +181,11 @@ class UsersController < ApplicationController
       :type => learning,
     ).map(&:course_id)
 
-    @courses = Course.where(:id.in => course_ids).to_a
+    @courses = []
+    course_ids.each do |course_id|
+      course = Course.where(:id => course_id).first
+      @courses << course
+    end
     @owned_courses = current_user.courses
     wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
     @wishlist = Course.in(:id => wishlist_ids).to_a
@@ -363,6 +399,23 @@ class UsersController < ApplicationController
     end
   end
 
+<<<<<<< HEAD
+=======
+  # GET/PATCH /users/:id/finish_signup
+  def finish_signup
+    # authorize! :update, @user
+    if request.patch? && params[:user] #&& params[:user][:email]
+      if @user.update(user_params)
+        @user.skip_reconfirmation!
+        sign_in(@user, :bypass => true)
+        redirect_to @user, notice: 'Your profile was successfully updated.'
+      else
+        @show_errors = true
+      end
+    end
+  end
+
+>>>>>>> f5db3c8708dfca23f86b1eb65fee4694ca56935a
   def view_profile
     owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
     wishlist_ids = current_user.wishlist - owned_course_ids
