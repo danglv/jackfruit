@@ -399,8 +399,6 @@ class UsersController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
-=======
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     # authorize! :update, @user
@@ -415,7 +413,6 @@ class UsersController < ApplicationController
     end
   end
 
->>>>>>> f5db3c8708dfca23f86b1eb65fee4694ca56935a
   def view_profile
     owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
     wishlist_ids = current_user.wishlist - owned_course_ids
