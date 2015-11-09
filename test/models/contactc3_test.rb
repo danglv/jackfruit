@@ -19,20 +19,20 @@ class Contactc3Test < ActiveSupport::TestCase
     Contactc3.delete_all
   end
 
-  test 'must save status' do
+  test 'should save status' do
     contact = Contactc3.new(@contact_data)
     assert contact.save
     assert_equal Contactc3::Status::IMPORTED, @contact_data[:status]
   end
 
-  test 'must auto save status' do
+  test 'should auto save status' do
     @contact_data.delete(:status)
     contact = Contactc3.new(@contact_data)
     assert contact.save
     assert_equal Contactc3::Status::IMPORTED, contact.status
   end
 
-  test 'must not save invalid status' do
+  test 'should not save invalid status' do
     @contact_data[:status] = 'An invalid status'
     contact = Contactc3.new(@contact_data)
     assert_not contact.save

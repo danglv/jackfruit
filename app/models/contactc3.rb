@@ -6,10 +6,11 @@ class Contactc3
   module Status
     EXPIRED   = 'expired'   # Old contact, dont'care
     IMPORTED  = 'imported'  # Contact is imported, going to be exported
+    REQUESTED = 'requested' # Someone requested but haven't confirmed yet
     EXPORTED  = 'exported'  # Contact is exported
 
     def self.values
-      [EXPIRED, EXPORTED, IMPORTED]
+      [EXPIRED, EXPORTED, IMPORTED, REQUESTED]
     end
   end
 
