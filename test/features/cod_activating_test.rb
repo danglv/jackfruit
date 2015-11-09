@@ -4,7 +4,7 @@ feature 'Authentication' do
   before do
     stub_request(:get, /tracking.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
-    stub_request(:get, /email.pedia.vn/)
+    stub_request(:post, /email.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
     @instructor_user = User.create(
       email: 'nguyendanhtu@pedia.vn',
@@ -94,13 +94,10 @@ feature 'Authentication' do
       find('.btn-activate').click
     end
 
-    page.must_have_content('kích hoạt khóa học thành công')
+    page.must_have_content('kích hoạt thành công')
 
     find('.btn-learning').click
 
     page.must_have_content('Chúc mừng bạn đã thanh toán thành công')
-
-    page.must_have_content('Bài giảng 1')
-    page.must_have_content('Thảo luận')
   end
 end

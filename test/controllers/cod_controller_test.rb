@@ -4,7 +4,7 @@ describe 'CodController' do
   before :each do
     stub_request(:get, /tracking.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
-    stub_request(:get, /email.pedia.vn/)
+    stub_request(:post, /email.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
 
     @instructor_user = User.create(
@@ -128,7 +128,7 @@ describe 'CodController' do
     patch :activate, cod_code: @payment.cod_code
 
     assert_response :success
-    assert_match 'kích hoạt khóa học thành công',  response.body
+    assert_match 'kích hoạt thành công',  response.body
   end
 
   it 'should update payment & user' do
