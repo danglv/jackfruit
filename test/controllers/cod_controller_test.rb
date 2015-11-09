@@ -6,6 +6,10 @@ describe 'CodController' do
       .to_return(:status => 200, :body => '', :headers => {})
     stub_request(:post, /email.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://flow.pedia.vn:8000/notify/message/create")
+      .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://mercury.pedia.vn/api/issue/close")
+      .to_return(:status => 200, :body => '', :headers => {})
 
     @instructor_user = User.create(
       email: 'nguyendanhtu@pedia.vn',

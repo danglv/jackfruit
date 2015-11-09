@@ -4,6 +4,10 @@ describe 'PaymentController' do
   before do
     stub_request(:get, /tracking.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://flow.pedia.vn:8000/notify/message/create")
+      .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://mercury.pedia.vn/api/issue/close")
+      .to_return(:status => 200, :body => '', :headers => {})
 
     @users = User.create([
       {
@@ -102,6 +106,7 @@ describe 'PaymentController' do
     end
 
     it 'should return 404 if user is unable to make a zero amount payment' do
+
       payment = Payment.create(
         user_id: @users[1].id,
         course_id: @courses[0].id,
