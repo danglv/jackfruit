@@ -57,8 +57,8 @@ feature 'Sale' do
   end
 
   after do
-    @instructor.destroy
-    @courses.each { |x| x.destroy }
+    User.delete_all
+    Course.delete_all
   end
 
   scenario 'User visits a course detail which is on sale' do

@@ -56,7 +56,7 @@ describe 'PaymentController' do
   end
 
   after do
-    @campaign.destroy
+    Sale::Campaign.delete_all
     User.delete_all
     Course.delete_all
     Payment.destroy_all
