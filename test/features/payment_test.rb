@@ -85,12 +85,9 @@ feature 'Payment' do
   end
 
   after :each do
-    @instructor.destroy
-    @student.destroy
-    @courses.each { |x| x.destroy }
-    @campaign.destroy
-    @sale_packages.each { |x| x.destroy }
-
+    Sale::Campaign.delete_all
+    User.delete_all
+    Course.delete_all
     Payment.destroy_all
   end
 
