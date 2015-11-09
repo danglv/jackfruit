@@ -65,10 +65,9 @@ describe 'SalesController' do
   end            
 
   after :each do
-    @users.each { |x| x.destroy }
-    @courses.each { |x| x.destroy }
-    @campaign.destroy
-    @packages.each { |x| x.destroy }
+    User.delete_all
+    Course.delete_all
+    Sale::Campaign.delete_all
   end
 
   it 'should get detail in json format if accept-header is json' do
