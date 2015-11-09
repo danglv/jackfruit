@@ -33,7 +33,7 @@ class CodController < ApplicationController
       if @should_show_info
         RestClient.post('http://email.pedia.vn/email_services/send_email',
           email: @user.email,
-          str_html: "<div><div><b>Thông tin tài khoản</b></div><div>Email: #{@user.email}</div><div>Password: 12345678</div><div> Chăm sóc khách hàng: <b>0473058386</b></div></div>",
+          str_html: "<div><div><b>Thông tin tài khoản</b></div><div>Email: #{@user.email}</div><div>Password: 12345678</div><div> Chăm sóc khách hàng: <b>0961215368</b></div></div>",
           sender: 'Pedia<cskh@pedia.vn>',
           subj: 'Chào mừng đến với Pedia'
         )
