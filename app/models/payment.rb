@@ -135,14 +135,20 @@ class Payment
   def payment_to_success
     if self.status == Constants::PaymentStatus::SUCCESS
       # Push message
-      begin        
+      begin
         resource = RestClient::Resource.new('http://flow.pedia.vn:8000/notify/message/create', :timeout => 2)
+        params = {
+          type: 'L8',
+          msg: "Có L8 từ khoá #{self.course.name}",
+          user_id: self.user_id,
+          email: self.user.email,
+          course_id: self.course_id
+        }
+        params[:mobile] = self.mobile if !self.mobile.blank?
+        params[:cod_code] = self.cod_code if !self.cod_code.blank?
 
         resource.post(
-          params: {
-            type: options[:type] || '',
-            msg: options[:msg] || ''
-          }
+          params: params
         )
 
         RestClient.post('http://mercury.pedia.vn/api/issue/close',{
