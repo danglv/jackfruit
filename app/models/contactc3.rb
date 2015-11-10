@@ -24,6 +24,7 @@ class Contactc3
   field :status, type: String, default: Status::IMPORTED
 
   validates_inclusion_of :status, :in => Status.values
+  validates_uniqueness_of :mobile, :scope => :course_id
 
   def self.insert_contactc3 data
     Contactc3.create(data)
