@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create, :reset_password, :forgot_password]
   before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
   before_filter :validate_course, only: [:select_course]
-  skip_before_filter :verify_authenticity_token, only: [:create_user_for_mercury]
+  skip_before_filter :verify_authenticity_token, only: [:create_user_for_mercury, :create_cod_user]
 
   def index
     learning
@@ -104,6 +104,111 @@ class UsersController < ApplicationController
     render json: {message: "Can not save"}, status: :unprocessable_entity
     return
   end
+
+  def create_cod_user
+    email = params[:email]
+    name = params[:name]
+    mobile = params[:mobile]
+    address = params[:address]
+    new_price = params[:new_price]
+    coupon = params[:coupon]
+    course_id = params[:course_id]
+    utm_source = params[:utm_source].blank? ? {} : JSON.parse(params[:utm_source])
+
+    password_default = '12345678'
+    note = ''
+
+    ['email', 'course_id', 'new_price'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {message: "Không tìm thấy khoá học."}, status: :unprocessable_entity
+      return
+    end
+
+    # Create or get user.
+    user = User.where(:email => email).first
+    if user.blank?
+      user = User.new(
+        :email => email,
+        :name => name,
+        :password => password_default
+      )
+      if !user.save
+        render json: {message: "Không thể tạo user."}, status: :unprocessable_entity
+        return
+      else
+        Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
+      end
+    else
+      note = 'Tài khoản từ email này đã được user tạo trước đó'
+    end
+
+    # Create payment cod.
+    payment = Payment.where(
+      :user_id => user.id,
+      :course_id => course.id
+    ).to_a.last
+
+    if payment.blank?
+      payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+      payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
+      if !payment.save
+        render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
+        return
+      end
+    else
+      if payment.status == Constants::PaymentStatus::SUCCESS
+        render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
+        return
+      elsif payment.status == Constants::PaymentStatus::PENDING
+        if payment.method == Constants::PaymentMethod::COD
+          payment.mobile = mobile if !mobile.blank?
+          payment.address = address if !address.blank?
+          payment.money = new_price if !new_price.blank?
+        else
+          payment.status = Constants::PaymentStatus::CANCEL
+          payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+          payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
+          if !payment.save
+            render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
+            return
+          end
+        end
+      elsif payment.status == Constants::PaymentStatus::CANCEL
+        payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
+        if !payment.save
+          render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
+          return
+        end
+      end
+    end
+    
+    # Create owned_course.
+    find_or_initialize_owned_course_for_user(user, course)
+
+    # Create cod for cod payment.
+    cod_code = create_single_cod(course_id, "pedia")
+    payment.cod_code = cod_code if !cod_code.blank?
+
+    if !payment.save
+      render json: {message: "Không thể lưu được COD"}, status: :unprocessable_entity
+      return
+    end
+
+    render json: {
+      :user_id => user.id.to_s,
+      :note => note,
+      :old_price => course.price,
+      :cod_code => payment.cod_code
+    }
+ end
 
   def hoc_thu
     if !current_user.blank?
@@ -706,6 +811,54 @@ class UsersController < ApplicationController
   end
 
   private
+    def find_or_initialize_owned_course_for_user(user, course)
+      owned_course = user.courses.where(course_id: course.id).first
+      if owned_course.blank?
+        owned_course = user.courses.create(course_id: course.id, created_at: Time.now())
+        UserGetCourseLog.create(course_id: course.id, user_id: user.id, created_at: Time.now())
+      end
+
+      course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.payment_status = Constants::PaymentStatus::PENDING
+      owned_course.save
+      user.save
+    end
+
+    def create_single_cod(course_id, issued_by = "pedia")
+      # Create new COD
+      uri = URI.parse('http://code.pedia.vn/cod/create_cod')
+      cod_code = nil
+      res = Net::HTTP.post_form uri, {
+        :quantity => "1",
+        :issued_by => issued_by,
+        :course_id => course_id,
+        :expired_date => (Time.now() + 1.years).strftime("%d/%m/%Y")
+      }
+      if (res.code.to_i == 200 && !res.body.blank?)
+        res_json = JSON.parse(res.body)
+        cod_code = res_json["cod_codes"].tr('^A-Za-z0-9', '')
+      end
+      return cod_code
+    end
+
+    def new_payment_cod(user_id, course_id, mobile, address, new_price)
+      payment = Payment.new(
+        user_id: user_id,
+        course_id: course_id,
+        mobile: mobile,
+        address: address,
+        money: new_price,
+        method: Constants::PaymentMethod::COD,
+        status: Constants::PaymentStatus::PENDING
+      )
+    end
+
     def set_user
       if params[:id] != nil
         @user = User.find(params[:id])

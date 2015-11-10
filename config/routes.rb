@@ -114,6 +114,7 @@ Rails.application.routes.draw do
       post :delete_note
       get :download_note
       post :create_user_for_mercury
+      post :create_cod_user
       get :hoc_thu
       get 'note/download', to: 'users#download_note'
       get 'payment_history' , to: 'users#payment_history'
