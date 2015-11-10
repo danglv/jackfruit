@@ -189,7 +189,8 @@ class UsersController < ApplicationController
 
     render json: {
       :user_id => user.id.to_s,
-      :note => note
+      :note => note,
+      :old_price => course.price
     }
  end
 

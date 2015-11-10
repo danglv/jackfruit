@@ -165,7 +165,7 @@ describe 'UsersController' do
   end
 
   describe 'GET #update_wishlist' do
-    it 'should return message when course_id blank' do
+    it '[JU601] should return message when course_id blank' do
       sign_in @user
 
       get :update_wishlist
@@ -174,7 +174,7 @@ describe 'UsersController' do
       assert_equal 'Course_id không có', JSON.parse(@response.body)['message']
     end
 
-    it 'should return ok when course_id valid' do
+    it '[JU601] should return ok when course_id valid' do
       sign_in @user
 
       get :update_wishlist, course_id: '1234abc5678'
@@ -189,7 +189,7 @@ describe 'UsersController' do
   end
 
   describe 'POST #active_course' do
-    it 'should return message ok when have course_id' do
+    it '[JU701] should return message ok when have course_id' do
       @user.courses.create({
         course_id: @course.id,
         payment_status: 'success',
@@ -207,7 +207,7 @@ describe 'UsersController' do
   end
 
   describe 'POST create_instructor' do
-    it 'should return message when params blank' do
+    it '[JU701] should return message when params blank' do
       post :create_instructor
 
       assert_response :unprocessable_entity
@@ -216,14 +216,14 @@ describe 'UsersController' do
   end
 
   describe 'GET #edit_profile' do
-    it '' do
+    it '[JU801] ' do
     end
   end
 
   describe 'POST #forgot_password' do
 
     # Check email input
-    it 'should return message when email blank' do
+    it '[JU901] should return message when email blank' do
       post :forgot_password
 
       assert_response 402
@@ -231,7 +231,7 @@ describe 'UsersController' do
     end
 
     # Check user valid use email input
-    it 'should return 200 when email valid' do
+    it '[JU901] should return 200 when email valid' do
       stub_request(:post, /email.pedia.vn/).to_return(:status => 200, :body => '', :headers => {})
 
       post :forgot_password, email: @user.email, reset_password_token: @user.reset_password_token,reset_password_sent_at: @user.reset_password_sent_at
@@ -239,4 +239,36 @@ describe 'UsersController' do
       assert_response 200
     end
   end
+
+  # describe 'POST #create_cod_user' do
+  #   it '[JU1001] Should return 422 if email blank' do
+  #     post :create_cod_user
+
+  #     assert_response :unprocessable_entity
+  #     assert_equal 'Email is empty', JSON.parse(@response.body)['message']
+  #   end
+
+  #   it '[JU1002] Should return message when email exist' do
+  #     post :create_cod_user, email: @user.email
+
+  #     assert_equal 'Exist email', JSON.parse(@response.body)['status']
+  #   end
+
+  #   it '[JU1003] Should return message when user can not save' do
+  #     post :create_cod_user, email: 123
+
+  #     assert_response :unprocessable_entity
+  #     assert_equal 'Can not save', JSON.parse(@response.body)['message']
+  #   end
+
+  #   it '[JU1004] Should tracking when user can save' do
+  #     stub_request(:get, /tracking.pedia.vn/).to_return(:status => 'Create user', :body => '', :headers => {})
+
+  #     post :create_cod_user, email: 'test04@gmail.com', name: 'test04', phone: '0986103650'
+
+  #     assert_response 200
+  #     assert_equal 'Create user', JSON.parse(@response.body)['status']
+  #     assert_match 'user_id', response.body
+  #   end
+  # end
 end
