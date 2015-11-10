@@ -59,6 +59,7 @@ feature 'Sale' do
   after do
     User.delete_all
     Course.delete_all
+    Sale::Campaign.delete_all
   end
 
   scenario 'User visits a course detail which is on sale' do
