@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     password_default = '12345678'
     note = ''
 
-    ['email', 'course_id', 'new_price', 'course_id'].each do |param|
+    ['email', 'course_id', 'new_price'].each do |param|
       if params[param.to_sym].blank?
         render json: {message: "#{param} không được bỏ trống"}, status: :unprocessable_entity
         return
@@ -151,17 +151,13 @@ class UsersController < ApplicationController
 
     # Create payment cod.
     payment = Payment.where(
-      :user_id => user.id.to_s,
+      :user_id => user.id,
       :course_id => course.id
     ).to_a.last
 
     if payment.blank?
-      payment = Payment.new(
-        user_id: user.id,
-        course_id: course.id,
-        method: 'cod',
-        status: Constants::PaymentStatus::PENDING
-      )
+      payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+      payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
       if !payment.save
         render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
         return
@@ -170,13 +166,23 @@ class UsersController < ApplicationController
       if payment.status == Constants::PaymentStatus::SUCCESS
         render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
         return
+      elsif payment.status == Constants::PaymentStatus::PENDING
+        if payment.method == Constants::PaymentMethod::COD
+          payment.mobile = mobile if !mobile.blank?
+          payment.address = address if !address.blank?
+          payment.money = new_price if !new_price.blank?
+        else
+          payment.status = Constants::PaymentStatus::CANCEL
+          payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+          payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
+          if !payment.save
+            render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
+            return
+          end
+        end
       elsif payment.status == Constants::PaymentStatus::CANCEL
-        payment = Payment.new(
-          user_id: user.id,
-          course_id: course_id,
-          method: 'cod',
-          status: Constants::PaymentStatus::PENDING
-        )
+        payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
         if !payment.save
           render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
           return
@@ -187,10 +193,20 @@ class UsersController < ApplicationController
     # Create owned_course.
     find_or_initialize_owned_course_for_user(user, course)
 
+    # Create cod for cod payment.
+    cod_code = create_single_cod(course_id, "pedia")
+    payment.cod_code = cod_code if !cod_code.blank?
+
+    if !payment.save
+      render json: {message: "Không thể lưu được COD"}, status: :unprocessable_entity
+      return
+    end
+
     render json: {
       :user_id => user.id.to_s,
       :note => note,
-      :old_price => course.price
+      :old_price => course.price,
+      :cod_code => payment.cod_code
     }
  end
 
@@ -812,6 +828,35 @@ class UsersController < ApplicationController
       owned_course.payment_status = Constants::PaymentStatus::PENDING
       owned_course.save
       user.save
+    end
+
+    def create_single_cod(course_id, issued_by = "pedia")
+      # Create new COD
+      uri = URI.parse('http://code.pedia.vn/cod/create_cod')
+      cod_code = nil
+      res = Net::HTTP.post_form uri, {
+        :quantity => "1",
+        :issued_by => issued_by,
+        :course_id => course_id,
+        :expired_date => (Time.now() + 1.years).strftime("%d/%m/%Y")
+      }
+      if (res.code.to_i == 200 && !res.body.blank?)
+        res_json = JSON.parse(res.body)
+        cod_code = res_json["cod_codes"].tr('^A-Za-z0-9', '')
+      end
+      return cod_code
+    end
+
+    def new_payment_cod(user_id, course_id, mobile, address, new_price)
+      payment = Payment.new(
+        user_id: user_id,
+        course_id: course_id,
+        mobile: mobile,
+        address: address,
+        money: new_price,
+        method: Constants::PaymentMethod::COD,
+        status: Constants::PaymentStatus::PENDING
+      )
     end
 
     def set_user

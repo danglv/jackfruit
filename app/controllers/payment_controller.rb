@@ -495,14 +495,14 @@ class PaymentController < ApplicationController
     def create_single_cod(course_id, issued_by = "pedia")
       # Create new COD
       uri = URI.parse('http://code.pedia.vn/cod/create_cod')
-      cod_code = nil
+      cod_code = ''
       res = Net::HTTP.post_form uri, {
         :quantity => "1",
         :issued_by => issued_by,
         :course_id => course_id,
         :expired_date => (Time.now() + 1.years).strftime("%d/%m/%Y")
       }
-      if (res.code.to_i == 200)
+      if (res.code.to_i == 200 && !res.body.blank?)
         res_json = JSON.parse(res.body)
         cod_code = res_json["cod_codes"].tr('^A-Za-z0-9', '')
       end
