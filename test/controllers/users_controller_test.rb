@@ -325,10 +325,16 @@ describe 'UsersController' do
         :new_price => 99000
       }
 
+      new_payment = @assigns['payment']
+
       assert_response :success
       assert_not_nil JSON.parse(@response.body)['user_id']
       assert_equal "", JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
+      assert_equal 99000, new_payment.money
+      assert_equal 'pending', new_payment.status
+      assert_equal 'cod', new_payment.method
+      assert_equal @course.id, new_payment.course_id
     end
 
     it '[JU1007] Should return 200 if user exist , user has not payment of this course' do
@@ -340,10 +346,16 @@ describe 'UsersController' do
         :new_price => 99000
       }
 
+      new_payment = @assigns['payment']
+
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
       assert_equal 'Tài khoản từ email này đã được user tạo trước đó', JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
+      assert_equal 99000, new_payment.money
+      assert_equal 'pending', new_payment.status
+      assert_equal 'cod', new_payment.method
+      assert_equal @course.id, new_payment.course_id
     end
 
     it '[JU1008] Should return 200 if user exist , user has a cancel payment of this course' do
@@ -362,10 +374,16 @@ describe 'UsersController' do
         :new_price => 99000
       }
 
+      new_payment = @assigns['payment']
+
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
       assert_equal 'Tài khoản từ email này đã được user tạo trước đó', JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
+      assert_equal 99000, new_payment.money
+      assert_equal 'pending', new_payment.status
+      assert_equal 'cod', new_payment.method
+      assert_equal @course.id, new_payment.course_id
     end
 
     it '[JU1009] Should return 200 if user exist , user has a pending payment of this course and get success a cod_code' do
@@ -386,11 +404,17 @@ describe 'UsersController' do
         :new_price => 99000
       }
 
+      new_payment = @assigns['payment']
+
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
       assert_equal 'Tài khoản từ email này đã được user tạo trước đó', JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
       assert_equal 'validcod', JSON.parse(@response.body)['cod_code']
+      assert_equal 99000, new_payment.money
+      assert_equal 'pending', new_payment.status
+      assert_equal 'cod', new_payment.method
+      assert_equal @course.id, new_payment.course_id
     end
 
     it '[JU1010] Should return 200 if user exist , user has a pending payment of this course and get fail a cod_code' do
@@ -411,11 +435,17 @@ describe 'UsersController' do
         :new_price => 99000
       }
 
+      new_payment = @assigns['payment']
+
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
       assert_equal 'Tài khoản từ email này đã được user tạo trước đó', JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
       assert_nil JSON.parse(@response.body)['cod_code']
+      assert_equal 99000, new_payment.money
+      assert_equal 'pending', new_payment.status
+      assert_equal 'cod', new_payment.method
+      assert_equal @course.id, new_payment.course_id
     end
   end
 end
