@@ -207,7 +207,8 @@ class UsersController < ApplicationController
       :user_id => user.id.to_s,
       :note => note,
       :old_price => course.price,
-      :cod_code => @payment.cod_code
+      :cod_code => @payment.cod_code,
+      :payment_id => @payment.id.to_s
     }
  end
 
