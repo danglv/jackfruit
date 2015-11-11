@@ -41,6 +41,7 @@ describe 'UsersController' do
   after :each do
     User.delete_all
     Course.delete_all
+    Payment.delete_all
   end
 
   describe 'GET #index' do
@@ -257,7 +258,7 @@ describe 'UsersController' do
     it '[JU1001] Should return 422 if email blank' do
       post :create_cod_user, {
         :course_id => 'INVALID_ID',
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       assert_response :unprocessable_entity
@@ -267,7 +268,7 @@ describe 'UsersController' do
     it '[JU1002] Should return 422 if course_id blank' do
       post :create_cod_user, {
         :email => 'TEST_EMAIL',
-        :new_price => 99000
+        :new_price => '99,000a'
       }
 
       assert_response :unprocessable_entity
@@ -290,7 +291,7 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => 'TEST_EMAIL',
         :course_id => 'INVALID_ID',
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       assert_response :unprocessable_entity
@@ -308,21 +309,25 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => @student_user.email,
         :course_id => @course.id,
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       assert_response :unprocessable_entity
       assert_equal 'User đã mua khoá học này.', JSON.parse(@response.body)['message']
     end
 
-    it '[JU1006] Should return 200 if user not exist , user has not payment of this course' do
+    it '[JU1006] Should return 200 if user not exist' do
       stub_request(:post, /code.pedia.vn/)
       .to_return(:status => 200, :body => '', :headers => {})
 
       post :create_cod_user, {
-        :email => 'valid.email@topica.edu.vn',
-        :course_id => @course.id,
-        :new_price => 99000
+        email: 'nguyenduyvu21.02.1995@gmail.com',
+        name: 'Nguyễn Duy Vũ',
+        mobile: '0967648624',
+        address: 'Thành phố Hồ Chí Minh',
+        course_id: @course.id,
+        new_price: '90,000',
+        coupon: 'test'
       }
 
       new_payment = @assigns['payment']
@@ -331,10 +336,12 @@ describe 'UsersController' do
       assert_not_nil JSON.parse(@response.body)['user_id']
       assert_equal "", JSON.parse(@response.body)['note']
       assert_equal @course.price, JSON.parse(@response.body)['old_price']
-      assert_equal 99000, new_payment.money
+      assert_equal 90000, new_payment.money
       assert_equal 'pending', new_payment.status
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
+      assert_equal 'nguyenduyvu21.02.1995@gmail.com', new_payment.email
+      assert_equal 'Nguyễn Duy Vũ', new_payment.name
     end
 
     it '[JU1007] Should return 200 if user exist , user has not payment of this course' do
@@ -343,7 +350,7 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => @student_user.email,
         :course_id => @course.id,
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       new_payment = @assigns['payment']
@@ -356,6 +363,7 @@ describe 'UsersController' do
       assert_equal 'pending', new_payment.status
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
+      assert_equal @student_user.email, new_payment.email
     end
 
     it '[JU1008] Should return 200 if user exist , user has a cancel payment of this course' do
@@ -371,7 +379,7 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => @student_user.email,
         :course_id => @course.id,
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       new_payment = @assigns['payment']
@@ -384,6 +392,7 @@ describe 'UsersController' do
       assert_equal 'pending', new_payment.status
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
+      assert_equal @student_user.email, new_payment.email
     end
 
     it '[JU1009] Should return 200 if user exist , user has a pending payment of this course and get success a cod_code' do
@@ -401,7 +410,7 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => @student_user.email,
         :course_id => @course.id,
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       new_payment = @assigns['payment']
@@ -415,6 +424,7 @@ describe 'UsersController' do
       assert_equal 'pending', new_payment.status
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
+      assert_equal @student_user.email, new_payment.email
     end
 
     it '[JU1010] Should return 200 if user exist , user has a pending payment of this course and get fail a cod_code' do
@@ -432,7 +442,7 @@ describe 'UsersController' do
       post :create_cod_user, {
         :email => @student_user.email,
         :course_id => @course.id,
-        :new_price => 99000
+        :new_price => '99,000'
       }
 
       new_payment = @assigns['payment']
@@ -446,6 +456,7 @@ describe 'UsersController' do
       assert_equal 'pending', new_payment.status
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
+      assert_equal @student_user.email, new_payment.email
     end
   end
 end

@@ -125,6 +125,7 @@ class UsersController < ApplicationController
       end
     end
 
+    new_price = new_price.gsub(/[^0-9]/, '')
     course = Course.where(:id => course_id).first
     if course.blank?
       render json: {message: "Không tìm thấy khoá học."}, status: :unprocessable_entity
@@ -156,7 +157,7 @@ class UsersController < ApplicationController
     ).to_a.last
 
     if @payment.blank?
-      @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+      @payment = new_payment_cod(user, course_id, mobile, address, new_price)
       @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
       if !@payment.save
         render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
@@ -172,14 +173,14 @@ class UsersController < ApplicationController
           render json: {message: "Không thể cancel payment trước."}, status: :unprocessable_entity
           return
         end
-        @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        @payment = new_payment_cod(user, course_id, mobile, address, new_price)
         @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
         if !@payment.save
           render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
           return
         end
       elsif @payment.status == Constants::PaymentStatus::CANCEL
-        @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        @payment = new_payment_cod(user, course_id, mobile, address, new_price)
         @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
         if !@payment.save
           render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
@@ -844,9 +845,9 @@ class UsersController < ApplicationController
       return cod_code
     end
 
-    def new_payment_cod(user_id, course_id, mobile, address, new_price)
+    def new_payment_cod(user, course_id, mobile, address, new_price)
       payment = Payment.new(
-        user_id: user_id,
+        user_id: user.id,
         course_id: course_id,
         mobile: mobile,
         address: address,
@@ -854,6 +855,9 @@ class UsersController < ApplicationController
         method: Constants::PaymentMethod::COD,
         status: Constants::PaymentStatus::PENDING
       )
+      payment.name = user.name
+      payment.email = user.email
+      return payment
     end
 
     def set_user
