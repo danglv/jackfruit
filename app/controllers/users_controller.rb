@@ -125,7 +125,10 @@ class UsersController < ApplicationController
       end
     end
 
+    email = email.strip
+    course_id = course_id.strip
     new_price = new_price.gsub(/[^0-9]/, '')
+
     course = Course.where(:id => course_id).first
     if course.blank?
       render json: {message: "Không tìm thấy khoá học."}, status: :unprocessable_entity
