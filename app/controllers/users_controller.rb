@@ -167,18 +167,12 @@ class UsersController < ApplicationController
         render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
         return
       elsif payment.status == Constants::PaymentStatus::PENDING
-        if payment.method == Constants::PaymentMethod::COD
-          payment.mobile = mobile if !mobile.blank?
-          payment.address = address if !address.blank?
-          payment.money = new_price if !new_price.blank?
-        else
-          payment.status = Constants::PaymentStatus::CANCEL
-          payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
-          payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
-          if !payment.save
-            render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
-            return
-          end
+        payment.status = Constants::PaymentStatus::CANCEL
+        payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
+        if !payment.save
+          render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
+          return
         end
       elsif payment.status == Constants::PaymentStatus::CANCEL
         payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
