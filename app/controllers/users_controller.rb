@@ -168,6 +168,10 @@ class UsersController < ApplicationController
         return
       elsif payment.status == Constants::PaymentStatus::PENDING
         payment.status = Constants::PaymentStatus::CANCEL
+        if !payment.save
+          render json: {message: "Không thể tạo cancel payment trước."}, status: :unprocessable_entity
+          return
+        end
         payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
         payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
         if !payment.save
