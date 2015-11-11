@@ -149,39 +149,39 @@ class UsersController < ApplicationController
       note = 'Tài khoản từ email này đã được user tạo trước đó'
     end
 
-    # Create payment cod.
-    payment = Payment.where(
+    # Create or get a payment cod.
+    @payment = Payment.where(
       :user_id => user.id,
       :course_id => course.id
     ).to_a.last
 
-    if payment.blank?
-      payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
-      payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
-      if !payment.save
+    if @payment.blank?
+      @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+      @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+      if !@payment.save
         render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
         return
       end
     else
-      if payment.status == Constants::PaymentStatus::SUCCESS
+      if @payment.status == Constants::PaymentStatus::SUCCESS
         render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
         return
-      elsif payment.status == Constants::PaymentStatus::PENDING
-        payment.status = Constants::PaymentStatus::CANCEL
-        if !payment.save
+      elsif @payment.status == Constants::PaymentStatus::PENDING
+        @payment.status = Constants::PaymentStatus::CANCEL
+        if !@payment.save
           render json: {message: "Không thể cancel payment trước."}, status: :unprocessable_entity
           return
         end
-        payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
-        payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
-        if !payment.save
+        @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+        if !@payment.save
           render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
           return
         end
-      elsif payment.status == Constants::PaymentStatus::CANCEL
-        payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
-        payment.coupons = [coupon] if (!coupon.blank? && !payment.coupons.include?(coupon))
-        if !payment.save
+      elsif @payment.status == Constants::PaymentStatus::CANCEL
+        @payment = new_payment_cod(user.id, course_id, mobile, address, new_price)
+        @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+        if !@payment.save
           render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
           return
         end
@@ -191,11 +191,10 @@ class UsersController < ApplicationController
     # Create owned_course.
     find_or_initialize_owned_course_for_user(user, course)
 
-    # Create cod for cod payment.
+    # Create cod for cod @payment.
     cod_code = create_single_cod(course_id, "pedia")
-    payment.cod_code = cod_code if !cod_code.blank?
-
-    if !payment.save
+    @payment.cod_code = cod_code if !cod_code.blank?
+    if !@payment.save
       render json: {message: "Không thể lưu được COD"}, status: :unprocessable_entity
       return
     end
@@ -204,7 +203,7 @@ class UsersController < ApplicationController
       :user_id => user.id.to_s,
       :note => note,
       :old_price => course.price,
-      :cod_code => payment.cod_code
+      :cod_code => @payment.cod_code
     }
  end
 
