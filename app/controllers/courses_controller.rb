@@ -576,17 +576,6 @@ class CoursesController < ApplicationController
     end
     review.user = current_user
     if @course.save
-      # send rating to Flow
-      RestClient.post(FLOW_BASE_API_URL,
-        course_id: course_id,
-        course_name: @course.name,
-        user_id: current_user.id.to_s,
-        user_name: current_user.name,
-        user_email: current_user.email,
-        type: "rating",
-        content: description
-      )
-
       render json: {title: title, description: description, email: current_user.email, rate: rate}
       return
     else
