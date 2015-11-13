@@ -525,7 +525,7 @@ class CoursesController < ApplicationController
       parent_discussion_id = !parent_discussion.blank? ? parent_discussion.id : discussion.id
       child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
       # send discussion to Flow
-      RestClient.post("#{FLOW_BASE_API_URL}/wash/feedback/create",
+      RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
         course_id: course_id,
         course_name: @course.name,
         user_id: current_user.id.to_s,
