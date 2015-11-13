@@ -342,6 +342,7 @@ describe 'UsersController' do
       assert_equal @course.id, new_payment.course_id
       assert_equal 'nguyenduyvu21.02.1995@gmail.com', new_payment.email
       assert_equal 'Nguyễn Duy Vũ', new_payment.name
+      assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
     end
 
     it '[JU1007] Should return 200 if user exist , user has not payment of this course' do
@@ -364,6 +365,7 @@ describe 'UsersController' do
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
+      assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
     end
 
     it '[JU1008] Should return 200 if user exist , user has a cancel payment of this course' do
@@ -393,6 +395,7 @@ describe 'UsersController' do
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
+      assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
     end
 
     it '[JU1009] Should return 200 if user exist , user has a pending payment of this course and get success a cod_code' do
@@ -425,6 +428,7 @@ describe 'UsersController' do
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
+      assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
     end
 
     it '[JU1010] Should return 200 if user exist , user has a pending payment of this course and get fail a cod_code' do
@@ -457,6 +461,7 @@ describe 'UsersController' do
       assert_equal 'cod', new_payment.method
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
+      assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
     end
   end
 end

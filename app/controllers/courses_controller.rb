@@ -4,9 +4,9 @@ class CoursesController < ApplicationController
   layout 'courses', except: [:learning, :lecture]
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_discussion, :add_announcement]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
-  before_filter :validate_category, only: [:list_course_featured, :list_course_all] 
+  before_filter :validate_category, only: [:list_course_featured, :list_course_all]
   skip_before_filter :verify_authenticity_token, only: [:upload_course]
 
   NUMBER_COURSE_PER_PAGE = 10
@@ -20,7 +20,7 @@ class CoursesController < ApplicationController
   def index
     labels   = Constants.LabelsValues
     @courses = {}
-    
+
     labels.each {|label|
       title = if Course::Localization::TITLES[label.to_sym].blank?
         label
@@ -195,7 +195,7 @@ class CoursesController < ApplicationController
       else
         # Tracking L3c. Case not has course.
         Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
-      end      
+      end
     end
     # Check if course is in any sale campaign
     sale_input = {:course => @course}
@@ -292,7 +292,7 @@ class CoursesController < ApplicationController
     render layout: 'lecture'
   end
 
-  def lecture 
+  def lecture
     # Get owned course: success payment course or preview course
     @owned_course = current_user.courses.where(
       :course_id => @course._id,
@@ -315,7 +315,7 @@ class CoursesController < ApplicationController
       redirect_to root_url + "courses/#{@course.alias_name}/detail"
       return
     end
-    
+
     # Get the lecture of course
     lecture_index = params[:lecture_index]
     @lecture = @course.curriculums.where(:lecture_index => lecture_index, type: "lecture").first
@@ -375,7 +375,7 @@ class CoursesController < ApplicationController
       { "term"=>{
         "enabled" => condition[:enabled] }
       },
-      { "term"=>{ 
+      { "term"=>{
         "version" => condition[:version] }
       }
     ]
@@ -383,7 +383,7 @@ class CoursesController < ApplicationController
     if @condition[:lang] != nil
       _must.push({
         "term" => {
-          "lang" => @condition[:lang]  
+          "lang" => @condition[:lang]
         }
       });
     end
@@ -391,7 +391,7 @@ class CoursesController < ApplicationController
     if @condition[:level] != nil
       _must.push({
         "term" => {
-          "level" => @condition[:level] 
+          "level" => @condition[:level]
         }
       });
     end
@@ -399,7 +399,7 @@ class CoursesController < ApplicationController
     if budget == Constants::BudgetTypes::FREE
       _must.push({
         "term" => {
-          "price" => 0  
+          "price" => 0
         }
       });
     end
@@ -413,7 +413,7 @@ class CoursesController < ApplicationController
         }
       });
     end
-    
+
     body = {
       "query" => {
         "filtered" => {
@@ -426,7 +426,7 @@ class CoursesController < ApplicationController
       },
       "from" => 0, "size" => 20
     }
-    
+
     c = Course.search body
     @courses = c.results.map {|r|
       r._source
@@ -473,7 +473,7 @@ class CoursesController < ApplicationController
   def select
     labels    = Constants.LabelsValues
     @courses  = {}
-  
+
     labels.each {|label|
     title = if Course::Localization::TITLES[label.to_sym].blank?
       label
@@ -517,11 +517,27 @@ class CoursesController < ApplicationController
       )
       discussion.parent_discussion = parent_discussion_obj if !parent_discussion_obj.blank?
     end
-    
-    discussion.user = current_user 
+
+    discussion.user = current_user
     discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
     if discussion.save
+      parent_discussion_id = !parent_discussion.blank? ? parent_discussion.id : discussion.id
+      child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
+      # send discussion to Flow
+      RestClient.post("#{FLOW_BASE_API_URL}/wash/feedback/create",
+        course_id: course_id,
+        course_name: @course.name,
+        user_id: current_user.id.to_s,
+        user_name: current_user.name,
+        user_email: current_user.email,
+        type: "discussion",
+        content: title + ':' + description,
+        curriculum_id: curriculum_id,
+        parent_discussion: parent_discussion_id,
+        child_discussions: child_discussions
+      )
+
       render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
       return
     else
@@ -535,10 +551,10 @@ class CoursesController < ApplicationController
     title = params[:title]
     description = params[:description]
     rate = params[:rate]
-    
+
     @course = Course.where(id: course_id).first
     review = @course.reviews.where(:user_id => current_user.id).first
-      
+
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
       return
@@ -659,19 +675,19 @@ class CoursesController < ApplicationController
       c.sub_title = course['sub_title'] unless course['sub_title'].blank?
       c.level = course['level'] unless course['level'].blank?
       c.category_ids = course['category_ids'] unless course['category_ids'].blank?
-      c.label_ids = course['label_ids'] 
+      c.label_ids = course['label_ids']
       c.labels_order = course['labels_order']
       c.lang = course['lang'] unless course['lang'].blank?
       c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
       c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-      c.related = course['related'] == nil ? [] : course['related'].map{|r| r['id']} 
+      c.related = course['related'] == nil ? [] : course['related'].map{|r| r['id']}
 
       if !course['curriculums'].blank?
 
         lectures_old = []
         lectures_new = []
 
-        lectures_old = c.curriculums.where(type: 'lecture').map { |cu| 
+        lectures_old = c.curriculums.where(type: 'lecture').map { |cu|
           [cu.url, cu.lecture_index]
         }
 
@@ -711,7 +727,7 @@ class CoursesController < ApplicationController
 
         if diff_lectures != []
           users = User.where('courses.course_id' => c.id)
-          users.each do |user| 
+          users.each do |user|
             CourseWorker.perform_async(diff_lectures, c.id.to_s, user.id.to_s)
           end
         end
@@ -781,14 +797,14 @@ class CoursesController < ApplicationController
     end
   end
 
-  #POST: API UPLOAD Image 
+  #POST: API UPLOAD Image
 
   def upload_image
     begin
-      
+
       file = params[:image]
       file_name = params[:file_name]
-      
+
       path = Rails.public_path.join("uploads/images/courses/")
       path.mkpath unless path.exist?
 
@@ -820,7 +836,7 @@ class CoursesController < ApplicationController
 
       render json: {'document' => "uploads/documents/#{file_name}"}
       return
-    rescue Exception => e 
+    rescue Exception => e
       render json: {:error => "Có lỗi xảy ra #{e.message}"}
     end
   end
@@ -858,10 +874,10 @@ class CoursesController < ApplicationController
       description: description,
       user: @current_user,
       course: @course
-      )    
+      )
     @course.announcements << announcement
     @course.save
-    render json: {message: "success"} 
+    render json: {message: "success"}
     return
   end
 
@@ -911,7 +927,7 @@ class CoursesController < ApplicationController
       old_lectures_hash = lectures_old.to_h
       new_lecture_hash = lectures_new.to_h
 
-      lectures_diff = old_lectures_hash.keys & new_lecture_hash.keys 
+      lectures_diff = old_lectures_hash.keys & new_lecture_hash.keys
       lectures_index_old = lectures_diff.map{ |diff| old_lectures_hash[diff]}
       lectures_index_new = lectures_diff.map{ |diff| new_lecture_hash[diff]}
 

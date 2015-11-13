@@ -6,6 +6,9 @@ describe 'CoursesController' do
     stub_request(:get, /.*tracking.pedia.vn.*/)
       .to_return(:status => 200, :body => '')
 
+    stub_request(:post, /flow.pedia.vn/)
+      .to_return(:status => 200, :body => '')
+
     @coupon_code = 'KHANHDN'
     @res_coupon = '{"_id":"56363fe48e62a4142f0000a3","coupon":"KHANHDN","created_at":"2015-11-01T16:37:56.232Z","expired_date":"2015-12-30T17:00:00.000Z","course_id":"560b4e96eb5d8904c1000002","used":0,"enabled":true,"max_used":1,"discount":100.0,"return_value":"100","issued_by":"560b4e95eb5d8904c1000000"}'
     @res_coupon_invalid = '{"message":"Mã coupon không tồn tại"}'
@@ -657,5 +660,32 @@ describe 'CoursesController' do
       assert_response :success
       assert_match 'num_courses', res.to_s
     end
+  end
+
+  describe "POST #add_discussion" do
+    it 'should return 422 if course not exist' do 
+      post :add_discussion, {
+        id: 'INVALIDE_COURSE_ID',
+        course_id: 'INVALIDE_COURSE_ID'
+      }
+
+      assert_response :unprocessable_entity
+      assert_match 'Khoá học không hợp lệ!', response.body
+    end
+
+    it 'should return 200 if has not parent_discussion param' do
+      sign_in @users[0]
+      post :add_discussion, {
+        id: @courses[0].id,
+        course_id: @courses[0].id,
+        title: 'This is title',
+        description: 'This is description'
+      }
+
+      assert_response :success
+      assert_match 'This is title', response.body
+      assert_match 'This is description', response.body
+      assert_match @users[0].email, response.body
+    end 
   end
 end
