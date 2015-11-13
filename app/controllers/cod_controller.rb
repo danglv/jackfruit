@@ -31,9 +31,15 @@ class CodController < ApplicationController
       @should_show_info &= @user.courses.count == 1
 
       if @should_show_info
+        content = email_template({
+          title: 'Chào mừng bạn đến với Pedia',
+          course_name: @course.name,
+          email: @user.email,
+          password: '12345678'
+        })
         RestClient.post('http://email.pedia.vn/email_services/send_email',
           email: @user.email,
-          str_html: "<div><div><b>Thông tin tài khoản</b></div><div>Email: #{@user.email}</div><div>Password: 12345678</div><div> Chăm sóc khách hàng: <b>0961215368</b></div></div>",
+          str_html: content,
           sender: 'Pedia<cskh@pedia.vn>',
           subj: 'Chào mừng đến với Pedia'
         )
@@ -42,4 +48,12 @@ class CodController < ApplicationController
       render 'success'
     end
   end
+
+  private
+    def email_template params = {}
+      file_path = Rails.root.join('app/views/cod/_email_template.html.erb')
+      template = File.new(file_path).read
+      result = ERB.new(template).result(OpenStruct.new(params).instance_eval { binding })
+      return result
+    end
 end
