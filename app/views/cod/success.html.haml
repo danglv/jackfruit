@@ -2,10 +2,10 @@
   .row.center.activate-cod-header
     %h2 Chúc mừng bạn đã kích hoạt thành công
   - if @should_show_info
-    .row.center.activate-cod-header
+    .row.center.activate-cod-sub-header
       %h4 Chúng tôi đã gửi email xác nhận tài khoản cho bạn
   .row
-    .activate-cod-account.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12{}
+    .activate-cod-account.col-sm-4.col-sm-offset-4{}
       - if @should_show_info
         .row.account-info
           .row.info
@@ -14,10 +14,15 @@
             Email: #{@user.email}
           .row.info
             Password: 12345678
-      .row.learn-now
-        %a.btn-learning.btn.btn-primary.bold{:style => 'font-size:16px;', :type => 'submit', :href => "/courses/#{@course.alias_name}/learning"}
-          Hoàn tất
+  .row.course-info
+    .col-sm-6.course-image
+      %img{:src => @course.image}
+    .col-sm-6.course-detail
+      %h3= @course.name
+      %h4= @course.user.name
+      %a.btn-learning.btn.btn-primary.bold{:style => 'font-size:16px;', :type => 'submit', :href => "/courses/#{@course.alias_name}/learning"}
+        Vào học ngay
   .row.hotline
     %span
       Chăm sóc khách hàng:
-      %b 0961215368
+      %b 04.730.26688

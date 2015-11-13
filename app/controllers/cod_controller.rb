@@ -34,6 +34,7 @@ class CodController < ApplicationController
         content = email_template({
           title: 'Chào mừng bạn đến với Pedia',
           course_name: @course.name,
+          course_alias: @course.alias_name,
           email: @user.email,
           password: '12345678'
         })

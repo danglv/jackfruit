@@ -14,10 +14,13 @@
       border-collapse: collapse;
       border: 0px;
     }
+    p{
+      margin: 5px;
+    }
   </style>
 </head>
-<body style="color: #212121; font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 300; font-size: 16px;" width="600px">
-    <table width="600px" cellspacing="0" cellpadding="0" border="0" style="box-shadow: #BFBDBD 0px 0px 30px;   margin: 0 auto; margin-top: 50px;">
+<body style="color: #212121; font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 300; font-size: 16px;" width="600px">
+    <table width="600px" cellspacing="0" cellpadding="0" border="0" style="box-shadow: #BFBDBD 0px 0px 30px;   margin: 0 auto; margin-top: 50px; background: #f4f3f2;">
       <!-- Hàng 1: Logo -->
       <tr height="55px" valign="center">
         <td  style="background-image: url(https://static.pedia.vn/uploads/emails/cod_images/5.png); background-position: top; padding: 0 50px;">
@@ -29,34 +32,37 @@
       <tr>
         <td>
           <!-- Table con -->
-          <table width="600px">
+          <table width="600px" style="border-spacing: 0px;">
             <tbody style="font-family: roboto; line-height: 22px; text-align: justify; background: #f4f3f2;">
               <!-- Hàng 2.1: Text -->
               <tr>
-                <td colspan="2" style="padding: 35px 50px 10px 50px; font-size: 20px; line-height: 26px; color: #333;">
-                  <p><b>Chúc mừng bạn đã kích hoạt thành công khóa học</b></p>
-                  <p style="padding: 10px 0;"><b><%= course_name %></b></p>
+                <td colspan="2" style="padding: 20px 50px 0px 50px; font-size: 20px; line-height: 26px; color: #333;">
+                  <p style="margin: 0px;"><b>Chúc mừng bạn đã kích hoạt thành công khóa học</b></p>
+                  <p style="padding: 20px 0; margin: 0px;"><b><a href="https://pedia.vn/courses/<%= course_alias %>/learning" style="color: #238bff; text-decoration: none;"><%= course_name %></a></b></p>
                 </td>
               <tr>
                 <td colspan="2" style="padding: 10px 50px 5px 50px; font-size: 17px;">
-                  <p>Thông tin tài khoản của bạn</p>
-                  <p>- Email: <%= email %></p>
-                  <p>- Password: <%= password %> <i><span style="font-size: 14px;">(Mật khẩu này học viên có thể thay đổi)</span></i></p>
+                  <p style="margin: 0px;">Thông tin tài khoản của bạn</p>
+                  <p style="margin: 0px;">- Email: <%= email %></p>
+                  <p style="margin: 0px;">- Password: <%= password %><i><span style="font-size: 14px;"> (Mật khẩu này học viên có thể thay đổi)</span></i></p>
                 </td>
               </tr>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center; padding: 20px;"><a href="https://pedia.vn/courses/<%= course_alias %>/learning" id="btn-learning" style="padding: 10px 25px;font-weight: bold;color: #fff;background: #38b34a;border-radius: 7px;border: 1px solid; text-decoration: none;">VÀO HỌC NGAY</a></td>
               </tr>
               <!-- Hàng 2.2: Hotline & Email -->
               <tr style="font-size: 14px;">
                 <td colspan="2" style="padding: 15px 50px 0 50px;">
-                  <p>Nếu có thắc mắc cần giải đáp xin liên hệ bộ phận hỗ trợ khách hàng</p>
+                  <p style="margin: 0px;">Nếu có thắc mắc cần giải đáp xin liên hệ bộ phận hỗ trợ khách hàng</p>
                 </td>
               </tr>
               <tr style="font-size: 14px; font-style: italic;">
-                <td colspan="1" width="50%" style="padding-left: 50px;"><p>Hotline: 0968 146522</p></td>
-                <td colspan="1" width="50%" style="padding-right: 50px;"><p>Email: <a href="#" style="color: #238bff; text-decoration: none;">pedia@topica.edu.vn</a></p></td>
+                <td colspan="1" width="50%" style="padding-left: 50px;"><p style="margin: 0px;">Hotline: 04.730.26688</p></td>
+                <td colspan="1" width="50%" style="padding-right: 50px;"><p style="margin: 0px;">Email: <a href="mailto:pedia@topica.edu.vn" style="color: #238bff; text-decoration: none;">pedia@topica.edu.vn</a></p></td>
               </tr>
               <tr>
-                <td colspan="2" style="padding: 25px 50px;">
+                <td colspan="2" style="padding: 25px 50px; padding-bottom: 0px;">
                   <table style="padding: 25px 0;" cellpadding="0" cellspacing="0" >
                     <thead style="text-align: center;">
                       <tr style="background: #38b34a; color: #fff; line-height: 50px; font-size: 20px;">
@@ -66,7 +72,7 @@
                     <tbody>
                       <tr>
                         <td>
-                          <table>
+                          <table style="border-spacing: 0px;">
                             <tbody style="background: #dbdbdb;">
                               <tr>
                                 <td colspan="1" width="50%" style="text-align: center; padding: 15px 20px; vertical-align: top;">
@@ -105,9 +111,9 @@
               </tr>
               <tr>
                 <td colspan="2" style="padding: 0 50px 20px 50px; text-align: center; font-size: 12px; color: #a0a09f; line-height: 14px;">
-                  <p>Bạn nhận được thư này từ Pedia.vn</p>
-                  <p>Nếu thư này làm phiền bạn, xin vui lòng tắt thông báo trong phần <a href="#" title="cài đặt">cài đặt</a></p>
-                  <p>&copy; 2015 Pedia</p>
+                  <p style="margin: 0px;">Bạn nhận được thư này từ Pedia.vn</p>
+                  <p style="margin: 0px;">Nếu thư này làm phiền bạn, xin vui lòng tắt thông báo trong phần cài đặt</p>
+                  <p style="margin: 0px;">&copy; 2015 Pedia</p>
                 </td>
               </tr>
             </tbody>
