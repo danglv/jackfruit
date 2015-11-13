@@ -1,6 +1,15 @@
+.row{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
 .activate-cod-header{
   text-align: center;
   margin-top: 20px;
+}
+
+.activate-cod-sub-header{
+  text-align: center;
 }
 
 .activate-cod-form{
@@ -30,10 +39,7 @@
   .account-info{
     margin-top: 20px;
     font-size: 1.5em;
-
-    .info{
-      margin-top: 10px;
-    }
+    text-align: center;
   }
 
   .learn-now{
@@ -45,4 +51,43 @@
   font-size: 1.4em;
   text-align: center;
   margin-top: 50px;
+}
+
+.course-info{
+  margin-top: 40px;
+
+  .course-image{
+    text-align: right;
+    overflow: hidden;
+
+    img{
+      height: 150px;
+    }
+  }
+
+  .course-detail{
+    text-align: left;
+    margin: 0px;
+
+    h3{
+      margin-top: 0px;
+    }
+
+    h3, h4{
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+ .course-info{
+    .course-image{
+      text-align: center;
+    }
+
+    .course-detail{
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
 }

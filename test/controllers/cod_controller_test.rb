@@ -133,6 +133,8 @@ describe 'CodController' do
 
     assert_response :success
     assert_match 'kích hoạt thành công',  response.body
+    assert_match 'Vào học ngay',  response.body
+    assert_match @course.name, response.body
   end
 
   it 'should update payment & user' do
