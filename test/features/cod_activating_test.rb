@@ -98,7 +98,7 @@ feature 'Authentication' do
       find('.btn-activate').click
     end
 
-    page.must_have_content('kích hoạt thành công')
+    page.must_have_content('Kích hoạt thành công')
 
     find('.btn-learning').click
 

@@ -3,22 +3,34 @@ class CodController < ApplicationController
   def activate
     if request.patch?
       @cod_code = params[:cod_code]
+
+      # cod_code is blank
       if @cod_code.blank?
-        flash.now[:error] = "Hãy nhập mã COD để kích hoạt khóa học"
+        flash.now[:error] = "missing"
         return
       end
+
       payment = Payment.where(:cod_code => @cod_code).first
+
+      # cod_code is not found
       if payment.blank?
-        flash.now[:error] = "Mã COD không hợp lệ"
-        return
-      end
-      if payment.status == Constants::PaymentStatus::SUCCESS
-        flash.now[:error] = "Mã COD đã được kích hoạt"
+        flash.now[:error] = "invalid"
         return
       end
 
       @user = payment.user
       @course = payment.course
+      # cod_code is activated
+      if payment.status == Constants::PaymentStatus::SUCCESS
+        if current_user
+          flash.now[:error] = current_user.id == @user.id ? "self_activated" : "other_activated"
+        else
+          flash.now[:error] = "already_activated"
+        end
+        return
+      end
+
+      # Valid cod
       owned_course = @user.courses.where(course_id: payment.course_id.to_s).last
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
       payment.status = Constants::PaymentStatus::SUCCESS
