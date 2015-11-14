@@ -303,8 +303,8 @@ class PaymentController < ApplicationController
   def detail
     payment = PaymentSerializer.new(@payment).cod_hash
     # check if this paymet is first of user
-    number = Payment.where(user_id: payment[:user_id]).count
-    payment[:is_first] = number > 1 ? false : true
+    number = Payment.where(user_id: payment[:user_id], status: Constants::PaymentStatus::SUCCESS).count
+    payment[:is_first] = number > 0 ? false : true
 
     render json: payment
   end
