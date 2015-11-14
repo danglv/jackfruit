@@ -70,6 +70,13 @@ describe 'CodController' do
       role: 'user'
     })
 
+    @other_user = User.create!({
+      email: 'user5813@gmail.com',
+      password: '12345678',
+      password_confirmation: '12345678',
+      role: 'user'
+    })
+
     @user.courses.create!({
       course_id: @course.id,
       type: 'learning',
@@ -109,7 +116,7 @@ describe 'CodController' do
     patch :activate
 
     assert_response :success
-    assert_match 'Hãy nhập mã COD', response.body
+    assert_match 'Vui lòng nhập mã COD để kích hoạt', response.body
   end
 
   it 'should alert when COD code does not exist' do
@@ -119,20 +126,45 @@ describe 'CodController' do
     assert_match 'Mã COD không hợp lệ', response.body
   end
 
-  it 'should alert when COD code is already activated' do
+  it 'should alert when COD code is already activated and user is not logged in' do
     @payment.status = Constants::PaymentStatus::SUCCESS
     @payment.save
     patch :activate, cod_code: @payment.cod_code
 
     assert_response :success
     assert_match 'Mã COD đã được kích hoạt', response.body
+    assert_match 'Vui lòng kiểm tra danh sách khóa học của bạn tại', response.body
+  end
+
+  it 'should alert when COD code is activated & user logged in & not user course' do
+    @payment.status = Constants::PaymentStatus::SUCCESS
+    @payment.save
+
+    sign_in :user, @other_user
+
+    patch :activate, cod_code: @payment.cod_code
+
+    assert_response :success
+    assert_match 'Mã COD này không thuộc về tài khoản bạn đang đăng nhập', response.body
+  end
+
+  it 'should alert when COD code is activated & user logged in & is user course' do
+    @payment.status = Constants::PaymentStatus::SUCCESS
+    @payment.save
+
+    sign_in :user, @user
+
+    patch :activate, cod_code: @payment.cod_code
+
+    assert_response :success
+    assert_match 'Mã COD đã được kích hoạt. Bạn có thể vào học', response.body
   end
 
   it 'should render success when COD cod is valid' do
     patch :activate, cod_code: @payment.cod_code
 
     assert_response :success
-    assert_match 'kích hoạt thành công',  response.body
+    assert_match 'Kích hoạt thành công',  response.body
     assert_match 'Vào học ngay',  response.body
     assert_match @course.name, response.body
   end

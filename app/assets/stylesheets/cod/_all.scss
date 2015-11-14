@@ -1,93 +1,213 @@
-.row{
-  margin-left: 0px !important;
-  margin-right: 0px !important;
+.activate-cod{
+  min-height: calc(100% - 183px);
+
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  .activate-cod-header{
+    text-align: center;
+
+    h2{
+      font-weight: 500;
+    }
+  }
+
+  .activate-cod-sub-header{
+    text-align: center;
+  }
+
+  .activate-cod-form{
+    margin-top: 10px;
+
+    .title{
+      font-size: 1.3em;
+    }
+
+    #cod_cod {
+      height: 50px;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+
+    .alert{
+      margin-top: 20px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+      background-color: transparent;
+    }
+
+    .btn-activate{
+      margin-top: 25px;
+      background-color: #4CAF50;
+      height: 40px;
+      border-radius: 5px;
+
+      &:hover{
+        background-color: #4CAF55;
+      }
+    }
+
+    .alert-error{
+      color: red;
+    }
+
+    .group-input{
+      margin-top: 10px;
+    }
+  }
+
+  .btn-learning{
+    background-color: #4CAF50;
+    border-radius: 5px;
+
+    &:hover{
+        background-color: #4CAF55;
+    }
+  }
+
+  .activate-cod-account{
+    .account-info{
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: left;
+    }
+
+    .learn-now{
+      text-align: center;
+    }
+  }
+
+  .contact{
+    font-size: 1.1em;
+    text-align: left;
+    margin-top: 20px;
+
+    .hotline{
+      color: #E75050;
+      font-weight: bold;
+    }
+  }
+
+  .course-info{
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    .course-image{
+      text-align: right;
+      overflow: hidden;
+
+      img{
+        height: 150px;
+      }
+    }
+
+    .course-name{
+      color: #212121;
+    }
+
+    .teacher-name{
+      color: #727272;
+    }
+
+    .course-detail{
+      text-align: left;
+      margin: 0px;
+
+      h3{
+        margin-top: 0px;
+      }
+    }
+  }
+
+  .box-panel{
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px #B6B5B5;
+    padding: 20px 40px;
+  }
 }
 
 .activate-cod-header{
-  text-align: center;
-  margin-top: 20px;
-}
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 
-.activate-cod-sub-header{
-  text-align: center;
-}
-
-.activate-cod-form{
-  margin-top: 10px;
-
-  input {
-
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
   }
 
-  .alert{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: transparent;
-    font-weight: bold;
+  .green-line{
+    background-color: #4CAF50;
+    height: 3px;
   }
 
-  .alert-error{
-    color: red;
-  }
+  .content{
+    height: 56px;
+    background-color: #FFFFFF;
+    vertical-align: middle;
+    padding-top: 8px;
 
-  .group-input{
-    margin-top: 5px;
-  }
-}
-
-.activate-cod-account{
-  .account-info{
-    margin-top: 20px;
-    font-size: 1.5em;
-    text-align: center;
-  }
-
-  .learn-now{
-    text-align: center;
-  }
-}
-
-.hotline{
-  font-size: 1.4em;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.course-info{
-  margin-top: 40px;
-
-  .course-image{
-    text-align: right;
-    overflow: hidden;
+    .container{
+      height: 40px;
+    }
 
     img{
-      height: 150px;
+      height: 40px;
+    }
+
+    a{
+      font-weight: bold;
+      color: #212121;
+      font-size: 1.2em;
+      margin-left: 20px;
+    }
+
+    a:hover{
+      color: #38B34A;
+      text-decoration: none;
     }
   }
 
-  .course-detail{
-    text-align: left;
-    margin: 0px;
+  .shadow{
+    height: 4px;
+    background: -webkit-linear-gradient(#B6B5B5, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#B6B5B5, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#B6B5B5, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#B6B5B5, white); /* Standard syntax */
+  }
+}
 
-    h3{
-      margin-top: 0px;
+@media (max-width: 460px) {
+  .activate-cod{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+    .box-panel{
+      padding: 20px 10px;
     }
 
-    h3, h4{
-      font-weight: bold;
+    .course-image{
+      padding-left: 0px;
+      padding-right: 0px;
     }
   }
 }
 
 @media (max-width: 768px) {
- .course-info{
-    .course-image{
-      text-align: center;
-    }
+  .activate-cod{
+    .course-info{
+      .course-image{
+        text-align: center;
+      }
 
-    .course-detail{
-      margin-top: 20px;
-      text-align: center;
+      .course-detail{
+        margin-top: 20px;
+        text-align: center;
+      }
     }
   }
 }

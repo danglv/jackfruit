@@ -1,20 +1,38 @@
-.container
-  .row.center.activate-cod-header
-    %h2 Kích hoạt mã COD
-  .row
-    %form.activate-cod-form.col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12{:method => "post",:action => "/cod/activate", :'accept-charset' => 'UTF-8'}
-      .title.bold{:style => 'font-size:16px;'} Nhập mã COD tại đây
-      .group-input
-        %input#cod_cod.form-control{:type => 'text',:placeholder => 'Mã COD', :name => 'cod_code', :value => @cod_code}/
-      = hidden_field_tag :authenticity_token, form_authenticity_token
-      = hidden_field_tag '_method', 'patch'
-      - if !flash[:error].blank?
-        .alert.alert-error{:role => 'alert', :style => "margin-top:10px;"}
-          = flash[:error]
-      .submit-cod.text-center
-        %input.btn-activate.btn.btn-primary.bold{:style => 'font-size:16px;', :type => 'submit', :value => 'Kích hoạt'}
-  .row.hotline
-    %span
-      Chăm sóc khách hàng:
-      %b 04.730.26688
-
+= render :partial => 'cod/header'
+.container.activate-cod
+  .box-panel.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+    .row.center.activate-cod-header
+      %h2 Kích hoạt mã COD
+    .row
+      %form.activate-cod-form{:method => "post",:action => "/cod/activate", :'accept-charset' => 'UTF-8'}
+        .title Nhập mã COD tại đây
+        .group-input
+          %input#cod_cod.form-control{:type => 'text',:placeholder => 'Mã COD', :name => 'cod_code', :value => @cod_code}/
+        = hidden_field_tag :authenticity_token, form_authenticity_token
+        = hidden_field_tag '_method', 'patch'
+        - if !flash[:error].blank?
+          .alert.alert-error{:role => 'alert'}
+            - case flash[:error]
+            - when 'missing'
+              Vui lòng nhập mã COD để kích hoạt
+            - when 'invalid'
+              Mã COD không hợp lệ
+            - when 'already_activated'
+              Mã COD đã được kích hoạt. Vui lòng kiểm tra danh sách khóa học của bạn tại
+              %a{:href => 'https://pedia.vn/home/my-course/learning', :style => 'color: blue;'}
+                Khóa học của tôi
+            - when 'other_activated'
+              Mã COD này không thuộc về tài khoản bạn đang đăng nhập. Vui lòng đăng nhập bằng tài khoản chúng tôi đã gửi qua email cho bạn.
+            - when 'self_activated'
+              Mã COD đã được kích hoạt. Bạn có thể vào học
+              %a{:href => "https://pedia.vn/courses/#{@course.alias_name}/learning", :style => 'color: blue;'}
+                tại đây
+        .submit-cod.text-center
+          %input.btn-activate.btn.btn-primary.btn-lg.bold{:style => 'font-size:16px;', :type => 'submit', :value => 'Kích hoạt'}
+    .row.contact
+      %span
+        Nếu bạn gặp khó khăn trong việc kích hoạt mã COD, vui lòng liên hệ <br/>
+      %span.hotline
+        Hotline:
+        %b 04.730.26688
+= render :partial => 'components/footer/index'
