@@ -1,5 +1,5 @@
 require 'sidekiq/web'
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
   get 'stencil/index'
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations', sessions: "users/sessions"}
 
   get '/home', to: redirect('/')
-  
+
   resources :courses, only: %w[index] do
     member do
       # get '/lecture/:lecture_index', to: 'courses#lecture'
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :edit_discussion
+      post :delete_discussion
       post :add_announcement
       post :add_child_announcement
       post :rating
@@ -83,9 +85,9 @@ Rails.application.routes.draw do
   get "/users/:id/show" => "users#show", as: :user
   # get "/users/auth/google_oauth2/callback" => "users#auth/google_oauth2"
 
-  
+
   resources :users, :path => 'home/my-course', only: %w[] do
-    collection do      
+    collection do
       get :select_course
       get :learning
       get :teaching
@@ -102,8 +104,8 @@ Rails.application.routes.draw do
       #API create instructor for kelley
       post '/api/create_instructor', to: 'users#create_instructor'
     end
-  end 
-  
+  end
+
   resources :users, only: %w[] do
 
     collection do
@@ -155,12 +157,12 @@ Rails.application.routes.draw do
       get 'lecture/doc/:doc_id', to: 'resources#lecture_doc', :as => :download_lecture_doc
     end
   end
-  
+
   resources :label, only: %w[] do
     collection do
       # API for kelley
       post :create
-      
+
     end
 
     member do
@@ -173,7 +175,7 @@ Rails.application.routes.draw do
     collection do
       # API for kelley
       post :create
-      
+
     end
 
     member do
@@ -181,7 +183,7 @@ Rails.application.routes.draw do
       post :update
     end
   end
-  
+
   resources :cod, only: %w[] do
     collection do
       match '/activate' => 'cod#activate', :via => [:get, :patch]
@@ -190,7 +192,7 @@ Rails.application.routes.draw do
 
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
-  #     get '/:profile_url', to: 'user#index'  
+  #     get '/:profile_url', to: 'user#index'
   #     post :sign_up_with_email
   #     post :login_with_email
   #     post :login_with_facebook
@@ -198,7 +200,7 @@ Rails.application.routes.draw do
   #     post :logout
   #     put :edit_profile
   #     post :upload_avatar
-  #   end    
+  #   end
   # end
 
   # Public page

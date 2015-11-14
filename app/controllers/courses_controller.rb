@@ -546,6 +546,24 @@ class CoursesController < ApplicationController
     end
   end
 
+  def edit_discussion
+    discussion_id = params[:discussion_id]
+    description = params[:description]
+
+    if !discussion_id.blank?
+      @discussion = Discussion.where(id: discussion_id).first
+      @discussion.description = description
+
+      if @discussion.save
+        render json: {massage: "Sửa thảo luận thành công"}
+        return
+      else
+        render json: {message: "Có lỗi xảy ra"}
+        return
+      end
+    end
+  end
+
   def rating
     course_id = params[:id]
     title = params[:title]
