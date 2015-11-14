@@ -9,8 +9,7 @@ $(document).ready(function () {
     })
     // send request to add comment
   $('#send-comment').click(function () {
-
-      var course_id = $("#course-id").val();
+      var course_id = $(".course-id").val();
       var _title = $("#comment-title").val();
       var _description = $("#comment-content").val();
       if (_title.trim() == '') {
@@ -85,8 +84,7 @@ $(document).ready(function () {
 
     var params = {
       'title': title,
-      'description': description,
-      'course_id': course_id
+      'description': description
     }
 
     var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
@@ -111,8 +109,7 @@ $(document).ready(function () {
     });
   })
 
-  $('.comment-submit').click(function () {
-
+  $('.comment-submit-fix').click(function () {
     var obj = this;
     var course_id = $(".course_id").val();
     var parent_discussion = $(this).attr("discussion_id");
@@ -120,8 +117,7 @@ $(document).ready(function () {
 
     var params = {
       'parent_discussion': parent_discussion,
-      'description': description.val(),
-      'course_id': course_id
+      'description': description.val()
     }
 
     var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';

@@ -1,4 +1,5 @@
 = render :partial => "components/header/default"
+%input.course_id{:type => "hidden", :value => "#{@course._id}"}
 .container-wrapper{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
@@ -27,7 +28,7 @@
                   - else
                     %li
                       %i.fa.fa-star.star{:val => i}
-                %li 
+                %li
                   %a.rate-it Rate it
     - if @owned_course.type == 'preview'
       = render :partial => "courses/preview_alert", :local => {:course => @course}
@@ -36,7 +37,7 @@
         .col-xs-12.col-sm-10.col-sm-offset-1.col-md-6.col-lg-6.list-lecture
           .row.no-margin.lecture-header
             %a{:href => "/courses/#{@course.alias_name}/lecture/0"}
-              %ul 
+              %ul
                 %li
                   %i.fa.fa-play-circle
                 %li.first-lecture
@@ -52,7 +53,7 @@
               - @count = @course.curriculums.where(type: "lecture").count
               .progress-title
                 %ul.progress-title-content.no-margin
-                  %li.progress-title-item Bạn đã hoàn thành 
+                  %li.progress-title-item Bạn đã hoàn thành
                   %li.progress-title-item.bold #{@index}
                   %li.progress-title-item trên
                   %li.progress-title-item.bold #{@count}
@@ -92,12 +93,12 @@
                             .status-container.completed
                               %i.fa.fa-check
                         .chap-item-content
-                          .row.no-margin 
+                          .row.no-margin
                             Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
                           .row.no-margin
                             .row.type-document
                               %ul.no-padding
-                                %li 
+                                %li
                                   %i.fa.fa-play-circle
                                 %li
                                   %span #{curriculum.description}
@@ -105,25 +106,25 @@
                                   %li
                                     %i.fa.fa-download
                                 %li
-                                  %i.fa.fa-comments  
+                                  %i.fa.fa-comments
             - rescue Exception => e
         .col-xs-12.col-sm-12.col-md-6.col-lg-6.no-margin.lecture-discussion
           .row.no-margin
             .col-md-4.col-lg-4.learning_tab.tab-actived{:val => "discussion"}
               %a{:href => "#tab1"}
                 %i.fa.fa-comments
-                %span Thảo luận 
+                %span Thảo luận
             .col-md-4.col-lg-4.learning_tab{:val => "noti"}
               %a{:href => "#tab2"}
                 %i.fa.fa-bullhorn
-                %span Thông báo 
+                %span Thông báo
             .col-md-4.col-lg-4.learning_tab{:val => "student"}
               %a
                 %i.fa.fa-users
                 - if @course.fake_enabled
-                  %span= @course.fake_students.to_s + " Học viên" 
-                - else 
-                  %span= @course.students.to_s + " Học viên" 
+                  %span= @course.fake_students.to_s + " Học viên"
+                - else
+                  %span= @course.students.to_s + " Học viên"
             .col-md-12.col-lg-12.no-padding.progress
               .col-md-4.col-lg-4.progress-actived
               .col-md-4.col-lg-4
@@ -138,7 +139,6 @@
                   Thảo luận mới
                 %ul.dropdown-menu{:style => "height: 250px; width: 500px; position: absolute; left: -300px; padding: 30px;"}
                   %form
-                    %input.course_id{:type => "hidden", :value => "#{@course._id}"}
                     %li
                       %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title", :style => "height: 50px; margin-bottom: 10px;"}
                     %li
@@ -156,17 +156,17 @@
                     %i.fa.fa-smile-o
                   .col-md-11.col-lg-11.no-padding.discussion-item-main
                     %ul.discussion-item-title
-                      %li.bold #{user.name} 
+                      %li.bold #{user.name}
                       - if !curriculum.blank?
-                        %li đã đăng 1 thảo luận trong 
+                        %li đã đăng 1 thảo luận trong
                         = succeed "" do
                           %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
-                            %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s 
+                            %b= "Bài giảng " + (curriculum.lecture_index + 1).to_s
                           = succeed "" do
                             %span{:style => "font-size: 14px; font-weight: 400; color: #212121"}= "- #{relative_time}"
                       - else
-                        %li= "đã đăng 1 thảo luận - #{relative_time}" 
-                    %span.discussion-item-subject 
+                        %li= "đã đăng 1 thảo luận - #{relative_time}"
+                    %span.discussion-item-subject
                       #{discussion.title}
                     %p.discussion-item-content
                       #{discussion.description}
@@ -183,15 +183,15 @@
                           .col-md-11.col-lg-11.no-padding.child-item-main
                             - user_discussion = User.where(:id => child_discussion.user_id).first
                             %ul.child-item-title
-                              %li.bold #{user_discussion.name} 
-                              %li= "đã đăng 1 thảo luận - #{child_relative_time}" 
+                              %li.bold #{user_discussion.name}
+                              %li= "đã đăng 1 thảo luận - #{child_relative_time}"
                             %p.child-item-content
                               #{child_discussion.description}
-                      .row.no-margin 
+                      .row.no-margin
                         / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
                         .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
                           %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
-                          .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
+                          .btn.btn-primary.comment-submit-fix{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi
           .row.no-margin.noti.collapsed
             .row.no-margin.list-noti
               - if @course.user.id == @current_user.id
@@ -208,7 +208,7 @@
                           %textarea.form-control.an-description{:name => "description",:placeholder => 'Nhập thông báo', :required => 'required'}
                       %li
                         .form-group
-                          %a.btn.btn-primary.btn-add-announcement{:href => "#", :style => 'width:100%', :type => 'submit'} Tạo thông báo mới                    
+                          %a.btn.btn-primary.btn-add-announcement{:href => "#", :style => 'width:100%', :type => 'submit'} Tạo thông báo mới
               - @course.announcements.each do |announcement|
                 .row.noti-item.no-margin
                   .col-md-1.col-lg-1.no-padding.noti-item-avatar
@@ -217,7 +217,7 @@
                     %ul.noti-item-title
                       %li.bold=announcement.user.name
                       %li đã đăng 1 thông báo - #{TimeHelper.relative_time(announcement.created_at)}
-                    %span.noti-item-subject 
+                    %span.noti-item-subject
                       #{announcement.title}
                     %p.noti-item-content
                       #{announcement.description}
@@ -231,7 +231,7 @@
                             %ul.child-item-title
                               %li.bold= child_announcement.user.name
                               %li - #{TimeHelper.relative_time(child_announcement.created_at)}
-                            / %span.child-item-subject 
+                            / %span.child-item-subject
                             /   Please do something
                             %p.child-item-content
                               #{child_announcement.description}
@@ -242,5 +242,5 @@
                           %form
                             %input.announcement_id{:type => "hidden", :name => 'announcement', :value => "#{announcement.id}"}
                             %textarea.form-control.child-announcement-desciption{:name => "description", :placeholder => "Bình luận của bạn", :style => 'background-color:white'}
-                            .btn.btn-primary.child-announcement Gửi bình luận 
+                            .btn.btn-primary.child-announcement Gửi bình luận
 = render :partial => 'components/footer/index'
