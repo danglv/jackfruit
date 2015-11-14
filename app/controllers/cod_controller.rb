@@ -1,6 +1,12 @@
 class CodController < ApplicationController
 
   def activate
+    # @user = User.where(:email => 'hailn@topica.edu.vn').first
+    # @course = Course.first
+    # @should_show_info = true
+    # render 'success'
+    # return
+
     if request.patch?
       @cod_code = params[:cod_code]
 
