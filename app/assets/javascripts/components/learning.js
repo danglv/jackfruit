@@ -10,8 +10,6 @@ $(document).ready(function () {
     // send request to add comment
   $('#send-comment').click(function () {
       var course_id = $(".course-id").val();
-      console.log(course_id)
-      console.log(course_id)
       var _title = $("#comment-title").val();
       var _description = $("#comment-content").val();
       if (_title.trim() == '') {
@@ -123,7 +121,6 @@ $(document).ready(function () {
     }
 
     var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
-    alert(URL);
     $.ajax({
       type: 'POST',
       url: URL,
