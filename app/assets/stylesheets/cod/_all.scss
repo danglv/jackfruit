@@ -1,93 +1,240 @@
-.row{
-  margin-left: 0px !important;
-  margin-right: 0px !important;
-}
+.activate-cod{
+  min-height: calc(100% - 169px);
 
-.activate-cod-header{
-  text-align: center;
-  margin-top: 20px;
-}
-
-.activate-cod-sub-header{
-  text-align: center;
-}
-
-.activate-cod-form{
-  margin-top: 10px;
-
-  input {
-
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
   }
 
-  .alert{
+  .activate-cod-header{
+    text-align: center;
+
+    h2{
+      font-weight: 500;
+    }
+  }
+
+  .activate-cod-sub-header{
+    text-align: center;
+  }
+
+  .activate-cod-form{
     margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: transparent;
-    font-weight: bold;
-  }
 
-  .alert-error{
-    color: red;
-  }
+    .title{
+      font-size: 1.3em;
+    }
 
-  .group-input{
-    margin-top: 5px;
-  }
-}
+    #cod_cod {
+      height: 50px;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
 
-.activate-cod-account{
-  .account-info{
-    margin-top: 20px;
-    font-size: 1.5em;
-    text-align: center;
-  }
+    .alert{
+      margin-top: 20px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+      background-color: transparent;
+    }
 
-  .learn-now{
-    text-align: center;
-  }
-}
+    .btn-activate{
+      margin-top: 25px;
+      background-color: #4CAF50;
+      height: 40px;
+      border-radius: 5px;
 
-.hotline{
-  font-size: 1.4em;
-  text-align: center;
-  margin-top: 50px;
-}
+      &:hover{
+        background-color: #4CAF55;
+      }
+    }
 
-.course-info{
-  margin-top: 40px;
+    .alert-error{
+      color: red;
+    }
 
-  .course-image{
-    text-align: right;
-    overflow: hidden;
-
-    img{
-      height: 150px;
+    .group-input{
+      margin-top: 10px;
     }
   }
 
-  .course-detail{
+  .btn-learning{
+    background-color: #4CAF50;
+    border-radius: 5px;
+
+    &:hover{
+        background-color: #4CAF55;
+    }
+  }
+
+  .activate-cod-account{
+    .account-info{
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: left;
+    }
+
+    .learn-now{
+      text-align: center;
+    }
+  }
+
+  .contact{
+    font-size: 1.1em;
     text-align: left;
-    margin: 0px;
+    margin-top: 20px;
 
-    h3{
-      margin-top: 0px;
-    }
-
-    h3, h4{
+    .hotline{
+      color: #E75050;
       font-weight: bold;
     }
   }
-}
 
-@media (max-width: 768px) {
- .course-info{
+  .course-info{
+    margin-top: 40px;
+    margin-bottom: 40px;
+
     .course-image{
-      text-align: center;
+      text-align: right;
+      overflow: hidden;
+
+      img{
+        height: 150px;
+      }
+    }
+
+    .course-name{
+      color: #212121;
+    }
+
+    .teacher-name{
+      color: #727272;
     }
 
     .course-detail{
-      margin-top: 20px;
-      text-align: center;
+      text-align: left;
+      margin: 0px;
+
+      h3{
+        margin-top: 0px;
+      }
     }
+  }
+
+  .box-panel{
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px #B6B5B5;
+    padding: 20px 50px;
+  }
+
+  @media (max-width: 768px) {
+   .course-info{
+      .course-image{
+        text-align: center;
+      }
+
+      .course-detail{
+        margin-top: 20px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.activate-cod-header{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  .green-line{
+    background-color: #4CAF50;
+    height: 3px;
+  }
+
+  .content{
+    height: 56px;
+    background-color: #FFFFFF;
+    vertical-align: middle;
+    padding-top: 8px;
+
+    .container{
+      height: 40px;
+    }
+
+    img{
+      height: 40px;
+    }
+
+    a{
+      font-weight: bold;
+      color: #212121;
+      font-size: 1.2em;
+      margin-left: 20px;
+    }
+
+    a:hover{
+      color: #38B34A;
+      text-decoration: none;
+    }
+  }
+
+  .shadow{
+    height: 4px;
+    background: -webkit-linear-gradient(#B6B5B5, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#B6B5B5, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#B6B5B5, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#B6B5B5, white); /* Standard syntax */
+  }
+}
+
+.activate-cod-footer{
+  margin-top: 50px;
+  margin-bottom: 0px;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  width: 100%;
+  height: 56px;
+  background-color: #212121;
+  padding: 15px 0px;
+
+  .row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  &-links-one, &-links-two {
+    list-style: none;
+    padding-left: 0px;
+    width: 100%;
+  }
+  &-links-one li, &-links-two li {
+    margin-right: 19px;
+  }
+  &-links-one, &-links-two, &-links-one li, &-links-two li {
+    float: left;
+  }
+  &-links-one {
+    margin-bottom: 5px;
+  }
+  &-links-one a, &-links-two a{
+    line-height: 16px;
+  }
+  &-links-one a{
+    color: #fff;
+    font-size: 14px;
+  }
+  &-links-two a{
+    color: #ccc;
+    font-size: 13px;
+  }
+  &-links-one a:hover, &-links-two a:hover{
+    text-decoration: none;
   }
 }
