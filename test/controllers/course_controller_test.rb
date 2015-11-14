@@ -121,7 +121,7 @@ describe 'CoursesController' do
           },
           {
             "id" => "5629f293df52g90mjs030050",
-            "parent_discussion" => "5629f293df52g90mjs030040"
+            "parent_discussion" => "5629f293df52g90mjs030040",
             "title" => "Trợ giúp",
             "description" => "Bạn vui lòng xem lại đường truyền mạng",
           }
