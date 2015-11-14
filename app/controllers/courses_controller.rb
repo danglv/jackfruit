@@ -498,6 +498,10 @@ class CoursesController < ApplicationController
     description = params[:description]
     parent_discussion = params[:parent_discussion]
 
+    if description.blank?
+      render json: {message: "Nội dung không được để trống"}, status: :unprocessable_entity
+    end
+
     @course = Course.where(id: course_id).first
     if @course.blank?
       render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
@@ -522,8 +526,9 @@ class CoursesController < ApplicationController
     discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
     if discussion.save
-      parent_discussion_id = !parent_discussion.blank? ? parent_discussion.id : discussion.id
+      parent_discussion_id = !parent_discussion_obj.blank? ? parent_discussion : discussion.id
       child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
+      content = (!title.blank?) ? title + ':' + description : description
       # send discussion to Flow
       RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
         course_id: course_id,
@@ -532,7 +537,7 @@ class CoursesController < ApplicationController
         user_name: current_user.name,
         user_email: current_user.email,
         type: "discussion",
-        content: title + ':' + description,
+        content: content,
         curriculum_id: curriculum_id,
         parent_discussion: parent_discussion_id,
         child_discussions: child_discussions
