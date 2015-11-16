@@ -566,7 +566,7 @@ class CoursesController < ApplicationController
       end
     end
 
-    user = User.where(:email => "test9001@gmail.com").first
+    user = User.where(:email => "cskh@pedia.vn").first
     course = Course.where(:id => course_id).first
 
     if course.blank?
