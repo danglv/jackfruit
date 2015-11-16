@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   layout 'courses', except: [:learning, :lecture]
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_announcement]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select,:add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all]
   skip_before_filter :verify_authenticity_token, only: [:upload_course]
@@ -497,6 +497,7 @@ class CoursesController < ApplicationController
     title = params[:title]
     description = params[:description]
     parent_discussion = params[:parent_discussion]
+    author = params[:author]
 
     if description.blank?
       render json: {message: "Nội dung không được để trống"}, status: :unprocessable_entity
@@ -543,6 +544,7 @@ class CoursesController < ApplicationController
         child_discussions: child_discussions
       )
 
+
       render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
       return
     else
@@ -551,20 +553,111 @@ class CoursesController < ApplicationController
     end
   end
 
+  def add_discussion_from_wasp
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
+    description = params[:description]
+
+    ['id','parent_discussion', 'description'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống!"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    user = User.where(:email => "test9001@gmail.com").first
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion = course.discussions.where(:id => parent_discussion_id).first
+    if parent_discussion.blank?
+      render json: {message: "Parrent discussion không tồn tại"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion.child_discussions.new(
+      created_at: Time.now,
+      description: description,
+      user_id: user._id
+    )
+    if !parent_discussion.save
+      render json: {error: parent_discussion.errors}, status: :unprocessable_entity
+      return
+    end
+    render json: {message: "success"}
+  end
+
   def edit_discussion
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
     discussion_id = params[:discussion_id]
     description = params[:description]
 
-    if !discussion_id.blank?
-      @discussion = Discussion.where(id: discussion_id).first
-      @discussion.description = description
+    ['id','parent_discussion', 'discussion_id', 'description'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống!"}, status: :unprocessable_entity
+        return
+      end
+    end
 
-      if @discussion.save
-        render json: {massage: "Sửa thảo luận thành công"}
-        return
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion = course.discussions.where(:id => parent_discussion_id).first
+    discussion = parent_discussion.child_discussions.where(:id => discussion_id).first if !parent_discussion.blank?
+
+    if discussion.blank?
+      render json: {message: "Không tồn tại thảo luận này"}, status: :unprocessable_entity
+      return
+    else
+      discussion.description = description if !description.blank?
+      if course.save
+        render json: {message: "Sửa thành công"}
       else
-        render json: {message: "Có lỗi xảy ra"}
+        render json: {message: "Không sửa được thảo luận"}, status: :unprocessable_entity
+      end
+    end
+  end
+
+  def delete_discussion
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
+    discussion_id = params[:discussion_id]
+
+    ['id','parent_discussion', 'discussion_id'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống"}, status: :unprocessable_entity
         return
+      end
+    end
+
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion = course.discussions.where(:discussion_id => parent_discussion_id).first
+    discussion = parent_discussion.child_discussions.where(:id => discussion_id).first if !parent_discussion.blank?
+
+    if discussion.blank?
+      render json: {message: "Không tồn tại thảo luận này"}, status: :unprocessable_entity
+      return
+    else
+      discussion.delete
+      if course.save
+        render json: {message: "Xóa thành công"}
+      else
+        render json: {message: "Không xóa được thảo luận"}, status: :unprocessable_entity
       end
     end
   end
