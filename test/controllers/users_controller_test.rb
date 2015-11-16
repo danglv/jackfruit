@@ -33,6 +33,35 @@ describe 'UsersController' do
       user: @user,
     )
 
+    @course.curriculums.create([
+      {
+        status: 0,
+        type: 'chapter',
+        order: 0,
+        chapter_index: 0,
+        lecture_index: 0,
+        object_index: 0,
+        title: "PHẦN 1",
+        description: "",
+        asset_type: "Video",
+        url: "",
+        previewable: false
+      },
+      {
+        status: 0,
+        type: "lecture",
+        order: 0,
+        chapter_index: 0,
+        lecture_index: 0,
+        object_index: 0,
+        title: "Làm giàu có số không các bạn?",
+        description: "0:01:11",
+        asset_type: "Video",
+        url: "http://d3c5ulldcb6uls.cloudfront.net/tu-duy-lam-chu-se-thay-doi-cuoc-doi-ban-nhu-the-nao/bai1master.m3u8",
+        previewable: false
+      }
+    ])
+
     instructor_profile = User::InstructorProfile.create(
       user: @user
     )
@@ -331,6 +360,8 @@ describe 'UsersController' do
       }
 
       new_payment = @assigns['payment']
+      owned_course = new_payment.user.courses.where(:course_id => @course.id).first
+      lecture_curriculums_count = @course.curriculums.where(:type => Constants::CurriculumTypes::LECTURE).count
 
       assert_response :success
       assert_not_nil JSON.parse(@response.body)['user_id']
@@ -343,6 +374,10 @@ describe 'UsersController' do
       assert_equal 'nguyenduyvu21.02.1995@gmail.com', new_payment.email
       assert_equal 'Nguyễn Duy Vũ', new_payment.name
       assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
+      assert_not_nil owned_course
+      assert_equal 'learning', owned_course.type
+      assert_equal 'pending', owned_course.payment_status
+      assert_equal owned_course.lectures.count, lecture_curriculums_count
     end
 
     it '[JU1007] Should return 200 if user exist , user has not payment of this course' do
@@ -355,6 +390,8 @@ describe 'UsersController' do
       }
 
       new_payment = @assigns['payment']
+      owned_course = new_payment.user.courses.where(:course_id => @course.id).first
+      lecture_curriculums_count = @course.curriculums.where(:type => Constants::CurriculumTypes::LECTURE).count
 
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
@@ -366,6 +403,10 @@ describe 'UsersController' do
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
       assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
+      assert_not_nil owned_course
+      assert_equal 'learning', owned_course.type
+      assert_equal 'pending', owned_course.payment_status
+      assert_equal owned_course.lectures.count, lecture_curriculums_count
     end
 
     it '[JU1008] Should return 200 if user exist , user has a cancel payment of this course' do
@@ -385,6 +426,8 @@ describe 'UsersController' do
       }
 
       new_payment = @assigns['payment']
+      owned_course = new_payment.user.courses.where(:course_id => @course.id).first
+      lecture_curriculums_count = @course.curriculums.where(:type => Constants::CurriculumTypes::LECTURE).count
 
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
@@ -396,6 +439,10 @@ describe 'UsersController' do
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
       assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
+      assert_not_nil owned_course
+      assert_equal 'learning', owned_course.type
+      assert_equal 'pending', owned_course.payment_status
+      assert_equal owned_course.lectures.count, lecture_curriculums_count
     end
 
     it '[JU1009] Should return 200 if user exist , user has a pending payment of this course and get success a cod_code' do
@@ -417,6 +464,8 @@ describe 'UsersController' do
       }
 
       new_payment = @assigns['payment']
+      owned_course = new_payment.user.courses.where(:course_id => @course.id).first
+      lecture_curriculums_count = @course.curriculums.where(:type => Constants::CurriculumTypes::LECTURE).count
 
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
@@ -429,6 +478,10 @@ describe 'UsersController' do
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
       assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
+      assert_not_nil owned_course
+      assert_equal 'learning', owned_course.type
+      assert_equal 'pending', owned_course.payment_status
+      assert_equal owned_course.lectures.count, lecture_curriculums_count
     end
 
     it '[JU1010] Should return 200 if user exist , user has a pending payment of this course and get fail a cod_code' do
@@ -450,6 +503,8 @@ describe 'UsersController' do
       }
 
       new_payment = @assigns['payment']
+      owned_course = new_payment.user.courses.where(:course_id => @course.id).first
+      lecture_curriculums_count = @course.curriculums.where(:type => Constants::CurriculumTypes::LECTURE).count
 
       assert_response :success
       assert_equal @student_user.id.to_s, JSON.parse(@response.body)['user_id']
@@ -462,6 +517,10 @@ describe 'UsersController' do
       assert_equal @course.id, new_payment.course_id
       assert_equal @student_user.email, new_payment.email
       assert_equal new_payment.id.to_s, JSON.parse(@response.body)['payment_id']
+      assert_not_nil owned_course
+      assert_equal 'learning', owned_course.type
+      assert_equal 'pending', owned_course.payment_status
+      assert_equal owned_course.lectures.count, lecture_curriculums_count
     end
   end
 end
