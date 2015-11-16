@@ -501,6 +501,7 @@ class CoursesController < ApplicationController
 
     if description.blank?
       render json: {message: "Nội dung không được để trống"}, status: :unprocessable_entity
+      return
     end
 
     @course = Course.where(id: course_id).first
