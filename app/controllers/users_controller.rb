@@ -162,10 +162,6 @@ class UsersController < ApplicationController
     if @payment.blank?
       @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
       @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
-      if !@payment.save
-        render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
-        return
-      end
     else
       if @payment.status == Constants::PaymentStatus::SUCCESS
         render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
@@ -178,28 +174,41 @@ class UsersController < ApplicationController
         end
         @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
         @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
-        if !@payment.save
-          render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
-          return
-        end
       elsif @payment.status == Constants::PaymentStatus::CANCEL
         @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
         @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
-        if !@payment.save
-          render json: {message: "Không thể tạo payment"}, status: :unprocessable_entity
-          return
-        end
       end
     end
     
     # Create owned_course.
-    find_or_initialize_owned_course_for_user(user, course)
+    owned_course = user.courses.where(course_id: course.id).first
+    if owned_course.blank?
+      owned_course = user.courses.new(
+        course_id: course.id, 
+        created_at: Time.now()
+      )
+      UserGetCourseLog.create(course_id: course.id, user_id: user.id, created_at: Time.now())
+    end
+
+    course.curriculums
+      .where(:type => Constants::CurriculumTypes::LECTURE)
+      .map{ |curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
+
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::PENDING
+
+    if !owned_course.save
+      render json: {message: "Không tạo được owned course"}, status: :unprocessable_entity
+      return
+    end
 
     # Create cod for cod @payment.
     cod_code = create_single_cod(course_id, "pedia")
     @payment.cod_code = cod_code if !cod_code.blank?
     if !@payment.save
-      render json: {message: "Không thể lưu được COD"}, status: :unprocessable_entity
+      render json: {message: "Không thể tạo được payment"}, status: :unprocessable_entity
       return
     end
 
