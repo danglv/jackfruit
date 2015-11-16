@@ -195,7 +195,7 @@ describe 'CodController' do
     patch :activate, cod_code: @payment.cod_code
 
     assert_response :success
-    assert_no_match 'Email', response.body
+    assert_no_match @user.email, response.body
     assert_no_match 'Password', response.body
   end
 
@@ -209,7 +209,7 @@ describe 'CodController' do
     patch :activate, cod_code: @payment.cod_code
 
     assert_response :success
-    assert_no_match 'Email', response.body
+    assert_no_match @user.email, response.body
     assert_no_match 'Password', response.body
   end
 end

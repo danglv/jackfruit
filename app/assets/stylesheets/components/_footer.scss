@@ -33,4 +33,16 @@
   &-links-one a:hover, &-links-two a:hover{
     text-decoration: none;
   }
+  .hotline {
+    float: right;
+  }
+}
+@media (max-width: 768px) { 
+  .footer {
+    .hotline {
+      float: left;
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
 }
