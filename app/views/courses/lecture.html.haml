@@ -199,16 +199,17 @@
                 - else
                   %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                 .row.no-margin.list-children.collapsed
-                  - discussion.child_discussions.reverse.each do |child_discussion|
+                  - discussion.child_discussions.each do |child_discussion|
                     .row.child-item.no-margin
                       .col-md-1.col-lg-1.no-padding.child-item-avatar
                         %i.fa.fa-smile-o
                       .col-md-11.col-lg-11.no-padding.child-item-main
                         - @user = User.where(:id => child_discussion.user_id).first
+                        - relative_time = TimeHelper.relative_time(discussion.created_at)
                         %ul.child-item-title
                           - if @user
                             %li.bold{:style => "list-style: none"} #{@user.name} 
-                          %li{:style => "list-style: none"} đã đăng 1 thảo luận - 2 tháng trước 
+                          %li{:style => "list-style: none"}= "đã đăng 1 thảo luận - #{relative_time}"
                         %p.child-item-content
                           #{child_discussion.description}
                   .row.no-margin 
