@@ -1,5 +1,19 @@
+<% environment.context_class.instance_eval { include ApplicationHelper } %>
+
+function isFlashEnabled(){
+  var hasFlash = false;
+  try{
+    var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+    if(fo) hasFlash = true;
+  }catch(e){
+    if(navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
+  }
+  return hasFlash;
+}
+
 function setup_jwplayer(container, url, mediaid){
   var player = jwplayer(container);
+
   var logo = "";
 
   if( is_logo ) {
@@ -21,37 +35,82 @@ function setup_jwplayer(container, url, mediaid){
     ga: {}
   });
 
+  // Handle video setup error
+  player.onSetupError(function(event){
+    var msg = event.message;
+
+    var error             = '<%= help_render("jwplayer/_error").gsub("'", '"').gsub("\n", '') %>';
+    var no_playable_error = '<%= help_render("jwplayer/_no_playable_error").gsub("'", '"').gsub("\n", '') %>';
+    var no_flash_error    = '<%= help_render("jwplayer/_no_flash_error").gsub("'", '"').gsub("\n", '') %>';
+    var timeout_error     = '<%= help_render("jwplayer/_timeout_error").gsub("'", '"').gsub("\n", '') %>';
+    var invalid_key_error = '<%= help_render("jwplayer/_invalid_key_error").gsub("'", '"').gsub("\n", '') %>';
+
+    var window_xp_guide = "https://www.youtube.com/watch?v=NABwxEmBW_Y&feature=youtu.be";
+    var window_10_guide = "https://www.youtube.com/watch?v=Mu-RTqudJ1U";
+    var window_78_guide = "https://youtu.be/isYL1JzMRas";
+    var mac_os_guide = "https://www.youtube.com/watch?v=NrBDh2UJlJc";
+
+    var layout = error;
+
+    if (msg.includes('No playable sources found')){
+      if (!isFlashEnabled()){
+        layout = no_flash_error;
+      }else{
+        layout = no_playable_error;
+      }
+    }else if (msg.includes('Setup Timeout Error')){
+      layout = timeout_error;
+    }else if (msg.includes('Invalid license key')){
+      layout = invalid_key_error;
+      var agent = navigator.userAgent;
+      if (/Mac OS/.test(agent)){
+        layout = layout.replace('time_changing_guide_url', mac_os_guide);
+      }else if (/(Windows 10.0|Windows NT 10.0)/.test(agent)){
+        layout = layout.replace('time_changing_guide_url', window_10_guide);
+      }else if (/(Windows NT 5.1|Windows XP)/.test(agent)){
+        layout = layout.replace('time_changing_guide_url', window_xp_guide);
+      }else{
+        layout = layout.replace('time_changing_guide_url', window_78_guide);
+      }
+    }
+
+    $('#' + container).append(layout);
+  });
+
   var first_time = true;
 
-  player.onPlay(function(){
-    if (first_time){
-      first_time = false;
-      Spymaster.track("video", "play", player.getPlaylist()[player.getPlaylistIndex()].file)
-    }
-  });
+  player.onReady(function(event){
+    player.onPlay(function(){
+      if (first_time){
+        first_time = false;
+        Spymaster.track("video", "play", player.getPlaylist()[player.getPlaylistIndex()].file)
+      }
+    });
 
-  player.onComplete(function(){
-    Spymaster.track("video", "complete", player.getPlaylist()[player.getPlaylistIndex()].file)
-  });
+    player.onComplete(function(){
+      Spymaster.track("video", "complete", player.getPlaylist()[player.getPlaylistIndex()].file)
+    });
 
-  player.onBuffer(function(){
-    Spymaster.track("video", "buffer", player.getPlaylist()[player.getPlaylistIndex()].file);
-  });
+    player.onBuffer(function(){
+      Spymaster.track("video", "buffer", player.getPlaylist()[player.getPlaylistIndex()].file);
+    });
 
-  player.onPause(function(){
-    Spymaster.track("video", "pause", player.getPlaylist()[player.getPlaylistIndex()].file);
-  });
+    player.onPause(function(){
+      Spymaster.track("video", "pause", player.getPlaylist()[player.getPlaylistIndex()].file);
+    });
 
-  player.onError(function(message){
-    Spymaster.track("video", "error", player.getPlaylist()[player.getPlaylistIndex()].file, {message: message});
-  });
+    player.onError(function(message){
+      Spymaster.track("video", "error", player.getPlaylist()[player.getPlaylistIndex()].file, {message: message});
+    });
 
-  window.addEventListener('beforeunload', function() {
-    var label = player.getPlaylist()[player.getPlaylistIndex()].file;
-    var value = Math.round(1000 * player.getPosition());
-    Spymaster.track("video", "stop", player.getPlaylist()[player.getPlaylistIndex()].file,
-      {position: value})
-    return "Tracked";
+    window.addEventListener('beforeunload', function() {
+      var label = player.getPlaylist()[player.getPlaylistIndex()].file;
+      var value = Math.round(1000 * player.getPosition());
+      Spymaster.track("video", "stop", player.getPlaylist()[player.getPlaylistIndex()].file,
+        {position: value})
+      return "Tracked";
+    });
+
   });
 
   // This should be called after Spymaster.setup

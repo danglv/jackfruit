@@ -133,4 +133,20 @@ module ApplicationHelper
       return current_user.email
     end
   end
+
+  def help_render template, params = {}
+    template_path = Dir.glob(Rails.root.join("app/**/#{template}.*")).first
+    raise Exception.new("Could not find template #{template}") unless template_path
+
+    template = File.new(template_path).read
+
+    case File.extname(template_path)
+    when '.haml'
+      Haml::Engine.new(template).render(Object.new, params)
+    when '.erb'
+      ERB.new(template).result(OpenStruct.new(params).instance_eval { binding })
+    else
+      template
+    end
+  end
 end
