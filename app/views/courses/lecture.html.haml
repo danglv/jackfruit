@@ -10,7 +10,10 @@
       %ul.no-padding.no-margin.lecture-tools 
         - if @index_lecture !=0
           %li
-            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước 
+            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước
+        %li
+          %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer; padding-right: 20px;"}
+            %i.fa.fa-flag{:style => "color: white;"}
         %li.full-screen
           %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
@@ -239,5 +242,19 @@
         /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
           %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?owned_course_id=#{@owned_course.id}&owned_lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
-
+  / + Report modal 
+  #complete-dialog.modal.fade{:tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Báo lỗi
+        %hr{:style => "margin-top: 15px; margin-bottom: 15px;"}
+        .modal-body
+          %form
+            %textarea.txt-report-content{:rows => "5", :placeholder => "Nội dung báo lỗi", :style => "border: 1px solid #ccc; height: 100%; width: 100%;"}
+        %hr{:style => "margin-top: 10px; margin-bottom: 10px;"}
+        .modal-footer
+          %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+          %button.btn{"data-dismiss" => "modal"} Đóng
 
