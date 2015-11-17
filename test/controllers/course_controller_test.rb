@@ -170,11 +170,13 @@ describe 'CoursesController' do
 
     @discussion = @courses.first.discussions.create(
       title: "Cần trợ giúp",
-      description: "Tôi không xem được video"
+      description: "Tôi không xem được video",
+      user_id: @users[0].id
     )
 
     @child_discussion = @discussion.child_discussions.create(
-      description: "Mình cũng không xem được video"
+      description: "Mình cũng không xem được video",
+      user_id: @users[0].id
     )
   end
 
@@ -753,6 +755,57 @@ describe 'CoursesController' do
       assert_equal discussion.course.id, @courses[0].id
       assert_equal discussion.user_id, @users[0].id
       assert_equal discussion.curriculum_id, @courses[0].curriculums[1].id.to_s
+    end
+
+    it 'should return 200 if user post a child discussion at learning' do
+      sign_in @users[0]
+
+      post :add_discussion, {
+        id: @courses[0].id,
+        title: 'This is title',
+        description: 'This is description',
+        parent_discussion: @discussion.id
+      }
+
+      discussion = assigns[:discussion]
+
+      assert_response :success
+      assert_match 'This is title', response.body
+      assert_match 'This is description', response.body
+      assert_match @users[0].email, response.body
+      assert_equal discussion.parent_discussion.id, @discussion.id
+      assert_equal discussion.parent_discussion.course.id, @courses[0].id
+      assert_equal discussion.user_id, @users[0].id
+      assert_equal discussion.parent_discussion.curriculum_id, ''
+    end
+
+    it 'should return 200 if user post a child discussion at lecture' do
+      sign_in @users[0]
+
+      parent_discussion_lecture = @courses.first.discussions.create(
+        description: 'This is description',
+        curriculum_id: @courses[0].curriculums[1].id.to_s,
+        user_id: @users[0].id
+      )
+
+      post :add_discussion, {
+        id: @courses[0].id,
+        title: 'This is title',
+        description: 'This is description',
+        parent_discussion: parent_discussion_lecture.id
+      }
+
+      discussion = assigns[:discussion]
+
+      assert_response :success
+      assert_match 'This is title', response.body
+      assert_match 'This is description', response.body
+      assert_match @users[0].email, response.body
+      assert_equal discussion.parent_discussion.id, parent_discussion_lecture.id
+      assert_equal discussion.parent_discussion.course.id, @courses[0].id
+      assert_equal discussion.user_id, @users[0].id
+      assert_equal discussion.parent_discussion.curriculum_id, parent_discussion_lecture.curriculum_id
+      assert_equal discussion.parent_discussion.curriculum_id, @courses[0].curriculums[1].id.to_s
     end
   end
 
