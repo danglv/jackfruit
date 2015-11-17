@@ -178,6 +178,17 @@ describe 'CoursesController' do
       description: "Mình cũng không xem được video",
       user_id: @users[0].id
     )
+
+    @parent_announcement = @courses.first.announcements.create(
+      title: 'Thông báo tạm dừng khoá học',
+      description: 'Éo bán nữa',
+      user_id: @courses.first.user_id
+    )
+
+    @child_announcement = @parent_announcement.child_announcements.create(
+      description: 'Trả lại tiền đê',
+      user_id: @users.first.id
+    )
   end
 
   after :each do
@@ -1037,4 +1048,158 @@ describe 'CoursesController' do
       assert_equal "Không tồn tại thảo luận này", res['message']
     end
   end
+
+  describe "POST #add_announcement" do
+    it 'Should return error when param description blank' do
+      sign_in @users[0]
+
+      post :add_announcement, {
+        id: @courses[0].id,
+        title: 'This is title'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal "Description không được bỏ trống!", res['error']
+    end
+
+    it 'Should return message error when invalid course' do
+      sign_in @users[0]
+
+      post :add_announcement, {
+        id: 'INVALID_COURSE_ID',
+        title: 'This is title',
+        description: 'This is description'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal "Khoá học không tồn tại!", res['error']
+    end
+
+    it 'Should return message error when current_user is not author' do
+      sign_in @users[0]
+
+      post :add_announcement, {
+        id: @courses[0].id,
+        title: 'This is title',
+        description: 'This is description'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal 'Tài khoản đang đăng nhập không sở hữu khoá học này!', res['error']
+    end
+
+    it 'Should return 200 if current_user is author' do
+      sign_in @instructor_user
+
+      post :add_announcement, {
+        id: @courses[0].id.to_s,
+        title: 'This is title',
+        description: 'This is description'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :success
+      assert_equal 'This is title', res['title']
+      assert_equal 'This is description', res['description']
+      assert_equal @instructor_user.email, res['email']
+      assert_equal @instructor_user.name, res['name']
+      assert_equal @instructor_user.avatar, res['avatar']
+    end
+  end
+
+  describe "POST #add_child_announcement" do
+    it 'Should return error when param description blank' do
+      sign_in @users[0]
+
+      post :add_child_announcement, {
+        id: @courses[0].id,
+        parent_announcement_id: @parent_announcement.id
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal "Description không được bỏ trống!", res['error']
+    end
+
+    it 'Should return error when param parent_announcement blank' do
+      sign_in @users[0]
+
+      post :add_child_announcement, {
+        id: @courses[0].id,
+        description: 'This is description'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal "parent_announcement_id không được bỏ trống!", res['error']
+    end
+
+    it 'Should return message error when invalid course' do
+      sign_in @users[0]
+
+      post :add_child_announcement, {
+        id: 'INVALID_COURSE_ID',
+        description: 'This is description',
+        parent_announcement_id: @parent_announcement.id
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal "Khoá học không tồn tại!", res['error']
+    end
+
+    it 'Should return message error when parent_announcement is not exist' do
+      sign_in @users[0]
+
+      post :add_child_announcement, {
+        id: @courses[0].id,
+        description: 'This is description',
+        parent_announcement_id: 'INVALID_PARENT_ANNOUNCEMENT_ID'
+      }
+
+      res = JSON.parse(response.body)
+
+      assert_response :unprocessable_entity
+      assert_equal 'Thông báo không tồn tại!', res['error']
+    end
+
+    it 'Should return 200 if current_user create child_announcement is success' do
+      sign_in @users[0]
+
+      post :add_child_announcement, {
+        id: @courses[0].id,
+        description: 'This is description',
+        parent_announcement_id: @parent_announcement.id
+      }
+
+      res = JSON.parse(response.body)
+      child_announcement = assigns['child_announcement']
+
+      assert_response :success
+      assert_equal 'This is description', res['description']
+      assert_equal @users[0].email, res['email']
+      assert_equal @users[0].name, res['name']
+      assert_equal @users[0].avatar, res['avatar']
+      assert_equal child_announcement.parent_announcement.id, @parent_announcement.id
+      assert_equal child_announcement.parent_announcement.course.id, @courses[0].id
+    end
+  end
 end
+
+
+
+
+
+
+
+

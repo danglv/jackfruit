@@ -992,44 +992,91 @@ class CoursesController < ApplicationController
   end
 
   def add_announcement
-    course_id = params[:course_id]
+    course_id = params[:id]
     title = params[:title]
     description = params[:description]
 
-    @course = Course.where(:id => course_id).first
-    announcement = Course::Announcement.new(
+    if description.blank?
+      render json: {error: 'Description không được bỏ trống!'}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {error: 'Khoá học không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    if course.user.id != current_user.id
+      render json: {error: 'Tài khoản đang đăng nhập không sở hữu khoá học này!'}, status: :unprocessable_entity
+      return
+    end
+
+    announcement = course.announcements.new(
       title: title,
       description: description,
-      user: @current_user,
-      course: @course
-      )
-    @course.announcements << announcement
-    @course.save
-    render json: {message: "success"}
-    return
+      user_id: current_user.id
+    )
+
+    if !announcement.save
+      render json: {error: announcement.errors}, status: :unprocessable_entity
+      return
+    end
+
+    render json: {
+      title: title,
+      description: description,
+      email: current_user.email,
+      avatar: current_user.avatar,
+      name: current_user.name
+    }
   end
 
   def add_child_announcement
     description = params[:description]
     parent_announcement_id = params[:parent_announcement_id]
-    course_id = params[:course_id]
+    course_id = params[:id]
 
-    @course = Course.where(:id => course_id).first
-    parent_announcement = @course.announcements.where(:id => parent_announcement_id).first
-
-    child_announcement = Course::ChildAnnouncement.new(
-      description: description,
-      user: @current_user
-      )
-    parent_announcement.child_announcements << child_announcement
-    @course.save
-    if @course.save
-      render plain: '<div class="row child-item no-margin"><div class="col-md-1 col-lg-1 no-padding child-item-avatar"><i class="fa fa-smile-o"></i></div><div class="col-md-11 col-lg-11 no-padding child-item-main"><ul class="child-item-title"><li class="bold">'+@current_user.name+'</li><li>'+TimeHelper.relative_time(child_announcement.created_at)+'</li></ul><p class="child-item-content">'+description+'</p></div></div>'
-    else
-      render json: {message: "false"}
+    if description.blank?
+      render json: {error: 'Description không được bỏ trống!'}, status: :unprocessable_entity
+      return
     end
 
-    return
+    if parent_announcement_id.blank?
+      render json: {error: 'parent_announcement_id không được bỏ trống!'}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {error: 'Khoá học không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    parent_announcement = course.announcements.where(:id => parent_announcement_id).first
+    if parent_announcement.blank?
+      render json: {error: 'Thông báo không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    @child_announcement = parent_announcement.child_announcements.new(
+      description: description,
+      user_id: current_user.id
+    )
+
+    if !@child_announcement.save
+      render json: {error: @child_announcement.errors}
+      return
+    end
+
+    render json: {
+      description: description,
+      email: current_user.email,
+      avatar: current_user.avatar,
+      name: current_user.name
+    }
+
+    # render plain: '<div class="row child-item no-margin"><div class="col-md-1 col-lg-1 no-padding child-item-avatar"><i class="fa fa-smile-o"></i></div><div class="col-md-11 col-lg-11 no-padding child-item-main"><ul class="child-item-title"><li class="bold">'+current_user.name+'</li><li>'+TimeHelper.relative_time(child_announcement.created_at)+'</li></ul><p class="child-item-content">'+description+'</p></div></div>'
   end
 
   def send_form_suppot_detail
