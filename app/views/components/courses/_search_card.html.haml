@@ -25,14 +25,31 @@
                     = help_show_currency course.price
               - else
                 = help_show_currency course.price
-          .rating.info-item.pull-left
-            - if course.average_rating.blank?
-              - course.average_rating = 0
-            - (1..5).each do |i|
-              - if i <= course.average_rating
-                %i.fa.fa-star.rated
-              - else
-                %i.fa.fa-star
+          #rating
+            .search-rating
+              .search-rating-star
+                #percent-rating.pull-left
+                  - ra = course.fake_average_rating
+                  - ra = 0 if ra == nil
+
+                  - (1..5).each do |i|
+                    - if i < ra
+                      %i.fa.fa-star.rated
+                    - elsif ra%i!=0
+                      %span.rating-percent
+                        %i.fa.fa-star
+                        %i.fa.fa-star.percent{:style => "width: #{ra%1*100}%"}
+                      - ra = 0
+                    - else
+                      %i.fa.fa-star
+          / .rating.info-item.pull-left
+          /   - if course.average_rating.blank?
+          /     - course.average_rating = 0
+          /   - (1..5).each do |i|
+          /     - if i <= course.average_rating
+          /       %i.fa.fa-star.rated
+          /     - else
+          /       %i.fa.fa-star
           / .review.info-item.pull-left{:style => 'padding-right:10px'}
           .lecture.info-item.pull-left
             - if !course.curriculums.blank?
