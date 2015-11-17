@@ -57,7 +57,6 @@
     var params = {
       'title': title,
       'description': description,
-      'course_id': course_id,
       'curriculum_id': curriculum_id
     }
 
@@ -84,14 +83,13 @@
   $('.comment-submit').click(function () {
 
     var obj = this;
-    var course_id = $("#course_id").val();
+    var course_id = $(".course_id").val();
     var parent_discussion = $(this).attr("discussion_id");
     var description = $(this).parent().find(".comment-content");
 
     var params = {
       'parent_discussion': parent_discussion,
-      'description': description.val(),
-      'course_id': course_id
+      'description': description.val()
     }
 
     var URL = '//' + window.location.host + '/courses/' + course_id + '/add_discussion';
