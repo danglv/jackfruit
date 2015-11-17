@@ -34,7 +34,7 @@ describe 'CoursesController' do
         role: 'reviewer'
       },
       {
-        email: 'test9001@gmail.com',
+        email: 'cskh@pedia.vn',
         password: '12345678'
       }
     ])
