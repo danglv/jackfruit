@@ -13,4 +13,16 @@ class Course::Announcement
 
   accepts_nested_attributes_for :child_announcements
 
+  validate :validate_user
+  validate :validate_description
+
+  def validate_user
+    user = User.where(:id => user_id).first
+    errors.add(:user_id, "User bỏ trống hoặc không tồn tại.") if user.blank?
+  end
+
+  def validate_description
+    errors.add(:user_id, "Thảo luận không có nội dung.") if description.blank?
+  end
+
 end
