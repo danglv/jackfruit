@@ -84,6 +84,7 @@ RailsAdmin.config do |config|
       field :status
       field :money
       field :coupons
+      field :cod_code
     end
 
     show do
