@@ -1,8 +1,8 @@
 class Course::Discussion
   include Mongoid::Document
   include Mongoid::Timestamps
-
-  field :status, type: Integer, default: 0
+  
+  field :status, type: Integer, default: Constants::DiscussionStatus::ENABLE
   
   field :title, type: String, default: ""
   field :description, type: String, default: ""

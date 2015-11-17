@@ -9,6 +9,9 @@ describe 'CoursesController' do
     stub_request(:post, /flow.pedia.vn/)
       .to_return(:status => 200, :body => '')
 
+    stub_request(:post, "#{FLOW_BASE_API_URL}/wasp/feedback/create")
+    	.to_return(:status => 200, :body => '')
+
     @coupon_code = 'KHANHDN'
     @res_coupon = '{"_id":"56363fe48e62a4142f0000a3","coupon":"KHANHDN","created_at":"2015-11-01T16:37:56.232Z","expired_date":"2015-12-30T17:00:00.000Z","course_id":"560b4e96eb5d8904c1000002","used":0,"enabled":true,"max_used":1,"discount":100.0,"return_value":"100","issued_by":"560b4e95eb5d8904c1000000"}'
     @res_coupon_invalid = '{"message":"Mã coupon không tồn tại"}'
@@ -149,6 +152,20 @@ describe 'CoursesController' do
       name: 'Test Category',
       alias_name: 'test-category',
       enabled: true
+    )
+
+    @courses[0].curriculums.create(
+      status: 0,
+      type: "lecture",
+      order: 0,
+      chapter_index: 0,
+      lecture_index: 0,
+      object_index: 0,
+      title: "Làm giàu có số không các bạn?",
+      description: "0:01:11",
+      asset_type: "Video",
+      url: "http://d3c5ulldcb6uls.cloudfront.net/tu-duy-lam-chu-se-thay-doi-cuoc-doi-ban-nhu-the-nao/bai1master.m3u8",
+      previewable: false
     )
 
     @discussion = @courses.first.discussions.create(
@@ -676,29 +693,66 @@ describe 'CoursesController' do
   end
 
   describe "POST #add_discussion" do
-    it 'should return 422 if course not exist' do
+    it 'should return 422 if description is blank' do
+    	sign_in @users[0]
       post :add_discussion, {
-        id: 'INVALIDE_COURSE_ID',
-        course_id: 'INVALIDE_COURSE_ID'
+        id: @courses.first.id
       }
 
       assert_response :unprocessable_entity
       assert_match 'Nội dung không được để trống', response.body
     end
 
-    it 'should return 200 if has not parent_discussion param' do
+    it 'should return 422 if course not exist' do
+    	sign_in @users[0]
+      post :add_discussion, {
+        id: 'INVALIDE_COURSE_ID',
+        description: 'This is description'
+      }
+
+      assert_response :unprocessable_entity
+      assert_match 'Khoá học không tồn tại!', response.body
+    end
+
+    it 'should return 200 if user post a parent discussion' do
       sign_in @users[0]
       post :add_discussion, {
         id: @courses[0].id,
-        course_id: @courses[0].id,
         title: 'This is title',
         description: 'This is description'
       }
+
+      discussion = assigns[:discussion]
 
       assert_response :success
       assert_match 'This is title', response.body
       assert_match 'This is description', response.body
       assert_match @users[0].email, response.body
+      assert_equal discussion.child_discussions.count, 0
+      assert_equal discussion.course.id, @courses[0].id
+      assert_equal discussion.user_id, @users[0].id
+      assert_equal discussion.curriculum_id.blank?, true
+    end
+
+     it 'should return 200 if user post a parent discussion at lecture' do
+      sign_in @users[0]
+      post :add_discussion, {
+        id: @courses[0].id,
+        title: 'This is title',
+        description: 'This is description',
+        curriculum_id: @courses[0].curriculums[1].id.to_s
+      }
+
+      discussion = assigns[:discussion]
+
+      assert_response :success
+      assert_match 'This is title', response.body
+      assert_match 'This is description', response.body
+      assert_match @users[0].email, response.body
+      assert_equal discussion.child_discussions.count, 0
+      assert_equal discussion.course.id, @courses[0].id
+      assert_equal discussion.user_id, @users[0].id
+      assert_equal discussion.curriculum_id, @courses[0].curriculums[1].id.to_s
     end
   end
 

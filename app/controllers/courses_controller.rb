@@ -494,10 +494,10 @@ class CoursesController < ApplicationController
   def add_discussion
     course_id = params[:id]
     curriculum_id = params[:curriculum_id]
+    parent_discussion = params[:parent_discussion]
+
     title = params[:title]
     description = params[:description]
-    parent_discussion = params[:parent_discussion]
-    author = params[:author]
 
     if description.blank?
       render json: {message: "Nội dung không được để trống"}, status: :unprocessable_entity
@@ -506,11 +506,13 @@ class CoursesController < ApplicationController
 
     @course = Course.where(id: course_id).first
     if @course.blank?
-      render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
+      render json: {message: "Khoá học không tồn tại!"}, status: :unprocessable_entity
       return
     end
+
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
     discussion = nil
+
     if parent_discussion_obj.blank?
       discussion = @course.discussions.new(
         title: title,
@@ -521,17 +523,18 @@ class CoursesController < ApplicationController
       discussion = parent_discussion_obj.child_discussions.new(
         description: description
       )
-      discussion.parent_discussion = parent_discussion_obj if !parent_discussion_obj.blank?
+      discussion.parent_discussion = parent_discussion_obj
     end
 
     discussion.user = current_user
     discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
     if discussion.save
+      # send discussion to Wasp through Flow.
       parent_discussion_id = !parent_discussion_obj.blank? ? parent_discussion : discussion.id
       child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
       content = (!title.blank?) ? title + ':' + description : description
-      # send discussion to Flow
+
       RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
         course_id: course_id,
         course_name: @course.name,
@@ -545,13 +548,19 @@ class CoursesController < ApplicationController
         child_discussions: child_discussions
       )
 
-
-      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
-      return
+      # Render json for Pedia
+      render json: {
+        title: title, 
+        description: description, 
+        email: current_user.email, 
+        avatar: current_user.avatar, 
+        name: current_user.name
+      }
     else
-      render json: {message: "Có lỗi xảy ra"}
-      return
+      render json: {message: discussion.errors}, status: :unprocessable_entity
     end
+    # Create varriable to test.
+    @discussion = discussion
   end
 
   def add_discussion_from_wasp
