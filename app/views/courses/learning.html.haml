@@ -150,6 +150,7 @@
               - @course.discussions.reverse.each do |discussion|
                 - curriculum = @course.curriculums.where(:id => discussion.curriculum_id).first if ! discussion.curriculum_id.blank?
                 - user = User.where(:id => discussion.user_id).first
+                - user = User.where(:email => 'anonymous@topica.edu.vn').first if user.blank?
                 - relative_time = TimeHelper.relative_time(discussion.created_at)
                 .row.discussion-item.no-margin
                   .col-md-1.col-lg-1.no-padding.discussion-item-avatar
@@ -175,15 +176,16 @@
                     - else
                       %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                     .row.no-margin.list-children.collapsed
-                      - discussion.child_discussions.reverse.each do |child_discussion|
+                      - discussion.child_discussions.each do |child_discussion|
                         - child_relative_time = TimeHelper.relative_time(child_discussion.created_at)
                         .row.child-item.no-margin
                           .col-md-1.col-lg-1.no-padding.child-item-avatar
                             %i.fa.fa-smile-o
                           .col-md-11.col-lg-11.no-padding.child-item-main
-                            - user_discussion = User.where(:id => child_discussion.user_id).first
+                            - user = User.where(:id => child_discussion.user_id).first
+                            - user = User.where(:email => 'anonymous@topica.edu.vn').first if user.blank?
                             %ul.child-item-title
-                              %li.bold #{user_discussion.name}
+                              %li.bold #{user.name}
                               %li= "đã đăng 1 thảo luận - #{child_relative_time}"
                             %p.child-item-content
                               #{child_discussion.description}

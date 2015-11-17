@@ -135,7 +135,7 @@ $(document).ready(function () {
           data.name + "</li> <li>vừa đăng thảo luận</li> </ul> <p class='child-item-content'>" + data.description +
           " </p> </div> </div> ";
 
-        $(obj).parent().parent().parent().prepend(childCommentItem);
+        $(obj).parent().parent().prepend(childCommentItem);
 
       }
     });

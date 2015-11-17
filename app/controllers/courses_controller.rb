@@ -535,19 +535,6 @@ class CoursesController < ApplicationController
       child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
       content = (!title.blank?) ? title + ':' + description : description
 
-      RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
-        course_id: course_id,
-        course_name: @course.name,
-        user_id: current_user.id.to_s,
-        user_name: current_user.name,
-        user_email: current_user.email,
-        type: "discussion",
-        content: content,
-        curriculum_id: curriculum_id,
-        parent_discussion: parent_discussion_id,
-        child_discussions: child_discussions
-      )
-
       # Render json for Pedia
       render json: {
         title: title, 
@@ -556,6 +543,21 @@ class CoursesController < ApplicationController
         avatar: current_user.avatar, 
         name: current_user.name
       }
+
+      if Rails.env != "development"
+        RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
+          course_id: course_id,
+          course_name: @course.name,
+          user_id: current_user.id.to_s,
+          user_name: current_user.name,
+          user_email: current_user.email,
+          type: "discussion",
+          content: content,
+          curriculum_id: curriculum_id,
+          parent_discussion: parent_discussion_id,
+          child_discussions: child_discussions
+        )
+      end
     else
       render json: {message: discussion.errors}, status: :unprocessable_entity
     end
