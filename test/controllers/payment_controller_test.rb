@@ -55,6 +55,20 @@ describe 'PaymentController' do
       end_date: Time.now + 2.days
     )
 
+    @courses[0].curriculums.create(
+      status: 0,
+      type: "lecture",
+      order: 0,
+      chapter_index: 0,
+      lecture_index: 0,
+      object_index: 0,
+      title: "Làm giàu có số không các bạn?",
+      description: "0:01:11",
+      asset_type: "Video",
+      url: "http://d3c5ulldcb6uls.cloudfront.net/tu-duy-lam-chu-se-thay-doi-cuoc-doi-ban-nhu-the-nao/bai1master.m3u8",
+      previewable: false
+    )
+
     # Sign-in user
     sign_in @users[1]
   end
@@ -381,6 +395,97 @@ describe 'PaymentController' do
       assert_equal Constants::PaymentStatus::PENDING, p['status']
       assert_equal 0, Course.find(@courses[0].id).students
       assert_equal Constants::PaymentStatus::CANCEL, Payment.find(payment.id).status
+    end
+  end
+
+  describe 'POST #import_code' do
+    it 'should return 404 if cod code invalid' do
+      payment = Payment.create(
+        :user_id => @users[1].id,
+        :course_id => @courses[0].id,
+        :status => 'pending',
+        :method => 'cod',
+        :money => @courses[0].price,
+        :cod_code => 'cod_code'
+      )
+
+      post :import_code, {
+        id: payment.id,
+        cod_code: 'INVALID_COD_CODE'
+      }
+
+      assert_response 404
+      assert_equal 'Mã COD code không hợp lệ!', JSON.parse(response.body)['message']
+    end
+
+    it 'should return 200 and create owned_course if user has not owned_course' do
+      payment = Payment.create(
+        :user_id => @users[1].id,
+        :course_id => @courses[0].id,
+        :status => 'pending',
+        :method => 'cod',
+        :money => @courses[0].price,
+        :cod_code => 'cod_code'
+      )
+
+      post :import_code, {
+        id: payment.id,
+        cod_code: payment.cod_code
+      }
+
+      p = assigns['payment']
+      owned_course = p.user.courses.where(:course_id => p.course_id).first
+
+      assert_response :success
+      assert_equal 'Thành công!', JSON.parse(response.body)['message']
+      assert_not_nil  owned_course
+      assert_equal p.status, 'success'
+      assert_equal owned_course.payment_status, 'success'
+      assert_equal owned_course.type, 'learning'
+      assert_equal owned_course.lectures.count, 1
+    end
+
+    it 'should return 200 if user has owned_course and save success' do
+      payment = Payment.create(
+        :user_id => @users[1].id,
+        :course_id => @courses[0].id,
+        :status => 'pending',
+        :method => 'cod',
+        :money => @courses[0].price,
+        :cod_code => 'cod_code'
+      )
+
+      owned_course = @users[1].courses.new(
+        course_id: payment.course_id,
+        created_at: Time.now()
+      )
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.payment_status = Constants::PaymentStatus::PENDING
+      UserGetCourseLog.create(course_id: payment.course_id, user_id: @users[1].id, created_at: Time.now())
+
+      payment.course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+      owned_course.save
+
+
+      post :import_code, {
+        id: payment.id,
+        cod_code: payment.cod_code
+      }
+
+      p = assigns['payment']
+      owned_course = p.user.courses.where(:course_id => p.course_id).first
+
+      assert_response :success
+      assert_equal 'Thành công!', JSON.parse(response.body)['message']
+      assert_not_nil  owned_course
+      assert_equal p.status, 'success'
+      assert_equal owned_course.payment_status, 'success'
+      assert_equal owned_course.type, 'learning'
+      assert_equal owned_course.lectures.count, 1
     end
   end
 end
