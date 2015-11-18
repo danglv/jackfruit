@@ -46,10 +46,12 @@
       .modal-content
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-          %h4.modal-title Góp ý 
+          %h4.modal-title Báo lỗi
+        %hr{:style => "margin-top: 15px; margin-bottom: 15px;"}
         .modal-body
           %form
-            %textarea.form-control.txt-report-content{:placeholder => "Hãy thêm chi tiết (bắt buộc )"}
+            %textarea.txt-report-content{:rows => "5", :placeholder => "Nội dung báo lỗi", :style => "border: 1px solid #ccc; height: 100%; width: 100%;"}
+        %hr{:style => "margin-top: 10px; margin-bottom: 10px;"}
         .modal-footer
           %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
           %button.btn{"data-dismiss" => "modal"} Đóng
@@ -196,6 +198,9 @@
                             %i.txtNoti.red-text{:style => "display:none; margin: 0px 0px 10px 0px"}
                           .cod-active
                             %a.btn.btn-raised.btn-lg.pending-button.submit-cod-code Kích hoạt mã COD
+                        .report
+                          %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
+                            %h5.normal-text.link-text Báo lỗi
                       .cod-notice 
                         .notice-text Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
                       / .cod-cancel
@@ -238,7 +243,7 @@
                             %h5.normal-text.link-text Học thử miễn phí
                       .report
                         %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
-                          %h5.normal-text.link-text Góp ý
+                          %h5.normal-text.link-text Báo lỗi
                 - else
                   - if @course.price == 0
                     .purchase-submit
@@ -264,7 +269,7 @@
                         %h5.normal-text.link-text Học thử miễn phí
                     .report
                       %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
-                        %h5.normal-text.link-text Góp ý          
+                        %h5.normal-text.link-text Báo lỗi       
             .course-detail-bottom-right
               .course-info
                 .course-info-left

@@ -10,7 +10,10 @@
       %ul.no-padding.no-margin.lecture-tools 
         - if @index_lecture !=0
           %li
-            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước 
+            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước
+        %li
+          %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer; padding-right: 20px;"}
+            %i.fa.fa-flag{:style => "color: white;"}
         %li.full-screen
           %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
@@ -199,16 +202,17 @@
                 - else
                   %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
                 .row.no-margin.list-children.collapsed
-                  - discussion.child_discussions.reverse.each do |child_discussion|
+                  - discussion.child_discussions.each do |child_discussion|
                     .row.child-item.no-margin
                       .col-md-1.col-lg-1.no-padding.child-item-avatar
                         %i.fa.fa-smile-o
                       .col-md-11.col-lg-11.no-padding.child-item-main
                         - @user = User.where(:id => child_discussion.user_id).first
+                        - relative_time = TimeHelper.relative_time(discussion.created_at)
                         %ul.child-item-title
                           - if @user
                             %li.bold{:style => "list-style: none"} #{@user.name} 
-                          %li{:style => "list-style: none"} đã đăng 1 thảo luận - 2 tháng trước 
+                          %li{:style => "list-style: none"}= "đã đăng 1 thảo luận - #{relative_time}"
                         %p.child-item-content
                           #{child_discussion.description}
                   .row.no-margin 
@@ -238,5 +242,19 @@
         /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
           %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?owned_course_id=#{@owned_course.id}&owned_lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
-
+  / + Report modal 
+  #complete-dialog.modal.fade{:tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Báo lỗi
+        %hr{:style => "margin-top: 15px; margin-bottom: 15px;"}
+        .modal-body
+          %form
+            %textarea.txt-report-content{:rows => "5", :placeholder => "Nội dung báo lỗi", :style => "border: 1px solid #ccc; height: 100%; width: 100%;"}
+        %hr{:style => "margin-top: 10px; margin-bottom: 10px;"}
+        .modal-footer
+          %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+          %button.btn{"data-dismiss" => "modal"} Đóng
 

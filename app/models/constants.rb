@@ -157,6 +157,11 @@ module Constants
     CHANEL = "chanel"
   end
 
+  module DiscussionStatus
+    ENABLE = 0
+    DISABLE = -1
+  end
+
   # Query keys for handling marketing sources
   UTM_SOURCE = ['utm_source', 'utm_medium', 'utm_term', 'utm_content', 'utm_campaign']
   

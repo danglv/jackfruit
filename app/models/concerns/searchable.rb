@@ -10,7 +10,7 @@ module Searchable
           curriculums: {only: :title},
           user: {only: [:name,:instructor_profile,:biography, :avatar]}
         },
-        only: [:name, :benefit, :sub_title, :description, :lang, :level, :enabled, :price, :version, :alias_name, :image, :id, :reviews, :average_rating]
+        only: [:name, :benefit, :sub_title, :description, :lang, :level, :enabled, :price, :version, :alias_name, :image, :id, :reviews, :fake_average_rating]
       })
     end
   end
