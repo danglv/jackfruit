@@ -282,19 +282,33 @@ class PaymentController < ApplicationController
     cod_code = params[:cod_code]
     if @payment.cod_code == cod_code
       owned_course = current_user.courses.where(course_id: @payment.course_id.to_s).last
+
+      # Create owned course if owned course is blank
+      if owned_course.blank?
+        owned_course = current_user.courses.new(
+          course_id: @payment.course_id,
+          created_at: Time.now()
+        )
+        owned_course.type = Constants::OwnedCourseTypes::LEARNING
+        UserGetCourseLog.create(course_id: @payment.course_id, user_id: current_user.id, created_at: Time.now())
+
+        @payment.course.curriculums
+          .where(:type => Constants::CurriculumTypes::LECTURE)
+          .map{ |curriculum|
+            owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+          }
+      end
+
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
       @payment.status = Constants::PaymentStatus::SUCCESS
-      @payment.save
 
-      if owned_course.save
+      if (owned_course.save && @payment.save)
         render json: {message: "Thành công!"}
-        return
       else
-        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: :missing
-        return
+        render json: {message: "Có lỗi, vui lòng thử lại!"}, status: 404
       end
     else
-      render json: {message: "Mã COD code không hợp lệ!"}, status: :missing
+      render json: {message: "Mã COD code không hợp lệ!"}, status: 404
       return
     end
   end

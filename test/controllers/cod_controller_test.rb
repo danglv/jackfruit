@@ -167,6 +167,7 @@ describe 'CodController' do
     assert_match 'Kích hoạt thành công',  response.body
     assert_match 'Vào học ngay',  response.body
     assert_match @course.name, response.body
+    assert_match @course.image, response.body
   end
 
   it 'should update payment & user' do
@@ -211,5 +212,14 @@ describe 'CodController' do
     assert_response :success
     assert_no_match @user.email, response.body
     assert_no_match 'Password', response.body
+  end
+
+  it 'should catch system error' do
+    @user.courses.delete_all
+
+    patch :activate, cod_code: @payment.cod_code
+
+    assert_response :success
+    assert_match 'Có lỗi với đơn hàng của bạn', response.body
   end
 end
