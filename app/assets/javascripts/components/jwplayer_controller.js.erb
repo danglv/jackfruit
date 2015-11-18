@@ -35,6 +35,27 @@ function setup_jwplayer(container, url, mediaid){
     ga: {}
   });
 
+  function report_video_error(message, subject){
+    var content = "";
+    content += '<p>Video Error: ' + message + '</p>';
+    content += '<p>Video url: ' + url + '</p>';
+    content += '<p>Page url: ' + document.URL + '</p>';
+    content += '<p>User agent: ' + navigator.userAgent + '</p>';
+    content += '<p>Client time: ' + (new Date()) + '</p>';
+    content += '<p>Flash enabled: ' + isFlashEnabled() + '</p>';
+    content += '<p></p>';
+
+    $.ajax({
+      type: "POST",
+      url: '/faq/error_report',
+      data: {
+        content: content,
+        subject: subject || 'Video Error Auto Reported'
+      },
+      dataType: 'application/json'
+    });
+  }
+
   // Handle video setup error
   player.onSetupError(function(event){
     var msg = event.message;
@@ -45,10 +66,10 @@ function setup_jwplayer(container, url, mediaid){
     var timeout_error     = '<%= help_render("jwplayer/_timeout_error").gsub("'", '"').gsub("\n", '') %>';
     var invalid_key_error = '<%= help_render("jwplayer/_invalid_key_error").gsub("'", '"').gsub("\n", '') %>';
 
-    var window_xp_guide = "https://www.youtube.com/watch?v=NABwxEmBW_Y&feature=youtu.be";
-    var window_10_guide = "https://www.youtube.com/watch?v=Mu-RTqudJ1U";
-    var window_78_guide = "https://youtu.be/isYL1JzMRas";
-    var mac_os_guide = "https://www.youtube.com/watch?v=NrBDh2UJlJc";
+    var window_xp_guide = "/faq/change_time?os=window_xp";
+    var window_78_guide = "/faq/change_time?os=window_78";
+    var window_10_guide = "/faq/change_time?os=window_10";
+    var mac_os_guide    = "/faq/change_time?os=mac_os";
 
     var layout = error;
 
@@ -75,6 +96,20 @@ function setup_jwplayer(container, url, mediaid){
     }
 
     $('#' + container).append(layout);
+
+    $(".video-error-report").click(function(){
+      $(this).remove();
+      $(".video-report-loading").css('display', '');
+
+      report_video_error('Video Not Found', 'Video Error Reported by User');
+
+      setTimeout(function(){
+        $(".video-report-loading").remove();
+        $(".video-report-confirm").css('display', '');
+      }, 2000);
+    });
+
+    report_video_error(msg);
   });
 
   var first_time = true;
