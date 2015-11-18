@@ -191,6 +191,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :faq, only: %w[] do
+    collection do
+      get '/change_time', to: 'faq#change_time'
+      post '/error_report', to: 'faq#error_report'
+    end
+  end
+
   # resources :users, :path => 'user', only: %w[] do
   #   collection do
   #     get '/:profile_url', to: 'user#index'
