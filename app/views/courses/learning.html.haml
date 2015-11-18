@@ -131,9 +131,11 @@
               .col-md-4.col-lg-4
           .row.no-margin.discussion
             .row.no-margin
-              .col-md-8.col-lg-8.no-padding.search
+              .col-md-6.col-lg-6.no-padding.search
                 %input.form-control#search-comment{:placeholder => "Tìm kiếm thảo luận"}
                 %i.fa.fa-search
+              .col-md-2.col-lg-2
+                %h5.choice-text Hoặc
               .col-md-4.col-lg-4.no-padding
                 %a.btn.btn-primary.add_comment.dropdown-button{"data-target" => ".discussion-dropdown", "data-toggle" => "dropdown", :href => ""}
                   Thảo luận mới
@@ -172,10 +174,10 @@
                     %p.discussion-item-content
                       #{discussion.description}
                     - if discussion.child_discussions.count == 0
-                      %a.discussion-item-reply Phản hồi
+                      %a.discussion-item-reply Trả lời
                     - else
-                      %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
-                    .row.no-margin.list-children.collapsed
+                      %a.discussion-item-reply= "Trả lời (" + discussion.child_discussions.count.to_s + ")"
+                    .row.list-children.collapsed
                       - discussion.child_discussions.each do |child_discussion|
                         - child_relative_time = TimeHelper.relative_time(child_discussion.created_at)
                         .row.child-item.no-margin
