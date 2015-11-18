@@ -20,6 +20,23 @@ class CodController < ApplicationController
 
       @user = payment.user
       @course = payment.course
+
+      if !@user
+        flash.now[:error] = "system_error"
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no user', {
+          "COD code" => @cod_code
+        }
+        return
+      end
+
+      if !@course
+        flash.now[:error] = "system_error"
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no course', {
+          "COD code" => @cod_code
+        }
+        return
+      end
+
       # cod_code is activated
       if payment.status == Constants::PaymentStatus::SUCCESS
         if current_user
@@ -32,6 +49,15 @@ class CodController < ApplicationController
 
       # Valid cod
       owned_course = @user.courses.where(course_id: payment.course_id.to_s).last
+
+      if !owned_course
+        flash.now[:error] = "system_error"
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment\'s user has no owned course', {
+          "COD code" => @cod_code
+        }
+        return
+      end
+
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
       # Won't let user go to payment success page
       owned_course.first_learning = false
