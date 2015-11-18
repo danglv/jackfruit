@@ -167,6 +167,7 @@ describe 'CodController' do
     assert_match 'Kích hoạt thành công',  response.body
     assert_match 'Vào học ngay',  response.body
     assert_match @course.name, response.body
+    assert_match @course.image, response.body
   end
 
   it 'should update payment & user' do
