@@ -262,7 +262,7 @@ class CoursesController < ApplicationController
         @owned_course.set(:first_learning => false)
 
         # Tracking U8x
-        TrackingHelper.track_on_first_learning(current_user, course, request)
+        TrackingHelper.track_on_first_learning(current_user, @course, request)
 
         # Redirect to success payment page if first learning and has payment
         payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
