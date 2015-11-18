@@ -16,14 +16,12 @@ class FaqController < ApplicationController
       content += "<p>Email: #{current_user.email}</p>"
     end
 
-    send_to.each do |email|
-      RestClient.post('http://email.pedia.vn/email_services/send_email',
-        email: send_to,
-        str_html: content,
-        sender: 'Pedia<cskh@pedia.vn>',
-        subj: subject
-      )
-    end
+    RestClient.post('http://email.pedia.vn/email_services/send_email',
+      email: send_to,
+      str_html: content,
+      sender: 'Pedia<cskh@pedia.vn>',
+      subj: subject
+    )
 
     render :nothing => true
   end
