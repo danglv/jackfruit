@@ -27,6 +27,8 @@
               Mã COD đã được kích hoạt. Bạn có thể vào học
               %a{:href => "https://pedia.vn/courses/#{@course.alias_name}/learning", :style => 'color: blue;'}
                 tại đây
+            - when 'system_error'
+              Có lỗi với đơn hàng của bạn. Chúng tôi đã ghi nhận lỗi và sẽ khắc phục trong thời gian ngắn nhất. Chúng tôi sẽ thông báo cho bạn khi hoàn thành.
         .submit-cod.text-center
           %input.btn-activate.btn.btn-primary.btn-lg.bold{:style => 'font-size:16px;', :type => 'submit', :value => 'Kích hoạt'}
     .row.contact
