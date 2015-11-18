@@ -1,12 +1,6 @@
 class CodController < ApplicationController
 
   def activate
-    # @user = User.where(:email => 'hailn@topica.edu.vn').first
-    # @course = Course.first
-    # @should_show_info = true
-    # render 'success'
-    # return
-
     if request.patch?
       @cod_code = params[:cod_code]
 
@@ -39,11 +33,17 @@ class CodController < ApplicationController
       # Valid cod
       owned_course = @user.courses.where(course_id: payment.course_id.to_s).last
       owned_course.payment_status = Constants::PaymentStatus::SUCCESS
-      payment.status = Constants::PaymentStatus::SUCCESS
-      payment.save
+      # Won't let user go to payment success page
+      owned_course.first_learning = false
       owned_course.save
 
+      payment.status = Constants::PaymentStatus::SUCCESS
+      payment.save
+
       sign_in :user, @user
+
+      # Tracking U8x
+      TrackingHelper.track_on_first_learning(@user, @course, request)
 
       @should_show_info = @user.valid_password?('12345678')
       @should_show_info &= @user.courses.count == 1
