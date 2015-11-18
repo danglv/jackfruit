@@ -1,4 +1,4 @@
-.lecture { 
+.lecture {
   a {
     color: #888888;
     text-decoration: none;
@@ -8,6 +8,8 @@
   }
   .lecture-player {
     background-color: #2C2F37;
+    position: relative;
+    height: 100%;
     #video-container {
       height: 100% !important;
     }
@@ -48,7 +50,7 @@
           font-size: 19px;
         }
       }
-    
+
     }
     .player-navigation-back, .player-navigation-next {
       float:left;
@@ -58,7 +60,7 @@
       color: #888888;
       text-align: center;
     }
-    .player-navigation-back { 
+    .player-navigation-back {
       line-height: 53px;
       background: image-url("lecture-back.png") no-repeat;
     }
@@ -87,6 +89,94 @@
   }
 
   .tab-content {
+    height: 500px;
+    #lecture-tab-discussion {
+      padding: 30px 15px 20px 25px;
+      position: absolute;
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      .discussion-title {
+        overflow-y: hidden;
+        resize: horizontal;
+        height: 30px;
+        padding: 4px 6px;
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        max-height: 185px;
+        &:focus, &:active {
+          outline-width: 3px;
+          outline: -webkit-focus-ring-color auto 5px;
+          outline-offset: -2px;
+        }
+      }
+      .discussion-content {
+        padding: 10px 15px;
+        min-height: 70px;
+        &:focus, &:active {
+          padding: 10px 15px;
+        }
+      }
+      .list-discussion {
+        margin-top: 20px;
+        .discussion-item {
+          border-bottom: 1px solid #666;
+          margin: 0 0 20px 0;
+          padding-bottom: 10px;
+          .discussion-item-avatar {
+            width: 60px;
+            height: 60px;
+            img {
+              width: 100%;
+              border-radius: 50%;
+            }
+            .fa-smile-o {
+              font-size: 60px;
+              color: #38b34a;
+            }
+          }
+          .discussion-item-main {
+            padding: 0 0 0 15px;
+            .discussion-item-subject {
+              color: #59657D;
+              font-weight: 400;
+            }
+            .discussion-item-reply {
+              color: #4985b8;
+              &:hover {
+                color: #335d82;
+                cursor: pointer;
+              }
+            }
+            .list-children {
+              display: none;
+              border-left: 5px solid #DEDEDE;
+              padding-left: 10px;
+              .child-item {
+                border-bottom: 1px solid #666;
+                .child-item-main {
+                  margin-top: 15px;
+                  .child-item-title {
+                    padding: 0;
+                  }
+                  .child-item-content {
+                    padding-left: 15px;
+                  }
+                }
+              }
+              .send-reply {
+                margin-top: 20px;
+                .comment-content {
+                  padding: 10px 0;
+                  height: 70px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     #lecture-tab-note {
       height: calc(100vh - 40px);
       .note {
@@ -160,7 +250,7 @@
 
 
   &-container-header {
-    height: 40px; 
+    height: 40px;
     background-color: #ffffff;
     .active, li:hover {
       background-color: #338abc;
@@ -371,12 +461,12 @@
     }
   }
 }
-@media (min-width: 320px) { 
+@media (min-width: 320px) {
   .lecture {
     &-container {
       display: none;
     }
-    .lecture-player { 
+    .lecture-player {
       .full-screen {
         display: none;
       }
@@ -393,9 +483,9 @@
   }
 }
 
-@media (min-width: 480px) { 
+@media (min-width: 480px) {
   .lecture {
-    .lecture-player { 
+    .lecture-player {
       .lecture-back, .lecture-autoplay {
         line-height: 60px;
       }
@@ -416,7 +506,7 @@
                 width: 19px;
               }
               .chap-item-content {
-            
+
               }
             }
           }
@@ -425,9 +515,9 @@
   }
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
   .lecture {
-    .lecture-player { 
+    .lecture-player {
       .full-screen {
         display: block;
       }
@@ -438,9 +528,9 @@
   }
 }
 
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
   .lecture {
-      .lecture-player { 
+      .lecture-player {
         .lecture-back, .lecture-autoplay {
           line-height: 62px;
         }
@@ -460,9 +550,9 @@
   }
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
   .lecture {
-    .lecture-player { 
+    .lecture-player {
       .lecture-back, .lecture-autoplay {
         line-height: 64px;
       }
