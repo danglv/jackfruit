@@ -14,39 +14,39 @@
         %li.full-screen
           %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
-      - if !@lecture.url.index('cloudfront.net').blank?
-        / User video from cloudfront
-        /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
-        #video-container
-          - if @course.enabled_logo
-            :javascript
-              var jw_video_url = '#{@lecture.url}';
-              var jw_video_container = 'video-container';
-              var jw_should_load = true;
-              var jw_media_id = '#{@lecture.id}';
-              var is_logo = true;
+      - if !@lecture.url.blank?
+        - if !@lecture.url.index('cloudfront.net').blank?
+          / User video from cloudfront
+          /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
+          #video-container
+            - if @course.enabled_logo
+              :javascript
+                var jw_video_url = '#{@lecture.url}';
+                var jw_video_container = 'video-container';
+                var jw_should_load = true;
+                var jw_media_id = '#{@lecture.id}';
+                var is_logo = true;
+            - else
+              :javascript
+                var jw_video_url = '#{@lecture.url}';
+                var jw_video_container = 'video-container';
+                var jw_should_load = true;
+                var jw_media_id = '#{@lecture.id}';
+                var is_logo = false;
+        - else
+          - if @lecture.url.index('v=').blank?
+            - @indexStart = @lecture.url.index('.be/') + 4
+            - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
           - else
-            :javascript
-              var jw_video_url = '#{@lecture.url}';
-              var jw_video_container = 'video-container';
-              var jw_should_load = true;
-              var jw_media_id = '#{@lecture.id}';
-              var is_logo = false;
-
-      - else
-        - if @lecture.url.index('v=').blank?
-          - @indexStart = @lecture.url.index('.be/') + 4
-          - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
-        - else
-          - @indexStart = @lecture.url.index('v=') + 2
-        - if @lecture.url['&']
-          - @indexEnd = @lecture.url.index('&')-1
-          - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
-        - else
-          - @indexEnd = @lecture.url.length
-          - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
-        - if @youtube_id
-          %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
+            - @indexStart = @lecture.url.index('v=') + 2
+          - if @lecture.url['&']
+            - @indexEnd = @lecture.url.index('&')-1
+            - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+          - else
+            - @indexEnd = @lecture.url.length
+            - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
+          - if @youtube_id
+            %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
     .row.lecture-player-footer.no-margin
       / %a.lecture-autoplay 
       /   %span Tự động chạy:

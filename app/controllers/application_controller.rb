@@ -145,16 +145,18 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_course
-    course_alias_name = params[:alias_name]
-    condition = {:enabled => true, :alias_name => course_alias_name}
+    alias_name = params[:alias_name]
 
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    if !current_user.blank? && ( current_user.role != "user" )
+      session[:version] = params[:version] if !params[:version].blank?
+      session[:version].blank? ? version = @course.current_version : version = session[:version]
+
+      condition = {alias_name: alias_name, version_course: version}
+      @course = Course::Version.where(condition).desc("created_at").first
     else
-      condition[:version] = Constants::CourseVersions::PUBLIC
+      condition = {alias_name: alias_name, version: Constants::CourseVersions::PUBLIC, enabled: true}
+      @course = Course.where(condition).first
     end
-
-    @course = Course.where(condition).first
 
     if @course.blank?
       render 'page_not_found', status: 404
@@ -162,7 +164,6 @@ class ApplicationController < ActionController::Base
     end
     # sort curriculums
     sort_curriculums
-    
   end
 
   def get_banner

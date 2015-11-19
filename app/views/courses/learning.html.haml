@@ -41,11 +41,12 @@
                 %li
                   %i.fa.fa-play-circle
                 %li.first-lecture
-                  - @firstLecture = @course.curriculums.where(:type => 'lecture').first
-                  .lecture-header-content
-                    %p.no-margin.lecture-header-index Bài giảng 1:
-                    %p.no-margin.lecture-header-name #{@firstLecture.title}
-                    %p.no-margin.lecture-header-time #{@firstLecture.description}
+                  - firstLecture = @course.curriculums.where(:type => 'lecture').first
+                  - if !firstLecture.blank?
+                    .lecture-header-content
+                      %p.no-margin.lecture-header-index Bài giảng 1:
+                      %p.no-margin.lecture-header-name #{firstLecture.title}
+                      %p.no-margin.lecture-header-time #{firstLecture.description}
           .row.no-margin.lecture-progress
             .row.trophy
               - @indexLecture = 0
