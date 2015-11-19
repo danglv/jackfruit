@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # get :detail
       # get '/select', to: 'courses#select'
       post :add_discussion
+      post :add_discussion_from_wasp
       post :edit_discussion
       post :delete_discussion
       post :add_announcement
@@ -187,6 +188,13 @@ Rails.application.routes.draw do
   resources :cod, only: %w[] do
     collection do
       match '/activate' => 'cod#activate', :via => [:get, :patch]
+    end
+  end
+
+  resources :faq, only: %w[] do
+    collection do
+      get '/change_time', to: 'faq#change_time'
+      post '/error_report', to: 'faq#error_report'
     end
   end
 

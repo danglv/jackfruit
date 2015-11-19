@@ -47,7 +47,6 @@ feature 'Authentication' do
       label_ids: [],
       curriculums: [
         {
-          "_id"=>'5629f193df52b90ecc000009',
           "asset_type"=>"Video",
           "chapter_index"=>0,
           "description"=>"",
@@ -57,6 +56,18 @@ feature 'Authentication' do
           "status"=>0,
           "title"=>"P1",
           "type"=>"chapter",
+          "url"=>""
+        },
+        {
+          "asset_type"=>"Video",
+          "chapter_index"=>0,
+          "description"=>"",
+          "lecture_index"=>0,
+          "object_index"=>0,
+          "order"=>0,
+          "status"=>0,
+          "title"=>"P1",
+          "type"=>"lecture",
           "url"=>""
         }
       ]
@@ -102,6 +113,9 @@ feature 'Authentication' do
 
     find('.btn-learning').click
 
-    page.must_have_content('Chúc mừng bạn đã thanh toán thành công')
+    # Should be on learning page
+    page.must_have_content(@course.name)
+    page.must_have_content('Bài giảng')
+    page.must_have_content('THẢO LUẬN MỚI')
   end
 end

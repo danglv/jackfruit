@@ -1,16 +1,19 @@
 - if @owned_course.type == 'preview'
   = render :partial => "courses/preview_alert", :local => {:course => @course}
-.row.no-margin.lecture 
+.row.no-margin.lecture
   .col-xs-12.col-sm-7.col-md-8.col-lg-9.lecture-player
-    .row.lecture-player-header.no-margin 
+    .row.lecture-player-header.no-margin
       %a.lecture-back{:href => "/courses/#{@course.alias_name}/learning"}
         %i.fa.fa-play-circle
         %span Quay lại
       - @index_lecture = @lecture.lecture_index.to_i
-      %ul.no-padding.no-margin.lecture-tools 
+      %ul.no-padding.no-margin.lecture-tools
         - if @index_lecture !=0
           %li
-            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước 
+            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước
+        %li
+          %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer; padding-right: 20px;"}
+            %i.fa.fa-flag{:style => "color: white;"}
         %li.full-screen
           %i.fa.fa-chevron-right
     .row.lecture-player-main.no-margin
@@ -48,28 +51,28 @@
           - if @youtube_id
             %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
     .row.lecture-player-footer.no-margin
-      / %a.lecture-autoplay 
+      / %a.lecture-autoplay
       /   %span Tự động chạy:
-      /   %span.open Bật 
-      - if @lecture.lecture_index.to_i != @owned_course.lectures.count-1 
+      /   %span.open Bật
+      - if @lecture.lecture_index.to_i != @owned_course.lectures.count-1
         %ul.no-padding.no-margin.lecture-tools
           %li
-            %a.player-navigation-next{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture+1}"} Bài giảng tiếp 
+            %a.player-navigation-next{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture+1}"} Bài giảng tiếp
           %li
             %i.visibility-collapse s
   .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
     %ul.nav.nav-tabs.lecture-container-header
       %li.active
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-list",:title => 'Danh sách bài học'} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-list",:title => 'Danh sách bài học'}
           %i.fa.fa-list
       %li
         %a{"data-toggle" => "tab", :href => "#lecture-tab-download",:title => 'Download tài liệu'}
           %i.fa.fa-download
       %li
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion",:title => 'Thảo luận bài học'} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion",:title => 'Thảo luận bài học'}
           %i.fa.fa-comments
       %li
-        %a{"data-toggle" => "tab", :href => "#lecture-tab-note",:title => 'Ghi chú cho bài học'} 
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-note",:title => 'Ghi chú cho bài học'}
           %i.fa.fa-file-text
     .tab-content
       #lecture-tab-list.tab-pane.fade.active.in
@@ -105,7 +108,7 @@
                         .row.no-margin
                           .row.type-document
                             %ul.no-padding
-                              %li 
+                              %li
                                 %i.fa.fa-play-circle
                               %li
                                 %span #{curriculum.description}
@@ -139,7 +142,7 @@
                         .row.no-margin
                           .row.type-document
                             %ul.no-padding
-                              %li 
+                              %li
                                 %i.fa.fa-play-circle
                               %li
                                 %span #{curriculum.description}
@@ -148,7 +151,7 @@
                                   %i.fa.fa-download
                               %li
                                 %i.fa.fa-comments
-          - rescue    
+          - rescue
       #lecture-tab-download.tab-pane.fade
         / Short description of lecture
         / - if @lecture.description
@@ -161,61 +164,61 @@
           %ul{:style => "margin-top:10px;"}
             - @lecture.documents.each do |document|
               %li
-                / 
+                /
                 / %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :doc_id => document.id}"}
                 /   #{document.title}
                 / temp...........
                 %a.normal-text.link-text{:href => "https://static.pedia.vn/#{document.link}", :download => ""}#{document.title}
         - else
           %h5 Bài học không có tài liệu để tải
-      #lecture-tab-discussion.tab-pane.fade{:style => "padding: 30px"}
+      #lecture-tab-discussion.tab-pane.fade
         %form
           %input.course_id{:type => "hidden", :value => "#{@course._id}"}
           %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
           %li{:style => "list-style: none"}
-            %textarea.form-control.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+            %textarea.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
           %li{:style => "list-style: none"}
             %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
           %li{:style => "list-style: none"}
             %a.btn.btn-primary.lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
-        .row.no-margin.list-discussion
+        .row.list-discussion
           - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
           - lecture_discussions.reverse.each do |discussion|
             - @user = User.where(:id => discussion.user_id).first
             - relative_time = TimeHelper.relative_time(discussion.created_at)
-            .row.discussion-item.no-margin
-              .col-md-1.col-lg-1.no-padding.discussion-item-avatar
-                %i.fa.fa-smile-o
-              .col-md-11.col-lg-11.no-padding.discussion-item-main
+            .row.discussion-item
+              .col-md-3.col-lg-3.no-padding.discussion-item-avatar
+                - if !@user.avatar.blank?
+                  %img{:src => @user.avatar}
+                - else
+                  %i.fa.fa-smile-o
+              .col-md-9.col-lg-9.discussion-item-main
                 %ul.discussion-item-title.no-padding
-                  %li.bold{:style => "list-style: none"} #{@user.name}
-                  %li{:style => "list-style: none"}= "đã đăng 1 thảo luận - #{relative_time}"
-                %span.discussion-item-subject 
+                  %li.bold{:style => "list-style: none"}= "#{@user.name} - #{relative_time}"
+                %span.discussion-item-subject
                   #{discussion.title}
                 %p.discussion-item-content
                   #{discussion.description}
                 - if discussion.child_discussions.count == 0
-                  %a.discussion-item-reply Phản hồi
+                  %a.discussion-item-reply Trả lời
                 - else
-                  %a.discussion-item-reply= "Phản hồi (" + discussion.child_discussions.count.to_s + ")"
+                  %a.discussion-item-reply= "Trả lời (" + discussion.child_discussions.count.to_s + ")"
                 .row.no-margin.list-children.collapsed
-                  - discussion.child_discussions.reverse.each do |child_discussion|
+                  - discussion.child_discussions.each do |child_discussion|
                     .row.child-item.no-margin
-                      .col-md-1.col-lg-1.no-padding.child-item-avatar
-                        %i.fa.fa-smile-o
-                      .col-md-11.col-lg-11.no-padding.child-item-main
+                      .col-md-12.col-lg-12.no-padding.child-item-main
                         - @user = User.where(:id => child_discussion.user_id).first
+                        - relative_time = TimeHelper.relative_time(discussion.created_at)
                         %ul.child-item-title
                           - if @user
-                            %li.bold{:style => "list-style: none"} #{@user.name} 
-                          %li{:style => "list-style: none"} đã đăng 1 thảo luận - 2 tháng trước 
+                            %li.bold{:style => "list-style: none"}= "#{@user.name} - #{relative_time}"
                         %p.child-item-content
                           #{child_discussion.description}
-                  .row.no-margin 
+                  .row.no-margin
                     / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
-                    .col-md-11.col-lg-11.col-md-offset-1.col-lg-offset-1.no-padding.send-reply
+                    .col-md-12.col-lg-12.no-padding.send-reply
                       %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
-                      .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi 
+                      .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi
       #lecture-tab-note.tab-pane.fade
         .row.no-margin
           %form.note
@@ -238,5 +241,19 @@
         /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
         .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
           %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?owned_course_id=#{@owned_course.id}&owned_lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
-
+  / + Report modal
+  #complete-dialog.modal.fade{:tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Báo lỗi
+        %hr{:style => "margin-top: 15px; margin-bottom: 15px;"}
+        .modal-body
+          %form
+            %textarea.txt-report-content{:rows => "5", :placeholder => "Nội dung báo lỗi", :style => "border: 1px solid #ccc; height: 100%; width: 100%;"}
+        %hr{:style => "margin-top: 10px; margin-bottom: 10px;"}
+        .modal-footer
+          %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+          %button.btn{"data-dismiss" => "modal"} Đóng
 

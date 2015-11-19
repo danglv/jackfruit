@@ -18,7 +18,7 @@
               Password: 12345678
     .row.course-info
       .col-sm-6.course-image
-        %img{:src => 'http://static.pedia.vn/uploads/images/courses/course_image_nvc02.png'}
+        %img{:src => @course.image}
       .col-sm-6.course-detail
         %h3.course-name= @course.name
         %h4.teacher-name= @course.user.name

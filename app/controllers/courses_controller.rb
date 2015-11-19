@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   layout 'courses', except: [:learning, :lecture]
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_announcement]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select,:add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all]
   skip_before_filter :verify_authenticity_token, only: [:upload_course]
@@ -260,23 +260,7 @@ class CoursesController < ApplicationController
         @owned_course.set(:first_learning => false)
 
         # Tracking U8x
-        if @course.free? # Free course
-          if current_user.courses.count == 1
-            # Tracking U8f: User has the first course is free course
-            Spymaster.params.cat('U8f').beh('click').tar(@course.id).user(current_user.id).track(request)
-          elsif Course.where(:id.in => current_user.courses.map(&:course_id), :price => 0).count == 1
-            # Tracking U8pf: User had a paid course before and now has a new free course
-            Spymaster.params.cat('U8pf').beh('click').tar(@course.id).user(current_user.id).track(request)
-          end
-        else # Paid course
-          if current_user.courses.count == 1
-            # Tracking U8p: User has the first course is paid course
-            Spymaster.params.cat('U8p').beh('click').tar(@course.id).user(current_user.id).track(request)
-          elsif Course.where(:id.in => current_user.courses.map(&:course_id), :price.gt => 0).count == 1
-            # Tracking U8fp: User had a free course before and now has a new paid course
-            Spymaster.params.cat('U8fp').beh('click').tar(@course.id).user(current_user.id).track(request)
-          end
-        end
+        TrackingHelper.track_on_first_learning(current_user, @course, request)
 
         # Redirect to success payment page if first learning and has payment
         payment = Payment.where(:course_id => @course._id, :user_id => current_user.id, :status => "success").first
@@ -492,21 +476,25 @@ class CoursesController < ApplicationController
   def add_discussion
     course_id = params[:id]
     curriculum_id = params[:curriculum_id]
+    parent_discussion = params[:parent_discussion]
+
     title = params[:title]
     description = params[:description]
-    parent_discussion = params[:parent_discussion]
 
     if description.blank?
       render json: {message: "Nội dung không được để trống"}, status: :unprocessable_entity
+      return
     end
 
     @course = Course.where(id: course_id).first
     if @course.blank?
-      render json: {message: "Khoá học không hợp lệ!"}, status: :unprocessable_entity
+      render json: {message: "Khoá học không tồn tại!"}, status: :unprocessable_entity
       return
     end
+
     parent_discussion_obj = @course.discussions.where(:id => parent_discussion).first if !parent_discussion.blank?
     discussion = nil
+
     if parent_discussion_obj.blank?
       discussion = @course.discussions.new(
         title: title,
@@ -517,52 +505,153 @@ class CoursesController < ApplicationController
       discussion = parent_discussion_obj.child_discussions.new(
         description: description
       )
-      discussion.parent_discussion = parent_discussion_obj if !parent_discussion_obj.blank?
+      discussion.parent_discussion = parent_discussion_obj
     end
 
     discussion.user = current_user
     discussion.curriculum_id = curriculum_id if !curriculum_id.blank?
 
     if discussion.save
+      # send discussion to Wasp through Flow.
       parent_discussion_id = !parent_discussion_obj.blank? ? parent_discussion : discussion.id
       child_discussions = !parent_discussion_obj.blank? ? parent_discussion_obj.child_discussions.as_json : []
       content = (!title.blank?) ? title + ':' + description : description
-      # send discussion to Flow
-      RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
-        course_id: course_id,
-        course_name: @course.name,
-        user_id: current_user.id.to_s,
-        user_name: current_user.name,
-        user_email: current_user.email,
-        type: "discussion",
-        content: content,
-        curriculum_id: curriculum_id,
-        parent_discussion: parent_discussion_id,
-        child_discussions: child_discussions
-      )
 
-      render json: {title: title, description: description, email: current_user.email, avatar: current_user.avatar, name: current_user.name}
-      return
+      # Render json for Pedia
+      render json: {
+        title: title, 
+        description: description, 
+        email: current_user.email, 
+        avatar: current_user.avatar, 
+        name: current_user.name
+      }
+
+      if Rails.env != "development"
+        RestClient.post("#{FLOW_BASE_API_URL}/wasp/feedback/create",
+          course_id: course_id,
+          course_name: @course.name,
+          user_id: current_user.id.to_s,
+          user_name: current_user.name,
+          user_email: current_user.email,
+          type: "discussion",
+          content: content,
+          curriculum_id: curriculum_id,
+          parent_discussion: parent_discussion_id,
+          child_discussions: child_discussions
+        )
+      end
     else
-      render json: {message: "Có lỗi xảy ra"}
+      render json: {message: discussion.errors}, status: :unprocessable_entity
+    end
+    # Create varriable to test.
+    @discussion = discussion
+  end
+
+  def add_discussion_from_wasp
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
+    description = params[:description]
+
+    ['id','parent_discussion', 'description'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống!"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    user = User.where(:email => "cskh@pedia.vn").first
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
       return
     end
+
+    parent_discussion = course.discussions.where(:id => parent_discussion_id).first
+    if parent_discussion.blank?
+      render json: {message: "Parrent discussion không tồn tại"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion.child_discussions.new(
+      created_at: Time.now,
+      description: description,
+      user_id: user._id
+    )
+    if !parent_discussion.save
+      render json: {error: parent_discussion.errors}, status: :unprocessable_entity
+      return
+    end
+    render json: {message: "success"}
   end
 
   def edit_discussion
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
     discussion_id = params[:discussion_id]
     description = params[:description]
 
-    if !discussion_id.blank?
-      @discussion = Discussion.where(id: discussion_id).first
-      @discussion.description = description
+    ['id','parent_discussion', 'discussion_id', 'description'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống!"}, status: :unprocessable_entity
+        return
+      end
+    end
 
-      if @discussion.save
-        render json: {massage: "Sửa thảo luận thành công"}
-        return
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion = course.discussions.where(:id => parent_discussion_id).first
+    discussion = parent_discussion.child_discussions.where(:id => discussion_id).first if !parent_discussion.blank?
+
+    if discussion.blank?
+      render json: {message: "Không tồn tại thảo luận này"}, status: :unprocessable_entity
+      return
+    else
+      discussion.description = description if !description.blank?
+      if course.save
+        render json: {message: "Sửa thành công"}
       else
-        render json: {message: "Có lỗi xảy ra"}
+        render json: {message: "Không sửa được thảo luận"}, status: :unprocessable_entity
+      end
+    end
+  end
+
+  def delete_discussion
+    course_id = params[:id]
+    parent_discussion_id = params[:parent_discussion]
+    discussion_id = params[:discussion_id]
+
+    ['id','parent_discussion', 'discussion_id'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống"}, status: :unprocessable_entity
         return
+      end
+    end
+
+    course = Course.where(:id => course_id).first
+
+    if course.blank?
+      render json: {message: "Khóa học không hợp lệ"}, status: :unprocessable_entity
+      return
+    end
+
+    parent_discussion = course.discussions.where(:discussion_id => parent_discussion_id).first
+    discussion = parent_discussion.child_discussions.where(:id => discussion_id).first if !parent_discussion.blank?
+
+    if discussion.blank?
+      render json: {message: "Không tồn tại thảo luận này"}, status: :unprocessable_entity
+      return
+    else
+      discussion.delete
+      if course.save
+        render json: {message: "Xóa thành công"}
+      else
+        render json: {message: "Không xóa được thảo luận"}, status: :unprocessable_entity
       end
     end
   end
@@ -694,44 +783,91 @@ class CoursesController < ApplicationController
   end
 
   def add_announcement
-    course_id = params[:course_id]
+    course_id = params[:id]
     title = params[:title]
     description = params[:description]
 
-    @course = Course.where(:id => course_id).first
-    announcement = Course::Announcement.new(
+    if description.blank?
+      render json: {error: 'Description không được bỏ trống!'}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {error: 'Khoá học không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    if course.user.id != current_user.id
+      render json: {error: 'Tài khoản đang đăng nhập không sở hữu khoá học này!'}, status: :unprocessable_entity
+      return
+    end
+
+    announcement = course.announcements.new(
       title: title,
       description: description,
-      user: @current_user,
-      course: @course
-      )
-    @course.announcements << announcement
-    @course.save
-    render json: {message: "success"}
-    return
+      user_id: current_user.id
+    )
+
+    if !announcement.save
+      render json: {error: announcement.errors}, status: :unprocessable_entity
+      return
+    end
+
+    render json: {
+      title: title,
+      description: description,
+      email: current_user.email,
+      avatar: current_user.avatar,
+      name: current_user.name
+    }
   end
 
   def add_child_announcement
     description = params[:description]
     parent_announcement_id = params[:parent_announcement_id]
-    course_id = params[:course_id]
+    course_id = params[:id]
 
-    @course = Course.where(:id => course_id).first
-    parent_announcement = @course.announcements.where(:id => parent_announcement_id).first
-
-    child_announcement = Course::ChildAnnouncement.new(
-      description: description,
-      user: @current_user
-      )
-    parent_announcement.child_announcements << child_announcement
-    @course.save
-    if @course.save
-      render plain: '<div class="row child-item no-margin"><div class="col-md-1 col-lg-1 no-padding child-item-avatar"><i class="fa fa-smile-o"></i></div><div class="col-md-11 col-lg-11 no-padding child-item-main"><ul class="child-item-title"><li class="bold">'+@current_user.name+'</li><li>'+TimeHelper.relative_time(child_announcement.created_at)+'</li></ul><p class="child-item-content">'+description+'</p></div></div>'
-    else
-      render json: {message: "false"}
+    if description.blank?
+      render json: {error: 'Description không được bỏ trống!'}, status: :unprocessable_entity
+      return
     end
 
-    return
+    if parent_announcement_id.blank?
+      render json: {error: 'parent_announcement_id không được bỏ trống!'}, status: :unprocessable_entity
+      return
+    end
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {error: 'Khoá học không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    parent_announcement = course.announcements.where(:id => parent_announcement_id).first
+    if parent_announcement.blank?
+      render json: {error: 'Thông báo không tồn tại!'}, status: :unprocessable_entity
+      return
+    end
+
+    @child_announcement = parent_announcement.child_announcements.new(
+      description: description,
+      user_id: current_user.id
+    )
+
+    if !@child_announcement.save
+      render json: {error: @child_announcement.errors}
+      return
+    end
+
+    render json: {
+      description: description,
+      email: current_user.email,
+      avatar: current_user.avatar,
+      name: current_user.name
+    }
+
+    # render plain: '<div class="row child-item no-margin"><div class="col-md-1 col-lg-1 no-padding child-item-avatar"><i class="fa fa-smile-o"></i></div><div class="col-md-11 col-lg-11 no-padding child-item-main"><ul class="child-item-title"><li class="bold">'+current_user.name+'</li><li>'+TimeHelper.relative_time(child_announcement.created_at)+'</li></ul><p class="child-item-content">'+description+'</p></div></div>'
   end
 
   def send_form_suppot_detail
@@ -751,19 +887,4 @@ class CoursesController < ApplicationController
 
     head :ok
   end
-
-  private
-    def diff(lectures_old, lectures_new)
-      old_lectures_hash = lectures_old.to_h
-      new_lecture_hash = lectures_new.to_h
-
-      lectures_diff = old_lectures_hash.keys & new_lecture_hash.keys
-      lectures_index_old = lectures_diff.map{ |diff| old_lectures_hash[diff]}
-      lectures_index_new = lectures_diff.map{ |diff| new_lecture_hash[diff]}
-
-      if lectures_new.length == lectures_old.length && lectures_index_old == lectures_index_new
-        return []
-      end
-      return lectures_index_old.zip(lectures_index_new)
-    end
 end

@@ -1,0 +1,13 @@
+.jwplayer-error-layer{:style => "background-color: #000; position: absolute; left: 0; top: 0; bottom: 0; right: 0; z-index: 100000; text-align: center; padding: 20px; padding-top: 30vh;"}
+  %p 
+    Không tìm thấy video!
+  .row{:style => 'margin-bottom: 10px; margin-top: 10px;'}
+    %a.btn.btn-default.video-error-report{:style => 'color: white; background-color: #FF4444;'} Báo lỗi
+    %img.video-report-loading{:src => ActionController::Base.helpers.image_path('report-loading.gif'), :style => 'display: none;'}
+    %p.video-report-confirm{:style => 'display: none;'}
+      Cảm ơn bạn đã thông báo lỗi. Chúng tôi sẽ kiểm tra và xử lý sớm!
+  %p
+    Liên hệ hotline:
+    %span{:style => 'color: #FF4444;'}
+      0968.146.522
+    để được hỗ trợ

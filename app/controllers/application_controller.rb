@@ -149,8 +149,8 @@ class ApplicationController < ActionController::Base
 
     if !current_user.blank? && ( current_user.role != "user" )
       session[:version] = params[:version] if !params[:version].blank?
-      session[:version].blank? ? version = @course.current_version : version = session[:version]
-
+      session[:version].blank? ? version = '1.0' : version = session[:version]
+      
       condition = {alias_name: alias_name, version_course: version}
       @course = Course::Version.where(condition).desc("created_at").first
     else

@@ -74,7 +74,7 @@
     margin: 19px auto 0px auto;
     background: #f4f3f2;
     &-header{
-      
+
     }
     .list-lecture {
       padding: 0px 15px;
@@ -117,7 +117,7 @@
       }
       .lecture-progress {
 
-          
+
         .trophy {
           text-align: right;
           margin: 2px 0px;
@@ -127,7 +127,7 @@
             float: left;
             width: 100%;
             margin-top: 10px;
-          
+
             &-content {
               list-style: none;
               padding: 0px;
@@ -184,7 +184,7 @@
           .item-container {
             margin: 0px;
             border-left: 1px solid #f0f0f0;
-            
+
             .chap-item-status {
               width: 19px;
               height: 100%;
@@ -255,7 +255,7 @@
             .type-video, .type-document {
               span, i {
                 color: #212121;
-              } 
+              }
             }
           }
         }
@@ -266,7 +266,7 @@
 
       .progress {
         margin-top: 3px;
-      
+
       }
       span, i{
         color: #727272;
@@ -301,6 +301,12 @@
         padding: 0px;
       }
       .discussion {
+        .choice-text {
+          padding-top: 15px;
+          padding-right: 0px;
+          font-size: 18px;
+          text-align: center;
+        }
         .fa-search {
           position: absolute;
           top: 0px;
@@ -314,7 +320,7 @@
           margin-top: 20px;
         }
         &-item {
-          
+
           &-avatar {
 
           }
@@ -357,9 +363,11 @@
           .list-children {
             float: left;
             width: 100%;
+            border-left: 10px solid #DEDEDE;
+            margin: 10px 0;
             .child {
               &-item {
-                
+                padding-left: 15px;
                 &-avatar {
 
                 }
@@ -437,7 +445,7 @@
             position: relative;
             margin: 0;
             .alert-dropdown {
-              width: 100%;              
+              width: 100%;
             }
             .alert-box {
               position: absolute;
@@ -448,7 +456,7 @@
           }
         }
         &-item {
-          
+
           &-avatar {
 
           }
@@ -493,7 +501,7 @@
             width: 100%;
             .child {
               &-item {
-                
+
                 &-avatar {
 
                 }
@@ -537,7 +545,7 @@
             }
           }
          .send-reply {
-  
+
             margin-bottom: 10px;
             margin-top: 10px;
             .form-control {
@@ -560,7 +568,7 @@
 }
 
    /* 320*/
-@media (min-width: 320px) { 
+@media (min-width: 320px) {
   .learning {
     &-header {
       &-container {
@@ -587,7 +595,7 @@
                 width: 24px;
               }
               .chap-item-content {
-                
+
               }
             }
           }
@@ -601,7 +609,7 @@
 
 }
 /* 480 */
-@media (min-width: 480px) { 
+@media (min-width: 480px) {
   .learning {
     &-header {
       &-container {
@@ -625,7 +633,7 @@
                 width: 19px;
               }
               .chap-item-content {
-            
+
               }
             }
           }
@@ -635,7 +643,7 @@
   }
 }
 /* Medium devices (desktops, 768px and up) */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
   .learning {
     &-header {
       &-container {
@@ -652,7 +660,7 @@
   }
 }
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
   .learning {
     &-container {
       width: 970px;
@@ -666,7 +674,7 @@
   }
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
   .learning {
     &-container {
       width: 1170px;
