@@ -60,6 +60,16 @@ class CodController < ApplicationController
       payment.status = Constants::PaymentStatus::SUCCESS
       payment.save
 
+      # create c3_crosssell_native
+      data = payment.as_json(only: [:mobile, :email])
+      data['name'] = payment.user.name
+      data['type'] = 'c3_crosssell_native_l8'
+      data['course_name'] = 'Topica Native'
+      data['course_id'] = 'crosssellnative'
+
+      Contactc3.create(data)
+
+      # sign in user
       sign_in :user, @user
 
       # Tracking U8x
