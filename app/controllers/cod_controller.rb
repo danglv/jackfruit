@@ -23,17 +23,13 @@ class CodController < ApplicationController
 
       if !@user
         flash.now[:error] = "system_error"
-        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no user', {
-          "COD code" => @cod_code
-        }
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no user', payment
         return
       end
 
       if !@course
         flash.now[:error] = "system_error"
-        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no course', {
-          "COD code" => @cod_code
-        }
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment has no course', payment
         return
       end
 
@@ -52,9 +48,7 @@ class CodController < ApplicationController
 
       if !owned_course
         flash.now[:error] = "system_error"
-        ErrorReportHelper.send_on_cod_activating_failed 'Payment\'s user has no owned course', {
-          "COD code" => @cod_code
-        }
+        ErrorReportHelper.send_on_cod_activating_failed 'Payment\'s user has no owned course', payment
         return
       end
 

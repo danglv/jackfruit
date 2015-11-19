@@ -214,8 +214,26 @@ describe 'CodController' do
     assert_no_match 'Password', response.body
   end
 
-  it 'should catch system error' do
+  it 'should catch system error when payment\'s user has no owned course' do
     @user.courses.delete_all
+
+    patch :activate, cod_code: @payment.cod_code
+
+    assert_response :success
+    assert_match 'Có lỗi với đơn hàng của bạn', response.body
+  end
+
+  it 'should catch system error when payment has no user' do
+    @user.delete
+
+    patch :activate, cod_code: @payment.cod_code
+
+    assert_response :success
+    assert_match 'Có lỗi với đơn hàng của bạn', response.body
+  end
+
+  it 'should catch system error when payment has no course' do
+    @course.delete
 
     patch :activate, cod_code: @payment.cod_code
 
