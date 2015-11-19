@@ -146,6 +146,28 @@ describe 'CoursesController' do
         user_id: @instructor_user.id
       }
     ])
+    
+    @versions = Course::Version.create([
+      {
+        version_course: '1.5',
+        name: 'New Version',
+        lang: 'vi',
+        alias_name: 'new-version-15',
+        sub_title: 'Login 5 website using CURL PHP gfd',
+        description: ['Mô tả về khóa học', 'Login 5 website using CURL PHP'],
+        requirement: ['Yêu cầu của khóa học', 'Login 5 website using CURL PHP'],
+        benefit: ['Lợi ích từ khóa học', 'Login 5 website using CURL PHP'],
+        audience: ['Đối tượng mục tiêu', 'Login 5 website using CURL PHP'],
+        level: 'all',
+        image: '/uploads/images/courses/course_image_bgfold1.jpg',
+        intro_link: '',
+        intro_image: '/uploads/images/courses/thumbnail_sale.png',
+        user_id: @instructor_user.id,
+        course_id: @courses[0].id,
+        category_ids: [],
+        label_ids: []
+      }
+    ])
 
     @category = Category.create(
       _id: 'test-category',
@@ -195,6 +217,7 @@ describe 'CoursesController' do
     User.delete_all
     Course.delete_all
     Category.delete_all
+    Course::Version.delete_all
   end
 
   describe 'GET #index' do
@@ -363,14 +386,6 @@ describe 'CoursesController' do
       assert_response :missing
     end
 
-    it '[JC404] authenticated, success when go to test course detail if course has enabled, role user is test' do
-      sign_in @test_role_user
-      get :detail, {
-        :alias_name => 'test_course'
-      }
-      assert_response :success
-    end
-
     it '[JC405] authenticated, missing when go to public course detail if course is disable, role user is user' do
       sign_in @user_role_user
 
@@ -386,29 +401,8 @@ describe 'CoursesController' do
       get :detail, {
         :alias_name => 'test_course'
       }
+
       assert_response :missing
-    end
-
-    it '[JC407] authenticated, redirect to learning if role user is reviewer' do
-      sign_in @reviewer_role_user
-
-      get :detail, {
-        :alias_name => @courses[0].alias_name
-      }
-
-      assert_response :redirect
-      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
-    end
-
-    it '[JC408] authenticated, redirect to learning if user is author this course' do
-      sign_in @instructor_user
-
-      get :detail, {
-        :alias_name => @courses[0].alias_name
-      }
-
-      assert_response :redirect
-      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
 
     it '[JC409] authenticated, not redirect to learning if preview is expired' do
@@ -475,6 +469,43 @@ describe 'CoursesController' do
 
       assert_response :success
     end
+
+    it 'should have @course is a version with version_course is params[:version]' do
+      sign_in @reviewer_role_user
+
+      get :detail, {
+        version: @versions[0].version_course,
+        alias_name: @versions[0].alias_name
+      }
+
+      assert_equal @versions[0].alias_name, assigns[:course][:alias_name]  
+    end
+    
+    it 'should save session to review for learning, lecture when have params[:version]' do
+      sign_in @reviewer_role_user
+
+      get :detail, alias_name: 'blabla', version: @versions[0].version_course
+
+      assert_equal session[:version], @versions[0].version_course
+    end 
+
+    it 'should render 404 when version of course not found' do
+      sign_in @reviewer_role_user
+
+      get :detail, alias_name: 'blabla'
+
+      assert_response 404
+    end
+
+    it 'should have @course is a course not version of course when user isnt reviewer' do 
+      sign_in @user_role_user
+
+      get :detail, alias_name: @courses[0].alias_name, version: '1.0'
+
+      assert_nil session[:version]
+      assert_not_nil assigns[:course]
+      assert_equal @courses[0].alias_name, assigns[:course][:alias_name]
+    end
   end
 
   describe 'GET #get_money' do
@@ -531,123 +562,6 @@ describe 'CoursesController' do
     end
   end
 
-  describe 'POST #upload_course' do
-
-    it 'should render 422 and message when request without user_id' do
-      post :upload_course
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal 'Chưa truyền dữ liệu', res['message']
-    end
-
-    it 'should render 422 and message when have no curriculums' do
-      course = @courses[0].as_json
-      course['curriculums'] = []
-
-      post :upload_course, {
-        user_id: @user_role_user['id'].to_s,
-        course_id: @courses[0]['id'].to_s,
-        course: course
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal 'Không được bỏ trống curriculum', res['message']
-    end
-
-    it 'should render 422 and message when course can"t save' do
-      course = @courses[0].as_json
-      course['price'] = 'test'
-      post :upload_course, {
-        user_id: @user_role_user['id'].to_s,
-        course_id: @courses[0]['id'].to_s,
-        course: course
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal 'Lỗi không lưu được data', res['message']
-    end
-
-    it 'should render 200 and json when course can save' do
-
-      post :upload_course, {
-        user_id: @user_role_user['id'].to_s,
-        course_id: @courses[0]['id'].to_s,
-        course: @courses[0].as_json
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :success
-      assert_not_equal 'Lỗi không lưu được data', res.to_s
-    end
-
-    it 'should render 422 and message when received exception' do
-      post :upload_course, {
-        user_id: @user_role_user['id'].to_s,
-        course_id: @courses[0]['id'].to_s,
-        course: @courses[0].to_json
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-    end
-  end
-
-  describe 'POST #approve' do
-    it 'should render 422 and message when can not found course' do
-      post :approve, {
-        id: 'id'
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal "Course id Không chính xác!", res['message']
-    end
-
-    it 'should render 200 and message when course is approved' do
-      post :approve, {
-        id: @courses[0].id
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :success
-      assert_equal "Success!", res['message']
-    end
-  end
-
-  describe "POST #unpublish" do
-    it 'should render 422 and message when can not found course' do
-      post :unpublish, {
-        id: 'id'
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal "Course id Không chính xác!", res['message']
-    end
-
-    it 'should render 200 and message when course is unpublish' do
-      post :unpublish, {
-        id: @courses[0].id
-      }
-
-      res = JSON.parse(response.body)
-
-      assert :success
-      assert_equal "Success!", res['message']
-    end
-  end
-
   describe "POST #upload_image" do
     it 'should return image path' do
 
@@ -679,29 +593,6 @@ describe 'CoursesController' do
       res = JSON.parse(response.body)
 
       assert_match 'Có lỗi xảy ra', res['error']
-    end
-  end
-
-  describe 'POST #check_alias_name' do
-    it 'should return 422 and message when alias is blank' do
-      post :check_alias_name
-
-      res = JSON.parse(response.body)
-
-      assert_response :unprocessable_entity
-      assert_equal 'Chưa truyền alias_name', res['message']
-    end
-
-    it 'should return success and num_courses when not found alias name' do
-      post :check_alias_name, {
-        alias_name: 'alias_name',
-        course_id: 'course_id'
-      }
-
-      res = JSON.parse(response.body)
-
-      assert_response :success
-      assert_match 'num_courses', res.to_s
     end
   end
 

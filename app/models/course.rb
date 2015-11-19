@@ -30,6 +30,8 @@ class Course
   field :intro_image, type: String, default: "course-image-intro.png"
   # role for course
   field :version, type: String, default: "test"
+  field :current_version, type: String, default: '1.0'
+  field :version_review, type: String, default: '1.0'
 
   # fake_field
   field :fake_average_rating, type: Float, default: 4
@@ -47,6 +49,7 @@ class Course
   belongs_to :user
   has_and_belongs_to_many :categories, class_name: "Category"
   has_and_belongs_to_many :labels, class_name: "Label"
+  has_many :versions, class_name: 'Course::Version'
 
   index({ name: 1, created_at: 1 })
 

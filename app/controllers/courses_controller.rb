@@ -160,41 +160,39 @@ class CoursesController < ApplicationController
         owned_course.type = Constants::OwnedCourseTypes::LEARNING
         owned_course.payment_status = Constants::PaymentStatus::SUCCESS
         owned_course.save
-        redirect_to root_url + "courses/#{@course.alias_name}/learning"
-        return
-      end
-
-      # Get user owned course
-      @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
-      # Check owned course
-      if @owned_course # If already has owned course
-        # Check course type
-        if @owned_course.preview? # If course is preview course
-          # Check if course is expired
-          if @owned_course.preview_expired? # Expired
-            @owned_course = nil # Expired course means has no owned course
-            @preview_disabled = true # Could not preview anymore
-          else # Available
-            redirect_to root_url + "courses/#{@course.alias_name}/learning"
-            return
-          end
-        else # Course is learning course
-          # Check course payment status
-          if @owned_course.payment_success? # If payment is success then go to learning page
-            redirect_to root_url + "courses/#{@course.alias_name}/learning"
-            return
-          else # Course is on a payment then get payment
-            # Tracking L3c. Case pending
-            Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
-            @payment = Payment.where(
-              user_id: current_user.id.to_s,
-              course_id: @course.id.to_s
-            ).to_a.last
-          end
-        end
       else
-        # Tracking L3c. Case not has course.
-        Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+        # Get user owned course
+        @owned_course = current_user.courses.where(:course_id => @course.id.to_s).first
+        # Check owned course
+        if @owned_course # If already has owned course
+          # Check course type
+          if @owned_course.preview? # If course is preview course
+            # Check if course is expired
+            if @owned_course.preview_expired? # Expired
+              @owned_course = nil # Expired course means has no owned course
+              @preview_disabled = true # Could not preview anymore
+            else # Available
+              redirect_to root_url + "courses/#{@course.alias_name}/learning"
+              return
+            end
+          else # Course is learning course
+            # Check course payment status
+            if @owned_course.payment_success? # If payment is success then go to learning page
+              redirect_to root_url + "courses/#{@course.alias_name}/learning"
+              return
+            else # Course is on a payment then get payment
+              # Tracking L3c. Case pending
+              Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+              @payment = Payment.where(
+                user_id: current_user.id.to_s,
+                course_id: @course.id.to_s
+              ).to_a.last
+            end
+          end
+        else
+          # Tracking L3c. Case not has course.
+          Spymaster.params.cat('L3c').beh('view').tar(@course.id).user(current_user.id).track(request)
+        end
       end
     end
     # Check if course is in any sale campaign
@@ -742,175 +740,7 @@ class CoursesController < ApplicationController
     render json: {price: "#{price}"}
   end
 
-  # POST: API create course for kelley
-  def upload_course
-    begin
-      course = params['course']
-      course_id = params['course_id']
-      user_id = params['user_id']
-
-      if user_id.blank?
-        render json: {message: "Chưa truyền dữ liệu"}, status: :unprocessable_entity
-        return
-      end
-
-      user = User.find(user_id)
-
-      if !course_id.blank?
-        c = Course.where(:id => course_id).first
-      end
-
-      c = Course.find_or_initialize_by(
-        _id: course_id,
-        alias_name: course['alias_name'],
-        name: course['name'],
-        sub_title: course['sub_title'],
-        description: course['description'],
-        requirement: course['requirement'],
-        benefit: course['benefit'],
-        audience: course['audience'],
-        level: course['level'],
-      ) if c.blank?
-
-      c.name = course['name'] unless course['name'].blank?
-      c.alias_name = course['alias_name'] unless course['alias_name'].blank?
-      c.price = course['price'] unless course['price'].blank?
-      c.image = course['image'] unless course['image'].blank?
-      c.intro_link = course['intro_link'] unless course['intro_link'].blank?
-      c.intro_image = course['intro_image'] unless course['intro_image'].blank?
-      c.enabled_logo = course['enabled_logo']
-      c.enabled = course['enabled'] unless course['enabled'].blank?
-      c.description = course['description'] unless course['description'].blank?
-      c.requirement = course['requirement'] unless course['requirement'].blank?
-      c.benefit = course['benefit'] unless course['benefit'].blank?
-      c.audience = course['audience'] unless course['audience'].blank?
-      c.sub_title = course['sub_title'] unless course['sub_title'].blank?
-      c.level = course['level'] unless course['level'].blank?
-      c.category_ids = course['category_ids'] unless course['category_ids'].blank?
-      c.label_ids = course['label_ids']
-      c.labels_order = course['labels_order']
-      c.lang = course['lang'] unless course['lang'].blank?
-      c.intro_link = c.intro_link == 'empty' ? '' : c.intro_link
-      c.intro_image = c.intro_image == 'empty' ? '' : c.intro_image
-      c.related = course['related'] == nil ? [] : course['related'].map{|r| r['id']}
-
-      if !course['curriculums'].blank?
-
-        lectures_old = []
-        lectures_new = []
-
-        lectures_old = c.curriculums.where(type: 'lecture').map { |cu|
-          [cu.url, cu.lecture_index]
-        }
-
-        c.curriculums = []
-        lecture_index = 0
-        course['curriculums'].each do |curriculum|
-          course_curriculum = Course::Curriculum.new()
-          course_curriculum.title = curriculum['title']
-          course_curriculum.description = curriculum['description']
-          course_curriculum.chapter_index = curriculum['chapter_index']
-          course_curriculum.lecture_index = lecture_index
-          course_curriculum.type = curriculum['type']
-          course_curriculum.asset_type = curriculum['asset_type']
-          course_curriculum.url = curriculum['url']
-          course_curriculum.asset_type = "Text" if !Constants.CurriculumAssetTypesValues.include?(curriculum['asset_type'])
-          if !curriculum['documents'].blank?
-            curriculum['documents'].each do |d|
-              doc = Course::Document.new(
-                :title => d['title'],
-                :link => d['link'],
-                :type => d['type']
-              )
-              course_curriculum.documents.push(doc)
-            end
-          end
-          c.curriculums.push(course_curriculum)
-          if curriculum['type'] == 'lecture'
-            lecture_index += 1
-          end
-        end
-
-        lectures_new = c.curriculums.where(type: 'lecture').map { |cu|
-          [cu.url, cu.lecture_index]
-        }
-
-        diff_lectures = diff(lectures_old, lectures_new)
-
-        if diff_lectures != []
-          users = User.where('courses.course_id' => c.id)
-          users.each do |user|
-            CourseWorker.perform_async(diff_lectures, c.id.to_s, user.id.to_s)
-          end
-        end
-
-      else
-        render json: {message: "Không được bỏ trống curriculum"}, status: :unprocessable_entity
-        return
-      end
-      c.user = user
-
-      if c.save
-        render json: c.as_json
-        return
-      else
-        render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
-        return
-      end
-    rescue Exception => e
-      render json: {message: e.message}, status: :unprocessable_entity
-    end
-
-  end
-
-  # POST: API approve course
-  def approve
-    course_id = params["id"]
-
-    course = Course.where(id: course_id).first
-
-    if course.blank?
-      render json: {message: "Course id Không chính xác!"}, status: :unprocessable_entity
-      return
-    end
-
-    course.enabled = true
-    course.version = "public"
-
-    if course.save
-      render json: {message: "Success!"}
-      return
-    else
-      render json: {message: "Lỗi không lưu được dữ liệu!"}, status: :unprocessable_entity
-      return
-    end
-  end
-
-  # POST: API unpublish course
-  def unpublish
-    course_id = params["id"]
-
-    course = Course.where(id: course_id).first
-
-    if course.blank?
-      render json: {message: "Course id Không chính xác!"}, status: :unprocessable_entity
-      return
-    end
-
-    course.enabled = false
-    course.version = "test"
-
-    if course.save
-      render json: {message: "Success!"}
-      return
-    else
-      render json: {message: "Lỗi không lưu được dữ liệu!"}, status: :unprocessable_entity
-      return
-    end
-  end
-
   #POST: API UPLOAD Image
-
   def upload_image
     begin
 
@@ -933,7 +763,6 @@ class CoursesController < ApplicationController
   end
 
   # API UPLOAD DOCUMENTS FOR KELLEY
-
   def upload_document
     begin
       file = params[:file]
@@ -950,28 +779,6 @@ class CoursesController < ApplicationController
       return
     rescue Exception => e
       render json: {:error => "Có lỗi xảy ra #{e.message}"}
-    end
-  end
-
-  def check_alias_name
-    alias_name = params['alias_name']
-    course_id = params['course_id']
-
-    if alias_name.blank?
-      render json: {message: "Chưa truyền alias_name"}, status: :unprocessable_entity
-      return
-    end
-
-    if course_id.blank?
-      course = Course.where(alias_name: alias_name).count
-      render json: {num_courses: course}
-      return
-    else
-      course = Course.where(
-        :alias_name => alias_name,
-        :id.ne => course_id.to_s).count
-      render json: {num_courses: course}
-      return
     end
   end
 
@@ -1080,19 +887,4 @@ class CoursesController < ApplicationController
 
     head :ok
   end
-
-  private
-    def diff(lectures_old, lectures_new)
-      old_lectures_hash = lectures_old.to_h
-      new_lecture_hash = lectures_new.to_h
-
-      lectures_diff = old_lectures_hash.keys & new_lecture_hash.keys
-      lectures_index_old = lectures_diff.map{ |diff| old_lectures_hash[diff]}
-      lectures_index_new = lectures_diff.map{ |diff| new_lecture_hash[diff]}
-
-      if lectures_new.length == lectures_old.length && lectures_index_old == lectures_index_new
-        return []
-      end
-      return lectures_index_old.zip(lectures_index_new)
-    end
 end
