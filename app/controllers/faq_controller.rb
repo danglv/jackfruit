@@ -7,7 +7,7 @@ class FaqController < ApplicationController
   end
 
   def error_report
-    send_to = ['hieubt@topica.edu.vn', 'quangnk@topica.edu.vn', 'hailn@topica.edu.vn']
+    send_to = ['hieubt@topica.edu.vn', 'quangnk@topica.edu.vn', 'hailn@topica.edu.vn', 'trungnt5@topica.edu.vn']
     subject = params[:subject]
     content = params[:content]
     if current_user
