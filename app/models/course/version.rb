@@ -14,7 +14,7 @@ class Course::Version
   field :image, type: String, default: "course-image.png"
   field :intro_link, type: String, default: ""
   field :intro_image, type: String, default: "course-image-intro.png"
-  field :version, type: String
+  field :version, type: String, default: Constants::CourseVersions::TEST
 
   field :rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0

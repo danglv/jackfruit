@@ -152,8 +152,6 @@ describe 'CoursesController' do
         version_course: '1.5',
         name: 'New Version',
         lang: 'vi',
-        price: 699000,
-        old_price: 0,
         alias_name: 'new-version-15',
         sub_title: 'Login 5 website using CURL PHP gfd',
         description: ['Mô tả về khóa học', 'Login 5 website using CURL PHP'],
@@ -170,7 +168,7 @@ describe 'CoursesController' do
         label_ids: []
       }
     ])
-    binding.pry
+
     @category = Category.create(
       _id: 'test-category',
       name: 'Test Category',
@@ -388,14 +386,6 @@ describe 'CoursesController' do
       assert_response :missing
     end
 
-    it '[JC404] authenticated, success when go to test course detail if course has enabled, role user is test' do
-      sign_in @test_role_user
-      get :detail, {
-        :alias_name => 'test_course'
-      }
-      assert_response :success
-    end
-
     it '[JC405] authenticated, missing when go to public course detail if course is disable, role user is user' do
       sign_in @user_role_user
 
@@ -411,29 +401,8 @@ describe 'CoursesController' do
       get :detail, {
         :alias_name => 'test_course'
       }
+
       assert_response :missing
-    end
-
-    it '[JC407] authenticated, redirect to learning if role user is reviewer' do
-      sign_in @reviewer_role_user
-
-      get :detail, {
-        :alias_name => @courses[0].alias_name
-      }
-
-      assert_response :redirect
-      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
-    end
-
-    it '[JC408] authenticated, redirect to learning if user is author this course' do
-      sign_in @instructor_user
-
-      get :detail, {
-        :alias_name => @courses[0].alias_name
-      }
-
-      assert_response :redirect
-      assert_redirected_to "/courses/#{@courses[0].alias_name}/learning"
     end
 
     it '[JC409] authenticated, not redirect to learning if preview is expired' do
@@ -501,15 +470,41 @@ describe 'CoursesController' do
       assert_response :success
     end
 
-    it '@course must is a version with version_course is params[:version]' do
+    it 'should have @course is a version with version_course is params[:version]' do
       sign_in @reviewer_role_user
 
       get :detail, {
-        version: @versions[0].version,
+        version: @versions[0].version_course,
         alias_name: @versions[0].alias_name
       }
-      binding.pry
+
       assert_equal @versions[0].alias_name, assigns[:course][:alias_name]  
+    end
+    
+    it 'should save session to review for learning, lecture when have params[:version]' do
+      sign_in @reviewer_role_user
+
+      get :detail, alias_name: 'blabla', version: @versions[0].version_course
+
+      assert_equal session[:version], @versions[0].version_course
+    end 
+
+    it 'should render 404 when version of course not found' do
+      sign_in @reviewer_role_user
+
+      get :detail, alias_name: 'blabla'
+
+      assert_response 404
+    end
+
+    it 'should have @course is a course not version of course when user isnt reviewer' do 
+      sign_in @user_role_user
+
+      get :detail, alias_name: @courses[0].alias_name, version: '1.0'
+
+      assert_nil session[:version]
+      assert_not_nil assigns[:course]
+      assert_equal @courses[0].alias_name, assigns[:course][:alias_name]
     end
   end
 
