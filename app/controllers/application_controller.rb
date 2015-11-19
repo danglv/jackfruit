@@ -147,12 +147,13 @@ class ApplicationController < ActionController::Base
   def validate_course
     alias_name = params[:alias_name]
 
-    if !current_user.blank? && ( current_user.role != "user" )
+    if !current_user.blank? && current_user.role == 'reviewer'
       session[:version] = params[:version] if !params[:version].blank?
       session[:version].blank? ? version = '1.0' : version = session[:version]
       
       condition = {alias_name: alias_name, version_course: version}
       @course = Course::Version.where(condition).desc("created_at").first
+      @course = Course.where(alias_name: alias_name).first if @course.blank?
     else
       condition = {alias_name: alias_name, version: Constants::CourseVersions::PUBLIC, enabled: true}
       @course = Course.where(condition).first
