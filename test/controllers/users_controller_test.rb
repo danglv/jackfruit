@@ -65,12 +65,20 @@ describe 'UsersController' do
     instructor_profile = User::InstructorProfile.create(
       user: @user
     )
+
+    @certificate = Certificate.create(
+      no: 'PC-ksOBJu',
+      url: '',
+      user_id: @student_user.id,
+      course_id: @course.id
+    )
   end
 
   after :each do
     User.delete_all
     Course.delete_all
     Payment.delete_all
+    Certificate.delete_all
   end
 
   describe 'GET #index' do
@@ -521,6 +529,55 @@ describe 'UsersController' do
       assert_equal 'learning', owned_course.type
       assert_equal 'pending', owned_course.payment_status
       assert_equal owned_course.lectures.count, lecture_curriculums_count
+    end
+  end
+
+  describe 'POST #create_certificate' do
+    it 'Should message when param course_id blank' do
+      post :create_certificate, {
+        :course_id => '',
+        :user_id => @user.id
+      }
+
+      assert_response :unprocessable_entity
+      assert_equal 'course_id không được bỏ trống', JSON.parse(response.body)['error']
+    end
+
+    it 'Should message when param user_id blank' do
+      post :create_certificate, {
+        :course_id => @course.id,
+        :user_id => ''
+      }
+
+      assert_response :unprocessable_entity
+      assert_equal 'user_id không được bỏ trống', JSON.parse(response.body)['error']
+    end
+
+    it 'Should message when have certificate old' do
+      post :create_certificate, {
+        :course_id => @course.id,
+        :user_id => @student_user.id
+      }
+
+      assert_equal 'Đã tồn tại certificate', JSON.parse(response.body)['message']
+    end
+
+    it 'Should message when created certificate' do
+      post :create_certificate, {
+        :course_id => @course.id,
+        :user_id => @user.id
+      }
+
+      assert_equal 'success', JSON.parse(response.body)['message']
+    end
+  end
+
+  describe 'GET #certificate' do
+    it 'Should message error when param certificate_no blank' do
+      get :certificate, :certificate_no => "valid certificate_no"
+
+      assert_response :unprocessable_entity
+      assert_equal 'Không tồn tại certificate', JSON.parse(response.body)['error']
     end
   end
 end

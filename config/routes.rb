@@ -131,6 +131,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :certificate, only: %w[] do
+    collection do
+      get ':certificate_no', to: 'users#certificate'
+      post 'create_certificate', to: 'users#create_certificate'
+    end
+  end
+
   resources :sales do
     collection do
       get '/combo/:combo_code/detail', to: 'sales#detail'

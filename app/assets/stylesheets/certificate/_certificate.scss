@@ -1,0 +1,167 @@
+.certificate {
+  height: auto;
+  padding: 15px;
+  background-color: #fff;
+  text-align: center;
+  img {
+    margin: auto;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  }
+  .user-name {
+    position: absolute;
+    top: 115px;
+    width: 98%;
+    h5 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+  .course-name {
+    position: absolute;
+    top: 208px;
+    width: 98%;
+    .text {
+      max-width: 400px;
+      margin: auto;
+      h5 {
+        font-size: 26px;
+        color: #717171;
+      }
+    }
+  }
+  .created_at {
+    width: 100px;
+    position: absolute;
+    top: 388px;
+    left: 290px;
+    h5 {
+      font-size: 16px;
+      color: #929396;
+    }
+  }
+  .author-name {
+    width: 150px;
+    position: absolute;
+    top: 388px;
+    left: 487px;
+    h5 {
+      font-size: 16px;
+      color: #929396;
+    }
+  }
+  .author-sign {
+    width: 150px;
+    position: absolute;
+    top: 410px;
+    left: 490px;
+    h5 {
+      font-size: 16px;
+      color: #929396;
+    }
+  }
+}
+.certificate-action {
+  padding: 20px 0 20px 15px;
+  .download, .share {
+    color: #212121;
+    margin-right: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    i {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    &:hover {
+      color: #338abc;
+      text-decoration: none;
+    }
+  }
+  .user-text {
+    margin: 20px 0;
+    h5 {
+      font-size: 18px;
+      color: #727272;
+    }
+  }
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    margin-right: 15px;
+    img {
+      border-radius: 50%;
+      width: 100%;
+    }
+  }
+  .user-info {
+    display: inline-block;
+    .user-name {
+      h5 {
+        font-size: 16px;
+        color: #212121;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+    .user-description {
+      h5 {
+        font-size: 16px;
+        color: #727272;
+        margin: 0;
+      }
+    }
+  }
+  .course-info-text {
+    margin: 30px 0 10px 0;
+    h5 {
+      font-size: 18px;
+      color: #727272;
+    }
+  }
+  .link-course {
+    text-decoration: none;
+    color: #335d82;
+    &:hover {
+      color: #338abc;
+    }
+    .course-thumbnail {
+      width: 270px;
+    }
+    .course-name {
+      max-height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 24px;
+      -webkit-line-clamp: 2;
+      margin: 15px 0;
+    }
+    .course-description {
+      max-height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      -webkit-line-clamp: 2;
+      margin: 15px 0;
+    }
+    .course-price {
+      font-size: 20px;
+      color: #38b34a;
+      font-weight: bold;
+    }
+  }
+}
+.certificate-info {
+  background-color: #fff;
+  padding: 20px;
+  height: auto;
+  h5 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
