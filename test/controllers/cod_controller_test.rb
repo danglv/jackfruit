@@ -96,6 +96,7 @@ describe 'CodController' do
     Payment.delete_all
     Course.delete_all
     User.delete_all
+    Contactc3.delete_all
   end
 
   it 'should get activate' do
@@ -240,4 +241,18 @@ describe 'CodController' do
     assert_response :success
     assert_match 'Có lỗi với đơn hàng của bạn', response.body
   end
+
+  it 'should create contact c3 crosssale native when user ok' do 
+    patch :activate, cod_code: @payment.cod_code, is_subscribe_native: 'true'
+
+    contactc3 = Contactc3.where(type: "c3_crosssell_native_l8").first
+    assert_not_nil contactc3
+  end
+
+  it 'should not create c3 crosssale native when user dont check' do 
+    patch :activate, cod_code: @payment.cod_code
+
+    contactc3 = Contactc3.where(type: "c3_crosssell_native_l8").first
+    assert_nil contactc3
+  end 
 end
