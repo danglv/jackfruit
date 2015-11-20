@@ -20,7 +20,7 @@ class Course
   field :enabled_logo, type: Boolean, default: true
   field :enabled, type: Boolean, default: false
   field :level, type: String, default: "all"
-  
+
   field :rating, type: Float, default: 0
   field :num_rate, type: Integer, default: 0
   field :students, type: Integer, default: 0
@@ -51,6 +51,8 @@ class Course
   has_and_belongs_to_many :labels, class_name: "Label"
   has_many :versions, class_name: 'Course::Version'
 
+  has_many :certificates, class_name: "Certificate"
+
   index({ name: 1, created_at: 1 })
 
   validates_presence_of :name
@@ -64,10 +66,10 @@ class Course
     name = self.name
     alias_name = self.alias_name
     desc = self.description.join(".")
-    user_name = self.user.name    
+    user_name = self.user.name
     teacher_profile_obj = self.user.instructor_profile
     teacher_profile_str = ""
-    
+
     if teacher_profile_obj
       teacher_profile_str += teacher_profile_obj.academic_rank +
         teacher_profile_obj.major + teacher_profile_obj.function +
@@ -83,8 +85,8 @@ class Course
   def process_rate
     rates = self.reviews.map(&:rate)
     self.num_rate = rates.count
-    
-    self.rating = if rates.count == 0 
+
+    self.rating = if rates.count == 0
       0
     else
       rates.sum / rates.count

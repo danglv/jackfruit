@@ -179,12 +179,12 @@ class UsersController < ApplicationController
         @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
       end
     end
-    
+
     # Create owned_course.
     owned_course = user.courses.where(course_id: course.id).first
     if owned_course.blank?
       owned_course = user.courses.new(
-        course_id: course.id, 
+        course_id: course.id,
         created_at: Time.now()
       )
       UserGetCourseLog.create(course_id: course.id, user_id: user.id, created_at: Time.now())
@@ -821,6 +821,60 @@ class UsersController < ApplicationController
     render json: {:course_ids => course_ids}
   end
 
+  # Create certificate
+  def create_certificate
+    course_id = params[:course_id]
+    user_id = params[:user_id]
+
+    # Validate params not blank
+    ['course_id', 'user_id'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {error: "#{param} không được bỏ trống"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    certificate = Certificate.where(:user_id => user_id, :course_id => course_id).first
+
+    if !certificate.blank?
+      render json: {message: 'Đã tồn tại certificate', data: certificate.no}
+      return
+    end
+
+    certificate_no = generate_certificate_no
+
+    certificate = Certificate.new(
+      no: certificate_no,
+      url: '',
+      user_id: user_id,
+      course_id: course_id
+    )
+
+    certificate.save
+
+    if !certificate.save
+      render json: {error: 'Không tạo được certificate'}, status: :unprocessable_entity
+      return
+    end
+    render json: {message: 'success', data: certificate_no}
+  end
+
+  # Get certificate
+  def certificate
+    certificate_no = params[:certificate_no]
+
+    @certificate = Certificate.where(:no => certificate_no).first
+
+    if @certificate.blank?
+      render json: {error: 'Không tồn tại certificate'}, status: :unprocessable_entity
+      return
+    end
+
+    @user = User.where(:id => @certificate.user_id).first
+    @course = Course.where(:id => @certificate.course_id).first
+    @author = User.where(:id => @course.user_id).first
+  end
+
   private
     def find_or_initialize_owned_course_for_user(user, course)
       owned_course = user.courses.where(course_id: course.id).first
@@ -921,5 +975,11 @@ class UsersController < ApplicationController
         url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
       end
       return url
+    end
+
+    def generate_certificate_no()
+      certificate_no = "%06d" % (Certificate.count + 1)
+
+      return 'PC-' + certificate_no
     end
 end

@@ -1,5 +1,6 @@
 = render :partial => "components/header/default"
 %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+%input.user_id{:type => "hidden", :value => "#{@current_user._id}"}
 .container-wrapper{:style => "overflow: hidden;"}
   .banner
     = render :partial => "components/banner/banner"
@@ -59,13 +60,19 @@
                   %li.progress-title-item trên
                   %li.progress-title-item.bold #{@count}
                   %li.progress-title-item bài giảng
-                %i.fa.fa-trophy
+                - if (((@index.to_f / @count.to_f)*100) == 100)
+                  %a.get-certificate{:style => "cursor: pointer"}
+                    %i.fa.fa-trophy.finished
+                - else
+                  %i.fa.fa-trophy
             .row.no-margin.progress-container
               .progress
                 .progress-bar{:style => "width: "+((@index.to_f / @count.to_f)*100).to_s+"%"}
               .progress-finish
-                .finish
-
+                - if (((@index.to_f / @count.to_f)*100) == 100)
+                  .finish.finished
+                - else
+                  .finish
           .row.no-margin.list-lecture-container
             - begin
               - @owned_lectures = @owned_course.lectures
