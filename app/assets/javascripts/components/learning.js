@@ -255,8 +255,6 @@ $(document).ready(function () {
       'course_id': course_id
     };
 
-    console.log(params);
-
     var URL = '//' + window.location.host + '/courses/' + course_id + '/add_announcement';
 
     $.ajax({
@@ -302,4 +300,24 @@ $(document).ready(function () {
 
   });
 
+  $(".get-certificate").click(function () {
+    course_id = $(".course_id").val();
+    user_id = $(".user_id").val();
+
+    params = {
+      'course_id': course_id,
+      'user_id': user_id
+    };
+
+    var URL = '//' + window.location.host + '/certificate/create_certificate';
+
+    $.ajax({
+      type: 'POST',
+      url: URL,
+      data: params,
+      success: function (response) {
+        window.location = "/certificate/" + response.data
+      }
+    });
+  });
 })

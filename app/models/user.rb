@@ -4,7 +4,7 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, 
+         :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable,
          # :confirmable,
          :omniauth_providers => [:google_oauth2, :facebook]
@@ -47,7 +47,7 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
-  
+
   # Profile
   # Basic
   field :role, type: String, default: "user"
@@ -65,7 +65,7 @@ class User
   # Language
   field :lang,type: String, default: "vi"
 
-  # Links 
+  # Links
   field :links, type: Hash, default: {
     website: "",
     google: "",
@@ -86,7 +86,7 @@ class User
   # Thông tin doanh thu và tài khoản còn lại của thầy
   field :total_revenue, type: Integer, default: 0
   field :balance, type: Integer, default: 0
-  
+
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
   validates_numericality_of :money, greater_than_or_equal: 0
@@ -97,7 +97,9 @@ class User
   embeds_many :courses, class_name: "User::Course"
   accepts_nested_attributes_for :courses
   accepts_nested_attributes_for :instructor_profile
-  
+
+  has_many :certificates, class_name: "Certificate"
+
   has_and_belongs_to_many :labels, class_name: "Label"
 
   index({created_at: 1})
@@ -107,9 +109,9 @@ class User
 
   def destroy_all_related_data
     UserGetCourseLog.where(user_id: self.id).destroy_all
-    
+
     Payment.where(user_id: self.id).destroy_all
-    
+
     LevelLog.where(user_id: self.id).destroy_all
   end
 
@@ -191,7 +193,7 @@ class User
 
   def self.current
     Thread.current[:user]
-  end      
+  end
 
   def self.current=(user)
     Thread.current[:user] = user

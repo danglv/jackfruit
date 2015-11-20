@@ -127,7 +127,6 @@
             float: left;
             width: 100%;
             margin-top: 10px;
-
             &-content {
               list-style: none;
               padding: 0px;
@@ -137,6 +136,11 @@
             &-content, &-item {
               float: left;
               margin-right: 4px;
+            }
+            i {
+              &.fa.fa-trophy.finished {
+                color: #38b34a;
+              }
             }
           }
         }
@@ -163,6 +167,9 @@
               height: 100%;
               float: right;
               background-color: #b6b6b6;
+              &.finished {
+                background-color: #38b34a;
+              }
             }
           }
         }

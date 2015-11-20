@@ -1,6 +1,6 @@
 / Header
 = render :partial => 'components/header/default'
-/ - Detail 
+/ - Detail
 
 / + Banner
 .container-wrapper{:style => "overflow: hidden;"}
@@ -36,11 +36,11 @@
   /       .tele-sales-content.success
   /         %h5 Bạn đã gửi thông tin thành công. Pedia sẽ liên hệ với bạn trong thời gian sớm nhất. Cảm ơn sự quan tâm của bạn.
   /       .tele-sales-bottom
-  /         %span Hotline: 
+  /         %span Hotline:
   /         = succeed "" do
   /           %b 0961215368
 
-  / + Report modal 
+  / + Report modal
   #complete-dialog.modal.fade{:tabindex => "-1"}
     .modal-dialog
       .modal-content
@@ -73,14 +73,14 @@
           - if @course.price == 0
             %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
               Bắt đầu học ngay
-          - else 
+          - else
             %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course),:style => 'padding:5px 15px'}
               Mua khóa học
         %li
           - if @course.price == 0
             %h3.course-price-text.free{:style => "margin-top: 15px;"} Miễn phí
           - else
-            %h3.course-price-text.no-margin.bold{:style => 'margin: 0; padding-top: 15px;color:red'}= number_to_currency(@sale_info[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+            %h3.course-price-text.no-margin.bold{:style => 'margin: 0; padding-top: 15px;color:red'}= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
   / + Detail content
   .detail
     .detail-top
@@ -107,7 +107,7 @@
             .course-rating-people= @course.fake_num_rate.to_s + ' đánh giá, ' + @course.fake_students.to_s + ' người tham gia'
         .course-author
           - if @course.user
-            Giảng dạy bởi 
+            Giảng dạy bởi
             %a.link-text.normal-text= @course.user.name
           - else
             %a.link-text.normal-text{:href => "#"} Pedia
@@ -119,7 +119,7 @@
                   - @indexStart = @course.intro_link.index('v=') + 2
                   - if @course.intro_link['&']
                     - @indexEnd = @course.intro_link.index('&')-1
-                    - @youtube_id = @course.intro_link[@indexStart..@indexEnd] 
+                    - @youtube_id = @course.intro_link[@indexStart..@indexEnd]
                   - else
                     - @indexEnd = @course.intro_link.length
                     - @youtube_id =  @course.intro_link[@indexStart..@indexEnd]
@@ -201,10 +201,10 @@
                         .report
                           %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
                             %h5.normal-text.link-text Báo lỗi
-                      .cod-notice 
+                      .cod-notice
                         .notice-text Khóa học này đang chờ thanh toán, bạn sẽ nhận được thông báo học ngay khi giao dịch thành công. Nếu bạn đã nhận được mã COD, vui lòng bấm kích hoạt
                       / .cod-cancel
-                      /   .cancel-text 
+                      /   .cancel-text
                       /     %i Nếu bạn muốn sử dụng hình thức thanh toán khác, hãy
                       /     = succeed "" do
                       /       %b Hủy giao dịch COD
@@ -220,7 +220,7 @@
                       .purchase-submit
                         %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Bắt đầu học ngay
-                    - else 
+                    - else
                       .purchase-submit
                         %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                           Mua khóa học
@@ -249,7 +249,7 @@
                     .purchase-submit
                       %a.btn.btn-info.btn-raised.btn-lg.learning-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Bắt đầu học ngay
-                  - else 
+                  - else
                     .purchase-submit
                       %a.btn.btn-info.btn-raised.btn-lg.buy-button{:href => help_build_buying_course_url(@sale_info, @course)}
                         Mua khóa học
@@ -269,7 +269,7 @@
                         %h5.normal-text.link-text Học thử miễn phí
                     .report
                       %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer"}
-                        %h5.normal-text.link-text Báo lỗi       
+                        %h5.normal-text.link-text Báo lỗi
             .course-detail-bottom-right
               .course-info
                 .course-info-left
@@ -292,7 +292,7 @@
                           - type = curi.description.split(":").length
                           - if type == 3
                             - time = time + curi.description.to_time.min
-                          - elsif type == 2 
+                          - elsif type == 2
                             - time = time + curi.description.to_i
                       - if time > 60
                         = (time/60).to_s + 'h' + (time%60).to_s + "p"
@@ -301,26 +301,26 @@
                     - rescue
                       = '1h'
                   %h5.bold{:style => 'text-transform: capitalize'}= Course::Localization::LEVELS[@course.level.to_sym][I18n.default_locale]
-                  %h5.bold 
+                  %h5.bold
                     = Course::Localization::LANGUAGE[@course.lang.to_sym][I18n.default_locale]
               .course-wishlist
                 - if !current_user.blank?
                   - if current_user.wishlist.include?(@course._id.to_s)
-                    %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted 
+                    %a.btn.btn-raised.btn-lg.wishlist-button.wishlisted
                       %i.fa.fa-heart
                       %span Quan tâm
                   - else
-                    %a.btn.btn-raised.btn-lg.wishlist-button 
+                    %a.btn.btn-raised.btn-lg.wishlist-button
                       %i.fa.fa-heart
                       %span Quan tâm
                 - else
-                  %a.btn.btn-raised.btn-lg.wishlist-button 
+                  %a.btn.btn-raised.btn-lg.wishlist-button
                     %i.fa.fa-heart
                     %span Quan tâm
     .detail-bottom
       .bottom-left
         #description
-          .description-title Mô tả về khóa học  
+          .description-title Mô tả về khóa học
           .description-content
             = render 'detail_description', method: 'detail'
         #curiculums
@@ -358,7 +358,7 @@
                                 %b= arr.join(":")
                               - else
                                 %b= curi.description
-                            - else 
+                            - else
                               %b= curi.description
         #author
           .author-title Tiểu sử tác giả
@@ -375,7 +375,7 @@
                   - if @course.user.instructor_profile
                     %span= @course.user.instructor_profile.academic_rank
                   %a.link-text{:href => "#!"}= @course.user.name
-                - else 
+                - else
                   %a.link-text{:href => "#!"} Pedia
               - if !@course.user.instructor_profile.function.blank?
                 .row.no-margin
@@ -393,7 +393,7 @@
           .author-information
             - if @course.user.instructor_profile.description.count > 0
               - @course.user.instructor_profile.description.each do |i|
-                %h5.information-text= i  
+                %h5.information-text= i
         #rating
           .rating-title Đánh giá
           - if !@course.fake_enabled
@@ -415,9 +415,9 @@
                   - else
                     %i.fa.fa-star
             - if !@course.fake_enabled
-              .rating-people= @course.reviews.count.to_s + ' đánh giá' 
+              .rating-people= @course.reviews.count.to_s + ' đánh giá'
             - else
-              .rating-people= @course.fake_num_rate.to_s + ' đánh giá' 
+              .rating-people= @course.fake_num_rate.to_s + ' đánh giá'
           - unless @course.fake_enabled == true
             .rating-detail
             %h5.normal-text Chi tiết
@@ -444,23 +444,23 @@
                   - else
                     = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
                 - else
-                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%" 
+                  = image_tag 'default-avatar.png', :style => "width: 70px; border-radius: 50%"
               .content
                 .user-name= "#{user.name}"
                 .time-review= relative_time
                 .course-rating-point
                   - (1..5).each do |i|
                     - if i <= @course.average_rating
-                      %i.fa.fa-star.is-rated 
+                      %i.fa.fa-star.is-rated
                     - else
                       %i.fa.fa-star
                 .review
                   .review-title= "#{review.title}"
                   .review-description= "#{review.description}"
-        / .view-all{:style => 'padding-left:10px;margin-top:10px;'} 
-        /   %a.bold{:href => "#",:style => 'color:#337ab7'} Xem thêm các bình luận khác 
+        / .view-all{:style => 'padding-left:10px;margin-top:10px;'}
+        /   %a.bold{:href => "#",:style => 'color:#337ab7'} Xem thêm các bình luận khác
       .bottom-right
-        - if @courses['related'].last.count > 0    
+        - if @courses['related'].last.count > 0
           .row.no-margin
             .col-md-12.no-padding
               .related-title
