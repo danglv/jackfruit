@@ -61,13 +61,15 @@ class CodController < ApplicationController
       payment.save
 
       # create c3_crosssell_native
-      data = payment.as_json(only: [:mobile, :email])
-      data['name'] = payment.user.name
-      data['type'] = 'c3_crosssell_native_l8'
-      data['course_name'] = 'Topica Native'
-      data['course_id'] = 'crosssellnative'
+      if !params[:is_subscribe_native].blank? && params[:is_subscribe_native] == 'true'
+        data = payment.as_json(only: [:mobile, :email])
+        data['name'] = payment.user.name
+        data['type'] = 'c3_crosssell_native_l8'
+        data['course_name'] = 'Topica Native'
+        data['course_id'] = 'crosssellnative'
 
-      Contactc3.create(data)
+        Contactc3.create(data)
+      end
 
       # sign in user
       sign_in :user, @user
