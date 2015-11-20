@@ -36,7 +36,6 @@
 //= require components/validation
 //= require components/jwplayer_controller
 //= require components/forgot_password
-//= require components/certificate
 
 $(document).ready(function () {
   $.material.init();
