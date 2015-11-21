@@ -9,7 +9,13 @@ module CodServices extend ActiveSupport::Concern
       data = JSON.parse(response)
       case result.code
       when "200"
-        return true, data
+        used_code_count = Payment.where(cod_code: data['cod']).count
+
+        unless used_code_count > 0
+          return true, data
+        end
+
+        return false, ''
       else
         return false, data['message']
       end
@@ -24,6 +30,7 @@ module CodServices extend ActiveSupport::Concern
       :course_id => course.id.to_s,
       :name => user.name,
       :email => user.email,
+      :method => Constants::PaymentMethod::NONE,
       :status => Constants::PaymentStatus::SUCCESS,
       :money => cod_data['price'],
       :cod_code => cod_data['cod']

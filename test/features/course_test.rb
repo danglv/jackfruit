@@ -149,4 +149,36 @@ feature 'Course' do
     page.must_have_content('Test Course 1')
     page.must_have_content('VÀO HỌC NGAY')
   end
+
+  scenario 'User actives course by used code' do
+    used_activation_code = 'USED_ACTIVATION_CODE'
+
+    Payment.create!(cod_code: "#{used_activation_code}", course: @courses[0], user: @instructor)
+    
+    stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{used_activation_code}")
+      .to_return(status: 200,
+        body: [
+          '{"_id": "A_code_id"',
+          '"cod": "' + used_activation_code + '"',
+          '"created_at": ' + Time.now().to_json,
+          '"expired_date": ' + (Time.now() + 2.day).to_json,
+          '"course_id": "' + @courses[0].id.to_s + '"',
+          '"used": 0',
+          '"enabled": true',
+          '"issued_by": "hainp"',
+          '"price": 90000}'].join(','),
+        headers: {}
+      )
+    
+    visit '/courses/activate'
+
+    page.must_have_content('Kích hoạt mã khóa học')
+
+    within('.active-course-form') do
+      fill_in('activation_code', with: "#{used_activation_code}")
+      find('.btn-activate').click
+    end
+
+    page.must_have_content('Mã kích hoạt không hợp lệ, vui lòng thử lại')
+  end
 end
