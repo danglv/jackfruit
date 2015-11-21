@@ -57,9 +57,9 @@
               %a.link-course{:href => "/courses/#{@course.alias_name}/detail"}
                 .course-thumbnail
                   - if !@course.intro_image.blank?
-                    %img.img-responsive{:src => @course.intro_image}
+                    %img.img-responsive{:src => "//static.pedia.vn" + @course.intro_image}
                   - else
-                    %img.img-responsive{:src => @course.image}
+                    %img.img-responsive{:src => "//static.pedia.vn" + @course.image}
                 .course-name= @course.name
                 .course-description= @course.description[1]
                 - if @course.price == 0
