@@ -49,7 +49,7 @@ feature 'Course' do
     Payment.delete_all
   end
 
-  scenario 'User should be able to visit activating page and check activation code' do
+  scenario 'User actives course and login' do
     invalid_activate_code = 'AN_INVALID_ACTIVATION_CODE'
     valid_activate_code = 'A_VALID_ACTIVATION_CODE'
     
@@ -96,6 +96,50 @@ feature 'Course' do
 
     within('#login-modal') do
       fill_in('user[email]', with: @student.email)
+      fill_in('user[password]', with: '12345678')
+      find('.btn-login-submit').click
+    end
+
+    page.must_have_content('BẠN ĐÃ KÍCH HOẠT KHÓA HỌC THÀNH CÔNG')
+    page.must_have_content('NDT')
+    page.must_have_content('Test Course 1')
+    page.must_have_content('VÀO HỌC NGAY')
+  end
+
+  scenario 'User actives course and sign up' do
+    valid_activate_code = 'A_VALID_ACTIVATION_CODE'
+    
+    stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{valid_activate_code}")
+      .to_return(status: 200,
+        body: [
+          '{"_id": "A_code_id"',
+          '"cod": "' + valid_activate_code + '"',
+          '"created_at": ' + Time.now().to_json,
+          '"expired_date": ' + (Time.now() + 2.day).to_json,
+          '"course_id": "' + @courses[0].id.to_s + '"',
+          '"used": 0',
+          '"enabled": true',
+          '"issued_by": "hainp"',
+          '"price": 90000}'].join(','),
+        headers: {}
+      )
+    
+    visit '/courses/activate'
+
+    page.must_have_content('Kích hoạt mã khóa học')
+
+    within('.active-course-form') do
+      fill_in('activation_code', with: "#{valid_activate_code}")
+      find('.btn-activate').click
+    end   
+
+    page.must_have_content('Mã kích hoạt hợp lệ, vui lòng')
+
+    find('.btn-register-modal').click
+
+    within('#register-modal') do
+      fill_in('user[name]', with: 'Tester')
+      fill_in('user[email]', with: 'tester@gmail.com')
       fill_in('user[password]', with: '12345678')
       find('.btn-login-submit').click
     end
