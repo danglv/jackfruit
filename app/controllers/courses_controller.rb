@@ -2,10 +2,10 @@ class CoursesController < ApplicationController
   include CoursesHelper
   include CodServices
 
-  layout 'courses', except: [:learning, :lecture, :active]
+  layout 'courses', except: [:learning, :lecture]
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
-  before_filter :authenticate_user!, only: [:learning, :lecture, :select,:add_announcement]
+  before_filter :authenticate_user!, only: [:learning, :lecture, :select, :add_announcement]
   before_filter :validate_course, only: [:detail, :learning, :lecture, :select]
   before_filter :validate_category, only: [:list_course_featured, :list_course_all]
   skip_before_filter :verify_authenticity_token, only: [:upload_course]
@@ -890,13 +890,29 @@ class CoursesController < ApplicationController
   end
 
   # Activate a course by a code
+  # A hack method
   # GET, POST
   def activate
     if request.method == 'POST'
       result = check_activation_code(params['activation_code'])
-
       unless result[0]
         @error = 'Mã kích hoạt không hợp lệ, vui lòng thử lại'
+      else
+        @data = { 'step' => 2 }
+        cookies[:activation_code] = params['activation_code']
+      end
+    elsif request.method == 'GET'
+      if cookies[:activation_code] && user_signed_in?
+        result = check_activation_code(cookies[:activation_code])
+        cod = result[1]
+        res = create_payment(cod, current_user)
+
+        if res
+          @data = { 'step' => 3, 'payment' => res[0], 'course' => res[1], 'author' => res[2] }
+          cookies.delete 'activation_code'
+        else
+          
+        end
       end
     end
   end
