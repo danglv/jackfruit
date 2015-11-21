@@ -2,8 +2,18 @@ require 'test_helper'
 
 feature 'Course' do
   before do
+    stub_request(:get, /tracking.pedia.vn/)
+      .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, /email.pedia.vn/)
+      .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://flow.pedia.vn:8000/notify/message/create")
+      .to_return(:status => 200, :body => '', :headers => {})
+    stub_request(:post, "http://mercury.pedia.vn/api/issue/close")
+      .to_return(:status => 200, :body => '', :headers => {})
+
     @instructor = User.create(
       email: 'nguyendanhtu@pedia.vn',
+      name: 'NDT',
       password: '12345678',
       password_confirmation: '12345678'
     )
@@ -51,7 +61,16 @@ feature 'Course' do
 
     stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{valid_activate_code}")
       .to_return(status: 200,
-        body: '{"message": "Mã cod không tồn tại"}',
+        body: [
+          '{"_id": "A_code_id"',
+          '"cod": "' + valid_activate_code + '"',
+          '"created_at": ' + Time.now().to_json,
+          '"expired_date": ' + (Time.now() + 2.day).to_json,
+          '"course_id": "' + @courses[0].id.to_s + '"',
+          '"used": 0',
+          '"enabled": true',
+          '"issued_by": "hainp"',
+          '"price": 90000}'].join(','),
         headers: {}
       )
     
@@ -72,5 +91,18 @@ feature 'Course' do
     end   
 
     page.must_have_content('Mã kích hoạt hợp lệ, vui lòng')
+
+    find('.btn-login-modal').click
+
+    within('#login-modal') do
+      fill_in('user[email]', with: @student.email)
+      fill_in('user[password]', with: '12345678')
+      find('.btn-login-submit').click
+    end
+
+    page.must_have_content('BẠN ĐÃ KÍCH HOẠT KHÓA HỌC THÀNH CÔNG')
+    page.must_have_content('NDT')
+    page.must_have_content('Test Course 1')
+    page.must_have_content('VÀO HỌC NGAY')
   end
 end
