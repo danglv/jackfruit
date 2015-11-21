@@ -1,6 +1,6 @@
 require 'test_helper'
 
-feature 'Authentication' do
+feature 'Course' do
   before do
     @instructor = User.create(
       email: 'nguyendanhtu@pedia.vn',
@@ -40,10 +40,17 @@ feature 'Authentication' do
   end
 
   scenario 'User should be able to visit activating page and check activation code' do
-    activate_code = 'AN_INVALID_ACTIVATION_CODE'
+    invalid_activate_code = 'AN_INVALID_ACTIVATION_CODE'
+    valid_activate_code = 'A_VALID_ACTIVATION_CODE'
     
-    stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{activate_code}")
+    stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{invalid_activate_code}")
       .to_return(status: 422,
+        body: '{"message": "Mã cod không tồn tại"}',
+        headers: {}
+      )
+
+    stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{valid_activate_code}")
+      .to_return(status: 200,
         body: '{"message": "Mã cod không tồn tại"}',
         headers: {}
       )
@@ -53,10 +60,17 @@ feature 'Authentication' do
     page.must_have_content('Kích hoạt mã khóa học')
 
     within('.active-course-form') do
-      fill_in('activation_code', with: "#{activate_code}")
+      fill_in('activation_code', with: "#{invalid_activate_code}")
       find('.btn-activate').click
     end
 
     page.must_have_content('Mã kích hoạt không hợp lệ, vui lòng thử lại')
+
+    within('.active-course-form') do
+      fill_in('activation_code', with: "#{valid_activate_code}")
+      find('.btn-activate').click
+    end   
+
+    page.must_have_content('Mã kích hoạt hợp lệ, vui lòng')
   end
 end

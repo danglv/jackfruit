@@ -1102,6 +1102,22 @@ describe 'CoursesController' do
       assert_response :success
       assert_equal 'Mã kích hoạt không hợp lệ, vui lòng thử lại', assigns('error')
     end
+
+    it 'should show user no error when activation code is valid' do
+      activate_code = 'A_VALID_ACTIVATION_CODE'
+    
+      stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{activate_code}")
+        .to_return(status: 200,
+          body: '{"message": "Mã cod không tồn tại"}',
+          headers: {}
+        )
+
+      post :activate, activation_code: activate_code
+
+      assert_response :success
+      assert_nil assigns('error')
+      assert_equal 2, assigns('data')['step']
+    end
   end
 end
 
