@@ -1,13 +1,17 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  root to: "application#index"
 
   mount Sidekiq::Web => '/sidekiq'
-  get 'stencil/index'
-
-  root to: "application#index"
   mount RailsAdmin::Engine => '/cms', as: 'rails_admin'
-  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations', sessions: "users/sessions"}
 
+  devise_for :users, :controllers => {
+    omniauth_callbacks: 'omniauth_callbacks',
+    registrations: 'users/registrations',
+    sessions: "users/sessions"
+  }
+
+  get 'stencil/index'
   get '/home', to: redirect('/')
 
   resources :courses, only: %w[index] do
@@ -26,7 +30,10 @@ Rails.application.routes.draw do
       post :approve
       post :unpublish
     end
+    
     collection do
+      get :activate
+      post :activate
       get :search
       get '/:category_alias_name', to: 'courses#list_course_featured'
       get '/:category_alias_name/all_courses', to: 'courses#list_course_all'

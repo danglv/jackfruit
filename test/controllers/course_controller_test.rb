@@ -80,6 +80,7 @@ describe 'CoursesController' do
       course_id: '5613bae6df52b91d11000007',
       course: ''
     }
+    
     @courses = Course.create([
       {
         _id: '5613bae6df52b91d11000007',
@@ -1083,6 +1084,39 @@ describe 'CoursesController' do
       assert_equal @users[0].avatar, res['avatar']
       assert_equal child_announcement.parent_announcement.id, @parent_announcement.id
       assert_equal child_announcement.parent_announcement.course.id, @courses[0].id
+    end
+  end
+
+  describe 'POST #activate' do
+    it 'should show user an error when activation code is invalid' do
+      activate_code = 'AN_INVALID_ACTIVATION_CODE'
+    
+      stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{activate_code}")
+        .to_return(status: 422,
+          body: '{"message": "Mã cod không tồn tại"}',
+          headers: {}
+        )
+
+      post :activate, activation_code: activate_code
+
+      assert_response :success
+      assert_equal 'Mã kích hoạt không hợp lệ, vui lòng thử lại', assigns('error')
+    end
+
+    it 'should show user no error when activation code is valid' do
+      activate_code = 'A_VALID_ACTIVATION_CODE'
+    
+      stub_request(:get, "http://code.pedia.vn/cod/detail?cod=#{activate_code}")
+        .to_return(status: 200,
+          body: '{"message": "Mã cod không tồn tại"}',
+          headers: {}
+        )
+
+      post :activate, activation_code: activate_code
+
+      assert_response :success
+      assert_nil assigns('error')
+      assert_equal 2, assigns('data')['step']
     end
   end
 end

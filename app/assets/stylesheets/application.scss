@@ -43,8 +43,8 @@ iframe[name='google_conversion_frame'] {
   float: left;
 }
 
-.home .clearfix{
-  @media(max-width: 479px){
+.home .clearfix {
+  @media (max-width: 479px) {
     display: none;
   }
 }
@@ -83,4 +83,5 @@ iframe[name='google_conversion_frame'] {
 @import "courses/search";
 @import "courses/category";
 @import "cod/all";
-@import "certificate/certificate"
+@import "certificate/certificate";
+@import "cod/activation-box";

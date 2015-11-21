@@ -16,16 +16,10 @@ before_filter :configure_sign_in_params, only: [:create]
     yield resource if block_given?
 
     if request.referer && resource
-  		last_component_referer_url = URI(request.referer).path.split('/').last
-  		if last_component_referer_url == "hoc_thu.html"
-				RestClient.post('http://crm.pedia.topica.vn/admin/api/UpLevel/UpLevelAuto',
-          timeout: 2000,
-          email: resource.email
-        )
-        redirect_to "http://tuduylamchu.pedia.vn/hocthu.html"
-        sign_out current_user
+      if request.referer.to_s.include? ('courses/activate')
+        redirect_to '/courses/activate'
         return
-  		end
+      end
   	end
 
     respond_with resource, location: after_sign_in_path_for(resource)
