@@ -1,0 +1,25 @@
+= render :partial => 'cod/header'
+
+.container.activate-cod
+  .box-panel.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+    .row.center.activate-cod-header
+      %h2 Kích hoạt mã khóa học
+    .row
+      %form.active-cod-form.active-course-form{method: 'post', action: '/courses/activate'}
+        .title Nhập mã ở đây
+        .group-input
+          %input#cod_cod.form-control{:type => 'text',:placeholder => 'Mã kích hoạt', :name => 'activation_code'}/
+        = hidden_field_tag :authenticity_token, form_authenticity_token
+        - if @error
+          .alert.alert-warning= @error
+        .row.no-margin.submit-cod.text-center{style: 'float: left; width: 100%;'}
+          %input.btn-activate.btn.btn-primary.btn-lg.bold{:style => 'font-size:16px;', :type => 'submit', :value => 'Kích hoạt'}
+    .row.contact
+      %span
+        Nếu bạn gặp khó khăn trong việc kích hoạt khóa học, vui lòng liên hệ
+        %br
+      %span.hotline
+        Hotline:
+        %b 0968.146.522
+
+= render :partial => 'components/footer/index'
