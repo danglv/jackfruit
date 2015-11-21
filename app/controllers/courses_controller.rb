@@ -1,7 +1,8 @@
 class CoursesController < ApplicationController
   include CoursesHelper
+  include CodServices
 
-  layout 'courses', except: [:learning, :lecture]
+  layout 'courses', except: [:learning, :lecture, :active]
 
   before_filter :validate_content_type_param, :except => [:suggestion_search]
   before_filter :authenticate_user!, only: [:learning, :lecture, :select,:add_announcement]
@@ -886,5 +887,17 @@ class CoursesController < ApplicationController
     end
 
     head :ok
+  end
+
+  # Activate a course by a code
+  # GET, POST
+  def activate
+    if request.method == 'POST'
+      result = check_activation_code(params['activation_code'])
+
+      unless result[0]
+        @error = 'Mã kích hoạt không hợp lệ, vui lòng thử lại'
+      end
+    end
   end
 end
