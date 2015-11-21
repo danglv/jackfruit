@@ -843,9 +843,11 @@ class UsersController < ApplicationController
 
     certificate_no = generate_certificate_no
 
+    url = root_url + 'certificate/' + certificate_no
+
     certificate = Certificate.new(
       no: certificate_no,
-      url: '',
+      url: url,
       user_id: user_id,
       course_id: course_id
     )
