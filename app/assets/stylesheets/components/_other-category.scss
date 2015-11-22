@@ -1,0 +1,13 @@
+.other-category {
+  &-item {
+    
+    color: #338abc;
+    width: 100%;
+    float: left;
+    line-height: 40px;
+  }
+  &-item:hover {
+    color: #00788d;
+    text-decoration: none;
+  }
+}

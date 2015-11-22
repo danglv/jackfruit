@@ -1,64 +1,70 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%main
-  .row.course-list-header
-    .col.s12
-      %h5.course-list-header-title Khóa học của tôi
-  .row.sorting
-    .col.s12
-      %select.sorting-options.left
-        %option{:value => '', :disabled => '', :selected => ''} Tất cả 
-        %option{:value => '1'} Ưa thích
-        %option{:value => '2'} Chưa bắt đầu 
-        %option{:value => '3'} Đang học 
-        %option{:value => '4'} Đã hoàn thành 
-  .row.course-list
-    .col.s12
-      .my-courses.card-style
-        - @courses.each do |course|
-        - owned_course = current_user.courses.where(:course_id => course.id.to_s).first
-        - index = owned_course.lectures.where(lecture_ratio: 100).count
-        - count = course.curriculums.where(type: "lecture").count
-          .col.s3
-            - if owned_course.payment_status == 'pending'
-              %a.course{:href => '/courses/'+course.alias_name+'/detail'}
-                .card-image.course-image
-                  = image_tag course.image
-                .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding.fix-height= course.name
-                  .row.course-author
-                    .col.s12.no-padding= course.user.name
-                  .row.progress.progress-background
-                    .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
-                  .row.course-footer
-                    .col.s5.no-padding.left
-                      %span.progress-color-pending Đang chờ xử lý
-            - else
-              %a.course{:href => '/courses/'+course.alias_name+'/learning'}
-                .card-image.course-image
-                  = image_tag course.image
-                .card-content.course-content
-                  .row.course-title
-                    .col.s12.no-padding.fix-height= course.name
-                  .row.course-author
-                    .col.s12.no-padding= course.user.name
-                  .row.progress.progress-background
-                    .determinate.progress-background-learning{:style => "width: "+((index.to_f / count.to_f)*100).to_s+"%"}
-                  .row.course-footer
-                    .col.s5.no-padding.left
-                    - if index == 0 
-                      %span.progress-color-begin Bắt đầu
-                    - elsif index != count
-                      %span.progress-color-learning= ((index.to_f / count.to_f)*100).ceil.to_s+"%"
-                    - else
-                      %span.progress-color-completed Hoàn thành
-                    .col.s7.course-rating-point.no-padding.right
-                      - (1..5).each do |i|
-                        - if i <= course.average_rating
-                          %i.material-icons.is-rated star_rate
-                        - else
-                          %i.material-icons star_rate
-       
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"} 
+  .banner
+    = render :partial => "components/banner/banner" 
+  %main.myCourse-learning
+    .header-myCourse
+      .container
+        .row
+          .col-lg-6.visible-lg
+            .myCourse-label Khóa học của tôi
+          .col-lg-6.col-md-12.col-sm-12.col-xs-12
+            %ul.nav.nav-tabs.myCourse-tab
+              %li#learning-tab.active
+                %a{:href => "#myCourse-studying","data-toggle" => "tab"} Đang học
+              %li#wishlist-tab
+                %a{:href => "#myCourse-favorite","data-toggle" => "tab"} Danh sách quan tâm
+    .main-myCourse
+      .container
+        // list-course
+        .row.tab-content
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade.active.in#myCourse-studying
+            .list-course
+              .first-course
+                .btn-group
+                  %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
+                    Tất cả
+                    %span.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "javascript:void(0)"} Quan tâm
+                    %li
+                      %a{:href => "javascript:void(0)"} Chưa bắt đầu
+                    %li
+                      %a{:href => "javascript:void(0)"} Đang học
+                    %li
+                      %a{:href => "javascript:void(0)"} Đã hoàn thành
+                    %li
+                      %a{:href => "javascript:void(0)"} Lưu trữ
+                - @courses.each_with_index do |course, index|
+                  - owned_course = @owned_courses[index]
+                  = render :partial => 'components/courses/learning_card', :locals => {:course => course, :owned_course => owned_course}
+              /   - if @owned_courses.count > 0
+              /     = render :partial => 'components/courses/learning_card', :locals => {:course => @courses.first, :owned_course => @owned_courses.first}
+              /     - @courses = @courses - [@courses.first]
+              /     - @owned_courses = @owned_courses - [@owned_courses.first]
+              / - @courses.each_with_index do |course, index|
+              /   - owned_course = @owned_courses[index]
+              /   = render :partial => 'components/courses/learning_card', :locals => {:course => course, :owned_course => owned_course}
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12.tab-pane.fade#myCourse-favorite
+            .list-course
+              .first-course
+                .btn-group
+                  %a.btn.btn-default.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => ""}
+                    Tất cả
+                    %span.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "javascript:void(0)"} Quan tâm
+                    %li
+                      %a{:href => "javascript:void(0)"} Chưa bắt đầu
+                    %li
+                      %a{:href => "javascript:void(0)"} Đang học
+                    %li
+                      %a{:href => "javascript:void(0)"} Đã hoàn thành
+                    %li
+                      %a{:href => "javascript:void(0)"} Lưu trữ
+                - if !@wishlist.blank?
+                  - @wishlist.each do |course|
+                    = render :partial => 'components/courses/course_card',:locals => {:course => course}
+= render :partial => 'components/footer/index'                   

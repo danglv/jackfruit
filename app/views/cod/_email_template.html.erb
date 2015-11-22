@@ -1,0 +1,125 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%= title || 'Pedia - Học online mọi lúc, mọi nơi' %></title>
+  <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300' rel='stylesheet' type='text/css'>
+  <style type="text/css" media="screen">
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    table {
+      border-collapse: collapse;
+      border: 0px;
+    }
+    p{
+      margin: 5px;
+    }
+  </style>
+</head>
+<body style="color: #212121; font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 300; font-size: 16px;" width="600px">
+    <table width="600px" cellspacing="0" cellpadding="0" border="0" style="box-shadow: #BFBDBD 0px 0px 30px;   margin: 0 auto; margin-top: 50px; background: #f4f3f2;">
+      <!-- Hàng 1: Logo -->
+      <tr height="55px" valign="center">
+        <td  style="background-image: url(https://static.pedia.vn/uploads/emails/cod_images/5.png); background-position: top; padding: 0 50px;">
+          <img src="https://static.pedia.vn/uploads/emails/cod_images/9.png" alt="logo">
+        </td>
+      </tr>
+​
+      <!-- Hàng 2: Nội dung -->
+      <tr>
+        <td>
+          <!-- Table con -->
+          <table width="600px" style="border-spacing: 0px;">
+            <tbody style="font-family: roboto; line-height: 22px; text-align: justify; background: #f4f3f2;">
+              <!-- Hàng 2.1: Text -->
+              <tr>
+                <td colspan="2" style="padding: 20px 50px 0px 50px; font-size: 20px; line-height: 26px; color: #333;">
+                  <p style="margin: 0px;"><b>Chúc mừng bạn đã kích hoạt thành công khóa học</b></p>
+                  <p style="padding: 20px 0; margin: 0px;"><b><a href="https://pedia.vn/courses/<%= course_alias %>/learning" style="color: #238bff; text-decoration: none;"><%= course_name %></a></b></p>
+                </td>
+              <tr>
+                <td colspan="2" style="padding: 10px 50px 5px 50px; font-size: 17px;">
+                  <p style="margin: 0px;">Thông tin tài khoản của bạn</p>
+                  <p style="margin: 0px;">- Email: <%= email %></p>
+                  <p style="margin: 0px;">- Password: <%= password %><i><span style="font-size: 14px;"> (Mật khẩu này học viên có thể thay đổi)</span></i></p>
+                </td>
+              </tr>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center; padding: 20px;"><a href="https://pedia.vn/courses/<%= course_alias %>/learning" id="btn-learning" style="padding: 10px 25px;font-weight: bold;color: #fff;background: #38b34a;border-radius: 7px;border: 1px solid; text-decoration: none;">VÀO HỌC NGAY</a></td>
+              </tr>
+              <!-- Hàng 2.2: Hotline & Email -->
+              <tr style="font-size: 14px;">
+                <td colspan="2" style="padding: 15px 50px 0 50px;">
+                  <p style="margin: 0px;">Nếu có thắc mắc cần giải đáp xin liên hệ bộ phận hỗ trợ khách hàng</p>
+                </td>
+              </tr>
+              <tr style="font-size: 14px; font-style: italic;">
+                <td colspan="1" width="50%" style="padding-left: 50px;"><p style="margin: 0px;">Hotline: 04.730.26688</p></td>
+                <td colspan="1" width="50%" style="padding-right: 50px;"><p style="margin: 0px;">Email: <a href="mailto:pedia@topica.edu.vn" style="color: #238bff; text-decoration: none;">pedia@topica.edu.vn</a></p></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding: 25px 50px; padding-bottom: 0px;">
+                  <table style="padding: 25px 0;" cellpadding="0" cellspacing="0" >
+                    <thead style="text-align: center;">
+                      <tr style="background: #38b34a; color: #fff; line-height: 50px; font-size: 20px;">
+                        <th>NHỮNG ĐIỂM ĐẶC BIỆT CỦA PEDIA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <table style="border-spacing: 0px;">
+                            <tbody style="background: #dbdbdb;">
+                              <tr>
+                                <td colspan="1" width="50%" style="text-align: center; padding: 15px 20px; vertical-align: top;">
+                                  <img src="https://static.pedia.vn/uploads/emails/cod_images/1.png" alt="">
+                                  <p style="margin-top: 10px;">Các khóa học độc quyền và duy nhất</p>
+                                </td>
+                                <td colspan="1" width="50%" style="text-align: center; padding: 15px 20px; vertical-align: top;">
+                                  <img src="https://static.pedia.vn/uploads/emails/cod_images/2.png" alt="">
+                                  <p style="margin-top: 10px;">Được giảng dạy bởi những giảng viên hàng đầu</p>
+                                </td>
+                              </tr>
+                                <td colspan="1" width="50%" style="text-align: center; padding: 15px 20px; vertical-align: top;">
+                                  <img src="https://static.pedia.vn/uploads/emails/cod_images/3.png" alt="">
+                                  <p style="margin-top: 10px;">Kiến thức và Kỹ năng thiết yếu cho người đi làm theo phương pháp LIPE</p>
+                                </td>
+                                <td colspan="1" width="50%" style="text-align: center; padding: 15px 20px; vertical-align: top;">
+                                  <img src="https://static.pedia.vn/uploads/emails/cod_images/4.png" alt="">
+                                  <p style="margin-top: 10px;">Học mọi lúc mọi nơi trên mọi thiết bị</p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding: 0 50px 20px 35px; text-align: center;">
+                  <p>LIÊN HỆ VỚI CHÚNG TÔI</p>
+                  <a href="https://www.facebook.com/Pedia.vn/" title="facebook"><img src="https://static.pedia.vn/uploads/emails/cod_images/6.png" alt="facebook" style="padding: 5px;"></a>
+                  <a href="https://pedia.vn/" title="website"><img src="https://static.pedia.vn/uploads/emails/cod_images/7.png" alt="website" style="padding: 5px;"></a>
+                  <a href="http://blog.pedia.vn/" title="blog"><img src="https://static.pedia.vn/uploads/emails/cod_images/8.png" alt="blog" style="padding: 5px;"></a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding: 0 50px 20px 50px; text-align: center; font-size: 12px; color: #a0a09f; line-height: 14px;">
+                  <p style="margin: 0px;">Bạn nhận được thư này từ Pedia.vn</p>
+                  <p style="margin: 0px;">Nếu thư này làm phiền bạn, xin vui lòng tắt thông báo trong phần cài đặt</p>
+                  <p style="margin: 0px;">&copy; 2015 Pedia</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </table>
+</body>
+</html>

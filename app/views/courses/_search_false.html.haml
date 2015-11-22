@@ -1,36 +1,14 @@
-%main.search
-  .row.search-header
-    .row.container-1140.search-false-title
-      .col.s12
-        %h4.white-text Không có kết quả cho từ khóa "#{@keywords}"
-  .row.category-feature-main.container-1140
-    .col.s12
-      -# highest-rating
-      .row.course-list.highest-rating
-      - if (!@courses['featured'].blank?)
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= @courses['featured'].first
-          .row.courses.card-style
-            - @courses["featured"].last.each do |tf|
-              .col.s3
-                = render :partial => 'components/courses/course_card', :locals => {:course => tf}
-      .row.course-list.highest-rating
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= @courses["top_free"].first
-          .row.courses.card-style
-            - @courses["top_free"].last.each do |tf|
-              .col.s3
-                = render :partial => 'components/courses/course_card', :locals => {:course => tf}
-      .row.course-list.highest-rating
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= @courses["top_paid"].first
-          .row.courses.card-style
-            - @courses["top_paid"].last.each do |course|
-              .col.s3
-                = render :partial => 'components/courses/course_card', :locals => {:course => course}
+.search
+  .row.no-margin.search-header
+    .row.container
+      %h4 Không có kết quả cho từ khóa “#{@keywords}”
+  .row.no-margin.search-fail-container
+    .row.container.search-fail-container-main
+      - @courses.to_a.each do |course_h|
+        - if course_h.last.last.count >0
+          .col-lg-10.col-lg-offset-1.col-md-12.col-sm-12.col-xs-12{:style => 'margin-top:10px;'}
+            .category-title.pull-left= course_h.last.first
+            .clearfix
+            .list-course-list
+              - course_h.last.last.each do |course|
+                = render :partial => 'components/courses/list_card', :locals => {:course => course}

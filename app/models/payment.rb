@@ -35,6 +35,11 @@ class Payment
   validate :check_method_cod
   validate :unique_user_course
 
+  before_save :update_status
+  before_destroy :check_owned_course
+  after_save :payment_to_success
+
+
   def unique_user_course
     payment = Payment.where(
       :user_id => self.user_id,
@@ -59,9 +64,6 @@ class Payment
 
     errors.add(:user_id, "cod for this user has been booked, can't cancel") unless cod_payment.blank?
   end
-
-  before_save :update_status
-  before_destroy :check_owned_course
 
   def status_enum
     Constants.PaymentStatusValues
@@ -128,5 +130,44 @@ class Payment
     self.set(cod_code: cod_code)
 
     cod_code
+  end
+
+  def payment_to_success
+    if self.status == Constants::PaymentStatus::SUCCESS
+      # Push message
+      begin
+        resource = RestClient::Resource.new('http://flow.pedia.vn:8000/notify/message/create', :timeout => 2)
+        params = {
+          type: 'L8',
+          msg: "Có L8 từ khoá #{self.course.name}",
+          user_id: self.user_id,
+          email: self.user.email,
+          course_id: self.course_id
+        }
+        params[:mobile] = self.mobile if !self.mobile.blank?
+        params[:cod_code] = self.cod_code if !self.cod_code.blank?
+
+        resource.post(
+          params: params
+        )
+
+        RestClient.post('http://mercury.pedia.vn/api/issue/close',{
+          :payment_id => self.id,
+          :status => self.status
+        })
+      rescue => e
+      end
+      # Tracking L8s
+      Spymaster.params.cat('L8s').beh('submit').tar(self.course.id.to_s).user(self.user.id.to_s).ext(
+        {:payment_id => self.id.to_s, :payment_method => self.method}).track(nil)
+    elsif self.status == Constants::PaymentStatus::CANCEL
+      begin
+        RestClient.post('http://mercury.pedia.vn/api/issue/close',{
+          :payment_id => self.id,
+          :status => self.status
+        })
+      rescue => e
+      end
+    end
   end
 end

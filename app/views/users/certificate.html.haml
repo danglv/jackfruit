@@ -1,0 +1,70 @@
+= render :partial => 'components/header/default'
+- if !@user.blank?
+  - if !@certificate.blank?
+    .container-wrapper{:style => "overflow: hidden;z-index: -1"}
+      .row.no-margin
+        .col-xs-8.no-padding
+          .certificate.row.no-margin
+            = image_tag "certificate.png", :class => "img-responsive"
+            .user-name
+              %h5= @user.name
+            .course-name
+              .text
+                %h5= @course.name
+            .created_at
+              %h5= @certificate.created_at.strftime("%d/%m/%Y")
+            .author-name
+              %h5= @author.name
+            .author-sign
+              %h5 Chữ ký
+          .certificate-info.row.no-margin
+            %h5
+              Giấy chứng nhận được trao cho học viên
+              %a.link-text{:href => "/users/view_profile"}= @user.name
+              với thành tích xuất sắc hoàn thành khóa học
+              %b= @course.name
+              trên Pedia.vn vào ngày
+              %span= @certificate.created_at.strftime("%d/%m/%Y")
+        .col-xs-4
+          .certificate-action
+            / .row.no-margin
+            /   %a.download{:href => "#"}
+            /     %i.fa.fa-cloud-download
+            /     Tải xuống
+            /   %a.share{:href => "#"}
+            /     %i.fa.fa-share-alt
+            /     Chia sẻ
+            .row.no-margin
+              .user-text
+                %h5 Người nhận
+            .row.no-margin
+              .user-avatar
+                - if !@user.avatar.blank?
+                  %img{:src => @user.avatar}
+                - else
+                  = image_tag "avatar.png"
+              .user-info
+                - if !@user.name.blank?
+                  .user-name
+                    %h5= @user.name
+                - if !@user.job.blank?
+                  .user-description
+                    %h5= @user.job
+            .row.no-margin
+              .course-info-text
+                %h5 Thông tin khóa học
+            .row.no-margin
+              %a.link-course{:href => "/courses/#{@course.alias_name}/detail"}
+                .course-thumbnail
+                  - if !@course.intro_image.blank?
+                    %img.img-responsive{:src => "//static.pedia.vn" + @course.intro_image}
+                  - else
+                    %img.img-responsive{:src => "//static.pedia.vn" + @course.image}
+                .course-name= @course.name
+                .course-description= @course.description[1]
+                - if @course.price == 0
+                  .course-price
+                    Free
+                - else
+                  .coure-price{:style => 'margin: 0;color:red;font-size: 18px'}= @course.price.to_s + ' đ'
+= render :partial => 'components/footer/index'

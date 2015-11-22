@@ -1,26 +1,25 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%banner
-  .row
-    .col.s12
-      - if !@banner.blank?
-        - if @banner.location == 'header'
-          - if @banner.type == 'image'
-            = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-          - if @banner.type == 'popup'
-            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-
-%main.container-1140
-  .row.course-list.highest-rating
-    - @courses.to_a.each do |course_h|
-      - if course_h.last.last.count >0
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= course_h.last.first
-        .row.courses.card-style
-          - course_h.last.last.each do |course|
-            .col.s3
-              = render :partial => 'components/courses/course_card', :locals => {:course => course}
+= render :partial => "components/header/home"
+.container-wrapper{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
+    
+  %main.home
+    .container
+      .row
+        - @courses.each do |course_h|
+          - course_data = course_h.last.last
+          - if course_data.count > 0
+            .col-sm-12{:style => 'margin-top:10px;'}
+              .category-title.pull-left= course_h.last.first
+              .category-show-all.pull-right.visible-lg.visible-md
+                %a.btn.btn-default.btn-sm.show-all{:href => "",:style => 'margin-right: 7px;background:white;text-transform:none'}
+                  Xem tất cả&nbsp;
+                  %i.fa.fa-plus-circle
+              .clearfix
+              .list-course-card
+                - course_data.each do |course|
+                  = render :partial => 'components/courses/course_card', :locals => {:course => course}
+              .list-course-list
+                - course_data.each do |course|
+                  = render :partial => 'components/courses/list_card', :locals => {:course => course}
+= render :partial => 'components/footer/index'

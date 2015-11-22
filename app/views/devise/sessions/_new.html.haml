@@ -1,0 +1,34 @@
+= render :partial => "components/forgot_password/index"
+#login-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h3.modal-title Đăng nhập
+      .modal-body
+        .modal-body-left
+          %p.hidden-xs.hidden-sm Đăng nhập với tài khoản mạng xã hội
+          %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
+            %i.left.fa.fa-facebook
+            %span.left Đăng nhập bằng Facebook
+          %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
+            %i.left.fa.fa-google-plus
+            %span.left Đăng nhập bằng Google+
+        .modal-body-right
+          %p.hidden-xs.hidden-sm Đăng nhập bằng email
+          %form{:method => "post",:action => "/users/sign_in"}
+            .form-control-wrapper
+              %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+            .form-control-wrapper 
+              %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+            - if flash[:alert]
+              %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
+                = flash[:alert]
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
+        %p.forgot-password-link
+          / %a.btn-link{:href => "#"} Quên mật khẩu?
+          %a.btn-link#forgot-password-button{:href => "#", :style => 'color:#009688', "data-target" => "#fogot-password-dialog", "data-toggle" => "modal"} Quên mật khẩu?
+      .modal-footer
+        Chưa có tài khoản?
+        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal", :style => "cursor: pointer"} Đăng ký

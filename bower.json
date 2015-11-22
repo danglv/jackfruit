@@ -1,0 +1,24 @@
+{
+  "name": "jackfruit",
+  "version": "0.5.0",
+  "authors": [
+    "Nguyễn Phan Hải <hainp2604@gmail.com>"
+  ],
+  "description": "Online learning platform",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.3.0",
+    "bootstrap-sass": "~3.3.5",
+    "jquery-validation": "~1.14.0"
+  }
+}

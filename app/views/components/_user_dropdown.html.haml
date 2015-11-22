@@ -1,0 +1,31 @@
+.btn-group.user-dropdown
+  .dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+    - if @current_user.avatar != ""
+      = image_tag "#{@current_user.avatar}", :class => "user-avatar-small"
+    - else
+      = image_tag "avatar.png", :class => "user-avatar-small"
+  .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuDivider"}
+    .user-dropdown-header
+      .user-dropdown-header-left
+        - if @current_user.avatar != ""
+          = image_tag "#{@current_user.avatar}", :class => "user-avatar-medium"
+        - else
+          = image_tag "avatar.png", :class => "user-avatar-medium"
+      .user-dropdown-header-right
+        %p.name= @current_user.name
+        %a.link{:href => "/users/view_profile"}
+          %i.fa.fa-user
+        %a.link{:href => "/users/edit_profile"}
+          %i.fa.fa-pencil
+        / %a.link{:href => "#"}
+        /   %i.fa.fa-cog
+    .user-dropdown-links
+      %a.link{:href => "/home/my-course/learning"} Các khoá học của tôi
+      / %a.link{:href => "/users/inbox"} Tin nhắn
+      %a.link{:href => "/home/my-course/learning#wishlist"} Danh sách quan tâm
+      / %a.link{:href => "/support"} Hỗ trợ
+      %a.link{:href => "/users/payment_history"} Lịch sử giao dịch
+    .user-dropdown-logout
+      %a.btn.btn-flat.btn-logout{:href => root_url + "users/sign_out", "data-method" => "delete", :rel => "nofollow"}
+        %i.fa.fa-power-off
+        Đăng xuất

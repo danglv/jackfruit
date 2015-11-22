@@ -1,0 +1,15 @@
+:pidfile: tmp/pids/sidekiq.pid
+:timeout: 15
+development:
+  :concurrency: 5
+  :logfile: ./log/sidekiq_development.log
+staging:
+  :concurrency: 5
+  :logfile: ./log/sidekiq_staging.log
+production:
+  :concurrency: 15
+  :logfile: ./log/sidekiq_production.log
+:queues:
+  - high
+  - default
+  - low

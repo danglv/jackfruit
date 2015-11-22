@@ -406,6 +406,30 @@ namespace :seeds do
     puts "so luong : #{@count}"
   end
 
+  desc "Thêm searchable_content field for courses"
+  task update_searchable_content: :environment do
+    Course.all.each_with_index  do |course|
+      name = course.name
+      alias_name = course.alias_name
+      desc = course.description.join(".")
+      user_name = course.user.name    
+      teacher_profile_obj = course.user.instructor_profile
+      teacher_profile_str = ""
+
+      if teacher_profile_obj
+        teacher_profile_str += teacher_profile_obj.academic_rank +
+          teacher_profile_obj.major + teacher_profile_obj.function +
+          teacher_profile_obj.work_unit + teacher_profile_obj.description.join(".")
+      end
+
+      searchable_content = name + " " + alias_name +  " " + desc +  " " + user_name +  " " + teacher_profile_str
+      searchable_content = Utils.nomalize_string(searchable_content)
+      course.searchable_content = searchable_content.downcase.gsub(/[^a-zA-Z 0-9]/, " ")
+      course.save
+      puts "Course: #{name} is saved!"
+    end
+  end
+
   desc "rename images for courses"
   task rename_images_for_course: :environment do
     images = Dir["db/seeding_data/version1.0.3/mapping_image_course/images_detail/*"]
@@ -504,13 +528,14 @@ namespace :seeds do
 
   desc "seeds one course"
   task seed_one_course_paid: :environment do
-    csv_file_name = "public/08-09-2015/goi5/TA03 - Dev.Upload - Sheet1"
+    csv_file_name = "public/30-09-2015/LTD01 - Pedia.Upload - 2"
     data = load_csv_file(csv_file_name) and true
     @curriculums = []
     @description = []
     @requirement = []
     @benefit = []
     @audience = []
+    @instructor_profile_description = []
 
     Course.where(alias_name: data[1][0]).destroy_all
     @course = Course.find_or_initialize_by(alias_name: data[1][0])
@@ -549,6 +574,10 @@ namespace :seeds do
       if !row[6].blank?
         @audience << row[6]
       end
+
+      if !row[12].blank? && index > 1
+        @instructor_profile_description << row[12]
+      end
     }
     chapter_index = 0
     lecture_index = 0
@@ -578,7 +607,7 @@ namespace :seeds do
     binding.pry if @user.blank?
     unless @user
       @user = User.new(name: @username, password:"12345678", email: "#{@username}@tudemy.vn")
-      @user.instructor_profile = User::InstructorProfile.new()
+      @user.instructor_profile = User::InstructorProfile.new(description: @instructor_profile_description)
       @user.save      
     end
 

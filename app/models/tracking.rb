@@ -45,5 +45,7 @@ class Tracking
       :sender => "topicamemo2@memo.net.vn",
       :subj => "Lỗi hệ thống Pedia."
     })
+  def self.create_tracking(data)
+    Tracking.create(data)
   end
 end

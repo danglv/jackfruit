@@ -1,8 +1,109 @@
 header {
+  .button-header {
+    text-transform: none;
+    padding: 8px;
+  }
+  .header-col-left {
+    width: 34.333333% !important;
+  }
+  .header-col-mid {
+    width: 31.333333% !important;
+  }
+  .header-col-right {
+    width: 34.333333% !important;
+  }
+  background-color: #fff;
+  border-top: 4px solid $primary-color;
+  box-shadow: 0px 1px 2px #ccc;
   position: relative;
-}
+  &.header-primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
 
-.landingpage-header {
-  position: relative;
-  z-index: 1;
+  &.header-landingpage {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  .header-inner {
+    @extend .row;
+    margin: 0;
+    padding: 0 5px;
+  }
+
+  .header-col {
+    @include make-xs-column(4);
+    padding: 0;
+    position: initial;
+  }
+
+  .btn-group {
+    box-shadow: none;
+    margin: 0;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  .dropdown-toggle {
+    height: 52px;
+    line-height: 52px;
+    &:active {
+      box-shadow: none;
+    }
+
+    &.active-nav-with-text {
+      @media (max-width: 1200px) {
+        .active-nav-text {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1201px) {
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        background-color: $primary-color;
+        padding-right: 10px;
+        border-radius: 3px;
+        font-weight: 500;
+        margin-top: 6px;
+        &:hover {
+          cursor: pointer;
+        }
+        .active-nav-text {
+          font-size: 14px;
+          padding: 0;
+        }
+      }
+    }
+
+    > i, span {
+      cursor: pointer;
+      font-size: 18px;
+      padding: 8px;
+    }
+  }
+
+  .logo {
+    line-height: 52px;
+    text-align: center;
+    > a {
+      display: inline-block;
+      line-height: 40px;
+      width: 100px;
+      > img {
+        margin-left: -20px;
+        width: 140px;
+      }
+    }
+  }
 }

@@ -1,137 +1,87 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-
-%banner
-  .row
-    .col.s12
-      - if !@banner.blank?
-        - if @banner.location == 'header'
-          - if @banner.type == 'image'
-            = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-          - if @banner.type == 'popup'
-            = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image} 
-
-%main.category
-  .row.category-header
-    .row.container-1140{:style => "padding-left: 240px;"}
-      .row
-        .col.s12
-          %ul.breadcum
-            %li.breadcum-item
-              %a{:href => '/courses'} Trang chủ
-            %li.breadcum-divider /
-            %li.breadcum-item
-              %a{:href => '/courses/' + @category_id}= @category_name
-      .row
-        .col.s12
-          %h4.category-title= @category_name
-      .row{:style => 'margin-bottom: 0;'}
-        .col.s12
-          %ul.tab-category.no-margin
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"} 
+  .banner
+    = render :partial => "components/banner/banner"
+     
+  %main.category
+    .row.no-margin.category-header{:style => "background:#{@category.background_color}"}
+      .row.container
+        %ul.no-padding.breadcrumb
+          %li 
+            %a{:href => "/"}
+              %i.fa.fa-home
+          %li.breadcrumb-home
+            %a{:href => "/"} Trang chủ 
+          %li= @category.name 
+        .row.no-margin.category-header-name 
+          %h2= @category.name  
+        .row.no-margin.category-header-navigation
+          %ul.nav.nav-tabs
             %li
-              %a{:href => '/courses/' + @category_id} Nổi bật
-            %li.active
-              %a{:href => "#"} Tất cả các khoá học
-  .row.container-1140
-    .col.sidebar
-      %form#test-form{:action => '', :method => 'GET'}
-        %input#page-index{:type => 'hidden', :name => 'page', :value => '1'}
-        %input#sorting{:type => 'hidden', :name => 'ordering', :value => ''}
-        %ul.course-filters
-          %li.course-filter
-            %p.course-filter-title Mức phí
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#price-free-filter.filled-in{:type => 'checkbox', :name => 'budget', :value => 'free'}
-                %label{:for => 'price-free-filter'} Miễn phí
-              %li.course-filter-item
-                %input#price-nonfree-filter.filled-in{:type => 'checkbox', :name => 'budget', :value => 'paid'}
-                %label{:for => 'price-nonfree-filter'} Trả phí
-          %li.course-filter
-            %p.course-filter-title Ngôn ngữ
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#language-en-filter.filled-in{:type => 'checkbox', :name => 'lang', :value => 'en'}
-                %label{:for => 'language-en-filter'} Tiếng Anh
-              %li.course-filter-item
-                %input#language-vi-filter.filled-in{:type => 'checkbox', :name => 'lang', :value => 'vi'}
-                %label{:for => 'language-vi-filter'} Tiếng Việt
-          %li.course-filter
-            %p.course-filter-title Trình độ
-            %ul.course-filter-content
-              %li.course-filter-item
-                %input#level-all-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'all'}
-                %label{:for => 'level-all-filter'} Tất cả
-              %li.course-filter-item
-                %input#level-beginner-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'beginner'}
-                %label{:for => 'level-beginner-filter'} Cơ bản
-              / %li.course-filter-item
-              /   %input#level-basic-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'intermediate'}
-              /   %label{:for => 'level-basic-filter'} Trung cấp
-              %li.course-filter-item
-                %input#level-advanced-filter.filled-in{:type => 'checkbox', :name => 'level', :value => 'expert'}
-                %label{:for => 'level-advanced-filter'} Nâng cao
-        %ul.other-categories
-          %li.other-categories-title Các chủ đề khác
-          - @other_category.each do |cate|
-            %li.other-category
-              %a{:href => "/courses/#{cate.id}/all_courses"}= cate.name
-    .col.s9
-      .row.sorting
-        .input-field.col.s4
-          %select.sorting-options#sorting-options{:name => 'ordering'}
-            %option{:value => '', :disabled => '', :selected => ''} Sắp xếp
-            %option{:value => 'ratings'} Đánh giá cao
-            %option{:value => 'newest'} Mới nhất
-            %option{:value => 'price-low-to-high'} Giá thấp đến cao
-            %option{:value => 'price-high-to-low'} Giá cao đến thấp
-      .row.courses.list-style
-        - @courses.each do |ac|
-          .col.s12
-            = render :partial => 'components/courses/course_list', :locals => {:course => ac}
-      .row
-        - if @total_page.to_i > 1
-        - @page = @page.to_i
-          %div.center-pagination
-            %ul.pagination  
-              - if @page == 1
-                %li.disable
-                  %a{:herf => "#!"}
-                    %i.material-icons chevron_left
-                %li.waves-effect.page 1
-                %li.waves-effect.page 2
-                - if @total_page != 2
-                  - if @total_page == 3
-                    %li.waves-effect.page 3
+              %a{:href => "/courses/#{@category.alias_name}"} Nổi bật   
+            %li.active.disabled
+              %a{:href => "javascript:void(0)"} Tất cả khoá học 
+    .row.no-margin.category-all-courses
+      %style .other-category a {color:#{@category.background_color} !important}
+      %style .other-category a:hover {font-weight:bold !important}
+      .container
+        .col-lg-2.col-md-3.col-sm-3.col-xs-12.no-padding.category-all-courses-left
+          = render :partial => 'components/courses/filter'
+          .row.no-margin.other-category-container
+            %label Các chủ đề khác 
+            = render :partial => 'components/courses/other_category', :locals => {:other_categories => @other_category}
+        .col-lg-10.col-md-9.col-sm-9.col-xs-12.category-all-courses-main
+          = render :partial => 'components/courses/sorting'
+          .row.no-margin.courses-result
+            - @courses.each do |course|
+              = render :partial => 'components/courses/list_card', :locals => {:course => course}
+          .row.no-margin.courses-pagination
+            %ul.pagination.pagination-md
+              - if @page >= 1 && @total_page > 1
+                / prev page 
+                - if @page == 1
+                  %li
+                    %a.disable{:href => "javascript:void(0)", :val => ""} <
+                - else 
+                  %li
+                    %a.page{:href => "javascript:void(0)", :val => (@page - 1).to_s} <
+                - if @total_page <= 5
+                  / progress with total page <= 5
+                  - (1..@total_page).each do |i|
+                    - if @page == i
+                      %li.active
+                        %a.page{:href => "javascript:void(0)", :val => ""}= i
+                    - else
+                      %li
+                        %a.page{:href => "javascript:void(0)", :val => i}= i
+                - else 
+                  - if @page >= 4
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 1} 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 2} 2
+                    %li 
+                      %a ...
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page - 1) }= @page - 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => @page }= @page
                   - else 
-                    %li ..
-                    %li.waves-effect.page= @total_page
-              - else
-                %li.waves-effect#pre_page
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_left
-                - if @page > 3
-                  %li.waves-effect.page 1
-                  %li ..
-                  %li.waves-effect.page= @page - 1
-                  %li.waves-effect.page= @page
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 1} 1
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => 2} 2
+                    %li 
+                      %a ...
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page + 1) }= @page + 2 
+                    %li
+                      %a.page{:href => "javascript:void(0)", :val => (@page + 2)}= @page + 3
+                / next page 
+                - if @page == @total_page
+                  %li
+                    %a.disable{:href => "javascript:void(0)", :val => ""} >
                 - else
-                  %li.waves-effect.page 1
-                  - (2..@page).each do |i|
-                    %li.waves-effect.page= i
-                - if @page < (@total_page - 2)
-                  %li.waves-effect.page= @page + 1
-                  %li ..
-                  %li.waves-effect.page= @total_page
-                - else
-                  - ((@page +1)..@total_page).each do |i|
-                    %li.waves-effect.page= i
-              - if @page == @total_page
-                %li.disable
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_right
-              - else
-                %li.waves-effect#next_page
-                  %a{:href => "#!"}
-                    %i.material-icons chevron_right
+                  %li
+                    %a.page{:href => "javascript:void(0)", :val => (@page + 1).to_s} >
+= render :partial => 'components/footer/index'

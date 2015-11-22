@@ -1,0 +1,29 @@
+.landingpage-card  
+  %a{:href => "/courses/#{course.alias_name}/detail"}
+    .course-image.no-margin
+      = image_tag course.image
+    .landingpage-card-content
+      .ellipsis-2lines.course-title= course.name
+      .no-margin.ellipsis-1lines.course-author
+        - if course.user
+          %span= course.user.name
+        - else
+          %span Pedia
+      .row.no-margin.landing-card-users
+        %i.fa.fa-users
+        - if course.fake_enabled
+          %span= course.fake_students.to_s + 'Học viên'
+        - else
+          %span= course.students.to_s + ' Học viên'
+      .row.no-margin.course-price
+        - if course.price != 0
+          - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
+            .promotion-price
+              %span.promotion-badge
+                = help_show_currency sale_info[:final_price]
+              %span.old-price
+                = help_show_currency course.price
+          - else
+            .row.no-margin.course-price= help_show_currency course.price
+        - else
+          %span.course-price Miễn phí

@@ -5,6 +5,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         @user = User.find_for_oauth(env["omniauth.auth"], current_user)
 
         if @user.persisted?
+          if request.referer && resource
+            if request.referer.to_s.include? ('courses/activate')
+              sign_in @user, event: :authentication
+              redirect_to '/courses/activate'
+              return
+            end
+          end
+
           sign_in_and_redirect @user, event: :authentication
           set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
         else
@@ -20,11 +28,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_in_path_for(resource)
-    if request.env['omniauth.origin'] == request.base_url + "/"
-      request.base_url + "/courses"
-    else
-      session[:previous_url] || request.base_url + "/courses"
-    end
+    handle_after_signin(resource)
+    super(resource)
   end
-
 end

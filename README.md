@@ -1,4 +1,4 @@
-Jackfruit [![build status](http://ci.memo.edu.vn/projects/1/status.png?ref=master)](http://ci.memo.edu.vn/projects/1?ref=master)
+Jackfruit [![build status](http://ci.pedia.vn/projects/4/status.png?ref=dev)](http://ci.pedia.vn/projects/4?ref=dev)
 ==========
 
 # Requirements
@@ -17,3 +17,8 @@ Jackfruit [![build status](http://ci.memo.edu.vn/projects/1/status.png?ref=maste
 # Other services
 
 # Deployment
+
+## Versioning
+  ```
+    major[.feature[.bug.[.abtest]]]
+  ```

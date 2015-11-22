@@ -1,29 +1,69 @@
-.row.payment-content{:class => [("active" if method == "")]}
-  .col.s12
-    %h4 1. Lựa chọn hình thức thanh toán
-.row.payment-content
-  .row.courses.card-style.center-align
-    .col.s3
-      %a.payment-tab.course{:href => "/home/payment/cod/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [("active" if method == "cod")]}
-        .card-image.course-image
-          %i.material-icons.large shopping_cart
-          %h6 Giao khóa học
-          %h6 và thu tiền tận nơi
-    .col.s3
-      %a.payment-tab.course{:href => "/home/payment/online_payment/" + @course.alias_name + "?p=baokim&coupon_code=#{@coupon_code}", :class => [("active" if method == "online_payment")]}
-        .card-image.course-image
-          %i.material-icons.large credit_card
-          %h6 Thanh toán trực tuyến
-          %h6 bằng thẻ ATM
-          %h6 hoặc Visa/Master
-    .col.s3
-      %a.payment-tab.course{:href => "/home/payment/transfer/" + @course.alias_name + "?coupon_code=#{@coupon_code}", :class => [("active" if method == "transfer")]}
-        .card-image.course-image
-          %i.material-icons.large business
-          %h6 Chuyển khoản
-          %h6 qua ngân hàng
-    .col.s3
-      %a.payment-tab.course{:href => "/home/payment/card/" + @course.alias_name + "?p=baokim_card&coupon_code=#{@coupon_code}", :class => [("active" if method == "card")]}
-        .card-image.course-image
-          %i.material-icons.large style
-          %h6 Thanh toán thẻ cào
+.method-title 1. Lựa chọn hình thức thanh toán
+.method-card
+  %a.btn.btn-default.btn-raised.btn-cod.no-padding{:href => help_build_payment_method_url("/home/payment/cod/#{@course.alias_name}", @data), :class => [('active' if method == 'cod')]}
+    .list-style-small
+      %i.fa.fa-shopping-cart.payment-method-icon
+      Giao khóa học và thu tiền tận nơi
+    .list-style-big
+      %i.fa.fa-shopping-cart.payment-method-icon
+      .method-text
+        Giao khóa học và thu tiền
+        %br
+        tận nơi
+    .card-style
+      %i.fa.fa-shopping-cart.payment-method-icon
+      %h5 Giao khóa học
+      %h5 và thu tiền tận nơi
+  %a.btn.btn-default.btn-raised.btn-card.no-padding{:href => help_build_payment_method_url("/home/payment/card/#{@course.alias_name}?p=baokim_card", @data), :class => [('active' if method == 'card')]}
+    .list-style-small
+      %i.fa.fa-credit-card.payment-method-icon{:style => "vertical-align: top;"}
+      .method-text
+        .two-line
+          Thẻ điện thoại
+          .bold (Ví có: #{help_show_currency(current_user.money)})
+        .one-line
+          Thẻ điện thoại
+          .bold (Ví có: #{help_show_currency(current_user.money)})
+    .list-style-big
+      %i.fa.fa-credit-card.payment-method-icon
+      .method-text
+        Thẻ điện thoại
+        %br
+        .bold (Ví có: #{help_show_currency(current_user.money)})
+    .card-style
+      %i.fa.fa-credit-card.payment-method-icon
+      %h5 Thẻ điện thoại
+      %h5.bold (Ví có: #{help_show_currency(current_user.money)})
+  %a.btn.btn-default.btn-raised.btn-transfer.no-padding{:href => help_build_payment_method_url("/home/payment/transfer/#{@course.alias_name}", @data), :class => [('active' if method == 'transfer')]}
+    .list-style-small
+      %i.fa.fa-building.payment-method-icon
+      Chuyển khoản qua ngân hàng
+    .list-style-big
+      %i.fa.fa-building.payment-method-icon
+      .method-text
+        Chuyển khoản qua
+        %br
+        ngân hàng
+    .card-style
+      %i.fa.fa-building.payment-method-icon
+      %h5 Chuyển khoản qua
+      %h5 ngân hàng
+  %a.btn.btn-default.btn-raised.btn-cih.no-padding{:href => help_build_payment_method_url("/home/payment/cih/#{@course.alias_name}", @data), :class => [('active' if method == 'cih')]}
+    .list-style-small
+      %i.fa.fa-map-marker.payment-method-icon
+      Thanh toán tại văn phòng Pedia
+    .list-style-big
+      %i.fa.fa-map-marker.payment-method-icon
+      .method-text
+        Thanh toán trực tiếp
+        %br
+        tại văn phòng Pedia
+    .card-style
+      %i.fa.fa-map-marker.payment-method-icon
+      %h5 Thanh toán trực tiếp
+      %h5 tại văn phòng Pedia
+.method-progress
+  .progress-icon.active
+    %i.fa.fa-circle
+  .progress-icon
+    %i.fa.fa-circle

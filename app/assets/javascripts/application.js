@@ -13,28 +13,64 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require materialize-sprockets
-//= require_tree ./components
+//= require jquery-validation
+//= require bootstrap-sass/assets/javascripts/bootstrap
+//= require bootstrap-material-design/dist/js/material
+//= require bootstrap-material-design/dist/js/ripples
+
+//= require components/landing_page.js
+//= require components/course_detail.js
+//= require components/lecture.js
+//= require components/learning.js
+//= require components/rating.js
+//= require components/filter.js
+//= require components/sorting.js
+//= require components/list_course.js
+//= require components/payment_card.js
+//= require components/payment.js
+//= require ./components/nav
+//= require components/home
+//= require components/preview
+//= require components/wishlist
+//= require components/popup_banner
+//= require components/validation
+//= require components/jwplayer_controller
+//= require components/forgot_password
 
 $(document).ready(function () {
-  $('.btn-sidenav-activator').sideNav();
-  // $('.sorting .sorting-options').material_select();
-  $('.modal-trigger').leanModal();
-  $('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrain_width: true, // Does not change width of dropdown to that of the activator
-    hover: false, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: true // Displays dropdown below the button
+  $.material.init();
+  $.material.ripples();
+  $.material.input();
+  $('.active-nav-1').sliderDropdown();
+  $('.active-nav-2').sliderDropdown();
+
+  // Tracking U2
+  Spymaster.track({
+    category: 'U2',
+    behavior: 'open',
+    target: document.URL
   });
 });
 
-(function (d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=1592966984299237";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+$(document).ajaxError(function (e, xhr, settings) {
+  if (xhr.status == 401) {
+    var course_id = gup('course_id', settings['url'])
+    window.location.replace("/users/sign_in?course_id=" + course_id)
+  }
+});
+
+function gup(name, url) {
+  if (!url) url = location.href
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(url);
+  return results == null ? null : results[1];
+}
+
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

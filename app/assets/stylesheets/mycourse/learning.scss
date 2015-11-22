@@ -1,0 +1,88 @@
+.myCourse-learning {
+  min-width: 320px;
+  .header-myCourse {
+    padding-top: 25px;
+    border-bottom: 1px solid #727272;
+    margin-bottom:60px;
+    .myCourse-label {
+      line-height: 32px;
+      text-indent: 6px;
+      font-size: 32px;
+    }
+    .myCourse-tab {
+      background: transparent;
+      li {
+        margin-left: 11px;
+        margin-right: 11px;
+        a {
+          color: #338abc !important;
+          padding: 6px;
+          color: #212121 !important;
+        }
+        a:hover {
+          text-decoration: none;
+        }
+      }
+      li.active {
+        a{
+          border-bottom: 5px solid #338abc !important;
+          color: #338abc !important;
+        }
+      }
+    }
+  }
+  .main-myCourse {
+    .first-course {
+      display:inline-block;
+      position:relative;
+      .btn-group {
+        position:absolute;
+        bottom:100%;
+        left:6px;
+      }
+    }
+    .learning-card,.course-card {
+      display: inline-block;
+      margin: 6px;
+      text-align: left;
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .myCourse-tab {
+      float: right;
+    }
+    .container {
+      width: 1010px;
+    }
+  }
+  @media screen and (max-width: 1199px) {
+    .myCourse-tab {
+      text-align: center;
+      li{
+        float: none;
+        display: inline-block;
+      }
+    }
+  }
+  @media screen and (max-width: 1199px) and (min-width: 992px) {
+    .container {
+      width: 770px;
+    }
+  }
+  @media screen and (max-width: 991px) and (min-width: 768px) {
+    .container {
+      width: 520px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .myCourse-tab{
+      &>li:first-child {
+        margin-left: 0;
+      }
+    }
+    .container {
+      width: 280px;
+    }
+  }
+}

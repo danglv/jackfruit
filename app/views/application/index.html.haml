@@ -1,46 +1,205 @@
-.home.container-1140
-  %header.landingpage-header
-    = render :partial => 'header'
-  .home-top.flex-box
-    .splash-box
-      %span.splash-box-title Khóa học nào sẽ thay đổi cuộc đời bạn?
-      %span.splash-box-subtitle Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
-      %form{:action => '/courses/search', :method => 'GET', :id => 'search-form'}
-        .input-field
-          %input#course-search{:type => 'text', :name => 'q', :placeholder => 'Tìm kiếm khóa học'}
-          %label{:for => 'course-search'}
-            %i.material-icons search
-      .row.hooks
-        .col.s4.hook.center-align
-          %i.material-icons.hook-icon payment
-          .hook-text Thanh toán 1 lần học trọn đời
-        .col.s4.hook
-          %i.material-icons.hook-icon replay_30
-          .hook-text Hoàn tiền sau 30 ngày nếu không hài lòng
-        .col.s4.hook
-          %i.material-icons.hook-icon local_convenience_store
-          .hook-text Học mọi lúc mọi nơi
-  .home-main.container-1140
-    .row
-      .col.s12
-        - if !@banner.blank?
-          - if @banner.location == 'header'
-            - if @banner.type == 'image'
-              = render :partial => 'components/banner/banner_image', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-            - if @banner.type == 'popup'
-              = render :partial => 'components/banner/banner_popup', :locals => {:link => @banner.url, :target => @banner.target, :image => @banner.banner_image}
-    .row
-      .col.s12
-        .home-headline Khám phá những chủ đề và khóa học phổ biến
-    .row.courses.card-style
-      - if @courses
-        - @courses.each do |c|
-          .col.s3
-            = render :partial => 'components/courses/course_card', :locals => {:course => c}
-    .row
-      .col.s12
-        %a.btn.btn-large.waves-effect{:style => 'width: 100%; font-size: 24px; font-weight: 500; height: 85px; line-height: 84px;', :href => '/courses'} Khám phá các khóa học khác
-    .row{:style => 'text-align: center; margin-bottom: 60px;'}
-      %p{:style => 'font-size: 48px; margin-bottom: 0;'} Sẵn sàng để làm chủ những kỹ năng mới?
-      %p{:style => 'font-size: 32px; margin-top: 0;'} Đưa sự nghiệp của bạn lên tầm cao mới!
-      %a.btn.modal-trigger.waves-effect.deep-orange{:style => 'height: 70px; line-height: 70px;', :href => '#modal-register'} Đăng ký ngay     
+= render :partial => "devise/registrations/new"
+= render :partial => "devise/sessions/new"
+= render :partial => "components/forgot_password/index"
+/ Màn hình từ 320px đến 992px
+.hidden-lg.hidden-md
+  .row.no-margin
+    .col-xs-12.col-sm-12.col-md-12.no-padding
+      %header.header-primary
+        .header-inner
+          .header-col
+            .btn-group.cats-dropdown
+              .dropdown-toggle.active-nav-2.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
+                %i.fa.fa-bars
+                %span.active-nav-text Danh sách khoá học
+              = render :partial => "components/dropdown_menu_category"
+            = render :partial => "components/search_box"
+            .btn-group.search-dropdown
+              .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                %i.fa.fa-search
+              .dropdown-menu
+                = render :partial => "components/search_box"
+          .header-col
+            .logo
+              %a{:href => "/courses"}= image_tag "logo-white.svg"
+          .header-col.text-right
+            - if !current_user
+              / %a.btn.btn-default.btn-flat.hidden-xs.hidden-sm{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"}
+              /   Đăng kí
+              /   .ripple-wrapper
+              %a.btn.btn-default.btn-flat.button-header{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}
+                Đăng nhập
+                .ripple-wrapper
+            - else
+              = render :partial => "components/user_dropdown"
+        .slider-sidebar-wrapper.slider-sidebar-mobile
+          = render :partial => "components/dropdown_menu_category"
+      .container-wrapper{:style => "overflow: hidden;"}
+        .row.no-margin.landingpage
+          .col-xs-12.col-ld-12.col-md-12.no-padding
+            .row.no-margin.header-box
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+                %h4.no-margin.header-title Khóa học nào sẽ thay đổi cuộc đời bạn?
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+                %h5.header-description Làm chủ tương lai của bạn bằng cách học thêm các kỹ năng online
+              .col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1.search-landingpage
+                = render :partial => "components/search_box"
+            .container
+              / .row.no-margin.categories
+              /   .layout-320
+              /     %h4.categories-title Khám phá những chủ đề 
+              /     %h4.categories-title và khóa học phổ biến
+              /   .layout-480-up
+              /     %h4.categories-title Khám phá những chủ đề và khóa học phổ biến
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-python.png"
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-java.png"
+              /   .category
+              /     %a{:href => "#"}= image_tag "topic-bg-excel.png"
+              .row.no-margin.courses
+                - if @courses
+                  - @courses.each do |c|
+                    .course
+                      = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
+              .row.no-margin.register
+                .col-xs-12.col-sm-12.col-md-12.no-padding
+                  %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses", :style => "font-size: 16px"} Khám phá các khóa học khác
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
+                  %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
+                .col-xs-12.col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3.no-padding
+                  %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
+                .col-xs-12.col-sm-12.col-md-12.no-padding
+                  %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
+      = render :partial => 'components/footer/index'
+/Màn hình từ 992px trở lên 
+.hidden-xs.hidden-sm{:style => 'position:relative'}
+  .row.no-margin.landingpage
+    .col-lg-12.no-padding
+      .row.no-margin.home-top
+        #carousel.carousel.slide.carousel-fade{"data-ride" => "carousel"}
+          %ol.carousel-indicators
+            %li.active{"data-slide-to" => "0", "data-target" => "#carousel"}
+            %li{"data-slide-to" => "1", "data-target" => "#carousel"}
+            / %li{"data-slide-to" => "2", "data-target" => "#carousel"}
+          .carousel-inner
+            .active.item
+              .fill.image-1.img-responsive{:style => 'background-repeat:no-repeat'}
+              .wrapper-sublan{:style => 'bottom:40px'}
+                .sublan-inner
+                  .col-lg-12= image_tag "sublan-2.png"
+            .item
+              .fill.image-2.img-responsive{:style => 'background-repeat:no-repeat'}
+              .wrapper-sublan{:style => 'bottom:2px'}
+                .sublan-inner
+                  .col-lg-12= image_tag "sublan-1.png"
+            / .item
+            /   .fill.image-3.img-responsive{:style => 'background-repeat:no-repeat'}
+            /   .wrapper-sublan{:style => 'bottom:30px'}
+            /     .sublan-inner
+            /       .col-lg-12= image_tag "sublan-3.png"
+        .wrapper-register
+          .register-inner
+            .register-landingpage.col-lg-4.col-md-4
+              .card
+                .card-block
+                  .card-title.text-center
+                    Đăng ký
+                    %strong MIỄN PHÍ 
+                    và bắt đầu học ngay !
+                  .card-body-title.text-center Đăng ký bằng email
+                  %form.form-register{:method => "post",:action => "/users"}
+                    .form-group
+                      %input.form-control#name{:type => "text", :placeholder => 'Họ và tên',:required => 'true', :name => "user[name]"}
+                    .form-group
+                      %input.form-control#email{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+                    .form-group
+                      %input.form-control#password{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+                    %input.btn.btn-register.btn-block.bold{:type => 'submit', :style => 'background:#38b34a', :value => 'Đăng ký'}
+                    .login-social-title.text-center Đăng ký với tài khoản mạng xã hội
+                    - if flash[:alert]
+                      %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
+                        = flash[:alert]
+                    = hidden_field_tag :authenticity_token, form_authenticity_token
+                  .row.no-margin
+                    .col-lg-6.col-md-6
+                      %a.btn.btn-facebook.btn-block{:style => 'background:#3b5998', :href => root_url + 'users/auth/facebook'}
+                        %i.fa.fa-facebook
+                        %span Facebook
+                    .col-lg-6.col-md-6
+                      %a.btn.btn-google.btn-block{:style => 'background:#e04006', :href => root_url + 'users/auth/google_oauth2'}
+                        %i.fa.fa-google
+                        %span Google+
+                  .exist-account.text-center
+                    Đã có tài khoản ? 
+                    %a.link-exist-account{:href => ""} Đăng nhập
+        .wrapper-login
+          .login-inner
+            .login-landingpage.col-lg-4.col-md-4
+              .card
+                .card-block
+                  .card-title.text-center.bold{:style => 'font-size:18px'}
+                    Đăng nhập
+                  .card-body-title.text-center Đăng nhập bằng email
+                  %form.form-login{:method => "post",:action => "/users/sign_in"}
+                    .form-group
+                      %input.form-control#email{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+                    .form-group
+                      %input.form-control#password{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+                    - if flash[:alert]
+                      %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
+                        = flash[:alert]
+                    = hidden_field_tag :authenticity_token, form_authenticity_token
+                    %input.btn.btn-login.btn-block.bold.btn-login-submit{:type => 'submit', :style => 'background:#38b34a', :value => 'Đăng nhập'}
+                  %p.forgot-password-link.text-center
+                    %a.btn-link{:href => "#", :style => 'color:#009688', "data-target" => "#fogot-password-dialog", "data-toggle" => "modal"} Quên mật khẩu?
+                    / %button.btn.btn-primary{"data-target" => "#simple-dialog", "data-toggle" => "modal"} Open dialog
+                  .login-social-title.text-center Đăng nhập với tài khoản mạng xã hội
+                  .row.no-margin
+                    .col-lg-6.col-md-6
+                      %a.btn.btn-facebook.btn-block{:style => 'background:#3b5998', :href => root_url + 'users/auth/facebook'}
+                        %i.fa.fa-facebook
+                        %span Facebook
+                    .col-lg-6.col-md-6
+                      %a.btn.btn-google.btn-block{:style => 'background:#e04006', :href => root_url + 'users/auth/google_oauth2'}
+                        %i.fa.fa-google
+                        %span Google+
+                  .dont-account.text-center
+                    Bạn chưa có tài khoản ? 
+                    %a.link-dont-account{:href => ""} Đăng kí
+      .row.no-margin.no-padding.home-main.container
+        / .row.no-margin.categories
+        /   .category-big
+        /     %a{:href => "#"}= image_tag "topic-bg-python-1200.png"
+        /   .category{:style => "margin-bottom: 20px"}
+        /     %a{:href => "#"}= image_tag "topic-bg-java-1200.png", :style => "margin-bottom: 20px"
+        /     %a{:href => "#"}= image_tag "topic-bg-excel-1200.png"
+        .row.no-margin.courses
+          - if @courses
+            - @courses.each do |c|
+              .course
+                = render :partial => 'components/courses/landingpage_card', :locals => {:course => c}
+        .row.no-margin.register
+          .col-lg-12
+            .row.no-margin{:style => "max-width: 1153px;margin: auto !important;text-align: center;"}
+              .col-lg-12.no-padding
+                %a.btn.btn-info.btn-raised.btn-lg.other-course-button{:href => "/courses"} Khám phá các khóa học khác
+            .row.no-margin
+              .no-padding
+                %h5.hook-1 Sẵn sàng để làm chủ những kỹ năng mới?
+            .row.no-margin
+              .no-padding
+                %h5.hook-2 Đưa sự nghiệp của bạn lên tầm cao mới!
+            .row.no-margin
+              .col-lg-4.col-lg-offset-4.no-padding
+                %a.btn.btn-success.btn-raised.btn-lg.register-button{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký ngay
+        = render :partial => 'components/footer/index'
+  %header.header-landingpage
+    .header-inner
+      .header-col
+      .header-col
+        .logo
+          %a{:href => "/courses"}= image_tag "logo-white.svg"
+      / .header-col.text-right
+      /   %a.btn.btn-default.btn-flat.button-header.hidden-xs.hidden-sm{"data-toggle" => "modal", "data-target" => "#register-modal", :style => "color: #fff"} Đăng ký
+      /   %a.btn.btn-default.btn-flat.button-header{"data-toggle" => "modal", "data-target" => "#login-modal", :style => "color: #fff"}Đăng nhập

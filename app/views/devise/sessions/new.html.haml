@@ -1,46 +1,33 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
+= render :partial => 'components/header/default'
   
-.row.sign-in
-  .col.s2 &nbsp;
-  .col.s8
-    .modal-content
-      .row
-        .col.s12
-          .modal-title Đăng nhập
-      .row
-        .col.s6.no-padding
-          .row{:style => 'padding-top: 30px;'}
-            .col.s12.no-padding
-              %a.btn.btn-large.btn-social-login.btn-facebook.waves-effect{:href => root_url + 'users/auth/facebook'}
-                %i.left.fa.fa-facebook
-                %span.left Đăng nhập bằng Facebook
-          .row
-            .col.s12.no-padding
-              %a.btn.btn-large.btn-social-login.btn-google.waves-effect{:href => root_url + 'users/auth/google_oauth2'}
-                %i.left.fa.fa-google-plus
-                %span.left Đăng nhập bằng Google+
-        %form.col.s6{:style => 'border-left: 1px solid #e6e6e6;', :method => "post",:action => "/users/sign_in"}
-          .row
-            .col.s12{:style => 'font-size: 18px;'} Đăng nhập bằng email
-          .row.input-field
-            .col.s12
-              %input#email{:type => 'email', :name => "user[email]", :autofocus => "autofocus", :required => '', :placeholder => 'Email'}
-              %label{:for => 'email'} Email
-          .row.input-field
-            .col.s12
-              %input#password{:type => 'password', :name => "user[password]", :required => '', :placeholder => 'Mật khẩu'}
-              %label{:for => 'password'} Mật khẩu
-          .row{:style => 'margin: 20px 0 0'}
-            .col.s12
-              = hidden_field_tag :authenticity_token, form_authenticity_token
-              %input.btn.btn-large.deep-orange.expanded{:type => 'submit', :value => 'Đăng nhập'}
-      .row
-        .col.s12{:style => 'text-align: center;'}
-          Chưa có tài khoản?
-          %a.modal-action.modal-close.modal-trigger{:href => '#modal-register'} Đăng ký
-  .col.s2
-
-
-
+#login-modal
+  .modal-dialog
+    .modal-content{:style => "box-shadow: none;"}
+      .modal-header
+        %h3.modal-title Đăng nhập
+      .modal-body
+        .modal-body-left
+          %p.hidden-xs.hidden-sm Đăng nhập với tài khoản mạng xã hội
+          %a.btn.btn-primary.btn-social-login.btn-facebook{:href => root_url + 'users/auth/facebook'}
+            %i.left.fa.fa-facebook
+            %span.left Đăng nhập bằng Facebook
+          %a.btn.btn-primary.btn-social-login.btn-google{:href => root_url + 'users/auth/google_oauth2'}
+            %i.left.fa.fa-google-plus
+            %span.left Đăng nhập bằng Google+
+        .modal-body-right
+          %p.hidden-xs.hidden-sm Đăng nhập bằng email
+          %form{:method => "post",:action => "/users/sign_in"}
+            .form-control-wrapper
+              %input#email.form-control{:type => 'email', :name => "user[email]", :required => 'true', :placeholder => 'Email'}
+            .form-control-wrapper 
+              %input#password.form-control{:type => 'password', :name => "user[password]", :required => 'true', :placeholder => 'Mật khẩu'}
+            - if flash[:alert]
+              %b{:style => "color: red; font-weight: 500; padding: 3px 5px;"}
+                = flash[:alert]
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            %input.btn.btn-primary.btn-expanded.btn-login-submit{:type => 'submit', :value => 'Đăng nhập'}
+        %p.forgot-password-link
+          %a.btn-link{:href => "#"} Quên mật khẩu?
+      .modal-footer
+        Chưa có tài khoản?
+        %a.btn-link{"data-dismiss" => "modal", "data-toggle" => "modal", "data-target" => "#register-modal", :style => "cursor: pointer"} Đăng ký

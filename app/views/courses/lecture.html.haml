@@ -34,150 +34,262 @@
         - if @lecture.url['&']
          - @indexEnd = @lecture.url.index('&')-1
          - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+- if @owned_course.type == 'preview'
+  = render :partial => "courses/preview_alert", :local => {:course => @course}
+.row.no-margin.lecture
+  .col-xs-12.col-sm-7.col-md-8.col-lg-9.lecture-player
+    .row.lecture-player-header.no-margin
+      %a.lecture-back{:href => "/courses/#{@course.alias_name}/learning"}
+        %i.fa.fa-play-circle
+        %span Quay lại
+      - @index_lecture = @lecture.lecture_index.to_i
+      %ul.no-padding.no-margin.lecture-tools
+        - if @index_lecture !=0
+          %li
+            %a.player-navigation-back{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture-1}"} Bài giảng trước
+        %li
+          %a.link-text{"data-target" => "#complete-dialog", "data-toggle" => "modal", :style => "cursor: pointer; padding-right: 20px;"}
+            %i.fa.fa-flag{:style => "color: white;"}
+        %li.full-screen
+          %i.fa.fa-chevron-right
+    .row.lecture-player-main.no-margin
+      - if !@lecture.url.blank?
+        - if !@lecture.url.index('cloudfront.net').blank?
+          / User video from cloudfront
+          /%script{:src => "//content.jwplatform.com/players/lBhNDWo9-zNiP4rLT.js", :type => "application/javascript"}
+          #video-container
+            - if @course.enabled_logo
+              :javascript
+                var jw_video_url = '#{@lecture.url}';
+                var jw_video_container = 'video-container';
+                var jw_should_load = true;
+                var jw_media_id = '#{@lecture.id}';
+                var is_logo = true;
+            - else
+              :javascript
+                var jw_video_url = '#{@lecture.url}';
+                var jw_video_container = 'video-container';
+                var jw_should_load = true;
+                var jw_media_id = '#{@lecture.id}';
+                var is_logo = false;
         - else
-         - @indexEnd = @lecture.url.length
-         - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
-       - if @youtube_id
-        .row.media
-         %iframe{:width => '100%',:style => 'border : 0px', :height => '100%', :src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'} 
+          - if @lecture.url.index('v=').blank?
+            - @indexStart = @lecture.url.index('.be/') + 4
+            - @youtube_id = @lecture.url[@indexStart..@lecture.url.length]
+          - else
+            - @indexStart = @lecture.url.index('v=') + 2
+          - if @lecture.url['&']
+            - @indexEnd = @lecture.url.index('&')-1
+            - @youtube_id = @lecture.url[@indexStart..@indexEnd] 
+          - else
+            - @indexEnd = @lecture.url.length
+            - @youtube_id =  @lecture.url[@indexStart..@indexEnd]
+          - if @youtube_id
+            %iframe{:src => 'https://www.youtube.com/embed/'+@youtube_id + '?modestbranding=0&amp;rel=0&amp;showinfo=0', :allowfullscreen => 'true'}  
+    .row.lecture-player-footer.no-margin
+      / %a.lecture-autoplay
+      /   %span Tự động chạy:
+      /   %span.open Bật
+      - if @lecture.lecture_index.to_i != @owned_course.lectures.count-1
+        %ul.no-padding.no-margin.lecture-tools
+          %li
+            %a.player-navigation-next{:href => "/courses/#{@course.alias_name}/lecture/#{@index_lecture+1}"} Bài giảng tiếp
+          %li
+            %i.visibility-collapse s
+  .col-xs-0.col-sm-5.col-md-4.col-lg-3.lecture-container.no-padding
+    %ul.nav.nav-tabs.lecture-container-header
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-list",:title => 'Danh sách bài học'}
+          %i.fa.fa-list
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-download",:title => 'Download tài liệu'}
+          %i.fa.fa-download
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-discussion",:title => 'Thảo luận bài học'}
+          %i.fa.fa-comments
+      %li
+        %a{"data-toggle" => "tab", :href => "#lecture-tab-note",:title => 'Ghi chú cho bài học'}
+          %i.fa.fa-file-text
+    .tab-content
+      #lecture-tab-list.tab-pane.fade.active.in
+        .row.no-margin.list-lecture-container
+          - begin
+            - @owned_lectures = @owned_course.lectures
+            - count_lecture = @owned_lectures.count
+            - @course.curriculums.each do |curriculum|
+              - if curriculum.type == 'chapter'
+                .row.chap-title #{curriculum.title}
+              - elsif curriculum.lecture_index == @index_lecture
+                - lecture = @owned_lectures.detect{|owned| owned.lecture_index == curriculum.lecture_index}
+                - next if lecture.blank?
+                - if count_lecture <= 0
+                  - break
+                - count_lecture -= 1
+                .row.chap-item.active
+                  %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                    .row.item-container
+                      .chap-item-status
+                        - if lecture.status.to_i == 0
+                          .status-container.none
+                            %i.fa.fa-check
+                        - elsif lecture.status.to_i == 1
+                          .status-container.learning
+                            %i.fa.fa-pencil
+                        - else
+                          .status-container.completed
+                            %i.fa.fa-check
+                      .chap-item-content
+                        .row.no-margin
+                          %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                        .row.no-margin
+                          .row.type-document
+                            %ul.no-padding
+                              %li
+                                %i.fa.fa-play-circle
+                              %li
+                                %span #{curriculum.description}
+                              - if curriculum.documents.count > 0
+                                %li
+                                  %i.fa.fa-download
+                              %li
+                                %i.fa.fa-comments
+              - else
+                - lecture = @owned_lectures.detect{|owned| owned.lecture_index == curriculum.lecture_index}
+                - next if lecture.blank?
+                - if count_lecture <= 0
+                  - break
+                - count_lecture -= 1
+                .row.chap-item
+                  %a{:href => "/courses/#{@course.alias_name}/lecture/#{curriculum.lecture_index}"}
+                    .row.item-container
+                      .chap-item-status
+                        - if lecture.status.to_i == 0
+                          .status-container.none
+                            %i.fa.fa-check
+                        - elsif lecture.status.to_i == 1
+                          .status-container.learning
+                            %i.fa.fa-pencil
+                        - else
+                          .status-container.completed
+                            %i.fa.fa-check
+                      .chap-item-content
+                        .row.no-margin
+                          %span Bài giảng #{curriculum.lecture_index+1}: #{curriculum.title}
+                        .row.no-margin
+                          .row.type-document
+                            %ul.no-padding
+                              %li
+                                %i.fa.fa-play-circle
+                              %li
+                                %span #{curriculum.description}
+                              - if curriculum.documents.count > 0
+                                %li
+                                  %i.fa.fa-download
+                              %li
+                                %i.fa.fa-comments
+          - rescue
+      #lecture-tab-download.tab-pane.fade
+        / Short description of lecture
+        / - if @lecture.description
+        /   %p #{@lecture.description}
+        / - else
+        /   %p Không có mô tả
+        / Has documents
+        - if @lecture.documents.count > 0
+          %h5  Tài liệu của bài học
+          %ul{:style => "margin-top:10px;"}
+            - @lecture.documents.each do |document|
+              %li
+                /
+                / %a.normal-text.link-text{:href => "#{download_lecture_doc_resources_path :doc_id => document.id}"}
+                /   #{document.title}
+                / temp...........
+                %a.normal-text.link-text{:href => "https://static.pedia.vn/#{document.link}", :download => ""}#{document.title}
+        - else
+          %h5 Bài học không có tài liệu để tải
+      #lecture-tab-discussion.tab-pane.fade
+        %form
+          %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+          %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+          %li{:style => "list-style: none"}
+            %textarea.discussion-title{:placeholder => "Nhập tiêu đề", :value => "title"}
+          %li{:style => "list-style: none"}
+            %textarea.form-control.discussion-content{:placeholder => "Nhập nội dung thảo luận", :value => "discription"}
+          %li{:style => "list-style: none"}
+            %a.btn.btn-primary.lecture-discussion-submit{:href => "#",:type => "submit"} Đăng thảo luận
+        .row.list-discussion
+          - lecture_discussions = @course.discussions.where(:curriculum_id => @lecture._id)
+          - lecture_discussions.reverse.each do |discussion|
+            - @user = User.where(:id => discussion.user_id).first
+            - relative_time = TimeHelper.relative_time(discussion.created_at)
+            .row.discussion-item
+              .col-md-3.col-lg-3.no-padding.discussion-item-avatar
+                - if !@user.avatar.blank?
+                  %img{:src => @user.avatar}
+                - else
+                  %i.fa.fa-smile-o
+              .col-md-9.col-lg-9.discussion-item-main
+                %ul.discussion-item-title.no-padding
+                  %li.bold{:style => "list-style: none"}= "#{@user.name} - #{relative_time}"
+                %span.discussion-item-subject
+                  #{discussion.title}
+                %p.discussion-item-content
+                  #{discussion.description}
+                - if discussion.child_discussions.count == 0
+                  %a.discussion-item-reply Trả lời
+                - else
+                  %a.discussion-item-reply= "Trả lời (" + discussion.child_discussions.count.to_s + ")"
+                .row.no-margin.list-children.collapsed
+                  - discussion.child_discussions.each do |child_discussion|
+                    .row.child-item.no-margin
+                      .col-md-12.col-lg-12.no-padding.child-item-main
+                        - @user = User.where(:id => child_discussion.user_id).first
+                        - relative_time = TimeHelper.relative_time(discussion.created_at)
+                        %ul.child-item-title
+                          - if @user
+                            %li.bold{:style => "list-style: none"}= "#{@user.name} - #{relative_time}"
+                        %p.child-item-content
+                          #{child_discussion.description}
+                  .row.no-margin
+                    / %input.discussion_id{:type => "hidden", :value => "#{discussion._id}"}
+                    .col-md-12.col-lg-12.no-padding.send-reply
+                      %textarea.form-control.comment-content{:placeholder => "Nhập nội dung thảo luận", :value => "comment-content"}
+                      .btn.btn-primary.comment-submit{:href => "", :type => "submit", :discussion_id => "#{discussion.id}"} Gửi phản hồi
+      #lecture-tab-note.tab-pane.fade
+        .row.no-margin
+          %form.note
+            %input.lecture_id{:type => "hidden", :value => "#{@lecture._id}"}
+            %input.owned_course_id{:type => "hidden", :value => "#{@owned_course.id}"}
+            %input.owned_lecture_id{:type => "hidden", :value => "#{@owned_lecture._id}"}
+            %textarea.form-control.input-note-content{:placeholder => "Nhập ghi chú của bạn", :value => "note-content"}
+            %ul.list-note
+              - if @owned_notes.count > 0
+                - @owned_notes.each do |note|
+                  %li.row
+                    .time.pull-left
+                      .time-content= "#{note.time}"
+                    .note-item.pull-left
+                      %span= "#{note.content}"
+                      %input.note-id{:type => "hidden", :value =>"#{note.id}" }
+                      %textarea.edit-text.disable{:name => "edit_note"}
+                    %a.note-delete{:href => ""} x
+        / - @owned_lecture.notes.each do |note|
+        /   = render :partial => 'components/courses/note_lecture', :locals => {:note => note}
+        .row.no-margin.wrap-btn-note{:style => 'position:absolute;bottom:0'}
+          %a.btn.btn-default.no-margin.btn-down-note{:href => "/users/note/download?owned_course_id=#{@owned_course.id}&owned_lecture_id=#{@owned_lecture.id}",:style => 'width:100%'} Tải ghi chú
+  / + Report modal
+  #complete-dialog.modal.fade{:tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title Báo lỗi
+        %hr{:style => "margin-top: 15px; margin-bottom: 15px;"}
+        .modal-body
+          %form
+            %textarea.txt-report-content{:rows => "5", :placeholder => "Nội dung báo lỗi", :style => "border: 1px solid #ccc; height: 100%; width: 100%;"}
+        %hr{:style => "margin-top: 10px; margin-bottom: 10px;"}
+        .modal-footer
+          %button.btn.btn-primary.btn-submit-report{"data-dismiss" => "modal"} Gửi
+          %button.btn{"data-dismiss" => "modal"} Đóng
 
-     - else
-      .row.document
-       - if @lecture.description
-        = @lecture.description
-   .row.leture-footer.no-margin 
-    %ul
-     %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course.alias_name+'/learning',:style => "visibility:hidden;"} 
-       %i.material-icons.left.white-text{:style => "transform: rotate(180deg);"} play_circle_filled
-       Trở lại khóa học    
-     %li
-      %a.waves-effect.waves-light.btn.leture-header-back-course{:href => '/courses/'+@course.alias_name+'/lecture/'+(@lecture.lecture_index+1).to_s}
-       Bài giảng tiếp
-       %i.material-icons.left.white-text{:style => "transform: rotate(90deg);"} play_circle_filled
-     %li
-      / %a.waves-effect.waves-light.btn.leture-header-back-course
-      /  %i.material-icons.left.white-text replay
-      /  %span Auto Play
-      /  %span.bold.green-text{:style => "text-transform : uppercase"} ON
-  .col.s3.list-lecture
-   - @indexLecture = 0
-   - have_chapter = @course.curriculums.where(type: "chapter").count == 0
-   - if have_chapter
-    - @course.curriculums.where(type: "lecture").each do |lecture|
-     - @indexLecture += 1
-     - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
-     .col.s12.lecture-list-items
-      - if @lecture.lecture_index == lecture.lecture_index
-       %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-        .row.no-margin
-         .col.s1
-          -if owned_lecture.status == 0
-           .row.icon.locked
-            %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-          -else
-           -if owned_lecture.status == 1
-            .row.icon.learning
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-           -else
-            -if owned_lecture.status == 2
-             .row.icon.completed
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-         .col.s10.no-padding.item-data
-          %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-          .row.detail
-           
-           - if lecture.asset_type == "Video"
-            .col.s3.offset-s6.icon-video-type.no-padding
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding= lecture.description
-           - else
-            .col.s3.offset-s6.icon-document-type.no-padding
-             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-            .col.s9.no-padding Văn bản
-      - else
-       %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-        .row.no-margin
-         .col.s1
-          -if owned_lecture.status == 0
-           .row.icon.locked
-            %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-          -else
-           -if owned_lecture.status == 1
-            .row.icon.learning
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-           -else
-            -if owned_lecture.status == 2
-             .row.icon.completed
-              %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-         .col.s10.no-padding.item-data
-          %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-          .row.detail
-           
-           - if lecture.asset_type == "Video"
-            .col.s3.offset-s6.icon-video-type.no-padding
-             %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-            .col.s9.no-padding= lecture.description
-           - else
-            .col.s3.offset-s6.icon-document-type.no-padding
-             %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-            .col.s9.no-padding Văn bản
-   - else
-    - @course.curriculums.each do |curriculum|
-     - if curriculum.type == 'chapter'
-      .row.lecture-chap.no-margin
-       .col.s12.lecture-chap-title= curriculum.title
-       .col.s12.lecture-list-items
-        - @course.curriculums.where(chapter_index: curriculum.chapter_index + 1, type: "lecture").each do |lecture|
-         - @indexLecture += 1
-         - owned_lecture = @owned_course.lectures.where(:lecture_index => lecture.lecture_index).first
-         - if @lecture.lecture_index == lecture.lecture_index
-          %a.item-container.lecture_actived{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-           .row.no-margin
-            .col.s1
-             - if owned_lecture.status == 0
-              .row.icon.locked
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-             - elsif owned_lecture.status == 1
-              .row.icon.learning
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-             - elsif owned_lecture.status == 2
-              .row.icon.completed
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-            .col.s10.no-padding.item-data
-             %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-             .row.detail
-               
-              - if lecture.asset_type == "Video"
-               .col.s3.offset-s6.icon-video-type.no-padding
-                %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-               .col.s9.no-padding= lecture.description
-              - else
-               .col.s3.offset-s6.icon-document-type.no-padding
-                %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-               .col.s9.no-padding Văn bản
-         - else
-          %a.item-container{:href => '/courses/'+@course.alias_name+'/lecture/'+lecture.lecture_index.to_s}
-           .row.no-margin
-            .col.s1
-             - if owned_lecture.status == 0
-              .row.icon.locked
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-             - elsif owned_lecture.status == 1
-              .row.icon.learning
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} edit
-             - elsif owned_lecture.status == 2
-              .row.icon.completed
-               %i.tiny.material-icons.white-text{:style => "margin:2px;"} done
-            .col.s10.no-padding.item-data
-             %span.item-name= 'Bài giảng ' + @indexLecture.to_s + ': ' + lecture.title
-             .row.detail
-              
-              - if lecture.asset_type == "Video"
-               .col.s3.offset-s6.icon-video-type.no-padding
-                %i.tiny.material-icons.white-text{:style => "margin:2px;"} play_arrow
-               .col.s9.no-padding= lecture.description
-              - else
-               .col.s3.offset-s6.icon-document-type.no-padding
-                %i.tiny.material-icons{:style => "margin:2px;"} insert_drive_file
-               .col.s9.no-padding Văn bản

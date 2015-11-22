@@ -4,12 +4,14 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, 
+         :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable,
          # :confirmable,
          :omniauth_providers => [:google_oauth2, :facebook]
   TEMP_EMAIL_PREFIX = 'tudemy@me'
   TEMP_EMAIL_REGEX = /\A[^@]+@[^@]+\z/
+
+  field :wishlist, type: Array, default: []
 
   ## Database authenticatable
   field :email, type: String, default: ""
@@ -45,12 +47,13 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
-  
+
   # Profile
   # Basic
   field :role, type: String, default: "user"
   field :name, type: String
   field :desination,type: String, default: ""
+  field :job,type: String, default: ""
   field :first_name,type: String, default: ""
   field :last_name,type: String, default: ""
   field :headline,type: String, default: ""
@@ -61,25 +64,32 @@ class User
   field :biography,type: String, default: ""
   # Language
   field :lang,type: String, default: "vi"
-  # Links 
-  # field :links, type: Hash, default: {
-  #   website: "http://",
-  #   google_plus: "https://plus.google.com/",
-  #   twitter_profile: "http://twitter.com/",
-  #   facebook_profile: "http://www.facebook.com/",
-  #   linkedin_profile: "http://www.linkedin.com/",
-  #   youtube_profile: "http://www.youtube.com/"
-  # }
-  # Avatar
 
-  #
+  # Links
+  field :links, type: Hash, default: {
+    website: "",
+    google: "",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    youtube: ""
+  }
 
   # Money
-  field :money, type: Integer, default: 0
+  field :money, type: Float, default: 0.0
+
+# Tỉ lệ chia tiền cho thầy: thầy bán
+  field :seller_teacher_rev_share, type: Float, default: 0.0
+  # Tỉ lệ chia tiền cho thầy: TOPICA bán
+  field :seller_topica_rev_share, type: Float, default: 0.0
+
+  # Thông tin doanh thu và tài khoản còn lại của thầy
+  field :total_revenue, type: Integer, default: 0
+  field :balance, type: Integer, default: 0
 
   # Validate
   validates_inclusion_of :lang, :in => Constants.UserLangValues
-  validates_numericality_of :money, only_integer: true, greater_than_or_equal: 0
+  validates_numericality_of :money, greater_than_or_equal: 0
   validates_uniqueness_of :email
 
   embeds_one :instructor_profile, class_name: "User::InstructorProfile"
@@ -87,7 +97,9 @@ class User
   embeds_many :courses, class_name: "User::Course"
   accepts_nested_attributes_for :courses
   accepts_nested_attributes_for :instructor_profile
-  
+
+  has_many :certificates, class_name: "Certificate"
+
   has_and_belongs_to_many :labels, class_name: "Label"
 
   index({created_at: 1})
@@ -97,9 +109,9 @@ class User
 
   def destroy_all_related_data
     UserGetCourseLog.where(user_id: self.id).destroy_all
-    
+
     Payment.where(user_id: self.id).destroy_all
-    
+
     LevelLog.where(user_id: self.id).destroy_all
   end
 
@@ -168,7 +180,7 @@ class User
   end
 
   def role_enum
-    %w[admin user test]
+    %w[admin reviewer user test]
   end
 
   def lang_enum
@@ -181,7 +193,7 @@ class User
 
   def self.current
     Thread.current[:user]
-  end      
+  end
 
   def self.current=(user)
     Thread.current[:user] = user

@@ -1,0 +1,55 @@
+.list-card
+  %a{:href => "/courses/#{course.alias_name}/detail"}
+    .course-image.no-margin
+      - if course.image != ""
+        = image_tag course.image
+      - else
+        = image_tag 'http://tudemy.vn/assets/course-image-5e755c0910ca7b35381f2ea00091ed03bd786afecdf16714e5aa08a46d211b7e.png'
+    .list-card-content
+      .row.ellipsis-2lines.course-title.no-margin= course.name
+      .row.ellipsis-2lines.course-description= course.sub_title
+      .row.no-margin.course-bottom
+        - if course.price != 0
+          - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
+            .dn-480.course-price
+              .row.promotion-price
+                %span.promotion-badge
+                  = help_show_currency sale_info[:final_price]
+                %span.old-price
+                  = help_show_currency course.price
+          - else
+            .dn-480.course-price= help_show_currency course.price
+        - else
+          %span.dn-480.course-price Miễn phí
+        .rating-container
+          #percent-rating.pull-left
+            - ra = course.average_rating
+            - (1..5).each do |i|
+              - if i < ra
+                %i.fa.fa-star.rated{:val => i}
+              - elsif ra%i!=0
+                %span.rating-percent
+                  %i.fa.fa-star{:val => i}
+                  %i.fa.fa-star.percent{:style => "width: #{ra%1*100}%", :val => i}
+                - ra = 0
+              - else
+                %i.fa.fa-star{:val => i}
+
+          - if !course.fake_enabled
+            %span.course-people-rating= "(" + course.reviews.count.to_s + ")"
+          - else
+            %span.course-people-rating= "(" + course.fake_num_rate.to_s + ")"
+         
+        - if course.price != 0
+          - if @sale_info && (sale_info = @sale_info[course.id]) && @sale_info[course.id][:applied]
+            .dn.db-480.course-price
+              .row.promotion-price
+                %span.promotion-badge
+                  = help_show_currency sale_info[:final_price]
+                %span.old-price
+                  = help_show_currency course.price
+          - else
+            .dn.db-480.course-price= help_show_currency course.price
+        - else
+          %span.dn.db-480.course-price Miễn phí
+        

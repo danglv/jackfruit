@@ -1,0 +1,18 @@
+.row.no-margin.courses-sorting
+  %ul 
+    %li.courses-sorting-title
+      Sắp xếp 
+    %li
+      .dropdown
+        %span.courses-sorting-selected.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown"}
+          Mặc định
+          %b.caret
+        %ul.dropdown-menu
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "ratings"} Đánh giá 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "price-low-to-high"} Giá tiền từ thấp -> cao 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "price-high-to-low"} Giá tiền từ cao -> thấp 
+          %li
+            %a.courses-sorting-select{:href => "javascript:void(0)", :value => "language"} Ngôn ngữ 

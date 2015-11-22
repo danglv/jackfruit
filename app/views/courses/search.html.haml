@@ -1,7 +1,10 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
-- if (@courses.count!=0 && @courses.first[0] != "featured")
-  = render :partial => 'search_result'
-- else
-  = render :partial => 'search_false'
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
+    
+  - if ((@courses.count != 0) && (@courses.first[0] != "featured"))
+    = render :partial => 'search_result', :locals => {:courses => @courses, :total_page => @total_page, :page => @page}
+  - else
+    = render :partial => 'search_false'
+= render :partial => 'components/footer/index'

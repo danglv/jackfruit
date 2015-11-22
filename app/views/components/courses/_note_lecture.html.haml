@@ -1,0 +1,8 @@
+.note-lecture{:style => "height: 50px"}
+	.row.no-margin
+		%span{:style => "margin: 20px"}=	"#{note.time}"
+		%span.note-content=	"#{note.content}"
+		%input.note-id{:type => "hidden", :value => "#{note._id}"}
+		%input.note-delete{:style => "float: right;", :type => "button", :value => "x"}
+		%input.note-update{:style => "width:80%; float: right", :type => "text"}
+		%hr.no-margin{:style => "background-color: lightgrey"}

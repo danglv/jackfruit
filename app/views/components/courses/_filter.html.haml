@@ -1,0 +1,54 @@
+.filter
+  %form#filter-form{:name => "filter-form", :action => "", :method => "GET"}
+    .row.filter-category.filter-budget
+      %span.filter-category-title Chi phí 
+      .row.no-margin.filter-category-content
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => "budget", :value => "free"}
+                Miễn phí 
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => "budget", :value => "paid"}
+                Trả phí 
+    .row.filter-category.filter-feature
+      %span.filter-category-title Tính năng 
+      .row.no-margin.filter-category-content
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => "feature", :value => "sub"}
+                Phụ đề 
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => "feature", :value => "exam"}
+                Bài tập 
+    .row.filter-category.filter-level
+      %span.filter-category-title Trình độ 
+      .row.no-margin.filter-category-content
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => 'level', :value => 'all'}
+                Tất cả 
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => 'level', :value => 'beginner'}
+                Sơ cấp 
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => 'level', :value => 'intermediate'}
+                Trung cấp 
+        .col-xs-6.col-sm-12.col-md-12.col-lg-12.no-padding.filter-category-item
+          .checkbox
+            %label
+              %input{:type => "checkbox", :name => 'level', :value => 'expert'}
+                Cao cấp 
+    %input#sorting{:type => "hidden", :name => "ordering", :value => ""}
+    %input#page{:type => "hidden", :name => "page", :value => "1"}
+    %input#search-input{:type => "hidden"}

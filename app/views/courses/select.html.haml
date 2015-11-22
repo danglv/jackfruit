@@ -1,27 +1,33 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
+= render :partial => "components/header/default"
+.container-wrapper{:style => "overflow: hidden;"}
+  .banner
+    = render :partial => "components/banner/banner"
 
-%main
-  .row.course-list{:style => "background: #e9e9e9"}
-    .col.s12
-      .row.courses.list-style
-        .col.s12
-          .col.s3.course-image
-            = image_tag @course.image
-          .col.s9
-            %p.course-title= @course.name
-            %p= @course.sub_title
-            %p= "Giảng dạy bởi " + @course.user.name.to_s
-            %a.btn-large.blue.darken-1{:href => "/courses/"+@course.alias_name+"/learning"} Tiếp tục khóa học
-  .row.course-list.highest-rating.container-1140
-    - @courses.to_a.each do |course_h|
-      - if course_h.last.last.count >0
-        .col.s12
-          .row.course-list-header
-            .col.s12
-              %h5.course-list-header-title= course_h.last.first
-        .row.courses.card-style
-          - course_h.last.last.each do |course|
-            .col.s3
-              = render :partial => 'components/courses/course_card', :locals => {:course => course}
+  .select
+    .select-header
+      .container
+        .row
+          .col-xs-12.col-sm-4.col-md-3
+            .select-header-image
+              = image_tag @course.image,:style => 'width:100%'
+          .col-xs-12.col-sm-8.col-md-9.select-header-content
+            .select-header-text
+              .text-congratulations Chúc mừng, bạn đã tham gia vào khóa học
+              .text-name-course.bold #{@course.name}
+              .test-author 
+                được hướng dẫn bởi
+                %span.bold #{@course.user.name}
+            %a.btn.btn-default.select-button.bold.btn-lg{:href => "/courses/#{@course.alias_name}/learning"} Tiếp tục khóa học
+    .select-courses
+      .container
+        - @courses.each_value do |category|
+          .col-sm-12.category-title #{category.first}
+          .col-sm-12.no-padding
+            - @list_courses = category.last
+            .list-courses-card
+              - @list_courses.each do |course|
+                = render :partial => 'components/courses/course_card',:locals => {:course => course}
+            .list-courses-list
+              - @list_courses.each do |course|
+                = render :partial => 'components/courses/list_card',:locals => {:course => course}
+= render :partial => 'components/footer/index'

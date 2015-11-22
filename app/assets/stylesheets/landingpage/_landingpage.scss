@@ -1,0 +1,664 @@
+.search-landingpage {
+  .search-input {
+    background-color: white;
+    border-radius: 10px;
+    text-indent: 20px;
+    color: #555555 !important;
+  }
+  .fa.fa-search {
+    left: 0 !important;
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    top: 0 !important;
+    background-color: #1376d7;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  @media (max-width: 1199px) {
+    .search-box {
+      position: relative;
+    }
+    .btn-search {
+      right: 0;
+      padding: 0;
+      margin: 0;
+      .fa.fa-search {
+        height: 40px;
+        line-height: 40px;
+        width: 40px;
+        position: static;
+      }
+    }
+  }
+}
+@media (max-width: 320px) {
+  .landingpage {
+    min-width: 300px;
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      margin-bottom: 15px !important;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: -20px;
+        color: #fff;
+      }
+    }
+    .categories {
+      margin: 10px 0 5px 0 !important;
+      text-align: center;
+      .categories-title {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 290px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+@media (min-width: 321px) and (max-width: 479px) {
+  .landingpage {
+    min-width: 300px;
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      margin-bottom: 15px !important;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: -20px;
+        color: #fff;
+      }
+    }
+    .categories {
+      margin: 10px 0 5px 0 !important;
+      text-align: center;
+      .categories-title {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 290px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 15px 0 50px 0 !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      margin-bottom: 15px !important;
+      .header-title {
+        font-weight: bold;
+        color: #fff;
+      }
+      .header-description {
+        font-weight: 400;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: -20px;
+        color: #fff;
+      }
+    }
+    .categories {
+      margin: 10px 0 5px 0 !important;
+      text-align: center;
+      .categories-title {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 370px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 270px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+    }
+    .register {
+      margin: 0px 15px 0px 15px !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .landingpage {
+    .header-box {
+      background-color: #233543;
+      padding: 25px 0 35px 0;
+      text-align: center;
+      .header-title {
+        font-size: 32px;
+        font-weight: 500;
+        color: #fff;
+      }
+      .header-description {
+        font-size: 20px;
+        font-weight: 300;
+        color: #fff;
+        margin-top: 5px;
+      }
+      input {
+        height: 40px;
+        color: #fff;
+      }
+      .fa-search {
+        position: absolute;
+        top: 12px;
+        left: -20px;
+        color: #fff;
+      }
+    }
+    .categories {
+      margin: 10px 0 5px 0 !important;
+      text-align: center;
+      .categories-title {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .category {
+        margin: auto;
+        width: 560px;
+        img {
+          width: 100%;
+          margin: 15px 0;
+        }
+      }
+    }
+    .courses {
+      display: block;
+      max-width: 585px;
+      margin: auto !important;
+      .course {
+        display: inline-block;
+        margin: 15px 10px;
+      }
+    }
+    .register {
+      max-width: 565px;
+      margin: auto !important;
+      text-align: center;
+      .other-course-button {
+        width: 100%;
+        background-color: #338abc;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .register-button {
+        width: 100%;
+        background-color: #38b34a;
+        height: 50px;
+        line-height: 34px;
+        font-weight: bold;
+      }
+      .hook-1 {
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .hook-2 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .landingpage {
+    .home-top {
+      .btn-facebook,.btn-google {
+        padding: 15px 0px !important;
+      }
+      .wrapper-register {
+        .register-inner {
+          width: 940px !important;
+        }
+      }
+      .wrapper-login {
+        .login-inner {
+          width: 940px !important;
+        }
+      }
+      .carousel-fade {
+        .carousel-inner {
+          .wrapper-sublan {
+            position:absolute;bottom:0;width:100%;
+            .sublan-inner {
+              width: 940px !important; margin:auto;
+            }
+          }
+        }
+      }
+    }
+    .home-main {
+      .courses {
+        width: 880px !important;
+      }
+    }
+  }
+}
+@media (min-width: 992px) {
+  .header-landingpage {
+    background:linear-gradient(to bottom,rgba(0,0,0,.65) 0,rgba(0,0,0,.15) 65%,rgba(0,0,0,.05) 85%,rgba(0,0,0,0) 100%) !important;
+  }
+  .landingpage {
+    .home-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 542px;
+      background-size: cover;
+      .wrapper-register {
+        display: none;
+        position:absolute;width:100%;height:100%;top:0;
+        .register-inner {
+          width:1172px;margin:auto;position:relative;height:100%;
+          .register-landingpage {
+            position:absolute;right:0;bottom:20px;
+            .card-title {
+              padding:15px 0;border-bottom:1px solid #dedede;
+            }
+            .card-body-title {
+              padding:10px 0;
+            }
+            .form-register {
+              padding: 0 15px;
+            }
+            .btn-register,.btn-facebook,.btn-google {
+              color:white;
+              padding-top: 15px;
+              padding-bottom: 15px;
+              font-size: 16px;
+            } 
+            .btn-facebook,.btn-google {
+              text-transform: none;
+            }
+            .exist-account {
+              padding: 15px;border-top:1px solid #dedede;
+            }
+          }
+        }
+      }
+      .wrapper-login {
+        position:absolute;width:100%;height:100%;top:0;
+        .login-inner {
+          width:1172px;margin:auto;position:relative;height:100%;
+          .login-landingpage {
+            position:absolute;right:0;bottom:20px;
+            .card-title {
+              padding:15px 0;border-bottom:1px solid #dedede;
+            }
+            .card-body-title {
+              padding:10px 0;
+            }
+            .form-login {
+              padding: 0 15px;
+            }
+            .btn-login,.btn-facebook,.btn-google {
+              color:white;
+              padding-top: 15px;
+              padding-bottom: 15px;
+              font-size: 16px;
+            } 
+            .btn-facebook,.btn-google {
+              text-transform: none;
+            }
+            .dont-account{
+              padding: 15px;border-top:1px solid #dedede;
+            }
+          }
+        }
+      }
+      .carousel-fade {
+        .carousel-indicators {
+          bottom:0;
+          li {
+            background:#727272;
+          }
+          li.active {
+            background:#38b34a;
+          }
+        }
+        .carousel-inner {
+          .wrapper-sublan {
+            position:absolute;bottom:0;width:100%;
+            .sublan-inner {
+              width:1172px; margin:auto;
+              img {
+                width: 60% !important;
+              }
+            }
+          }
+          .item {
+            transition-property: opacity;
+            .fill{
+              height: 100%;
+            }
+            .image-1 {
+              background-image: image-url('landingpage-1.png');
+            }
+            .image-2 {
+              background-image: image-url('landingpage-2.png'); 
+            }
+            .image-3 {
+              background-image: image-url('landingpage-3.png'); 
+            }
+          }
+          .item,
+          .active.left,
+          .active.right {
+            opacity: 0;
+          }
+          .active,
+          .next.left,
+          .prev.right {
+            opacity: 1;
+          }
+        }
+        .carousel-control {
+            z-index: 2;
+        }
+      }
+      html, 
+      body, 
+      .carousel, 
+      .carousel-inner, 
+      .carousel-inner .item {
+          height: 100%;
+      }
+    }
+    .flex-box {
+      display: flex;
+      .splash-box {
+        top: 176px;
+        opacity: 0.85;
+        margin: auto;
+        padding: 50px 80px;
+        width: 770px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background-color: #000;
+        color: #fff;
+        transition: box-shadow .25s;
+        border-radius: 2px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+      }
+      .splash-box-title {
+        display: block;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .splash-box-subtitle {
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 40px;
+      }
+      input {
+        height: 50px;
+        margin-bottom: 30px;
+      }
+      .search-box {
+        position: relative;
+        .btn-search {
+          position: absolute;
+          right: 0;
+          padding: 0;
+          margin: 0;
+          .fa-search {
+            color: #fff;
+          }
+        }
+      }
+      .hooks {
+        .hook {
+          display: block;
+          .hook-icon {
+            width: 40px;
+            display: inline-block;
+            float: left;
+            .fa-credit-card, .fa-refresh, .fa-globe {
+              font-size: 35px;
+            }
+          }
+          .hook-title {
+            display: inline-block;
+            max-width: 142px;
+            text-align: left;
+            color: #fff
+          }
+        }
+      }
+    }
+    .home-main {
+      position: absolute;
+      top: 540px;
+      width: 100%;
+      .categories {
+        max-width: 1176px;
+        display: block;
+        margin: auto !important; 
+        padding: 15px;
+        text-align: left;
+        .category {
+          width: 560px;
+          min-height: 172px;
+          height: 172px;
+          display: inline-block;
+          text-align: right;
+          /*margin: 0px 10px;*/
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .category-big {
+          width: 560px;
+          min-height: 365px;
+          height: 365px;
+          display: inline-block;
+          text-align: right;
+          margin-right: 20px;
+          vertical-align: top;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .courses {
+        display: block;
+        max-width: 1172px;
+        margin: auto !important;
+        .course {
+          display: inline-block;
+          margin: 15px 10px;
+        }
+      }
+      .register {
+        margin: 15px 0 50px 0 !important;
+        text-align: center;
+        .other-course-button {
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+          background-color: #338abc;
+          height: 85px;
+          line-height: 69px;
+          font-weight: bold;
+          font-size: 28px;
+          margin-bottom: 50px;
+        }
+        .register-button {
+          background-color: #38b34a;
+          height: 70px;
+          line-height: 54px;
+          margin-top: 40px;
+          font-size: 15px;
+        }
+        .hook-1 {
+          font-size: 48px;
+        }
+        .hook-2 {
+          font-size: 32px;
+        }
+      }
+    }
+  }
+}
+

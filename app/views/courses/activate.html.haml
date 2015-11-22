@@ -1,0 +1,49 @@
+= render :partial => 'cod/header'
+
+.activation-box
+  - if (!@data)
+    .activation-box-header
+      .activation-box-title Kích hoạt mã khóa học
+    .activation-box-content.text-center
+      %form.active-course-form{method: 'post', action: '/courses/activate'}
+        .activation-box-content-title.text-left Nhập mã ở đây
+        .group-input
+          %input.form-control{:type => 'text',:placeholder => 'Mã kích hoạt', :name => 'activation_code'}/
+        = hidden_field_tag :authenticity_token, form_authenticity_token
+        - if @error
+          %p.activation-box-error= @error
+        %input.btn-activate.btn.btn-primary.btn-lg{:style => 'background-color: #36b24a;font-size:16px; ', :type => 'submit', :value => 'Kích hoạt'}
+  - elsif @data['step'] == 2
+    .activation-box-header
+    .activation-box-content.text-center.step-2
+      Mã kích hoạt hợp lệ, vui lòng
+      %a.btn-register-modal{"data-toggle" => "modal", "data-target" => "#register-modal"} Đăng ký
+      hoặc
+      %a.btn-login-modal{"data-toggle" => "modal", "data-target" => "#login-modal"} Đăng nhập
+      để tiếp tục
+    = render :partial => "devise/registrations/new"
+    = render :partial => "devise/sessions/new"
+  - elsif @data['step'] == 3
+    .activation-box-header.text-center.step-3
+      Bạn đã kích hoạt khóa học thành công
+    .activation-box-content.activation-box-table.text-center
+      .activation-box-table-row
+        .activation-box-table-col-left
+          = image_tag @data['course'].image, style: "width: 100%;"
+        .activation-box-table-col-right.text-left
+          %span.bold.activation-course-name= @data['course'].name
+          %p.activation-author-name= @data['author'].name
+          %a.btn.btn-info.btn-lg.btn-to-course{href: "/home/my-course/select_course?alias_name=#{@data['course'].alias_name.to_s}&type=learnning"} Vào học ngay
+      .activation-box-table-row
+        %p.bold.activation-slogan
+          Chúc các bạn học tập tốt cùng
+          %span.activation-branding pedia.vn!
+  .activation-box-footer
+    %span
+      Nếu bạn gặp khó khăn trong việc kích hoạt khóa học, vui lòng liên hệ
+      %br
+    %span.hotline
+      Hotline:
+      %b 0968.146.522
+
+= render :partial => 'components/footer/index'

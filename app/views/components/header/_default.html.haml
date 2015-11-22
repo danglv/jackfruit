@@ -1,0 +1,31 @@
+%header
+  .header-inner
+    .header-col.header-col-left
+      .btn-group.cats-dropdown
+        .dropdown-toggle.active-nav-2.active-nav-with-text{"data-dropdown-container" => ".slider-sidebar-wrapper.slider-sidebar-mobile", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "data-fixed" => "false"}
+          %i.fa.fa-bars
+          %span.active-nav-text Danh sách khoá học
+        = render :partial => "components/dropdown_menu_category"
+      = render :partial => "components/search_box"
+      .btn-group.search-dropdown
+        .dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          %i.fa.fa-search
+        .dropdown-menu
+          = render :partial => "components/search_box"
+    .header-col.header-col-mid
+      .logo
+        %a{:href => "/courses"}= image_tag "logo.svg"
+    .header-col.header-col-right.text-right
+      - if !current_user
+        %a.btn.btn-default.btn-flat.button-header.hidden-sm.hidden-xs{"data-toggle" => "modal", "data-target" => "#register-modal"}
+          Đăng ký
+          .ripple-wrapper
+        %a.btn.btn-default.btn-flat.button-header{"data-toggle" => "modal", "data-target" => "#login-modal"}
+          Đăng nhập
+          .ripple-wrapper
+        = render :partial => "devise/registrations/new"
+        = render :partial => "devise/sessions/new"
+      - else
+        = render :partial => "components/user_dropdown"
+  .slider-sidebar-wrapper.slider-sidebar-mobile
+    = render :partial => "components/dropdown_menu_category"

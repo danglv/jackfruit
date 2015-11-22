@@ -1,0 +1,76 @@
+#percent-rating .fa-star.rated {
+    color: #ffbb33 !important;
+}
+
+#percent-rating .rating-percent {
+    position: relative;
+    display: inline-block;
+}
+
+#percent-rating .rating-percent .fa-star.percent {
+    color: #ffbb33 !important;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    top: 3px;
+}
+
+.search-rating-star {
+  display: inline;
+  vertical-align: middle;
+}
+
+.search-rating {
+    position: relative;
+    float: left;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+}
+
+.search {
+  min-width: 320px;
+  .container {
+    margin: auto;
+  }
+  &-header {
+    background-color: #37b34a;
+    height: 80px;
+    h4 {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 40px;
+    }
+   
+  }
+  &-result-container {
+    .search-result-main {
+      background-color: #fff;
+      padding: 20px 20px 0px 20px;
+      .courses-result {
+        .list-card {
+          margin-top: 20px;
+        }
+      }
+      .courses-pagination {
+        text-align: center;
+        .pagination {
+          padding: 0px;
+        }
+      }
+    }
+    .search-result-left {
+      margin-bottom: 20px;
+    }
+  }
+  &-fail-container {
+
+    &-main {
+      background-color: #fff;
+      margin: auto;
+      padding-top: 40px;
+    }
+  }
+}

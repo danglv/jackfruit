@@ -1,10 +1,232 @@
 class UsersController < ApplicationController
-  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail]
-  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index]
-  before_filter :validate_course, only: [:select_course, :set_course_for_user]
+
+  before_action :set_user, :except => [:suggestion_search, :active_course, :get_user_detail, :create_instructor, :create, :reset_password, :forgot_password]
+  before_filter :authenticate_user!, only: [:learning, :teaching, :wishlist, :select_course, :index, :update_wishlist, :get_notes, :create_note, :update_note, :delete_note]
+  before_filter :validate_course, only: [:select_course]
+  skip_before_filter :verify_authenticity_token, only: [:create_user_for_mercury, :create_cod_user]
 
   def index
     learning
+  end
+
+  def create
+
+    # user = params[:user]
+    # if !user.blank? && user.is_a?(Hash)
+    #   user_new = User.new()
+    #   user_new.id = user[:id] unless user[:id].blank?
+    #   user_new.name = user[:name] unless user[:name].blank?
+    #   user_new.email = user[:email] unless user[:email].blank?
+    #   user_new.avatar = user[:avatar] unless user[:avatar].blank?
+    #   user_new.password = user[:password].blank? ? '12345678' : user[:password]
+
+    #   instructor_profile = {}
+    #   if !user[:instructor_profile].blank? && user[:instructor_profile].is_a?(Hash)
+    #     instructor_profile = user[:instructor_profile]
+    #       .permit(:function, :academic_rank, :major, :work_unit, :description)
+    #       .delete_if{|k, v| v.blank?}
+    #   end
+    #   user_new.instructor_profile = User::InstructorProfile.new(instructor_profile)
+
+    #   if user_new.save
+    #     render json: user_new.as_json
+    #   else
+    #     render json: {:error => user_new.errors}
+    #   end
+    # else
+    #   render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+
+    begin
+      user = params[:user]
+
+      if !user.blank?
+
+        user_new = User.new()
+        user_new.id = user[:id] unless user[:id].blank?
+        user_new.name = user[:name] unless user[:name].blank?
+        user_new.email = user[:email] unless user[:email].blank?
+        user_new.avatar = user[:avatar] unless user[:avatar].blank?
+        user_new.password = user[:password].blank? ? '12345678' : user[:password]
+
+        instructor_profile = User::InstructorProfile.new()
+        instructor_profile.description = user[:instructor_profile][:description] unless user[:instructor_profile][:description].blank?
+        instructor_profile.major = user[:instructor_profile][:major] unless user[:instructor_profile][:major].blank?
+        instructor_profile.function = user[:instructor_profile][:function] unless user[:instructor_profile][:function].blank?
+        user_new.instructor_profile = instructor_profile
+
+        if user_new.save
+          render json: user_new.as_json
+          return
+        else
+          render json: {:error => user_new.errors}
+          return
+        end
+      else
+        render json: {:error => "Thiếu param user"}, status: :unprocessable_entity
+      end
+    rescue Exception => e
+      render json: {:error => e.message}
+    end
+  end
+
+  def create_user_for_mercury
+    email = params[:email]
+    name = params[:name]
+    phone = params[:phone]
+    password = params[:password].blank? ? '12345678' : params[:password]
+    utm_source = params[:utm_source].blank? ? {} : JSON.parse(params[:utm_source])
+
+    if email.blank?
+      render json: {message: "Email is empty"}, status: :unprocessable_entity
+      return
+    end
+
+    user = User.where(:email => email).first
+    # Check exist email user
+    if user
+      render json: {user_id: user.id.to_s, :status => 'Exist email'}
+      return
+    end
+
+    # Create user
+    user = User.new()
+    user.email = email unless email.blank?
+    user.name = name unless name.blank?
+    # user.mobile = phone unless phone.blank?
+    user.password = password
+
+    if user.save
+      Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
+      render json: {user_id: user.id.to_s, :status => 'Create user'}
+      return
+    end
+
+    render json: {message: "Can not save"}, status: :unprocessable_entity
+    return
+  end
+
+  def create_cod_user
+    email = params[:email]
+    name = params[:name]
+    mobile = params[:mobile]
+    address = params[:address]
+    new_price = params[:new_price]
+    coupon = params[:coupon]
+    course_id = params[:course_id]
+    utm_source = params[:utm_source].blank? ? {} : JSON.parse(params[:utm_source])
+
+    password_default = '12345678'
+    note = ''
+
+    ['email', 'course_id', 'new_price'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {message: "#{param} không được bỏ trống"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    email = email.strip
+    course_id = course_id.strip
+    new_price = new_price.gsub(/[^0-9]/, '')
+
+    course = Course.where(:id => course_id).first
+    if course.blank?
+      render json: {message: "Không tìm thấy khoá học."}, status: :unprocessable_entity
+      return
+    end
+
+    # Create or get user.
+    user = User.where(:email => email).first
+    if user.blank?
+      user = User.new(
+        :email => email,
+        :name => name,
+        :password => password_default
+      )
+      if !user.save
+        render json: {message: "Không thể tạo user."}, status: :unprocessable_entity
+        return
+      else
+        Spymaster.params.cat('U8').beh('submit').tar(user.id).user(user.id).ext(utm_source).track(request)
+      end
+    else
+      note = 'Tài khoản từ email này đã được user tạo trước đó'
+    end
+
+    # Create or get a payment cod.
+    @payment = Payment.where(
+      :user_id => user.id,
+      :course_id => course.id
+    ).to_a.last
+
+    if @payment.blank?
+      @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
+      @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+    else
+      if @payment.status == Constants::PaymentStatus::SUCCESS
+        render json: {message: "User đã mua khoá học này."}, status: :unprocessable_entity
+        return
+      elsif @payment.status == Constants::PaymentStatus::PENDING
+        @payment.status = Constants::PaymentStatus::CANCEL
+        if !@payment.save
+          render json: {message: "Không thể cancel payment trước."}, status: :unprocessable_entity
+          return
+        end
+        @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
+        @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+      elsif @payment.status == Constants::PaymentStatus::CANCEL
+        @payment = new_payment_cod(user, course_id, name, mobile, address, new_price)
+        @payment.coupons = [coupon] if (!coupon.blank? && !@payment.coupons.include?(coupon))
+      end
+    end
+
+    # Create owned_course.
+    owned_course = user.courses.where(course_id: course.id).first
+    if owned_course.blank?
+      owned_course = user.courses.new(
+        course_id: course.id,
+        created_at: Time.now()
+      )
+      UserGetCourseLog.create(course_id: course.id, user_id: user.id, created_at: Time.now())
+    end
+
+    course.curriculums
+      .where(:type => Constants::CurriculumTypes::LECTURE)
+      .map{ |curriculum|
+        owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+      }
+
+    owned_course.type = Constants::OwnedCourseTypes::LEARNING
+    owned_course.payment_status = Constants::PaymentStatus::PENDING
+
+    if !owned_course.save
+      render json: {message: "Không tạo được owned course"}, status: :unprocessable_entity
+      return
+    end
+
+    # Create cod for cod @payment.
+    cod_code = create_single_cod(course_id, "pedia")
+    @payment.cod_code = cod_code if !cod_code.blank?
+    if !@payment.save
+      render json: {message: "Không thể tạo được payment"}, status: :unprocessable_entity
+      return
+    end
+
+    render json: {
+      :user_id => user.id.to_s,
+      :note => note,
+      :old_price => course.price,
+      :cod_code => @payment.cod_code,
+      :payment_id => @payment.id.to_s
+    }
+ end
+
+  def hoc_thu
+    if !current_user.blank?
+      redirect_to "http://tuduylamchu.pedia.vn/hocthu.html"
+      sign_out current_user
+      return
+    end
   end
 
   def sign_up_with_email
@@ -25,13 +247,13 @@ class UsersController < ApplicationController
     end
 
     unless check_valid_length(password, 6, 32)
-      render json: {message: "Vui lòng nhập đủ ký tự cho password!"}, status: :unprocessable_entity  
+      render json: {message: "Vui lòng nhập đủ ký tự cho password!"}, status: :unprocessable_entity
       return
     end
 
     user = User.only(:email).where(email: email).first
 
-    unless user 
+    unless user
       render json: {message: "Email này đã được sử dụng!"}
       return
     end
@@ -50,11 +272,11 @@ class UsersController < ApplicationController
   # end
 
   # def login_with_facebook
-    
+
   # end
 
   # def login_with_google
-    
+
   # end
 
   # def logout
@@ -62,20 +284,33 @@ class UsersController < ApplicationController
   # end
 
   # def edit_profile
-    
+
   # end
 
   # def upload_avatar
-    
+
   # end
 
   def learning
     learning = Constants::OwnedCourseTypes::LEARNING
+    @courses = []
+    @owned_courses = []
+
     course_ids = current_user.courses.where(
       :type => learning,
     ).map(&:course_id)
-    @courses = Course.where(:id.in => course_ids)
 
+    course_ids.each do |course_id|
+      course = Course.where(:id => course_id).first
+      unless course.blank?
+        @courses << course
+        owned_course = current_user.courses.where(:course_id => course_id).first
+        @owned_courses << owned_course
+      end
+    end
+
+    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
+    @wishlist = Course.in(:id => wishlist_ids).to_a
   end
 
   def teaching
@@ -87,11 +322,32 @@ class UsersController < ApplicationController
   end
 
   def wishlist
-    # wishlist = Constants::OwnedCourseTypes::WISHLIST
-    # course_ids = current_user.courses.where(type: wishlist).map(&:course_id)
-    # @courses = Course.where(:id.in => course_ids)
+    learning = Constants::OwnedCourseTypes::LEARNING
+    course_ids = current_user.courses.where(
+      :type => learning,
+    ).map(&:course_id)
+    # Wishlist inorge learned course.
+    wishlist_ids = current_user.wishlist - course_ids.map(&:to_s)
+    @owned_wishlist = Course.in(:id => wishlist_ids)
+  end
 
-    # head :ok
+  def update_wishlist
+    course_id = params[:course_id]
+    if course_id.blank?
+      render json: {:message => "Course_id không có"}, status: :unprocessable_entity
+      return
+    end
+    is_exist = current_user.wishlist.include?(course_id)
+
+    if is_exist
+      current_user.wishlist.delete(course_id)
+    else
+      current_user.wishlist << course_id
+    end
+
+    current_user.save
+
+    render json: {:message => "ok"}
   end
 
   def search
@@ -148,24 +404,71 @@ class UsersController < ApplicationController
         status = Constants::PaymentStatus::PENDING
       else
         status = Constants::PaymentStatus::SUCCESS
+    expect_preview = params[:type] == "preview" # User wants to preview course
+    # User wants to learn course
+    expect_learning = ["learning", "learnning"].include? params[:type]
+    # It should be
+    # expect_learning = params[:type] == "learning"
+    # But there is a mistake of naming, learnning instead of learning
+    owned_course = current_user.courses.where(course_id: @course.id).first
+    if owned_course # If user already has owned course
+      # Check owned course type
+      if owned_course.preview? # Preview course
+        if expect_learning # If user wants to buy preview course
+          redirect_to payment_url_for(@course, params)
+        else # User want to preview course
+          if owned_course.preview_expired?
+            redirect_to root_url + "courses/#{@course.alias_name}/detail"
+          else
+            redirect_to root_url + "courses/#{@course.alias_name}/learning"
+          end
+        end
+      else # Learning course
+        # Check payment status
+        if owned_course.payment_success? # Payment success then go to learning page
+          redirect_to root_url + "courses/#{@course.alias_name}/learning"
+          return
+        else # Payment is not success then go to payment page
+          redirect_to root_url + "courses/#{@course.alias_name}/detail"
+        end
       end
+    else # User hasn't had owned course yet
+      # Check course price
+      if @course.free? || expect_preview # If course is free or user wants to preview this course
+        # We have to create owned course for the user
+        # Set course status
+        if expect_preview
+          # Preview course should has no payment status
+          payment_status = Constants::PaymentStatus::RESERVE
+          type = Constants::OwnedCourseTypes::PREVIEW
+          expired_at = Time.now + Constants::PreviewMode::TIME
+        else
+          payment_status = Constants::PaymentStatus::SUCCESS
+          type = Constants::OwnedCourseTypes::LEARNING
+          expired_at = nil
+        end
+        owned_course = current_user.courses.create(
+          :course_id => @course.id,
+          :created_at => Time.now(),
+          :payment_status => payment_status,
+          :type => type,
+          :expired_at => expired_at)
 
-      owned_course.type = Constants::OwnedCourseTypes::LEARNING
-      owned_course.payment_status = status
+        init_lectures_for_owned_course(owned_course, @course)
 
-      init_lectures_for_owned_course(owned_course, @course)
-
-      if current_user.save
-        redirect_to root_url + "courses/#{@course.alias_name}/select"
-        return
-      else
-        redirect_to root_url + "courses"
-        return
+        UserGetCourseLog.create(course_id: @course.id, user_id: current_user.id, created_at: Time.now())
+        if current_user.save
+          # If course is preview then skip select page and go to learning page
+          expect_preview ?
+            (redirect_to root_url + "courses/#{@course.alias_name}/learning") :
+            (redirect_to root_url + "courses/#{@course.alias_name}/select")
+        else
+          redirect_to root_url + "courses/#{@course.alias_name}/detail"
+        end
+      else # Course is not free and want to learn this course then
+        # Just go to payment page
+        redirect_to payment_url_for(@course, params)
       end
-    else
-      url = root_url + "home/payment/#{@course.alias_name}"
-      url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
-      redirect_to url
     end
   end
 
@@ -179,21 +482,6 @@ class UsersController < ApplicationController
   def edit
     # authorize! :update, @user
     render json: @user
-  end
-
-  # PATCH/PUT /users/:id.:format
-  def update
-    # authorize! :update, @user
-    respond_to do |format|
-      if @user.update(user_params)
-        sign_in(@user == current_user ? @user : current_user, :bypass => true)
-        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # GET: API suggestion search for user by name
@@ -241,10 +529,46 @@ class UsersController < ApplicationController
     render json: UserSerializer.new(user).profile_detail_hash
   end
 
+  # POST: API create instructor for kelley
+  def create_instructor
+    instructor = params["instructor"]
+
+    if instructor.blank?
+      render json: {message: "Chưa truyền dữ liệu!"}, status: :unprocessable_entity
+      return
+    end
+
+    instructor = JSON.parse(instructor)
+
+    user = User.new(
+      name: instructor['name']
+    )
+
+    email = instructor['email'].blank? ? Utils.nomalize_string(instructor['name']).to_s + "@tudemy.vn" : instructor['email']
+    user.email = email
+    user.password = "12345678"
+
+    instructor_profile = User::InstructorProfile.new()
+    instructor_profile.academic_rank = instructor['instructor_profile']['academic_rank'] unless instructor['instructor_profile']['academic_rank'].blank?
+    instructor_profile.major = instructor['instructor_profile']['major'] unless instructor['instructor_profile']['major'].blank?
+    instructor_profile.function = instructor['instructor_profile']['function'] unless instructor['instructor_profile']['function'].blank?
+    instructor_profile.work_unit = instructor['instructor_profile']['work_unit'] unless instructor['instructor_profile']['work_unit'].blank?
+    instructor_profile.description = instructor['instructor_profile']['description'] unless instructor['instructor_profile']['description'].blank?
+
+    user.instructor_profile = instructor_profile
+
+    if user.save
+      render json: {message: "Success"}
+      return
+    else
+      render json: {message: "Lỗi không lưu được data"}, status: :unprocessable_entity
+      return
+    end
+  end
+
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
-
-    # authorize! :update, @user 
+    # authorize! :update, @user
     if request.patch? && params[:user] #&& params[:user][:email]
       if @user.update(user_params)
         @user.skip_reconfirmation!
@@ -256,13 +580,31 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/:id.:format
-  def destroy
-    # authorize! :delete, @user
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
+  def view_profile
+    owned_course_ids = current_user.courses.map{|owned_course| owned_course.course_id.to_s}
+    wishlist_ids = current_user.wishlist - owned_course_ids
+
+    @owned_courses = current_user.courses.in(:course_id => owned_course_ids).to_a
+    @owned_wishlist = Course.in(:id => wishlist_ids).to_a
+  end
+
+  # GET /users/edit_profile
+  def edit_profile
+    @user = User.find(current_user.id)
+    if request.patch?
+      profile_params = user_profile_params
+      profile_params[:lang] = Constants::UserLang::VI if profile_params[:lang].blank?
+      profile_params[:name] = profile_params[:first_name] + " " + profile_params[:last_name]
+      profile_params[:links].each do |key, value|
+        if !value.blank?
+          profile_params[:links][key].insert(0, Constants::PROFILE_LINK_PREFIX[key.to_sym])
+        end
+      end
+      if @user.update(profile_params)
+        flash.now[:sucess_changing_profile] = "Cập nhật thông tin thành công"
+      else
+        flash.now[:error_changing_profile] = "Thông tin chưa được cập nhật, vui lòng thử lại"
+      end
     end
   end
 
@@ -303,10 +645,376 @@ class UsersController < ApplicationController
     end
     
   end
+  # GET /users/edit_account
+  def edit_account
+    if request.patch?
+      info = change_password_params
+      if info[:current_password].blank? || info[:password].blank? || info[:password_confirmation].blank?
+        flash.now[:error_changing_password] = "Thông tin không đầy đủ"
+      else
+        @user = User.find(current_user.id)
+        if @user.update_with_password(info)
+          # Sign in the user by passing validation in case their password changed
+          sign_in @user, :bypass => true
+          flash.now[:success_changing_password] = "Đổi mật khẩu thành công"
+        else
+          messages = @user.errors.messages
+          if messages.include?(:current_password)
+            flash.now[:error_changing_password] = "Mật khẩu hiện tại không đúng"
+          elsif messages.include?(:password_confirmation)
+            flash.now[:error_changing_password] = "Xác nhận mật khẩu không đúng"
+          else
+            flash.now[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
+          end
+        end
+      end
+    end
+  end
+
+
+  # /users/request_reset_password?email=sfdsfsf
+  def forgot_password
+    # Check email
+    email = params[:email]
+    @user = User.where(:email => email).first
+    if not @user
+      render json: {message: "Email không tồn tại, vui lòng kiểm tra lại"}, status: 402
+      return
+    end
+
+    # Generate reset password token & expired time
+    @user.reset_password_token = new_reset_password_token(email)
+    @user.reset_password_sent_at = Time.now
+    @user.save
+
+    link = "https://pedia.vn/users/reset_password?token=#{@user.reset_password_token}"
+    # Send email
+    RestClient.post('http://email.pedia.vn/email_services/send_email',
+      email: email,
+      str_html: "<div style='background: #fff;font: 14px sans-serif;color: #737373;border-top: 4px solid #17aa1c;margin-bottom: 20px;font-family: arial,sans-serif'> <div class='header' style='border-bottom: 1px solid #f4f4f4;padding-bottom: 20px;padding-left: 30px;padding-top: 20px;display: block'> <img src='http://i.imgur.com/GminBIY.png' style='width: 150px;display: block;max-width: 100%;' /> </div> <div class='content' style='padding: 30px 20px;line-height: 1.5em;color: #737373;;display: block'> <p>Xin chào " + @user.name + "</p> <p style='border-bottom:1px solid #f4f4f4;padding-bottom:20px;margin-bottom:20px;color:#737373'>Nhấn vào nút bên dưới để thay đổi mật khẩu của bạn.</p> <a href='" + link + "' style='display:inline-block;font-size:15px;color:#ffffff;padding:10px 15px;text-decoration:none;background-color:#1376d7;border-radius:3px' target='_blank'>Thay đổi mật khẩu của bạn</a> </div> </div>",
+      sender: 'Pedia<mecury@pedia.vn>',
+      subj: 'Đặt lại mật khẩu Pedia'
+    )
+
+    render json: {message: "Vui lòng kiểm tra email để tiếp tục"}, status: 200
+  end
+
+  def new_reset_password_token(email)
+    Digest::SHA1.hexdigest([Time.now, rand, email].join)
+  end
+
+  def reset_password
+    token = params[:token]
+    if token.blank?
+      render 'invalid_reset_request'
+      return
+    end
+    @user = User.where(:reset_password_token => token).first
+    if not @user
+      render 'invalid_reset_request'
+      return
+    end
+    valid = @user.reset_password_sent_at >= Time.now - 30.minutes
+    if not valid
+      render 'invalid_reset_request'
+      return
+    end
+
+    if request.patch?
+      info = reset_password_params
+      if info[:password].blank? || info[:password_confirmation].blank?
+        flash.now[:error_changing_password] = "Thông tin không đầy đủ"
+      else
+        if @user.update(info)
+          # Sign in the user by passing validation in case their password changed
+          flash.now[:success_changing_password] = "Đổi mật khẩu thành công"
+          redirect_to "/"
+          return
+        else
+          messages = @user.errors.messages
+          if messages.include?(:password_confirmation)
+            flash.now[:error_changing_password] = "Xác nhận mật khẩu không đúng"
+          else
+            flash.now[:error_changing_password] = "Không thể thay đổi mật khẩu của bạn, vui lòng thử lại"
+          end
+        end
+      end
+    end
+  end
+
+  def edit_avatar
+    if request.patch? && params[:user] && params[:user][:new_avatar]
+      begin
+        file_io = params[:user][:new_avatar]
+        timestamp = Time.now.to_i
+        file_name = file_io.original_filename
+        file_name = file_name.sub(/\.(?=[^.]*$)/, "-#{timestamp}.")
+        path = Rails.public_path.join("avatars")
+        path.mkpath unless path.exist?
+        File.open(path.join(file_name), 'wb') do |file|
+          file.write(file_io.read)
+          @user.avatar = "/avatars/" + file_name
+          @user.save
+          flash.now[:success_changing_avatar] = "Thay đổi avatar thành công"
+        end
+      rescue
+        flash.now[:error_changing_avatar] = "Ảnh đại diện chưa cập nhật được, vui lòng thử lại"
+      end
+    end
+  end
+
+  def create_note
+    owned_course_id = params[:owned_course_id]
+    owned_lecture_id = params[:owned_lecture_id]
+    time = params[:time].blank? ? "00:00" : params[:time]
+    content = params[:content]
+
+    if content.blank?
+      render json: {:message => 'Note không có nội dung.'}, status: :unprocessable_entity
+      return
+    end
+
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
+    if (course && lecture)
+      note = lecture.notes.create(:time => time, :content => content)
+      render json: User::NoteSerializer.new(note)
+      return
+    end
+    render json: {:message => 'Tạo note thất bại.'}, status: :unprocessable_entity
+  end
+
+  def get_notes
+    owned_course_id = params[:owned_course_id]
+    owned_lecture_id = params[:owned_lecture_id]
+
+    if (owned_course_id.blank? || owned_lecture_id.blank?)
+      render json: {:message => 'Thiếu tham số truyền lên.'}, status: :unprocessable_entity
+      return
+    end
+
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
+
+    if course && lecture
+      notes = []
+      lecture.notes.desc(:created_at).each{ |note|
+        notes << User::NoteSerializer.new(note)
+      }
+      render json: {:notes => notes}
+      return
+    end
+    render json: {message: 'Không get được notes'}, status: :unprocessable_entity
+  end
+
+  def update_note
+    owned_course_id = params[:owned_course_id]
+    owned_lecture_id = params[:owned_lecture_id]
+    note_id = params[:note_id]
+    content = params[:content]
+
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
+
+    if course && lecture
+      note = lecture.notes.where(:id => note_id).first
+      note.content = content if ( !content.blank? && !note.blank? )
+      if note.save
+        render json: User::NoteSerializer.new(note)
+        return
+      end
+    end
+    render json:{:message => 'Update note thất bại'}, status: :unprocessable_entity
+  end
+
+  def delete_note
+    owned_course_id = params[:owned_course_id]
+    owned_lecture_id = params[:owned_lecture_id]
+    note_id = params[:note_id]
+    content = params[:content]
+
+    course = nil
+    lecture = nil
+    course = current_user.courses.where(:id => owned_course_id).first if !owned_course_id.blank?
+    lecture = course.lectures.where(:id => owned_lecture_id).first if !course.blank?
+    if course && lecture
+      note = lecture.notes.where(:id => note_id).first
+      if (!note.blank? ? note.delete : false)
+        render json:{:message => 'Xoá note thành công'}
+        return
+      end
+    end
+    render json:{:message => 'Xoá note thất bại'}, status: :unprocessable_entity
+  end
+
+  def download_note
+    owned_course_id = params[:owned_course_id]
+    owned_lecture_id = params[:owned_lecture_id]
+    if owned_course_id && owned_lecture_id
+      owned_course = current_user.courses.where(:id => owned_course_id).first
+      if owned_course
+        owned_lecture = owned_course.lectures.where(:id => owned_lecture_id).first
+        if owned_lecture
+          lt = owned_course.course.curriculums.where(:lecture_index => owned_lecture.lecture_index).first
+          csv_content = CSV.generate do |csv|
+            csv.add_row ['Time', 'Note']
+            owned_lecture.notes.each do |note|
+              values = [note.time, note.content]
+              csv.add_row values
+            end
+          end
+          send_data csv_content, :filename => "#{lt.title} - Ghi chú.csv"
+          return
+        end
+      end
+    end
+    render text: 'File note found', status: 404
+  end
+  # GET
+  def payment_history
+    owned_payments = Payment.where(:user_id => current_user.id, :course_id.ne => nil).to_a
+    @courses = []
+    @payments = []
+    owned_payments.each do |payment|
+      course = Course.where(:id => payment.course_id).first
+      if !course.blank?
+        @payments << payment
+        @courses << course
+      end
+    end
+    # render json: {:message => "Payment History"}
+  end
+
+  # Get : API for mercury
+  def get_course_of_instructor
+    instructor_id = params[:instructor_id]
+
+    course_ids = if instructor_id.blank?
+      []
+    else
+      Course.where(:user_id => instructor_id).map(&:id).map(&:to_s)
+    end
+
+    render json: {:course_ids => course_ids}
+  end
+
+  # Create certificate
+  def create_certificate
+    course_id = params[:course_id]
+    user_id = params[:user_id]
+
+    # Validate params not blank
+    ['course_id', 'user_id'].each do |param|
+      if params[param.to_sym].blank?
+        render json: {error: "#{param} không được bỏ trống"}, status: :unprocessable_entity
+        return
+      end
+    end
+
+    certificate = Certificate.where(:user_id => user_id, :course_id => course_id).first
+
+    if !certificate.blank?
+      render json: {message: 'Đã tồn tại certificate', data: certificate.no}
+      return
+    end
+
+    certificate_no = generate_certificate_no
+
+    url = root_url + 'certificate/' + certificate_no
+
+    certificate = Certificate.new(
+      no: certificate_no,
+      url: url,
+      user_id: user_id,
+      course_id: course_id
+    )
+
+    certificate.save
+
+    if !certificate.save
+      render json: {error: 'Không tạo được certificate'}, status: :unprocessable_entity
+      return
+    end
+    render json: {message: 'success', data: certificate_no}
+  end
+
+  # Get certificate
+  def certificate
+    certificate_no = params[:certificate_no]
+
+    @certificate = Certificate.where(:no => certificate_no).first
+
+    if @certificate.blank?
+      render json: {error: 'Không tồn tại certificate'}, status: :unprocessable_entity
+      return
+    end
+
+    @user = User.where(:id => @certificate.user_id).first
+    @course = Course.where(:id => @certificate.course_id).first
+    @author = User.where(:id => @course.user_id).first
+  end
+
   private
+    def find_or_initialize_owned_course_for_user(user, course)
+      owned_course = user.courses.where(course_id: course.id).first
+      if owned_course.blank?
+        owned_course = user.courses.create(course_id: course.id, created_at: Time.now())
+        UserGetCourseLog.create(course_id: course.id, user_id: user.id, created_at: Time.now())
+      end
+
+      course.curriculums
+        .where(:type => Constants::CurriculumTypes::LECTURE)
+        .map{ |curriculum|
+          owned_course.lectures.find_or_initialize_by(:lecture_index => curriculum.lecture_index)
+        }
+
+      owned_course.type = Constants::OwnedCourseTypes::LEARNING
+      owned_course.payment_status = Constants::PaymentStatus::PENDING
+      owned_course.save
+      user.save
+    end
+
+    def create_single_cod(course_id, issued_by = "pedia")
+      # Create new COD
+      uri = URI.parse('http://code.pedia.vn/cod/create_cod')
+      cod_code = nil
+      res = Net::HTTP.post_form uri, {
+        :quantity => "1",
+        :issued_by => issued_by,
+        :course_id => course_id,
+        :expired_date => (Time.now() + 1.years).strftime("%d/%m/%Y")
+      }
+      if (res.code.to_i == 200 && !res.body.blank?)
+        res_json = JSON.parse(res.body)
+        cod_code = res_json["cod_codes"].tr('^A-Za-z0-9', '')
+      end
+      return cod_code
+    end
+
+    def new_payment_cod(user, course_id, name, mobile, address, new_price)
+      payment = Payment.new(
+        user_id: user.id,
+        course_id: course_id,
+        mobile: mobile,
+        address: address,
+        money: new_price,
+        method: Constants::PaymentMethod::COD,
+        status: Constants::PaymentStatus::PENDING
+      )
+      payment.name = !name.blank? ? name : user.name
+      payment.email = user.email
+      return payment
+    end
+
     def set_user
       if params[:id] != nil
-        @user = User.find(params[:id]) 
+        @user = User.find(params[:id])
       else
         @user = current_user
       end
@@ -317,6 +1025,19 @@ class UsersController < ApplicationController
       accessible = [ :name, :email ] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
       params.require(:user).permit(accessible)
+    end
+
+    def user_profile_params
+      accessible = [:desination, :first_name, :last_name, :job, :biography, :lang, links: [ :website, :google, :facebook, :linkedin, :twitter, :youtube]]
+      params.require(:user).permit(accessible)
+    end
+
+    def change_password_params
+      params.require(:user).permit(['current_password', 'password', 'password_confirmation'])
+    end
+
+    def reset_password_params
+      params.require(:user).permit(['password', 'password_confirmation'])
     end
 
     def init_lectures_for_owned_course(owned_course, course)
@@ -331,5 +1052,19 @@ class UsersController < ApplicationController
 
     def check_valid_length(string, min_length, max_length)
       string.length >= min_length && string.length <= max_length
+    end
+
+    def payment_url_for(course, params)
+      url = root_url + "home/payment/#{course.alias_name}"
+      if !params.blank?
+        url += "?coupon_code=#{params['coupon_code']}" if !params['coupon_code'].blank?
+      end
+      return url
+    end
+
+    def generate_certificate_no()
+      certificate_no = "%06d" % (Certificate.count + 1)
+
+      return 'PC-' + certificate_no
     end
 end

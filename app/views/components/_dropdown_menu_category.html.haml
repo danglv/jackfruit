@@ -1,0 +1,9 @@
+%ul.dropdown-menu
+  - if !current_user.blank? 
+    %li.btn.btn-flat.category-item.my-course
+      %a{:href => '/home/my-course/learning'} Khóa học của tôi 
+  - @all_categories.each do |category|
+    %li.btn.btn-flat.category-item
+      %a{:href => '/courses/' + category[0]}
+        .category-title= category[1]
+        .category-description{:style => 'font-size:10px'}= category[3]

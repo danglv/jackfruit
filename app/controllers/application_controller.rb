@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_filter :list_category, :store_location, :set_current_user, :get_banner
+  include CoursesHelper
+
+  before_filter :list_category, :store_location, :set_current_user, :get_banner, :handle_utm_source, :handle_coupon_code
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -22,7 +24,58 @@ class ApplicationController < ActionController::Base
         request.path != "/users/confirmation" &&
         request.path != "/users/sign_out" &&
         !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath 
+      session[:previous_url] = request.fullpath
+      session[:referer_url] = request.referer
+    end
+  end
+
+  # Handling marketing chanel
+  # How long this stuff will take, be very careful of this kind of work
+  # Tested: 0.0 of excuting time
+  def handle_utm_source
+    # Check utm source from the request
+    return unless request.get?
+    utm_source = {}
+    Constants::UTM_SOURCE.each do |key|
+      utm_source[key] = params[key] if params[key]
+    end
+    # Save utm_source if has any
+    unless utm_source.blank?
+      session[:utm_source] = utm_source
+    else
+      # Clear utm source if user does something other than signin, signup, payment
+      if session[:utm_source]
+        if !params[:action].in?(['sign_in', 'sign_up', 'select_course', 'new']) && !params[:controller].in?(['payment'])
+          session[:utm_source] = nil
+        end
+      end
+    end
+  end
+
+  # Keep coupon code within a course's flow
+  # Save coupon code to session on course detail
+  # Clear coupon code if out of that course
+  # Put coupon code to params if it doesn't has
+  def handle_coupon_code
+    # Coupon code always comes from detail page
+    if params[:controller] == 'courses' && params[:action] == 'detail'
+      if !params[:coupon_code].blank?
+        session[:coupon_code] = {
+          course_alias: params[:alias_name],
+          code: params[:coupon_code]
+        }
+        return
+      end
+    end
+
+    # Clear coupon code when ever user visits an other course
+    should_delete = !params[:alias_name].blank? && !session[:coupon_code].blank?
+    should_delete &&= session[:coupon_code]['course_alias'] != params[:alias_name]
+    session.delete(:coupon_code) if should_delete
+
+    # Put coupon code into params, because, could not be sure where it'll be used
+    if params[:coupon_code].blank? && !session[:coupon_code].blank?
+      params[:coupon_code] = session[:coupon_code]['code']
     end
   end
 
@@ -37,10 +90,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def authenticate_user
-  #   current_user = User.where(auth_token: params[:auth_token]).first
-  # end
-
   def validate_content_type_param
     @content_type = params[:content_type]
     @content_type = "html" if @content_type.blank?
@@ -48,6 +97,11 @@ class ApplicationController < ActionController::Base
 
   # action index để điều hướng đến trang landing page
   def index
+    if current_user
+      redirect_to root_url + "courses"
+      return
+    end
+
     condition = {:enabled => true}
 
     if current_user
@@ -56,12 +110,11 @@ class ApplicationController < ActionController::Base
       condition[:version] = Constants::CourseVersions::PUBLIC
     end
 
-    @courses = Course.where(condition).desc(:students).limit(8)
+    courses_homepage = Course.where(condition).where(:label_ids.in => ["homepage"]).desc(:students).limit(8).to_a
+    @courses = order_course_of_label('homepage', courses_homepage)
 
-    if current_user
-      redirect_to root_url + "courses"
-    end
-
+    # Get sale info for courses
+    @sale_info = help_sale_info_for_courses @courses
   end
 
   def list_category
@@ -72,41 +125,46 @@ class ApplicationController < ActionController::Base
     categories_level_0 = Category.get_categories
 
     categories_level_0.each {|category|
-      sub_categories = categories_level_0.select {|c| c.parent_category_id == category.id}
-      parent_cate = [category.id, category.name, []]
+      sub_categories = categories_level_0.select {|c| c.parent_category_id == category.alias_name}
+      parent_cate = [category.alias_name, category.name, [], category.description]
       sub_categories.each {|sub_cate|
-        parent_cate[2] << [sub_cate.id, sub_cate.name]
+        parent_cate[2] << [sub_cate.alias_name, sub_cate.name]
       }
       @all_categories << parent_cate
     }
   end
 
   def validate_category
-    @category_id = params[:category_id]
-    @category = Category.where(id: @category_id).first
-
+    @category_alias_name = params[:category_alias_name]
+    @category = Category.where(alias_name: @category_alias_name).first
     if @category.blank?
       render 'page_not_found'
       return
     end
+    @category_id = @category.id.to_s
   end
 
   def validate_course
-    course_alias_name = params[:alias_name]
-    condition = {:enabled => true, :alias_name => course_alias_name}
+    alias_name = params[:alias_name]
 
-    if current_user
-      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    if !current_user.blank? && current_user.role == 'reviewer'
+      session[:version] = params[:version] if !params[:version].blank?
+      session[:version].blank? ? version = '1.0' : version = session[:version]
+      
+      condition = {alias_name: alias_name, version_course: version}
+      @course = Course::Version.where(condition).desc("created_at").first
+      @course = Course.where(alias_name: alias_name).first if @course.blank?
     else
-      condition[:version] = Constants::CourseVersions::PUBLIC
+      condition = {alias_name: alias_name, version: Constants::CourseVersions::PUBLIC, enabled: true}
+      @course = Course.where(condition).first
     end
-
-    @course = Course.where(condition).first
 
     if @course.blank?
       render 'page_not_found', status: 404
       return
     end
+    # sort curriculums
+    sort_curriculums
   end
 
   def get_banner
@@ -128,4 +186,91 @@ class ApplicationController < ActionController::Base
       @banner = Banner.where(condition).first
     end
   end
+
+  def order_course_of_label(label_id, courses)
+    begin
+      courses.each do |c| 
+        if !c['labels_order'].blank?
+          order = c['labels_order'].detect{|label| 
+            label['id'] == label_id
+          }
+          if !order.blank? 
+            c['order'] = order['order'].to_i
+          else
+            c['order'] = 999
+          end
+        else
+          c['order'] = 999
+        end
+      end
+      courses.sort_by{|c| c['order']}
+    rescue
+      courses
+    end
+  end
+
+  def handle_after_signin(resource)
+    referer_url = session[:referer_url] if !session.blank?
+    previous_url = session[:previous_url] if !session.blank?
+    referer_url = previous_url if referer_url.blank?
+    utm_source = session[:utm_source] if !session.blank?
+
+    # Update wishlist
+    wishlist_params = request.referer.blank? ? {} : (Rack::Utils.parse_query URI(request.referer).query)
+    if !wishlist_params["course_id"].blank?
+      course_id = wishlist_params["course_id"]
+      resource.wishlist << course_id if (!(resource.wishlist.include? course_id) && !course_id.blank?)
+      resource.save
+    end
+
+    if (!referer_url.blank?)
+      url_components = referer_url.match(/([^\/]*)\/detail/)
+      course_alias_name = url_components[1] if url_components
+      course = Course.where(:alias_name => course_alias_name).first if !course_alias_name.blank?
+      if !course.blank?
+        owned_course = resource.courses.where(:course_id => course.id, :payment_status => Constants::PaymentStatus::SUCCESS).first
+        if owned_course
+          # Tracking L3d
+          a = Spymaster.params.cat('L3d').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
+        else
+          # Tracking L3b
+          b =Spymaster.params.cat('L3b').beh('login').tar(course.id).user(resource.id).ext(utm_source).track(request)
+        end
+      end
+    end
+  end
+
+  def page_not_found
+    condition = {}
+    condition[:enabled] = true
+    condition[:label_ids.in] = ["featured"]
+    
+    if current_user
+      condition[:version] = Constants::CourseVersions::PUBLIC if current_user.role == "user"
+    else
+      condition[:version] = Constants::CourseVersions::PUBLIC
+    end
+
+    @courses = Course.where(condition).desc(:students).limit(4).to_a
+    @sale_info = help_sale_info_for_courses @courses
+  end
+
+  def server_error
+    
+  end
+
+  def reset_password
+    
+  end
+
+  private
+    def sort_curriculums
+      cus = []
+      chapters = @course.curriculums.where(:type => "chapter")
+      chapters.each do |chap|
+        lecture_of_chap = @course.curriculums.where(:type => "lecture", :chapter_index => chap.chapter_index)
+        cus +=(chap.to_a + lecture_of_chap.to_a.sort_by{|lec| lec.lecture_index})
+      end
+      @course.curriculums = cus
+    end
 end

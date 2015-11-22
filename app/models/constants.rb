@@ -19,6 +19,25 @@ module Constants
     VI = "vi"
   end
 
+  module PreviewMode
+    TIME = 5.minutes
+  end
+
+  PROFILE_LINK_PREFIX = {
+    :website => "http://",
+    :facebook => "http://facebook.com/",
+    :google => "http://plus.google.com/",
+    :twitter => "http://twitter.com/",
+    :linkedin => "http://linkedin.com/",
+    :youtube => "http://youtube.com/"
+  }
+
+  USER_LANG_MAPPING = {
+    "vi" => "Tiếng Việt",
+    "en" => "Tiếng Anh",
+    "fr" => "Tiếng Pháp"
+  }
+
   module UserLang
     EN = "en"
     VI = "vi"
@@ -26,21 +45,24 @@ module Constants
 
   module Labels
     FEATURED = "featured"
-    TOP_FREE = "top_free"
     TOP_PAID = "top_paid"
+    TOP_FREE = "top_free"
   end
 
   module PaymentStatus
-    SUCCESS = "success"
-    PROCESS = "process"
-    PENDING = "pending"
-    CANCEL = "cancel"
+    RESERVE = "reserve" # Not created yet, but expect to be created, apply for a preview course ...
+    CREATED = "created" # Created and waiting for further processing
+    PENDING = "pending" # Being pending, waiting for next processing
+    PROCESS = "process" # Being processing, waiting for result
+    SUCCESS = "success" # Success
+    CANCEL  = "cancel"  # Canceled
   end
 
   module OwnedCourseTypes
     LEARNING = "learning"
     TEACHING = "teaching"
     WISHLIST = "wishlist"
+    PREVIEW  = "preview"
   end
 
   module ContentTypes
@@ -110,6 +132,7 @@ module Constants
   end
 
   module PaymentMethod
+    NONE = 'none'
     COD = "cod"
     TRANSER = "transfer"
     ONLINE_PAYMENT = "online_payment"
@@ -126,6 +149,24 @@ module Constants
     TOPICA = "topica"
     INSTRUCTOR = "instructor"
   end
+
+  module TrackingParams
+    CATEGORY = "category"
+    BEHAVIOR = "behavior"
+    TARGET = "target"
+    EXTRAS = "extras"
+    USER = "user"
+    CHANEL = "chanel"
+  end
+
+  module DiscussionStatus
+    ENABLE = 0
+    DISABLE = -1
+  end
+
+  # Query keys for handling marketing sources
+  UTM_SOURCE = ['utm_source', 'utm_medium', 'utm_term', 'utm_content', 'utm_campaign']
+  
 
   class << self
     Constants.constants.each {|module_name|

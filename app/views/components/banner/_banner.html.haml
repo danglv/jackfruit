@@ -1,0 +1,15 @@
+- if !@banner.blank?
+  - if @banner.location == 'header'
+    - if @banner.type == 'image'
+      .row.no-margin
+        .col-xs-12.no-padding
+          %a{:href => @banner.url, :target => @banner.target}
+            .center-align
+              %image.img-responsive.center-block{:src => @banner.banner_image}
+    - if @banner.type == 'popup'
+      .modal#modalBanner{"data-backdrop" => "static"}
+        .modal-dialog
+          .modal-content
+            %img.img-responsive.center-block{:src => "http://thewallpaperhost.com/wp-content/uploads/2014/12/Fall-wallpaper-1366x768-HD-wallpaper.jpg", :style => "z-index: 1;"}
+            %a.btn.btn-primary.close-button#close-modal-banner Tôi đã biết thông tin này
+      

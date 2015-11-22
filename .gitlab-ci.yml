@@ -1,0 +1,22 @@
+# image: ruby:2.2
+
+# services:
+#   - mongo
+
+before_script:
+  - gem install bundler
+  - bundle install
+  - cp config/mongoid.yml.tmpl config/mongoid.yml
+  - bower install
+
+unit_test:
+  script:
+    - bundle exec rake test:units
+
+functional_test:
+  script:
+    - bundle exec rake test:functionals
+
+acceptance_test:
+  script:
+    - bundle exec rake test:features

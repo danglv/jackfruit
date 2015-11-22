@@ -41,16 +41,14 @@ module RailsAdmin
 end
 
 RailsAdmin.config do |config|
-  config.main_app_name = ["TUDEMY", "Tudemy"]
+  config.main_app_name = ["PEDIA", "Pedia"]
   ### Popular gems integration
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :admin
+    warden.authenticate! scope: :user
   end
-  # config.current_user_method(&:current_user)
-
-  config.current_user_method(&:current_admin)
+  config.current_user_method(&:current_user)
 
   ## == Cancan ==
   config.authorize_with :cancan
@@ -69,11 +67,11 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    # show_in_app
+    show_in_app
 
     ## With an audit adapter, you can add:
-    # history_index
-    # history_show
+    history_index
+    history_show
   end
 
   config.model 'Payment' do
@@ -86,6 +84,7 @@ RailsAdmin.config do |config|
       field :status
       field :money
       field :coupons
+      field :cod_code
     end
 
     show do
@@ -119,6 +118,7 @@ RailsAdmin.config do |config|
       field :city
       field :district
       field :cod_code
+      field :money
     end
   end
 
@@ -129,6 +129,19 @@ RailsAdmin.config do |config|
       field :email
       field :role
     end
+
+    create do
+      field :name
+      field :email
+      field :password
+      field :password_confirmation
+      field :role
+      field :lang
+      field :labels
+      field :instructor_profile
+      field :courses
+      field :avatar
+    end 
 
     show do
       field :created_at
@@ -150,6 +163,8 @@ RailsAdmin.config do |config|
     edit do
       field :name
       field :email
+      field :password
+      field :password_confirmation
       field :role
       field :lang
       field :labels
@@ -195,9 +210,9 @@ RailsAdmin.config do |config|
       field :user
     end
 
-    edit do
-      exclude_fields :reviews
-    end
+    # edit do
+    #   exclude_fields :reviews
+    # end
   end
 
   config.model 'Banner' do

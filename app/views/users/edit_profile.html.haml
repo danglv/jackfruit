@@ -1,0 +1,61 @@
+= render :layout => 'components/edit_profile', :locals => {:tab_index => 0} do
+  .profile-right.tab-pane.fade.active.in#profile
+    .profile-label.text-center
+      .profile-title.bold Thông tin cá nhân
+      .profiel-text Thêm thông tin về bạn để chia sẻ trên trang cá nhân
+    .row.profile-form
+      .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
+        %form{:method => "post",:action => "/users/edit_profile", :'accept-charset' => 'UTF-8'}
+          - if flash[:sucess_changing_profile]
+            .alert.alert-success{:role => 'alert', :style => 'margin-top:10px;'}
+              = flash[:sucess_changing_profile]
+          - elsif flash[:error_changing_profile]
+            .alert.alert-warning{:role => 'alert', :style => 'margin-top:10px;'}
+              = flash[:error_changing_profile]
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+          = hidden_field_tag '_method', 'patch'
+          .form-title.bold Cơ bản
+          .group-profile-input
+            %input.form-control{:type => "text",:placeholder => "Học hàm", :value => "#{@user.desination}", :name => "user[desination]"}
+          .group-profile-input
+            %input.form-control{:type => "text",:placeholder => "Họ", :value => "#{@user.last_name}", :name => "user[last_name]"}
+          .group-profile-input
+            %input.form-control{:type => "text",:placeholder => "Tên", :value => "#{@user.first_name}", :name => "user[first_name]"}
+          .group-profile-input.group-headline
+            %input.form-control{:type => "text", :placeholder => "Nghề nghiệp", :value => "#{@user.job}", :name => "user[job]"}
+          .form-title.bold Tiểu sử
+          .group-profile-input
+            %input.form-control{:type => "text",:placeholder => "Thông tin", :value => "#{@user.biography}", :name => "user[biography]"}
+          .form-title.bold Ngôn ngữ
+          .group-profile-input
+            - langs = help_get_user_lang_list
+            %select.form-control{:name => "user[lang]"}
+              - langs.each do |lang, lang_name|
+                %option{:value => "#{lang}", :selected => (lang == @user.lang ? true : nil)} #{lang_name}
+          .form-title.bold Link
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:39px',:placeholder => 'Website', :value => @user.links[:website].to_s.sub(Constants::PROFILE_LINK_PREFIX[:website], ''), :name => "user[links][website]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:website]}
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:150px',:placeholder => 'Google+ Profile', :value => @user.links[:google].to_s.sub(Constants::PROFILE_LINK_PREFIX[:google], ''), :name => "user[links][google]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:google]}
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:114px',:placeholder => 'Twitter Profile', :value => @user.links[:twitter].to_s.sub(Constants::PROFILE_LINK_PREFIX[:twitter], ''), :name => "user[links][twitter]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:twitter]}
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:136px',:placeholder => 'Facebook Profile', :value => @user.links[:facebook].to_s.sub(Constants::PROFILE_LINK_PREFIX[:facebook], ''), :name => "user[links][facebook]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:facebook]}
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:126px',:placeholder => 'Linkedin Profile', :value => @user.links[:linkedin].to_s.sub(Constants::PROFILE_LINK_PREFIX[:linkedin], ''), :name => "user[links][linkedin]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:linkedin]}
+          .group-profile-input
+            %input.form-control{:type => "text",:style => 'text-indent:129px',:placeholder => 'Youtube Profile', :value => @user.links[:youtube].to_s.sub(Constants::PROFILE_LINK_PREFIX[:youtube], ''), :name => "user[links][youtube]"}
+            .text-placeholder
+              %span.pre-link #{Constants::PROFILE_LINK_PREFIX[:youtube]}
+          .group-profile-input.text-center
+            %input.btn.btn-default.bold.profile-button-save{:type => 'submit', :value => 'Lưu thay đổi'} 

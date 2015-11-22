@@ -19,10 +19,9 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Mongoid
-gem "mongoid", "~> 4.0.0"
+gem "mongoid", "~> 5.0.0"
 gem "bson_ext"
-# Materialize Sass
-gem 'materialize-sass'
+
 # Haml
 gem "haml-rails", "~> 0.9"
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -48,14 +47,25 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 
+#sidekiq
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+
+#sidekiq-cron setup cron for sidekiq
+# gem "sidekiq-cron", "~> 0.3.0"
+
 # Image
-gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick', '~> 3.8.1'
 gem "ImageResize"
 
+# ElasticSearch
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
+
 # Rails Admin
-gem 'rails_admin', '~> 0.6.8'
+gem 'rails_admin'
 gem 'devise-i18n'
 # Add permission
 gem "cancan"
@@ -63,11 +73,26 @@ gem "cancan"
 # net/http-digest_auth
 gem 'net-http-digest_auth', '~> 1.4'
 
-# Webmock
-gem 'webmock', group: :test
-
 # Http request
 gem 'rest-client', '~> 1.8.0'
+
+# Spymaster - Tracking System
+gem 'spymaster', git: 'git@git.pedia.vn:tcs/spymaster-gem.git', branch: 'master'
+
+group :production do
+  # Unicorn worker killer
+  gem 'unicorn-worker-killer'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'selenium-webdriver', '~> 2.48.1'
+  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-reporters'
+  gem 'webmock'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -78,6 +103,8 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem "rack_session_access"
 end
 
 gem 'pry', '~> 0.10.1'
@@ -90,3 +117,6 @@ gem 'rack-cors', :require => 'rack/cors'
 
 # serializer
 gem 'active_model_serializers', '~> 0.9.3'
+
+# Simple line icons
+gem 'simple-line-icons-rails'

@@ -1,156 +1,839 @@
-.indicator {
-  display: none;
+.red-text {
+  color: red;
 }
-.payment-tab.course.active {
-  background-color: #009688;
-  color: #fff !important;
-}
+
 .payment {
-  color: #121212;
-  .text-indent-payment{
-    text-indent: 40px;
+  min-width: 320px;
+  text-align: center;
+  &.white-background {
+    background-color: #fff;
   }
-  .list-style-type-payment{
-    list-style-type: disc;
-  }
-  font-size: 18px;
-  .payment-success-header {
-    height: 50px;
-  }
-  .row.green.payment-header{
-    margin-top: -21px;
-  }
-  .payment-content {
-    .middle {
-      height: 250px;
+  &-box {
+    background-color: #fff;
+    margin-top: 30px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin-bottom: 5px;
+    .full-width {
+      width: 100%;
     }
-    h4{
-      font-size: 18px;
-    }
-    .left{
-      float: left;
-    }
-    .payment-tab {
-      min-height: 250px;
-      color: #9e9e9e;
-      padding-top: 30px;
-      &:hover {
-        background-color: #009688;
-        color: #fff;
+    .content {
+      display: block;
+      .content-left {
+        display: inline-block;
+        float: left;
+        h5 {
+         text-align: left;
+        }
       }
-      &.disable:hover{
-        background: none;
-        color: #9e9e9e;
-        cursor: default;
-      }
-    } 
-    #form-card{
-      width: 271px;
-      margin: 0px auto;
-      .input-field{
-        margin: 0px 0px 10px 0px;
-
-      }
-      .btn{
-        text-transform: initial;
+      .content-right {
+        display: inline-block;
+        float: right;
+        h5 {
+          text-align: right;
+        }
       }
     }
-
-    .index-number{
-      width: 15px;
-      height: 15px;
-      background: #338abc;
-      color: white;
-      font-size: 11px;
+    .payment-box-bottom {
+      display: block;
       text-align: center;
-      line-height: 15px;
-      margin-right: 10px;
-      margin-left: 12px;
-    }
-    #list-provider{
-      width: 800px;
-      margin: 0px auto;
-      ul{
-        width: 100%;
+      .refresh-button {
+        font-size: 16px;
+        font-weight: bold;
+        width: 310px;
       }
-      ul li{
-        background: white;
+    }
+  }
+  &-bill {
+    margin-top: 25px;
+    .title {
+      font-size: 36px;
+      color: #212121;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .position {
+      margin-bottom: 5px !important;
+      .text {
+        font-size: 14px;
+        color: #212121;
+      }
+    }
+    .information {
+      margin-bottom: 15px !important;
+    }
+    .information-bill {
+      margin: 15px 0 !important;
+      .purchase-for {
+        margin-bottom: 15px !important;
+      }
+    }
+    .bill-detail {
+      margin: 15px 0 !important;
+      font-size: 14px;
+    }
+    .support {
+      margin-top: 15px !important;
+      .support-text {
+        line-height: 24px;
+      }
+    }
+  }
+  &-history {
+    margin-top: 15px;
+    .purchase-history {
+      margin-bottom: 15px !important;
+    }
+    .account-balance {
+      margin-bottom: 15px !important;
+    }
+    .pagination-row-1 {
+      margin-bottom: 25px !important;
+    }
+    .money-back-information {
+      margin-bottom: 5px !important;
+    }
+  }
+  .coupon {
+    border-bottom: 1px solid #acacac;
+    height: 40px;
+    margin: 10px 0 !important;
+  }
+  .total-cost {
+    font-weight: 700;
+    margin: 10px 0 15px 0 !important;
+  }
+  .payment-header {
+    height: auto;
+    background-color: #38b34a;
+    font-size: 14px;
+    line-height: 40px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+    .title {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 500;
+    }
+    &.fail {
+      background-color: #ff4444;
+    }
+    &.pending {
+      background-color: #ffbb33;
+    }
+    &.success {
+      background-color: #38b34a;
+    }
+  }
+  .payment-main {
+    display: block;
+    .payment-main-info {
+      @extend .row;
+      display: block;
+      text-align: center;
+      margin: 0;
+      .info-title {
+        font-size: 16px;
+        color: #338abc;
+        font-weight: bold;
+        text-align: left;
+      }
+      .info-course {
+        @extend .row;
+        margin: 0;
+        font-size: 14px;
+        color: #212121;
+        padding: 10px 0;
+        border-bottom: 1px solid #acacac;
+        .course-name {
+          @include make-xs-column(8);
+          padding: 0;
+          text-align: left;
+        }
+        .course-price {
+          @include make-xs-column(4);
+          padding: 0;
+          text-align: right;
+        }
+      }
+      .info-coupon {
+        @extend .row;
+        margin: 0;
+        font-size: 14px;
+        color: #212121;
+        padding: 10px 0;
+        border-bottom: 1px solid #acacac;
+        .sale-text {
+          @include make-xs-column(8);
+          padding: 0;
+          text-align: left;
+        }
+        .sale-price {
+          @include make-xs-column(4);
+          padding: 0;
+          text-align: right;
+          vertical-align: bottom;
+        }
+      }
+      .info-cost {
+        @extend .row;
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+        color: #212121;
+        padding: 10px 0;
+        border-bottom: 1px solid #acacac;
+        .cost-text {
+          @include make-xs-column(8);
+          padding: 0;
+          text-align: left;
+        }
+        .total-price {
+          @include make-xs-column(4);
+          padding: 0;
+          text-align: right;
+          vertical-align: bottom;
+        }
+      }
+    }
+    .payment-main-method {
+      @extend .row;
+      display: block;
+      text-align: center;
+      margin: 0;
+      .method-title {
+        padding-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #338abc;
+        text-align: left;
+      }
+      .method-description {
+        @extend .row;
+        margin: 0;
+        padding: 10px 0 0 0;
+        .description-text {
+          font-size: 14px;
+          font-weight: 400;
+          color: #212121;
+          text-align: left;
+          margin: 0;
+        }
+        .description-cih-text, .description-transfer-text, .description-card-text {
+          font-size: 14px;
+          font-weight: 400;
+          color: #212121;
+          text-align: left;
+          line-height: 24px;
+          &.red-text {
+            color: #ff5722;
+          }
+          .transfer-information {
+            text-indent: 40px;
+          }
+          .list-note {
+            list-style-type: disc;
+            list-style-position: inside;
+          }
+        }
+        .card-guildline {
+          .step-1, .step-2, .step-3 {
+            display: block;
+            margin-bottom: 5px;
+            .badge {
+              display: inline-block;
+              float: left;
+              margin-right: 8px;
+              width: 30px;
+            }
+            .guildline-text {
+              display: inline-block;
+              font-size: 14px;
+              font-weight: 400;
+              color: #212121;
+              width: 85%;
+              text-align: left;
+            }
+          }
+        }
+      }
+      .cod-form {
+        .payment-editor {
+          margin-top: 20px;
+          height: 30px;
+        }
+        .cod-button {
+          @extend .row;
+          margin: 0;
+          .purchase-button {
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: none;
+            height: 45px;
+            margin: 20px 0;
+            border-radius: 2px;
+          }
+        }
+      }
+      .support-online-payment-form {
+        margin-top: 20px;
+        .support-description {
+          font-size: 14px;
+          font-weight: bold;
+          color: #37b34a;
+          line-height: 24px;
+          text-align: left;
+        }
+        .name-input, .mobile-input {
+          height: 30px;
+        }
+        .send-form-support {
+          width: 100%;
+          height: 50px;
+          font-size: 16px;
+          font-weight: 400;
+          color: #fff;
+          border-radius: 2px;
+          padding: 15px;
+          text-transform: none;
+          margin: 20px 0;
+        }
+        &-success {
+          color: #37b34a;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 24px;
+          margin: 15px 0;
+        }
+        #validate-message{
+          display: none;
+          color: red;
+          margin-top: 10px;
+        }
+      }
+      .card-form {
+        .phone-cards {
+          display: block;
+          text-align: center;
+          width: 290px;
+          margin: auto;
+          .phone-card {
+            display: inline-block;
+            float: left;
+            width: 130px;
+            height: 44px;
+            border: 2px solid #727272;
+            background-color: #fff;
+            text-align: center;
+            margin: 5px;
+            img {
+              height: 100%;
+              margin-bottom: 15px !important;
+            }
+            &:hover, &:focus {
+              border: 2px solid #338abc;
+            }
+          }
+          .selected {
+            border: 2px solid #338abc !important;
+          }
+        }
+        .card-input {
+          .form-card {
+            .code-input, .seri-input {
+              height: 30px;
+            }
+            .card-button {
+              @extend .row;
+              margin: 0;
+              .purchase-button {
+                width: 100%;
+                font-size: 16px;
+                font-weight: bold;
+                text-transform: none;
+                height: 45px;
+                margin: 20px 0;
+                border-radius: 2px;
+              }
+            }
+          }
+        }
+      }
+      .other-payment-method {
+        @extend .row;
+        margin: 0;
         text-align: center;
-        float:left;
-        width:170px;
-        height: 70px;
-        margin:0px 15px;
-        padding:5px;
-        border: 2px solid #727272;
+        font-size: 16px;
+        font-weight: 400;
       }
-      ul li img{
-        max-width: 100%;
-        height: 100%;
+      .method-card {
+        @extend .row;
+        margin: 0;
+        display: block;
+        text-align: center;
+        a {
+          border-radius: 5px;
+        }
+        .list-style-small {
+          width: 280px;
+          height: 50px;
+          border-radius: 2px;
+          background-color: #fff;
+          font-size: 14px;
+          font-weight: 400;
+          color: #212121;
+          padding: 10px;
+          text-transform: none;
+          text-align: left;
+          .payment-method-icon {
+            color: #727272;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+          }
+          .method-text {
+            display: inline-block;
+            .one-line {
+              display: none;
+            }
+            .two-line {
+              display: inline-block;
+            }
+          }
+          &:hover {
+            background-color: #338abc;
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+            color: #fff;
+            .payment-method-icon {
+              color: #fff;
+            }
+          }
+          &.disable:hover {
+            background: none;
+            color: #9e9e9e;
+            cursor: default;
+          }
+        }
+        .list-style-big {
+          display: none;
+          width: 220px;
+          height: 60px;
+          border-radius: 2px;
+          background-color: #fff;
+          font-size: 14px;
+          font-weight: 400;
+          color: #212121;
+          padding: 15px 10px;
+          text-transform: none;
+          text-align: left;
+          .payment-method-icon {
+            color: #727272;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: top;
+          }
+          .method-text {
+            display: inline-block;
+          }
+          &:hover {
+            background-color: #338abc;
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+            color: #fff;
+            .payment-method-icon {
+              color: #fff;
+            }
+          }
+          &.disable:hover {
+            background: none;
+            color: #9e9e9e;
+            cursor: default;
+          }
+        }
+        .card-style {
+          display: none;
+          width: 160px;
+          height: 160px;
+          padding: 30px 15px;
+          border-radius: 2px;
+          background-color: #fff;
+          color: #212121;
+          text-transform: none;
+          font-size: 14px;
+          font-weight: 400;
+          .payment-method-icon {
+            color: #727272;
+            font-size: 48px;
+            display: block;
+            vertical-align: middle;
+          }
+          &:hover {
+            background-color: #338abc;
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.18), 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+            color: #fff;
+            .payment-method-icon {
+              color: #fff;
+            }
+          }
+          &.disable:hover {
+            background: none;
+            color: #9e9e9e;
+            cursor: default;
+          }
+        }
       }
-      ul li:hover{
-        border: 2px solid #338abc;
-        
-      }
-      .active-provider{
-       border: 2px solid #338abc;
+      .method-progress {
+        @extend .row;
+        padding-top: 10px;
+        display: block;
+        .progress-icon {
+          display: inline-block;
+          padding: 0 7px;
+          color: #b6b6b6;
+          &.active {
+            color: #338abc;
+          }
+        }
       }
     }
   }
-  .payment-content.active{
-    h4{
-      color: #009688;
-      font-size: 24px;
-      font-weight: bold;
-    }
+  .warning-text, .fail-text {
+    color: #ff4444;
+    font-weight: 400;
   }
-  .payment-invoice-footer{
-    margin-bottom: 40px;
-  }
-}
-.pending{
-  font-size: 18px;
-  .pending-status{
+  .pending-text {
     color: #ffbb33;
   }
-  .pending-phone{
-    .pending-phone-icon{
-      font-size: 30px;
+  .success-text {
+    color: #38b34a;
+  }
+  .price-text {
+    color: #009688;
+  }
+  .other-course-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #338abc;
+    text-transform: uppercase;
+  }
+  .hot-line {
+    .fa-phone {
       color: #338abc;
-      display: block;
-      float: left;
       margin-right: 10px;
-    }
-    margin-bottom: 40px;
-  }
-  .pending-btn-other-course{
-    margin-bottom: 40px;
-  }
-  .pending-title{
-    .pending-title-link{
-      text-decoration: underline;
     }
   }
 }
-.fail{
-    font-size: 18px;
-    .payment-fail-header{
-    background: #ff4444;
-    padding: 15px;
-  }  
-  .fail-title{
-    color: #ff4444;
+
+@media (max-width: 320px) {
+  .payment-box {
+    margin-top: 0;
   }
-  .fail-status{
-    color: #ff4444;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .payment-box {
+    margin-top: 0;
   }
-  .fail-phone{
-    .fail-phone-icon{
-      font-size: 30px;
-      color: #338abc;
-      display: block;
-      float: left;
-      margin-right: 10px;
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .payment {
+    &-box {
+      margin-top: 0;
     }
-    margin-bottom: 40px;
+    .payment-main {
+      @include make-xs-column(10);
+      margin: auto;
+      padding: 0;
+      float: none;
+      .payment-main-method {
+        .method-card {
+          a {
+            width: 100%;
+          }
+          .list-style-small {
+            width: 100%;
+            padding: 10px 15px;
+            .one-line {
+              display: inline-block !important;
+            }
+            .two-line {
+              display: none !important;
+            }
+          }
+        }
+        .card-form {
+          .phone-cards {
+            .phone-card {
+              float: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-sm-column(5);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-method {
+        @include make-sm-column(7);
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+        .method-title {
+          padding: 0;
+        }
+        .cod-form {
+          .payment-editor {
+            display: inline-block;
+            width: 45%;
+            &.left {
+              float: left;
+            }
+            &.right {
+              float: right;
+            }
+          }
+          .cod-button {
+            .purchase-button {
+              width: 178px;
+              height: 50px;
+            }
+          }
+        }
+        .support-online-payment-form {
+          .name-input, .mobile-input {
+            width: 290px;
+            margin: auto;
+            padding: 0;
+          }
+          .send-form-support {
+            width: 178px;
+          }
+        }
+        .card-form {
+          .phone-cards {
+            width: 100%;
+            .phone-card {
+              float: none;
+            }
+          }
+          .card-input {
+            .form-card {
+              .code-input, .seri-input {
+                width: 290px;
+                margin: auto;
+                padding: 0;
+              }
+              .card-button {
+                .purchase-button {
+                  width: 178px;
+                  height: 50px;
+                }
+              }
+            }
+          }
+        }
+        .method-card {
+          margin: 0;
+          a {
+            width: 100%;
+          }
+          .list-style-small {
+            width: 100%;
+            padding: 10px 15px;
+            .one-line {
+              display: inline-block !important;
+            }
+            .two-line {
+              display: none !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-md-column(4);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-method {
+        @include make-md-column(8);
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+        .method-title {
+          padding: 0;
+        }
+        .cod-form {
+          .payment-editor {
+            display: inline-block;
+            width: 45%;
+            &.left {
+              float: left;
+            }
+            &.right {
+              float: right;
+            }
+          }
+          .cod-button {
+            .purchase-button {
+              width: 228px;
+              height: 50px;
+            }
+          }
+        }
+        .support-online-payment-form {
+          .name-input, .mobile-input {
+            width: 300px;
+            margin: auto;
+            padding: 0;
+          }
+          .send-form-support {
+            width: 178px;
+          }
+        }
+        .card-form {
+          .phone-cards {
+            width: 100%;
+            .phone-card {
+              float: none;
+            }
+          }
+          .card-input {
+            .form-card {
+              .code-input, .seri-input {
+                width: 300px;
+                margin: auto;
+                padding: 0;
+              }
+              .card-button {
+                .purchase-button {
+                  width: 228px;
+                  height: 50px;
+                }
+              }
+            }
+          }
+        }
+        .method-card {
+          width: 528px;
+          margin: auto;
+          a {
+            margin: 15px;
+          }
+          .list-style-small {
+            display: none;
+          }
+          .list-style-big {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1201px) {
+  .payment {
+    .payment-main {
+      .payment-main-info {
+        @include make-lg-column(4);
+        display: inline-block;
+        float: right !important;
+      }
+      .payment-main-method {
+        @include make-lg-column(8);
+        padding: 0;
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #acacac;
+        .method-title {
+          padding: 0;
+        }
+        .cod-form {
+          .payment-editor {
+            display: inline-block;
+            width: 45%;
+            &.left {
+              float: left;
+            }
+            &.right {
+              float: right;
+              padding-right: 15px;
+            }
+          }
+          .cod-button {
+            .purchase-button {
+              width: 178px;
+              height: 50px;
+            }
+          }
+        }
+        .support-online-payment-form {
+          .name-input, .mobile-input {
+            width: 300px;
+            margin: auto;
+            padding: 0;
+          }
+          .send-form-support {
+            width: 178px;
+          }
+        }
+        .card-form {
+          .phone-cards {
+            width: 100%;
+            .phone-card {
+              float: none;
+            }
+          }
+          .card-input {
+            .form-card {
+              .code-input, .seri-input {
+                width: 300px;
+                margin: auto;
+                padding: 0;
+              }
+              .card-button {
+                .purchase-button {
+                  width: 178px;
+                  height: 50px;
+                }
+              }
+            }
+          }
+        }
+        .method-card {
+          a {
+            margin: 10px;
+          }
+          .list-style-small {
+            display: none;
+          }
+          .card-style {
+            display: inline-block;
+          }
+        }
+      }
+    }
   }
 }

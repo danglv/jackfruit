@@ -1,0 +1,124 @@
+.activation-box {
+  background-color: #fff;
+  border-radius: 5px;
+  min-width: 320px;
+  overflow-x: hidden;
+  padding: 10px;
+
+  @media (min-width: 600px) {
+    margin: 30px auto;
+    width: 570px;
+    padding: 20px;
+  }
+}
+
+.activation-box-header {
+  &.step-3 {
+    color: #ea6969;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+.activation-box-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.activation-box-content {
+  @media (min-width: 600px) {
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-bottom: 30px;
+  }
+
+  &.step-2 {
+    color: #ea6969;
+    font-size: 25px;
+    .btn-register-modal, .btn-login-modal {
+      text-decoration: none;
+      color: #398ebe;
+      font-weight: 700;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .btn-to-course {
+    margin: 18px auto;
+    display: block;
+    width: 178px;
+  }
+}
+
+.activation-box-content-title {
+  @media (min-width: 600px) {
+    margin-bottom: 20px;
+  }
+}
+
+.activation-box-error {
+  color: #e75050;
+  margin-top: 10px;
+}
+
+.activation-box-footer {
+  text-align: center;
+
+  @media (min-width: 600px) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .hotline {
+    color: #e75050;
+  }
+}
+
+.activation-box-table {
+  padding-left: 50px;
+  padding-right: 50px;
+
+  &-row {
+    @extend .row;
+    font-size: 16px;
+    margin: 0;
+    line-height: 30px;
+  }
+  &-col-left {
+    float: left;
+  }
+  &-col-right {
+    float: left;
+  }
+
+  @media (min-width: 600px) {
+    &-col-left {
+      width: 33.33%;
+      padding-right: 10px;
+    }
+    &-col-right {
+      width: 66.66%;
+    }    
+  }
+}
+
+.activation-slogan {
+  text-transform: uppercase;
+}
+
+.activation-branding {
+  color: #36b24a;
+}
+
+.activation-author-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #c5c5c5;
+}
+

@@ -1,0 +1,33 @@
+= render :partial => 'cod/header'
+.container.activate-cod
+  .box-panel.col-sm-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+    .row.center.activate-cod-header
+      %h2 Kích hoạt thành công
+    - if @should_show_info
+      .row.center.activate-cod-sub-header
+        %h4 Chúng tôi đã gửi email xác nhận tài khoản cho bạn
+    .row
+      .activate-cod-account.col-sm-6.col-sm-offset-3
+        - if @should_show_info
+          .row.account-info
+            .row.info
+              %b Thông tin tài khoản
+            .row.info
+              Email: #{@user.email}
+            .row.info
+              Password: 12345678
+    .row.course-info
+      .col-sm-6.course-image
+        %img{:src => @course.image}
+      .col-sm-6.course-detail
+        %h3.course-name= @course.name
+        %h4.teacher-name= @course.user.name
+        %a.btn-learning.btn.btn-lg.btn-primary.bold{:type => 'submit', :href => "/courses/#{@course.alias_name}/learning"}
+          Vào học ngay
+    .row.contact
+      %span
+        Nếu bạn có vấn đề thắc mắc, vui lòng liên hệ <br/>
+      %span.hotline
+        Hotline:
+        %b 04.730.26688
+= render :partial => 'components/footer/index'

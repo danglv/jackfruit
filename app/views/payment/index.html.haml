@@ -1,13 +1,48 @@
-%header
-  = render :partial => 'layouts/header'
-  = render :partial => 'components/side_nav'
+= render :partial => 'components/header/default'
+.container-wrapper{:style => "overflow: hidden;"}
+  .banner
+    =render :partial => "components/banner/banner"
 
-%main.payment
-  .row
-    .col.s12.no-padding
-      = render :partial => 'payment/header_payment', :locals => {:price => @price}
-      .container-1140
-        = render 'payment_method', method: '', :locals => {:coupon_code => @coupon_code}
-        .row.payment-content
-          %h4 2. Hoàn tất thanh toán
-          .col.s12 Bạn chưa lựa chọn hình thức thanh toán nào
+  .payment
+    .row.no-margin
+      .col-xs-12.no-padding
+        = render :partial => 'payment/header_payment'
+    .container
+      .payment-main
+        .payment-main-info
+          .info-title Thông tin thanh toán
+          .info-course
+            %input.course_id{:type => "hidden", :value => "#{@course._id}"}
+            .course-name= @course.name
+            .course-price= number_to_currency(@course.price, :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+          .info-coupon
+            .sale-text Giảm giá
+            .sale-price= "#{@data[:discount_ratio]}%" if @data[:discount_ratio] > 0
+          .info-cost
+            .cost-text Thành tiền
+            .total-price= number_to_currency(@data[:final_price], :locale => 'vi', :unit => 'đ', :precision => 0, :delimiter => ",", :format => "%n%u")
+        .payment-main-method
+          = render 'payment_method', method: ''
+
+= render :partial => 'components/footer/index'
+
+:javascript
+  // Tracking L7a
+  Spymaster.track({category: 'L7a', behavior: 'open', target: '#{@course._id}'});
+
+/ Google Code for PPT01 Conversion Page
+
+- if @course.id.to_s == "560925f0d8b7312c50000000"
+  :javascript
+    /*  */
+    var google_conversion_id = 945443627;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "RNBLCPLio2AQq6bpwgM";
+    var google_remarketing_only = false;
+    /*  */
+  %script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+  %noscript
+    %div{:style => "display:inline;"}
+      %img{:alt => "", :height => "1", :src => "//www.googleadservices.com/pagead/conversion/945443627/?label=RNBLCPLio2AQq6bpwgM&amp;guid=ON&amp;script=0", :style => "border-style:none;", :width => "1"}/
